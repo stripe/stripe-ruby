@@ -595,6 +595,16 @@ module Stripe
         Events::V2MoneyManagementInboundTransferBankDebitReturnedEvent,
         Events::V2MoneyManagementInboundTransferBankDebitSucceededEvent.lookup_type =>
         Events::V2MoneyManagementInboundTransferBankDebitSucceededEvent,
+        Events::V2MoneyManagementInboundTransferMandateActivatedEvent.lookup_type =>
+        Events::V2MoneyManagementInboundTransferMandateActivatedEvent,
+        Events::V2MoneyManagementInboundTransferMandateCreatedEvent.lookup_type =>
+        Events::V2MoneyManagementInboundTransferMandateCreatedEvent,
+        Events::V2MoneyManagementInboundTransferMandateExpiredEvent.lookup_type =>
+        Events::V2MoneyManagementInboundTransferMandateExpiredEvent,
+        Events::V2MoneyManagementInboundTransferMandateRefusedEvent.lookup_type =>
+        Events::V2MoneyManagementInboundTransferMandateRefusedEvent,
+        Events::V2MoneyManagementInboundTransferMandateRevokedEvent.lookup_type =>
+        Events::V2MoneyManagementInboundTransferMandateRevokedEvent,
         Events::V2MoneyManagementOutboundPaymentCanceledEvent.lookup_type =>
         Events::V2MoneyManagementOutboundPaymentCanceledEvent,
         Events::V2MoneyManagementOutboundPaymentCreatedEvent.lookup_type =>
@@ -1485,6 +1495,16 @@ module Stripe
         Events::V2MoneyManagementInboundTransferBankDebitReturnedEventNotification,
         Events::V2MoneyManagementInboundTransferBankDebitSucceededEventNotification.lookup_type =>
         Events::V2MoneyManagementInboundTransferBankDebitSucceededEventNotification,
+        Events::V2MoneyManagementInboundTransferMandateActivatedEventNotification.lookup_type =>
+        Events::V2MoneyManagementInboundTransferMandateActivatedEventNotification,
+        Events::V2MoneyManagementInboundTransferMandateCreatedEventNotification.lookup_type =>
+        Events::V2MoneyManagementInboundTransferMandateCreatedEventNotification,
+        Events::V2MoneyManagementInboundTransferMandateExpiredEventNotification.lookup_type =>
+        Events::V2MoneyManagementInboundTransferMandateExpiredEventNotification,
+        Events::V2MoneyManagementInboundTransferMandateRefusedEventNotification.lookup_type =>
+        Events::V2MoneyManagementInboundTransferMandateRefusedEventNotification,
+        Events::V2MoneyManagementInboundTransferMandateRevokedEventNotification.lookup_type =>
+        Events::V2MoneyManagementInboundTransferMandateRevokedEventNotification,
         Events::V2MoneyManagementOutboundPaymentCanceledEventNotification.lookup_type =>
         Events::V2MoneyManagementOutboundPaymentCanceledEventNotification,
         Events::V2MoneyManagementOutboundPaymentCreatedEventNotification.lookup_type =>

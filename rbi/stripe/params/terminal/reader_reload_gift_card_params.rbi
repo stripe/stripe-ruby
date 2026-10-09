@@ -20,6 +20,13 @@ module Stripe
       def currency; end
       sig { params(_currency: String).returns(String) }
       def currency=(_currency); end
+      # Enables cancel button on gift card operation screens.
+      sig { returns(T.nilable(T::Boolean)) }
+      def enable_customer_cancellation; end
+      sig {
+        params(_enable_customer_cancellation: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+       }
+      def enable_customer_cancellation=(_enable_customer_cancellation); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end
@@ -31,9 +38,16 @@ module Stripe
       sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
       def on_behalf_of=(_on_behalf_of); end
       sig {
-        params(amount: Integer, brand: String, currency: String, expand: T.nilable(T::Array[String]), on_behalf_of: T.nilable(String)).void
+        params(amount: Integer, brand: String, currency: String, enable_customer_cancellation: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), on_behalf_of: T.nilable(String)).void
        }
-      def initialize(amount: nil, brand: nil, currency: nil, expand: nil, on_behalf_of: nil); end
+      def initialize(
+        amount: nil,
+        brand: nil,
+        currency: nil,
+        enable_customer_cancellation: nil,
+        expand: nil,
+        on_behalf_of: nil
+      ); end
     end
   end
 end

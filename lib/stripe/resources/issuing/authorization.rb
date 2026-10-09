@@ -504,6 +504,37 @@ module Stripe
         end
       end
 
+      class FlexibleCredential < ::Stripe::StripeObject
+        class SecondaryCredential < ::Stripe::StripeObject
+          # The funding source that this credential can support.
+          attr_reader :funding
+          # Unique reference of this credential within this array.
+          attr_reader :key
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The authorization identifier of a prior product eligibility inquiry that selected the credential for this authorization, if exists.
+        attr_reader :product_eligibility_inquiry
+        # Details about the eligible secondary credentials for this authorization.
+        attr_reader :secondary_credentials
+        # The `key` of the selected secondary credential for this authorization. Null if the card's primary credential was selected.
+        attr_reader :selected_secondary
+
+        def self.inner_class_types
+          @inner_class_types = { secondary_credentials: SecondaryCredential }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class FraudChallenge < ::Stripe::StripeObject
         # The method by which the fraud challenge was delivered to the cardholder.
         attr_reader :channel
@@ -1332,6 +1363,8 @@ module Stripe
       attr_reader :enriched_merchant_data
       # Fleet-specific information for authorizations using Fleet cards.
       attr_reader :fleet
+      # Details about the flexible credential options for this authorization. This is only populated when enrolled to flex credentials
+      attr_reader :flexible_credential
       # Fraud challenges sent to the cardholder, if this authorization was declined for fraud risk reasons.
       attr_reader :fraud_challenges
       # Information about fuel that was purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed.
@@ -1609,6 +1642,7 @@ module Stripe
           crypto_transactions: CryptoTransaction,
           enriched_merchant_data: EnrichedMerchantData,
           fleet: Fleet,
+          flexible_credential: FlexibleCredential,
           fraud_challenges: FraudChallenge,
           fuel: Fuel,
           fuels: Fuels,

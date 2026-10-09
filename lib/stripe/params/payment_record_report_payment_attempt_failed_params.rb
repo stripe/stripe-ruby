@@ -29,14 +29,26 @@ module Stripe
           @network_decline_code = network_decline_code
         end
       end
+
+      class UsBankAccount < ::Stripe::RequestParams
+        # NACHA ACH return code for a failed US bank account payment.
+        attr_accessor :return_code
+
+        def initialize(return_code: nil)
+          @return_code = return_code
+        end
+      end
       # Information about the card payment method used to make this payment.
       attr_accessor :card
       # The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
       attr_accessor :type
+      # Details about the US bank account payment method.
+      attr_accessor :us_bank_account
 
-      def initialize(card: nil, type: nil)
+      def initialize(card: nil, type: nil, us_bank_account: nil)
         @card = card
         @type = type
+        @us_bank_account = us_bank_account
       end
     end
 

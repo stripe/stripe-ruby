@@ -3427,6 +3427,50 @@ module Stripe
                  }
                 def initialize(protections: nil, requested: nil); end
               end
+              class VippsPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Parameter to request psp_migration protection.
+                  sig {
+                    returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::VippsPayments::Protections::PspMigration)
+                   }
+                  def psp_migration; end
+                  sig {
+                    params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::VippsPayments::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::VippsPayments::Protections::PspMigration)
+                   }
+                  def psp_migration=(_psp_migration); end
+                  sig {
+                    params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::VippsPayments::Protections::PspMigration).void
+                   }
+                  def initialize(psp_migration: nil); end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::VippsPayments::Protections))
+                 }
+                def protections; end
+                sig {
+                  params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::VippsPayments::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::VippsPayments::Protections))
+                 }
+                def protections=(_protections); end
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                sig { returns(T.nilable(T::Boolean)) }
+                def requested; end
+                sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                def requested=(_requested); end
+                sig {
+                  params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::VippsPayments::Protections), requested: T.nilable(T::Boolean)).void
+                 }
+                def initialize(protections: nil, requested: nil); end
+              end
               class ZipPayments < ::Stripe::RequestParams
                 class Protections < ::Stripe::RequestParams
                   class PspMigration < ::Stripe::RequestParams
@@ -3894,6 +3938,15 @@ module Stripe
                 params(_us_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments))
                }
               def us_bank_transfer_payments=(_us_bank_transfer_payments); end
+              # Allow the merchant to process Vipps payments.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::VippsPayments))
+               }
+              def vipps_payments; end
+              sig {
+                params(_vipps_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::VippsPayments)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::VippsPayments))
+               }
+              def vipps_payments=(_vipps_payments); end
               # Allow the merchant to process Zip payments.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::ZipPayments))
@@ -3904,7 +3957,7 @@ module Stripe
                }
               def zip_payments=(_zip_payments); end
               sig {
-                params(ach_debit_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::AchDebitPayments), acss_debit_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::AmazonPayPayments), au_becs_debit_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::BancontactPayments), blik_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::BlikPayments), blik_recurring_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::BlikRecurringPayments), boleto_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::BoletoPayments), card_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::CashappPayments), eps_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::EpsPayments), fpx_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments), grabpay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::GrabpayPayments), ideal_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::IdealPayments), jcb_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::KlarnaPayments), konbini_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::KrCardPayments), link_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::LinkPayments), mobilepay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::NaverPayPayments), oxxo_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::OxxoPayments), p24_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::PayByBankPayments), payco_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::PaycoPayments), paynow_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::PaynowPayments), promptpay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::SamsungPayPayments), satispay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::SatispayPayments), sepa_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::SepaDebitPayments), sequra_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::SequraPayments), sunbit_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::SunbitPayments), swish_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::SwishPayments), twint_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::TwintPayments), us_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments), zip_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::ZipPayments)).void
+                params(ach_debit_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::AchDebitPayments), acss_debit_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::AmazonPayPayments), au_becs_debit_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::BancontactPayments), blik_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::BlikPayments), blik_recurring_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::BlikRecurringPayments), boleto_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::BoletoPayments), card_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::CashappPayments), eps_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::EpsPayments), fpx_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments), grabpay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::GrabpayPayments), ideal_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::IdealPayments), jcb_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::KlarnaPayments), konbini_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::KrCardPayments), link_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::LinkPayments), mobilepay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::NaverPayPayments), oxxo_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::OxxoPayments), p24_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::PayByBankPayments), payco_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::PaycoPayments), paynow_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::PaynowPayments), promptpay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::SamsungPayPayments), satispay_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::SatispayPayments), sepa_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::SepaDebitPayments), sequra_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::SequraPayments), sunbit_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::SunbitPayments), swish_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::SwishPayments), twint_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::TwintPayments), us_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments), vipps_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::VippsPayments), zip_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::Capabilities::ZipPayments)).void
                }
               def initialize(
                 ach_debit_payments: nil,
@@ -3954,6 +4007,7 @@ module Stripe
                 swish_payments: nil,
                 twint_payments: nil,
                 us_bank_transfer_payments: nil,
+                vipps_payments: nil,
                 zip_payments: nil
               ); end
             end
@@ -4359,6 +4413,254 @@ module Stripe
           end
           class MoneyManager < ::Stripe::RequestParams
             class Capabilities < ::Stripe::RequestParams
+              class BusinessCustodialStorage < ::Stripe::RequestParams
+                class Inbound < ::Stripe::RequestParams
+                  class Ousd < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Ousd::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Ousd::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Ousd::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Ousd::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Ousd::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Ousd::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Ousd::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Ousd::Protections), requested: T.nilable(T::Boolean)).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
+                  class Usdc < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Usdc::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Usdc::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Usdc::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Usdc::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Usdc::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Usdc::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Usdc::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Usdc::Protections), requested: T.nilable(T::Boolean)).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
+                  # Can receive business custodial storage-type funds on Stripe in OUSD.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Ousd))
+                   }
+                  def ousd; end
+                  sig {
+                    params(_ousd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Ousd)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Ousd))
+                   }
+                  def ousd=(_ousd); end
+                  # Can receive business custodial storage-type funds on Stripe in USDC.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Usdc))
+                   }
+                  def usdc; end
+                  sig {
+                    params(_usdc: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Usdc)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Usdc))
+                   }
+                  def usdc=(_usdc); end
+                  sig {
+                    params(ousd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Ousd), usdc: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound::Usdc)).void
+                   }
+                  def initialize(ousd: nil, usdc: nil); end
+                end
+                class Outbound < ::Stripe::RequestParams
+                  class Ousd < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Ousd::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Ousd::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Ousd::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Ousd::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Ousd::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Ousd::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Ousd::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Ousd::Protections), requested: T.nilable(T::Boolean)).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
+                  class Usdc < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Usdc::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Usdc::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Usdc::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Usdc::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Usdc::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Usdc::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Usdc::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Usdc::Protections), requested: T.nilable(T::Boolean)).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
+                  # Can send business custodial storage-type funds on Stripe in OUSD.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Ousd))
+                   }
+                  def ousd; end
+                  sig {
+                    params(_ousd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Ousd)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Ousd))
+                   }
+                  def ousd=(_ousd); end
+                  # Can send business custodial storage-type funds on Stripe in USDC.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Usdc))
+                   }
+                  def usdc; end
+                  sig {
+                    params(_usdc: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Usdc)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Usdc))
+                   }
+                  def usdc=(_usdc); end
+                  sig {
+                    params(ousd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Ousd), usdc: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound::Usdc)).void
+                   }
+                  def initialize(ousd: nil, usdc: nil); end
+                end
+                # Can receive business custodial storage-type funds on Stripe.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound))
+                 }
+                def inbound; end
+                sig {
+                  params(_inbound: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound))
+                 }
+                def inbound=(_inbound); end
+                # Can send business custodial storage-type funds on Stripe.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound))
+                 }
+                def outbound; end
+                sig {
+                  params(_outbound: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound))
+                 }
+                def outbound=(_outbound); end
+                sig {
+                  params(inbound: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Inbound), outbound: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage::Outbound)).void
+                 }
+                def initialize(inbound: nil, outbound: nil); end
+              end
               class BusinessStorage < ::Stripe::RequestParams
                 class Inbound < ::Stripe::RequestParams
                   class Aud < ::Stripe::RequestParams
@@ -5637,6 +5939,708 @@ module Stripe
                    }
                   def initialize(protections: nil, requested: nil); end
                 end
+                class Offramp < ::Stripe::RequestParams
+                  class BankAccounts < ::Stripe::RequestParams
+                    class Brl < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Brl::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Brl::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Brl::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Brl::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Brl::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Brl::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Brl::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Brl::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Cop < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Cop::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Cop::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Cop::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Cop::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Cop::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Cop::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Cop::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Cop::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Eur < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Eur::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Eur::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Eur::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Eur::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Eur::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Eur::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Eur::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Eur::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Gbp < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Gbp::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Gbp::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Gbp::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Gbp::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Gbp::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Gbp::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Gbp::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Gbp::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Mxn < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Mxn::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Mxn::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Mxn::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Mxn::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Mxn::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Mxn::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Mxn::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Mxn::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Usd < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Usd::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Usd::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Usd::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Usd::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Usd::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Usd::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Usd::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Usd::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    # Can send crypto converted into BRL to a bank account.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Brl))
+                     }
+                    def brl; end
+                    sig {
+                      params(_brl: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Brl)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Brl))
+                     }
+                    def brl=(_brl); end
+                    # Can send crypto converted into COP to a bank account.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Cop))
+                     }
+                    def cop; end
+                    sig {
+                      params(_cop: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Cop)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Cop))
+                     }
+                    def cop=(_cop); end
+                    # Can send crypto converted into EUR to a bank account.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Eur))
+                     }
+                    def eur; end
+                    sig {
+                      params(_eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Eur)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Eur))
+                     }
+                    def eur=(_eur); end
+                    # Can send crypto converted into GBP to a bank account.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Gbp))
+                     }
+                    def gbp; end
+                    sig {
+                      params(_gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Gbp)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Gbp))
+                     }
+                    def gbp=(_gbp); end
+                    # Can send crypto converted into MXN to a bank account.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Mxn))
+                     }
+                    def mxn; end
+                    sig {
+                      params(_mxn: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Mxn)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Mxn))
+                     }
+                    def mxn=(_mxn); end
+                    # Can send crypto converted into USD to a bank account.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Usd))
+                     }
+                    def usd; end
+                    sig {
+                      params(_usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Usd)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Usd))
+                     }
+                    def usd=(_usd); end
+                    sig {
+                      params(brl: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Brl), cop: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Cop), eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Eur), gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Gbp), mxn: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Mxn), usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts::Usd)).void
+                     }
+                    def initialize(brl: nil, cop: nil, eur: nil, gbp: nil, mxn: nil, usd: nil); end
+                  end
+                  # Bank accounts for crypto converted into fiat.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts))
+                   }
+                  def bank_accounts; end
+                  sig {
+                    params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts))
+                   }
+                  def bank_accounts=(_bank_accounts); end
+                  sig {
+                    params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp::BankAccounts)).void
+                   }
+                  def initialize(bank_accounts: nil); end
+                end
+                class Onramp < ::Stripe::RequestParams
+                  class CryptoWallets < ::Stripe::RequestParams
+                    class Brl < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Brl::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Brl::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Brl::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Brl::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Brl::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Brl::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Brl::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Brl::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Cop < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Cop::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Cop::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Cop::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Cop::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Cop::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Cop::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Cop::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Cop::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Eur < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Eur::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Eur::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Eur::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Eur::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Eur::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Eur::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Eur::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Eur::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Gbp < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Gbp::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Gbp::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Gbp::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Gbp::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Gbp::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Gbp::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Gbp::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Gbp::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Mxn < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Mxn::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Mxn::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Mxn::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Mxn::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Mxn::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Mxn::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Mxn::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Mxn::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Usd < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Usd::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Usd::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Usd::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Usd::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Usd::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Usd::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Usd::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Usd::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    # Can send BRL converted into crypto to a crypto wallet.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Brl))
+                     }
+                    def brl; end
+                    sig {
+                      params(_brl: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Brl)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Brl))
+                     }
+                    def brl=(_brl); end
+                    # Can send COP converted into crypto to a crypto wallet.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Cop))
+                     }
+                    def cop; end
+                    sig {
+                      params(_cop: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Cop)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Cop))
+                     }
+                    def cop=(_cop); end
+                    # Can send EUR converted into crypto to a crypto wallet.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Eur))
+                     }
+                    def eur; end
+                    sig {
+                      params(_eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Eur)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Eur))
+                     }
+                    def eur=(_eur); end
+                    # Can send GBP converted into crypto to a crypto wallet.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Gbp))
+                     }
+                    def gbp; end
+                    sig {
+                      params(_gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Gbp)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Gbp))
+                     }
+                    def gbp=(_gbp); end
+                    # Can send MXN converted into crypto to a crypto wallet.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Mxn))
+                     }
+                    def mxn; end
+                    sig {
+                      params(_mxn: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Mxn)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Mxn))
+                     }
+                    def mxn=(_mxn); end
+                    # Can send USD converted into crypto to a crypto wallet.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Usd))
+                     }
+                    def usd; end
+                    sig {
+                      params(_usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Usd)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Usd))
+                     }
+                    def usd=(_usd); end
+                    sig {
+                      params(brl: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Brl), cop: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Cop), eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Eur), gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Gbp), mxn: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Mxn), usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets::Usd)).void
+                     }
+                    def initialize(brl: nil, cop: nil, eur: nil, gbp: nil, mxn: nil, usd: nil); end
+                  end
+                  # Crypto wallets for fiat converted into crypto.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets))
+                   }
+                  def crypto_wallets; end
+                  sig {
+                    params(_crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets))
+                   }
+                  def crypto_wallets=(_crypto_wallets); end
+                  sig {
+                    params(crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp::CryptoWallets)).void
+                   }
+                  def initialize(crypto_wallets: nil); end
+                end
                 class PaperChecks < ::Stripe::RequestParams
                   class Protections < ::Stripe::RequestParams
                     class PspMigration < ::Stripe::RequestParams
@@ -5717,6 +6721,24 @@ module Stripe
                   params(_financial_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::FinancialAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::FinancialAccounts))
                  }
                 def financial_accounts=(_financial_accounts); end
+                # Can send crypto converted into fiat to a bank account.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp))
+                 }
+                def offramp; end
+                sig {
+                  params(_offramp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp))
+                 }
+                def offramp=(_offramp); end
+                # Can send fiat converted into crypto to a crypto wallet.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp))
+                 }
+                def onramp; end
+                sig {
+                  params(_onramp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp))
+                 }
+                def onramp=(_onramp); end
                 # Can send funds from a FinancialAccount to someone else via paper check.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::PaperChecks))
@@ -5727,13 +6749,15 @@ module Stripe
                  }
                 def paper_checks=(_paper_checks); end
                 sig {
-                  params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Cards), crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::CryptoWallets), financial_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::FinancialAccounts), paper_checks: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::PaperChecks)).void
+                  params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Cards), crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::CryptoWallets), financial_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::FinancialAccounts), offramp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Offramp), onramp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::Onramp), paper_checks: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments::PaperChecks)).void
                  }
                 def initialize(
                   bank_accounts: nil,
                   cards: nil,
                   crypto_wallets: nil,
                   financial_accounts: nil,
+                  offramp: nil,
+                  onramp: nil,
                   paper_checks: nil
                 ); end
               end
@@ -5870,6 +6894,708 @@ module Stripe
                    }
                   def initialize(protections: nil, requested: nil); end
                 end
+                class Offramp < ::Stripe::RequestParams
+                  class BankAccounts < ::Stripe::RequestParams
+                    class Brl < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Brl::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Brl::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Brl::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Brl::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Brl::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Brl::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Brl::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Brl::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Cop < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Cop::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Cop::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Cop::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Cop::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Cop::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Cop::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Cop::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Cop::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Eur < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Eur::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Eur::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Eur::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Eur::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Eur::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Eur::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Eur::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Eur::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Gbp < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Gbp::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Gbp::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Gbp::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Gbp::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Gbp::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Gbp::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Gbp::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Gbp::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Mxn < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Mxn::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Mxn::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Mxn::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Mxn::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Mxn::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Mxn::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Mxn::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Mxn::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Usd < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Usd::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Usd::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Usd::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Usd::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Usd::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Usd::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Usd::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Usd::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    # Can send crypto converted into BRL to a bank account belonging to the same user.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Brl))
+                     }
+                    def brl; end
+                    sig {
+                      params(_brl: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Brl)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Brl))
+                     }
+                    def brl=(_brl); end
+                    # Can send crypto converted into COP to a bank account belonging to the same user.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Cop))
+                     }
+                    def cop; end
+                    sig {
+                      params(_cop: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Cop)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Cop))
+                     }
+                    def cop=(_cop); end
+                    # Can send crypto converted into EUR to a bank account belonging to the same user.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Eur))
+                     }
+                    def eur; end
+                    sig {
+                      params(_eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Eur)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Eur))
+                     }
+                    def eur=(_eur); end
+                    # Can send crypto converted into GBP to a bank account belonging to the same user.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Gbp))
+                     }
+                    def gbp; end
+                    sig {
+                      params(_gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Gbp)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Gbp))
+                     }
+                    def gbp=(_gbp); end
+                    # Can send crypto converted into MXN to a bank account belonging to the same user.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Mxn))
+                     }
+                    def mxn; end
+                    sig {
+                      params(_mxn: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Mxn)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Mxn))
+                     }
+                    def mxn=(_mxn); end
+                    # Can send crypto converted into USD to a bank account belonging to the same user.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Usd))
+                     }
+                    def usd; end
+                    sig {
+                      params(_usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Usd)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Usd))
+                     }
+                    def usd=(_usd); end
+                    sig {
+                      params(brl: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Brl), cop: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Cop), eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Eur), gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Gbp), mxn: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Mxn), usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts::Usd)).void
+                     }
+                    def initialize(brl: nil, cop: nil, eur: nil, gbp: nil, mxn: nil, usd: nil); end
+                  end
+                  # Bank accounts for crypto converted into fiat.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts))
+                   }
+                  def bank_accounts; end
+                  sig {
+                    params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts))
+                   }
+                  def bank_accounts=(_bank_accounts); end
+                  sig {
+                    params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp::BankAccounts)).void
+                   }
+                  def initialize(bank_accounts: nil); end
+                end
+                class Onramp < ::Stripe::RequestParams
+                  class CryptoWallets < ::Stripe::RequestParams
+                    class Brl < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Brl::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Brl::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Brl::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Brl::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Brl::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Brl::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Brl::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Brl::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Cop < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Cop::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Cop::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Cop::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Cop::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Cop::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Cop::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Cop::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Cop::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Eur < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Eur::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Eur::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Eur::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Eur::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Eur::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Eur::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Eur::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Eur::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Gbp < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Gbp::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Gbp::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Gbp::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Gbp::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Gbp::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Gbp::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Gbp::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Gbp::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Mxn < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Mxn::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Mxn::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Mxn::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Mxn::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Mxn::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Mxn::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Mxn::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Mxn::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Usd < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Usd::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Usd::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Usd::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Usd::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Usd::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Usd::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Usd::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Usd::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    # Can send BRL converted into crypto to a crypto wallet belonging to the same user.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Brl))
+                     }
+                    def brl; end
+                    sig {
+                      params(_brl: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Brl)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Brl))
+                     }
+                    def brl=(_brl); end
+                    # Can send COP converted into crypto to a crypto wallet belonging to the same user.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Cop))
+                     }
+                    def cop; end
+                    sig {
+                      params(_cop: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Cop)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Cop))
+                     }
+                    def cop=(_cop); end
+                    # Can send EUR converted into crypto to a crypto wallet belonging to the same user.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Eur))
+                     }
+                    def eur; end
+                    sig {
+                      params(_eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Eur)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Eur))
+                     }
+                    def eur=(_eur); end
+                    # Can send GBP converted into crypto to a crypto wallet belonging to the same user.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Gbp))
+                     }
+                    def gbp; end
+                    sig {
+                      params(_gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Gbp)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Gbp))
+                     }
+                    def gbp=(_gbp); end
+                    # Can send MXN converted into crypto to a crypto wallet belonging to the same user.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Mxn))
+                     }
+                    def mxn; end
+                    sig {
+                      params(_mxn: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Mxn)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Mxn))
+                     }
+                    def mxn=(_mxn); end
+                    # Can send USD converted into crypto to a crypto wallet belonging to the same user.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Usd))
+                     }
+                    def usd; end
+                    sig {
+                      params(_usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Usd)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Usd))
+                     }
+                    def usd=(_usd); end
+                    sig {
+                      params(brl: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Brl), cop: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Cop), eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Eur), gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Gbp), mxn: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Mxn), usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets::Usd)).void
+                     }
+                    def initialize(brl: nil, cop: nil, eur: nil, gbp: nil, mxn: nil, usd: nil); end
+                  end
+                  # Crypto wallets for fiat converted into crypto.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets))
+                   }
+                  def crypto_wallets; end
+                  sig {
+                    params(_crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets))
+                   }
+                  def crypto_wallets=(_crypto_wallets); end
+                  sig {
+                    params(crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp::CryptoWallets)).void
+                   }
+                  def initialize(crypto_wallets: nil); end
+                end
                 # Can send funds from a FinancialAccount to a bank account owned by yourself.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::BankAccounts))
@@ -5897,13 +7623,33 @@ module Stripe
                   params(_financial_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::FinancialAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::FinancialAccounts))
                  }
                 def financial_accounts=(_financial_accounts); end
+                # Can send crypto converted into fiat to a bank account belonging to the same user.
                 sig {
-                  params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::BankAccounts), crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::CryptoWallets), financial_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::FinancialAccounts)).void
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp))
+                 }
+                def offramp; end
+                sig {
+                  params(_offramp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp))
+                 }
+                def offramp=(_offramp); end
+                # Can send fiat converted into crypto to a crypto wallet belonging to the same user.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp))
+                 }
+                def onramp; end
+                sig {
+                  params(_onramp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp))
+                 }
+                def onramp=(_onramp); end
+                sig {
+                  params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::BankAccounts), crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::CryptoWallets), financial_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::FinancialAccounts), offramp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Offramp), onramp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers::Onramp)).void
                  }
                 def initialize(
                   bank_accounts: nil,
                   crypto_wallets: nil,
-                  financial_accounts: nil
+                  financial_accounts: nil,
+                  offramp: nil,
+                  onramp: nil
                 ); end
               end
               class ReceivedCredits < ::Stripe::RequestParams
@@ -5995,6 +7741,708 @@ module Stripe
                    }
                   def initialize(protections: nil, requested: nil); end
                 end
+                class Offramp < ::Stripe::RequestParams
+                  class BankAccounts < ::Stripe::RequestParams
+                    class Brl < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Brl::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Brl::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Brl::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Brl::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Brl::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Brl::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Brl::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Brl::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Cop < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Cop::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Cop::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Cop::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Cop::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Cop::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Cop::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Cop::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Cop::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Eur < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Eur::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Eur::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Eur::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Eur::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Eur::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Eur::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Eur::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Eur::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Gbp < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Gbp::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Gbp::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Gbp::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Gbp::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Gbp::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Gbp::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Gbp::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Gbp::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Mxn < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Mxn::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Mxn::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Mxn::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Mxn::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Mxn::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Mxn::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Mxn::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Mxn::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Usd < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Usd::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Usd::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Usd::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Usd::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Usd::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Usd::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Usd::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Usd::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    # Can receive BRL converted from crypto through a bank-account-like financial address.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Brl))
+                     }
+                    def brl; end
+                    sig {
+                      params(_brl: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Brl)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Brl))
+                     }
+                    def brl=(_brl); end
+                    # Can receive COP converted from crypto through a bank-account-like financial address.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Cop))
+                     }
+                    def cop; end
+                    sig {
+                      params(_cop: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Cop)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Cop))
+                     }
+                    def cop=(_cop); end
+                    # Can receive EUR converted from crypto through a bank-account-like financial address.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Eur))
+                     }
+                    def eur; end
+                    sig {
+                      params(_eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Eur)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Eur))
+                     }
+                    def eur=(_eur); end
+                    # Can receive GBP converted from crypto through a bank-account-like financial address.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Gbp))
+                     }
+                    def gbp; end
+                    sig {
+                      params(_gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Gbp)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Gbp))
+                     }
+                    def gbp=(_gbp); end
+                    # Can receive MXN converted from crypto through a bank-account-like financial address.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Mxn))
+                     }
+                    def mxn; end
+                    sig {
+                      params(_mxn: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Mxn)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Mxn))
+                     }
+                    def mxn=(_mxn); end
+                    # Can receive USD converted from crypto through a bank-account-like financial address.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Usd))
+                     }
+                    def usd; end
+                    sig {
+                      params(_usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Usd)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Usd))
+                     }
+                    def usd=(_usd); end
+                    sig {
+                      params(brl: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Brl), cop: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Cop), eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Eur), gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Gbp), mxn: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Mxn), usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts::Usd)).void
+                     }
+                    def initialize(brl: nil, cop: nil, eur: nil, gbp: nil, mxn: nil, usd: nil); end
+                  end
+                  # Bank accounts for crypto converted into fiat.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts))
+                   }
+                  def bank_accounts; end
+                  sig {
+                    params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts))
+                   }
+                  def bank_accounts=(_bank_accounts); end
+                  sig {
+                    params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp::BankAccounts)).void
+                   }
+                  def initialize(bank_accounts: nil); end
+                end
+                class Onramp < ::Stripe::RequestParams
+                  class CryptoWallets < ::Stripe::RequestParams
+                    class Brl < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Brl::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Brl::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Brl::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Brl::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Brl::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Brl::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Brl::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Brl::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Cop < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Cop::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Cop::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Cop::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Cop::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Cop::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Cop::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Cop::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Cop::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Eur < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Eur::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Eur::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Eur::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Eur::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Eur::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Eur::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Eur::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Eur::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Gbp < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Gbp::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Gbp::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Gbp::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Gbp::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Gbp::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Gbp::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Gbp::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Gbp::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Mxn < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Mxn::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Mxn::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Mxn::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Mxn::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Mxn::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Mxn::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Mxn::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Mxn::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    class Usd < ::Stripe::RequestParams
+                      class Protections < ::Stripe::RequestParams
+                        class PspMigration < ::Stripe::RequestParams
+                          # To request a protection, pass true.
+                          sig { returns(T::Boolean) }
+                          def requested; end
+                          sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                          def requested=(_requested); end
+                          sig { params(requested: T::Boolean).void }
+                          def initialize(requested: nil); end
+                        end
+                        # Parameter to request psp_migration protection.
+                        sig {
+                          returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Usd::Protections::PspMigration)
+                         }
+                        def psp_migration; end
+                        sig {
+                          params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Usd::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Usd::Protections::PspMigration)
+                         }
+                        def psp_migration=(_psp_migration); end
+                        sig {
+                          params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Usd::Protections::PspMigration).void
+                         }
+                        def initialize(psp_migration: nil); end
+                      end
+                      # Protection types to request for this capability (e.g. "psp_migration").
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Usd::Protections))
+                       }
+                      def protections; end
+                      sig {
+                        params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Usd::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Usd::Protections))
+                       }
+                      def protections=(_protections); end
+                      # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def requested; end
+                      sig {
+                        params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def requested=(_requested); end
+                      sig {
+                        params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Usd::Protections), requested: T.nilable(T::Boolean)).void
+                       }
+                      def initialize(protections: nil, requested: nil); end
+                    end
+                    # Can receive crypto converted from BRL through a crypto-wallet-like financial address.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Brl))
+                     }
+                    def brl; end
+                    sig {
+                      params(_brl: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Brl)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Brl))
+                     }
+                    def brl=(_brl); end
+                    # Can receive crypto converted from COP through a crypto-wallet-like financial address.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Cop))
+                     }
+                    def cop; end
+                    sig {
+                      params(_cop: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Cop)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Cop))
+                     }
+                    def cop=(_cop); end
+                    # Can receive crypto converted from EUR through a crypto-wallet-like financial address.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Eur))
+                     }
+                    def eur; end
+                    sig {
+                      params(_eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Eur)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Eur))
+                     }
+                    def eur=(_eur); end
+                    # Can receive crypto converted from GBP through a crypto-wallet-like financial address.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Gbp))
+                     }
+                    def gbp; end
+                    sig {
+                      params(_gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Gbp)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Gbp))
+                     }
+                    def gbp=(_gbp); end
+                    # Can receive crypto converted from MXN through a crypto-wallet-like financial address.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Mxn))
+                     }
+                    def mxn; end
+                    sig {
+                      params(_mxn: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Mxn)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Mxn))
+                     }
+                    def mxn=(_mxn); end
+                    # Can receive crypto converted from USD through a crypto-wallet-like financial address.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Usd))
+                     }
+                    def usd; end
+                    sig {
+                      params(_usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Usd)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Usd))
+                     }
+                    def usd=(_usd); end
+                    sig {
+                      params(brl: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Brl), cop: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Cop), eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Eur), gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Gbp), mxn: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Mxn), usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets::Usd)).void
+                     }
+                    def initialize(brl: nil, cop: nil, eur: nil, gbp: nil, mxn: nil, usd: nil); end
+                  end
+                  # Crypto wallets for fiat converted into crypto.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets))
+                   }
+                  def crypto_wallets; end
+                  sig {
+                    params(_crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets))
+                   }
+                  def crypto_wallets=(_crypto_wallets); end
+                  sig {
+                    params(crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp::CryptoWallets)).void
+                   }
+                  def initialize(crypto_wallets: nil); end
+                end
                 # Can receive funds on a bank-account-like financial address (VBAN) to credit a FinancialAccount.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::BankAccounts))
@@ -6013,10 +8461,33 @@ module Stripe
                   params(_crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::CryptoWallets)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::CryptoWallets))
                  }
                 def crypto_wallets=(_crypto_wallets); end
+                # Can receive fiat converted from crypto through a bank-account-like financial address.
                 sig {
-                  params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::BankAccounts), crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::CryptoWallets)).void
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp))
                  }
-                def initialize(bank_accounts: nil, crypto_wallets: nil); end
+                def offramp; end
+                sig {
+                  params(_offramp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp))
+                 }
+                def offramp=(_offramp); end
+                # Can receive crypto converted from fiat through a crypto-wallet-like financial address.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp))
+                 }
+                def onramp; end
+                sig {
+                  params(_onramp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp))
+                 }
+                def onramp=(_onramp); end
+                sig {
+                  params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::BankAccounts), crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::CryptoWallets), offramp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Offramp), onramp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits::Onramp)).void
+                 }
+                def initialize(
+                  bank_accounts: nil,
+                  crypto_wallets: nil,
+                  offramp: nil,
+                  onramp: nil
+                ); end
               end
               class ReceivedDebits < ::Stripe::RequestParams
                 class BankAccounts < ::Stripe::RequestParams
@@ -6077,6 +8548,15 @@ module Stripe
                  }
                 def initialize(bank_accounts: nil); end
               end
+              # Can send or receive business custodial storage-type funds on Stripe.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage))
+               }
+              def business_custodial_storage; end
+              sig {
+                params(_business_custodial_storage: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage))
+               }
+              def business_custodial_storage=(_business_custodial_storage); end
               # Can send or receive business storage-type funds on Stripe.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage))
@@ -6141,9 +8621,10 @@ module Stripe
                }
               def received_debits=(_received_debits); end
               sig {
-                params(business_storage: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage), consumer_storage: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ConsumerStorage), inbound_transfers: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::InboundTransfers), outbound_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments), outbound_transfers: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers), received_credits: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits), received_debits: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedDebits)).void
+                params(business_custodial_storage: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage), business_storage: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage), consumer_storage: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ConsumerStorage), inbound_transfers: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::InboundTransfers), outbound_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundPayments), outbound_transfers: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers), received_credits: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits), received_debits: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::ReceivedDebits)).void
                }
               def initialize(
+                business_custodial_storage: nil,
                 business_storage: nil,
                 consumer_storage: nil,
                 inbound_transfers: nil,
@@ -7131,6 +9612,50 @@ module Stripe
                  }
                 def initialize(protections: nil, requested: nil); end
               end
+              class Pix < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Parameter to request psp_migration protection.
+                  sig {
+                    returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Pix::Protections::PspMigration)
+                   }
+                  def psp_migration; end
+                  sig {
+                    params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Pix::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Pix::Protections::PspMigration)
+                   }
+                  def psp_migration=(_psp_migration); end
+                  sig {
+                    params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Pix::Protections::PspMigration).void
+                   }
+                  def initialize(psp_migration: nil); end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Pix::Protections))
+                 }
+                def protections; end
+                sig {
+                  params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Pix::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Pix::Protections))
+                 }
+                def protections=(_protections); end
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                sig { returns(T.nilable(T::Boolean)) }
+                def requested; end
+                sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                def requested=(_requested); end
+                sig {
+                  params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Pix::Protections), requested: T.nilable(T::Boolean)).void
+                 }
+                def initialize(protections: nil, requested: nil); end
+              end
               class StripeBalance < ::Stripe::RequestParams
                 class StripeTransfers < ::Stripe::RequestParams
                   class Protections < ::Stripe::RequestParams
@@ -7226,6 +9751,15 @@ module Stripe
                 params(_paper_checks: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::PaperChecks)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::PaperChecks))
                }
               def paper_checks=(_paper_checks); end
+              # Capabilities that enable OutboundPayments to a Pix account.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Pix))
+               }
+              def pix; end
+              sig {
+                params(_pix: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Pix)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Pix))
+               }
+              def pix=(_pix); end
               # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance))
@@ -7236,13 +9770,14 @@ module Stripe
                }
               def stripe_balance=(_stripe_balance); end
               sig {
-                params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Cards), crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::CryptoWallets), paper_checks: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::PaperChecks), stripe_balance: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance)).void
+                params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Cards), crypto_wallets: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::CryptoWallets), paper_checks: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::PaperChecks), pix: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Pix), stripe_balance: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance)).void
                }
               def initialize(
                 bank_accounts: nil,
                 cards: nil,
                 crypto_wallets: nil,
                 paper_checks: nil,
+                pix: nil,
                 stripe_balance: nil
               ); end
             end

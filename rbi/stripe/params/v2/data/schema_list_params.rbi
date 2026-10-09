@@ -16,7 +16,7 @@ module Stripe
         def include; end
         sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def include=(_include); end
-        # The maximum number of results per page. Defaults to 10. Maximum is 100.
+        # The maximum number of results per page. Defaults to 10. Maximum is 1,000.
         sig { returns(T.nilable(Integer)) }
         def limit; end
         sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }

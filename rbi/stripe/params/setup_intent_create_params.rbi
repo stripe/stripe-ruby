@@ -2347,7 +2347,7 @@ module Stripe
     def on_behalf_of; end
     sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
     def on_behalf_of=(_on_behalf_of); end
-    # ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+    # The ID of a PaymentMethod to attach to this SetupIntent.
     sig { returns(T.nilable(String)) }
     def payment_method; end
     sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }

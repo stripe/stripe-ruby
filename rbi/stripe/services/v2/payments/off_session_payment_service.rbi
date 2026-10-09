@@ -12,7 +12,7 @@ module Stripe
          }
         def cancel(id, params = {}, opts = {}); end
 
-        # Captures an OffSessionPayment that has previously been created.
+        # Deprecated. Captures an OffSessionPayment that has previously been created.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Payments::OffSessionPaymentCaptureParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Payments::OffSessionPayment)
          }

@@ -160,6 +160,7 @@ module Stripe
         Radar::EarlyFraudWarning.object_name => Radar::EarlyFraudWarning,
         Radar::IssuingAuthorizationEvaluation.object_name => Radar::IssuingAuthorizationEvaluation,
         Radar::PaymentEvaluation.object_name => Radar::PaymentEvaluation,
+        Radar::Rule.object_name => Radar::Rule,
         Radar::ValueList.object_name => Radar::ValueList,
         Radar::ValueListItem.object_name => Radar::ValueListItem,
         Refund.object_name => Refund,
@@ -313,7 +314,10 @@ module Stripe
         V2::MoneyManagement::FinancialAddressDebitSimulation,
         V2::MoneyManagement::FinancialAddressGeneratedMicrodeposits.object_name =>
         V2::MoneyManagement::FinancialAddressGeneratedMicrodeposits,
+        V2::MoneyManagement::FundingSession.object_name => V2::MoneyManagement::FundingSession,
         V2::MoneyManagement::InboundTransfer.object_name => V2::MoneyManagement::InboundTransfer,
+        V2::MoneyManagement::InboundTransferMandate.object_name =>
+        V2::MoneyManagement::InboundTransferMandate,
         V2::MoneyManagement::OutboundPayment.object_name => V2::MoneyManagement::OutboundPayment,
         V2::MoneyManagement::OutboundPaymentQuote.object_name => V2::MoneyManagement::OutboundPaymentQuote,
         V2::MoneyManagement::OutboundSetupIntent.object_name => V2::MoneyManagement::OutboundSetupIntent,

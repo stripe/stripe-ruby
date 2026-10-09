@@ -16,7 +16,7 @@ module Stripe
           )
         end
 
-        # Captures an OffSessionPayment that has previously been created.
+        # Deprecated. Captures an OffSessionPayment that has previously been created.
         def capture(id, params = {}, opts = {})
           request(
             method: :post,

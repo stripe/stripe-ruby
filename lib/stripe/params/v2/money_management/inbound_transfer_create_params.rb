@@ -18,6 +18,24 @@ module Stripe
           end
         end
 
+        class NetworkDetails < ::Stripe::RequestParams
+          class Ach < ::Stripe::RequestParams
+            # Optional freeform payment-related information written into the type-7 ACH
+            # addenda record of the NACHA submission. Max 80 characters.
+            attr_accessor :addenda
+
+            def initialize(addenda: nil)
+              @addenda = addenda
+            end
+          end
+          # ACH-specific network details. Only applied when the transfer routes over ACH.
+          attr_accessor :ach
+
+          def initialize(ach: nil)
+            @ach = ach
+          end
+        end
+
         class To < ::Stripe::RequestParams
           # The currency in which funds will land in.
           attr_accessor :currency
@@ -35,16 +53,26 @@ module Stripe
         attr_accessor :description
         # Object containing details about where the funds will originate from.
         attr_accessor :from
+        # Network-specific details for the InboundTransfer.
+        attr_accessor :network_details
         # An optional statement descriptor surfaced on the payer's bank statement. Max 10 characters.
         # When omitted, Stripe sends its default descriptor.
         attr_accessor :statement_descriptor
         # Object containing details about where the funds will land.
         attr_accessor :to
 
-        def initialize(amount: nil, description: nil, from: nil, statement_descriptor: nil, to: nil)
+        def initialize(
+          amount: nil,
+          description: nil,
+          from: nil,
+          network_details: nil,
+          statement_descriptor: nil,
+          to: nil
+        )
           @amount = amount
           @description = description
           @from = from
+          @network_details = network_details
           @statement_descriptor = statement_descriptor
           @to = to
         end

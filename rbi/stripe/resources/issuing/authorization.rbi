@@ -517,6 +517,37 @@ module Stripe
           }
         end
       end
+      class FlexibleCredential < ::Stripe::StripeObject
+        class SecondaryCredential < ::Stripe::StripeObject
+          # The funding source that this credential can support.
+          sig { returns(T.nilable(String)) }
+          def funding; end
+          # Unique reference of this credential within this array.
+          sig { returns(T.nilable(String)) }
+          def key; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The authorization identifier of a prior product eligibility inquiry that selected the credential for this authorization, if exists.
+        sig { returns(T.nilable(String)) }
+        def product_eligibility_inquiry; end
+        # Details about the eligible secondary credentials for this authorization.
+        sig { returns(T.nilable(T::Array[SecondaryCredential])) }
+        def secondary_credentials; end
+        # The `key` of the selected secondary credential for this authorization. Null if the card's primary credential was selected.
+        sig { returns(T.nilable(String)) }
+        def selected_secondary; end
+        def self.inner_class_types
+          @inner_class_types = {secondary_credentials: SecondaryCredential}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class FraudChallenge < ::Stripe::StripeObject
         # The method by which the fraud challenge was delivered to the cardholder.
         sig { returns(String) }
@@ -1399,6 +1430,9 @@ module Stripe
       # Fleet-specific information for authorizations using Fleet cards.
       sig { returns(T.nilable(Fleet)) }
       def fleet; end
+      # Details about the flexible credential options for this authorization. This is only populated when enrolled to flex credentials
+      sig { returns(T.nilable(FlexibleCredential)) }
+      def flexible_credential; end
       # Fraud challenges sent to the cardholder, if this authorization was declined for fraud risk reasons.
       sig { returns(T.nilable(T::Array[FraudChallenge])) }
       def fraud_challenges; end

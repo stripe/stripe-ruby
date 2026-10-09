@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Tax
       # The result of resolving an address to its tax precision level.
-      class OperationsResolveAddressResult < APIResource
+      class OperationsResolveAddressResult < SingletonAPIResource
         OBJECT_NAME = "v2.tax.operations_resolve_address_result"
         def self.object_name
           "v2.tax.operations_resolve_address_result"

@@ -123,22 +123,6 @@ module Stripe
     end
 
     class Outcome < ::Stripe::StripeObject
-      class Rule < ::Stripe::StripeObject
-        # The action taken on the payment.
-        attr_reader :action
-        # Unique identifier for the object.
-        attr_reader :id
-        # The predicate to evaluate the payment against.
-        attr_reader :predicate
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       # An enumerated value providing a more detailed explanation on [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines).
       attr_reader :advice_code
       # For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error.
@@ -161,7 +145,7 @@ module Stripe
       attr_reader :type
 
       def self.inner_class_types
-        @inner_class_types = { rule: Rule }
+        @inner_class_types = {}
       end
 
       def self.field_remappings
@@ -2218,8 +2202,12 @@ module Stripe
       class Swish < ::Stripe::StripeObject
         # Uniquely identifies the payer's Swish account. You can use this attribute to check whether two Swish transactions were paid for by the same payer
         attr_reader :fingerprint
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
         # Payer bank reference number for the payment
         attr_reader :payment_reference
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
         # The last four digits of the Swish account phone number
         attr_reader :verified_phone_last4
 

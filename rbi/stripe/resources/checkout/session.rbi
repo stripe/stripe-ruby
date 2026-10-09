@@ -2623,6 +2623,126 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class PaymentSettings < ::Stripe::StripeObject
+        class ApplicationFeeData < ::Stripe::StripeObject
+          # The application fee amount, in the currency's smallest unit, applied to the initial payment.
+          sig { returns(T.nilable(Integer)) }
+          def initial_amount; end
+          # The percentage of each payment collected as an application fee.
+          sig { returns(T.nilable(BigDecimal)) }
+          def percentage_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {percentage_decimal: {kind: :nullable, inner: :decimal_string}}
+          end
+        end
+        class TransferData < ::Stripe::StripeObject
+          class TransferAmount < ::Stripe::StripeObject
+            # The amount, in the currency's smallest unit, transferred from the initial payment.
+            sig { returns(T.nilable(Integer)) }
+            def initial_amount; end
+            # The percentage of each payment transferred to the destination account.
+            sig { returns(T.nilable(BigDecimal)) }
+            def percentage_decimal; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {percentage_decimal: {kind: :nullable, inner: :decimal_string}}
+            end
+          end
+          # The connected account that receives funds from payments created by this Checkout Session.
+          sig { returns(String) }
+          def destination; end
+          # Configures the amount transferred to the destination account.
+          sig { returns(T.nilable(TransferAmount)) }
+          def transfer_amount; end
+          def self.inner_class_types
+            @inner_class_types = {transfer_amount: TransferAmount}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              transfer_amount: {
+                kind: :nullable,
+                inner: {
+                  kind: :object,
+                  fields: {percentage_decimal: {kind: :nullable, inner: :decimal_string}},
+                },
+              },
+            }
+          end
+        end
+        # Configures an application fee transferred to the application owner's Stripe account.
+        sig { returns(T.nilable(ApplicationFeeData)) }
+        def application_fee_data; end
+        # Controls when the funds will be captured from the customer's account.
+        sig { returns(T.nilable(String)) }
+        def capture_method; end
+        # An arbitrary string attached to the object. Often useful for displaying to users.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        def metadata; end
+        # Indicates that you intend to make future payments with the payment method collected by this Checkout Session.
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
+        # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor.
+        sig { returns(T.nilable(String)) }
+        def statement_descriptor; end
+        # Configures automatic transfers to a connected account when payments succeed.
+        sig { returns(T.nilable(TransferData)) }
+        def transfer_data; end
+        # A string that identifies the initial payment as part of a group.
+        sig { returns(T.nilable(String)) }
+        def transfer_group; end
+        def self.inner_class_types
+          @inner_class_types = {
+            application_fee_data: ApplicationFeeData,
+            transfer_data: TransferData,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+        def self.field_encodings
+          @field_encodings = {
+            application_fee_data: {
+              kind: :nullable,
+              inner: {
+                kind: :object,
+                fields: {percentage_decimal: {kind: :nullable, inner: :decimal_string}},
+              },
+            },
+            transfer_data: {
+              kind: :nullable,
+              inner: {
+                kind: :object,
+                fields: {
+                  transfer_amount: {
+                    kind: :nullable,
+                    inner: {
+                      kind: :object,
+                      fields: {percentage_decimal: {kind: :nullable, inner: :decimal_string}},
+                    },
+                  },
+                },
+              },
+            },
+          }
+        end
+      end
       class Permissions < ::Stripe::StripeObject
         class Update < ::Stripe::StripeObject
           # Determines which entity is allowed to update the line items.
@@ -3045,7 +3165,7 @@ module Stripe
       #
       # Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
       #
-      # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
+      # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](/api/checkout/sessions/approve) from your server.
       sig { returns(T.nilable(String)) }
       def approval_method; end
       # Attribute for field automatic_surcharge
@@ -3177,6 +3297,9 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
+      # The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
+      sig { returns(T.nilable(String)) }
+      def on_behalf_of; end
       # The optional items presented to the customer at checkout.
       sig { returns(T.nilable(T::Array[OptionalItem])) }
       def optional_items; end
@@ -3208,6 +3331,9 @@ module Stripe
       # The ID of the Payment Reservation for this Checkout Session.
       sig { returns(T.nilable(String)) }
       def payment_reservation; end
+      # Attribute for field payment_settings
+      sig { returns(T.nilable(PaymentSettings)) }
+      def payment_settings; end
       # The payment status of the Checkout Session, one of `paid`, `unpaid`, or `no_payment_required`.
       # You can use this value to decide when to fulfill your customer's order.
       sig { returns(String) }

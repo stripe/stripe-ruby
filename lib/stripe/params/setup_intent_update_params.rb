@@ -1410,7 +1410,7 @@ module Stripe
     attr_accessor :flow_directions
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
-    # ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. To unset this field to null, pass in an empty string.
+    # The ID of a PaymentMethod to attach to this SetupIntent. To unset this field to null, pass in an empty string.
     attr_accessor :payment_method
     # The ID of the [payment method configuration](https://docs.stripe.com/api/payment_method_configurations) to use with this SetupIntent.
     attr_accessor :payment_method_configuration

@@ -113,6 +113,22 @@ module Stripe
              }
             def initialize(customer_presence: nil, payment_type: nil); end
           end
+          class UsBankAccount < ::Stripe::RequestParams
+            # Describes the presence of the customer during the payment.
+            sig { returns(T.nilable(String)) }
+            def customer_presence; end
+            sig { params(_customer_presence: T.nilable(String)).returns(T.nilable(String)) }
+            def customer_presence=(_customer_presence); end
+            # Describes the type of US bank account payment.
+            sig { returns(T.nilable(String)) }
+            def payment_type; end
+            sig { params(_payment_type: T.nilable(String)).returns(T.nilable(String)) }
+            def payment_type=(_payment_type); end
+            sig {
+              params(customer_presence: T.nilable(String), payment_type: T.nilable(String)).void
+             }
+            def initialize(customer_presence: nil, payment_type: nil); end
+          end
           # Describes card money movement details.
           sig {
             returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card))
@@ -127,10 +143,19 @@ module Stripe
           def money_movement_type; end
           sig { params(_money_movement_type: String).returns(String) }
           def money_movement_type=(_money_movement_type); end
+          # Describes US bank account money movement details.
           sig {
-            params(card: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card), money_movement_type: String).void
+            returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::UsBankAccount))
            }
-          def initialize(card: nil, money_movement_type: nil); end
+          def us_bank_account; end
+          sig {
+            params(_us_bank_account: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::UsBankAccount)).returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::UsBankAccount))
+           }
+          def us_bank_account=(_us_bank_account); end
+          sig {
+            params(card: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card), money_movement_type: String, us_bank_account: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::UsBankAccount)).void
+           }
+          def initialize(card: nil, money_movement_type: nil, us_bank_account: nil); end
         end
         class PaymentMethodDetails < ::Stripe::RequestParams
           class BillingDetails < ::Stripe::RequestParams

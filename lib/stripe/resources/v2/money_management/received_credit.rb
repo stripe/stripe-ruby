@@ -161,6 +161,8 @@ module Stripe
               attr_reader :account_holder_name
               # The bank name the transfer was received from.
               attr_reader :bank_name
+              # The BIC/SWIFT code of the account that originated the transfer.
+              attr_reader :bic
               # The last 4 digits of the account number that originated the transfer.
               attr_reader :last4
               # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
@@ -247,6 +249,8 @@ module Stripe
               attr_reader :account_holder_name
               # The bank name the transfer was received from.
               attr_reader :bank_name
+              # The BIC/SWIFT code of the account that originated the transfer.
+              attr_reader :bic
               # The last 4 digits of the account number that originated the transfer.
               attr_reader :last4
               # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
@@ -431,17 +435,43 @@ module Stripe
               @field_remappings = {}
             end
           end
+
+          class OriginatingCryptoWallet < ::Stripe::StripeObject
+            # The address of the wallet the crypto was received from.
+            attr_reader :address
+            # A memo also for identifying the recipient for memo-based blockchains (e.g., Stellar),.
+            attr_reader :memo
+            # The network the crypto was received from.
+            attr_reader :network
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Hash containing the transaction crypto wallet details.
           attr_reader :crypto_wallet
           # Financial Address on which funds for ReceivedCredit were received.
           attr_reader :financial_address
+          # Hash containing details about the crypto wallet that originated this ReceivedCredit.
+          attr_reader :originating_crypto_wallet
           # Freeform string set by originator of the external ReceivedCredit.
           attr_reader :statement_descriptor
+          # Open Enum. The currency of the crypto tokens received.
+          attr_reader :token_currency
+          # Hash of the deposit transaction on-chain (incoming to Stripe).
+          attr_reader :transaction_hash
           # Open Enum. The type of crypto wallet transfer that originated this ReceivedCredit.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { crypto_wallet: CryptoWallet }
+            @inner_class_types = {
+              crypto_wallet: CryptoWallet,
+              originating_crypto_wallet: OriginatingCryptoWallet,
+            }
           end
 
           def self.field_remappings

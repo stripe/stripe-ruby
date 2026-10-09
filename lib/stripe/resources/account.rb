@@ -292,6 +292,8 @@ module Stripe
       attr_reader :us_bank_account_ach_payments
       # The status of the US customer_balance payments (USD currency) capability of the account, or whether the account can directly process US customer_balance charges.
       attr_reader :us_bank_transfer_payments
+      # The status of the Wero capability of the account, or whether the account can directly process Wero payments.
+      attr_reader :wero_payments
       # The status of the Zip capability of the account, or whether the account can directly process Zip charges.
       attr_reader :zip_payments
 

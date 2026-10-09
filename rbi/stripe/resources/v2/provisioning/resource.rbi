@@ -9,10 +9,10 @@ module Stripe
       # a `Project`.
       class Resource < APIResource
         class UserMessage < ::Stripe::StripeObject
-          # Attribute for field message
+          # Message from the provider to display to the user.
           sig { returns(String) }
           def message; end
-          # Attribute for field received_at
+          # Time at which Stripe received the message from the provider.
           sig { returns(String) }
           def received_at; end
           def self.inner_class_types
@@ -22,44 +22,44 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Attribute for field catalog
+        # Catalog partition containing the resource's provider service.
         sig { returns(T.nilable(String)) }
         def catalog; end
-        # Attribute for field created
+        # Time at which the resource was created.
         sig { returns(String) }
         def created; end
-        # Attribute for field environment
+        # Provider environment in which the resource runs.
         sig { returns(String) }
         def environment; end
-        # Attribute for field error_message
+        # Error reported when provisioning the resource fails.
         sig { returns(T.nilable(String)) }
         def error_message; end
-        # Attribute for field id
+        # Unique identifier for the resource.
         sig { returns(String) }
         def id; end
         # Whether this resource uses Stripe live-mode objects. This is independent of the provider
         # catalog and is immutable for the lifetime of the resource.
         sig { returns(T::Boolean) }
         def livemode; end
-        # Attribute for field name
+        # Human-readable name of the resource.
         sig { returns(T.nilable(String)) }
         def name; end
-        # Attribute for field needs_information_schema
+        # Schema describing additional information the provider requires to finish provisioning.
         sig { returns(T.nilable(T::Hash[String, T.untyped])) }
         def needs_information_schema; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Attribute for field provider
+        # Identifier of the provider that manages the resource.
         sig { returns(String) }
         def provider; end
-        # Attribute for field service_ref
+        # Identifier of the provider service used to provision the resource.
         sig { returns(String) }
         def service_ref; end
-        # Attribute for field status
+        # Current provisioning status of the resource.
         sig { returns(String) }
         def status; end
-        # Attribute for field user_message
+        # Message supplied by the provider when the resource becomes ready.
         sig { returns(T.nilable(UserMessage)) }
         def user_message; end
       end

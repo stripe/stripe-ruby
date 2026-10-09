@@ -1433,7 +1433,7 @@ module Stripe
     attr_accessor :expand
     # Attribute for param field mandate_data
     attr_accessor :mandate_data
-    # ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+    # The ID of a PaymentMethod to attach to this SetupIntent.
     attr_accessor :payment_method
     # When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-payment_method)
     # value in the SetupIntent.

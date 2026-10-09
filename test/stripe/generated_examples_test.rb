@@ -10429,6 +10429,25 @@ module Stripe
       financial_address = client.v2.money_management.financial_addresses.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_addresses/id_123"
     end
+    should "Test v2 money management funding session post (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/funding_sessions"
+      ).to_return(
+        body: '{"object":"v2.money_management.funding_session","account":"account","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","financial_address_options":{},"financial_address_types":["bank_account"],"id":"obj_123","livemode":true,"return_url":"return_url","url":"url"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      funding_session = client.v2.money_management.funding_sessions.create({
+        account: "account",
+        financial_account: "financial_account",
+        financial_address_options: { crypto_wallet: { settlement_currency: "usd" } },
+        financial_address_types: ["bank_account"],
+        return_url: "return_url",
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/funding_sessions"
+    end
     should "Test v2 money management inbound transfer get (service)" do
       stub_request(
         :get,
@@ -10480,6 +10499,61 @@ module Stripe
 
       inbound_transfer = client.v2.money_management.inbound_transfers.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfers/id_123"
+    end
+    should "Test v2 money management inbound transfer mandate get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfer_mandates"
+      ).to_return(
+        body: '{"data":[{"object":"v2.money_management.inbound_transfer_mandate","created":"1970-01-12T21:42:34.472Z","credential":"credential","id":"obj_123","livemode":true,"status":"expired","status_details":{},"status_transitions":{},"type":"nz_becs","user_accepted_details":{}}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      inbound_transfer_mandates = client.v2.money_management.inbound_transfer_mandates.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfer_mandates"
+    end
+    should "Test v2 money management inbound transfer mandate post (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfer_mandates"
+      ).to_return(
+        body: '{"object":"v2.money_management.inbound_transfer_mandate","created":"1970-01-12T21:42:34.472Z","credential":"credential","id":"obj_123","livemode":true,"status":"expired","status_details":{},"status_transitions":{},"type":"nz_becs","user_accepted_details":{}}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      inbound_transfer_mandate = client.v2.money_management.inbound_transfer_mandates.create({
+        credential: "credential",
+        type: "nz_becs",
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfer_mandates"
+    end
+    should "Test v2 money management inbound transfer mandate get 2 (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfer_mandates/id_123"
+      ).to_return(
+        body: '{"object":"v2.money_management.inbound_transfer_mandate","created":"1970-01-12T21:42:34.472Z","credential":"credential","id":"obj_123","livemode":true,"status":"expired","status_details":{},"status_transitions":{},"type":"nz_becs","user_accepted_details":{}}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      inbound_transfer_mandate = client.v2.money_management.inbound_transfer_mandates.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfer_mandates/id_123"
+    end
+    should "Test v2 money management inbound transfer mandate post 2 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfer_mandates/id_123/cancel"
+      ).to_return(
+        body: '{"object":"v2.money_management.inbound_transfer_mandate","created":"1970-01-12T21:42:34.472Z","credential":"credential","id":"obj_123","livemode":true,"status":"expired","status_details":{},"status_transitions":{},"type":"nz_becs","user_accepted_details":{}}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      inbound_transfer_mandate = client.v2.money_management.inbound_transfer_mandates.cancel("id_123")
+      assert_requested :post,  "#{Stripe::DEFAULT_API_BASE}/v2/money_management/inbound_transfer_mandates/id_123/cancel"
     end
     should "Test v2 money management outbound payment get (service)" do
       stub_request(
@@ -11915,14 +11989,14 @@ module Stripe
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/reporting/report_runs/id_123"
     end
     should "Test v2 risk inquiry get (service)" do
-      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/risk/inquiries?account=account").to_return(
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/risk/inquiries").to_return(
         body: '{"data":[{"object":"v2.risk.inquiry","closed_at":"1970-01-06T13:53:35.258Z","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"opened_at":"1970-01-18T22:56:33.737Z","status":"closed","type":"appeal"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      inquiries = client.v2.risk.inquiries.list({ account: "account" })
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/risk/inquiries?account=account"
+      inquiries = client.v2.risk.inquiries.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/risk/inquiries"
     end
     should "Test v2 risk inquiry get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/risk/inquiries/id_123").to_return(
@@ -12106,7 +12180,7 @@ module Stripe
     end
     should "Test v2 tax integration configuration get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/tax/integration_configurations").to_return(
-        body: '{"object":"v2.tax.integration_configuration","checkout_sessions":{"automatic_tax_default_value":"enabled_when_possible"},"livemode":true}',
+        body: '{"object":"v2.tax.integration_configuration","checkout_sessions":{"automatic_tax_default_value":"enabled_when_possible"},"invoices":{"automatic_tax_default_value":"enabled_when_possible"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -12119,7 +12193,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/tax/integration_configurations"
       ).to_return(
-        body: '{"object":"v2.tax.integration_configuration","checkout_sessions":{"automatic_tax_default_value":"enabled_when_possible"},"livemode":true}',
+        body: '{"object":"v2.tax.integration_configuration","checkout_sessions":{"automatic_tax_default_value":"enabled_when_possible"},"invoices":{"automatic_tax_default_value":"enabled_when_possible"},"livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")

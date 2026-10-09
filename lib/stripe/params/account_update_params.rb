@@ -2265,12 +2265,19 @@ module Stripe
       end
 
       class Capital < ::Stripe::RequestParams
+        # The payout destinations excluded from Capital financing payouts.
+        attr_accessor :excluded_payout_destinations
         # Per-currency mapping of user-selected destination accounts used to pay out loans.
         attr_accessor :payout_destination
         # Per-currency mapping of all destination accounts eligible to receive Capital financing payouts.
         attr_accessor :payout_destination_selector
 
-        def initialize(payout_destination: nil, payout_destination_selector: nil)
+        def initialize(
+          excluded_payout_destinations: nil,
+          payout_destination: nil,
+          payout_destination_selector: nil
+        )
+          @excluded_payout_destinations = excluded_payout_destinations
           @payout_destination = payout_destination
           @payout_destination_selector = payout_destination_selector
         end

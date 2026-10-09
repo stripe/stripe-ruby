@@ -17,6 +17,35 @@ module Stripe
     end
 
     class AutomaticTax < ::Stripe::StripeObject
+      class EnablementDetails < ::Stripe::StripeObject
+        class IntegrationConfigurationDisabledReason < ::Stripe::StripeObject
+          # The parameter that prevented `automatic_tax` from being enabled (for example `default_tax_rates`).
+          attr_reader :conflicting_field
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Present when `source=tax_integration_configuration`, `automatic_tax[enabled]=false`, and a conflicting parameter is recorded.
+        attr_reader :integration_configuration_disabled_reason
+        # How `automatic_tax` was set: `explicit`, `managed_payments`, or `tax_integration_configuration`.
+        attr_reader :source
+
+        def self.inner_class_types
+          @inner_class_types = {
+            integration_configuration_disabled_reason: IntegrationConfigurationDisabledReason,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Liability < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
         attr_reader :account
@@ -35,11 +64,13 @@ module Stripe
       attr_reader :disabled_reason
       # Whether Stripe automatically computes tax on this subscription.
       attr_reader :enabled
+      # How `automatic_tax` was set (`explicit`, `managed_payments`, or `tax_integration_configuration`) and why it may have been disabled.
+      attr_reader :enablement_details
       # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
       attr_reader :liability
 
       def self.inner_class_types
-        @inner_class_types = { liability: Liability }
+        @inner_class_types = { enablement_details: EnablementDetails, liability: Liability }
       end
 
       def self.field_remappings
@@ -620,7 +651,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+          # The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If unspecified, defaults to 14400 seconds (4 hours).
           attr_reader :expires_after_seconds
           # Attribute for field mandate_options
           attr_reader :mandate_options

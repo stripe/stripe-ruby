@@ -95,6 +95,28 @@ client.v1.customers.list(
 )
 ```
 
+### Workload identity
+
+Instead of a long-lived API key, a client can authenticate using [workload identity][workload-identity]:
+it exchanges a cloud provider-signed identity assertion for a short-lived restricted key, which is
+cached in memory and refreshed automatically. GCP environments that expose the compatible metadata
+identity-token endpoint are currently supported, including Compute Engine, Cloud Run, Cloud Functions,
+and GKE with Workload Identity, via the separate
+[`stripe-gcp-workload-identity`](gcp-workload-identity) gem. Add it to your Gemfile alongside `stripe`
+to use it.
+
+```ruby
+require "stripe"
+require "stripe/gcp_workload_identity"
+
+client = Stripe::StripeClient.for_workload_identity(
+  "oacli_live_...", # workload client ID from the Stripe Dashboard
+  Stripe::GcpWorkloadIdentity::GcpWorkloadIdentity.new
+)
+
+client.v1.customers.list
+```
+
 ### StripeClient vs legacy pattern
 
 We introduced the `StripeClient` class in v13 of the Ruby SDK. The legacy pattern used prior to that version is still available to use but will be marked as deprecated soon. Review the [migration guide to use StripeClient](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v13) to move from the legacy pattern.
@@ -433,6 +455,7 @@ just update-certs
 [api-keys]: https://dashboard.stripe.com/account/apikeys
 [connect]: https://stripe.com/connect
 [curl]: http://curl.haxx.se/docs/caextract.html
+[workload-identity]: https://stripe.com/docs/api?lang=ruby
 [idempotency-keys]: https://stripe.com/docs/api/idempotent_requests?lang=ruby
 [stripe-mock]: https://github.com/stripe/stripe-mock
 [versioning]: https://stripe.com/docs/api/versioning?lang=ruby

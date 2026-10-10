@@ -3,6 +3,12 @@
 module Stripe
   class SingletonAPIResource < APIResource
     def self.resource_url
+      if name.include?("Stripe::V2")
+        raise NotImplementedError,
+              "V2 singleton resources do not have a defined URL. Please use the StripeClient " \
+              "to make V2 requests"
+      end
+
       if self == SingletonAPIResource
         raise NotImplementedError,
               "SingletonAPIResource is an abstract class. You should " \

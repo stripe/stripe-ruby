@@ -1485,6 +1485,53 @@ module Stripe
             end
           end
 
+          class MandateOptions < ::Stripe::RequestParams
+            # Maximum or fixed amount for future payments, specified in the Checkout Session's integration currency.
+            attr_accessor :amount
+            # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            attr_accessor :amount_type
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            attr_accessor :currency
+            # A description of the mandate or subscription that is meant to be displayed to the customer.
+            attr_accessor :description
+            # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            attr_accessor :end_date
+            # Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
+            attr_accessor :interval
+            # The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
+            attr_accessor :interval_count
+            # Unique identifier for the mandate or subscription.
+            attr_accessor :reference
+            # Start date of the mandate or subscription. Start date should not be lesser than yesterday.
+            attr_accessor :start_date
+            # Specifies the type of mandates supported. Possible values are `india`.
+            attr_accessor :supported_types
+
+            def initialize(
+              amount: nil,
+              amount_type: nil,
+              currency: nil,
+              description: nil,
+              end_date: nil,
+              interval: nil,
+              interval_count: nil,
+              reference: nil,
+              start_date: nil,
+              supported_types: nil
+            )
+              @amount = amount
+              @amount_type = amount_type
+              @currency = currency
+              @description = description
+              @end_date = end_date
+              @interval = interval
+              @interval_count = interval_count
+              @reference = reference
+              @start_date = start_date
+              @supported_types = supported_types
+            end
+          end
+
           class Restrictions < ::Stripe::RequestParams
             # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             attr_accessor :brands_blocked
@@ -1500,6 +1547,8 @@ module Stripe
           attr_accessor :capture_method
           # Installment options for card payments
           attr_accessor :installments
+          # Configuration options for setting up an eMandate for cards issued in India.
+          attr_accessor :mandate_options
           # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
           attr_accessor :request_decremental_authorization
           # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
@@ -1530,6 +1579,7 @@ module Stripe
           def initialize(
             capture_method: nil,
             installments: nil,
+            mandate_options: nil,
             request_decremental_authorization: nil,
             request_extended_authorization: nil,
             request_incremental_authorization: nil,
@@ -1543,6 +1593,7 @@ module Stripe
           )
             @capture_method = capture_method
             @installments = installments
+            @mandate_options = mandate_options
             @request_decremental_authorization = request_decremental_authorization
             @request_extended_authorization = request_extended_authorization
             @request_incremental_authorization = request_incremental_authorization

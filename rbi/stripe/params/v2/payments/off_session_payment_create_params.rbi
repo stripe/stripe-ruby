@@ -152,15 +152,6 @@ module Stripe
             tax: nil
           ); end
         end
-        class Capture < ::Stripe::RequestParams
-          # The method to use to capture the payment.
-          sig { returns(String) }
-          def capture_method; end
-          sig { params(_capture_method: String).returns(String) }
-          def capture_method=(_capture_method); end
-          sig { params(capture_method: String).void }
-          def initialize(capture_method: nil); end
-        end
         class PaymentDetails < ::Stripe::RequestParams
           # A unique value to identify the customer. This field is applicable only for card payments. For card payments, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
           sig { returns(T.nilable(String)) }
@@ -404,13 +395,6 @@ module Stripe
         def cadence; end
         sig { params(_cadence: String).returns(String) }
         def cadence=(_cadence); end
-        # Deprecated. Details about the capture configuration for the OffSessionPayment.
-        sig { returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture)) }
-        def capture; end
-        sig {
-          params(_capture: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture))
-         }
-        def capture=(_capture); end
         # ID of the Customer to which this OffSessionPayment belongs.
         sig { returns(String) }
         def customer; end
@@ -526,14 +510,13 @@ module Stripe
          }
         def transfer_data=(_transfer_data); end
         sig {
-          params(amount: ::Stripe::V2::Amount, amount_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::AmountDetails), application_fee_amount: T.nilable(::Stripe::V2::Amount), cadence: String, capture: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture), customer: String, description: T.nilable(String), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), payment_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions), payments_orchestration: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration), retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::RetryDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), target_date: T.nilable(String), test_clock: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::TransferData)).void
+          params(amount: ::Stripe::V2::Amount, amount_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::AmountDetails), application_fee_amount: T.nilable(::Stripe::V2::Amount), cadence: String, customer: String, description: T.nilable(String), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), payment_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions), payments_orchestration: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration), retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::RetryDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), target_date: T.nilable(String), test_clock: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::TransferData)).void
          }
         def initialize(
           amount: nil,
           amount_details: nil,
           application_fee_amount: nil,
           cadence: nil,
-          capture: nil,
           customer: nil,
           description: nil,
           include: nil,

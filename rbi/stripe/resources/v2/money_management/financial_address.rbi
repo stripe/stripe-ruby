@@ -66,6 +66,20 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class BreB < ::Stripe::StripeObject
+            # The name of the account holder.
+            sig { returns(String) }
+            def account_holder_name; end
+            # The BRE-B payment key.
+            sig { returns(String) }
+            def bre_b_key; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Clabe < ::Stripe::StripeObject
             # Attribute for field account_holder_name
             sig { returns(String) }
@@ -135,6 +149,40 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class Nip < ::Stripe::StripeObject
+            # The name of the account holder.
+            sig { returns(String) }
+            def account_holder_name; end
+            # The NIP bank code.
+            sig { returns(String) }
+            def bank_code; end
+            # The name of the bank.
+            sig { returns(String) }
+            def bank_name; end
+            # The NUBAN account number.
+            sig { returns(String) }
+            def nuban; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Pix < ::Stripe::StripeObject
+            # The name of the account holder.
+            sig { returns(String) }
+            def account_holder_name; end
+            # The Pix BR code.
+            sig { returns(String) }
+            def br_code; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class SortCode < ::Stripe::StripeObject
             # The name of the account holder.
             sig { returns(String) }
@@ -164,6 +212,9 @@ module Stripe
           # ABA bank account details (US).
           sig { returns(T.nilable(Aba)) }
           def aba; end
+          # BRE-B bank account details (Colombia).
+          sig { returns(T.nilable(BreB)) }
+          def bre_b; end
           # Attribute for field clabe
           sig { returns(T.nilable(Clabe)) }
           def clabe; end
@@ -179,6 +230,12 @@ module Stripe
           # IBAN bank account details.
           sig { returns(T.nilable(Iban)) }
           def iban; end
+          # NIP bank account details (Nigeria).
+          sig { returns(T.nilable(Nip)) }
+          def nip; end
+          # Pix bank account details (Brazil).
+          sig { returns(T.nilable(Pix)) }
+          def pix; end
           # Sort code bank account details (UK).
           sig { returns(T.nilable(SortCode)) }
           def sort_code; end
@@ -186,7 +243,16 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {aba: Aba, clabe: Clabe, cpa: Cpa, iban: Iban, sort_code: SortCode}
+            @inner_class_types = {
+              aba: Aba,
+              bre_b: BreB,
+              clabe: Clabe,
+              cpa: Cpa,
+              iban: Iban,
+              nip: Nip,
+              pix: Pix,
+              sort_code: SortCode,
+            }
           end
           def self.field_remappings
             @field_remappings = {}

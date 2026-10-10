@@ -2734,12 +2734,6 @@ module Stripe
     end
     
     sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2PaymentsOffSessionPaymentRequiresCaptureEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v2_payments_off_session_payment_requires_capture(&blk);
-    end
-    
-    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2PaymentsOffSessionPaymentResumedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_payments_off_session_payment_resumed(&blk);

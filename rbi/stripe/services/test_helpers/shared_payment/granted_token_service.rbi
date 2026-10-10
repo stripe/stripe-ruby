@@ -6,13 +6,13 @@ module Stripe
   module TestHelpers
     module SharedPayment
       class GrantedTokenService < StripeService
-        # Creates a new test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to create SharedPaymentGrantedTokens for testing their integration
+        # Creates a new test SharedPaymentGrantedToken object. This test helper allows sellers to create SharedPaymentGrantedTokens for testing their integration.
         sig {
           params(params: T.any(::Stripe::TestHelpers::SharedPayment::GrantedTokenCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SharedPayment::GrantedToken)
          }
         def create(params = {}, opts = {}); end
 
-        # Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
+        # Revokes a test SharedPaymentGrantedToken object. This test helper allows sellers to revoke SharedPaymentGrantedTokens for testing their integration.
         sig {
           params(shared_payment_granted_token: String, params: T.any(::Stripe::TestHelpers::SharedPayment::GrantedTokenRevokeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SharedPayment::GrantedToken)
          }

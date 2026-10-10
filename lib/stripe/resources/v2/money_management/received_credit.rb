@@ -179,6 +179,23 @@ module Stripe
               end
             end
 
+            class BreB < ::Stripe::StripeObject
+              # The name of the account holder that sent the payment.
+              attr_reader :account_holder_name
+              # The last 4 digits of the account number that originated the transfer.
+              attr_reader :last4
+              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+              attr_reader :network
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
             class Clabe < ::Stripe::StripeObject
               # The name of the account holder that sent the payment.
               attr_reader :account_holder_name
@@ -244,6 +261,46 @@ module Stripe
               end
             end
 
+            class Nip < ::Stripe::StripeObject
+              # The name of the account holder that sent the payment.
+              attr_reader :account_holder_name
+              # The Nigerian bank code of the bank that originated the transfer.
+              attr_reader :bank_code
+              # The name of the bank that originated the transfer.
+              attr_reader :bank_name
+              # The last 4 digits of the account number that originated the transfer.
+              attr_reader :last4
+              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+              attr_reader :network
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Pix < ::Stripe::StripeObject
+              # The name of the account holder that sent the payment.
+              attr_reader :account_holder_name
+              # The bank name the transfer was received from.
+              attr_reader :bank_name
+              # The Pix BR code of the account that originated the transfer.
+              attr_reader :br_code
+              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+              attr_reader :network
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
             class SortCode < ::Stripe::StripeObject
               # The account holder name of the bank account the transfer was received from.
               attr_reader :account_holder_name
@@ -268,12 +325,18 @@ module Stripe
             end
             # Hash containing the transaction bank details. Present if `type` field value is `aba`.
             attr_reader :aba
+            # Hash containing the transaction bank details. Present if `type` field value is `bre_b`.
+            attr_reader :bre_b
             # Hash containing the transaction bank details. Present if `type` field value is `clabe`.
             attr_reader :clabe
             # Hash containing the transaction bank details. Present if `type` field value is `cpa`.
             attr_reader :cpa
             # Hash containing the transaction bank details. Present if `type` field value is `iban`.
             attr_reader :iban
+            # Hash containing the transaction bank details. Present if `type` field value is `nip`.
+            attr_reader :nip
+            # Hash containing the transaction bank details. Present if `type` field value is `pix`.
+            attr_reader :pix
             # Hash containing the transaction bank details. Present if `type` field value is `sort_code`.
             attr_reader :sort_code
             # Open Enum. The type of bank transfer that originated this ReceivedCredit.
@@ -282,9 +345,12 @@ module Stripe
             def self.inner_class_types
               @inner_class_types = {
                 aba: Aba,
+                bre_b: BreB,
                 clabe: Clabe,
                 cpa: Cpa,
                 iban: Iban,
+                nip: Nip,
+                pix: Pix,
                 sort_code: SortCode,
               }
             end

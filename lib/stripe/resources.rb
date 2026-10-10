@@ -1430,10 +1430,6 @@ module Stripe
     autoload :V2PaymentsOffSessionPaymentPausedEvent, "stripe/events/v2_payments_off_session_payment_paused_event"
     autoload :V2PaymentsOffSessionPaymentPausedEventNotification,
              "stripe/events/v2_payments_off_session_payment_paused_event"
-    autoload :V2PaymentsOffSessionPaymentRequiresCaptureEvent,
-             "stripe/events/v2_payments_off_session_payment_requires_capture_event"
-    autoload :V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
-             "stripe/events/v2_payments_off_session_payment_requires_capture_event"
     autoload :V2PaymentsOffSessionPaymentResumedEvent, "stripe/events/v2_payments_off_session_payment_resumed_event"
     autoload :V2PaymentsOffSessionPaymentResumedEventNotification,
              "stripe/events/v2_payments_off_session_payment_resumed_event"
@@ -2611,7 +2607,6 @@ module Stripe
     stripe/events/v2_payments_off_session_payment_created_event
     stripe/events/v2_payments_off_session_payment_failed_event
     stripe/events/v2_payments_off_session_payment_paused_event
-    stripe/events/v2_payments_off_session_payment_requires_capture_event
     stripe/events/v2_payments_off_session_payment_resumed_event
     stripe/events/v2_payments_off_session_payment_succeeded_event
     stripe/events/v2_payments_settlement_allocation_intent_canceled_event

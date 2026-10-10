@@ -11,7 +11,9 @@ module Stripe
         attr_accessor :closed
         # The upper limit on the number of accounts returned by the List Account request.
         attr_accessor :limit
-        # Filter by the network object related to the account. If omitted, returns all Accounts regardless of the network object they have.
+        # The ID of a [Business Profile](https://docs.stripe.com/api/v2/network/business-profiles) to filter Accounts by.
+        # A Business Profile represents a business's public identity on the Stripe network.
+        # Returns only Accounts associated with that profile. If omitted, no profile filter is applied.
         attr_accessor :related_network_object
 
         def initialize(

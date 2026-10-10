@@ -650,7 +650,7 @@ module Stripe
           "GrantedToken"
         end
 
-        # Creates a new test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to create SharedPaymentGrantedTokens for testing their integration
+        # Creates a new test SharedPaymentGrantedToken object. This test helper allows sellers to create SharedPaymentGrantedTokens for testing their integration.
         def self.create(params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -660,7 +660,7 @@ module Stripe
           )
         end
 
-        # Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
+        # Revokes a test SharedPaymentGrantedToken object. This test helper allows sellers to revoke SharedPaymentGrantedTokens for testing their integration.
         def self.revoke(shared_payment_granted_token, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -670,7 +670,7 @@ module Stripe
           )
         end
 
-        # Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
+        # Revokes a test SharedPaymentGrantedToken object. This test helper allows sellers to revoke SharedPaymentGrantedTokens for testing their integration.
         def revoke(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,

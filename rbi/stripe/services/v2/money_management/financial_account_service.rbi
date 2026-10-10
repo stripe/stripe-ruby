@@ -25,7 +25,7 @@ module Stripe
          }
         def create(params = {}, opts = {}); end
 
-        # Lists FinancialAccounts in this compartment.
+        # Lists FinancialAccounts in this account.
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
          }

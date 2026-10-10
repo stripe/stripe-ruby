@@ -65,6 +65,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The account's contact email.
+          attr_reader :contact_email
           # Default account settings.
           attr_reader :defaults
           # Identity data.

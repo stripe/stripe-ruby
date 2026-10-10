@@ -59,6 +59,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            # The account's contact email.
+            sig { returns(T.nilable(String)) }
+            def contact_email; end
             # Default account settings.
             sig { returns(T.nilable(Defaults)) }
             def defaults; end
@@ -75,7 +78,7 @@ module Stripe
           # The v2 account ID of the account.
           sig { returns(T.nilable(String)) }
           def account; end
-          # The v1 customer ID of the account, for users not yet migrated to v2/accounts.
+          # The v1 customer ID of the account, for users not yet migrated to v2 accounts.
           sig { returns(T.nilable(String)) }
           def customer; end
           # Inline account data to evaluate without creating a v2 account.

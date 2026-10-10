@@ -2158,6 +2158,75 @@ module Stripe
             sig { params(enabled: T.nilable(T::Boolean)).void }
             def initialize(enabled: nil); end
           end
+          class MandateOptions < ::Stripe::RequestParams
+            # Maximum or fixed amount for future payments, specified in the Checkout Session's integration currency.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def amount=(_amount); end
+            # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            sig { returns(T.nilable(String)) }
+            def amount_type; end
+            sig { params(_amount_type: T.nilable(String)).returns(T.nilable(String)) }
+            def amount_type=(_amount_type); end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(T.nilable(String)) }
+            def currency; end
+            sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+            def currency=(_currency); end
+            # A description of the mandate or subscription that is meant to be displayed to the customer.
+            sig { returns(T.nilable(String)) }
+            def description; end
+            sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+            def description=(_description); end
+            # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            sig { returns(T.nilable(Integer)) }
+            def end_date; end
+            sig { params(_end_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def end_date=(_end_date); end
+            # Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
+            sig { returns(T.nilable(String)) }
+            def interval; end
+            sig { params(_interval: T.nilable(String)).returns(T.nilable(String)) }
+            def interval=(_interval); end
+            # The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
+            sig { returns(T.nilable(Integer)) }
+            def interval_count; end
+            sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def interval_count=(_interval_count); end
+            # Unique identifier for the mandate or subscription.
+            sig { returns(T.nilable(String)) }
+            def reference; end
+            sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
+            def reference=(_reference); end
+            # Start date of the mandate or subscription. Start date should not be lesser than yesterday.
+            sig { returns(T.nilable(Integer)) }
+            def start_date; end
+            sig { params(_start_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def start_date=(_start_date); end
+            # Specifies the type of mandates supported. Possible values are `india`.
+            sig { returns(T.nilable(T::Array[String])) }
+            def supported_types; end
+            sig {
+              params(_supported_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def supported_types=(_supported_types); end
+            sig {
+              params(amount: T.nilable(Integer), amount_type: T.nilable(String), currency: T.nilable(String), description: T.nilable(String), end_date: T.nilable(Integer), interval: T.nilable(String), interval_count: T.nilable(Integer), reference: T.nilable(String), start_date: T.nilable(Integer), supported_types: T.nilable(T::Array[String])).void
+             }
+            def initialize(
+              amount: nil,
+              amount_type: nil,
+              currency: nil,
+              description: nil,
+              end_date: nil,
+              interval: nil,
+              interval_count: nil,
+              reference: nil,
+              start_date: nil,
+              supported_types: nil
+            ); end
+          end
           class Restrictions < ::Stripe::RequestParams
             # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             sig { returns(T.nilable(T::Array[String])) }
@@ -2192,6 +2261,15 @@ module Stripe
             params(_installments: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::Installments)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::Installments))
            }
           def installments=(_installments); end
+          # Configuration options for setting up an eMandate for cards issued in India.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::MandateOptions))
+           }
+          def mandate_options; end
+          sig {
+            params(_mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::MandateOptions)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::MandateOptions))
+           }
+          def mandate_options=(_mandate_options); end
           # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
           sig { returns(T.nilable(String)) }
           def request_decremental_authorization; end
@@ -2263,11 +2341,12 @@ module Stripe
            }
           def statement_descriptor_suffix_kanji=(_statement_descriptor_suffix_kanji); end
           sig {
-            params(capture_method: T.nilable(String), installments: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::Installments), request_decremental_authorization: T.nilable(String), request_extended_authorization: T.nilable(String), request_incremental_authorization: T.nilable(String), request_multicapture: T.nilable(String), request_overcapture: T.nilable(String), request_three_d_secure: T.nilable(String), restrictions: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::Restrictions), setup_future_usage: T.nilable(String), statement_descriptor_suffix_kana: T.nilable(String), statement_descriptor_suffix_kanji: T.nilable(String)).void
+            params(capture_method: T.nilable(String), installments: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::Installments), mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::MandateOptions), request_decremental_authorization: T.nilable(String), request_extended_authorization: T.nilable(String), request_incremental_authorization: T.nilable(String), request_multicapture: T.nilable(String), request_overcapture: T.nilable(String), request_three_d_secure: T.nilable(String), restrictions: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::Restrictions), setup_future_usage: T.nilable(String), statement_descriptor_suffix_kana: T.nilable(String), statement_descriptor_suffix_kanji: T.nilable(String)).void
            }
           def initialize(
             capture_method: nil,
             installments: nil,
+            mandate_options: nil,
             request_decremental_authorization: nil,
             request_extended_authorization: nil,
             request_incremental_authorization: nil,

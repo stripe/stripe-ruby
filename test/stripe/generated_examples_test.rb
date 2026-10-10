@@ -9650,19 +9650,6 @@ module Stripe
     should "Test v2 core vault gb bank account post 2 (service)" do
       stub_request(
         :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/acknowledge_confirmation_of_payee"
-      ).to_return(
-        body: '{"object":"v2.core.vault.gb_bank_account","archived":true,"bank_account_type":"toza","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"]}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      gb_bank_account = client.v2.core.vault.gb_bank_accounts.acknowledge_confirmation_of_payee("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/acknowledge_confirmation_of_payee"
-    end
-    should "Test v2 core vault gb bank account post 3 (service)" do
-      stub_request(
-        :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/archive"
       ).to_return(
         body: '{"object":"v2.core.vault.gb_bank_account","archived":true,"bank_account_type":"toza","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"]}',
@@ -9672,19 +9659,6 @@ module Stripe
 
       gb_bank_account = client.v2.core.vault.gb_bank_accounts.archive("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/archive"
-    end
-    should "Test v2 core vault gb bank account post 4 (service)" do
-      stub_request(
-        :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/initiate_confirmation_of_payee"
-      ).to_return(
-        body: '{"object":"v2.core.vault.gb_bank_account","archived":true,"bank_account_type":"toza","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"]}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      gb_bank_account = client.v2.core.vault.gb_bank_accounts.initiate_confirmation_of_payee("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/initiate_confirmation_of_payee"
     end
     should "Test v2 core vault network token post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/network_tokens").to_return(
@@ -11185,7 +11159,7 @@ module Stripe
             currency: "USD",
             value: 96,
           },
-          network: "swift",
+          network: "ach",
         }
       )
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/test_helpers/financial_addresses/id_123/credit"
@@ -11444,19 +11418,6 @@ module Stripe
     should "Test v2 payments off session payment post 3 (service)" do
       stub_request(
         :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/capture"
-      ).to_return(
-        body: '{"object":"v2.payments.off_session_payment","amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","created":"1970-01-12T21:42:34.472Z","customer":"customer","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"payment_method":"payment_method","payments_orchestration":{"enabled":true},"retry_details":{"attempts":542738246,"retry_strategy":"scheduled"},"status":"requires_capture"}',
-        status: 200
-      )
-      client = Stripe::StripeClient.new("sk_test_123")
-
-      off_session_payment = client.v2.payments.off_session_payments.capture("id_123")
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/capture"
-    end
-    should "Test v2 payments off session payment post 4 (service)" do
-      stub_request(
-        :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/pause"
       ).to_return(
         body: '{"object":"v2.payments.off_session_payment","amount_requested":{"currency":"USD","value":47},"cadence":"unscheduled","created":"1970-01-12T21:42:34.472Z","customer":"customer","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"payment_method":"payment_method","payments_orchestration":{"enabled":true},"retry_details":{"attempts":542738246,"retry_strategy":"scheduled"},"status":"requires_capture"}',
@@ -11467,7 +11428,7 @@ module Stripe
       off_session_payment = client.v2.payments.off_session_payments.pause("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/pause"
     end
-    should "Test v2 payments off session payment post 5 (service)" do
+    should "Test v2 payments off session payment post 4 (service)" do
       stub_request(
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/payments/off_session_payments/id_123/resume"
@@ -12063,6 +12024,7 @@ module Stripe
           account: "account",
           customer: "customer",
           data: {
+            contact_email: "contact_email",
             defaults: {
               profile: {
                 business_url: "business_url",

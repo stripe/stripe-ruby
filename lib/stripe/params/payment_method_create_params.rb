@@ -153,6 +153,7 @@ module Stripe
       end
     end
 
+    class Carecredit < ::Stripe::RequestParams; end
     class Cashapp < ::Stripe::RequestParams; end
     class Crypto < ::Stripe::RequestParams; end
 
@@ -187,6 +188,8 @@ module Stripe
         @bank = bank
       end
     end
+
+    class Getflex < ::Stripe::RequestParams; end
 
     class GiftCard < ::Stripe::RequestParams
       # The gift card ID to redeem
@@ -375,6 +378,7 @@ module Stripe
     end
 
     class Sequra < ::Stripe::RequestParams; end
+    class Sezzle < ::Stripe::RequestParams; end
     class Shopeepay < ::Stripe::RequestParams; end
 
     class Sofort < ::Stripe::RequestParams
@@ -488,6 +492,8 @@ module Stripe
     attr_accessor :boleto
     # If this is a `card` PaymentMethod, this hash contains the user's card details. For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format `card: {token: "tok_visa"}`. When providing a card number, you must meet the requirements for [PCI compliance](https://stripe.com/docs/security#validating-pci-compliance). We strongly recommend using Stripe.js instead of interacting with this API directly.
     attr_accessor :card
+    # If this is a `carecredit` PaymentMethod, this hash contains details about the CareCredit payment method.
+    attr_accessor :carecredit
     # If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
     attr_accessor :cashapp
     # If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
@@ -504,6 +510,8 @@ module Stripe
     attr_accessor :expand
     # If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
     attr_accessor :fpx
+    # If this is a `getflex` PaymentMethod, this hash contains details about the GetFlex payment method.
+    attr_accessor :getflex
     # If this is a `gift_card` PaymentMethod, this hash contains details about the gift card payment method.
     attr_accessor :gift_card
     # If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
@@ -580,6 +588,8 @@ module Stripe
     attr_accessor :sepa_debit
     # If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
     attr_accessor :sequra
+    # If this is a `sezzle` PaymentMethod, this hash contains details about the Sezzle payment method.
+    attr_accessor :sezzle
     # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
     attr_accessor :shopeepay
     # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
@@ -624,6 +634,7 @@ module Stripe
       blik: nil,
       boleto: nil,
       card: nil,
+      carecredit: nil,
       cashapp: nil,
       crypto: nil,
       custom: nil,
@@ -632,6 +643,7 @@ module Stripe
       eps: nil,
       expand: nil,
       fpx: nil,
+      getflex: nil,
       gift_card: nil,
       giropay: nil,
       gopay: nil,
@@ -670,6 +682,7 @@ module Stripe
       scalapay: nil,
       sepa_debit: nil,
       sequra: nil,
+      sezzle: nil,
       shopeepay: nil,
       sofort: nil,
       stripe_balance: nil,
@@ -700,6 +713,7 @@ module Stripe
       @blik = blik
       @boleto = boleto
       @card = card
+      @carecredit = carecredit
       @cashapp = cashapp
       @crypto = crypto
       @custom = custom
@@ -708,6 +722,7 @@ module Stripe
       @eps = eps
       @expand = expand
       @fpx = fpx
+      @getflex = getflex
       @gift_card = gift_card
       @giropay = giropay
       @gopay = gopay
@@ -746,6 +761,7 @@ module Stripe
       @scalapay = scalapay
       @sepa_debit = sepa_debit
       @sequra = sequra
+      @sezzle = sezzle
       @shopeepay = shopeepay
       @sofort = sofort
       @stripe_balance = stripe_balance

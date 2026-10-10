@@ -16,17 +16,6 @@ module Stripe
           )
         end
 
-        # Deprecated. Captures an OffSessionPayment that has previously been created.
-        def capture(id, params = {}, opts = {})
-          request(
-            method: :post,
-            path: format("/v2/payments/off_session_payments/%<id>s/capture", { id: CGI.escape(id) }),
-            params: params,
-            opts: opts,
-            base_address: :api
-          )
-        end
-
         # Creates an OffSessionPayment object.
         def create(params = {}, opts = {})
           request(

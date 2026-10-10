@@ -45,12 +45,15 @@ module Stripe
               @business_details = business_details
             end
           end
+          # The account's contact email.
+          attr_accessor :contact_email
           # Default account settings.
           attr_accessor :defaults
           # Identity data.
           attr_accessor :identity
 
-          def initialize(defaults: nil, identity: nil)
+          def initialize(contact_email: nil, defaults: nil, identity: nil)
+            @contact_email = contact_email
             @defaults = defaults
             @identity = identity
           end

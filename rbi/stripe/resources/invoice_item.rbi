@@ -280,7 +280,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # For a credit proration, links to the debit invoice line items or invoice item that the credit applies to.
+      # For a credit proration, links to the debit that the credit applies to. The reference is to an invoice item if the debit was pending when the credit was created, and to invoice line items if the debit was already invoiced.
       sig { returns(T.nilable(CreditedItems)) }
       def credited_items; end
       # Discount amounts applied when the proration was created. This field is only populated for prorations created from subscriptions with `billing_mode=flexible`.

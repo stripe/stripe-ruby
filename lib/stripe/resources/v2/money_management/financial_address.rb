@@ -61,6 +61,21 @@ module Stripe
             end
           end
 
+          class BreB < ::Stripe::StripeObject
+            # The name of the account holder.
+            attr_reader :account_holder_name
+            # The BRE-B payment key.
+            attr_reader :bre_b_key
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Clabe < ::Stripe::StripeObject
             # Attribute for field account_holder_name
             attr_reader :account_holder_name
@@ -124,6 +139,40 @@ module Stripe
             end
           end
 
+          class Nip < ::Stripe::StripeObject
+            # The name of the account holder.
+            attr_reader :account_holder_name
+            # The NIP bank code.
+            attr_reader :bank_code
+            # The name of the bank.
+            attr_reader :bank_name
+            # The NUBAN account number.
+            attr_reader :nuban
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Pix < ::Stripe::StripeObject
+            # The name of the account holder.
+            attr_reader :account_holder_name
+            # The Pix BR code.
+            attr_reader :br_code
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class SortCode < ::Stripe::StripeObject
             # The name of the account holder.
             attr_reader :account_holder_name
@@ -148,6 +197,8 @@ module Stripe
           end
           # ABA bank account details (US).
           attr_reader :aba
+          # BRE-B bank account details (Colombia).
+          attr_reader :bre_b
           # Attribute for field clabe
           attr_reader :clabe
           # The country of the bank account.
@@ -158,13 +209,26 @@ module Stripe
           attr_reader :currency
           # IBAN bank account details.
           attr_reader :iban
+          # NIP bank account details (Nigeria).
+          attr_reader :nip
+          # Pix bank account details (Brazil).
+          attr_reader :pix
           # Sort code bank account details (UK).
           attr_reader :sort_code
           # Open Enum. The type of bank account details.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { aba: Aba, clabe: Clabe, cpa: Cpa, iban: Iban, sort_code: SortCode }
+            @inner_class_types = {
+              aba: Aba,
+              bre_b: BreB,
+              clabe: Clabe,
+              cpa: Cpa,
+              iban: Iban,
+              nip: Nip,
+              pix: Pix,
+              sort_code: SortCode,
+            }
           end
 
           def self.field_remappings

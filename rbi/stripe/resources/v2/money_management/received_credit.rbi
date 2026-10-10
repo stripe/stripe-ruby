@@ -191,6 +191,23 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            class BreB < ::Stripe::StripeObject
+              # The name of the account holder that sent the payment.
+              sig { returns(T.nilable(String)) }
+              def account_holder_name; end
+              # The last 4 digits of the account number that originated the transfer.
+              sig { returns(T.nilable(String)) }
+              def last4; end
+              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+              sig { returns(String) }
+              def network; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             class Clabe < ::Stripe::StripeObject
               # The name of the account holder that sent the payment.
               sig { returns(T.nilable(String)) }
@@ -263,6 +280,49 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            class Nip < ::Stripe::StripeObject
+              # The name of the account holder that sent the payment.
+              sig { returns(T.nilable(String)) }
+              def account_holder_name; end
+              # The Nigerian bank code of the bank that originated the transfer.
+              sig { returns(T.nilable(String)) }
+              def bank_code; end
+              # The name of the bank that originated the transfer.
+              sig { returns(T.nilable(String)) }
+              def bank_name; end
+              # The last 4 digits of the account number that originated the transfer.
+              sig { returns(T.nilable(String)) }
+              def last4; end
+              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+              sig { returns(String) }
+              def network; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class Pix < ::Stripe::StripeObject
+              # The name of the account holder that sent the payment.
+              sig { returns(T.nilable(String)) }
+              def account_holder_name; end
+              # The bank name the transfer was received from.
+              sig { returns(T.nilable(String)) }
+              def bank_name; end
+              # The Pix BR code of the account that originated the transfer.
+              sig { returns(T.nilable(String)) }
+              def br_code; end
+              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+              sig { returns(String) }
+              def network; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             class SortCode < ::Stripe::StripeObject
               # The account holder name of the bank account the transfer was received from.
               sig { returns(T.nilable(String)) }
@@ -292,6 +352,9 @@ module Stripe
             # Hash containing the transaction bank details. Present if `type` field value is `aba`.
             sig { returns(T.nilable(Aba)) }
             def aba; end
+            # Hash containing the transaction bank details. Present if `type` field value is `bre_b`.
+            sig { returns(T.nilable(BreB)) }
+            def bre_b; end
             # Hash containing the transaction bank details. Present if `type` field value is `clabe`.
             sig { returns(T.nilable(Clabe)) }
             def clabe; end
@@ -301,6 +364,12 @@ module Stripe
             # Hash containing the transaction bank details. Present if `type` field value is `iban`.
             sig { returns(T.nilable(Iban)) }
             def iban; end
+            # Hash containing the transaction bank details. Present if `type` field value is `nip`.
+            sig { returns(T.nilable(Nip)) }
+            def nip; end
+            # Hash containing the transaction bank details. Present if `type` field value is `pix`.
+            sig { returns(T.nilable(Pix)) }
+            def pix; end
             # Hash containing the transaction bank details. Present if `type` field value is `sort_code`.
             sig { returns(T.nilable(SortCode)) }
             def sort_code; end
@@ -310,9 +379,12 @@ module Stripe
             def self.inner_class_types
               @inner_class_types = {
                 aba: Aba,
+                bre_b: BreB,
                 clabe: Clabe,
                 cpa: Cpa,
                 iban: Iban,
+                nip: Nip,
+                pix: Pix,
                 sort_code: SortCode,
               }
             end

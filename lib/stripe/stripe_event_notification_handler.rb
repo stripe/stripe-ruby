@@ -1052,7 +1052,9 @@ module Stripe
     def initialize(client, webhook_secret, &fallback_callback)
       super(client, &fallback_callback)
 
-      raise ArgumentError, "webhook_secret must be a non-empty string" if webhook_secret.nil? || webhook_secret.empty?
+      if webhook_secret.nil? || webhook_secret.empty? || webhook_secret.match?(/\A[ \t\r\n\f\v]*\z/)
+        raise ArgumentError, "webhook_secret must be a non-empty string"
+      end
 
       @webhook_secret = webhook_secret
     end

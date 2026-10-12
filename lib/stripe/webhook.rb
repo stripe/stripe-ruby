@@ -135,7 +135,7 @@ module Stripe
           )
         end
 
-        if secret.nil? || secret.empty?
+        if secret.nil? || secret.empty? || secret.match?(/\A[ \t\r\n\f\v]*\z/)
           raise SignatureVerificationError.new(
             "No webhook secret value was provided. It should start with " \
             "`whsec_`",

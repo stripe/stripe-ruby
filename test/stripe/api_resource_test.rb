@@ -3,6 +3,16 @@
 require File.expand_path("../test_helper", __dir__)
 
 module Stripe
+  module V2
+    class TestV2SingletonResource < SingletonAPIResource
+      OBJECT_NAME = "v2.test.singleton"
+
+      def self.object_name
+        "v2.test.singleton"
+      end
+    end
+  end
+
   class ApiResourceTest < Test::Unit::TestCase
     class CustomMethodAPIResource < APIResource
       OBJECT_NAME = "custom_method"
@@ -932,6 +942,14 @@ module Stripe
         session = client.v2.billing.meter_event_session.create
         assert_raises NotImplementedError do
           session.refresh
+        end
+      end
+    end
+
+    context "v2 singleton resource" do
+      should "raise an NotImplementedError on resource_url" do
+        assert_raises NotImplementedError do
+          Stripe::V2::TestV2SingletonResource.resource_url
         end
       end
     end

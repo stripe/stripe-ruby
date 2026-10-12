@@ -70,6 +70,8 @@ module Stripe
 
     module Signature
       EXPECTED_SCHEME = "v1"
+      DebugMetadata = Struct.new(:secret, :destination, :payload)
+      private_constant :DebugMetadata
 
       # Computes a webhook signature given a time (probably the current time),
       # a payload, and a signing secret.
@@ -146,7 +148,7 @@ module Stripe
         expected_sig = compute_signature(timestamp, payload, secret)
         unless signatures.any? { |s| Util.secure_compare(expected_sig, s) }
           raise SignatureVerificationError.new(
-            "No signatures found matching the expected signature for payload",
+            signature_error_message(header, payload, secret),
             header, http_body: payload
           )
         end
@@ -160,6 +162,63 @@ module Stripe
         end
 
         true
+      end
+
+      private_class_method def self.signature_error_message(header, payload, secret)
+        debug_metadata = signature_debug_metadata(header)
+
+        # If metadata has an asterisk-masked secret, compare against its length and last four characters (SECREV-5921)
+        masked_secret = debug_metadata.secret || ""
+        masked_suffix = masked_secret[-4, 4]
+        secret_suffix = secret[-4, 4] || secret
+        if masked_secret&.include?("*") && (secret.length != masked_secret.length || secret_suffix != masked_suffix)
+          dashboard_url = "https://dashboard.stripe.com/webhooks"
+          dashboard_url += "/#{CGI.escape(debug_metadata.destination)}" if debug_metadata.destination
+          return "Webhook signature verification failed. This request may not have originated from Stripe.\n\n" \
+                 "The signing secret you provided is #{secret.length} characters long " \
+                 "and ends in `#{secret_suffix}`. " \
+                 "However, the signing secret for this destination is #{masked_secret.length} characters long " \
+                 "and looks like `#{masked_secret}`. Ensure you're using the signing secret for this " \
+                 "destination, as shown on the Dashboard: #{dashboard_url}\n\n" \
+                 "Learn more: https://docs.stripe.com/webhooks/signature"
+        end
+
+        # If metadata includes the truncated payload hash, compare with the payloaod passed in
+        if debug_metadata.payload&.match?(/\A[0-9a-fA-F]{8}\z/)
+          expected_hash = debug_metadata.payload.downcase
+          actual_hash = OpenSSL::Digest::SHA256.hexdigest(payload)[-8, 8]
+          if expected_hash != actual_hash
+            return "Webhook signature verification failed.\n\n" \
+                   "The request body you passed to this function differs from the request body sent by Stripe " \
+                   "to this webhook destination.\n" \
+                   "The SHA-256 hash of the body should end in `#{expected_hash}`. However, " \
+                   "the SHA-256 hash of the body you provided ends in `#{actual_hash}`.\n\n" \
+                   "Make sure your code does not reformat or otherwise alter the raw HTTP request body " \
+                   "before passing it to this function.\n\n" \
+                   "Learn more: https://docs.stripe.com/webhooks/signature"
+          end
+        end
+
+        # Fall back to the generic message if no debug metadata available
+        "No signatures found matching the expected signature for payload"
+      end
+
+      # Extract metadata from the stripe-signature header value to help debug verification failures
+      private_class_method def self.signature_debug_metadata(header)
+        # For each metadata key, extract the first value found in the header
+        metadata = DebugMetadata.new
+        list_items = header.b.split(/,\s*/).map { |item| item.split("=", 2) }
+        DebugMetadata.members.each do |key|
+          value = list_items.assoc(key.to_s)&.[](1)
+          value&.force_encoding(header.encoding)
+          metadata[key] = safe_metadata_value?(value) ? value : nil
+        end
+        metadata
+      end
+
+      private_class_method def self.safe_metadata_value?(value)
+        # Ignore overly long, potentially attacker-provided metadata values
+        value && value.length <= 100 && value.valid_encoding?
       end
     end
   end

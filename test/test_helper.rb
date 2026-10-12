@@ -89,11 +89,15 @@ module Test
         opts[:payload],
         opts[:secret]
       )
-      Stripe::Webhook::Signature.generate_header(
+      header = Stripe::Webhook::Signature.generate_header(
         opts[:timestamp],
         opts[:signature],
         scheme: opts[:scheme]
       )
+      debug_metadata = (opts[:debug_metadata] || {}).map do |key, value|
+        value.nil? ? key.to_s : "#{key}=#{value}"
+      end
+      ([header] + debug_metadata).join(",")
     end
   end
 end

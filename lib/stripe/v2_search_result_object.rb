@@ -49,7 +49,7 @@ module Stripe
         params.delete(:limit)
         params.delete("limit")
 
-        request_stripe_object(
+        _request(
           method: :post,
           path: next_page_url,
           params: params,

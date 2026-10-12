@@ -9,6 +9,7 @@ module Stripe
     end
 
     def request(method:, path:, base_address:, params: {}, opts: {})
+      params = params.to_h if params.is_a?(RequestParams)
       if method == :post &&
          path.split("?", 2).first.start_with?("/v2/") &&
          path.split("?", 2).first.end_with?("/search") &&

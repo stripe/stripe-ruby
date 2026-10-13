@@ -42,7 +42,7 @@ module Stripe
     sig do
       params(
         workload_client_id: String,
-        identity_provider: T.untyped,
+        identity_provider: ::Stripe::WorkloadIdentity::Provider,
         client_options: T.untyped
       )
         .returns(::Stripe::StripeClient)

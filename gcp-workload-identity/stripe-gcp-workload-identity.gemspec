@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
     "rubygems_mfa_required" => "false",
   }
 
-  s.files = Dir.chdir(File.dirname(__FILE__)) { `git ls-files -- lib`.split("\n") }
+  s.files = Dir.chdir(File.dirname(__FILE__)) { `git ls-files -- lib rbi`.split("\n") }
   s.require_paths = ["lib"]
 
   s.add_dependency "googleauth", "~> 1.8"

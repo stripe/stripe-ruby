@@ -184,6 +184,18 @@ module Stripe
         e = assert_raises(WorkloadIdentityError) { client.v1.customers.list }
         assert_not_match(/super-secret-assertion/, e.message)
       end
+
+      should "include the request-id on an exchange rejection" do
+        stub_request(:post, EXCHANGE_URL)
+          .to_return(status: 400,
+                     headers: { "request-id" => "req_exchange_123" },
+                     body: JSON.generate(error: "invalid_grant"))
+
+        client = StripeClient.for_workload_identity("wci_123", FakeProvider.new)
+
+        e = assert_raises(WorkloadIdentityError) { client.v1.customers.list }
+        assert_equal "req_exchange_123", e.request_id
+      end
     end
 
     context "credential caching and concurrency" do

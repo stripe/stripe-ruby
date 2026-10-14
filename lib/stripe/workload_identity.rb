@@ -130,8 +130,8 @@ module Stripe
           assertion: assertion
         )
 
-        status, response_body = @transport.call(body)
-        handle_exchange_response!(status, response_body, assertion)
+        status, response_body, request_id = @transport.call(body)
+        handle_exchange_response!(status, response_body, assertion, request_id)
       end
 
       private def fetch_assertion!
@@ -141,8 +141,11 @@ module Stripe
                                      "provider: #{e.message}"
       end
 
-      private def handle_exchange_response!(status, response_body, assertion)
-        raise WorkloadIdentityError, describe_exchange_rejection(status, response_body, assertion) unless status == 200
+      private def handle_exchange_response!(status, response_body, assertion, request_id)
+        unless status == 200
+          raise WorkloadIdentityError.new(describe_exchange_rejection(status, response_body, assertion),
+                                          http_headers: { "request-id" => request_id })
+        end
 
         parsed = begin
           JSON.parse(response_body, symbolize_names: true)
@@ -217,7 +220,7 @@ module Stripe
         request.body = body
 
         response = http.request(request)
-        [response.code.to_i, response.body]
+        [response.code.to_i, response.body, response["request-id"]]
       end
     end
   end

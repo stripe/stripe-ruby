@@ -3842,6 +3842,27 @@ module Stripe
         end
       end
 
+      class Carecredit < ::Stripe::StripeObject
+        # Controls when the funds will be captured from the customer's account.
+        attr_reader :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Cashapp < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
@@ -4009,6 +4030,27 @@ module Stripe
       end
 
       class Fpx < ::Stripe::StripeObject
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Getflex < ::Stripe::StripeObject
+        # Controls when the funds will be captured from the customer's account.
+        attr_reader :capture_method
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -4827,6 +4869,27 @@ module Stripe
         end
       end
 
+      class Sezzle < ::Stripe::StripeObject
+        # Controls when the funds will be captured from the customer's account.
+        attr_reader :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Shopeepay < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
@@ -5204,6 +5267,8 @@ module Stripe
       attr_reader :card
       # Attribute for field card_present
       attr_reader :card_present
+      # Attribute for field carecredit
+      attr_reader :carecredit
       # Attribute for field cashapp
       attr_reader :cashapp
       # Attribute for field crypto
@@ -5214,6 +5279,8 @@ module Stripe
       attr_reader :eps
       # Attribute for field fpx
       attr_reader :fpx
+      # Attribute for field getflex
+      attr_reader :getflex
       # Attribute for field gift_card
       attr_reader :gift_card
       # Attribute for field giropay
@@ -5284,6 +5351,8 @@ module Stripe
       attr_reader :sepa_debit
       # Attribute for field sequra
       attr_reader :sequra
+      # Attribute for field sezzle
+      attr_reader :sezzle
       # Attribute for field shopeepay
       attr_reader :shopeepay
       # Attribute for field sofort
@@ -5324,11 +5393,13 @@ module Stripe
           boleto: Boleto,
           card: Card,
           card_present: CardPresent,
+          carecredit: Carecredit,
           cashapp: Cashapp,
           crypto: Crypto,
           customer_balance: CustomerBalance,
           eps: Eps,
           fpx: Fpx,
+          getflex: Getflex,
           gift_card: GiftCard,
           giropay: Giropay,
           gopay: Gopay,
@@ -5364,6 +5435,7 @@ module Stripe
           scalapay: Scalapay,
           sepa_debit: SepaDebit,
           sequra: Sequra,
+          sezzle: Sezzle,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_balance: StripeBalance,

@@ -243,6 +243,11 @@ module Stripe
                }
               def initialize(business_details: nil); end
             end
+            # The account's contact email.
+            sig { returns(T.nilable(String)) }
+            def contact_email; end
+            sig { params(_contact_email: T.nilable(String)).returns(T.nilable(String)) }
+            def contact_email=(_contact_email); end
             # Default account settings.
             sig {
               returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults))
@@ -262,16 +267,16 @@ module Stripe
              }
             def identity=(_identity); end
             sig {
-              params(defaults: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults), identity: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Identity)).void
+              params(contact_email: T.nilable(String), defaults: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults), identity: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Identity)).void
              }
-            def initialize(defaults: nil, identity: nil); end
+            def initialize(contact_email: nil, defaults: nil, identity: nil); end
           end
           # The v2 account ID of the account.
           sig { returns(T.nilable(String)) }
           def account; end
           sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
           def account=(_account); end
-          # The v1 customer ID of the account, for users not yet migrated to v2/accounts.
+          # The v1 customer ID of the account, for users not yet migrated to v2 accounts.
           sig { returns(T.nilable(String)) }
           def customer; end
           sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }

@@ -70,6 +70,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            # The account's contact email.
+            sig { returns(T.nilable(String)) }
+            def contact_email; end
             # Default account settings.
             sig { returns(T.nilable(Defaults)) }
             def defaults; end
@@ -86,7 +89,7 @@ module Stripe
           # The v2 account ID of the account.
           sig { returns(T.nilable(String)) }
           def account; end
-          # The v1 customer ID of the account, for users not yet migrated to v2/accounts.
+          # The v1 customer ID of the account, for users not yet migrated to v2 accounts.
           sig { returns(T.nilable(String)) }
           def customer; end
           # Inline account data to evaluate without creating a v2 account.
@@ -143,6 +146,29 @@ module Stripe
               @field_encodings = {score: :decimal_string}
             end
           end
+          class UserMerchantFit < ::Stripe::StripeObject
+            # Timestamp at which the signal was evaluated.
+            sig { returns(T.nilable(String)) }
+            def evaluated_at; end
+            # Categorical assessment of the user-merchant fit.
+            sig { returns(String) }
+            def fit_level; end
+            # The specific fit score for the user, between 0.00 and 100.00. Absent when fit_level is unknown.
+            sig { returns(T.nilable(BigDecimal)) }
+            def score; end
+            # The account signal ID containing the full user-merchant fit signal result.
+            sig { returns(T.nilable(String)) }
+            def signal; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {score: :decimal_string}
+            end
+          end
           class UserMultiAccounting < ::Stripe::StripeObject
             # Timestamp at which the signal was evaluated.
             sig { returns(T.nilable(String)) }
@@ -172,6 +198,9 @@ module Stripe
           # User account-sharing result for the evaluation, when available.
           sig { returns(T.nilable(UserAccountSharing)) }
           def user_account_sharing; end
+          # User-merchant fit result for the evaluation, when available.
+          sig { returns(T.nilable(UserMerchantFit)) }
+          def user_merchant_fit; end
           # User multi-accounting result for the evaluation, when available.
           sig { returns(T.nilable(UserMultiAccounting)) }
           def user_multi_accounting; end
@@ -179,6 +208,7 @@ module Stripe
             @inner_class_types = {
               fraudulent_website: FraudulentWebsite,
               user_account_sharing: UserAccountSharing,
+              user_merchant_fit: UserMerchantFit,
               user_multi_accounting: UserMultiAccounting,
             }
           end
@@ -188,6 +218,7 @@ module Stripe
           def self.field_encodings
             @field_encodings = {
               user_account_sharing: {kind: :object, fields: {score: :decimal_string}},
+              user_merchant_fit: {kind: :object, fields: {score: :decimal_string}},
               user_multi_accounting: {kind: :object, fields: {score: :decimal_string}},
             }
           end

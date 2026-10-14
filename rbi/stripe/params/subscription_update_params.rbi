@@ -1842,7 +1842,7 @@ module Stripe
     def days_until_due; end
     sig { params(_days_until_due: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def days_until_due=(_days_until_due); end
-    # ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. This takes precedence over `default_source`. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://docs.stripe.com/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://docs.stripe.com/api/customers/object#customer_object-default_source).
+    # ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. This takes precedence over `default_source`. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://docs.stripe.com/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://docs.stripe.com/api/customers/object#customer_object-default_source). For subscriptions created by Checkout Sessions with Managed Payments enabled, you can't update this field directly through the API. Customers can update it through the Customer Portal.
     sig { returns(T.nilable(String)) }
     def default_payment_method; end
     sig { params(_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }

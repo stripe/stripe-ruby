@@ -101,15 +101,6 @@ module Stripe
           end
         end
 
-        class Capture < ::Stripe::RequestParams
-          # The method to use to capture the payment.
-          attr_accessor :capture_method
-
-          def initialize(capture_method: nil)
-            @capture_method = capture_method
-          end
-        end
-
         class PaymentDetails < ::Stripe::RequestParams
           # A unique value to identify the customer. This field is applicable only for card payments. For card payments, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
           attr_accessor :customer_reference
@@ -273,8 +264,6 @@ module Stripe
         attr_accessor :application_fee_amount
         # The frequency of the underlying payment.
         attr_accessor :cadence
-        # Deprecated. Details about the capture configuration for the OffSessionPayment.
-        attr_accessor :capture
         # ID of the Customer to which this OffSessionPayment belongs.
         attr_accessor :customer
         # An arbitrary string attached to the object. Often useful for displaying to users.
@@ -321,7 +310,6 @@ module Stripe
           amount_details: nil,
           application_fee_amount: nil,
           cadence: nil,
-          capture: nil,
           customer: nil,
           description: nil,
           include: nil,
@@ -343,7 +331,6 @@ module Stripe
           @amount_details = amount_details
           @application_fee_amount = application_fee_amount
           @cadence = cadence
-          @capture = capture
           @customer = customer
           @description = description
           @include = include

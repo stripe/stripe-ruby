@@ -58,6 +58,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The account's contact email.
+          sig { returns(T.nilable(String)) }
+          def contact_email; end
           # Default account settings.
           sig { returns(T.nilable(Defaults)) }
           def defaults; end

@@ -1902,10 +1902,6 @@ module Stripe
       register("v2.payments.off_session_payment.paused", &callback)
     end
 
-    def on_v2_payments_off_session_payment_requires_capture(&callback)
-      register("v2.payments.off_session_payment.requires_capture", &callback)
-    end
-
     def on_v2_payments_off_session_payment_resumed(&callback)
       register("v2.payments.off_session_payment.resumed", &callback)
     end

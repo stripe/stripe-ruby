@@ -71,6 +71,11 @@ module Stripe
              }
             def initialize(business_details: nil); end
           end
+          # The account's contact email.
+          sig { returns(T.nilable(String)) }
+          def contact_email; end
+          sig { params(_contact_email: T.nilable(String)).returns(T.nilable(String)) }
+          def contact_email=(_contact_email); end
           # Default account settings.
           sig {
             returns(T.nilable(::Stripe::V2::Core::AccountEvaluationCreateParams::AccountData::Defaults))
@@ -90,9 +95,9 @@ module Stripe
            }
           def identity=(_identity); end
           sig {
-            params(defaults: T.nilable(::Stripe::V2::Core::AccountEvaluationCreateParams::AccountData::Defaults), identity: T.nilable(::Stripe::V2::Core::AccountEvaluationCreateParams::AccountData::Identity)).void
+            params(contact_email: T.nilable(String), defaults: T.nilable(::Stripe::V2::Core::AccountEvaluationCreateParams::AccountData::Defaults), identity: T.nilable(::Stripe::V2::Core::AccountEvaluationCreateParams::AccountData::Identity)).void
            }
-          def initialize(defaults: nil, identity: nil); end
+          def initialize(contact_email: nil, defaults: nil, identity: nil); end
         end
         # The account ID to evaluate. Exactly one of account or account_data must be provided.
         sig { returns(T.nilable(String)) }

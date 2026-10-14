@@ -79,6 +79,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            # The account's contact email.
+            attr_reader :contact_email
             # Default account settings.
             attr_reader :defaults
             # Identity data.
@@ -94,7 +96,7 @@ module Stripe
           end
           # The v2 account ID of the account.
           attr_reader :account
-          # The v1 customer ID of the account, for users not yet migrated to v2/accounts.
+          # The v1 customer ID of the account, for users not yet migrated to v2 accounts.
           attr_reader :customer
           # Inline account data to evaluate without creating a v2 account.
           attr_reader :data
@@ -151,6 +153,29 @@ module Stripe
             end
           end
 
+          class UserMerchantFit < ::Stripe::StripeObject
+            # Timestamp at which the signal was evaluated.
+            attr_reader :evaluated_at
+            # Categorical assessment of the user-merchant fit.
+            attr_reader :fit_level
+            # The specific fit score for the user, between 0.00 and 100.00. Absent when fit_level is unknown.
+            attr_reader :score
+            # The account signal ID containing the full user-merchant fit signal result.
+            attr_reader :signal
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = { score: :decimal_string }
+            end
+          end
+
           class UserMultiAccounting < ::Stripe::StripeObject
             # Timestamp at which the signal was evaluated.
             attr_reader :evaluated_at
@@ -177,6 +202,8 @@ module Stripe
           attr_reader :fraudulent_website
           # User account-sharing result for the evaluation, when available.
           attr_reader :user_account_sharing
+          # User-merchant fit result for the evaluation, when available.
+          attr_reader :user_merchant_fit
           # User multi-accounting result for the evaluation, when available.
           attr_reader :user_multi_accounting
 
@@ -184,6 +211,7 @@ module Stripe
             @inner_class_types = {
               fraudulent_website: FraudulentWebsite,
               user_account_sharing: UserAccountSharing,
+              user_merchant_fit: UserMerchantFit,
               user_multi_accounting: UserMultiAccounting,
             }
           end
@@ -195,6 +223,7 @@ module Stripe
           def self.field_encodings
             @field_encodings = {
               user_account_sharing: { kind: :object, fields: { score: :decimal_string } },
+              user_merchant_fit: { kind: :object, fields: { score: :decimal_string } },
               user_multi_accounting: { kind: :object, fields: { score: :decimal_string } },
             }
           end
@@ -236,6 +265,7 @@ module Stripe
               kind: :object,
               fields: {
                 user_account_sharing: { kind: :object, fields: { score: :decimal_string } },
+                user_merchant_fit: { kind: :object, fields: { score: :decimal_string } },
                 user_multi_accounting: { kind: :object, fields: { score: :decimal_string } },
               },
             },

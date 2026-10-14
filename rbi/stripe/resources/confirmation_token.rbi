@@ -985,6 +985,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Carecredit < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Cashapp < ::Stripe::StripeObject
         # A unique and immutable identifier assigned by Cash App to every buyer.
         sig { returns(T.nilable(String)) }
@@ -1033,6 +1041,14 @@ module Stripe
         # The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bnp_paribas`, `bank_rakyat`, `bsn`, `cimb`, `citibank`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `mbsb_bank`, `pb_enterprise`, or `bank_of_china`.
         sig { returns(String) }
         def bank; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Getflex < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1443,6 +1459,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class RakutenPay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Rechnung < ::Stripe::StripeObject
         class Dob < ::Stripe::StripeObject
           # The day of birth, between 1 and 31.
@@ -1547,6 +1571,14 @@ module Stripe
         end
       end
       class Sequra < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Sezzle < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1779,6 +1811,9 @@ module Stripe
       # Attribute for field card_present
       sig { returns(T.nilable(CardPresent)) }
       def card_present; end
+      # Attribute for field carecredit
+      sig { returns(T.nilable(Carecredit)) }
+      def carecredit; end
       # Attribute for field cashapp
       sig { returns(T.nilable(Cashapp)) }
       def cashapp; end
@@ -1800,6 +1835,9 @@ module Stripe
       # Attribute for field fpx
       sig { returns(T.nilable(Fpx)) }
       def fpx; end
+      # Attribute for field getflex
+      sig { returns(T.nilable(Getflex)) }
+      def getflex; end
       # Attribute for field gift_card
       sig { returns(T.nilable(GiftCard)) }
       def gift_card; end
@@ -1884,6 +1922,9 @@ module Stripe
       # Attribute for field qris
       sig { returns(T.nilable(Qris)) }
       def qris; end
+      # Attribute for field rakuten_pay
+      sig { returns(T.nilable(RakutenPay)) }
+      def rakuten_pay; end
       # Attribute for field rechnung
       sig { returns(T.nilable(Rechnung)) }
       def rechnung; end
@@ -1905,6 +1946,9 @@ module Stripe
       # Attribute for field sequra
       sig { returns(T.nilable(Sequra)) }
       def sequra; end
+      # Attribute for field sezzle
+      sig { returns(T.nilable(Sezzle)) }
+      def sezzle; end
       # Attribute for field shopeepay
       sig { returns(T.nilable(Shopeepay)) }
       def shopeepay; end
@@ -1962,11 +2006,13 @@ module Stripe
           boleto: Boleto,
           card: Card,
           card_present: CardPresent,
+          carecredit: Carecredit,
           cashapp: Cashapp,
           crypto: Crypto,
           customer_balance: CustomerBalance,
           eps: Eps,
           fpx: Fpx,
+          getflex: Getflex,
           gift_card: GiftCard,
           giropay: Giropay,
           gopay: Gopay,
@@ -1995,6 +2041,7 @@ module Stripe
           pix: Pix,
           promptpay: Promptpay,
           qris: Qris,
+          rakuten_pay: RakutenPay,
           rechnung: Rechnung,
           revolut_pay: RevolutPay,
           samsung_pay: SamsungPay,
@@ -2002,6 +2049,7 @@ module Stripe
           scalapay: Scalapay,
           sepa_debit: SepaDebit,
           sequra: Sequra,
+          sezzle: Sezzle,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_balance: StripeBalance,

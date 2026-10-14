@@ -66,6 +66,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            # The account's contact email.
+            attr_reader :contact_email
             # Default account settings.
             attr_reader :defaults
             # Identity data.
@@ -81,7 +83,7 @@ module Stripe
           end
           # The v2 account ID of the account.
           attr_reader :account
-          # The v1 customer ID of the account, for users not yet migrated to v2/accounts.
+          # The v1 customer ID of the account, for users not yet migrated to v2 accounts.
           attr_reader :customer
           # Inline account data to evaluate without creating a v2 account.
           attr_reader :data

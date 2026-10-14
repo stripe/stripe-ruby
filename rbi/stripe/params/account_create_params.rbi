@@ -3634,16 +3634,16 @@ module Stripe
          }
         def initialize(tos_acceptance: nil); end
       end
-      class WechatPayPayments < ::Stripe::RequestParams
-        # The domains of the user's mobile web checkout pages for WeChat Pay payments. At most 4 domains are allowed.
+      class WechatPayMobileWebPayments < ::Stripe::RequestParams
+        # The domains of the user's mobile web checkout pages for WeChat Pay payments.
         sig { returns(T.nilable(T.any(String, T::Array[String]))) }
-        def mobile_web_domains; end
+        def domains; end
         sig {
-          params(_mobile_web_domains: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+          params(_domains: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
          }
-        def mobile_web_domains=(_mobile_web_domains); end
-        sig { params(mobile_web_domains: T.nilable(T.any(String, T::Array[String]))).void }
-        def initialize(mobile_web_domains: nil); end
+        def domains=(_domains); end
+        sig { params(domains: T.nilable(T.any(String, T::Array[String]))).void }
+        def initialize(domains: nil); end
       end
       # Settings specific to Bacs Direct Debit.
       sig { returns(T.nilable(::Stripe::AccountCreateParams::Settings::BacsDebitPayments)) }
@@ -3743,15 +3743,17 @@ module Stripe
         params(_treasury: T.nilable(::Stripe::AccountCreateParams::Settings::Treasury)).returns(T.nilable(::Stripe::AccountCreateParams::Settings::Treasury))
        }
       def treasury=(_treasury); end
-      # Settings specific to the WeChat Pay payments method.
-      sig { returns(T.nilable(::Stripe::AccountCreateParams::Settings::WechatPayPayments)) }
-      def wechat_pay_payments; end
+      # Settings specific to WeChat Pay payments made through a mobile web browser.
       sig {
-        params(_wechat_pay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::WechatPayPayments)).returns(T.nilable(::Stripe::AccountCreateParams::Settings::WechatPayPayments))
+        returns(T.nilable(::Stripe::AccountCreateParams::Settings::WechatPayMobileWebPayments))
        }
-      def wechat_pay_payments=(_wechat_pay_payments); end
+      def wechat_pay_mobile_web_payments; end
       sig {
-        params(bacs_debit_payments: T.nilable(::Stripe::AccountCreateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(::Stripe::AccountCreateParams::Settings::BankBcaOnboarding), branding: T.nilable(::Stripe::AccountCreateParams::Settings::Branding), capital: T.nilable(::Stripe::AccountCreateParams::Settings::Capital), card_issuing: T.nilable(::Stripe::AccountCreateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::AccountCreateParams::Settings::CardPayments), invoices: T.nilable(::Stripe::AccountCreateParams::Settings::Invoices), payments: T.nilable(::Stripe::AccountCreateParams::Settings::Payments), payouts: T.nilable(::Stripe::AccountCreateParams::Settings::Payouts), paypay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::PaypayPayments), sepa_debit_payments: T.nilable(::Stripe::AccountCreateParams::Settings::SepaDebitPayments), smart_disputes: T.nilable(::Stripe::AccountCreateParams::Settings::SmartDisputes), tax_forms: T.nilable(::Stripe::AccountCreateParams::Settings::TaxForms), treasury: T.nilable(::Stripe::AccountCreateParams::Settings::Treasury), wechat_pay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::WechatPayPayments)).void
+        params(_wechat_pay_mobile_web_payments: T.nilable(::Stripe::AccountCreateParams::Settings::WechatPayMobileWebPayments)).returns(T.nilable(::Stripe::AccountCreateParams::Settings::WechatPayMobileWebPayments))
+       }
+      def wechat_pay_mobile_web_payments=(_wechat_pay_mobile_web_payments); end
+      sig {
+        params(bacs_debit_payments: T.nilable(::Stripe::AccountCreateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(::Stripe::AccountCreateParams::Settings::BankBcaOnboarding), branding: T.nilable(::Stripe::AccountCreateParams::Settings::Branding), capital: T.nilable(::Stripe::AccountCreateParams::Settings::Capital), card_issuing: T.nilable(::Stripe::AccountCreateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::AccountCreateParams::Settings::CardPayments), invoices: T.nilable(::Stripe::AccountCreateParams::Settings::Invoices), payments: T.nilable(::Stripe::AccountCreateParams::Settings::Payments), payouts: T.nilable(::Stripe::AccountCreateParams::Settings::Payouts), paypay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::PaypayPayments), sepa_debit_payments: T.nilable(::Stripe::AccountCreateParams::Settings::SepaDebitPayments), smart_disputes: T.nilable(::Stripe::AccountCreateParams::Settings::SmartDisputes), tax_forms: T.nilable(::Stripe::AccountCreateParams::Settings::TaxForms), treasury: T.nilable(::Stripe::AccountCreateParams::Settings::Treasury), wechat_pay_mobile_web_payments: T.nilable(::Stripe::AccountCreateParams::Settings::WechatPayMobileWebPayments)).void
        }
       def initialize(
         bacs_debit_payments: nil,
@@ -3768,7 +3770,7 @@ module Stripe
         smart_disputes: nil,
         tax_forms: nil,
         treasury: nil,
-        wechat_pay_payments: nil
+        wechat_pay_mobile_web_payments: nil
       ); end
     end
     class TosAcceptance < ::Stripe::RequestParams

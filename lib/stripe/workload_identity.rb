@@ -135,23 +135,25 @@ module Stripe
             @transport.call(body)
           rescue StandardError => e
             detail = WorkloadIdentity.sanitize_relayed_text(e.message, assertion: assertion)
-            raise WorkloadIdentityError, "Unable to exchange the workload identity assertion: #{detail}"
+            raise WorkloadIdentityError, "Unable to exchange the workload identity assertion: #{detail}",
+                  cause: nil
           end
         handle_exchange_response!(status, response_body, assertion, request_id)
       end
 
       private def fetch_assertion!
-        assertion = @identity_provider.identity_assertion
+        assertion =
+          begin
+            @identity_provider.identity_assertion
+          rescue StandardError
+            raise WorkloadIdentityError, "Unable to obtain an identity assertion from the workload identity " \
+                                         "provider.", cause: nil
+          end
         unless assertion.is_a?(String) && !assertion.empty?
           raise WorkloadIdentityError, "The workload identity provider did not return a usable identity assertion."
         end
 
         assertion
-      rescue WorkloadIdentityError
-        raise
-      rescue StandardError => e
-        raise WorkloadIdentityError, "Unable to obtain an identity assertion from the workload identity " \
-                                     "provider: #{e.message}"
       end
 
       private def handle_exchange_response!(status, response_body, assertion, request_id)
@@ -164,7 +166,7 @@ module Stripe
           JSON.parse(response_body, symbolize_names: true)
         rescue JSON::ParserError
           raise WorkloadIdentityError, "The workload identity token exchange returned a response that " \
-                                       "couldn't be parsed as JSON."
+                                       "couldn't be parsed as JSON.", cause: nil
         end
 
         access_token = parsed[:access_token]

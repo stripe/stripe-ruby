@@ -142,11 +142,15 @@ module Stripe
         assert_not_requested :any, "https://evil.example/"
       end
 
-      should "raise for a non-JSON exchange response" do
-        stub_request(:post, EXCHANGE_URL).to_return(status: 200, body: "not json")
+      should "not expose a malformed response through the JSON parser error cause" do
+        assertion = "super-secret-assertion"
+        stub_request(:post, EXCHANGE_URL).to_return(status: 200, body: assertion)
 
-        client = StripeClient.for_workload_identity("wci_123", FakeProvider.new)
-        assert_raises(WorkloadIdentityError) { client.v1.customers.list }
+        client = StripeClient.for_workload_identity("wci_123", FakeProvider.new { assertion })
+        e = assert_raises(WorkloadIdentityError) { client.v1.customers.list }
+
+        assert_nil e.cause
+        assert_not_match(/#{Regexp.escape(assertion)}/, e.full_message)
       end
 
       should "raise if access_token is missing" do

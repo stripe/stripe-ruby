@@ -106,7 +106,7 @@ module Stripe
       def self.get_timestamp_and_signatures(header, scheme)
         list_items = header.split(/,\s*/).map { |i| i.split("=", 2) }
         timestamp = Integer(list_items.select { |i| i[0] == "t" }[0][1])
-        signatures = list_items.select { |i| i[0] == scheme }.map { |i| i[1] }
+        signatures = list_items.select { |i| i[0] == scheme }.map { |i| i[1] }.compact
         [Time.at(timestamp), signatures]
       end
       private_class_method :get_timestamp_and_signatures

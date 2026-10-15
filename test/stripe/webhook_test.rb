@@ -160,6 +160,20 @@ module Stripe
         assert_match("No signatures found with expected scheme", e.message)
       end
 
+      should "raise a SignatureVerificationError when a required header value is missing or invalid" do
+        [
+          ["t", "Unable to extract timestamp and signatures from header"],
+          ["t=now", "Unable to extract timestamp and signatures from header"],
+          ["t=now,v1=123", "Unable to extract timestamp and signatures from header"],
+          ["t=12345678,v1", "No signatures found with expected scheme v1"],
+        ].each do |header, expected_message|
+          e = assert_raises(Stripe::SignatureVerificationError) do
+            Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET)
+          end
+          assert_equal(expected_message, e.message)
+        end
+      end
+
       should "raise a SignatureVerificationError when there are no valid signatures for the payload" do
         header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD, signature: "bad_signature")
         e = assert_raises(Stripe::SignatureVerificationError) do
@@ -290,6 +304,14 @@ module Stripe
             Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET)
           end
           # Fall through to generic error
+          assert_equal("No signatures found matching the expected signature for payload", e.message)
+        end
+
+        should "ignore malformed debug key-value pairs" do
+          header = "t=123,v1=123456,secret,destination,payload"
+          e = assert_raises(Stripe::SignatureVerificationError) do
+            Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET)
+          end
           assert_equal("No signatures found matching the expected signature for payload", e.message)
         end
       end

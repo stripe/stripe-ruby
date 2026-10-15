@@ -167,7 +167,7 @@ module Stripe
       private_class_method def self.signature_error_message(header, payload, secret)
         debug_metadata = signature_debug_metadata(header)
 
-        # If metadata has an asterisk-masked secret, compare against its length and last four characters (SECREV-5921)
+        # If metadata has an asterisk-masked secret, compare against its length and last four characters
         masked_secret = debug_metadata.secret || ""
         masked_suffix = masked_secret[-4, 4]
         secret_suffix = secret[-4, 4] || secret
@@ -183,7 +183,7 @@ module Stripe
                  "Learn more: https://docs.stripe.com/webhooks/signature"
         end
 
-        # If metadata includes the truncated payload hash, compare with the payloaod passed in
+        # If metadata includes the truncated payload hash, compare with the payload passed in
         if debug_metadata.payload&.match?(/\A[0-9a-fA-F]{8}\z/)
           expected_hash = debug_metadata.payload.downcase
           actual_hash = OpenSSL::Digest::SHA256.hexdigest(payload)[-8, 8]

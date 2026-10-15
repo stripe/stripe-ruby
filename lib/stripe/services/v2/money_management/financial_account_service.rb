@@ -42,7 +42,7 @@ module Stripe
           )
         end
 
-        # Lists FinancialAccounts in this compartment.
+        # Lists FinancialAccounts in this account.
         def list(params = {}, opts = {})
           request(
             method: :get,

@@ -1143,12 +1143,8 @@ module Stripe
       end
 
       module Vault
-        autoload :GbBankAccountAcknowledgeConfirmationOfPayeeParams,
-                 "stripe/params/v2/core/vault/gb_bank_account_acknowledge_confirmation_of_payee_params"
         autoload :GbBankAccountArchiveParams, "stripe/params/v2/core/vault/gb_bank_account_archive_params"
         autoload :GbBankAccountCreateParams, "stripe/params/v2/core/vault/gb_bank_account_create_params"
-        autoload :GbBankAccountInitiateConfirmationOfPayeeParams,
-                 "stripe/params/v2/core/vault/gb_bank_account_initiate_confirmation_of_payee_params"
         autoload :GbBankAccountListParams, "stripe/params/v2/core/vault/gb_bank_account_list_params"
         autoload :GbBankAccountRetrieveParams, "stripe/params/v2/core/vault/gb_bank_account_retrieve_params"
         autoload :NetworkTokenCreateFromCredentialParams,
@@ -1331,7 +1327,6 @@ module Stripe
 
     module Payments
       autoload :OffSessionPaymentCancelParams, "stripe/params/v2/payments/off_session_payment_cancel_params"
-      autoload :OffSessionPaymentCaptureParams, "stripe/params/v2/payments/off_session_payment_capture_params"
       autoload :OffSessionPaymentCreateParams, "stripe/params/v2/payments/off_session_payment_create_params"
       autoload :OffSessionPaymentListParams, "stripe/params/v2/payments/off_session_payment_list_params"
       autoload :OffSessionPaymentPauseParams, "stripe/params/v2/payments/off_session_payment_pause_params"
@@ -2379,10 +2374,8 @@ module Stripe
     stripe/params/v2/core/health/alert_list_params
     stripe/params/v2/core/health/alert_retrieve_params
     stripe/params/v2/core/health/alerts/history_list_params
-    stripe/params/v2/core/vault/gb_bank_account_acknowledge_confirmation_of_payee_params
     stripe/params/v2/core/vault/gb_bank_account_archive_params
     stripe/params/v2/core/vault/gb_bank_account_create_params
-    stripe/params/v2/core/vault/gb_bank_account_initiate_confirmation_of_payee_params
     stripe/params/v2/core/vault/gb_bank_account_list_params
     stripe/params/v2/core/vault/gb_bank_account_retrieve_params
     stripe/params/v2/core/vault/network_token_create_from_credential_params
@@ -2506,7 +2499,6 @@ module Stripe
     stripe/params/v2/orchestrated_commerce/agreement_retrieve_params
     stripe/params/v2/orchestrated_commerce/agreement_terminate_params
     stripe/params/v2/payments/off_session_payment_cancel_params
-    stripe/params/v2/payments/off_session_payment_capture_params
     stripe/params/v2/payments/off_session_payment_create_params
     stripe/params/v2/payments/off_session_payment_list_params
     stripe/params/v2/payments/off_session_payment_pause_params

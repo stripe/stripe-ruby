@@ -116,6 +116,7 @@ module Stripe
           end
         end
 
+        class Carecredit < ::Stripe::RequestParams; end
         class Cashapp < ::Stripe::RequestParams; end
         class Crypto < ::Stripe::RequestParams; end
         class CustomerBalance < ::Stripe::RequestParams; end
@@ -140,6 +141,8 @@ module Stripe
             @bank = bank
           end
         end
+
+        class Getflex < ::Stripe::RequestParams; end
 
         class GiftCard < ::Stripe::RequestParams
           # The gift card ID to redeem
@@ -290,6 +293,8 @@ module Stripe
           end
         end
 
+        class RakutenPay < ::Stripe::RequestParams; end
+
         class Rechnung < ::Stripe::RequestParams
           class Dob < ::Stripe::RequestParams
             # The day of birth, between 1 and 31.
@@ -328,6 +333,7 @@ module Stripe
         end
 
         class Sequra < ::Stripe::RequestParams; end
+        class Sezzle < ::Stripe::RequestParams; end
         class Shopeepay < ::Stripe::RequestParams; end
 
         class Sofort < ::Stripe::RequestParams
@@ -439,6 +445,8 @@ module Stripe
         attr_accessor :blik
         # If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
         attr_accessor :boleto
+        # If this is a `carecredit` PaymentMethod, this hash contains details about the CareCredit payment method.
+        attr_accessor :carecredit
         # If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         attr_accessor :cashapp
         # If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
@@ -449,6 +457,8 @@ module Stripe
         attr_accessor :eps
         # If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
         attr_accessor :fpx
+        # If this is a `getflex` PaymentMethod, this hash contains details about the GetFlex payment method.
+        attr_accessor :getflex
         # If this is a `gift_card` PaymentMethod, this hash contains details about the gift card payment method.
         attr_accessor :gift_card
         # If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
@@ -509,6 +519,8 @@ module Stripe
         attr_accessor :qris
         # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
         attr_accessor :radar_options
+        # If this is a `rakuten_pay` PaymentMethod, this hash contains details about the Rakuten Pay payment method.
+        attr_accessor :rakuten_pay
         # If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
         attr_accessor :rechnung
         # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
@@ -523,6 +535,8 @@ module Stripe
         attr_accessor :sepa_debit
         # If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
         attr_accessor :sequra
+        # If this is a `sezzle` PaymentMethod, this hash contains details about the Sezzle payment method.
+        attr_accessor :sezzle
         # ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
         attr_accessor :shared_payment_granted_token
         # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
@@ -568,11 +582,13 @@ module Stripe
           bizum: nil,
           blik: nil,
           boleto: nil,
+          carecredit: nil,
           cashapp: nil,
           crypto: nil,
           customer_balance: nil,
           eps: nil,
           fpx: nil,
+          getflex: nil,
           gift_card: nil,
           giropay: nil,
           gopay: nil,
@@ -603,6 +619,7 @@ module Stripe
           promptpay: nil,
           qris: nil,
           radar_options: nil,
+          rakuten_pay: nil,
           rechnung: nil,
           revolut_pay: nil,
           samsung_pay: nil,
@@ -610,6 +627,7 @@ module Stripe
           scalapay: nil,
           sepa_debit: nil,
           sequra: nil,
+          sezzle: nil,
           shared_payment_granted_token: nil,
           shopeepay: nil,
           sofort: nil,
@@ -640,11 +658,13 @@ module Stripe
           @bizum = bizum
           @blik = blik
           @boleto = boleto
+          @carecredit = carecredit
           @cashapp = cashapp
           @crypto = crypto
           @customer_balance = customer_balance
           @eps = eps
           @fpx = fpx
+          @getflex = getflex
           @gift_card = gift_card
           @giropay = giropay
           @gopay = gopay
@@ -675,6 +695,7 @@ module Stripe
           @promptpay = promptpay
           @qris = qris
           @radar_options = radar_options
+          @rakuten_pay = rakuten_pay
           @rechnung = rechnung
           @revolut_pay = revolut_pay
           @samsung_pay = samsung_pay
@@ -682,6 +703,7 @@ module Stripe
           @scalapay = scalapay
           @sepa_debit = sepa_debit
           @sequra = sequra
+          @sezzle = sezzle
           @shared_payment_granted_token = shared_payment_granted_token
           @shopeepay = shopeepay
           @sofort = sofort

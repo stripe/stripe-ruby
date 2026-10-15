@@ -711,8 +711,6 @@ module Stripe
         Events::V2PaymentsOffSessionPaymentFailedEvent,
         Events::V2PaymentsOffSessionPaymentPausedEvent.lookup_type =>
         Events::V2PaymentsOffSessionPaymentPausedEvent,
-        Events::V2PaymentsOffSessionPaymentRequiresCaptureEvent.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentRequiresCaptureEvent,
         Events::V2PaymentsOffSessionPaymentResumedEvent.lookup_type =>
         Events::V2PaymentsOffSessionPaymentResumedEvent,
         Events::V2PaymentsOffSessionPaymentSucceededEvent.lookup_type =>
@@ -1611,8 +1609,6 @@ module Stripe
         Events::V2PaymentsOffSessionPaymentFailedEventNotification,
         Events::V2PaymentsOffSessionPaymentPausedEventNotification.lookup_type =>
         Events::V2PaymentsOffSessionPaymentPausedEventNotification,
-        Events::V2PaymentsOffSessionPaymentRequiresCaptureEventNotification.lookup_type =>
-        Events::V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
         Events::V2PaymentsOffSessionPaymentResumedEventNotification.lookup_type =>
         Events::V2PaymentsOffSessionPaymentResumedEventNotification,
         Events::V2PaymentsOffSessionPaymentSucceededEventNotification.lookup_type =>

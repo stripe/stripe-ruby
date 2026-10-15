@@ -238,6 +238,23 @@ module Stripe
             @field_encodings = {score: :decimal_string}
           end
         end
+        class UserMerchantFit < ::Stripe::StripeObject
+          # Categorical assessment of the user-merchant fit.
+          sig { returns(String) }
+          def fit_level; end
+          # The specific fit score for the user, between 0.00 and 100.00. Absent when fit_level is unknown.
+          sig { returns(T.nilable(BigDecimal)) }
+          def score; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {score: :decimal_string}
+          end
+        end
         class UserMultiAccounting < ::Stripe::StripeObject
           # Categorical assessment of the multi-accounting risk.
           sig { returns(String) }
@@ -292,6 +309,9 @@ module Stripe
         # Data for the user account-sharing signal. Present only when type is user_account_sharing.
         sig { returns(T.nilable(UserAccountSharing)) }
         def user_account_sharing; end
+        # Data for the user-merchant fit signal. Present only when type is user_merchant_fit.
+        sig { returns(T.nilable(UserMerchantFit)) }
+        def user_merchant_fit; end
         # Data for the user multi-accounting signal. Present only when type is user_multi_accounting.
         sig { returns(T.nilable(UserMultiAccounting)) }
         def user_multi_accounting; end

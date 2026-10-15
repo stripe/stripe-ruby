@@ -939,6 +939,16 @@ module Stripe
         end
       end
 
+      class Carecredit < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Cashapp < ::Stripe::StripeObject
         # A unique and immutable identifier assigned by Cash App to every buyer.
         attr_reader :buyer_id
@@ -993,6 +1003,16 @@ module Stripe
         # The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bnp_paribas`, `bank_rakyat`, `bsn`, `cimb`, `citibank`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `mbsb_bank`, `pb_enterprise`, or `bank_of_china`.
         attr_reader :bank
 
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Getflex < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1425,6 +1445,16 @@ module Stripe
         end
       end
 
+      class RakutenPay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Rechnung < ::Stripe::StripeObject
         class Dob < ::Stripe::StripeObject
           # The day of birth, between 1 and 31.
@@ -1534,6 +1564,16 @@ module Stripe
       end
 
       class Sequra < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Sezzle < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1767,6 +1807,8 @@ module Stripe
       attr_reader :card
       # Attribute for field card_present
       attr_reader :card_present
+      # Attribute for field carecredit
+      attr_reader :carecredit
       # Attribute for field cashapp
       attr_reader :cashapp
       # Attribute for field crypto
@@ -1781,6 +1823,8 @@ module Stripe
       attr_reader :eps
       # Attribute for field fpx
       attr_reader :fpx
+      # Attribute for field getflex
+      attr_reader :getflex
       # Attribute for field gift_card
       attr_reader :gift_card
       # Attribute for field giropay
@@ -1837,6 +1881,8 @@ module Stripe
       attr_reader :promptpay
       # Attribute for field qris
       attr_reader :qris
+      # Attribute for field rakuten_pay
+      attr_reader :rakuten_pay
       # Attribute for field rechnung
       attr_reader :rechnung
       # Attribute for field revolut_pay
@@ -1851,6 +1897,8 @@ module Stripe
       attr_reader :sepa_debit
       # Attribute for field sequra
       attr_reader :sequra
+      # Attribute for field sezzle
+      attr_reader :sezzle
       # Attribute for field shopeepay
       attr_reader :shopeepay
       # Attribute for field sofort
@@ -1896,11 +1944,13 @@ module Stripe
           boleto: Boleto,
           card: Card,
           card_present: CardPresent,
+          carecredit: Carecredit,
           cashapp: Cashapp,
           crypto: Crypto,
           customer_balance: CustomerBalance,
           eps: Eps,
           fpx: Fpx,
+          getflex: Getflex,
           gift_card: GiftCard,
           giropay: Giropay,
           gopay: Gopay,
@@ -1929,6 +1979,7 @@ module Stripe
           pix: Pix,
           promptpay: Promptpay,
           qris: Qris,
+          rakuten_pay: RakutenPay,
           rechnung: Rechnung,
           revolut_pay: RevolutPay,
           samsung_pay: SamsungPay,
@@ -1936,6 +1987,7 @@ module Stripe
           scalapay: Scalapay,
           sepa_debit: SepaDebit,
           sequra: Sequra,
+          sezzle: Sezzle,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_balance: StripeBalance,

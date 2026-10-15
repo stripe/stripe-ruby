@@ -490,7 +490,12 @@ module Stripe
 
       api_key ||= opts[:api_key]
 
-      check_api_key!(api_key) unless config.authenticator
+      if config.authenticator && config.api_key
+        raise AuthenticationError,
+              "Can't specify both api_key and authenticator."
+      end
+
+      check_api_key!(api_key) if api_key || !config.authenticator
 
       body_params = nil
       query_params = nil
@@ -1033,6 +1038,7 @@ module Stripe
     end
 
     private def build_authorization_header(req_opts)
+      return req_opts[:headers]["Authorization"] if req_opts[:headers]&.key?("Authorization")
       return "Bearer #{req_opts[:api_key]}" if req_opts[:api_key] || !config.authenticator
 
       value = config.authenticator.call

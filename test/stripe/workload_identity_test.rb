@@ -323,7 +323,7 @@ module Stripe
         end
 
         assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers", times: 1
-        assert_requested :post, EXCHANGE_URL, times: 1
+        assert_requested :post, EXCHANGE_URL, times: 0
       end
     end
 

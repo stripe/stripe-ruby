@@ -1,0 +1,102 @@
+name: Release GCP workload identity adapter
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - master
+      - beta
+      - private-preview
+      - sdk-release/**
+      - feature/**
+    tags:
+      - gcp-workload-identity-v[0-9]+.[0-9]+.[0-9]+*
+    paths:
+      - gcp-workload-identity/**
+      - .github/workflows/release-gcp-workload-identity.yml
+  pull_request:
+    branches:
+      - master
+      - beta
+      - private-preview
+      - sdk-release/**
+      - feature/**
+    paths:
+      - gcp-workload-identity/**
+      - .github/workflows/release-gcp-workload-identity.yml
+
+permissions: {}
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+    - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+      with:
+        ruby-version: '3.4'
+    - name: test
+      run: just test-gcp-adapter
+
+  build:
+    name: Build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+      with:
+        ruby-version: '3.1'
+    - name: Verify tag matches gem version
+      if: startsWith(github.ref, 'refs/tags/')
+      env:
+        REF_NAME: ${{ github.ref_name }}
+      run: |
+        version=$(ruby -e 'require "./gcp-workload-identity/lib/stripe/gcp_workload_identity/version"; puts Stripe::GcpWorkloadIdentity::VERSION')
+        if [ "$REF_NAME" != "gcp-workload-identity-v$version" ]; then
+          echo "Tag $REF_NAME does not match gem version $version" >&2
+          exit 1
+        fi
+    - name: Build
+      working-directory: gcp-workload-identity
+      run: gem build stripe-gcp-workload-identity.gemspec
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: gcp-workload-identity-gem
+        path: gcp-workload-identity/*.gem
+
+  publish:
+    name: Publish
+    if: >-
+      ((github.event_name == 'workflow_dispatch') || (github.event_name == 'push')) &&
+      startsWith(github.ref, 'refs/tags/gcp-workload-identity-v')
+    needs: [build, test]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+    - name: Download workflow run artifacts
+      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      with:
+        name: gcp-workload-identity-gem
+        path: gems
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+      with:
+        ruby-version: '3.1'
+    - name: Publish gem to Rubygems
+      run: gem push gems/*.gem
+      env:
+        GEM_HOST_API_KEY: ${{secrets.GEM_HOST_API_KEY}}

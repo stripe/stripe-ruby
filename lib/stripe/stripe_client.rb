@@ -16,7 +16,7 @@ module Stripe
 
     # For internal use only. Does not provide a stable API and may be broken
     # with future non-major changes.
-    CLIENT_OPTIONS = Set.new(%i[api_key stripe_account stripe_context api_version api_base uploads_base connect_base meter_events_base client_id])
+    CLIENT_OPTIONS = Set.new(%i[api_key authenticator stripe_account stripe_context api_version api_base uploads_base connect_base meter_events_base client_id])
 
     # Initializes a new StripeClient
     def initialize(api_key,
@@ -27,8 +27,11 @@ module Stripe
                    uploads_base: nil,
                    connect_base: nil,
                    meter_events_base: nil,
-                   client_id: nil)
-      unless api_key
+                   client_id: nil,
+                   authenticator: nil)
+      raise AuthenticationError, "Can't specify both api_key and authenticator." if api_key && authenticator
+
+      unless api_key || authenticator
         raise AuthenticationError, "No API key provided. " \
                                    'Set your API key using "client = Stripe::StripeClient.new(<API-KEY>)". ' \
                                    "You can generate API keys from the Stripe web interface. " \
@@ -38,6 +41,7 @@ module Stripe
 
       config_opts = {
         api_key: api_key,
+        authenticator: authenticator,
         stripe_account: stripe_account,
         stripe_context: stripe_context,
         api_version: stripe_version,
@@ -55,6 +59,26 @@ module Stripe
       @v1 = Stripe::V1Services.new(@requestor)
       @v2 = Stripe::V2Services.new(@requestor)
       # top-level services: The end of the section generated from our OpenAPI spec
+    end
+
+    # Builds a StripeClient that authenticates using workload identity:
+    # instead of a long-lived API key, requests are signed with a short-lived
+    # restricted key obtained by exchanging an identity assertion from
+    # `identity_provider` (e.g. an instance from a separately-packaged cloud
+    # provider adapter gem such as `stripe-gcp-workload-identity`).
+    #
+    # `workload_client_id` identifies the workload identity configuration in
+    # the Stripe Dashboard; it is unrelated to the `client_id:` option used
+    # for Connect OAuth, which can still be passed via `client_options`.
+    def self.for_workload_identity(workload_client_id, identity_provider, **client_options)
+      if client_options.key?(:api_key) || client_options.key?(:authenticator)
+        raise ArgumentError, "Stripe::StripeClient.for_workload_identity does not accept :api_key or " \
+                             ":authenticator; credentials are derived from the workload identity provider."
+      end
+
+      WorkloadIdentity.validate_provider!(identity_provider)
+      credentials = WorkloadIdentity::Credentials.new(workload_client_id, identity_provider)
+      new(nil, authenticator: WorkloadIdentity::Authenticator.new(credentials), **client_options)
     end
 
     def request(&block)
@@ -135,7 +159,8 @@ module Stripe
         uploads_base: config.uploads_base,
         connect_base: config.connect_base,
         meter_events_base: config.meter_events_base,
-        client_id: config.client_id
+        client_id: config.client_id,
+        authenticator: config.authenticator
       )
     end
 

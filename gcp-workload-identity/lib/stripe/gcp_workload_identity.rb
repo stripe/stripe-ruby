@@ -1,0 +1,44 @@
+# frozen_string_literal: true
+
+require "googleauth"
+
+require "stripe/gcp_workload_identity/version"
+
+module Stripe
+  module GcpWorkloadIdentity
+    # The fixed audience that Stripe expects for workload identity
+    AUDIENCE = "https://access.stripe.com/wif"
+
+    # Error is raised when a Google-signed identity assertion can't be
+    # obtained. The original exception, if any, is available via `#cause`.
+    class Error < StandardError
+    end
+
+    # Implements the workload identity provider, matching the
+    # type expected by `Stripe::StripeClient.for_workload_identity`
+    class GcpWorkloadIdentity
+      def provider
+        "gcp"
+      end
+
+      def identity_assertion
+        credentials = Google::Auth::GCECredentials.new(token_type: :id_token, target_audience: AUDIENCE)
+
+        begin
+          credentials.fetch_access_token!
+        rescue StandardError => e
+          raise Error, "Unable to obtain a GCP workload identity assertion: #{e.message}. Check that this " \
+                       "process is running in a GCP environment that exposes the metadata identity-token " \
+                       "endpoint, that its workload identity is allowed to request an identity token, and " \
+                       "that it can reach the metadata server. For local development, tests, and CI, use " \
+                       "a Stripe API key with Stripe::StripeClient.new(...) instead."
+        end
+
+        token = credentials.id_token
+        raise Error, "The GCP metadata server returned no identity token." if token.nil? || token.empty?
+
+        token
+      end
+    end
+  end
+end

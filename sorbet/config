@@ -3,3 +3,4 @@
 --ignore=tmp/
 --ignore=vendor/
 --ignore=rbi/stripe.rbi
+--ignore=gcp-workload-identity/

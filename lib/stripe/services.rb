@@ -98,6 +98,7 @@ module Stripe
   autoload :ReportingService, "stripe/services/reporting_service"
   autoload :ReserveService, "stripe/services/reserve_service"
   autoload :ReviewService, "stripe/services/review_service"
+  autoload :RiskService, "stripe/services/risk_service"
   autoload :SetupAttemptService, "stripe/services/setup_attempt_service"
   autoload :SetupIntentService, "stripe/services/setup_intent_service"
   autoload :SharedPaymentService, "stripe/services/shared_payment_service"
@@ -259,6 +260,10 @@ module Stripe
     autoload :HoldService, "stripe/services/reserve/hold_service"
     autoload :PlanService, "stripe/services/reserve/plan_service"
     autoload :ReleaseService, "stripe/services/reserve/release_service"
+  end
+
+  module Risk
+    autoload :FormService, "stripe/services/risk/form_service"
   end
 
   module SharedPayment
@@ -775,6 +780,8 @@ module Stripe
     stripe/services/reserve/release_service
     stripe/services/reserve_service
     stripe/services/review_service
+    stripe/services/risk/form_service
+    stripe/services/risk_service
     stripe/services/setup_attempt_service
     stripe/services/setup_intent_service
     stripe/services/shared_payment/granted_token_service

@@ -111,6 +111,23 @@ module Stripe
         end
 
         class EvaluatedSignals < ::Stripe::StripeObject
+          class AccountTakeover < ::Stripe::StripeObject
+            # Timestamp at which the signal was evaluated.
+            attr_reader :evaluated_at
+            # Categorical assessment of the account takeover risk.
+            attr_reader :risk_level
+            # The account signal ID containing the full account takeover signal result.
+            attr_reader :signal
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class FraudulentWebsite < ::Stripe::StripeObject
             # Human-readable details about the fraudulent website evaluation, when available.
             attr_reader :details
@@ -198,6 +215,8 @@ module Stripe
               @field_encodings = { score: :decimal_string }
             end
           end
+          # Synchronous account takeover result for the evaluation, when requested.
+          attr_reader :account_takeover
           # Fraudulent website result for the evaluation, when available.
           attr_reader :fraudulent_website
           # User account-sharing result for the evaluation, when available.
@@ -209,6 +228,7 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = {
+              account_takeover: AccountTakeover,
               fraudulent_website: FraudulentWebsite,
               user_account_sharing: UserAccountSharing,
               user_merchant_fit: UserMerchantFit,

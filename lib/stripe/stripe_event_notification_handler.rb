@@ -1974,6 +1974,10 @@ module Stripe
       register("v2.signals.account_evaluation.complete", &callback)
     end
 
+    def on_v2_signals_account_signal_customer_risk_ready(&callback)
+      register("v2.signals.account_signal.customer_risk_ready", &callback)
+    end
+
     def on_v2_signals_account_signal_fraudulent_merchant_ready(&callback)
       register("v2.signals.account_signal.fraudulent_merchant_ready", &callback)
     end

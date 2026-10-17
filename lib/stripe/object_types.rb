@@ -171,6 +171,7 @@ module Stripe
         Reserve::Release.object_name => Reserve::Release,
         ReserveTransaction.object_name => ReserveTransaction,
         Review.object_name => Review,
+        Risk::Form.object_name => Risk::Form,
         RiskSignals.object_name => RiskSignals,
         SetupAttempt.object_name => SetupAttempt,
         SetupIntent.object_name => SetupIntent,
@@ -230,6 +231,7 @@ module Stripe
     def self.v2_object_names_to_classes
       {
         V2::ListObject.object_name => V2::ListObject,
+        V2::SearchResultObject.object_name => V2::SearchResultObject,
 
         # v2 object classes: The beginning of the section generated from our OpenAPI spec
         V2::Billing::BillSetting.object_name => V2::Billing::BillSetting,

@@ -1691,7 +1691,7 @@ module Stripe
       end
 
       class Fees < ::Stripe::RequestParams
-        # A value indicating the responsible payer of Stripe fees on this account. Defaults to `account`. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
+        # Controls who pays Stripe fees for direct charges and other pricing-control-eligible Stripe products. Setting `controller.losses.payments=application` requires `controller.fees.payer=application`. For destination charges and separate charges and transfers, Stripe bills the platform regardless of this setting. Defaults to `account`. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior), including application fees and pricing considerations.
         attr_accessor :payer
 
         def initialize(payer: nil)
@@ -1700,7 +1700,7 @@ module Stripe
       end
 
       class Losses < ::Stripe::RequestParams
-        # A value indicating who is liable when this account can't pay back negative balances resulting from payments. Defaults to `stripe`.
+        # Controls who is responsible for payment-related negative balances on this account. The platform remains liable for negative balances on its own account. To use Stripe negative balance liability, your integration must meet [Managed Risk requirements](https://docs.stripe.com/connect/risk-management/managed-risk). Defaults to `stripe`.
         attr_accessor :payments
 
         def initialize(payments: nil)
@@ -2687,7 +2687,7 @@ module Stripe
     attr_accessor :capabilities
     # Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
     attr_accessor :company
-    # A hash of configuration describing the account controller's attributes.
+    # Configures the account's Dashboard access, loss liability, requirements collection, and Stripe fee responsibility.
     attr_accessor :controller
     # The country in which the account holder resides, or in which the business is legally established. This should be an ISO 3166-1 alpha-2 country code. For example, if you are in the United States and the business for which you're creating an account is legally represented in Canada, you would use `CA` as the country for the account being created. Available countries include [Stripe's global markets](https://stripe.com/global) as well as countries where [cross-border payouts](https://stripe.com/docs/connect/cross-border-payouts) are supported.
     attr_accessor :country

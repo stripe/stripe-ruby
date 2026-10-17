@@ -9742,6 +9742,92 @@ module Stripe
                       }
                     end
                   end
+                  class Czk < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
                   class Eur < ::Stripe::StripeObject
                     class Protections < ::Stripe::StripeObject
                       class PspMigration < ::Stripe::StripeObject
@@ -9914,7 +10000,265 @@ module Stripe
                       }
                     end
                   end
+                  class Nok < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
                   class Ousd < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  class Pln < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  class Sek < ::Stripe::StripeObject
                     class Protections < ::Stripe::StripeObject
                       class PspMigration < ::Stripe::StripeObject
                         # The time until which the protection will expire, as a Unix timestamp.
@@ -10178,15 +10522,27 @@ module Stripe
                   # Can receive business storage-type funds on Stripe in CAD.
                   sig { returns(T.nilable(Cad)) }
                   def cad; end
+                  # Can receive business storage-type funds on Stripe in CZK.
+                  sig { returns(T.nilable(Czk)) }
+                  def czk; end
                   # Can receive business storage-type funds on Stripe in EUR.
                   sig { returns(T.nilable(Eur)) }
                   def eur; end
                   # Can receive business storage-type funds on Stripe in GBP.
                   sig { returns(T.nilable(Gbp)) }
                   def gbp; end
+                  # Can receive business storage-type funds on Stripe in NOK.
+                  sig { returns(T.nilable(Nok)) }
+                  def nok; end
                   # Can receive business storage-type funds on Stripe in OUSD.
                   sig { returns(T.nilable(Ousd)) }
                   def ousd; end
+                  # Can receive business storage-type funds on Stripe in PLN.
+                  sig { returns(T.nilable(Pln)) }
+                  def pln; end
+                  # Can receive business storage-type funds on Stripe in SEK.
+                  sig { returns(T.nilable(Sek)) }
+                  def sek; end
                   # Can receive business storage-type funds on Stripe in USD.
                   sig { returns(T.nilable(Usd)) }
                   def usd; end
@@ -10197,9 +10553,13 @@ module Stripe
                     @inner_class_types = {
                       aud: Aud,
                       cad: Cad,
+                      czk: Czk,
                       eur: Eur,
                       gbp: Gbp,
+                      nok: Nok,
                       ousd: Ousd,
+                      pln: Pln,
+                      sek: Sek,
                       usd: Usd,
                       usdc: Usdc,
                     }
@@ -10224,6 +10584,20 @@ module Stripe
                         },
                       },
                       cad: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
+                      czk: {
                         kind: :object,
                         fields: {
                           protections: {
@@ -10265,7 +10639,49 @@ module Stripe
                           },
                         },
                       },
+                      nok: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
                       ousd: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
+                      pln: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
+                      sek: {
                         kind: :object,
                         fields: {
                           protections: {
@@ -10398,6 +10814,92 @@ module Stripe
                     end
                   end
                   class Cad < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  class Czk < ::Stripe::StripeObject
                     class Protections < ::Stripe::StripeObject
                       class PspMigration < ::Stripe::StripeObject
                         # The time until which the protection will expire, as a Unix timestamp.
@@ -10655,7 +11157,265 @@ module Stripe
                       }
                     end
                   end
+                  class Nok < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
                   class Ousd < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  class Pln < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  class Sek < ::Stripe::StripeObject
                     class Protections < ::Stripe::StripeObject
                       class PspMigration < ::Stripe::StripeObject
                         # The time until which the protection will expire, as a Unix timestamp.
@@ -10919,15 +11679,27 @@ module Stripe
                   # Can send business storage-type funds on Stripe in CAD.
                   sig { returns(T.nilable(Cad)) }
                   def cad; end
+                  # Can send business storage-type funds on Stripe in CZK.
+                  sig { returns(T.nilable(Czk)) }
+                  def czk; end
                   # Can send business storage-type funds on Stripe in EUR.
                   sig { returns(T.nilable(Eur)) }
                   def eur; end
                   # Can send business storage-type funds on Stripe in GBP.
                   sig { returns(T.nilable(Gbp)) }
                   def gbp; end
+                  # Can send business storage-type funds on Stripe in NOK.
+                  sig { returns(T.nilable(Nok)) }
+                  def nok; end
                   # Can send business storage-type funds on Stripe in OUSD.
                   sig { returns(T.nilable(Ousd)) }
                   def ousd; end
+                  # Can send business storage-type funds on Stripe in PLN.
+                  sig { returns(T.nilable(Pln)) }
+                  def pln; end
+                  # Can send business storage-type funds on Stripe in SEK.
+                  sig { returns(T.nilable(Sek)) }
+                  def sek; end
                   # Can send business storage-type funds on Stripe in USD.
                   sig { returns(T.nilable(Usd)) }
                   def usd; end
@@ -10938,9 +11710,13 @@ module Stripe
                     @inner_class_types = {
                       aud: Aud,
                       cad: Cad,
+                      czk: Czk,
                       eur: Eur,
                       gbp: Gbp,
+                      nok: Nok,
                       ousd: Ousd,
+                      pln: Pln,
+                      sek: Sek,
                       usd: Usd,
                       usdc: Usdc,
                     }
@@ -10965,6 +11741,20 @@ module Stripe
                         },
                       },
                       cad: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
+                      czk: {
                         kind: :object,
                         fields: {
                           protections: {
@@ -11006,7 +11796,49 @@ module Stripe
                           },
                         },
                       },
+                      nok: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
                       ousd: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
+                      pln: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
+                      sek: {
                         kind: :object,
                         fields: {
                           protections: {
@@ -11096,6 +11928,20 @@ module Stripe
                             },
                           },
                         },
+                        czk: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
                         eur: {
                           kind: :object,
                           fields: {
@@ -11124,7 +11970,49 @@ module Stripe
                             },
                           },
                         },
+                        nok: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
                         ousd: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
+                        pln: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
+                        sek: {
                           kind: :object,
                           fields: {
                             protections: {
@@ -11199,6 +12087,20 @@ module Stripe
                             },
                           },
                         },
+                        czk: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
                         eur: {
                           kind: :object,
                           fields: {
@@ -11227,7 +12129,49 @@ module Stripe
                             },
                           },
                         },
+                        nok: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
                         ousd: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
+                        pln: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
+                        sek: {
                           kind: :object,
                           fields: {
                             protections: {
@@ -18589,6 +19533,23 @@ module Stripe
                               },
                             },
                           },
+                          czk: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
                           eur: {
                             kind: :object,
                             fields: {
@@ -18623,7 +19584,58 @@ module Stripe
                               },
                             },
                           },
+                          nok: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
                           ousd: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          pln: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          sek: {
                             kind: :object,
                             fields: {
                               protections: {
@@ -18713,6 +19725,23 @@ module Stripe
                               },
                             },
                           },
+                          czk: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
                           eur: {
                             kind: :object,
                             fields: {
@@ -18747,7 +19776,58 @@ module Stripe
                               },
                             },
                           },
+                          nok: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
                           ousd: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          pln: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          sek: {
                             kind: :object,
                             fields: {
                               protections: {
@@ -19946,6 +21026,23 @@ module Stripe
                                 },
                               },
                             },
+                            czk: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
                             eur: {
                               kind: :object,
                               fields: {
@@ -19980,7 +21077,58 @@ module Stripe
                                 },
                               },
                             },
+                            nok: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
                             ousd: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            pln: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            sek: {
                               kind: :object,
                               fields: {
                                 protections: {
@@ -20070,6 +21218,23 @@ module Stripe
                                 },
                               },
                             },
+                            czk: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
                             eur: {
                               kind: :object,
                               fields: {
@@ -20104,7 +21269,58 @@ module Stripe
                                 },
                               },
                             },
+                            nok: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
                             ousd: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            pln: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            sek: {
                               kind: :object,
                               fields: {
                                 protections: {
@@ -24840,6 +26056,23 @@ module Stripe
                                   },
                                 },
                               },
+                              czk: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
                               eur: {
                                 kind: :object,
                                 fields: {
@@ -24874,7 +26107,58 @@ module Stripe
                                   },
                                 },
                               },
+                              nok: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
                               ousd: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              pln: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              sek: {
                                 kind: :object,
                                 fields: {
                                   protections: {
@@ -24964,6 +26248,23 @@ module Stripe
                                   },
                                 },
                               },
+                              czk: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
                               eur: {
                                 kind: :object,
                                 fields: {
@@ -24998,7 +26299,58 @@ module Stripe
                                   },
                                 },
                               },
+                              nok: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
                               ousd: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              pln: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              sek: {
                                 kind: :object,
                                 fields: {
                                   protections: {

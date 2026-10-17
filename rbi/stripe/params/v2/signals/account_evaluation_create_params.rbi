@@ -8,6 +8,33 @@ module Stripe
       class AccountEvaluationCreateParams < ::Stripe::RequestParams
         class AccountActivityDetails < ::Stripe::RequestParams
           class Data < ::Stripe::RequestParams
+            class AccountTakeoverConfirmation < ::Stripe::RequestParams
+              # The type of credential involved in the confirmed takeover.
+              sig { returns(String) }
+              def credential_type; end
+              sig { params(_credential_type: String).returns(String) }
+              def credential_type=(_credential_type); end
+              sig { params(credential_type: String).void }
+              def initialize(credential_type: nil); end
+            end
+            class AccountTakeoverReport < ::Stripe::RequestParams
+              # The type of credential involved in the reported takeover.
+              sig { returns(String) }
+              def credential_type; end
+              sig { params(_credential_type: String).returns(String) }
+              def credential_type=(_credential_type); end
+              sig { params(credential_type: String).void }
+              def initialize(credential_type: nil); end
+            end
+            class CredentialChange < ::Stripe::RequestParams
+              # The type of credential that changed.
+              sig { returns(String) }
+              def credential_type; end
+              sig { params(_credential_type: String).returns(String) }
+              def credential_type=(_credential_type); end
+              sig { params(credential_type: String).void }
+              def initialize(credential_type: nil); end
+            end
             class LoginAttempt < ::Stripe::RequestParams
               class ClientDetails < ::Stripe::RequestParams
                 class Data < ::Stripe::RequestParams
@@ -63,6 +90,24 @@ module Stripe
                 params(client_details: ::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt::ClientDetails).void
                }
               def initialize(client_details: nil); end
+            end
+            class MfaAddition < ::Stripe::RequestParams
+              # The authentication method added to the account.
+              sig { returns(String) }
+              def mfa_type; end
+              sig { params(_mfa_type: String).returns(String) }
+              def mfa_type=(_mfa_type); end
+              sig { params(mfa_type: String).void }
+              def initialize(mfa_type: nil); end
+            end
+            class MfaRemoval < ::Stripe::RequestParams
+              # The authentication method removed from the account.
+              sig { returns(String) }
+              def mfa_type; end
+              sig { params(_mfa_type: String).returns(String) }
+              def mfa_type=(_mfa_type); end
+              sig { params(mfa_type: String).void }
+              def initialize(mfa_type: nil); end
             end
             class RegistrationAttempt < ::Stripe::RequestParams
               class ClientDetails < ::Stripe::RequestParams
@@ -120,6 +165,33 @@ module Stripe
                }
               def initialize(client_details: nil); end
             end
+            # Required when type is account_takeover_confirmation. Requires an existing customer or account with a customer configuration.
+            sig {
+              returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverConfirmation))
+             }
+            def account_takeover_confirmation; end
+            sig {
+              params(_account_takeover_confirmation: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverConfirmation)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverConfirmation))
+             }
+            def account_takeover_confirmation=(_account_takeover_confirmation); end
+            # Required when type is account_takeover_report. Requires an existing customer or account with a customer configuration.
+            sig {
+              returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverReport))
+             }
+            def account_takeover_report; end
+            sig {
+              params(_account_takeover_report: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverReport)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverReport))
+             }
+            def account_takeover_report=(_account_takeover_report); end
+            # Required when type is credential_change. Requires an existing customer or account with a customer configuration.
+            sig {
+              returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::CredentialChange))
+             }
+            def credential_change; end
+            sig {
+              params(_credential_change: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::CredentialChange)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::CredentialChange))
+             }
+            def credential_change=(_credential_change); end
             # Details for the login attempt. Provide only when type is login_attempt.
             sig {
               returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt))
@@ -129,6 +201,24 @@ module Stripe
               params(_login_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt))
              }
             def login_attempt=(_login_attempt); end
+            # Required when type is mfa_addition. Requires an existing customer or account with a customer configuration.
+            sig {
+              returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaAddition))
+             }
+            def mfa_addition; end
+            sig {
+              params(_mfa_addition: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaAddition)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaAddition))
+             }
+            def mfa_addition=(_mfa_addition); end
+            # Required when type is mfa_removal. Requires an existing customer or account with a customer configuration.
+            sig {
+              returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaRemoval))
+             }
+            def mfa_removal; end
+            sig {
+              params(_mfa_removal: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaRemoval)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaRemoval))
+             }
+            def mfa_removal=(_mfa_removal); end
             # Timestamp at which the activity occurred. Defaults to the created time if not provided.
             sig { returns(T.nilable(String)) }
             def occurred_at; end
@@ -143,16 +233,22 @@ module Stripe
               params(_registration_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt))
              }
             def registration_attempt=(_registration_attempt); end
-            # The type of activity. Must be registration_attempt or login_attempt.
+            # The type of activity. Supports registration_attempt, login_attempt, mfa_addition, mfa_removal,
+            # credential_change, account_takeover_report, account_takeover_confirmation, or account_takeover_mitigation.
             sig { returns(String) }
             def type; end
             sig { params(_type: String).returns(String) }
             def type=(_type); end
             sig {
-              params(login_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt), occurred_at: T.nilable(String), registration_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt), type: String).void
+              params(account_takeover_confirmation: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverConfirmation), account_takeover_report: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverReport), credential_change: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::CredentialChange), login_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt), mfa_addition: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaAddition), mfa_removal: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaRemoval), occurred_at: T.nilable(String), registration_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt), type: String).void
              }
             def initialize(
+              account_takeover_confirmation: nil,
+              account_takeover_report: nil,
+              credential_change: nil,
               login_attempt: nil,
+              mfa_addition: nil,
+              mfa_removal: nil,
               occurred_at: nil,
               registration_attempt: nil,
               type: nil

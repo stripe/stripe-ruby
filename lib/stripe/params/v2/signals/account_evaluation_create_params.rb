@@ -7,6 +7,33 @@ module Stripe
       class AccountEvaluationCreateParams < ::Stripe::RequestParams
         class AccountActivityDetails < ::Stripe::RequestParams
           class Data < ::Stripe::RequestParams
+            class AccountTakeoverConfirmation < ::Stripe::RequestParams
+              # The type of credential involved in the confirmed takeover.
+              attr_accessor :credential_type
+
+              def initialize(credential_type: nil)
+                @credential_type = credential_type
+              end
+            end
+
+            class AccountTakeoverReport < ::Stripe::RequestParams
+              # The type of credential involved in the reported takeover.
+              attr_accessor :credential_type
+
+              def initialize(credential_type: nil)
+                @credential_type = credential_type
+              end
+            end
+
+            class CredentialChange < ::Stripe::RequestParams
+              # The type of credential that changed.
+              attr_accessor :credential_type
+
+              def initialize(credential_type: nil)
+                @credential_type = credential_type
+              end
+            end
+
             class LoginAttempt < ::Stripe::RequestParams
               class ClientDetails < ::Stripe::RequestParams
                 class Data < ::Stripe::RequestParams
@@ -38,6 +65,24 @@ module Stripe
 
               def initialize(client_details: nil)
                 @client_details = client_details
+              end
+            end
+
+            class MfaAddition < ::Stripe::RequestParams
+              # The authentication method added to the account.
+              attr_accessor :mfa_type
+
+              def initialize(mfa_type: nil)
+                @mfa_type = mfa_type
+              end
+            end
+
+            class MfaRemoval < ::Stripe::RequestParams
+              # The authentication method removed from the account.
+              attr_accessor :mfa_type
+
+              def initialize(mfa_type: nil)
+                @mfa_type = mfa_type
               end
             end
 
@@ -74,22 +119,43 @@ module Stripe
                 @client_details = client_details
               end
             end
+            # Required when type is account_takeover_confirmation. Requires an existing customer or account with a customer configuration.
+            attr_accessor :account_takeover_confirmation
+            # Required when type is account_takeover_report. Requires an existing customer or account with a customer configuration.
+            attr_accessor :account_takeover_report
+            # Required when type is credential_change. Requires an existing customer or account with a customer configuration.
+            attr_accessor :credential_change
             # Details for the login attempt. Provide only when type is login_attempt.
             attr_accessor :login_attempt
+            # Required when type is mfa_addition. Requires an existing customer or account with a customer configuration.
+            attr_accessor :mfa_addition
+            # Required when type is mfa_removal. Requires an existing customer or account with a customer configuration.
+            attr_accessor :mfa_removal
             # Timestamp at which the activity occurred. Defaults to the created time if not provided.
             attr_accessor :occurred_at
             # Details for the registration attempt. Provide only when type is registration_attempt.
             attr_accessor :registration_attempt
-            # The type of activity. Must be registration_attempt or login_attempt.
+            # The type of activity. Supports registration_attempt, login_attempt, mfa_addition, mfa_removal,
+            # credential_change, account_takeover_report, account_takeover_confirmation, or account_takeover_mitigation.
             attr_accessor :type
 
             def initialize(
+              account_takeover_confirmation: nil,
+              account_takeover_report: nil,
+              credential_change: nil,
               login_attempt: nil,
+              mfa_addition: nil,
+              mfa_removal: nil,
               occurred_at: nil,
               registration_attempt: nil,
               type: nil
             )
+              @account_takeover_confirmation = account_takeover_confirmation
+              @account_takeover_report = account_takeover_report
+              @credential_change = credential_change
               @login_attempt = login_attempt
+              @mfa_addition = mfa_addition
+              @mfa_removal = mfa_removal
               @occurred_at = occurred_at
               @registration_attempt = registration_attempt
               @type = type

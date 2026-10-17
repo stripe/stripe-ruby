@@ -960,7 +960,7 @@ module Stripe
         attr_accessor :metadata
         # The ID of the [Price](https://docs.stripe.com/api/prices) or [Plan](https://docs.stripe.com/api/plans) object. One of `price` or `price_data` is required.
         attr_accessor :price
-        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline, for [dynamic pricing](https://docs.stripe.com/products-prices/how-products-and-prices-work#inline-pricing) when the amount isn't known ahead of time. One of `price` or `price_data` is required when creating a new line item.
         attr_accessor :price_data
         # The quantity of the line item being purchased. Quantity should not be defined when `recurring.usage_type=metered`.
         attr_accessor :quantity
@@ -996,6 +996,57 @@ module Stripe
 
         def initialize(enabled: nil)
           @enabled = enabled
+        end
+      end
+
+      class MarketingAttribution < ::Stripe::RequestParams
+        class AdConversion < ::Stripe::RequestParams
+          # Whether the customer consented to sending conversion data to an advertising platform.
+          attr_accessor :consent_collected
+
+          def initialize(consent_collected: nil)
+            @consent_collected = consent_collected
+          end
+        end
+        # Information used when sending conversions to an advertising platform.
+        attr_accessor :ad_conversion
+        # The advertising platform's click identifier.
+        attr_accessor :click_id
+        # The Unix timestamp when the advertising interaction occurred.
+        attr_accessor :occurred_at
+        # The advertising group ID from the `utm_adgroup` parameter.
+        attr_accessor :utm_adgroup
+        # The advertising content identifier from the `utm_content` parameter.
+        attr_accessor :utm_content
+        # The advertising campaign ID from the `utm_id` parameter.
+        attr_accessor :utm_id
+        # The marketing medium from the `utm_medium` parameter.
+        attr_accessor :utm_medium
+        # The referral source from the `utm_source` parameter.
+        attr_accessor :utm_source
+        # The paid search term from the `utm_term` parameter.
+        attr_accessor :utm_term
+
+        def initialize(
+          ad_conversion: nil,
+          click_id: nil,
+          occurred_at: nil,
+          utm_adgroup: nil,
+          utm_content: nil,
+          utm_id: nil,
+          utm_medium: nil,
+          utm_source: nil,
+          utm_term: nil
+        )
+          @ad_conversion = ad_conversion
+          @click_id = click_id
+          @occurred_at = occurred_at
+          @utm_adgroup = utm_adgroup
+          @utm_content = utm_content
+          @utm_id = utm_id
+          @utm_medium = utm_medium
+          @utm_source = utm_source
+          @utm_term = utm_term
         end
       end
 
@@ -3289,6 +3340,8 @@ module Stripe
       attr_accessor :locale
       # Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](/api/payment_intents/object), [Invoices](/api/invoices/object), and [Subscriptions](/api/subscriptions/object).
       attr_accessor :managed_payments
+      # Advertising attribution information for this Checkout Session. Only one attribution is supported.
+      attr_accessor :marketing_attributions
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
@@ -3408,6 +3461,7 @@ module Stripe
         line_items: nil,
         locale: nil,
         managed_payments: nil,
+        marketing_attributions: nil,
         metadata: nil,
         mode: nil,
         name_collection: nil,
@@ -3467,6 +3521,7 @@ module Stripe
         @line_items = line_items
         @locale = locale
         @managed_payments = managed_payments
+        @marketing_attributions = marketing_attributions
         @metadata = metadata
         @mode = mode
         @name_collection = name_collection

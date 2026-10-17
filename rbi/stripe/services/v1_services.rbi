@@ -75,6 +75,7 @@ module Stripe
     attr_reader :reporting
     attr_reader :reserve
     attr_reader :reviews
+    attr_reader :risk
     attr_reader :setup_attempts
     attr_reader :setup_intents
     attr_reader :shared_payment

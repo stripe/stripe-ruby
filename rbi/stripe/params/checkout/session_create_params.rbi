@@ -1452,7 +1452,7 @@ module Stripe
         def price; end
         sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
         def price=(_price); end
-        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline, for [dynamic pricing](https://docs.stripe.com/products-prices/how-products-and-prices-work#inline-pricing) when the amount isn't known ahead of time. One of `price` or `price_data` is required when creating a new line item.
         sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::PriceData)) }
         def price_data; end
         sig {
@@ -1494,6 +1494,78 @@ module Stripe
         def enabled=(_enabled); end
         sig { params(enabled: T.nilable(T::Boolean)).void }
         def initialize(enabled: nil); end
+      end
+      class MarketingAttribution < ::Stripe::RequestParams
+        class AdConversion < ::Stripe::RequestParams
+          # Whether the customer consented to sending conversion data to an advertising platform.
+          sig { returns(T::Boolean) }
+          def consent_collected; end
+          sig { params(_consent_collected: T::Boolean).returns(T::Boolean) }
+          def consent_collected=(_consent_collected); end
+          sig { params(consent_collected: T::Boolean).void }
+          def initialize(consent_collected: nil); end
+        end
+        # Information used when sending conversions to an advertising platform.
+        sig { returns(::Stripe::Checkout::SessionCreateParams::MarketingAttribution::AdConversion) }
+        def ad_conversion; end
+        sig {
+          params(_ad_conversion: ::Stripe::Checkout::SessionCreateParams::MarketingAttribution::AdConversion).returns(::Stripe::Checkout::SessionCreateParams::MarketingAttribution::AdConversion)
+         }
+        def ad_conversion=(_ad_conversion); end
+        # The advertising platform's click identifier.
+        sig { returns(T.nilable(String)) }
+        def click_id; end
+        sig { params(_click_id: T.nilable(String)).returns(T.nilable(String)) }
+        def click_id=(_click_id); end
+        # The Unix timestamp when the advertising interaction occurred.
+        sig { returns(T.nilable(Integer)) }
+        def occurred_at; end
+        sig { params(_occurred_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def occurred_at=(_occurred_at); end
+        # The advertising group ID from the `utm_adgroup` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_adgroup; end
+        sig { params(_utm_adgroup: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_adgroup=(_utm_adgroup); end
+        # The advertising content identifier from the `utm_content` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_content; end
+        sig { params(_utm_content: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_content=(_utm_content); end
+        # The advertising campaign ID from the `utm_id` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_id; end
+        sig { params(_utm_id: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_id=(_utm_id); end
+        # The marketing medium from the `utm_medium` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_medium; end
+        sig { params(_utm_medium: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_medium=(_utm_medium); end
+        # The referral source from the `utm_source` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_source; end
+        sig { params(_utm_source: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_source=(_utm_source); end
+        # The paid search term from the `utm_term` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_term; end
+        sig { params(_utm_term: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_term=(_utm_term); end
+        sig {
+          params(ad_conversion: ::Stripe::Checkout::SessionCreateParams::MarketingAttribution::AdConversion, click_id: T.nilable(String), occurred_at: T.nilable(Integer), utm_adgroup: T.nilable(String), utm_content: T.nilable(String), utm_id: T.nilable(String), utm_medium: T.nilable(String), utm_source: T.nilable(String), utm_term: T.nilable(String)).void
+         }
+        def initialize(
+          ad_conversion: nil,
+          click_id: nil,
+          occurred_at: nil,
+          utm_adgroup: nil,
+          utm_content: nil,
+          utm_id: nil,
+          utm_medium: nil,
+          utm_source: nil,
+          utm_term: nil
+        ); end
       end
       class NameCollection < ::Stripe::RequestParams
         class Business < ::Stripe::RequestParams
@@ -4962,6 +5034,15 @@ module Stripe
         params(_managed_payments: T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments))
        }
       def managed_payments=(_managed_payments); end
+      # Advertising attribution information for this Checkout Session. Only one attribution is supported.
+      sig {
+        returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::MarketingAttribution]))
+       }
+      def marketing_attributions; end
+      sig {
+        params(_marketing_attributions: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::MarketingAttribution])).returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::MarketingAttribution]))
+       }
+      def marketing_attributions=(_marketing_attributions); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
@@ -5164,7 +5245,7 @@ module Stripe
        }
       def checkout_items=(_checkout_items); end
       sig {
-        params(adaptive_pricing: T.nilable(::Stripe::Checkout::SessionCreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::SessionCreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), allowed_payment_method_types: T.nilable(T::Array[String]), approval_method: T.nilable(String), automatic_surcharge: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticSurcharge), automatic_tax: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), branding_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CustomField]), custom_payment_method_types: T.nilable(T::Array[String]), custom_text: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), integration_identifier: T.nilable(String), invoice_creation: T.nilable(::Stripe::Checkout::SessionCreateParams::InvoiceCreation), items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item]), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::LineItem]), locale: T.nilable(String), managed_payments: T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), name_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions), payment_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings), permissions: T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::SessionCreateParams::WalletOptions), checkout_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CheckoutItem])).void
+        params(adaptive_pricing: T.nilable(::Stripe::Checkout::SessionCreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::SessionCreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), allowed_payment_method_types: T.nilable(T::Array[String]), approval_method: T.nilable(String), automatic_surcharge: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticSurcharge), automatic_tax: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), branding_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CustomField]), custom_payment_method_types: T.nilable(T::Array[String]), custom_text: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), integration_identifier: T.nilable(String), invoice_creation: T.nilable(::Stripe::Checkout::SessionCreateParams::InvoiceCreation), items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item]), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::LineItem]), locale: T.nilable(String), managed_payments: T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments), marketing_attributions: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::MarketingAttribution]), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), name_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions), payment_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings), permissions: T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::SessionCreateParams::WalletOptions), checkout_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CheckoutItem])).void
        }
       def initialize(
         adaptive_pricing: nil,
@@ -5198,6 +5279,7 @@ module Stripe
         line_items: nil,
         locale: nil,
         managed_payments: nil,
+        marketing_attributions: nil,
         metadata: nil,
         mode: nil,
         name_collection: nil,

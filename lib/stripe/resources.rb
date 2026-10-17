@@ -1491,6 +1491,10 @@ module Stripe
     autoload :V2SignalsAccountEvaluationCompleteEvent, "stripe/events/v2_signals_account_evaluation_complete_event"
     autoload :V2SignalsAccountEvaluationCompleteEventNotification,
              "stripe/events/v2_signals_account_evaluation_complete_event"
+    autoload :V2SignalsAccountSignalCustomerRiskReadyEvent,
+             "stripe/events/v2_signals_account_signal_customer_risk_ready_event"
+    autoload :V2SignalsAccountSignalCustomerRiskReadyEventNotification,
+             "stripe/events/v2_signals_account_signal_customer_risk_ready_event"
     autoload :V2SignalsAccountSignalFraudulentMerchantReadyEvent,
              "stripe/events/v2_signals_account_signal_fraudulent_merchant_ready_event"
     autoload :V2SignalsAccountSignalFraudulentMerchantReadyEventNotification,
@@ -1585,6 +1589,10 @@ module Stripe
     autoload :Hold, "stripe/resources/reserve/hold"
     autoload :Plan, "stripe/resources/reserve/plan"
     autoload :Release, "stripe/resources/reserve/release"
+  end
+
+  module Risk
+    autoload :Form, "stripe/resources/risk/form"
   end
 
   module SharedPayment
@@ -1988,6 +1996,7 @@ module Stripe
     stripe/resources/reserve/release
     stripe/resources/reserve_transaction
     stripe/resources/review
+    stripe/resources/risk/form
     stripe/resources/risk_signals
     stripe/resources/setup_attempt
     stripe/resources/setup_intent
@@ -2625,6 +2634,7 @@ module Stripe
     stripe/events/v2_reporting_report_run_succeeded_event
     stripe/events/v2_reporting_report_run_updated_event
     stripe/events/v2_signals_account_evaluation_complete_event
+    stripe/events/v2_signals_account_signal_customer_risk_ready_event
     stripe/events/v2_signals_account_signal_fraudulent_merchant_ready_event
     stripe/events/v2_signals_account_signal_fraudulent_website_ready_event
     stripe/events/v2_signals_account_signal_merchant_delinquency_ready_event

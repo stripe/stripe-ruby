@@ -100,6 +100,33 @@ module Stripe
           end
         end
 
+        class AccountTakeoverConfirmation < ::Stripe::RequestParams
+          # The type of credential involved in the confirmed takeover.
+          attr_accessor :credential_type
+
+          def initialize(credential_type: nil)
+            @credential_type = credential_type
+          end
+        end
+
+        class AccountTakeoverReport < ::Stripe::RequestParams
+          # The type of credential involved in the reported takeover.
+          attr_accessor :credential_type
+
+          def initialize(credential_type: nil)
+            @credential_type = credential_type
+          end
+        end
+
+        class CredentialChange < ::Stripe::RequestParams
+          # The type of credential that changed.
+          attr_accessor :credential_type
+
+          def initialize(credential_type: nil)
+            @credential_type = credential_type
+          end
+        end
+
         class LoginAttempt < ::Stripe::RequestParams
           class ClientDetails < ::Stripe::RequestParams
             class Data < ::Stripe::RequestParams
@@ -140,6 +167,24 @@ module Stripe
 
           def initialize(status: nil)
             @status = status
+          end
+        end
+
+        class MfaAddition < ::Stripe::RequestParams
+          # The authentication method added to the account.
+          attr_accessor :mfa_type
+
+          def initialize(mfa_type: nil)
+            @mfa_type = mfa_type
+          end
+        end
+
+        class MfaRemoval < ::Stripe::RequestParams
+          # The authentication method removed from the account.
+          attr_accessor :mfa_type
+
+          def initialize(mfa_type: nil)
+            @mfa_type = mfa_type
           end
         end
 
@@ -198,12 +243,22 @@ module Stripe
         # Details for the account suspension. Provide only when type is account_suspended. The activity
         # requires an existing account_details.customer; account_details.account and inline data are unsupported.
         attr_accessor :account_suspended
+        # Required when type is account_takeover_confirmation. Requires an existing customer or account with a customer configuration.
+        attr_accessor :account_takeover_confirmation
+        # Required when type is account_takeover_report. Requires an existing customer or account with a customer configuration.
+        attr_accessor :account_takeover_report
+        # Required when type is credential_change. Requires an existing customer or account with a customer configuration.
+        attr_accessor :credential_change
         # Details for the login attempt. Provide only when type is login_attempt.
         attr_accessor :login_attempt
         # Details for the login decision. Provide only when type is login_decision.
         attr_accessor :login_decision
         # Additional information about the activity.
         attr_accessor :metadata
+        # Required when type is mfa_addition. Requires an existing customer or account with a customer configuration.
+        attr_accessor :mfa_addition
+        # Required when type is mfa_removal. Requires an existing customer or account with a customer configuration.
+        attr_accessor :mfa_removal
         # Timestamp at which the activity occurred. Defaults to the created time if not provided.
         attr_accessor :occurred_at
         # Details for the registration attempt. Provide only when type is registration_attempt.
@@ -219,9 +274,14 @@ module Stripe
           account_restricted: nil,
           account_reviewed: nil,
           account_suspended: nil,
+          account_takeover_confirmation: nil,
+          account_takeover_report: nil,
+          credential_change: nil,
           login_attempt: nil,
           login_decision: nil,
           metadata: nil,
+          mfa_addition: nil,
+          mfa_removal: nil,
           occurred_at: nil,
           registration_attempt: nil,
           registration_decision: nil,
@@ -232,9 +292,14 @@ module Stripe
           @account_restricted = account_restricted
           @account_reviewed = account_reviewed
           @account_suspended = account_suspended
+          @account_takeover_confirmation = account_takeover_confirmation
+          @account_takeover_report = account_takeover_report
+          @credential_change = credential_change
           @login_attempt = login_attempt
           @login_decision = login_decision
           @metadata = metadata
+          @mfa_addition = mfa_addition
+          @mfa_removal = mfa_removal
           @occurred_at = occurred_at
           @registration_attempt = registration_attempt
           @registration_decision = registration_decision

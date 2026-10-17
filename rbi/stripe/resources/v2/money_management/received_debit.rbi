@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      # ReceivedDebit resource
+      # Use ReceivedDebits API to retrieve information on when, where, and how funds are debited from your FinancialAccount.
       class ReceivedDebit < APIResource
         class BalanceTransfer < ::Stripe::StripeObject
           # The ID of the v1 account that received the balance transfer.

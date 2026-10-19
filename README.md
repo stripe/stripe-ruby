@@ -102,16 +102,16 @@ it exchanges a cloud provider-signed identity assertion for a short-lived restri
 cached in memory and refreshed automatically. GCP environments that expose the compatible metadata
 identity-token endpoint are currently supported, including Compute Engine, Cloud Run, Cloud Functions,
 and GKE with Workload Identity, via the separate
-[`stripe-gcp-workload-identity`](gcp-workload-identity) gem. Add it to your Gemfile alongside `stripe`
+[`stripe-workload-identity`](workload-identity) gem. Add it to your Gemfile alongside `stripe`
 to use it.
 
 ```ruby
 require "stripe"
-require "stripe/gcp_workload_identity"
+require "stripe/workload_identity"
 
 client = Stripe::StripeClient.for_workload_identity(
   "oacli_live_...", # workload client ID from the Stripe Dashboard
-  Stripe::GcpWorkloadIdentity::GcpWorkloadIdentity.new
+  Stripe::WorkloadIdentity::GcpWorkloadIdentity.new
 )
 
 client.v1.customers.list

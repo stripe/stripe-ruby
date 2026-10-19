@@ -2,11 +2,11 @@
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "lib"))
 
-require "stripe/gcp_workload_identity/version"
+require "stripe/workload_identity/version"
 
 Gem::Specification.new do |s|
-  s.name = "stripe-gcp-workload-identity"
-  s.version = Stripe::GcpWorkloadIdentity::VERSION
+  s.name = "stripe-workload-identity"
+  s.version = Stripe::WorkloadIdentity::VERSION
   s.required_ruby_version = ">= 3.0.0"
   s.summary = "GCP workload identity provider for the Stripe Ruby bindings"
   s.description = "Lets Stripe::StripeClient.for_workload_identity authenticate on Google Cloud " \

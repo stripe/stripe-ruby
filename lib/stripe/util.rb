@@ -378,6 +378,10 @@ module Stripe
       res.zero?
     end
 
+    def self.webhook_secret_blank?(secret)
+      secret.nil? || secret.empty? || secret.match?(/\A[ \t\r\n\f\v]*\z/)
+    end
+
     # Asserts that a request path is origin-relative: that it begins with a
     # single "/" and carries no scheme, authority or userinfo.
     #

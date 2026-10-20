@@ -31,7 +31,7 @@ require "stripe/api_operations/search"
 
 # API resource support classes
 require "stripe/errors"
-require "stripe/workload_identity"
+require "stripe/workload_identity_exchange"
 require "stripe/object_types"
 require "stripe/event_types"
 require "stripe/request_options"

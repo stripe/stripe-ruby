@@ -31,9 +31,9 @@ format: (format-check "--autocorrect --display-only-fail-level-offenses")
 update-certs: install
     bundle exec rake update_certs
 
-# run the GCP workload identity adapter gem's own, isolated test suite
-test-gcp-adapter:
-    cd gcp-workload-identity && bundle install --quiet && bundle exec rake test
+# run the workload identity adapter gem's own, isolated test suite
+test-adapter:
+    cd workload-identity && bundle install --quiet && bundle exec rake test
 
 # run sorbet to check type definitions
 typecheck: install

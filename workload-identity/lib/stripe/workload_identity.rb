@@ -2,10 +2,10 @@
 
 require "googleauth"
 
-require "stripe/gcp_workload_identity/version"
+require "stripe/workload_identity/version"
 
 module Stripe
-  module GcpWorkloadIdentity
+  module WorkloadIdentity
     # The fixed audience that Stripe expects for workload identity
     AUDIENCE = "https://access.stripe.com/wif"
 

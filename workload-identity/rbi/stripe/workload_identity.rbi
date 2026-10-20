@@ -1,7 +1,7 @@
 # typed: strong
 
 module Stripe
-  module GcpWorkloadIdentity
+  module WorkloadIdentity
     VERSION = T.let(T.unsafe(nil), String)
     AUDIENCE = T.let(T.unsafe(nil), String)
 

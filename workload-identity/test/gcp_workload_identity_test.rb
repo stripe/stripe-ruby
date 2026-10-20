@@ -6,7 +6,7 @@ module Stripe
   class GcpWorkloadIdentityTest < Test::Unit::TestCase
     context "#provider" do
       should "be gcp" do
-        assert_equal "gcp", GcpWorkloadIdentity::GcpWorkloadIdentity.new.provider
+        assert_equal "gcp", WorkloadIdentity::GcpWorkloadIdentity.new.provider
       end
     end
 
@@ -18,10 +18,10 @@ module Stripe
 
         Google::Auth::GCECredentials.expects(:new)
                                     .with(token_type: :id_token,
-                                          target_audience: GcpWorkloadIdentity::AUDIENCE)
+                                          target_audience: WorkloadIdentity::AUDIENCE)
                                     .returns(fake_creds)
 
-        assert_equal "fake-id-token", GcpWorkloadIdentity::GcpWorkloadIdentity.new.identity_assertion
+        assert_equal "fake-id-token", WorkloadIdentity::GcpWorkloadIdentity.new.identity_assertion
       end
 
       should "wrap a metadata server failure in an actionable error with the cause preserved" do
@@ -31,8 +31,8 @@ module Stripe
 
         Google::Auth::GCECredentials.expects(:new).returns(fake_creds)
 
-        error = assert_raise(GcpWorkloadIdentity::Error) do
-          GcpWorkloadIdentity::GcpWorkloadIdentity.new.identity_assertion
+        error = assert_raise(WorkloadIdentity::Error) do
+          WorkloadIdentity::GcpWorkloadIdentity.new.identity_assertion
         end
         assert_match(/metadata identity-token endpoint/, error.message)
         assert_equal original_error, error.cause
@@ -45,8 +45,8 @@ module Stripe
 
         Google::Auth::GCECredentials.expects(:new).returns(fake_creds)
 
-        assert_raise(GcpWorkloadIdentity::Error) do
-          GcpWorkloadIdentity::GcpWorkloadIdentity.new.identity_assertion
+        assert_raise(WorkloadIdentity::Error) do
+          WorkloadIdentity::GcpWorkloadIdentity.new.identity_assertion
         end
       end
 
@@ -57,8 +57,8 @@ module Stripe
 
         Google::Auth::GCECredentials.expects(:new).returns(fake_creds)
 
-        assert_raise(GcpWorkloadIdentity::Error) do
-          GcpWorkloadIdentity::GcpWorkloadIdentity.new.identity_assertion
+        assert_raise(WorkloadIdentity::Error) do
+          WorkloadIdentity::GcpWorkloadIdentity.new.identity_assertion
         end
       end
     end

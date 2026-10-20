@@ -1,4 +1,4 @@
-# Stripe GCP workload identity
+# Stripe workload identity
 
 Lets a [`Stripe::StripeClient`](https://github.com/stripe/stripe-ruby) authenticate using
 [workload identity](https://stripe.com/docs/api?lang=ruby) on Google Cloud, instead of a
@@ -28,18 +28,18 @@ in the Stripe Dashboard, and note the workload client ID it gives you.
 
 ```
 gem "stripe"
-gem "stripe-gcp-workload-identity"
+gem "stripe-workload-identity"
 ```
 
 ## Usage
 
 ```ruby
 require "stripe"
-require "stripe/gcp_workload_identity"
+require "stripe/workload_identity"
 
 client = Stripe::StripeClient.for_workload_identity(
   "oacli_live_...", # workload client ID from the Stripe Dashboard
-  Stripe::GcpWorkloadIdentity::GcpWorkloadIdentity.new
+  Stripe::WorkloadIdentity::GcpWorkloadIdentity.new
 )
 
 client.v1.customers.list

@@ -7,6 +7,11 @@ Instead, edit a corresponding `.change.md` file and run `hark build`.
 
 > This changelog only covers the **private preview** releases. Each release builds on the most recent GA release; see those notes in [the GA changelog](https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md).
 
+## Unreleased
+* Add workload identity authentication, with GCP as the first provider
+
+  Add `Stripe::StripeClient.for_workload_identity`, with the `stripe-workload-identity` gem to authenticate using GCP
+
 ## <a id="20-1-0-alpha-3"></a>20.1.0-alpha.3 - 2026-10-14
 This release changes the pinned API version to `2026-10-14.preview`.
 

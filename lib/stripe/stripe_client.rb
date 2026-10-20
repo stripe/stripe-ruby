@@ -65,7 +65,7 @@ module Stripe
     # instead of a long-lived API key, requests are signed with a short-lived
     # restricted key obtained by exchanging an identity assertion from
     # `identity_provider` (e.g. an instance from a separately-packaged cloud
-    # provider adapter gem such as `stripe-gcp-workload-identity`).
+    # provider adapter gem such as `stripe-workload-identity`).
     #
     # `workload_client_id` identifies the workload identity configuration in
     # the Stripe Dashboard; it is unrelated to the `client_id:` option used

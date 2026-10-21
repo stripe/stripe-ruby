@@ -409,61 +409,6 @@ module Stripe
             }
           end
         end
-        class Healthcare < ::Stripe::RequestParams
-          # Clinic and urgent care sub-amount for Visa only.
-          sig { returns(T.nilable(Integer)) }
-          def clinic_amount; end
-          sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def clinic_amount=(_clinic_amount); end
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          sig { returns(String) }
-          def currency; end
-          sig { params(_currency: String).returns(String) }
-          def currency=(_currency); end
-          # Dental care sub-amount for Visa only.
-          sig { returns(T.nilable(Integer)) }
-          def dental_amount; end
-          sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def dental_amount=(_dental_amount); end
-          # Prescription drug sub-amount. Null if the merchant did not send this amount.
-          sig { returns(T.nilable(Integer)) }
-          def prescription_amount; end
-          sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def prescription_amount=(_prescription_amount); end
-          # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
-          sig { returns(T.nilable(String)) }
-          def purchase_type; end
-          sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
-          def purchase_type=(_purchase_type); end
-          # Total FSA/HSA-eligible amount in the smallest currency unit.
-          sig { returns(Integer) }
-          def total_qualified_amount; end
-          sig { params(_total_qualified_amount: Integer).returns(Integer) }
-          def total_qualified_amount=(_total_qualified_amount); end
-          # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
-          sig { returns(String) }
-          def verification_status; end
-          sig { params(_verification_status: String).returns(String) }
-          def verification_status=(_verification_status); end
-          # Vision/optical sub-amount. Null if the merchant did not send this amount.
-          sig { returns(T.nilable(Integer)) }
-          def vision_amount; end
-          sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def vision_amount=(_vision_amount); end
-          sig {
-            params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
-           }
-          def initialize(
-            clinic_amount: nil,
-            currency: nil,
-            dental_amount: nil,
-            prescription_amount: nil,
-            purchase_type: nil,
-            total_qualified_amount: nil,
-            verification_status: nil,
-            vision_amount: nil
-          ); end
-        end
         class Lodging < ::Stripe::RequestParams
           # The time of checking into the lodging.
           sig { returns(T.nilable(Integer)) }
@@ -534,15 +479,6 @@ module Stripe
           params(_fuel: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel))
          }
         def fuel=(_fuel); end
-        # Healthcare sub-amounts for IIAS-eligible transactions.
-        sig {
-          returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare))
-         }
-        def healthcare; end
-        sig {
-          params(_healthcare: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare))
-         }
-        def healthcare=(_healthcare); end
         # Information about lodging that was purchased with this transaction.
         sig {
           returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging))
@@ -567,13 +503,12 @@ module Stripe
         sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
         def reference=(_reference); end
         sig {
-          params(fleet: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel), healthcare: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare), lodging: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
+          params(fleet: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
          }
         def initialize(
           fleet: nil,
           flight: nil,
           fuel: nil,
-          healthcare: nil,
           lodging: nil,
           receipt: nil,
           reference: nil
@@ -607,6 +542,25 @@ module Stripe
           }
         end
       end
+      class SettlementDetails < ::Stripe::RequestParams
+        # Positive settlement amount magnitude in the smallest currency unit. Must match the converted merchant amount and, when settlement and cardholder currencies are the same, this capture's finalized transaction amount magnitude. The transaction type determines the output sign.
+        sig { returns(Integer) }
+        def amount; end
+        sig { params(_amount: Integer).returns(Integer) }
+        def amount=(_amount); end
+        # Settlement currency.
+        sig { returns(String) }
+        def currency; end
+        sig { params(_currency: String).returns(String) }
+        def currency=(_currency); end
+        # Exchange rate from merchant amount to settlement amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0.
+        sig { returns(Float) }
+        def exchange_rate; end
+        sig { params(_exchange_rate: Float).returns(Float) }
+        def exchange_rate=(_exchange_rate); end
+        sig { params(amount: Integer, currency: String, exchange_rate: Float).void }
+        def initialize(amount: nil, currency: nil, exchange_rate: nil); end
+      end
       # The total amount to attempt to capture. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
       sig { returns(Integer) }
       def amount; end
@@ -627,6 +581,11 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
+      # Exchange rate from merchant amount to cardholder amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0. The supplied amount remains the merchant amount.
+      sig { returns(T.nilable(Float)) }
+      def merchant_amount_exchange_rate; end
+      sig { params(_merchant_amount_exchange_rate: T.nilable(Float)).returns(T.nilable(Float)) }
+      def merchant_amount_exchange_rate=(_merchant_amount_exchange_rate); end
       # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
       sig {
         returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::MerchantData))
@@ -654,17 +613,28 @@ module Stripe
         params(_purchase_details: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails))
        }
       def purchase_details=(_purchase_details); end
+      # Synthetic settlement values for this purchase force capture. If omitted, defaults to the final signed transaction amount, transaction currency, and effective merchant-to-cardholder exchange rate. Supply all three fields to override. This does not create a settlement or change funding.
       sig {
-        params(amount: Integer, card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), merchant_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::MerchantData), network_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::NetworkData), purchase_details: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails)).void
+        returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::SettlementDetails))
+       }
+      def settlement_details; end
+      sig {
+        params(_settlement_details: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::SettlementDetails)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::SettlementDetails))
+       }
+      def settlement_details=(_settlement_details); end
+      sig {
+        params(amount: Integer, card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), merchant_amount_exchange_rate: T.nilable(Float), merchant_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::MerchantData), network_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::NetworkData), purchase_details: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails), settlement_details: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::SettlementDetails)).void
        }
       def initialize(
         amount: nil,
         card: nil,
         currency: nil,
         expand: nil,
+        merchant_amount_exchange_rate: nil,
         merchant_data: nil,
         network_data: nil,
-        purchase_details: nil
+        purchase_details: nil,
+        settlement_details: nil
       ); end
       def self.field_encodings
         @field_encodings = {

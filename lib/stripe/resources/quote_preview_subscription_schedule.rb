@@ -2,6 +2,9 @@
 # frozen_string_literal: true
 
 module Stripe
+  # A subscription schedule allows you to create and manage the lifecycle of a subscription by
+  # predefining expected changes. A quote preview subscription schedule shows the subscription schedule
+  # that would be created by accepting the quote.
   class QuotePreviewSubscriptionSchedule < APIResource
     OBJECT_NAME = "quote_preview_subscription_schedule"
     def self.object_name

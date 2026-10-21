@@ -2842,6 +2842,12 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2SignalsAccountSignalCustomerRiskReadyEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_signals_account_signal_customer_risk_ready(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2SignalsAccountSignalFraudulentMerchantReadyEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_signals_account_signal_fraudulent_merchant_ready(&blk);

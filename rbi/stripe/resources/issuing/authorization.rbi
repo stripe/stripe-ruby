@@ -915,6 +915,20 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ProductEligibilityInquiry < ::Stripe::StripeObject
+        # The anticipated amount that merchants can send before a payment authorization, in the smallest currency unit.
+        sig { returns(T.nilable(Integer)) }
+        def anticipated_amount; end
+        # The currency of the anticipated amount that merchants can send before a payment authorization.
+        sig { returns(T.nilable(String)) }
+        def anticipated_currency; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Redaction < ::Stripe::StripeObject
         # Indicates whether this object and its related objects have been redacted or not.
         sig { returns(String) }
@@ -1478,6 +1492,9 @@ module Stripe
       # The point-of-sale initiation condition. This is null when the card network did not provide one.
       sig { returns(T.nilable(String)) }
       def pos_condition; end
+      # Details about the authorization specific to product eligibility inquiries. This field is only populated for `product_eligibility_inquiry` type authorizations.
+      sig { returns(T.nilable(ProductEligibilityInquiry)) }
+      def product_eligibility_inquiry; end
       # Redaction status of this authorization. If the authorization is not redacted, this field will be null.
       sig { returns(T.nilable(Redaction)) }
       def redaction; end
@@ -1502,6 +1519,9 @@ module Stripe
       # [Treasury](https://docs.stripe.com/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://docs.stripe.com/api/treasury/financial_accounts).
       sig { returns(T.nilable(Treasury)) }
       def treasury; end
+      # The type of the authorization, whether it is for a payment or another type.
+      sig { returns(T.nilable(String)) }
+      def type; end
       # Attribute for field verification_data
       sig { returns(VerificationData) }
       def verification_data; end

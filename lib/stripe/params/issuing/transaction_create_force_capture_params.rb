@@ -297,45 +297,6 @@ module Stripe
           end
         end
 
-        class Healthcare < ::Stripe::RequestParams
-          # Clinic and urgent care sub-amount for Visa only.
-          attr_accessor :clinic_amount
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          attr_accessor :currency
-          # Dental care sub-amount for Visa only.
-          attr_accessor :dental_amount
-          # Prescription drug sub-amount. Null if the merchant did not send this amount.
-          attr_accessor :prescription_amount
-          # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
-          attr_accessor :purchase_type
-          # Total FSA/HSA-eligible amount in the smallest currency unit.
-          attr_accessor :total_qualified_amount
-          # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
-          attr_accessor :verification_status
-          # Vision/optical sub-amount. Null if the merchant did not send this amount.
-          attr_accessor :vision_amount
-
-          def initialize(
-            clinic_amount: nil,
-            currency: nil,
-            dental_amount: nil,
-            prescription_amount: nil,
-            purchase_type: nil,
-            total_qualified_amount: nil,
-            verification_status: nil,
-            vision_amount: nil
-          )
-            @clinic_amount = clinic_amount
-            @currency = currency
-            @dental_amount = dental_amount
-            @prescription_amount = prescription_amount
-            @purchase_type = purchase_type
-            @total_qualified_amount = total_qualified_amount
-            @verification_status = verification_status
-            @vision_amount = vision_amount
-          end
-        end
-
         class Lodging < ::Stripe::RequestParams
           # The time of checking into the lodging.
           attr_accessor :check_in_at
@@ -375,8 +336,6 @@ module Stripe
         attr_accessor :flight
         # Information about fuel that was purchased with this transaction.
         attr_accessor :fuel
-        # Healthcare sub-amounts for IIAS-eligible transactions.
-        attr_accessor :healthcare
         # Information about lodging that was purchased with this transaction.
         attr_accessor :lodging
         # The line items in the purchase.
@@ -388,7 +347,6 @@ module Stripe
           fleet: nil,
           flight: nil,
           fuel: nil,
-          healthcare: nil,
           lodging: nil,
           receipt: nil,
           reference: nil
@@ -396,7 +354,6 @@ module Stripe
           @fleet = fleet
           @flight = flight
           @fuel = fuel
-          @healthcare = healthcare
           @lodging = lodging
           @receipt = receipt
           @reference = reference
@@ -431,6 +388,21 @@ module Stripe
           }
         end
       end
+
+      class SettlementDetails < ::Stripe::RequestParams
+        # Positive settlement amount magnitude in the smallest currency unit. Must match the converted merchant amount and, when settlement and cardholder currencies are the same, this capture's finalized transaction amount magnitude. The transaction type determines the output sign.
+        attr_accessor :amount
+        # Settlement currency.
+        attr_accessor :currency
+        # Exchange rate from merchant amount to settlement amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0.
+        attr_accessor :exchange_rate
+
+        def initialize(amount: nil, currency: nil, exchange_rate: nil)
+          @amount = amount
+          @currency = currency
+          @exchange_rate = exchange_rate
+        end
+      end
       # The total amount to attempt to capture. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
       attr_accessor :amount
       # Card associated with this transaction.
@@ -439,29 +411,37 @@ module Stripe
       attr_accessor :currency
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # Exchange rate from merchant amount to cardholder amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0. The supplied amount remains the merchant amount.
+      attr_accessor :merchant_amount_exchange_rate
       # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
       attr_accessor :merchant_data
       # Details about the transaction, such as processing dates, set by the card network.
       attr_accessor :network_data
       # Additional purchase information that is optionally provided by the merchant.
       attr_accessor :purchase_details
+      # Synthetic settlement values for this purchase force capture. If omitted, defaults to the final signed transaction amount, transaction currency, and effective merchant-to-cardholder exchange rate. Supply all three fields to override. This does not create a settlement or change funding.
+      attr_accessor :settlement_details
 
       def initialize(
         amount: nil,
         card: nil,
         currency: nil,
         expand: nil,
+        merchant_amount_exchange_rate: nil,
         merchant_data: nil,
         network_data: nil,
-        purchase_details: nil
+        purchase_details: nil,
+        settlement_details: nil
       )
         @amount = amount
         @card = card
         @currency = currency
         @expand = expand
+        @merchant_amount_exchange_rate = merchant_amount_exchange_rate
         @merchant_data = merchant_data
         @network_data = network_data
         @purchase_details = purchase_details
+        @settlement_details = settlement_details
       end
 
       def self.field_encodings

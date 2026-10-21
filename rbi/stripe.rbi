@@ -620,6 +620,8 @@ module Stripe
   # later. You can also store multiple debit cards on a recipient in order to
   # transfer to those cards later.
   #
+  # This API is deprecated. Use the [PaymentMethods API](https://docs.stripe.com/api/payment_methods) instead.
+  #
   # Related guide: [Card payments with Sources](https://docs.stripe.com/sources/cards)
   class Card < APIResource
     class Benefits < ::Stripe::StripeObject
@@ -3381,6 +3383,373 @@ module Stripe
 end
 # typed: true
 module Stripe
+  module V2
+    module Data
+      # A ranked set of public analytical resources matching a natural-language query.
+      class SearchResultList < APIResource
+        class Context < ::Stripe::StripeObject
+          class BusinessConcept < ::Stripe::StripeObject
+            # What the term means in the context of this domain.
+            sig { returns(String) }
+            def definition; end
+            # The name of the concept, for example "decline reason".
+            sig { returns(String) }
+            def term; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Domain vocabulary relevant to the request, so that callers interpret the
+          # returned resources consistently with how Stripe defines these terms.
+          sig { returns(T::Array[BusinessConcept]) }
+          def business_concepts; end
+          # The business domain the request was matched to, for example "payments".
+          sig { returns(String) }
+          def domain; end
+          # High-level routing guidance for the agent. When `data` is empty, may
+          # advise how to refine the request or browse canonical resources.
+          sig { returns(String) }
+          def guidance; end
+          def self.inner_class_types
+            @inner_class_types = {business_concepts: BusinessConcept}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Data < ::Stripe::StripeObject
+          class ExecutionSpec < ::Stripe::StripeObject
+            # The canonical run endpoint, e.g. "/v2/data/report_runs" or "/v2/data/query_runs".
+            sig { returns(String) }
+            def execution_url; end
+            # The HTTP method for `execution_url`.
+            sig { returns(String) }
+            def http_method; end
+            # The identifier to submit to `execution_url`, e.g. "report_123" or "table_123".
+            sig { returns(String) }
+            def id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Metrics < ::Stripe::StripeObject
+            class Dimension < ::Stripe::StripeObject
+              # A description of what the dimension represents.
+              sig { returns(String) }
+              def description; end
+              # The public dimension name accepted by the metric query endpoint.
+              sig { returns(String) }
+              def name; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Whether the metric query endpoint accepts a `currency` parameter for this
+            # metric. False for pure ratios and growth rates.
+            sig { returns(T::Boolean) }
+            def accepts_currency; end
+            # Dimensions the metric can be filtered and grouped by.
+            sig { returns(T::Array[Dimension]) }
+            def dimensions; end
+            # How the metric's value is formatted.
+            sig { returns(String) }
+            def measure_format; end
+            # The metric namespace. Metrics queried together in one metric query request
+            # must share a namespace.
+            sig { returns(String) }
+            def metric_namespace; end
+            def self.inner_class_types
+              @inner_class_types = {dimensions: Dimension}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Reports < ::Stripe::StripeObject
+            class OutputColumn < ::Stripe::StripeObject
+              # What the column represents.
+              sig { returns(String) }
+              def description; end
+              # The name of the column in the report output.
+              sig { returns(String) }
+              def name; end
+              # The data type of the column.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class Parameters < ::Stripe::StripeObject
+              class ArrayDetails < ::Stripe::StripeObject
+                class EnumDetails < ::Stripe::StripeObject
+                  # Allowed values of the enum.
+                  sig { returns(T::Array[String]) }
+                  def allowed_values; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The data type of the elements in the array.
+                sig { returns(String) }
+                def element_type; end
+                # Details about enum elements in the array.
+                sig { returns(T.nilable(EnumDetails)) }
+                def enum_details; end
+                def self.inner_class_types
+                  @inner_class_types = {enum_details: EnumDetails}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class EnumDetails < ::Stripe::StripeObject
+                # Allowed values of the enum.
+                sig { returns(T::Array[String]) }
+                def allowed_values; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # For array parameters, details about the array elements.
+              sig { returns(T.nilable(ArrayDetails)) }
+              def array_details; end
+              # Explains the purpose and usage of the parameter.
+              sig { returns(String) }
+              def description; end
+              # For enum parameters, the list of allowed values.
+              sig { returns(T.nilable(EnumDetails)) }
+              def enum_details; end
+              # Indicates whether the parameter must be provided.
+              sig { returns(T::Boolean) }
+              def required; end
+              # The data type of the parameter.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {array_details: ArrayDetails, enum_details: EnumDetails}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Shape of the report output when known.
+            sig { returns(T::Array[OutputColumn]) }
+            def output_columns; end
+            # Parameter schema, keyed by parameter name, matching the `/v2/data/reports`
+            # resource.
+            sig { returns(T::Hash[String, Parameters]) }
+            def parameters; end
+            def self.inner_class_types
+              @inner_class_types = {output_columns: OutputColumn, parameters: Parameters}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Schemas < ::Stripe::StripeObject
+            class Column < ::Stripe::StripeObject
+              class ForeignKeysFrom < ::Stripe::StripeObject
+                # The name of the referenced column.
+                sig { returns(String) }
+                def column; end
+                # The identifier of the referenced schema.
+                sig { returns(String) }
+                def schema; end
+                # The name of the referenced schema.
+                sig { returns(String) }
+                def schema_name; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class ForeignKeysTo < ::Stripe::StripeObject
+                # The name of the referenced column.
+                sig { returns(String) }
+                def column; end
+                # The identifier of the referenced schema.
+                sig { returns(String) }
+                def schema; end
+                # The name of the referenced schema.
+                sig { returns(String) }
+                def schema_name; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # A description of what the column represents.
+              sig { returns(String) }
+              def description; end
+              # Columns in other schemas that reference this column as a foreign key.
+              sig { returns(T::Array[ForeignKeysFrom]) }
+              def foreign_keys_from; end
+              # Columns in other schemas that this column references as a foreign key.
+              sig { returns(T::Array[ForeignKeysTo]) }
+              def foreign_keys_to; end
+              # Whether the column forms part of the table's primary key.
+              sig { returns(T::Boolean) }
+              def is_primary_key; end
+              # The name of the column.
+              sig { returns(String) }
+              def name; end
+              # The data type of the column.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {
+                  foreign_keys_from: ForeignKeysFrom,
+                  foreign_keys_to: ForeignKeysTo,
+                }
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class RelevantReport < ::Stripe::StripeObject
+              # A description of the `Report`.
+              sig { returns(String) }
+              def description; end
+              # The unique identifier of the `Report`.
+              sig { returns(String) }
+              def id; end
+              # The human-readable name of the `Report`.
+              sig { returns(String) }
+              def name; end
+              # Canonical API path for the `Report`, e.g. "/v2/data/reports/report_123".
+              sig { returns(String) }
+              def reference_url; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Compact schema projection.
+            sig { returns(T::Array[Column]) }
+            def columns; end
+            # The dataset used when submitting an ad-hoc query run.
+            sig { returns(String) }
+            def dataset; end
+            # Stripe-defined reports that are relevant to this schema.
+            sig { returns(T::Array[RelevantReport]) }
+            def relevant_reports; end
+            def self.inner_class_types
+              @inner_class_types = {columns: Column, relevant_reports: RelevantReport}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # What the canonical resource contains.
+          sig { returns(String) }
+          def description; end
+          # How to execute this result.
+          sig { returns(ExecutionSpec) }
+          def execution_spec; end
+          # Per-result additional context: constraints, interpretation rules, and gotchas.
+          sig { returns(T.nilable(String)) }
+          def extended_description; end
+          # Canonical resource identity.
+          sig { returns(String) }
+          def id; end
+          # Human-readable name of the canonical resource.
+          sig { returns(String) }
+          def name; end
+          # The canonical resource type this result points at, e.g. "v2.data.schema"
+          # or "v2.data.report". May name a resource that is not yet publicly
+          # retrievable, in which case `reference_url` is omitted. Distinct from
+          # `object`, which identifies this result itself.
+          sig { returns(String) }
+          def object_type; end
+          # Canonical API path for retrieving the complete resource, e.g.
+          # "/v2/data/reports/report_123".
+          sig { returns(String) }
+          def reference_url; end
+          # Present for schemas when known; omitted for resource types without data
+          # freshness.
+          sig { returns(String) }
+          def refreshed_at; end
+          # Relative ordering signal from the search service (0-1). Not a
+          # calibrated guarantee; callers must not use it as a configurable cutoff.
+          sig { returns(BigDecimal) }
+          def relevance_score; end
+          # Attribute for field catalog
+          sig { returns(T.nilable(String)) }
+          def catalog; end
+          # A pre-defined measure queryable through the metric query endpoint.
+          sig { returns(T.nilable(Metrics)) }
+          def metrics; end
+          # A Stripe-defined report exposed by `/v2/data/reports`.
+          sig { returns(T.nilable(Reports)) }
+          def reports; end
+          # A queryable table exposed by `/v2/data/schemas`.
+          sig { returns(T.nilable(Schemas)) }
+          def schemas; end
+          def self.inner_class_types
+            @inner_class_types = {
+              execution_spec: ExecutionSpec,
+              metrics: Metrics,
+              reports: Reports,
+              schemas: Schemas,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {relevance_score: :decimal_string}
+          end
+        end
+        # Domain-level intelligence. Present when a known domain matches; omitted
+        # when the system falls back to direct semantic search.
+        sig { returns(T.nilable(Context)) }
+        def context; end
+        # Ranked public resources. Always present, including when empty.
+        sig { returns(T::Array[Data]) }
+        def data; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
+        # Token for the next page.
+        sig { returns(T.nilable(String)) }
+        def next_page_url; end
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        sig { returns(String) }
+        def object; end
+        # Token for the previous page.
+        sig { returns(T.nilable(String)) }
+        def previous_page_url; end
+      end
+    end
+  end
+end
+# typed: true
+module Stripe
   module Issuing
     # When a non-stripe BIN is used, any use of an [issued card](https://docs.stripe.com/issuing) must be settled directly with the card network. The net amount owed is represented by an Issuing `Settlement` object.
     class Settlement < APIResource
@@ -3521,9 +3890,7 @@ module Stripe
     # just like a `Card` object: once chargeable, they can be charged, or can be
     # attached to customers.
     #
-    # Stripe doesn't recommend using the deprecated [Sources API](https://docs.stripe.com/api/sources).
-    # We recommend that you adopt the [PaymentMethods API](https://docs.stripe.com/api/payment_methods).
-    # This newer API provides access to our latest features and payment method types.
+    # This API is deprecated. Use the [PaymentMethods API](https://docs.stripe.com/api/payment_methods) instead.
     #
     # Related guides: [Sources API](https://docs.stripe.com/sources) and [Sources & Customers](https://docs.stripe.com/sources/customers).
     sig { returns(::Stripe::Source) }
@@ -3917,6 +4284,28 @@ module Stripe
           # Whether to enable the send money feature that grants access to bill creation and payment.
           sig { returns(T::Boolean) }
           def send_money; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class BusinessProfileManagement < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -4680,6 +5069,28 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ReportingChart < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class TaxRegistrations < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -4786,6 +5197,9 @@ module Stripe
       # Configuration for the [Bills](/connect/supported-embedded-components/bills/) embedded component.
       sig { returns(T.nilable(Bills)) }
       def bills; end
+      # Configuration for the [Business profile management](/connect/supported-embedded-components/business-profile-management/) embedded component.
+      sig { returns(T.nilable(BusinessProfileManagement)) }
+      def business_profile_management; end
       # Attribute for field capital_financing
       sig { returns(T.nilable(CapitalFinancing)) }
       def capital_financing; end
@@ -4864,17 +5278,20 @@ module Stripe
       # Configuration for the [recipients list](/connect/supported-embedded-components/recipients-list/) embedded component.
       sig { returns(T.nilable(RecipientsList)) }
       def recipients_list; end
+      # Attribute for field reporting_chart
+      sig { returns(ReportingChart) }
+      def reporting_chart; end
       # Attribute for field tax_registrations
       sig { returns(TaxRegistrations) }
       def tax_registrations; end
       # Attribute for field tax_settings
       sig { returns(TaxSettings) }
       def tax_settings; end
-      # Configuration for the [Terminal hardware orders](/connect/supported-embedded-components/terminal-hardware-orders/) embedded component.
-      sig { returns(T.nilable(TerminalHardwareOrders)) }
+      # Attribute for field terminal_hardware_orders
+      sig { returns(TerminalHardwareOrders) }
       def terminal_hardware_orders; end
-      # Configuration for the [Terminal hardware shop](/connect/supported-embedded-components/terminal-hardware-shop/) embedded component.
-      sig { returns(T.nilable(TerminalHardwareShop)) }
+      # Attribute for field terminal_hardware_shop
+      sig { returns(TerminalHardwareShop) }
       def terminal_hardware_shop; end
       def self.inner_class_types
         @inner_class_types = {
@@ -4884,6 +5301,7 @@ module Stripe
           balance_report: BalanceReport,
           balances: Balances,
           bills: Bills,
+          business_profile_management: BusinessProfileManagement,
           capital_financing: CapitalFinancing,
           capital_financing_application: CapitalFinancingApplication,
           capital_financing_manual_payment: CapitalFinancingManualPayment,
@@ -4910,6 +5328,7 @@ module Stripe
           payouts: Payouts,
           payouts_list: PayoutsList,
           recipients_list: RecipientsList,
+          reporting_chart: ReportingChart,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
           terminal_hardware_orders: TerminalHardwareOrders,
@@ -9270,6 +9689,7 @@ end
 # typed: true
 module Stripe
   module Billing
+    # A Billing Alert Notification records a notification sent when a billing alert is triggered or recovered. It identifies the alert, customer, and notification event, along with the observed value and the time the notification was sent.
     class AlertNotification < APIResource
       # Whether the alert was triggered or recovered.
       sig { returns(String) }
@@ -10634,6 +11054,48 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class SubscriptionPause < ::Stripe::StripeObject
+          class Duration < ::Stripe::StripeObject
+            class IntervalOption < ::Stripe::StripeObject
+              # Specifies the pause duration unit. Either `day`, `week`, `month`, or `year`.
+              sig { returns(String) }
+              def interval; end
+              # The number of intervals in the pause duration. The maximum duration is three years.
+              sig { returns(Integer) }
+              def interval_count; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The preset pause durations customers can choose from.
+            sig { returns(T::Array[IntervalOption]) }
+            def interval_options; end
+            # Whether subscriptions can be paused indefinitely or for a preset duration.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {interval_options: IntervalOption}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field duration
+          sig { returns(Duration) }
+          def duration; end
+          # Whether the feature is enabled. Customers can only pause subscriptions in the [redesigned customer portal](/customer-management).
+          sig { returns(T::Boolean) }
+          def enabled; end
+          def self.inner_class_types
+            @inner_class_types = {duration: Duration}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class SubscriptionUpdate < ::Stripe::StripeObject
           class Product < ::Stripe::StripeObject
             class AdjustableQuantity < ::Stripe::StripeObject
@@ -10731,6 +11193,9 @@ module Stripe
         # Attribute for field subscription_cancel
         sig { returns(SubscriptionCancel) }
         def subscription_cancel; end
+        # Attribute for field subscription_pause
+        sig { returns(SubscriptionPause) }
+        def subscription_pause; end
         # Attribute for field subscription_update
         sig { returns(SubscriptionUpdate) }
         def subscription_update; end
@@ -10740,6 +11205,7 @@ module Stripe
             invoice_history: InvoiceHistory,
             payment_method_update: PaymentMethodUpdate,
             subscription_cancel: SubscriptionCancel,
+            subscription_pause: SubscriptionPause,
             subscription_update: SubscriptionUpdate,
           }
         end
@@ -14791,7 +15257,7 @@ module Stripe
           end
         end
         class TaxId < ::Stripe::StripeObject
-          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
           sig { returns(String) }
           def type; end
           # The value of the tax ID.
@@ -15407,7 +15873,7 @@ module Stripe
           end
         end
         class TaxId < ::Stripe::StripeObject
-          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
           sig { returns(String) }
           def type; end
           # The value of the tax ID.
@@ -15556,6 +16022,290 @@ module Stripe
         end
       end
       class Item < ::Stripe::StripeObject
+        class MetronomeCommit < ::Stripe::StripeObject
+          class Commit < ::Stripe::StripeObject
+            class AccessSchedule < ::Stripe::StripeObject
+              class ScheduleItem < ::Stripe::StripeObject
+                # The access amount in credit_type_id units.
+                sig { returns(BigDecimal) }
+                def amount; end
+                # Hour-aligned RFC 3339 timestamp in UTC at which access to the balance amount ends (exclusive).
+                sig { returns(String) }
+                def ending_before; end
+                # Hour-aligned RFC 3339 timestamp in UTC at which access to the balance amount starts (inclusive).
+                sig { returns(String) }
+                def starting_at; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+                def self.field_encodings
+                  @field_encodings = {amount: :decimal_string}
+                end
+              end
+              # The fixed price the buyer pays, in minor currency units.
+              sig { returns(Integer) }
+              def price_amount; end
+              # When and how many credits become available.
+              sig { returns(T::Array[ScheduleItem]) }
+              def schedule_items; end
+              def self.inner_class_types
+                @inner_class_types = {schedule_items: ScheduleItem}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+              def self.field_encodings
+                @field_encodings = {
+                  schedule_items: {
+                    kind: :array,
+                    element: {kind: :object, fields: {amount: :decimal_string}},
+                  },
+                }
+              end
+            end
+            class CommitOptions < ::Stripe::StripeObject
+              class CustomAmount < ::Stripe::StripeObject
+                # Whether custom amount input is enabled.
+                sig { returns(T::Boolean) }
+                def enabled; end
+                # Maximum `access_amount` the customer can enter. `null` means the effective maximum is `999999999999999`.
+                sig { returns(T.nilable(Integer)) }
+                def maximum; end
+                # Minimum `access_amount` the customer can enter. `null` means the effective minimum is `1`.
+                sig { returns(T.nilable(Integer)) }
+                def minimum; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class DiscountTier < ::Stripe::StripeObject
+                # Percentage discount applied to the full access_amount.
+                sig { returns(Integer) }
+                def discount_percentage; end
+                # Upper bound (inclusive) in credit_type_id units. Null means unbounded.
+                sig { returns(T.nilable(Integer)) }
+                def up_to; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class Option < ::Stripe::StripeObject
+                # The access amount for this option.
+                sig { returns(Integer) }
+                def access_amount; end
+                # Whether this option is pre-selected in the Checkout UI.
+                sig { returns(T.nilable(T::Boolean)) }
+                def default_option; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Custom access amount configuration.
+              sig { returns(T.nilable(CustomAmount)) }
+              def custom_amount; end
+              # Volume-based discount tiers.
+              sig { returns(T.nilable(T::Array[DiscountTier])) }
+              def discount_tiers; end
+              # When access for the purchased credits ends.
+              sig { returns(String) }
+              def ending_before; end
+              # Access-amount presets for the buyer to choose from.
+              sig { returns(T::Array[Option]) }
+              def options; end
+              # The selected access amount. It matches an `options[].access_amount` for a preset selection, but may be a custom value when `custom_amount` is enabled. New sessions initialize it from the option marked `default_option`, or from the first option when none is marked. It is not necessarily the item's monetary price; use `amount_details` for display and totals.
+              sig { returns(T.nilable(Integer)) }
+              def selected_access_amount; end
+              # When access for the purchased credits starts.
+              sig { returns(String) }
+              def starting_at; end
+              def self.inner_class_types
+                @inner_class_types = {
+                  custom_amount: CustomAmount,
+                  discount_tiers: DiscountTier,
+                  options: Option,
+                }
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class Specifier < ::Stripe::StripeObject
+              # Key-value pairs for presentation group filters.
+              sig { returns(T.nilable(T::Hash[String, String])) }
+              def presentation_group_values; end
+              # Key-value pairs for pricing group filters.
+              sig { returns(T.nilable(T::Hash[String, String])) }
+              def pricing_group_values; end
+              # Metronome product ID to scope this specifier to.
+              sig { returns(T.nilable(String)) }
+              def product_id; end
+              # Metronome product tags to scope this specifier to. Products must have all specified tags.
+              sig { returns(T.nilable(T::Array[String])) }
+              def product_tags; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class TaxDetails < ::Stripe::StripeObject
+              # Stripe [tax code](https://docs.stripe.com/tax/tax-codes) for this commit (for example, `txcd_10103000`).
+              sig { returns(String) }
+              def tax_code; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Sets the balance amount and release schedule. Mutually exclusive with `commit_options`.
+            sig { returns(T.nilable(AccessSchedule)) }
+            def access_schedule; end
+            # Metronome product tags this commit can be drawn down against. Products must have all specified tags. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all absent, the commit applies to all products. See Metronome's [applicable_product_tags](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-applicable-product-tags).
+            sig { returns(T.nilable(T::Array[String])) }
+            def applicable_metronome_product_tags; end
+            # Metronome product IDs this commit can be drawn down against. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all absent, the commit applies to all products. See Metronome's [applicable_product_ids](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-applicable-product-ids).
+            sig { returns(T.nilable(T::Array[String])) }
+            def applicable_metronome_products; end
+            # Customer selects the balance amount to purchase. Mutually exclusive with `access_schedule`.
+            sig { returns(T.nilable(CommitOptions)) }
+            def commit_options; end
+            # The Metronome Custom Pricing Unit credit type ID for this commit. Null when the commit prices in fiat.
+            sig { returns(T.nilable(String)) }
+            def credit_type_id; end
+            # Key-value pairs forwarded to the Metronome commit's [custom_fields](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-custom-fields).
+            sig { returns(T.nilable(T::Hash[String, String])) }
+            def custom_fields; end
+            # Free-form description. Forwarded to the Metronome commit's description.
+            sig { returns(T.nilable(String)) }
+            def description; end
+            # The Metronome commit ID, populated after successful activation.
+            sig { returns(T.nilable(String)) }
+            def metronome_commit; end
+            # The Metronome product ID for this commit.
+            sig { returns(String) }
+            def metronome_product; end
+            # Display name for the commit. Surfaced on the Metronome commit's name.
+            sig { returns(String) }
+            def name; end
+            # Priority for applying the commit. Lower priority values apply first. Forwarded to Metronome as-is.
+            sig { returns(T.nilable(BigDecimal)) }
+            def priority; end
+            # Specifies which rates are used to draw down the commit. Accepts `commit_rate`, `list_rate`, `COMMIT_RATE`, or `LIST_RATE`.
+            sig { returns(T.nilable(String)) }
+            def rate_type; end
+            # Fraction of unused balance that rolls over on a Metronome contract transition. Must be between `0` and `1`. Forwarded to Metronome as-is.
+            sig { returns(T.nilable(BigDecimal)) }
+            def rollover_fraction; end
+            # Usage filters that determine what draws down the commit. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all absent, the commit applies to all products. See Metronome's [specifiers](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-specifiers).
+            sig { returns(T.nilable(T::Array[Specifier])) }
+            def specifiers; end
+            # Tax details for the Stripe product created for this commit. If provided, `tax_code` is required.
+            sig { returns(T.nilable(TaxDetails)) }
+            def tax_details; end
+            def self.inner_class_types
+              @inner_class_types = {
+                access_schedule: AccessSchedule,
+                commit_options: CommitOptions,
+                specifiers: Specifier,
+                tax_details: TaxDetails,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {
+                access_schedule: {
+                  kind: :nullable,
+                  inner: {
+                    kind: :object,
+                    fields: {
+                      schedule_items: {
+                        kind: :array,
+                        element: {kind: :object, fields: {amount: :decimal_string}},
+                      },
+                    },
+                  },
+                },
+                priority: {kind: :nullable, inner: :decimal_string},
+                rollover_fraction: {kind: :nullable, inner: :decimal_string},
+              }
+            end
+          end
+          class PriceConfiguration < ::Stripe::StripeObject
+            # The currency for this commit purchase, as an ISO 4217 lowercase string (for example, `usd`).
+            sig { returns(String) }
+            def currency; end
+            # Specifies whether the price is considered inclusive or exclusive of taxes. When omitted and automatic tax is enabled, uses `tax_settings.defaults.tax_behavior`. If no default is set, the request returns an error.
+            sig { returns(T.nilable(String)) }
+            def tax_behavior; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The list of commits for this Metronome contract.
+          sig { returns(T::Array[Commit]) }
+          def commits; end
+          # The Metronome contract ID associated with this checkout item.
+          sig { returns(String) }
+          def metronome_contract; end
+          # The Metronome customer ID associated with this checkout item, resolved during validation.
+          sig { returns(T.nilable(String)) }
+          def metronome_customer; end
+          # Attribute for field price_configuration
+          sig { returns(PriceConfiguration) }
+          def price_configuration; end
+          def self.inner_class_types
+            @inner_class_types = {commits: Commit, price_configuration: PriceConfiguration}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              commits: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    access_schedule: {
+                      kind: :nullable,
+                      inner: {
+                        kind: :object,
+                        fields: {
+                          schedule_items: {
+                            kind: :array,
+                            element: {kind: :object, fields: {amount: :decimal_string}},
+                          },
+                        },
+                      },
+                    },
+                    priority: {kind: :nullable, inner: :decimal_string},
+                    rollover_fraction: {kind: :nullable, inner: :decimal_string},
+                  },
+                },
+              },
+            }
+          end
+        end
         class Subscription < ::Stripe::StripeObject
           class Item < ::Stripe::StripeObject
             class CurrentTrial < ::Stripe::StripeObject
@@ -15668,6 +16418,9 @@ module Stripe
         # The key of the item. Guaranteed to be a unique ID within this checkout session's items.
         sig { returns(String) }
         def key; end
+        # Attribute for field metronome_commit
+        sig { returns(T.nilable(MetronomeCommit)) }
+        def metronome_commit; end
         # Attribute for field subscription
         sig { returns(T.nilable(Subscription)) }
         def subscription; end
@@ -15675,10 +16428,41 @@ module Stripe
         sig { returns(String) }
         def type; end
         def self.inner_class_types
-          @inner_class_types = {subscription: Subscription}
+          @inner_class_types = {metronome_commit: MetronomeCommit, subscription: Subscription}
         end
         def self.field_remappings
           @field_remappings = {}
+        end
+        def self.field_encodings
+          @field_encodings = {
+            metronome_commit: {
+              kind: :object,
+              fields: {
+                commits: {
+                  kind: :array,
+                  element: {
+                    kind: :object,
+                    fields: {
+                      access_schedule: {
+                        kind: :nullable,
+                        inner: {
+                          kind: :object,
+                          fields: {
+                            schedule_items: {
+                              kind: :array,
+                              element: {kind: :object, fields: {amount: :decimal_string}},
+                            },
+                          },
+                        },
+                      },
+                      priority: {kind: :nullable, inner: :decimal_string},
+                      rollover_fraction: {kind: :nullable, inner: :decimal_string},
+                    },
+                  },
+                },
+              },
+            },
+          }
         end
       end
       class ManagedPayments < ::Stripe::StripeObject
@@ -15687,6 +16471,52 @@ module Stripe
         def enabled; end
         def self.inner_class_types
           @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class MarketingAttribution < ::Stripe::StripeObject
+        class AdConversion < ::Stripe::StripeObject
+          # Whether the customer consented to sending conversion data to an advertising platform.
+          sig { returns(T::Boolean) }
+          def consent_collected; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field ad_conversion
+        sig { returns(AdConversion) }
+        def ad_conversion; end
+        # The advertising platform's click identifier.
+        sig { returns(T.nilable(String)) }
+        def click_id; end
+        # The Unix timestamp when the advertising interaction occurred.
+        sig { returns(T.nilable(Integer)) }
+        def occurred_at; end
+        # The advertising group ID from the `utm_adgroup` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_adgroup; end
+        # The advertising content identifier from the `utm_content` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_content; end
+        # The advertising campaign ID from the `utm_id` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_id; end
+        # The marketing medium from the `utm_medium` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_medium; end
+        # The referral source from the `utm_source` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_source; end
+        # The paid search term from the `utm_term` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_term; end
+        def self.inner_class_types
+          @inner_class_types = {ad_conversion: AdConversion}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -16059,6 +16889,44 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class MandateOptions < ::Stripe::StripeObject
+            # Maximum or fixed amount for future payments, in the mandate's currency.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            sig { returns(T.nilable(String)) }
+            def amount_type; end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(T.nilable(String)) }
+            def currency; end
+            # A description of the mandate or subscription that is meant to be displayed to the customer.
+            sig { returns(T.nilable(String)) }
+            def description; end
+            # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            sig { returns(T.nilable(Integer)) }
+            def end_date; end
+            # Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
+            sig { returns(T.nilable(String)) }
+            def interval; end
+            # The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
+            sig { returns(T.nilable(Integer)) }
+            def interval_count; end
+            # Unique identifier for the mandate or subscription.
+            sig { returns(T.nilable(String)) }
+            def reference; end
+            # Start date of the mandate or subscription. Start date should not be lesser than yesterday.
+            sig { returns(T.nilable(Integer)) }
+            def start_date; end
+            # Specifies the type of mandates supported. Possible values are `india`.
+            sig { returns(T.nilable(T::Array[String])) }
+            def supported_types; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Restrictions < ::Stripe::StripeObject
             # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             sig { returns(T.nilable(T::Array[String])) }
@@ -16079,6 +16947,9 @@ module Stripe
           # Attribute for field installments
           sig { returns(T.nilable(Installments)) }
           def installments; end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
           # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
           sig { returns(T.nilable(String)) }
           def request_decremental_authorization; end
@@ -16116,7 +16987,11 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def statement_descriptor_suffix_kanji; end
           def self.inner_class_types
-            @inner_class_types = {installments: Installments, restrictions: Restrictions}
+            @inner_class_types = {
+              installments: Installments,
+              mandate_options: MandateOptions,
+              restrictions: Restrictions,
+            }
           end
           def self.field_remappings
             @field_remappings = {}
@@ -17818,6 +18693,9 @@ module Stripe
       # Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](/api/payment_intents/object), [Invoices](/api/invoices/object), and [Subscriptions](/api/subscriptions/object).
       sig { returns(T.nilable(ManagedPayments)) }
       def managed_payments; end
+      # Advertising attribution information for this Checkout Session.
+      sig { returns(T.nilable(T::Array[MarketingAttribution])) }
+      def marketing_attributions; end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
@@ -17845,7 +18723,7 @@ module Stripe
       # The ID of the Payment Link that created this Session.
       sig { returns(T.nilable(T.any(String, ::Stripe::PaymentLink))) }
       def payment_link; end
-      # Configure whether a Checkout Session should collect a payment method for sessions with mode `payment`. Defaults to `always`.
+      # Configure whether a Checkout Session should collect a payment method. Can only be set in `subscription` mode. Defaults to `always`.
       sig { returns(T.nilable(String)) }
       def payment_method_collection; end
       # Information about the payment method configuration used for this Checkout session if using dynamic payment methods.
@@ -23962,7 +24840,7 @@ module Stripe
       # Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
       sig { returns(T.nilable(String)) }
       def access_activity_log; end
-      # Attribute for field appeal
+      # Appeal evidence submitted during the appeal stage.
       sig { returns(T.nilable(Appeal)) }
       def appeal; end
       # The billing address provided by the customer.
@@ -24127,7 +25005,7 @@ module Stripe
       sig { returns(Integer) }
       def submission_count; end
       # Whether the dispute was submitted manually, with Smart Disputes, or not submitted.
-      sig { returns(T.nilable(String)) }
+      sig { returns(String) }
       def submission_method; end
       def self.inner_class_types
         @inner_class_types = {enhanced_eligibility: EnhancedEligibility}
@@ -25052,7 +25930,7 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
-      # The most recent information about the account's owners.
+      # The ID of the [Financial Connections Account Ownership](https://docs.stripe.com/api/financial_connections/ownership) object associated with this account.
       sig { returns(T.nilable(T.any(String, ::Stripe::FinancialConnections::AccountOwnership))) }
       def ownership; end
       # The state of the most recent attempt to refresh the account owners.
@@ -26730,23 +27608,6 @@ module Stripe
         end
       end
       class Email < ::Stripe::StripeObject
-        class Details < ::Stripe::StripeObject
-          # Number of days from the time when the email domain was first observed to the time of verification.
-          sig { returns(T.nilable(Float)) }
-          def days_since_domain_creation; end
-          # Number of days from the time when the email address was first observed to the time of verification.
-          sig { returns(T.nilable(Float)) }
-          def days_since_ownership_started; end
-          # Two-letter ISO 3166-1 alpha-2 country code of the email domain's country.
-          sig { returns(T.nilable(String)) }
-          def domain_country; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class Error < ::Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
           sig { returns(T.nilable(String)) }
@@ -26764,9 +27625,6 @@ module Stripe
         # Confidence that the provided address matches the email records.
         sig { returns(T.nilable(String)) }
         def address_match_confidence; end
-        # Additional email verification details
-        sig { returns(T.nilable(Details)) }
-        def details; end
         # Two-letter country code of the email domain's country.
         sig { returns(T.nilable(String)) }
         def domain_country; end
@@ -26795,7 +27653,7 @@ module Stripe
         sig { returns(String) }
         def status; end
         def self.inner_class_types
-          @inner_class_types = {details: Details, error: Error}
+          @inner_class_types = {error: Error}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -28396,7 +29254,7 @@ module Stripe
       end
     end
     class CustomerTaxId < ::Stripe::StripeObject
-      # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+      # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
       sig { returns(String) }
       def type; end
       # The value of the tax ID.
@@ -31276,6 +32134,20 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ProductEligibilityInquiry < ::Stripe::StripeObject
+        # The anticipated amount that merchants can send before a payment authorization, in the smallest currency unit.
+        sig { returns(T.nilable(Integer)) }
+        def anticipated_amount; end
+        # The currency of the anticipated amount that merchants can send before a payment authorization.
+        sig { returns(T.nilable(String)) }
+        def anticipated_currency; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Redaction < ::Stripe::StripeObject
         # Indicates whether this object and its related objects have been redacted or not.
         sig { returns(String) }
@@ -31839,6 +32711,9 @@ module Stripe
       # The point-of-sale initiation condition. This is null when the card network did not provide one.
       sig { returns(T.nilable(String)) }
       def pos_condition; end
+      # Details about the authorization specific to product eligibility inquiries. This field is only populated for `product_eligibility_inquiry` type authorizations.
+      sig { returns(T.nilable(ProductEligibilityInquiry)) }
+      def product_eligibility_inquiry; end
       # Redaction status of this authorization. If the authorization is not redacted, this field will be null.
       sig { returns(T.nilable(Redaction)) }
       def redaction; end
@@ -31863,6 +32738,9 @@ module Stripe
       # [Treasury](https://docs.stripe.com/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://docs.stripe.com/api/treasury/financial_accounts).
       sig { returns(T.nilable(Treasury)) }
       def treasury; end
+      # The type of the authorization, whether it is for a payment or another type.
+      sig { returns(T.nilable(String)) }
+      def type; end
       # Attribute for field verification_data
       sig { returns(VerificationData) }
       def verification_data; end
@@ -36051,7 +36929,7 @@ module Stripe
     end
     class TaxDetails < ::Stripe::StripeObject
       class TaxId < ::Stripe::StripeObject
-        # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+        # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
         sig { returns(String) }
         def type; end
         # The value of the tax ID.
@@ -46212,6 +47090,20 @@ module Stripe
     end
     class SubscriptionData < ::Stripe::StripeObject
       class InvoiceSettings < ::Stripe::StripeObject
+        class CustomField < ::Stripe::StripeObject
+          # The name of the custom field.
+          sig { returns(String) }
+          def name; end
+          # The value of the custom field.
+          sig { returns(String) }
+          def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Issuer < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
@@ -46226,11 +47118,23 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # The account tax IDs associated with the subscription. Will be set on invoices generated by the subscription.
+        sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::TaxId)])) }
+        def account_tax_ids; end
+        # A list of up to 4 custom fields to be displayed on the invoice.
+        sig { returns(T.nilable(T::Array[CustomField])) }
+        def custom_fields; end
+        # An arbitrary string attached to the object. Often useful for displaying to users.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        # Footer to be displayed on the invoice.
+        sig { returns(T.nilable(String)) }
+        def footer; end
         # Attribute for field issuer
         sig { returns(Issuer) }
         def issuer; end
         def self.inner_class_types
-          @inner_class_types = {issuer: Issuer}
+          @inner_class_types = {custom_fields: CustomField, issuer: Issuer}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -56911,38 +57815,8 @@ module Stripe
 end
 # typed: true
 module Stripe
-  # Invoices are statements of amounts owed by a customer, and are either
-  # generated one-off, or generated periodically from a subscription.
-  #
-  # They contain [invoice items](https://docs.stripe.com/api#invoiceitems), and proration adjustments
-  # that may be caused by subscription upgrades/downgrades (if necessary).
-  #
-  # If your invoice is configured to be billed through automatic charges,
-  # Stripe automatically finalizes your invoice and attempts payment. Note
-  # that finalizing the invoice,
-  # [when automatic](https://docs.stripe.com/invoicing/integration/automatic-advancement-collection), does
-  # not happen immediately as the invoice is created. Stripe waits
-  # until one hour after the last webhook was successfully sent (or the last
-  # webhook timed out after failing). If you (and the platforms you may have
-  # connected to) have no webhooks configured, Stripe waits one hour after
-  # creation to finalize the invoice.
-  #
-  # If your invoice is configured to be billed by sending an email, then based on your
-  # [email settings](https://dashboard.stripe.com/account/billing/automatic),
-  # Stripe will email the invoice to your customer and await payment. These
-  # emails can contain a link to a hosted page to pay the invoice.
-  #
-  # Stripe applies any customer credit on the account before determining the
-  # amount due for the invoice (i.e., the amount that will be actually
-  # charged). If the amount due for the invoice is less than Stripe's [minimum allowed charge
-  # per currency](https://docs.stripe.com/docs/currencies#minimum-and-maximum-charge-amounts), the
-  # invoice is automatically marked paid, and we add the amount due to the
-  # customer's credit balance which is applied to the next invoice.
-  #
-  # More details on the customer's credit balance are
-  # [here](https://docs.stripe.com/billing/customer/balance).
-  #
-  # Related guide: [Send invoices to customers](https://docs.stripe.com/billing/invoices/sending)
+  # Invoices are statements of amounts owed by a customer. A quote preview invoice shows the invoice
+  # that would be generated by accepting the quote.
   class QuotePreviewInvoice < APIResource
     class AmountsDue < ::Stripe::StripeObject
       # Incremental amount due for this payment in cents (or local equivalent).
@@ -57181,7 +58055,7 @@ module Stripe
       end
     end
     class CustomerTaxId < ::Stripe::StripeObject
-      # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+      # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
       sig { returns(String) }
       def type; end
       # The value of the tax ID.
@@ -58422,6 +59296,9 @@ module Stripe
 end
 # typed: true
 module Stripe
+  # A subscription schedule allows you to create and manage the lifecycle of a subscription by
+  # predefining expected changes. A quote preview subscription schedule shows the subscription schedule
+  # that would be created by accepting the quote.
   class QuotePreviewSubscriptionSchedule < APIResource
     class AppliesTo < ::Stripe::StripeObject
       # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
@@ -61076,7 +61953,7 @@ module Stripe
         # A payment evaluation signal with evaluated_at, risk_level, and score fields.
         sig { returns(T.nilable(BankInitiatedReturn)) }
         def bank_initiated_return; end
-        # The likelihood that this `PaymentEvaluation` results in an early fraud warning.
+        # A payment evaluation signal with evaluated_at, risk_level, and score fields.
         sig { returns(T.nilable(EarlyFraudWarning)) }
         def early_fraud_warning; end
         # The likelihood that this `PaymentEvaluation` results in a dispute with reason code `fraudulent`.
@@ -61305,6 +62182,12 @@ module Stripe
         end
       end
       class AfterpayClearpay < ::Stripe::StripeObject
+        # The reference assigned to the refund.
+        sig { returns(T.nilable(String)) }
+        def reference; end
+        # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+        sig { returns(T.nilable(String)) }
+        def reference_status; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -61503,6 +62386,12 @@ module Stripe
         end
       end
       class Klarna < ::Stripe::StripeObject
+        # The reference assigned to the refund.
+        sig { returns(T.nilable(String)) }
+        def reference; end
+        # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+        sig { returns(T.nilable(String)) }
+        def reference_status; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -61586,6 +62475,12 @@ module Stripe
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
         sig { returns(T.nilable(String)) }
         def network_decline_code; end
+        # The reference assigned to the refund.
+        sig { returns(T.nilable(String)) }
+        def reference; end
+        # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+        sig { returns(T.nilable(String)) }
+        def reference_status; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -62538,6 +63433,260 @@ module Stripe
       params(params: T.any(::Stripe::ReviewListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
+  end
+end
+# typed: true
+module Stripe
+  module Risk
+    # A risk Form represents a request from Stripe for information about a connected account.
+    class Form < APIResource
+      class Appeal < ::Stripe::StripeObject
+        # A text explanation for the appeal.
+        sig { returns(T.nilable(String)) }
+        def explanation; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class AuthorizationDocuments < ::Stripe::StripeObject
+        # IDs of uploaded files attached as authorization documents.
+        sig { returns(T.nilable(T::Array[String])) }
+        def files; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class PaymentProcessing < ::Stripe::StripeObject
+        class MultiProcessor < ::Stripe::StripeObject
+          class File < ::Stripe::StripeObject
+            # ID of the uploaded file.
+            sig { returns(T.nilable(String)) }
+            def file; end
+            # The document type: `alt_financial_statements`, `recent_bank_statements`, or `payment_receipt`.
+            sig { returns(T.nilable(String)) }
+            def tag; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Files evidencing payments accepted outside Stripe. Each entry includes a file ID and, when supplied, a document type tag.
+          sig { returns(T.nilable(T::Array[File])) }
+          def files; end
+          # Whether the connected account accepts payments outside Stripe.
+          sig { returns(T.nilable(String)) }
+          def value; end
+          def self.inner_class_types
+            @inner_class_types = {files: File}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field multi_processor
+        sig { returns(T.nilable(MultiProcessor)) }
+        def multi_processor; end
+        # How the connected account uses Stripe.
+        sig { returns(T.nilable(String)) }
+        def purpose; end
+        # Why the connected account chose Stripe.
+        sig { returns(T.nilable(String)) }
+        def stripe_selection_rationale; end
+        def self.inner_class_types
+          @inner_class_types = {multi_processor: MultiProcessor}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class ProductRemoval < ::Stripe::StripeObject
+        # Time when the prohibited items were removed, measured in seconds since the Unix epoch.
+        sig { returns(T.nilable(Integer)) }
+        def items_removed_at; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class ReviewedFields < ::Stripe::StripeObject
+        class Attestation < ::Stripe::StripeObject
+          # Time when the connected account attested to these fields, measured in seconds since the Unix epoch.
+          sig { returns(T.nilable(Integer)) }
+          def attested_at; end
+          # Account field paths covered by this attestation. These are currently returned in v2 Accounts API format, such as `defaults.profile.product_description`.
+          sig { returns(T.nilable(T::Array[String])) }
+          def fields; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field attestation
+        sig { returns(T.nilable(Attestation)) }
+        def attestation; end
+        def self.inner_class_types
+          @inner_class_types = {attestation: Attestation}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class SelfFundingContext < ::Stripe::StripeObject
+        class SourceOfWealth < ::Stripe::StripeObject
+          # A text explanation of the connected account's source of wealth.
+          sig { returns(T.nilable(String)) }
+          def description; end
+          # IDs of uploaded files evidencing the source of wealth.
+          sig { returns(T.nilable(T::Array[String])) }
+          def files; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field source_of_wealth
+        sig { returns(T.nilable(SourceOfWealth)) }
+        def source_of_wealth; end
+        def self.inner_class_types
+          @inner_class_types = {source_of_wealth: SourceOfWealth}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Subject < ::Stripe::StripeObject
+        # Account field paths the connected account must review. These are currently returned in v2 Accounts API format, such as `defaults.profile.product_description`. Present for reviewed fields Forms.
+        sig { returns(T.nilable(T::Array[String])) }
+        def fields_to_review; end
+        # IDs of the transactions this Form is about. Present for transaction context Forms.
+        sig { returns(T.nilable(T::Array[String])) }
+        def transactions; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class TransactionContext < ::Stripe::StripeObject
+        class SourceOfFunds < ::Stripe::StripeObject
+          # A text explanation of where the funds for the transaction came from.
+          sig { returns(T.nilable(String)) }
+          def description; end
+          # IDs of uploaded files evidencing the source of funds.
+          sig { returns(T.nilable(T::Array[String])) }
+          def files; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # How often the connected account expects transactions like this one. Can be `one_time_payment`, `recurring_subscription`, `repeat_customer`, `split_payment`, or `something_else`. A custom explanation can follow `something_else: `.
+        sig { returns(T.nilable(String)) }
+        def frequency; end
+        # The purpose of the transaction.
+        sig { returns(T.nilable(String)) }
+        def purpose; end
+        # IDs of uploaded files evidencing the purpose of the transaction.
+        sig { returns(T.nilable(T::Array[String])) }
+        def purpose_files; end
+        # The connected account's relationship to the sender.
+        sig { returns(T.nilable(String)) }
+        def sender_relationship; end
+        # Attribute for field source_of_funds
+        sig { returns(T.nilable(SourceOfFunds)) }
+        def source_of_funds; end
+        # How the funds from the transaction will be used.
+        sig { returns(T.nilable(String)) }
+        def use_of_funds; end
+        def self.inner_class_types
+          @inner_class_types = {source_of_funds: SourceOfFunds}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field appeal
+      sig { returns(T.nilable(Appeal)) }
+      def appeal; end
+      # Attribute for field authorization_documents
+      sig { returns(T.nilable(AuthorizationDocuments)) }
+      def authorization_documents; end
+      # Time at which the Form closed, measured in seconds since the Unix epoch.
+      sig { returns(T.nilable(Integer)) }
+      def closed_at; end
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
+      sig { returns(T.nilable(Integer)) }
+      def created; end
+      # Unique identifier for the object.
+      sig { returns(String) }
+      def id; end
+      # If the object exists in live mode, the value is `true`. If it exists in a sandbox, the value is `false`.
+      sig { returns(T::Boolean) }
+      def livemode; end
+      # String representing the object's type. Objects of the same type share the same value.
+      sig { returns(String) }
+      def object; end
+      # Time at which the Form opened, measured in seconds since the Unix epoch.
+      sig { returns(T.nilable(Integer)) }
+      def opened_at; end
+      # Attribute for field payment_processing
+      sig { returns(T.nilable(PaymentProcessing)) }
+      def payment_processing; end
+      # Attribute for field product_removal
+      sig { returns(T.nilable(ProductRemoval)) }
+      def product_removal; end
+      # Attribute for field reviewed_fields
+      sig { returns(T.nilable(ReviewedFields)) }
+      def reviewed_fields; end
+      # Attribute for field self_funding_context
+      sig { returns(T.nilable(SelfFundingContext)) }
+      def self_funding_context; end
+      # The current status of the Form.
+      sig { returns(String) }
+      def status; end
+      # Attribute for field subject
+      sig { returns(T.nilable(Subject)) }
+      def subject; end
+      # Attribute for field transaction_context
+      sig { returns(T.nilable(TransactionContext)) }
+      def transaction_context; end
+      # The type of information requested by Stripe.
+      sig { returns(String) }
+      def type; end
+      # Updates a risk Form with the connected account's response.
+      #
+      # Error Codes
+      #
+      # | Code | HTTP status | Description |
+      # | — | — | — |
+      # | form_not_found | 400 | No Form matches the supplied ID. |
+      # | form_closed | 400 | The Form is closed and cannot accept updates. |
+      # | invalid_field_for_form_type | 400 | A submitted field is not supported by this Form type. |
+      # | form_field_already_submitted | 400 | A submitted field has already been submitted. |
+      # | form_insufficient_fields | 400 | Required fields are missing for this Form type. |
+      # | resource_missing | 404 | A submitted file does not exist or is not accessible to the requesting account. |
+      sig {
+        params(id: String, params: T.any(::Stripe::Risk::FormUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Risk::Form)
+       }
+      def self.update(id, params = {}, opts = {}); end
+    end
   end
 end
 # typed: true
@@ -65755,9 +66904,7 @@ module Stripe
   # just like a `Card` object: once chargeable, they can be charged, or can be
   # attached to customers.
   #
-  # Stripe doesn't recommend using the deprecated [Sources API](https://docs.stripe.com/api/sources).
-  # We recommend that you adopt the [PaymentMethods API](https://docs.stripe.com/api/payment_methods).
-  # This newer API provides access to our latest features and payment method types.
+  # This API is deprecated. Use the [PaymentMethods API](https://docs.stripe.com/api/payment_methods) instead.
   #
   # Related guides: [Sources API](https://docs.stripe.com/sources) and [Sources & Customers](https://docs.stripe.com/sources/customers).
   class Source < APIResource
@@ -69634,7 +70781,7 @@ module Stripe
           end
         end
         class TaxId < ::Stripe::StripeObject
-          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
           sig { returns(String) }
           def type; end
           # The value of the tax ID.
@@ -71041,6 +72188,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Bw < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class By < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
@@ -71108,6 +72266,17 @@ module Stripe
           def type; end
           def self.inner_class_types
             @inner_class_types = {standard: Standard}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Ci < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -71441,6 +72610,17 @@ module Stripe
           end
         end
         class Ge < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Gh < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -71872,6 +73052,17 @@ module Stripe
           def type; end
           def self.inner_class_types
             @inner_class_types = {standard: Standard}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Mu < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -72707,6 +73898,9 @@ module Stripe
         # Attribute for field bs
         sig { returns(T.nilable(Bs)) }
         def bs; end
+        # Attribute for field bw
+        sig { returns(T.nilable(Bw)) }
+        def bw; end
         # Attribute for field by
         sig { returns(T.nilable(By)) }
         def by; end
@@ -72719,6 +73913,9 @@ module Stripe
         # Attribute for field ch
         sig { returns(T.nilable(Ch)) }
         def ch; end
+        # Attribute for field ci
+        sig { returns(T.nilable(Ci)) }
+        def ci; end
         # Attribute for field cl
         sig { returns(T.nilable(Cl)) }
         def cl; end
@@ -72773,6 +73970,9 @@ module Stripe
         # Attribute for field ge
         sig { returns(T.nilable(Ge)) }
         def ge; end
+        # Attribute for field gh
+        sig { returns(T.nilable(Gh)) }
+        def gh; end
         # Attribute for field gn
         sig { returns(T.nilable(Gn)) }
         def gn; end
@@ -72851,6 +74051,9 @@ module Stripe
         # Attribute for field mt
         sig { returns(T.nilable(Mt)) }
         def mt; end
+        # Attribute for field mu
+        sig { returns(T.nilable(Mu)) }
+        def mu; end
         # Attribute for field mx
         sig { returns(T.nilable(Mx)) }
         def mx; end
@@ -72978,10 +74181,12 @@ module Stripe
             bh: Bh,
             bj: Bj,
             bs: Bs,
+            bw: Bw,
             by: By,
             ca: Ca,
             cd: Cd,
             ch: Ch,
+            ci: Ci,
             cl: Cl,
             cm: Cm,
             co: Co,
@@ -73000,6 +74205,7 @@ module Stripe
             fr: Fr,
             gb: Gb,
             ge: Ge,
+            gh: Gh,
             gn: Gn,
             gr: Gr,
             hr: Hr,
@@ -73026,6 +74232,7 @@ module Stripe
             mk: Mk,
             mr: Mr,
             mt: Mt,
+            mu: Mu,
             mx: Mx,
             my: My,
             ng: Ng,
@@ -73267,7 +74474,7 @@ module Stripe
           end
         end
         class TaxId < ::Stripe::StripeObject
-          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
           sig { returns(String) }
           def type; end
           # The value of the tax ID.
@@ -76522,6 +77729,8 @@ module Stripe
     # later. You can also store multiple debit cards on a recipient in order to
     # transfer to those cards later.
     #
+    # This API is deprecated. Use the [PaymentMethods API](https://docs.stripe.com/api/payment_methods) instead.
+    #
     # Related guide: [Card payments with Sources](https://docs.stripe.com/sources/cards)
     sig { returns(T.nilable(::Stripe::Card)) }
     def card; end
@@ -76820,6 +78029,8 @@ end
 # typed: true
 module Stripe
   module Treasury
+    # Legacy CreditReversals are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Received Credits](https://docs.stripe.com/api/v2/money-management/received-credits?api-version=preview) instead of building a new v1 integration.
+    #
     # You can reverse some [ReceivedCredits](https://docs.stripe.com/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
     class CreditReversal < APIResource
       class StatusTransitions < ::Stripe::StripeObject
@@ -76892,6 +78103,8 @@ end
 # typed: true
 module Stripe
   module Treasury
+    # Legacy DebitReversals are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect).
+    #
     # You can reverse some [ReceivedDebits](https://docs.stripe.com/api#received_debits) depending on their network and source flow. Reversing a ReceivedDebit leads to the creation of a new object known as a DebitReversal.
     class DebitReversal < APIResource
       class LinkedFlows < ::Stripe::StripeObject
@@ -76978,6 +78191,8 @@ end
 # typed: true
 module Stripe
   module Treasury
+    # Legacy FinancialAccounts are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Financial Accounts](https://docs.stripe.com/api/v2/money-management/financial-accounts) instead of building a new v1 integration.
+    #
     # Stripe Treasury for Platforms provides users with a container for money called a FinancialAccount that is separate from their Payments balance.
     # FinancialAccounts serve as the source and destination of Treasury for Platform's money movement APIs.
     class FinancialAccount < APIResource
@@ -77191,6 +78406,8 @@ end
 # typed: true
 module Stripe
   module Treasury
+    # Legacy InboundTransfers are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Inbound Transfers](https://docs.stripe.com/api/v2/money-management/inbound-transfers) instead of building a new v1 integration.
+    #
     # Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://docs.stripe.com/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
     #
     # Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
@@ -77429,6 +78646,8 @@ end
 # typed: true
 module Stripe
   module Treasury
+    # Legacy OutboundPayments are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Outbound Payments](https://docs.stripe.com/api/v2/money-management/outbound-payments) instead of building a new v1 integration.
+    #
     # Use [OutboundPayments](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments) to send funds to another party's external bank account or [FinancialAccount](https://docs.stripe.com/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://docs.stripe.com/api#outbound_transfers).
     #
     # Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
@@ -77739,6 +78958,8 @@ end
 # typed: true
 module Stripe
   module Treasury
+    # Legacy OutboundTransfers are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Outbound Transfers](https://docs.stripe.com/api/v2/money-management/outbound-transfers?api-version=preview) instead of building a new v1 integration.
+    #
     # Use [OutboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers) to transfer funds from a [FinancialAccount](https://docs.stripe.com/api#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://docs.stripe.com/api#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
     #
     # Simulate OutboundTransfer state changes with the `/v1/test_helpers/treasury/outbound_transfers` endpoints. These methods can only be called on test mode objects.
@@ -78054,6 +79275,8 @@ end
 # typed: true
 module Stripe
   module Treasury
+    # Legacy ReceivedCredits are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Received Credits](https://docs.stripe.com/api/v2/money-management/received-credits?api-version=preview) instead of building a new v1 integration.
+    #
     # ReceivedCredits represent funds sent to a [FinancialAccount](https://docs.stripe.com/api#financial_accounts) (for example, via ACH or wire). These money movements are not initiated from the FinancialAccount.
     class ReceivedCredit < APIResource
       class InitiatingPaymentMethodDetails < ::Stripe::StripeObject
@@ -78162,9 +79385,13 @@ module Stripe
       end
       class LinkedFlows < ::Stripe::StripeObject
         class SourceFlowDetails < ::Stripe::StripeObject
+          # Legacy CreditReversals are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Received Credits](https://docs.stripe.com/api/v2/money-management/received-credits?api-version=preview) instead of building a new v1 integration.
+          #
           # You can reverse some [ReceivedCredits](https://docs.stripe.com/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
           sig { returns(T.nilable(::Stripe::Treasury::CreditReversal)) }
           def credit_reversal; end
+          # Legacy OutboundPayments are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Outbound Payments](https://docs.stripe.com/api/v2/money-management/outbound-payments) instead of building a new v1 integration.
+          #
           # Use [OutboundPayments](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments) to send funds to another party's external bank account or [FinancialAccount](https://docs.stripe.com/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://docs.stripe.com/api#outbound_transfers).
           #
           # Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
@@ -78172,6 +79399,8 @@ module Stripe
           # Related guide: [Moving money with Treasury using OutboundPayment objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments)
           sig { returns(T.nilable(::Stripe::Treasury::OutboundPayment)) }
           def outbound_payment; end
+          # Legacy OutboundTransfers are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Outbound Transfers](https://docs.stripe.com/api/v2/money-management/outbound-transfers?api-version=preview) instead of building a new v1 integration.
+          #
           # Use [OutboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers) to transfer funds from a [FinancialAccount](https://docs.stripe.com/api#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://docs.stripe.com/api#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
           #
           # Simulate OutboundTransfer state changes with the `/v1/test_helpers/treasury/outbound_transfers` endpoints. These methods can only be called on test mode objects.
@@ -78325,6 +79554,8 @@ end
 # typed: true
 module Stripe
   module Treasury
+    # Legacy ReceivedDebits are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Received Debits](https://docs.stripe.com/api/v2/money-management/received-debits?api-version=preview) instead of building a new v1 integration.
+    #
     # ReceivedDebits represent funds pulled from a [FinancialAccount](https://docs.stripe.com/api#financial_accounts). These are not initiated from the FinancialAccount.
     class ReceivedDebit < APIResource
       class InitiatingPaymentMethodDetails < ::Stripe::StripeObject
@@ -78561,6 +79792,8 @@ end
 # typed: true
 module Stripe
   module Treasury
+    # Legacy TransactionEntries are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Transaction Entries](https://docs.stripe.com/api/v2/money-management/transaction-entries) instead of building a new v1 integration.
+    #
     # TransactionEntries represent individual units of money movements within a single [Transaction](https://docs.stripe.com/api#transactions).
     class TransactionEntry < APIResource
       class BalanceImpact < ::Stripe::StripeObject
@@ -78581,12 +79814,18 @@ module Stripe
         end
       end
       class FlowDetails < ::Stripe::StripeObject
+        # Legacy CreditReversals are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Received Credits](https://docs.stripe.com/api/v2/money-management/received-credits?api-version=preview) instead of building a new v1 integration.
+        #
         # You can reverse some [ReceivedCredits](https://docs.stripe.com/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
         sig { returns(T.nilable(::Stripe::Treasury::CreditReversal)) }
         def credit_reversal; end
+        # Legacy DebitReversals are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect).
+        #
         # You can reverse some [ReceivedDebits](https://docs.stripe.com/api#received_debits) depending on their network and source flow. Reversing a ReceivedDebit leads to the creation of a new object known as a DebitReversal.
         sig { returns(T.nilable(::Stripe::Treasury::DebitReversal)) }
         def debit_reversal; end
+        # Legacy InboundTransfers are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Inbound Transfers](https://docs.stripe.com/api/v2/money-management/inbound-transfers) instead of building a new v1 integration.
+        #
         # Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://docs.stripe.com/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
         #
         # Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
@@ -78599,6 +79838,8 @@ module Stripe
         # Related guide: [Issued card authorizations](https://docs.stripe.com/issuing/purchases/authorizations)
         sig { returns(T.nilable(::Stripe::Issuing::Authorization)) }
         def issuing_authorization; end
+        # Legacy OutboundPayments are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Outbound Payments](https://docs.stripe.com/api/v2/money-management/outbound-payments) instead of building a new v1 integration.
+        #
         # Use [OutboundPayments](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments) to send funds to another party's external bank account or [FinancialAccount](https://docs.stripe.com/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://docs.stripe.com/api#outbound_transfers).
         #
         # Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
@@ -78606,6 +79847,8 @@ module Stripe
         # Related guide: [Moving money with Treasury using OutboundPayment objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments)
         sig { returns(T.nilable(::Stripe::Treasury::OutboundPayment)) }
         def outbound_payment; end
+        # Legacy OutboundTransfers are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Outbound Transfers](https://docs.stripe.com/api/v2/money-management/outbound-transfers?api-version=preview) instead of building a new v1 integration.
+        #
         # Use [OutboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers) to transfer funds from a [FinancialAccount](https://docs.stripe.com/api#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://docs.stripe.com/api#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
         #
         # Simulate OutboundTransfer state changes with the `/v1/test_helpers/treasury/outbound_transfers` endpoints. These methods can only be called on test mode objects.
@@ -78613,9 +79856,13 @@ module Stripe
         # Related guide: [Moving money with Treasury using OutboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers)
         sig { returns(T.nilable(::Stripe::Treasury::OutboundTransfer)) }
         def outbound_transfer; end
+        # Legacy ReceivedCredits are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Received Credits](https://docs.stripe.com/api/v2/money-management/received-credits?api-version=preview) instead of building a new v1 integration.
+        #
         # ReceivedCredits represent funds sent to a [FinancialAccount](https://docs.stripe.com/api#financial_accounts) (for example, via ACH or wire). These money movements are not initiated from the FinancialAccount.
         sig { returns(T.nilable(::Stripe::Treasury::ReceivedCredit)) }
         def received_credit; end
+        # Legacy ReceivedDebits are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Received Debits](https://docs.stripe.com/api/v2/money-management/received-debits?api-version=preview) instead of building a new v1 integration.
+        #
         # ReceivedDebits represent funds pulled from a [FinancialAccount](https://docs.stripe.com/api#financial_accounts). These are not initiated from the FinancialAccount.
         sig { returns(T.nilable(::Stripe::Treasury::ReceivedDebit)) }
         def received_debit; end
@@ -78679,6 +79926,8 @@ end
 # typed: true
 module Stripe
   module Treasury
+    # Legacy Transactions are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Transactions](https://docs.stripe.com/api/v2/money-management/transactions) instead of building a new v1 integration.
+    #
     # Transactions represent changes to a [FinancialAccount's](https://docs.stripe.com/api#financial_accounts) balance.
     class Transaction < APIResource
       class BalanceImpact < ::Stripe::StripeObject
@@ -78699,12 +79948,18 @@ module Stripe
         end
       end
       class FlowDetails < ::Stripe::StripeObject
+        # Legacy CreditReversals are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Received Credits](https://docs.stripe.com/api/v2/money-management/received-credits?api-version=preview) instead of building a new v1 integration.
+        #
         # You can reverse some [ReceivedCredits](https://docs.stripe.com/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
         sig { returns(T.nilable(::Stripe::Treasury::CreditReversal)) }
         def credit_reversal; end
+        # Legacy DebitReversals are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect).
+        #
         # You can reverse some [ReceivedDebits](https://docs.stripe.com/api#received_debits) depending on their network and source flow. Reversing a ReceivedDebit leads to the creation of a new object known as a DebitReversal.
         sig { returns(T.nilable(::Stripe::Treasury::DebitReversal)) }
         def debit_reversal; end
+        # Legacy InboundTransfers are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Inbound Transfers](https://docs.stripe.com/api/v2/money-management/inbound-transfers) instead of building a new v1 integration.
+        #
         # Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://docs.stripe.com/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
         #
         # Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
@@ -78717,6 +79972,8 @@ module Stripe
         # Related guide: [Issued card authorizations](https://docs.stripe.com/issuing/purchases/authorizations)
         sig { returns(T.nilable(::Stripe::Issuing::Authorization)) }
         def issuing_authorization; end
+        # Legacy OutboundPayments are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Outbound Payments](https://docs.stripe.com/api/v2/money-management/outbound-payments) instead of building a new v1 integration.
+        #
         # Use [OutboundPayments](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments) to send funds to another party's external bank account or [FinancialAccount](https://docs.stripe.com/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://docs.stripe.com/api#outbound_transfers).
         #
         # Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
@@ -78724,6 +79981,8 @@ module Stripe
         # Related guide: [Moving money with Treasury using OutboundPayment objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments)
         sig { returns(T.nilable(::Stripe::Treasury::OutboundPayment)) }
         def outbound_payment; end
+        # Legacy OutboundTransfers are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Outbound Transfers](https://docs.stripe.com/api/v2/money-management/outbound-transfers?api-version=preview) instead of building a new v1 integration.
+        #
         # Use [OutboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers) to transfer funds from a [FinancialAccount](https://docs.stripe.com/api#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://docs.stripe.com/api#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
         #
         # Simulate OutboundTransfer state changes with the `/v1/test_helpers/treasury/outbound_transfers` endpoints. These methods can only be called on test mode objects.
@@ -78731,9 +79990,13 @@ module Stripe
         # Related guide: [Moving money with Treasury using OutboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers)
         sig { returns(T.nilable(::Stripe::Treasury::OutboundTransfer)) }
         def outbound_transfer; end
+        # Legacy ReceivedCredits are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Received Credits](https://docs.stripe.com/api/v2/money-management/received-credits?api-version=preview) instead of building a new v1 integration.
+        #
         # ReceivedCredits represent funds sent to a [FinancialAccount](https://docs.stripe.com/api#financial_accounts) (for example, via ACH or wire). These money movements are not initiated from the FinancialAccount.
         sig { returns(T.nilable(::Stripe::Treasury::ReceivedCredit)) }
         def received_credit; end
+        # Legacy ReceivedDebits are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Received Debits](https://docs.stripe.com/api/v2/money-management/received-debits?api-version=preview) instead of building a new v1 integration.
+        #
         # ReceivedDebits represent funds pulled from a [FinancialAccount](https://docs.stripe.com/api#financial_accounts). These are not initiated from the FinancialAccount.
         sig { returns(T.nilable(::Stripe::Treasury::ReceivedDebit)) }
         def received_debit; end
@@ -94412,6 +95675,92 @@ module Stripe
                       }
                     end
                   end
+                  class Czk < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
                   class Eur < ::Stripe::StripeObject
                     class Protections < ::Stripe::StripeObject
                       class PspMigration < ::Stripe::StripeObject
@@ -94584,7 +95933,265 @@ module Stripe
                       }
                     end
                   end
+                  class Nok < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
                   class Ousd < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  class Pln < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  class Sek < ::Stripe::StripeObject
                     class Protections < ::Stripe::StripeObject
                       class PspMigration < ::Stripe::StripeObject
                         # The time until which the protection will expire, as a Unix timestamp.
@@ -94848,15 +96455,27 @@ module Stripe
                   # Can receive business storage-type funds on Stripe in CAD.
                   sig { returns(T.nilable(Cad)) }
                   def cad; end
+                  # Can receive business storage-type funds on Stripe in CZK.
+                  sig { returns(T.nilable(Czk)) }
+                  def czk; end
                   # Can receive business storage-type funds on Stripe in EUR.
                   sig { returns(T.nilable(Eur)) }
                   def eur; end
                   # Can receive business storage-type funds on Stripe in GBP.
                   sig { returns(T.nilable(Gbp)) }
                   def gbp; end
+                  # Can receive business storage-type funds on Stripe in NOK.
+                  sig { returns(T.nilable(Nok)) }
+                  def nok; end
                   # Can receive business storage-type funds on Stripe in OUSD.
                   sig { returns(T.nilable(Ousd)) }
                   def ousd; end
+                  # Can receive business storage-type funds on Stripe in PLN.
+                  sig { returns(T.nilable(Pln)) }
+                  def pln; end
+                  # Can receive business storage-type funds on Stripe in SEK.
+                  sig { returns(T.nilable(Sek)) }
+                  def sek; end
                   # Can receive business storage-type funds on Stripe in USD.
                   sig { returns(T.nilable(Usd)) }
                   def usd; end
@@ -94867,9 +96486,13 @@ module Stripe
                     @inner_class_types = {
                       aud: Aud,
                       cad: Cad,
+                      czk: Czk,
                       eur: Eur,
                       gbp: Gbp,
+                      nok: Nok,
                       ousd: Ousd,
+                      pln: Pln,
+                      sek: Sek,
                       usd: Usd,
                       usdc: Usdc,
                     }
@@ -94894,6 +96517,20 @@ module Stripe
                         },
                       },
                       cad: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
+                      czk: {
                         kind: :object,
                         fields: {
                           protections: {
@@ -94935,7 +96572,49 @@ module Stripe
                           },
                         },
                       },
+                      nok: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
                       ousd: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
+                      pln: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
+                      sek: {
                         kind: :object,
                         fields: {
                           protections: {
@@ -95068,6 +96747,92 @@ module Stripe
                     end
                   end
                   class Cad < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  class Czk < ::Stripe::StripeObject
                     class Protections < ::Stripe::StripeObject
                       class PspMigration < ::Stripe::StripeObject
                         # The time until which the protection will expire, as a Unix timestamp.
@@ -95325,7 +97090,265 @@ module Stripe
                       }
                     end
                   end
+                  class Nok < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
                   class Ousd < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  class Pln < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        sig { returns(T.nilable(Integer)) }
+                        def expires_at; end
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        sig { returns(Integer) }
+                        def requested_at; end
+                        # The current status of the protection.
+                        sig { returns(String) }
+                        def status; end
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      sig { returns(PspMigration) }
+                      def psp_migration; end
+                      def self.inner_class_types
+                        @inner_class_types = {psp_migration: PspMigration}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        }
+                      end
+                    end
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    sig { returns(Protections) }
+                    def protections; end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  class Sek < ::Stripe::StripeObject
                     class Protections < ::Stripe::StripeObject
                       class PspMigration < ::Stripe::StripeObject
                         # The time until which the protection will expire, as a Unix timestamp.
@@ -95589,15 +97612,27 @@ module Stripe
                   # Can send business storage-type funds on Stripe in CAD.
                   sig { returns(T.nilable(Cad)) }
                   def cad; end
+                  # Can send business storage-type funds on Stripe in CZK.
+                  sig { returns(T.nilable(Czk)) }
+                  def czk; end
                   # Can send business storage-type funds on Stripe in EUR.
                   sig { returns(T.nilable(Eur)) }
                   def eur; end
                   # Can send business storage-type funds on Stripe in GBP.
                   sig { returns(T.nilable(Gbp)) }
                   def gbp; end
+                  # Can send business storage-type funds on Stripe in NOK.
+                  sig { returns(T.nilable(Nok)) }
+                  def nok; end
                   # Can send business storage-type funds on Stripe in OUSD.
                   sig { returns(T.nilable(Ousd)) }
                   def ousd; end
+                  # Can send business storage-type funds on Stripe in PLN.
+                  sig { returns(T.nilable(Pln)) }
+                  def pln; end
+                  # Can send business storage-type funds on Stripe in SEK.
+                  sig { returns(T.nilable(Sek)) }
+                  def sek; end
                   # Can send business storage-type funds on Stripe in USD.
                   sig { returns(T.nilable(Usd)) }
                   def usd; end
@@ -95608,9 +97643,13 @@ module Stripe
                     @inner_class_types = {
                       aud: Aud,
                       cad: Cad,
+                      czk: Czk,
                       eur: Eur,
                       gbp: Gbp,
+                      nok: Nok,
                       ousd: Ousd,
+                      pln: Pln,
+                      sek: Sek,
                       usd: Usd,
                       usdc: Usdc,
                     }
@@ -95635,6 +97674,20 @@ module Stripe
                         },
                       },
                       cad: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
+                      czk: {
                         kind: :object,
                         fields: {
                           protections: {
@@ -95676,7 +97729,49 @@ module Stripe
                           },
                         },
                       },
+                      nok: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
                       ousd: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
+                      pln: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
+                      sek: {
                         kind: :object,
                         fields: {
                           protections: {
@@ -95766,6 +97861,20 @@ module Stripe
                             },
                           },
                         },
+                        czk: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
                         eur: {
                           kind: :object,
                           fields: {
@@ -95794,7 +97903,49 @@ module Stripe
                             },
                           },
                         },
+                        nok: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
                         ousd: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
+                        pln: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
+                        sek: {
                           kind: :object,
                           fields: {
                             protections: {
@@ -95869,6 +98020,20 @@ module Stripe
                             },
                           },
                         },
+                        czk: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
                         eur: {
                           kind: :object,
                           fields: {
@@ -95897,7 +98062,49 @@ module Stripe
                             },
                           },
                         },
+                        nok: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
                         ousd: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
+                        pln: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
+                        sek: {
                           kind: :object,
                           fields: {
                             protections: {
@@ -103259,6 +105466,23 @@ module Stripe
                               },
                             },
                           },
+                          czk: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
                           eur: {
                             kind: :object,
                             fields: {
@@ -103293,7 +105517,58 @@ module Stripe
                               },
                             },
                           },
+                          nok: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
                           ousd: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          pln: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          sek: {
                             kind: :object,
                             fields: {
                               protections: {
@@ -103383,6 +105658,23 @@ module Stripe
                               },
                             },
                           },
+                          czk: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
                           eur: {
                             kind: :object,
                             fields: {
@@ -103417,7 +105709,58 @@ module Stripe
                               },
                             },
                           },
+                          nok: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
                           ousd: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          pln: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          sek: {
                             kind: :object,
                             fields: {
                               protections: {
@@ -104616,6 +106959,23 @@ module Stripe
                                 },
                               },
                             },
+                            czk: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
                             eur: {
                               kind: :object,
                               fields: {
@@ -104650,7 +107010,58 @@ module Stripe
                                 },
                               },
                             },
+                            nok: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
                             ousd: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            pln: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            sek: {
                               kind: :object,
                               fields: {
                                 protections: {
@@ -104740,6 +107151,23 @@ module Stripe
                                 },
                               },
                             },
+                            czk: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
                             eur: {
                               kind: :object,
                               fields: {
@@ -104774,7 +107202,58 @@ module Stripe
                                 },
                               },
                             },
+                            nok: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
                             ousd: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            pln: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            sek: {
                               kind: :object,
                               fields: {
                                 protections: {
@@ -107526,6 +110005,89 @@ module Stripe
                     }
                   end
                 end
+                class StablecoinCustodial < ::Stripe::StripeObject
+                  class Protections < ::Stripe::StripeObject
+                    class PspMigration < ::Stripe::StripeObject
+                      # The time until which the protection will expire, as a Unix timestamp.
+                      sig { returns(T.nilable(Integer)) }
+                      def expires_at; end
+                      # The time at which the protection was requested, as a Unix timestamp.
+                      sig { returns(Integer) }
+                      def requested_at; end
+                      # The current status of the protection.
+                      sig { returns(String) }
+                      def status; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {expires_at: :int64_string, requested_at: :int64_string}
+                      end
+                    end
+                    # Protection details for PSP migration.
+                    sig { returns(PspMigration) }
+                    def psp_migration; end
+                    def self.inner_class_types
+                      @inner_class_types = {psp_migration: PspMigration}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        psp_migration: {
+                          kind: :object,
+                          fields: {expires_at: :int64_string, requested_at: :int64_string},
+                        },
+                      }
+                    end
+                  end
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                  sig { returns(Protections) }
+                  def protections; end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                  def self.field_encodings
+                    @field_encodings = {
+                      protections: {
+                        kind: :object,
+                        fields: {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        },
+                      },
+                    }
+                  end
+                end
                 class StripeTransfers < ::Stripe::StripeObject
                   class Protections < ::Stripe::StripeObject
                     class PspMigration < ::Stripe::StripeObject
@@ -107612,11 +110174,18 @@ module Stripe
                 # Enables this Account to complete payouts from their Stripe Balance (/v1/balance).
                 sig { returns(T.nilable(Payouts)) }
                 def payouts; end
+                # Enables this Account to hold USDC in their Stripe Balance via Bridge custodial wallets.
+                sig { returns(T.nilable(StablecoinCustodial)) }
+                def stablecoin_custodial; end
                 # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                 sig { returns(T.nilable(StripeTransfers)) }
                 def stripe_transfers; end
                 def self.inner_class_types
-                  @inner_class_types = {payouts: Payouts, stripe_transfers: StripeTransfers}
+                  @inner_class_types = {
+                    payouts: Payouts,
+                    stablecoin_custodial: StablecoinCustodial,
+                    stripe_transfers: StripeTransfers,
+                  }
                 end
                 def self.field_remappings
                   @field_remappings = {}
@@ -107624,6 +110193,20 @@ module Stripe
                 def self.field_encodings
                   @field_encodings = {
                     payouts: {
+                      kind: :object,
+                      fields: {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      },
+                    },
+                    stablecoin_custodial: {
                       kind: :object,
                       fields: {
                         protections: {
@@ -107947,6 +110530,20 @@ module Stripe
                           },
                         },
                       },
+                      stablecoin_custodial: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
                       stripe_transfers: {
                         kind: :object,
                         fields: {
@@ -108250,6 +110847,20 @@ module Stripe
                       kind: :object,
                       fields: {
                         payouts: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
+                        stablecoin_custodial: {
                           kind: :object,
                           fields: {
                             protections: {
@@ -109510,6 +112121,23 @@ module Stripe
                                   },
                                 },
                               },
+                              czk: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
                               eur: {
                                 kind: :object,
                                 fields: {
@@ -109544,7 +112172,58 @@ module Stripe
                                   },
                                 },
                               },
+                              nok: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
                               ousd: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              pln: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              sek: {
                                 kind: :object,
                                 fields: {
                                   protections: {
@@ -109634,6 +112313,23 @@ module Stripe
                                   },
                                 },
                               },
+                              czk: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
                               eur: {
                                 kind: :object,
                                 fields: {
@@ -109668,7 +112364,58 @@ module Stripe
                                   },
                                 },
                               },
+                              nok: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
                               ousd: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              pln: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              sek: {
                                 kind: :object,
                                 fields: {
                                   protections: {
@@ -111003,6 +113750,23 @@ module Stripe
                         kind: :object,
                         fields: {
                           payouts: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          stablecoin_custodial: {
                             kind: :object,
                             fields: {
                               protections: {
@@ -123141,7 +125905,7 @@ end
 module Stripe
   module V2
     module MoneyManagement
-      # ReceivedDebit resource
+      # Use ReceivedDebits API to retrieve information on when, where, and how funds are debited from your FinancialAccount.
       class ReceivedDebit < APIResource
         class BalanceTransfer < ::Stripe::StripeObject
           # The ID of the v1 account that received the balance transfer.
@@ -125755,6 +128519,39 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class AccountTakeoverConfirmation < ::Stripe::StripeObject
+          # The type of credential involved in the confirmed takeover.
+          sig { returns(String) }
+          def credential_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class AccountTakeoverReport < ::Stripe::StripeObject
+          # The type of credential involved in the reported takeover.
+          sig { returns(String) }
+          def credential_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CredentialChange < ::Stripe::StripeObject
+          # The type of credential that changed.
+          sig { returns(String) }
+          def credential_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class LoginAttempt < ::Stripe::StripeObject
           class ClientDetails < ::Stripe::StripeObject
             class Data < ::Stripe::StripeObject
@@ -125801,6 +128598,28 @@ module Stripe
           # The action the merchant took following the evaluation.
           sig { returns(String) }
           def status; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class MfaAddition < ::Stripe::StripeObject
+          # The authentication method added to the account.
+          sig { returns(String) }
+          def mfa_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class MfaRemoval < ::Stripe::StripeObject
+          # The authentication method removed from the account.
+          sig { returns(String) }
+          def mfa_type; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -125879,9 +128698,18 @@ module Stripe
         # requires an existing account_details.customer; account_details.account and inline data are unsupported.
         sig { returns(T.nilable(AccountSuspended)) }
         def account_suspended; end
+        # Details for the merchant's takeover confirmation. Present only when type is account_takeover_confirmation.
+        sig { returns(T.nilable(AccountTakeoverConfirmation)) }
+        def account_takeover_confirmation; end
+        # Details for the account holder's takeover report. Present only when type is account_takeover_report.
+        sig { returns(T.nilable(AccountTakeoverReport)) }
+        def account_takeover_report; end
         # Timestamp at which the account activity was created.
         sig { returns(String) }
         def created; end
+        # Details for the credential change. Present only when type is credential_change.
+        sig { returns(T.nilable(CredentialChange)) }
+        def credential_change; end
         # Unique identifier for the account activity.
         sig { returns(String) }
         def id; end
@@ -125897,6 +128725,12 @@ module Stripe
         # Additional information about the activity.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
+        # Details for the MFA addition. Present only when type is mfa_addition.
+        sig { returns(T.nilable(MfaAddition)) }
+        def mfa_addition; end
+        # Details for the MFA removal. Present only when type is mfa_removal.
+        sig { returns(T.nilable(MfaRemoval)) }
+        def mfa_removal; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -126018,6 +128852,23 @@ module Stripe
           end
         end
         class EvaluatedSignals < ::Stripe::StripeObject
+          class AccountTakeover < ::Stripe::StripeObject
+            # Timestamp at which the signal was evaluated.
+            sig { returns(T.nilable(String)) }
+            def evaluated_at; end
+            # Categorical assessment of the account takeover risk.
+            sig { returns(String) }
+            def risk_level; end
+            # The account signal ID containing the full account takeover signal result.
+            sig { returns(T.nilable(String)) }
+            def signal; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class FraudulentWebsite < ::Stripe::StripeObject
             # Human-readable details about the fraudulent website evaluation, when available.
             sig { returns(T.nilable(String)) }
@@ -126107,6 +128958,9 @@ module Stripe
               @field_encodings = {score: :decimal_string}
             end
           end
+          # Synchronous account takeover result for the evaluation, when requested.
+          sig { returns(T.nilable(AccountTakeover)) }
+          def account_takeover; end
           # Fraudulent website result for the evaluation, when available.
           sig { returns(T.nilable(FraudulentWebsite)) }
           def fraudulent_website; end
@@ -126121,6 +128975,7 @@ module Stripe
           def user_multi_accounting; end
           def self.inner_class_types
             @inner_class_types = {
+              account_takeover: AccountTakeover,
               fraudulent_website: FraudulentWebsite,
               user_account_sharing: UserAccountSharing,
               user_merchant_fit: UserMerchantFit,
@@ -126185,6 +129040,28 @@ module Stripe
           # The v1 customer ID of the account, for users not yet migrated to v2/accounts.
           sig { returns(T.nilable(String)) }
           def customer; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class AccountTakeover < ::Stripe::StripeObject
+          # Categorical assessment of the account takeover risk.
+          sig { returns(String) }
+          def risk_level; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CustomerRisk < ::Stripe::StripeObject
+          # Categorical assessment of the customer's risk of fraudulent or abusive activity.
+          sig { returns(String) }
+          def risk_level; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -126447,9 +129324,15 @@ module Stripe
         # The account evaluation that produced this signal, if applicable.
         sig { returns(T.nilable(String)) }
         def account_evaluation; end
+        # Data for the account takeover signal. Present only when type is account_takeover.
+        sig { returns(T.nilable(AccountTakeover)) }
+        def account_takeover; end
         # Timestamp at which the signal was created.
         sig { returns(String) }
         def created; end
+        # Data for the customer risk signal. Present only when type is customer_risk.
+        sig { returns(T.nilable(CustomerRisk)) }
+        def customer_risk; end
         # Data for the fraudulent merchant signal. Present only when type is fraudulent_merchant.
         sig { returns(T.nilable(FraudulentMerchant)) }
         def fraudulent_merchant; end
@@ -126816,6 +129699,7 @@ module Stripe
     attr_reader :reporting
     attr_reader :reserve
     attr_reader :reviews
+    attr_reader :risk
     attr_reader :setup_attempts
     attr_reader :setup_intents
     attr_reader :shared_payment
@@ -131554,6 +134438,47 @@ module Stripe
 end
 # typed: true
 module Stripe
+  class RiskService < StripeService
+    attr_reader :forms
+  end
+end
+# typed: true
+module Stripe
+  module Risk
+    class FormService < StripeService
+      # Retrieves a risk Form by ID.
+      #
+      # Error Codes
+      #
+      # | Code | HTTP status | Description |
+      # | — | — | — |
+      # | form_not_found | 400 | No Form matches the supplied ID. |
+      sig {
+        params(id: String, params: T.any(::Stripe::Risk::FormRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Risk::Form)
+       }
+      def retrieve(id, params = {}, opts = {}); end
+
+      # Updates a risk Form with the connected account's response.
+      #
+      # Error Codes
+      #
+      # | Code | HTTP status | Description |
+      # | — | — | — |
+      # | form_not_found | 400 | No Form matches the supplied ID. |
+      # | form_closed | 400 | The Form is closed and cannot accept updates. |
+      # | invalid_field_for_form_type | 400 | A submitted field is not supported by this Form type. |
+      # | form_field_already_submitted | 400 | A submitted field has already been submitted. |
+      # | form_insufficient_fields | 400 | Required fields are missing for this Form type. |
+      # | resource_missing | 404 | A submitted file does not exist or is not accessible to the requesting account. |
+      sig {
+        params(id: String, params: T.any(::Stripe::Risk::FormUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Risk::Form)
+       }
+      def update(id, params = {}, opts = {}); end
+    end
+  end
+end
+# typed: true
+module Stripe
   class SetupAttemptService < StripeService
     # Returns a list of SetupAttempts that associate with a provided SetupIntent.
     sig {
@@ -132634,7 +135559,7 @@ end
 module Stripe
   module TestHelpers
     class CustomerService < StripeService
-      # Create an incoming testmode bank transfer
+      # Create a test incoming bank transfer
       sig {
         params(customer: String, params: T.any(::Stripe::TestHelpers::CustomerFundCashBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CustomerCashBalanceTransaction)
        }
@@ -135265,6 +138190,7 @@ module Stripe
   module V2
     class DataService < StripeService
       attr_reader :analytics
+      attr_reader :operations
       attr_reader :query_runs
       attr_reader :reports
       attr_reader :report_runs
@@ -135295,6 +138221,21 @@ module Stripe
            }
           def create(params = {}, opts = {}); end
         end
+      end
+    end
+  end
+end
+# typed: true
+module Stripe
+  module V2
+    module Data
+      class OperationService < StripeService
+        # Resolve a natural-language query into ranked public analytical resources
+        # (schemas, reports, and metrics) with execution context.
+        sig {
+          params(params: T.any(::Stripe::V2::Data::OperationSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Data::SearchResultList)
+         }
+        def search(params = {}, opts = {}); end
       end
     end
   end
@@ -145255,7 +148196,7 @@ module Stripe
         def initialize(type: nil); end
       end
       class Fees < ::Stripe::RequestParams
-        # A value indicating the responsible payer of Stripe fees on this account. Defaults to `account`. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
+        # Controls who pays Stripe fees for direct charges and other pricing-control-eligible Stripe products. Setting `controller.losses.payments=application` requires `controller.fees.payer=application`. For destination charges and separate charges and transfers, Stripe bills the platform regardless of this setting. Defaults to `account`. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior), including application fees and pricing considerations.
         sig { returns(T.nilable(String)) }
         def payer; end
         sig { params(_payer: T.nilable(String)).returns(T.nilable(String)) }
@@ -145264,7 +148205,7 @@ module Stripe
         def initialize(payer: nil); end
       end
       class Losses < ::Stripe::RequestParams
-        # A value indicating who is liable when this account can't pay back negative balances resulting from payments. Defaults to `stripe`.
+        # Controls who is responsible for payment-related negative balances on this account. The platform remains liable for negative balances on its own account. To use Stripe negative balance liability, your integration must meet [Managed Risk requirements](https://docs.stripe.com/connect/risk-management/managed-risk). Defaults to `stripe`.
         sig { returns(T.nilable(String)) }
         def payments; end
         sig { params(_payments: T.nilable(String)).returns(T.nilable(String)) }
@@ -146752,7 +149693,7 @@ module Stripe
       params(_company: T.nilable(::Stripe::AccountCreateParams::Company)).returns(T.nilable(::Stripe::AccountCreateParams::Company))
      }
     def company=(_company); end
-    # A hash of configuration describing the account controller's attributes.
+    # Configures the account's Dashboard access, loss liability, requirements collection, and Stripe fee responsibility.
     sig { returns(T.nilable(::Stripe::AccountCreateParams::Controller)) }
     def controller; end
     sig {
@@ -157665,6 +160606,396 @@ module Stripe
         def initialize(enabled: nil, invoice_data: nil); end
       end
       class Item < ::Stripe::RequestParams
+        class MetronomeCommit < ::Stripe::RequestParams
+          class Commit < ::Stripe::RequestParams
+            class AccessSchedule < ::Stripe::RequestParams
+              class ScheduleItem < ::Stripe::RequestParams
+                # The access amount in credit_type_id units.
+                sig { returns(BigDecimal) }
+                def amount; end
+                sig { params(_amount: BigDecimal).returns(BigDecimal) }
+                def amount=(_amount); end
+                # Hour-aligned RFC 3339 timestamp in UTC at which access to the balance amount ends (exclusive).
+                sig { returns(String) }
+                def ending_before; end
+                sig { params(_ending_before: String).returns(String) }
+                def ending_before=(_ending_before); end
+                # Hour-aligned RFC 3339 timestamp in UTC at which access to the balance amount starts (inclusive).
+                sig { returns(String) }
+                def starting_at; end
+                sig { params(_starting_at: String).returns(String) }
+                def starting_at=(_starting_at); end
+                sig { params(amount: BigDecimal, ending_before: String, starting_at: String).void }
+                def initialize(amount: nil, ending_before: nil, starting_at: nil); end
+                def self.field_encodings
+                  @field_encodings = {amount: :decimal_string}
+                end
+              end
+              # The fixed price the buyer pays, in minor currency units.
+              sig { returns(Integer) }
+              def price_amount; end
+              sig { params(_price_amount: Integer).returns(Integer) }
+              def price_amount=(_price_amount); end
+              # When and how many credits become available.
+              sig {
+                returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule::ScheduleItem])
+               }
+              def schedule_items; end
+              sig {
+                params(_schedule_items: T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule::ScheduleItem]).returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule::ScheduleItem])
+               }
+              def schedule_items=(_schedule_items); end
+              sig {
+                params(price_amount: Integer, schedule_items: T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule::ScheduleItem]).void
+               }
+              def initialize(price_amount: nil, schedule_items: nil); end
+              def self.field_encodings
+                @field_encodings = {
+                  schedule_items: {
+                    kind: :array,
+                    element: {kind: :object, fields: {amount: :decimal_string}},
+                  },
+                }
+              end
+            end
+            class CommitOptions < ::Stripe::RequestParams
+              class CustomAmount < ::Stripe::RequestParams
+                # Must be `true` when `custom_amount` is present. Omit `custom_amount` to disable custom amounts.
+                sig { returns(T::Boolean) }
+                def enabled; end
+                sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+                def enabled=(_enabled); end
+                # Maximum `access_amount` the customer can enter. Defaults to `999999999999999` when omitted.
+                sig { returns(T.nilable(Integer)) }
+                def maximum; end
+                sig { params(_maximum: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def maximum=(_maximum); end
+                # Minimum `access_amount` the customer can enter. Defaults to `1` when omitted.
+                sig { returns(T.nilable(Integer)) }
+                def minimum; end
+                sig { params(_minimum: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def minimum=(_minimum); end
+                sig {
+                  params(enabled: T::Boolean, maximum: T.nilable(Integer), minimum: T.nilable(Integer)).void
+                 }
+                def initialize(enabled: nil, maximum: nil, minimum: nil); end
+              end
+              class DiscountTier < ::Stripe::RequestParams
+                # Percentage discount applied to the full access_amount when it falls in this tier.
+                sig { returns(Integer) }
+                def discount_percentage; end
+                sig { params(_discount_percentage: Integer).returns(Integer) }
+                def discount_percentage=(_discount_percentage); end
+                # Upper bound (inclusive) in credit_type_id units. Use `inf` to define an unbounded tier.
+                sig { returns(T.any(Integer, String)) }
+                def up_to; end
+                sig { params(_up_to: T.any(Integer, String)).returns(T.any(Integer, String)) }
+                def up_to=(_up_to); end
+                sig { params(discount_percentage: Integer, up_to: T.any(Integer, String)).void }
+                def initialize(discount_percentage: nil, up_to: nil); end
+              end
+              class Option < ::Stripe::RequestParams
+                # The access amount for this option, in credit_type_id units.
+                sig { returns(Integer) }
+                def access_amount; end
+                sig { params(_access_amount: Integer).returns(Integer) }
+                def access_amount=(_access_amount); end
+                # Whether this option is pre-selected in the Checkout UI. At most one option may be marked true.
+                sig { returns(T.nilable(T::Boolean)) }
+                def default_option; end
+                sig {
+                  params(_default_option: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                 }
+                def default_option=(_default_option); end
+                sig { params(access_amount: Integer, default_option: T.nilable(T::Boolean)).void }
+                def initialize(access_amount: nil, default_option: nil); end
+              end
+              # Optionally let the buyer enter a custom access amount.
+              sig {
+                returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::CustomAmount))
+               }
+              def custom_amount; end
+              sig {
+                params(_custom_amount: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::CustomAmount)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::CustomAmount))
+               }
+              def custom_amount=(_custom_amount); end
+              # Volume-based discount tiers.
+              sig {
+                returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::DiscountTier]))
+               }
+              def discount_tiers; end
+              sig {
+                params(_discount_tiers: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::DiscountTier])).returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::DiscountTier]))
+               }
+              def discount_tiers=(_discount_tiers); end
+              # When access for the purchased credits ends. Hour-aligned UTC timestamp.
+              sig { returns(String) }
+              def ending_before; end
+              sig { params(_ending_before: String).returns(String) }
+              def ending_before=(_ending_before); end
+              # Access-amount presets for the buyer to choose from.
+              sig {
+                returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::Option])
+               }
+              def options; end
+              sig {
+                params(_options: T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::Option]).returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::Option])
+               }
+              def options=(_options); end
+              # When access for the purchased credits starts. Hour-aligned UTC timestamp.
+              sig { returns(String) }
+              def starting_at; end
+              sig { params(_starting_at: String).returns(String) }
+              def starting_at=(_starting_at); end
+              sig {
+                params(custom_amount: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::CustomAmount), discount_tiers: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::DiscountTier]), ending_before: String, options: T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::Option], starting_at: String).void
+               }
+              def initialize(
+                custom_amount: nil,
+                discount_tiers: nil,
+                ending_before: nil,
+                options: nil,
+                starting_at: nil
+              ); end
+            end
+            class Specifier < ::Stripe::RequestParams
+              # Key-value pairs for presentation group filters.
+              sig { returns(T.nilable(T::Hash[String, String])) }
+              def presentation_group_values; end
+              sig {
+                params(_presentation_group_values: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+               }
+              def presentation_group_values=(_presentation_group_values); end
+              # Key-value pairs for pricing group filters.
+              sig { returns(T.nilable(T::Hash[String, String])) }
+              def pricing_group_values; end
+              sig {
+                params(_pricing_group_values: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+               }
+              def pricing_group_values=(_pricing_group_values); end
+              # Metronome product ID to scope this specifier to.
+              sig { returns(T.nilable(String)) }
+              def product_id; end
+              sig { params(_product_id: T.nilable(String)).returns(T.nilable(String)) }
+              def product_id=(_product_id); end
+              # Metronome product tags to scope this specifier to. A product matches this filter only if it has all specified tags.
+              sig { returns(T.nilable(T::Array[String])) }
+              def product_tags; end
+              sig {
+                params(_product_tags: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+               }
+              def product_tags=(_product_tags); end
+              sig {
+                params(presentation_group_values: T.nilable(T::Hash[String, String]), pricing_group_values: T.nilable(T::Hash[String, String]), product_id: T.nilable(String), product_tags: T.nilable(T::Array[String])).void
+               }
+              def initialize(
+                presentation_group_values: nil,
+                pricing_group_values: nil,
+                product_id: nil,
+                product_tags: nil
+              ); end
+            end
+            class TaxDetails < ::Stripe::RequestParams
+              # Stripe [tax code](https://docs.stripe.com/tax/tax-codes) for this commit (for example, `txcd_10103000`). If the linked Stripe Product has a tax code, this value must match it.
+              sig { returns(String) }
+              def tax_code; end
+              sig { params(_tax_code: String).returns(String) }
+              def tax_code=(_tax_code); end
+              sig { params(tax_code: String).void }
+              def initialize(tax_code: nil); end
+            end
+            # Sets the balance amount and release schedule. Mutually exclusive with `commit_options`.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule))
+             }
+            def access_schedule; end
+            sig {
+              params(_access_schedule: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule))
+             }
+            def access_schedule=(_access_schedule); end
+            # Metronome product tags this commit can be drawn down against. A product matches if it has at least one of the specified tags. Mutually exclusive with `specifiers`. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all omitted, the commit applies to all products. See Metronome's [applicable_product_tags](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-applicable-product-tags).
+            sig { returns(T.nilable(T::Array[String])) }
+            def applicable_metronome_product_tags; end
+            sig {
+              params(_applicable_metronome_product_tags: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def applicable_metronome_product_tags=(_applicable_metronome_product_tags); end
+            # Metronome product IDs this commit can be drawn down against. Mutually exclusive with `specifiers`. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all omitted, the commit applies to all products. See Metronome's [applicable_product_ids](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-applicable-product-ids).
+            sig { returns(T.nilable(T::Array[String])) }
+            def applicable_metronome_products; end
+            sig {
+              params(_applicable_metronome_products: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def applicable_metronome_products=(_applicable_metronome_products); end
+            # Customer selects the balance amount to purchase. Mutually exclusive with `access_schedule`.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions))
+             }
+            def commit_options; end
+            sig {
+              params(_commit_options: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions))
+             }
+            def commit_options=(_commit_options); end
+            # The Metronome Custom Pricing Unit credit type ID for this commit, whose access amounts are credit counts. Omit it to price in fiat, where access amounts are in the smallest unit of `price_configuration[currency]`. Fiat credit type IDs are not accepted.
+            sig { returns(T.nilable(String)) }
+            def credit_type_id; end
+            sig { params(_credit_type_id: T.nilable(String)).returns(T.nilable(String)) }
+            def credit_type_id=(_credit_type_id); end
+            # Key-value pairs forwarded to the Metronome commit's [custom_fields](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-custom-fields).
+            sig { returns(T.nilable(T::Hash[String, String])) }
+            def custom_fields; end
+            sig {
+              params(_custom_fields: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+             }
+            def custom_fields=(_custom_fields); end
+            # Free-form description. Forwarded to the Metronome commit's description.
+            sig { returns(T.nilable(String)) }
+            def description; end
+            sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+            def description=(_description); end
+            # The Metronome product ID for this commit.
+            sig { returns(String) }
+            def metronome_product; end
+            sig { params(_metronome_product: String).returns(String) }
+            def metronome_product=(_metronome_product); end
+            # Display name for the commit. Surfaced on the Metronome commit's name.
+            sig { returns(String) }
+            def name; end
+            sig { params(_name: String).returns(String) }
+            def name=(_name); end
+            # Priority for applying the commit. Lower priority values apply first. Forwarded to Metronome as-is.
+            sig { returns(T.nilable(BigDecimal)) }
+            def priority; end
+            sig { params(_priority: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
+            def priority=(_priority); end
+            # Specifies which rates are used to draw down the commit. Accepts `commit_rate`, `list_rate`, `COMMIT_RATE`, or `LIST_RATE`.
+            sig { returns(T.nilable(String)) }
+            def rate_type; end
+            sig { params(_rate_type: T.nilable(String)).returns(T.nilable(String)) }
+            def rate_type=(_rate_type); end
+            # Fraction of unused balance that rolls over on a Metronome contract transition. Must be between `0` and `1`. Forwarded to Metronome as-is.
+            sig { returns(T.nilable(BigDecimal)) }
+            def rollover_fraction; end
+            sig { params(_rollover_fraction: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
+            def rollover_fraction=(_rollover_fraction); end
+            # Usage filters that determine what draws down the commit. If multiple specifiers are provided, a product only needs to match one. Mutually exclusive with `applicable_metronome_products` and `applicable_metronome_product_tags`. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all omitted, the commit applies to all products. See Metronome's [specifiers](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-specifiers).
+            sig {
+              returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::Specifier]))
+             }
+            def specifiers; end
+            sig {
+              params(_specifiers: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::Specifier])).returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::Specifier]))
+             }
+            def specifiers=(_specifiers); end
+            # Tax details for this commit. If omitted, Stripe uses the tax code from the Stripe product linked to the Metronome commit product. If there is no linked Stripe product or the Stripe product has no tax code configured, the [preset tax rate on your account](https://docs.stripe.com/api/tax/settings/object#tax_settings_object-defaults-tax_code) will be used. If provided, `tax_code` is required.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::TaxDetails))
+             }
+            def tax_details; end
+            sig {
+              params(_tax_details: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::TaxDetails)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::TaxDetails))
+             }
+            def tax_details=(_tax_details); end
+            sig {
+              params(access_schedule: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule), applicable_metronome_product_tags: T.nilable(T::Array[String]), applicable_metronome_products: T.nilable(T::Array[String]), commit_options: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions), credit_type_id: T.nilable(String), custom_fields: T.nilable(T::Hash[String, String]), description: T.nilable(String), metronome_product: String, name: String, priority: T.nilable(BigDecimal), rate_type: T.nilable(String), rollover_fraction: T.nilable(BigDecimal), specifiers: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::Specifier]), tax_details: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::TaxDetails)).void
+             }
+            def initialize(
+              access_schedule: nil,
+              applicable_metronome_product_tags: nil,
+              applicable_metronome_products: nil,
+              commit_options: nil,
+              credit_type_id: nil,
+              custom_fields: nil,
+              description: nil,
+              metronome_product: nil,
+              name: nil,
+              priority: nil,
+              rate_type: nil,
+              rollover_fraction: nil,
+              specifiers: nil,
+              tax_details: nil
+            ); end
+            def self.field_encodings
+              @field_encodings = {
+                access_schedule: {
+                  kind: :object,
+                  fields: {
+                    schedule_items: {
+                      kind: :array,
+                      element: {kind: :object, fields: {amount: :decimal_string}},
+                    },
+                  },
+                },
+                priority: :decimal_string,
+                rollover_fraction: :decimal_string,
+              }
+            end
+          end
+          class PriceConfiguration < ::Stripe::RequestParams
+            # The currency for this commit purchase, as an ISO 4217 lowercase string (for example, `usd`).
+            sig { returns(String) }
+            def currency; end
+            sig { params(_currency: String).returns(String) }
+            def currency=(_currency); end
+            # Specifies whether the price is considered inclusive or exclusive of taxes. When omitted and automatic tax is enabled, uses `tax_settings.defaults.tax_behavior`. If no default is set, the request returns an error.
+            sig { returns(T.nilable(String)) }
+            def tax_behavior; end
+            sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
+            def tax_behavior=(_tax_behavior); end
+            sig { params(currency: String, tax_behavior: T.nilable(String)).void }
+            def initialize(currency: nil, tax_behavior: nil); end
+          end
+          # The list of commits to create for this Metronome contract.
+          sig {
+            returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit])
+           }
+          def commits; end
+          sig {
+            params(_commits: T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit]).returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit])
+           }
+          def commits=(_commits); end
+          # The Metronome contract ID to associate with this checkout item.
+          sig { returns(String) }
+          def metronome_contract; end
+          sig { params(_metronome_contract: String).returns(String) }
+          def metronome_contract=(_metronome_contract); end
+          # The currency and tax behavior configuration for this commit purchase.
+          sig {
+            returns(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::PriceConfiguration)
+           }
+          def price_configuration; end
+          sig {
+            params(_price_configuration: ::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::PriceConfiguration).returns(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::PriceConfiguration)
+           }
+          def price_configuration=(_price_configuration); end
+          sig {
+            params(commits: T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit], metronome_contract: String, price_configuration: ::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::PriceConfiguration).void
+           }
+          def initialize(commits: nil, metronome_contract: nil, price_configuration: nil); end
+          def self.field_encodings
+            @field_encodings = {
+              commits: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    access_schedule: {
+                      kind: :object,
+                      fields: {
+                        schedule_items: {
+                          kind: :array,
+                          element: {kind: :object, fields: {amount: :decimal_string}},
+                        },
+                      },
+                    },
+                    priority: :decimal_string,
+                    rollover_fraction: :decimal_string,
+                  },
+                },
+              },
+            }
+          end
+        end
         class Subscription < ::Stripe::RequestParams
           class BillingCycleAnchorConfig < ::Stripe::RequestParams
             # The day of the month the anchor should be. Ranges from 1 to 31.
@@ -157727,6 +161058,27 @@ module Stripe
             def initialize(flexible: nil, type: nil); end
           end
           class Item < ::Stripe::RequestParams
+            class AdjustableQuantity < ::Stripe::RequestParams
+              # Set to true if the quantity can be adjusted to any non-negative integer.
+              sig { returns(T::Boolean) }
+              def enabled; end
+              sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+              def enabled=(_enabled); end
+              # The maximum quantity the customer can purchase for the Checkout Session. By default this value is 99. You can specify a value up to 999999.
+              sig { returns(T.nilable(Integer)) }
+              def maximum; end
+              sig { params(_maximum: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def maximum=(_maximum); end
+              # The minimum quantity the customer must purchase for the Checkout Session. By default this value is 0.
+              sig { returns(T.nilable(Integer)) }
+              def minimum; end
+              sig { params(_minimum: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def minimum=(_minimum); end
+              sig {
+                params(enabled: T::Boolean, maximum: T.nilable(Integer), minimum: T.nilable(Integer)).void
+               }
+              def initialize(enabled: nil, maximum: nil, minimum: nil); end
+            end
             class CurrentTrial < ::Stripe::RequestParams
               # The ID of the trial offer to apply to the subscription item.
               sig { returns(String) }
@@ -157887,6 +161239,15 @@ module Stripe
                 @field_encodings = {unit_amount_decimal: :decimal_string}
               end
             end
+            # When set, provides configuration for this item’s quantity to be adjusted by the customer during Checkout.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::AdjustableQuantity))
+             }
+            def adjustable_quantity; end
+            sig {
+              params(_adjustable_quantity: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::AdjustableQuantity)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::AdjustableQuantity))
+             }
+            def adjustable_quantity=(_adjustable_quantity); end
             # The trial offer to apply to this subscription item.
             sig {
               returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::CurrentTrial))
@@ -157916,9 +161277,15 @@ module Stripe
             sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
             def quantity=(_quantity); end
             sig {
-              params(current_trial: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::CurrentTrial), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData), quantity: T.nilable(Integer)).void
+              params(adjustable_quantity: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::AdjustableQuantity), current_trial: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::CurrentTrial), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData), quantity: T.nilable(Integer)).void
              }
-            def initialize(current_trial: nil, price: nil, price_data: nil, quantity: nil); end
+            def initialize(
+              adjustable_quantity: nil,
+              current_trial: nil,
+              price: nil,
+              price_data: nil,
+              quantity: nil
+            ); end
             def self.field_encodings
               @field_encodings = {
                 price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
@@ -158077,6 +161444,13 @@ module Stripe
             }
           end
         end
+        # Configuration for the Metronome commit item.
+        sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit)) }
+        def metronome_commit; end
+        sig {
+          params(_metronome_commit: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit))
+         }
+        def metronome_commit=(_metronome_commit); end
         # Configuration for the subscription item.
         sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription)) }
         def subscription; end
@@ -158090,11 +161464,35 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(subscription: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription), type: String).void
+          params(metronome_commit: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit), subscription: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription), type: String).void
          }
-        def initialize(subscription: nil, type: nil); end
+        def initialize(metronome_commit: nil, subscription: nil, type: nil); end
         def self.field_encodings
           @field_encodings = {
+            metronome_commit: {
+              kind: :object,
+              fields: {
+                commits: {
+                  kind: :array,
+                  element: {
+                    kind: :object,
+                    fields: {
+                      access_schedule: {
+                        kind: :object,
+                        fields: {
+                          schedule_items: {
+                            kind: :array,
+                            element: {kind: :object, fields: {amount: :decimal_string}},
+                          },
+                        },
+                      },
+                      priority: :decimal_string,
+                      rollover_fraction: :decimal_string,
+                    },
+                  },
+                },
+              },
+            },
             subscription: {
               kind: :object,
               fields: {
@@ -158302,7 +161700,7 @@ module Stripe
         def price; end
         sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
         def price=(_price); end
-        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline, for [dynamic pricing](https://docs.stripe.com/products-prices/how-products-and-prices-work#inline-pricing) when the amount isn't known ahead of time. One of `price` or `price_data` is required when creating a new line item.
         sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::PriceData)) }
         def price_data; end
         sig {
@@ -158344,6 +161742,78 @@ module Stripe
         def enabled=(_enabled); end
         sig { params(enabled: T.nilable(T::Boolean)).void }
         def initialize(enabled: nil); end
+      end
+      class MarketingAttribution < ::Stripe::RequestParams
+        class AdConversion < ::Stripe::RequestParams
+          # Whether the customer consented to sending conversion data to an advertising platform.
+          sig { returns(T::Boolean) }
+          def consent_collected; end
+          sig { params(_consent_collected: T::Boolean).returns(T::Boolean) }
+          def consent_collected=(_consent_collected); end
+          sig { params(consent_collected: T::Boolean).void }
+          def initialize(consent_collected: nil); end
+        end
+        # Information used when sending conversions to an advertising platform.
+        sig { returns(::Stripe::Checkout::SessionCreateParams::MarketingAttribution::AdConversion) }
+        def ad_conversion; end
+        sig {
+          params(_ad_conversion: ::Stripe::Checkout::SessionCreateParams::MarketingAttribution::AdConversion).returns(::Stripe::Checkout::SessionCreateParams::MarketingAttribution::AdConversion)
+         }
+        def ad_conversion=(_ad_conversion); end
+        # The advertising platform's click identifier.
+        sig { returns(T.nilable(String)) }
+        def click_id; end
+        sig { params(_click_id: T.nilable(String)).returns(T.nilable(String)) }
+        def click_id=(_click_id); end
+        # The Unix timestamp when the advertising interaction occurred.
+        sig { returns(T.nilable(Integer)) }
+        def occurred_at; end
+        sig { params(_occurred_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def occurred_at=(_occurred_at); end
+        # The advertising group ID from the `utm_adgroup` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_adgroup; end
+        sig { params(_utm_adgroup: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_adgroup=(_utm_adgroup); end
+        # The advertising content identifier from the `utm_content` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_content; end
+        sig { params(_utm_content: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_content=(_utm_content); end
+        # The advertising campaign ID from the `utm_id` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_id; end
+        sig { params(_utm_id: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_id=(_utm_id); end
+        # The marketing medium from the `utm_medium` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_medium; end
+        sig { params(_utm_medium: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_medium=(_utm_medium); end
+        # The referral source from the `utm_source` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_source; end
+        sig { params(_utm_source: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_source=(_utm_source); end
+        # The paid search term from the `utm_term` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_term; end
+        sig { params(_utm_term: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_term=(_utm_term); end
+        sig {
+          params(ad_conversion: ::Stripe::Checkout::SessionCreateParams::MarketingAttribution::AdConversion, click_id: T.nilable(String), occurred_at: T.nilable(Integer), utm_adgroup: T.nilable(String), utm_content: T.nilable(String), utm_id: T.nilable(String), utm_medium: T.nilable(String), utm_source: T.nilable(String), utm_term: T.nilable(String)).void
+         }
+        def initialize(
+          ad_conversion: nil,
+          click_id: nil,
+          occurred_at: nil,
+          utm_adgroup: nil,
+          utm_content: nil,
+          utm_id: nil,
+          utm_medium: nil,
+          utm_source: nil,
+          utm_term: nil
+        ); end
       end
       class NameCollection < ::Stripe::RequestParams
         class Business < ::Stripe::RequestParams
@@ -161812,6 +165282,15 @@ module Stripe
         params(_managed_payments: T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments))
        }
       def managed_payments=(_managed_payments); end
+      # Advertising attribution information for this Checkout Session. Only one attribution is supported.
+      sig {
+        returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::MarketingAttribution]))
+       }
+      def marketing_attributions; end
+      sig {
+        params(_marketing_attributions: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::MarketingAttribution])).returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::MarketingAttribution]))
+       }
+      def marketing_attributions=(_marketing_attributions); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
@@ -162014,7 +165493,7 @@ module Stripe
        }
       def checkout_items=(_checkout_items); end
       sig {
-        params(adaptive_pricing: T.nilable(::Stripe::Checkout::SessionCreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::SessionCreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), allowed_payment_method_types: T.nilable(T::Array[String]), approval_method: T.nilable(String), automatic_surcharge: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticSurcharge), automatic_tax: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), branding_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CustomField]), custom_payment_method_types: T.nilable(T::Array[String]), custom_text: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), integration_identifier: T.nilable(String), invoice_creation: T.nilable(::Stripe::Checkout::SessionCreateParams::InvoiceCreation), items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item]), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::LineItem]), locale: T.nilable(String), managed_payments: T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), name_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions), payment_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings), permissions: T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::SessionCreateParams::WalletOptions), checkout_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CheckoutItem])).void
+        params(adaptive_pricing: T.nilable(::Stripe::Checkout::SessionCreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::SessionCreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), allowed_payment_method_types: T.nilable(T::Array[String]), approval_method: T.nilable(String), automatic_surcharge: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticSurcharge), automatic_tax: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), branding_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CustomField]), custom_payment_method_types: T.nilable(T::Array[String]), custom_text: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), integration_identifier: T.nilable(String), invoice_creation: T.nilable(::Stripe::Checkout::SessionCreateParams::InvoiceCreation), items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item]), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::LineItem]), locale: T.nilable(String), managed_payments: T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments), marketing_attributions: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::MarketingAttribution]), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), name_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions), payment_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings), permissions: T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::SessionCreateParams::WalletOptions), checkout_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CheckoutItem])).void
        }
       def initialize(
         adaptive_pricing: nil,
@@ -162048,6 +165527,7 @@ module Stripe
         line_items: nil,
         locale: nil,
         managed_payments: nil,
+        marketing_attributions: nil,
         metadata: nil,
         mode: nil,
         name_collection: nil,
@@ -162083,6 +165563,30 @@ module Stripe
             element: {
               kind: :object,
               fields: {
+                metronome_commit: {
+                  kind: :object,
+                  fields: {
+                    commits: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          access_schedule: {
+                            kind: :object,
+                            fields: {
+                              schedule_items: {
+                                kind: :array,
+                                element: {kind: :object, fields: {amount: :decimal_string}},
+                              },
+                            },
+                          },
+                          priority: :decimal_string,
+                          rollover_fraction: :decimal_string,
+                        },
+                      },
+                    },
+                  },
+                },
                 subscription: {
                   kind: :object,
                   fields: {
@@ -162538,7 +166042,7 @@ module Stripe
         def price; end
         sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
         def price=(_price); end
-        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline, for [dynamic pricing](https://docs.stripe.com/products-prices/how-products-and-prices-work#inline-pricing) when the amount isn't known ahead of time. One of `price` or `price_data` is required when creating a new line item.
         sig { returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData)) }
         def price_data; end
         sig {
@@ -177201,12 +180705,12 @@ module Stripe
         params(_period: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Period)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Period))
        }
       def period=(_period); end
-      # The ID of the price object. One of `price` or `price_data` is required.
+      # The ID of the price object.
       sig { returns(T.nilable(String)) }
       def price; end
       sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
       def price=(_price); end
-      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline.
       sig { returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::PriceData)) }
       def price_data; end
       sig {
@@ -181998,6 +185502,11 @@ module Stripe
       def merchant_amount; end
       sig { params(_merchant_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def merchant_amount=(_merchant_amount); end
+      # Exchange rate from merchant amount to cardholder amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0.
+      sig { returns(T.nilable(Float)) }
+      def merchant_amount_exchange_rate; end
+      sig { params(_merchant_amount_exchange_rate: T.nilable(Float)).returns(T.nilable(Float)) }
+      def merchant_amount_exchange_rate=(_merchant_amount_exchange_rate); end
       # The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(T.nilable(String)) }
       def merchant_currency; end
@@ -182029,6 +185538,11 @@ module Stripe
         params(_risk_assessment: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment))
        }
       def risk_assessment=(_risk_assessment); end
+      # The type of the authorization object, for example a payment authorization, an original credit authorization, or a refund authorization.
+      sig { returns(T.nilable(String)) }
+      def type; end
+      sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+      def type=(_type); end
       # Verifications that Stripe performed on information that the cardholder provided to the merchant.
       sig { returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData)) }
       def verification_data; end
@@ -182042,7 +185556,7 @@ module Stripe
       sig { params(_wallet: T.nilable(String)).returns(T.nilable(String)) }
       def wallet=(_wallet); end
       sig {
-        params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fuel), healthcare: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Healthcare), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::MerchantData), network_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::NetworkData), pos_condition: T.nilable(String), risk_assessment: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment), verification_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData), wallet: T.nilable(String)).void
+        params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fuel), healthcare: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Healthcare), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_amount_exchange_rate: T.nilable(Float), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::MerchantData), network_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::NetworkData), pos_condition: T.nilable(String), risk_assessment: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment), type: T.nilable(String), verification_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData), wallet: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -182057,11 +185571,13 @@ module Stripe
         healthcare: nil,
         is_amount_controllable: nil,
         merchant_amount: nil,
+        merchant_amount_exchange_rate: nil,
         merchant_currency: nil,
         merchant_data: nil,
         network_data: nil,
         pos_condition: nil,
         risk_assessment: nil,
+        type: nil,
         verification_data: nil,
         wallet: nil
       ); end
@@ -182430,61 +185946,6 @@ module Stripe
             }
           end
         end
-        class Healthcare < ::Stripe::RequestParams
-          # Clinic and urgent care sub-amount for Visa only.
-          sig { returns(T.nilable(Integer)) }
-          def clinic_amount; end
-          sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def clinic_amount=(_clinic_amount); end
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          sig { returns(String) }
-          def currency; end
-          sig { params(_currency: String).returns(String) }
-          def currency=(_currency); end
-          # Dental care sub-amount for Visa only.
-          sig { returns(T.nilable(Integer)) }
-          def dental_amount; end
-          sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def dental_amount=(_dental_amount); end
-          # Prescription drug sub-amount. Null if the merchant did not send this amount.
-          sig { returns(T.nilable(Integer)) }
-          def prescription_amount; end
-          sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def prescription_amount=(_prescription_amount); end
-          # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
-          sig { returns(T.nilable(String)) }
-          def purchase_type; end
-          sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
-          def purchase_type=(_purchase_type); end
-          # Total FSA/HSA-eligible amount in the smallest currency unit.
-          sig { returns(Integer) }
-          def total_qualified_amount; end
-          sig { params(_total_qualified_amount: Integer).returns(Integer) }
-          def total_qualified_amount=(_total_qualified_amount); end
-          # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
-          sig { returns(String) }
-          def verification_status; end
-          sig { params(_verification_status: String).returns(String) }
-          def verification_status=(_verification_status); end
-          # Vision/optical sub-amount. Null if the merchant did not send this amount.
-          sig { returns(T.nilable(Integer)) }
-          def vision_amount; end
-          sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def vision_amount=(_vision_amount); end
-          sig {
-            params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
-           }
-          def initialize(
-            clinic_amount: nil,
-            currency: nil,
-            dental_amount: nil,
-            prescription_amount: nil,
-            purchase_type: nil,
-            total_qualified_amount: nil,
-            verification_status: nil,
-            vision_amount: nil
-          ); end
-        end
         class Lodging < ::Stripe::RequestParams
           # The time of checking into the lodging.
           sig { returns(T.nilable(Integer)) }
@@ -182555,15 +186016,6 @@ module Stripe
           params(_fuel: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel))
          }
         def fuel=(_fuel); end
-        # Healthcare sub-amounts for IIAS-eligible transactions.
-        sig {
-          returns(T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare))
-         }
-        def healthcare; end
-        sig {
-          params(_healthcare: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare)).returns(T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare))
-         }
-        def healthcare=(_healthcare); end
         # Information about lodging that was purchased with this transaction.
         sig {
           returns(T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Lodging))
@@ -182588,13 +186040,12 @@ module Stripe
         sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
         def reference=(_reference); end
         sig {
-          params(fleet: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel), healthcare: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare), lodging: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
+          params(fleet: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
          }
         def initialize(
           fleet: nil,
           flight: nil,
           fuel: nil,
-          healthcare: nil,
           lodging: nil,
           receipt: nil,
           reference: nil
@@ -182628,6 +186079,25 @@ module Stripe
           }
         end
       end
+      class SettlementDetails < ::Stripe::RequestParams
+        # Positive settlement amount magnitude in the smallest currency unit. Must match the converted merchant amount and, when settlement and cardholder currencies are the same, this capture's finalized transaction amount magnitude. The transaction type determines the output sign.
+        sig { returns(Integer) }
+        def amount; end
+        sig { params(_amount: Integer).returns(Integer) }
+        def amount=(_amount); end
+        # Settlement currency.
+        sig { returns(String) }
+        def currency; end
+        sig { params(_currency: String).returns(String) }
+        def currency=(_currency); end
+        # Exchange rate from merchant amount to settlement amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0.
+        sig { returns(Float) }
+        def exchange_rate; end
+        sig { params(_exchange_rate: Float).returns(Float) }
+        def exchange_rate=(_exchange_rate); end
+        sig { params(amount: Integer, currency: String, exchange_rate: Float).void }
+        def initialize(amount: nil, currency: nil, exchange_rate: nil); end
+      end
       # The amount to capture from the authorization. If not provided, the full amount of the authorization will be captured. This amount is in the authorization currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
       sig { returns(T.nilable(Integer)) }
       def capture_amount; end
@@ -182643,6 +186113,11 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
+      # Exchange rate from merchant amount to capture amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0. The capture amount remains authoritative.
+      sig { returns(T.nilable(Float)) }
+      def merchant_amount_exchange_rate; end
+      sig { params(_merchant_amount_exchange_rate: T.nilable(Float)).returns(T.nilable(Float)) }
+      def merchant_amount_exchange_rate=(_merchant_amount_exchange_rate); end
       # Details about the transaction, such as processing dates, set by the card network.
       sig { returns(T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::NetworkData)) }
       def network_data; end
@@ -182657,15 +186132,24 @@ module Stripe
         params(_purchase_details: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails)).returns(T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails))
        }
       def purchase_details=(_purchase_details); end
+      # Synthetic settlement values for this purchase capture. If omitted, defaults to the final signed transaction amount, transaction currency, and effective merchant-to-cardholder exchange rate. Supply all three fields to override. This does not create a settlement or change funding.
+      sig { returns(T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::SettlementDetails)) }
+      def settlement_details; end
       sig {
-        params(capture_amount: T.nilable(Integer), close_authorization: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), network_data: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::NetworkData), purchase_details: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails)).void
+        params(_settlement_details: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::SettlementDetails)).returns(T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::SettlementDetails))
+       }
+      def settlement_details=(_settlement_details); end
+      sig {
+        params(capture_amount: T.nilable(Integer), close_authorization: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), merchant_amount_exchange_rate: T.nilable(Float), network_data: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::NetworkData), purchase_details: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails), settlement_details: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::SettlementDetails)).void
        }
       def initialize(
         capture_amount: nil,
         close_authorization: nil,
         expand: nil,
+        merchant_amount_exchange_rate: nil,
         network_data: nil,
-        purchase_details: nil
+        purchase_details: nil,
+        settlement_details: nil
       ); end
       def self.field_encodings
         @field_encodings = {
@@ -188037,61 +191521,6 @@ module Stripe
             }
           end
         end
-        class Healthcare < ::Stripe::RequestParams
-          # Clinic and urgent care sub-amount for Visa only.
-          sig { returns(T.nilable(Integer)) }
-          def clinic_amount; end
-          sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def clinic_amount=(_clinic_amount); end
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          sig { returns(String) }
-          def currency; end
-          sig { params(_currency: String).returns(String) }
-          def currency=(_currency); end
-          # Dental care sub-amount for Visa only.
-          sig { returns(T.nilable(Integer)) }
-          def dental_amount; end
-          sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def dental_amount=(_dental_amount); end
-          # Prescription drug sub-amount. Null if the merchant did not send this amount.
-          sig { returns(T.nilable(Integer)) }
-          def prescription_amount; end
-          sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def prescription_amount=(_prescription_amount); end
-          # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
-          sig { returns(T.nilable(String)) }
-          def purchase_type; end
-          sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
-          def purchase_type=(_purchase_type); end
-          # Total FSA/HSA-eligible amount in the smallest currency unit.
-          sig { returns(Integer) }
-          def total_qualified_amount; end
-          sig { params(_total_qualified_amount: Integer).returns(Integer) }
-          def total_qualified_amount=(_total_qualified_amount); end
-          # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
-          sig { returns(String) }
-          def verification_status; end
-          sig { params(_verification_status: String).returns(String) }
-          def verification_status=(_verification_status); end
-          # Vision/optical sub-amount. Null if the merchant did not send this amount.
-          sig { returns(T.nilable(Integer)) }
-          def vision_amount; end
-          sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def vision_amount=(_vision_amount); end
-          sig {
-            params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
-           }
-          def initialize(
-            clinic_amount: nil,
-            currency: nil,
-            dental_amount: nil,
-            prescription_amount: nil,
-            purchase_type: nil,
-            total_qualified_amount: nil,
-            verification_status: nil,
-            vision_amount: nil
-          ); end
-        end
         class Lodging < ::Stripe::RequestParams
           # The time of checking into the lodging.
           sig { returns(T.nilable(Integer)) }
@@ -188162,15 +191591,6 @@ module Stripe
           params(_fuel: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel))
          }
         def fuel=(_fuel); end
-        # Healthcare sub-amounts for IIAS-eligible transactions.
-        sig {
-          returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare))
-         }
-        def healthcare; end
-        sig {
-          params(_healthcare: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare))
-         }
-        def healthcare=(_healthcare); end
         # Information about lodging that was purchased with this transaction.
         sig {
           returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging))
@@ -188195,13 +191615,12 @@ module Stripe
         sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
         def reference=(_reference); end
         sig {
-          params(fleet: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel), healthcare: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare), lodging: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
+          params(fleet: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
          }
         def initialize(
           fleet: nil,
           flight: nil,
           fuel: nil,
-          healthcare: nil,
           lodging: nil,
           receipt: nil,
           reference: nil
@@ -188235,6 +191654,25 @@ module Stripe
           }
         end
       end
+      class SettlementDetails < ::Stripe::RequestParams
+        # Positive settlement amount magnitude in the smallest currency unit. Must match the converted merchant amount and, when settlement and cardholder currencies are the same, this capture's finalized transaction amount magnitude. The transaction type determines the output sign.
+        sig { returns(Integer) }
+        def amount; end
+        sig { params(_amount: Integer).returns(Integer) }
+        def amount=(_amount); end
+        # Settlement currency.
+        sig { returns(String) }
+        def currency; end
+        sig { params(_currency: String).returns(String) }
+        def currency=(_currency); end
+        # Exchange rate from merchant amount to settlement amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0.
+        sig { returns(Float) }
+        def exchange_rate; end
+        sig { params(_exchange_rate: Float).returns(Float) }
+        def exchange_rate=(_exchange_rate); end
+        sig { params(amount: Integer, currency: String, exchange_rate: Float).void }
+        def initialize(amount: nil, currency: nil, exchange_rate: nil); end
+      end
       # The total amount to attempt to capture. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
       sig { returns(Integer) }
       def amount; end
@@ -188255,6 +191693,11 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
+      # Exchange rate from merchant amount to cardholder amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0. The supplied amount remains the merchant amount.
+      sig { returns(T.nilable(Float)) }
+      def merchant_amount_exchange_rate; end
+      sig { params(_merchant_amount_exchange_rate: T.nilable(Float)).returns(T.nilable(Float)) }
+      def merchant_amount_exchange_rate=(_merchant_amount_exchange_rate); end
       # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
       sig {
         returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::MerchantData))
@@ -188282,17 +191725,28 @@ module Stripe
         params(_purchase_details: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails))
        }
       def purchase_details=(_purchase_details); end
+      # Synthetic settlement values for this purchase force capture. If omitted, defaults to the final signed transaction amount, transaction currency, and effective merchant-to-cardholder exchange rate. Supply all three fields to override. This does not create a settlement or change funding.
       sig {
-        params(amount: Integer, card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), merchant_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::MerchantData), network_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::NetworkData), purchase_details: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails)).void
+        returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::SettlementDetails))
+       }
+      def settlement_details; end
+      sig {
+        params(_settlement_details: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::SettlementDetails)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::SettlementDetails))
+       }
+      def settlement_details=(_settlement_details); end
+      sig {
+        params(amount: Integer, card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), merchant_amount_exchange_rate: T.nilable(Float), merchant_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::MerchantData), network_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::NetworkData), purchase_details: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails), settlement_details: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::SettlementDetails)).void
        }
       def initialize(
         amount: nil,
         card: nil,
         currency: nil,
         expand: nil,
+        merchant_amount_exchange_rate: nil,
         merchant_data: nil,
         network_data: nil,
-        purchase_details: nil
+        purchase_details: nil,
+        settlement_details: nil
       ); end
       def self.field_encodings
         @field_encodings = {
@@ -188732,61 +192186,6 @@ module Stripe
             }
           end
         end
-        class Healthcare < ::Stripe::RequestParams
-          # Clinic and urgent care sub-amount for Visa only.
-          sig { returns(T.nilable(Integer)) }
-          def clinic_amount; end
-          sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def clinic_amount=(_clinic_amount); end
-          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-          sig { returns(String) }
-          def currency; end
-          sig { params(_currency: String).returns(String) }
-          def currency=(_currency); end
-          # Dental care sub-amount for Visa only.
-          sig { returns(T.nilable(Integer)) }
-          def dental_amount; end
-          sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def dental_amount=(_dental_amount); end
-          # Prescription drug sub-amount. Null if the merchant did not send this amount.
-          sig { returns(T.nilable(Integer)) }
-          def prescription_amount; end
-          sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def prescription_amount=(_prescription_amount); end
-          # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
-          sig { returns(T.nilable(String)) }
-          def purchase_type; end
-          sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
-          def purchase_type=(_purchase_type); end
-          # Total FSA/HSA-eligible amount in the smallest currency unit.
-          sig { returns(Integer) }
-          def total_qualified_amount; end
-          sig { params(_total_qualified_amount: Integer).returns(Integer) }
-          def total_qualified_amount=(_total_qualified_amount); end
-          # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
-          sig { returns(String) }
-          def verification_status; end
-          sig { params(_verification_status: String).returns(String) }
-          def verification_status=(_verification_status); end
-          # Vision/optical sub-amount. Null if the merchant did not send this amount.
-          sig { returns(T.nilable(Integer)) }
-          def vision_amount; end
-          sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def vision_amount=(_vision_amount); end
-          sig {
-            params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
-           }
-          def initialize(
-            clinic_amount: nil,
-            currency: nil,
-            dental_amount: nil,
-            prescription_amount: nil,
-            purchase_type: nil,
-            total_qualified_amount: nil,
-            verification_status: nil,
-            vision_amount: nil
-          ); end
-        end
         class Lodging < ::Stripe::RequestParams
           # The time of checking into the lodging.
           sig { returns(T.nilable(Integer)) }
@@ -188857,15 +192256,6 @@ module Stripe
           params(_fuel: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel))
          }
         def fuel=(_fuel); end
-        # Healthcare sub-amounts for IIAS-eligible transactions.
-        sig {
-          returns(T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare))
-         }
-        def healthcare; end
-        sig {
-          params(_healthcare: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare)).returns(T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare))
-         }
-        def healthcare=(_healthcare); end
         # Information about lodging that was purchased with this transaction.
         sig {
           returns(T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Lodging))
@@ -188890,13 +192280,12 @@ module Stripe
         sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
         def reference=(_reference); end
         sig {
-          params(fleet: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel), healthcare: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare), lodging: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
+          params(fleet: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
          }
         def initialize(
           fleet: nil,
           flight: nil,
           fuel: nil,
-          healthcare: nil,
           lodging: nil,
           receipt: nil,
           reference: nil
@@ -254742,6 +258131,285 @@ module Stripe
 end
 # typed: true
 module Stripe
+  module Risk
+    class FormUpdateParams < ::Stripe::RequestParams
+      class Appeal < ::Stripe::RequestParams
+        # A text explanation for the appeal.
+        sig { returns(String) }
+        def explanation; end
+        sig { params(_explanation: String).returns(String) }
+        def explanation=(_explanation); end
+        sig { params(explanation: String).void }
+        def initialize(explanation: nil); end
+      end
+      class AuthorizationDocuments < ::Stripe::RequestParams
+        # IDs of uploaded files to attach as authorization documents.
+        sig { returns(T::Array[String]) }
+        def files; end
+        sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+        def files=(_files); end
+        sig { params(files: T::Array[String]).void }
+        def initialize(files: nil); end
+      end
+      class PaymentProcessing < ::Stripe::RequestParams
+        class MultiProcessor < ::Stripe::RequestParams
+          class File < ::Stripe::RequestParams
+            # ID of the uploaded file. Upload using /v1/files before referencing it here.
+            sig { returns(String) }
+            def file; end
+            sig { params(_file: String).returns(String) }
+            def file=(_file); end
+            # What kind of document this is. One of alt_financial_statements, recent_bank_statements, or payment_receipt.
+            sig { returns(T.nilable(String)) }
+            def tag; end
+            sig { params(_tag: T.nilable(String)).returns(T.nilable(String)) }
+            def tag=(_tag); end
+            sig { params(file: String, tag: T.nilable(String)).void }
+            def initialize(file: nil, tag: nil); end
+          end
+          # Files evidencing payments accepted outside Stripe. Each entry carries a tag naming the document type so a reviewer can distinguish statement types without opening the file.
+          sig {
+            returns(T.nilable(T::Array[::Stripe::Risk::FormUpdateParams::PaymentProcessing::MultiProcessor::File]))
+           }
+          def files; end
+          sig {
+            params(_files: T.nilable(T::Array[::Stripe::Risk::FormUpdateParams::PaymentProcessing::MultiProcessor::File])).returns(T.nilable(T::Array[::Stripe::Risk::FormUpdateParams::PaymentProcessing::MultiProcessor::File]))
+           }
+          def files=(_files); end
+          # Whether the connected account accepts payments outside Stripe.
+          sig { returns(T.nilable(String)) }
+          def value; end
+          sig { params(_value: T.nilable(String)).returns(T.nilable(String)) }
+          def value=(_value); end
+          sig {
+            params(files: T.nilable(T::Array[::Stripe::Risk::FormUpdateParams::PaymentProcessing::MultiProcessor::File]), value: T.nilable(String)).void
+           }
+          def initialize(files: nil, value: nil); end
+        end
+        # Payments the connected account accepts outside Stripe.
+        sig {
+          returns(T.nilable(::Stripe::Risk::FormUpdateParams::PaymentProcessing::MultiProcessor))
+         }
+        def multi_processor; end
+        sig {
+          params(_multi_processor: T.nilable(::Stripe::Risk::FormUpdateParams::PaymentProcessing::MultiProcessor)).returns(T.nilable(::Stripe::Risk::FormUpdateParams::PaymentProcessing::MultiProcessor))
+         }
+        def multi_processor=(_multi_processor); end
+        # How the connected account uses Stripe.
+        sig { returns(T.nilable(String)) }
+        def purpose; end
+        sig { params(_purpose: T.nilable(String)).returns(T.nilable(String)) }
+        def purpose=(_purpose); end
+        # Why the connected account chose Stripe.
+        sig { returns(T.nilable(String)) }
+        def stripe_selection_rationale; end
+        sig { params(_stripe_selection_rationale: T.nilable(String)).returns(T.nilable(String)) }
+        def stripe_selection_rationale=(_stripe_selection_rationale); end
+        sig {
+          params(multi_processor: T.nilable(::Stripe::Risk::FormUpdateParams::PaymentProcessing::MultiProcessor), purpose: T.nilable(String), stripe_selection_rationale: T.nilable(String)).void
+         }
+        def initialize(multi_processor: nil, purpose: nil, stripe_selection_rationale: nil); end
+      end
+      class ProductRemoval < ::Stripe::RequestParams
+        # The Unix timestamp when the prohibited items were removed.
+        sig { returns(Integer) }
+        def items_removed_at; end
+        sig { params(_items_removed_at: Integer).returns(Integer) }
+        def items_removed_at=(_items_removed_at); end
+        sig { params(items_removed_at: Integer).void }
+        def initialize(items_removed_at: nil); end
+      end
+      class ReviewedFields < ::Stripe::RequestParams
+        class Attestation < ::Stripe::RequestParams
+          # The Unix timestamp when the connected account attested to these fields.
+          sig { returns(T.nilable(Integer)) }
+          def attested_at; end
+          sig { params(_attested_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def attested_at=(_attested_at); end
+          # Account field paths in the currently accepted v2 Accounts API format, for example `defaults.profile.product_description`.
+          sig { returns(T.nilable(T::Array[String])) }
+          def fields; end
+          sig { params(_fields: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+          def fields=(_fields); end
+          sig { params(attested_at: T.nilable(Integer), fields: T.nilable(T::Array[String])).void }
+          def initialize(attested_at: nil, fields: nil); end
+        end
+        # The connected account's attestation that the named account field values are accurate. Update inaccurate values through the Accounts API before attesting.
+        sig { returns(::Stripe::Risk::FormUpdateParams::ReviewedFields::Attestation) }
+        def attestation; end
+        sig {
+          params(_attestation: ::Stripe::Risk::FormUpdateParams::ReviewedFields::Attestation).returns(::Stripe::Risk::FormUpdateParams::ReviewedFields::Attestation)
+         }
+        def attestation=(_attestation); end
+        sig {
+          params(attestation: ::Stripe::Risk::FormUpdateParams::ReviewedFields::Attestation).void
+         }
+        def initialize(attestation: nil); end
+      end
+      class SelfFundingContext < ::Stripe::RequestParams
+        class SourceOfWealth < ::Stripe::RequestParams
+          # A text explanation of the connected account's source of wealth.
+          sig { returns(T.nilable(String)) }
+          def description; end
+          sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+          def description=(_description); end
+          # IDs of uploaded files evidencing the source of wealth.
+          sig { returns(T.nilable(T::Array[String])) }
+          def files; end
+          sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+          def files=(_files); end
+          sig { params(description: T.nilable(String), files: T.nilable(T::Array[String])).void }
+          def initialize(description: nil, files: nil); end
+        end
+        # The connected account's source of wealth.
+        sig {
+          returns(T.nilable(::Stripe::Risk::FormUpdateParams::SelfFundingContext::SourceOfWealth))
+         }
+        def source_of_wealth; end
+        sig {
+          params(_source_of_wealth: T.nilable(::Stripe::Risk::FormUpdateParams::SelfFundingContext::SourceOfWealth)).returns(T.nilable(::Stripe::Risk::FormUpdateParams::SelfFundingContext::SourceOfWealth))
+         }
+        def source_of_wealth=(_source_of_wealth); end
+        sig {
+          params(source_of_wealth: T.nilable(::Stripe::Risk::FormUpdateParams::SelfFundingContext::SourceOfWealth)).void
+         }
+        def initialize(source_of_wealth: nil); end
+      end
+      class TransactionContext < ::Stripe::RequestParams
+        class SourceOfFunds < ::Stripe::RequestParams
+          # A text explanation of where the funds for the transaction came from.
+          sig { returns(T.nilable(String)) }
+          def description; end
+          sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+          def description=(_description); end
+          # IDs of uploaded files evidencing the source of funds.
+          sig { returns(T.nilable(T::Array[String])) }
+          def files; end
+          sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+          def files=(_files); end
+          sig { params(description: T.nilable(String), files: T.nilable(T::Array[String])).void }
+          def initialize(description: nil, files: nil); end
+        end
+        # How often the connected account expects transactions like this one. One of one_time_payment, recurring_subscription, repeat_customer, split_payment, or something_else.
+        sig { returns(T.nilable(String)) }
+        def frequency; end
+        sig { params(_frequency: T.nilable(String)).returns(T.nilable(String)) }
+        def frequency=(_frequency); end
+        # The purpose of the transaction.
+        sig { returns(T.nilable(String)) }
+        def purpose; end
+        sig { params(_purpose: T.nilable(String)).returns(T.nilable(String)) }
+        def purpose=(_purpose); end
+        # IDs of uploaded files evidencing the purpose of the transaction.
+        sig { returns(T.nilable(T::Array[String])) }
+        def purpose_files; end
+        sig {
+          params(_purpose_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+         }
+        def purpose_files=(_purpose_files); end
+        # The connected account's relationship to the sender.
+        sig { returns(T.nilable(String)) }
+        def sender_relationship; end
+        sig { params(_sender_relationship: T.nilable(String)).returns(T.nilable(String)) }
+        def sender_relationship=(_sender_relationship); end
+        # Where the funds for the transaction came from.
+        sig {
+          returns(T.nilable(::Stripe::Risk::FormUpdateParams::TransactionContext::SourceOfFunds))
+         }
+        def source_of_funds; end
+        sig {
+          params(_source_of_funds: T.nilable(::Stripe::Risk::FormUpdateParams::TransactionContext::SourceOfFunds)).returns(T.nilable(::Stripe::Risk::FormUpdateParams::TransactionContext::SourceOfFunds))
+         }
+        def source_of_funds=(_source_of_funds); end
+        # How the funds from the transaction will be used.
+        sig { returns(T.nilable(String)) }
+        def use_of_funds; end
+        sig { params(_use_of_funds: T.nilable(String)).returns(T.nilable(String)) }
+        def use_of_funds=(_use_of_funds); end
+        sig {
+          params(frequency: T.nilable(String), purpose: T.nilable(String), purpose_files: T.nilable(T::Array[String]), sender_relationship: T.nilable(String), source_of_funds: T.nilable(::Stripe::Risk::FormUpdateParams::TransactionContext::SourceOfFunds), use_of_funds: T.nilable(String)).void
+         }
+        def initialize(
+          frequency: nil,
+          purpose: nil,
+          purpose_files: nil,
+          sender_relationship: nil,
+          source_of_funds: nil,
+          use_of_funds: nil
+        ); end
+      end
+      # Provide this for Forms of type `appeal`.
+      sig { returns(T.nilable(::Stripe::Risk::FormUpdateParams::Appeal)) }
+      def appeal; end
+      sig {
+        params(_appeal: T.nilable(::Stripe::Risk::FormUpdateParams::Appeal)).returns(T.nilable(::Stripe::Risk::FormUpdateParams::Appeal))
+       }
+      def appeal=(_appeal); end
+      # Provide this for Forms of type `authorization_documents`.
+      sig { returns(T.nilable(::Stripe::Risk::FormUpdateParams::AuthorizationDocuments)) }
+      def authorization_documents; end
+      sig {
+        params(_authorization_documents: T.nilable(::Stripe::Risk::FormUpdateParams::AuthorizationDocuments)).returns(T.nilable(::Stripe::Risk::FormUpdateParams::AuthorizationDocuments))
+       }
+      def authorization_documents=(_authorization_documents); end
+      # Specifies which fields in the response should be expanded.
+      sig { returns(T.nilable(T::Array[String])) }
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
+      # Provide this for Forms of type `payment_processing`.
+      sig { returns(T.nilable(::Stripe::Risk::FormUpdateParams::PaymentProcessing)) }
+      def payment_processing; end
+      sig {
+        params(_payment_processing: T.nilable(::Stripe::Risk::FormUpdateParams::PaymentProcessing)).returns(T.nilable(::Stripe::Risk::FormUpdateParams::PaymentProcessing))
+       }
+      def payment_processing=(_payment_processing); end
+      # Provide this for Forms of type `product_removal`.
+      sig { returns(T.nilable(::Stripe::Risk::FormUpdateParams::ProductRemoval)) }
+      def product_removal; end
+      sig {
+        params(_product_removal: T.nilable(::Stripe::Risk::FormUpdateParams::ProductRemoval)).returns(T.nilable(::Stripe::Risk::FormUpdateParams::ProductRemoval))
+       }
+      def product_removal=(_product_removal); end
+      # Provide this for Forms of type `reviewed_fields`.
+      sig { returns(T.nilable(::Stripe::Risk::FormUpdateParams::ReviewedFields)) }
+      def reviewed_fields; end
+      sig {
+        params(_reviewed_fields: T.nilable(::Stripe::Risk::FormUpdateParams::ReviewedFields)).returns(T.nilable(::Stripe::Risk::FormUpdateParams::ReviewedFields))
+       }
+      def reviewed_fields=(_reviewed_fields); end
+      # Provide this for Forms of type `self_funding_context`.
+      sig { returns(T.nilable(::Stripe::Risk::FormUpdateParams::SelfFundingContext)) }
+      def self_funding_context; end
+      sig {
+        params(_self_funding_context: T.nilable(::Stripe::Risk::FormUpdateParams::SelfFundingContext)).returns(T.nilable(::Stripe::Risk::FormUpdateParams::SelfFundingContext))
+       }
+      def self_funding_context=(_self_funding_context); end
+      # Provide this for Forms of type `transaction_context`.
+      sig { returns(T.nilable(::Stripe::Risk::FormUpdateParams::TransactionContext)) }
+      def transaction_context; end
+      sig {
+        params(_transaction_context: T.nilable(::Stripe::Risk::FormUpdateParams::TransactionContext)).returns(T.nilable(::Stripe::Risk::FormUpdateParams::TransactionContext))
+       }
+      def transaction_context=(_transaction_context); end
+      sig {
+        params(appeal: T.nilable(::Stripe::Risk::FormUpdateParams::Appeal), authorization_documents: T.nilable(::Stripe::Risk::FormUpdateParams::AuthorizationDocuments), expand: T.nilable(T::Array[String]), payment_processing: T.nilable(::Stripe::Risk::FormUpdateParams::PaymentProcessing), product_removal: T.nilable(::Stripe::Risk::FormUpdateParams::ProductRemoval), reviewed_fields: T.nilable(::Stripe::Risk::FormUpdateParams::ReviewedFields), self_funding_context: T.nilable(::Stripe::Risk::FormUpdateParams::SelfFundingContext), transaction_context: T.nilable(::Stripe::Risk::FormUpdateParams::TransactionContext)).void
+       }
+      def initialize(
+        appeal: nil,
+        authorization_documents: nil,
+        expand: nil,
+        payment_processing: nil,
+        product_removal: nil,
+        reviewed_fields: nil,
+        self_funding_context: nil,
+        transaction_context: nil
+      ); end
+    end
+  end
+end
+# typed: true
+module Stripe
   class SetupAttemptListParams < ::Stripe::RequestParams
     class Created < ::Stripe::RequestParams
       # Minimum value to filter by (exclusive)
@@ -268142,7 +271810,7 @@ module Stripe
       params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
      }
     def metadata=(_metadata); end
-    # Configures the subscription's pause behavior and, optionally, its resume behavior. Only one entry is supported. Include a key to update an existing entry. Omit to leave an existing pause schedule unchanged, or pass "" to clear it.
+    # The subscription's pause behavior and optional resume behavior. You can provide one entry. Include its `key` to update an existing pause schedule. Omit `pause_schedules` to leave the existing schedule unchanged, or pass an empty string (`""`) to clear it.
     sig {
       returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule])))
      }
@@ -295478,6 +299146,20 @@ module Stripe
 end
 # typed: true
 module Stripe
+  module Risk
+    class FormRetrieveParams < ::Stripe::RequestParams
+      # Specifies which fields in the response should be expanded.
+      sig { returns(T.nilable(T::Array[String])) }
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
+      sig { params(expand: T.nilable(T::Array[String])).void }
+      def initialize(expand: nil); end
+    end
+  end
+end
+# typed: true
+module Stripe
   class SetupIntentRetrieveParams < ::Stripe::RequestParams
     # The client secret of the SetupIntent. We require this string if you use a publishable key to retrieve the SetupIntent.
     sig { returns(T.nilable(String)) }
@@ -298103,6 +301785,11 @@ module Stripe
         def merchant_amount; end
         sig { params(_merchant_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def merchant_amount=(_merchant_amount); end
+        # Exchange rate from merchant amount to cardholder amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0.
+        sig { returns(T.nilable(Float)) }
+        def merchant_amount_exchange_rate; end
+        sig { params(_merchant_amount_exchange_rate: T.nilable(Float)).returns(T.nilable(Float)) }
+        def merchant_amount_exchange_rate=(_merchant_amount_exchange_rate); end
         # The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(T.nilable(String)) }
         def merchant_currency; end
@@ -298140,6 +301827,11 @@ module Stripe
           params(_risk_assessment: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment))
          }
         def risk_assessment=(_risk_assessment); end
+        # The type of the authorization object, for example a payment authorization, an original credit authorization, or a refund authorization.
+        sig { returns(T.nilable(String)) }
+        def type; end
+        sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+        def type=(_type); end
         # Verifications that Stripe performed on information that the cardholder provided to the merchant.
         sig {
           returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::VerificationData))
@@ -298155,7 +301847,7 @@ module Stripe
         sig { params(_wallet: T.nilable(String)).returns(T.nilable(String)) }
         def wallet=(_wallet); end
         sig {
-          params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Fuel), healthcare: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Healthcare), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::MerchantData), network_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::NetworkData), pos_condition: T.nilable(String), risk_assessment: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment), verification_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::VerificationData), wallet: T.nilable(String)).void
+          params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Fuel), healthcare: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Healthcare), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_amount_exchange_rate: T.nilable(Float), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::MerchantData), network_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::NetworkData), pos_condition: T.nilable(String), risk_assessment: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment), type: T.nilable(String), verification_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::VerificationData), wallet: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
@@ -298170,11 +301862,13 @@ module Stripe
           healthcare: nil,
           is_amount_controllable: nil,
           merchant_amount: nil,
+          merchant_amount_exchange_rate: nil,
           merchant_currency: nil,
           merchant_data: nil,
           network_data: nil,
           pos_condition: nil,
           risk_assessment: nil,
+          type: nil,
           verification_data: nil,
           wallet: nil
         ); end
@@ -298547,61 +302241,6 @@ module Stripe
               }
             end
           end
-          class Healthcare < ::Stripe::RequestParams
-            # Clinic and urgent care sub-amount for Visa only.
-            sig { returns(T.nilable(Integer)) }
-            def clinic_amount; end
-            sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def clinic_amount=(_clinic_amount); end
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(String) }
-            def currency; end
-            sig { params(_currency: String).returns(String) }
-            def currency=(_currency); end
-            # Dental care sub-amount for Visa only.
-            sig { returns(T.nilable(Integer)) }
-            def dental_amount; end
-            sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def dental_amount=(_dental_amount); end
-            # Prescription drug sub-amount. Null if the merchant did not send this amount.
-            sig { returns(T.nilable(Integer)) }
-            def prescription_amount; end
-            sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def prescription_amount=(_prescription_amount); end
-            # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
-            sig { returns(T.nilable(String)) }
-            def purchase_type; end
-            sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
-            def purchase_type=(_purchase_type); end
-            # Total FSA/HSA-eligible amount in the smallest currency unit.
-            sig { returns(Integer) }
-            def total_qualified_amount; end
-            sig { params(_total_qualified_amount: Integer).returns(Integer) }
-            def total_qualified_amount=(_total_qualified_amount); end
-            # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
-            sig { returns(String) }
-            def verification_status; end
-            sig { params(_verification_status: String).returns(String) }
-            def verification_status=(_verification_status); end
-            # Vision/optical sub-amount. Null if the merchant did not send this amount.
-            sig { returns(T.nilable(Integer)) }
-            def vision_amount; end
-            sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def vision_amount=(_vision_amount); end
-            sig {
-              params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
-             }
-            def initialize(
-              clinic_amount: nil,
-              currency: nil,
-              dental_amount: nil,
-              prescription_amount: nil,
-              purchase_type: nil,
-              total_qualified_amount: nil,
-              verification_status: nil,
-              vision_amount: nil
-            ); end
-          end
           class Lodging < ::Stripe::RequestParams
             # The time of checking into the lodging.
             sig { returns(T.nilable(Integer)) }
@@ -298672,15 +302311,6 @@ module Stripe
             params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel))
            }
           def fuel=(_fuel); end
-          # Healthcare sub-amounts for IIAS-eligible transactions.
-          sig {
-            returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare))
-           }
-          def healthcare; end
-          sig {
-            params(_healthcare: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare))
-           }
-          def healthcare=(_healthcare); end
           # Information about lodging that was purchased with this transaction.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Lodging))
@@ -298705,13 +302335,12 @@ module Stripe
           sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
           def reference=(_reference); end
           sig {
-            params(fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel), healthcare: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare), lodging: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
+            params(fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
            }
           def initialize(
             fleet: nil,
             flight: nil,
             fuel: nil,
-            healthcare: nil,
             lodging: nil,
             receipt: nil,
             reference: nil
@@ -298748,6 +302377,25 @@ module Stripe
             }
           end
         end
+        class SettlementDetails < ::Stripe::RequestParams
+          # Positive settlement amount magnitude in the smallest currency unit. Must match the converted merchant amount and, when settlement and cardholder currencies are the same, this capture's finalized transaction amount magnitude. The transaction type determines the output sign.
+          sig { returns(Integer) }
+          def amount; end
+          sig { params(_amount: Integer).returns(Integer) }
+          def amount=(_amount); end
+          # Settlement currency.
+          sig { returns(String) }
+          def currency; end
+          sig { params(_currency: String).returns(String) }
+          def currency=(_currency); end
+          # Exchange rate from merchant amount to settlement amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0.
+          sig { returns(Float) }
+          def exchange_rate; end
+          sig { params(_exchange_rate: Float).returns(Float) }
+          def exchange_rate=(_exchange_rate); end
+          sig { params(amount: Integer, currency: String, exchange_rate: Float).void }
+          def initialize(amount: nil, currency: nil, exchange_rate: nil); end
+        end
         # The amount to capture from the authorization. If not provided, the full amount of the authorization will be captured. This amount is in the authorization currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         sig { returns(T.nilable(Integer)) }
         def capture_amount; end
@@ -298763,6 +302411,11 @@ module Stripe
         def expand; end
         sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def expand=(_expand); end
+        # Exchange rate from merchant amount to capture amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0. The capture amount remains authoritative.
+        sig { returns(T.nilable(Float)) }
+        def merchant_amount_exchange_rate; end
+        sig { params(_merchant_amount_exchange_rate: T.nilable(Float)).returns(T.nilable(Float)) }
+        def merchant_amount_exchange_rate=(_merchant_amount_exchange_rate); end
         # Details about the transaction, such as processing dates, set by the card network.
         sig {
           returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::NetworkData))
@@ -298781,15 +302434,26 @@ module Stripe
           params(_purchase_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails))
          }
         def purchase_details=(_purchase_details); end
+        # Synthetic settlement values for this purchase capture. If omitted, defaults to the final signed transaction amount, transaction currency, and effective merchant-to-cardholder exchange rate. Supply all three fields to override. This does not create a settlement or change funding.
         sig {
-          params(capture_amount: T.nilable(Integer), close_authorization: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), network_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::NetworkData), purchase_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails)).void
+          returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::SettlementDetails))
+         }
+        def settlement_details; end
+        sig {
+          params(_settlement_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::SettlementDetails)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::SettlementDetails))
+         }
+        def settlement_details=(_settlement_details); end
+        sig {
+          params(capture_amount: T.nilable(Integer), close_authorization: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), merchant_amount_exchange_rate: T.nilable(Float), network_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::NetworkData), purchase_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails), settlement_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::SettlementDetails)).void
          }
         def initialize(
           capture_amount: nil,
           close_authorization: nil,
           expand: nil,
+          merchant_amount_exchange_rate: nil,
           network_data: nil,
-          purchase_details: nil
+          purchase_details: nil,
+          settlement_details: nil
         ); end
         def self.field_encodings
           @field_encodings = {
@@ -299972,61 +303636,6 @@ module Stripe
               }
             end
           end
-          class Healthcare < ::Stripe::RequestParams
-            # Clinic and urgent care sub-amount for Visa only.
-            sig { returns(T.nilable(Integer)) }
-            def clinic_amount; end
-            sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def clinic_amount=(_clinic_amount); end
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(String) }
-            def currency; end
-            sig { params(_currency: String).returns(String) }
-            def currency=(_currency); end
-            # Dental care sub-amount for Visa only.
-            sig { returns(T.nilable(Integer)) }
-            def dental_amount; end
-            sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def dental_amount=(_dental_amount); end
-            # Prescription drug sub-amount. Null if the merchant did not send this amount.
-            sig { returns(T.nilable(Integer)) }
-            def prescription_amount; end
-            sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def prescription_amount=(_prescription_amount); end
-            # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
-            sig { returns(T.nilable(String)) }
-            def purchase_type; end
-            sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
-            def purchase_type=(_purchase_type); end
-            # Total FSA/HSA-eligible amount in the smallest currency unit.
-            sig { returns(Integer) }
-            def total_qualified_amount; end
-            sig { params(_total_qualified_amount: Integer).returns(Integer) }
-            def total_qualified_amount=(_total_qualified_amount); end
-            # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
-            sig { returns(String) }
-            def verification_status; end
-            sig { params(_verification_status: String).returns(String) }
-            def verification_status=(_verification_status); end
-            # Vision/optical sub-amount. Null if the merchant did not send this amount.
-            sig { returns(T.nilable(Integer)) }
-            def vision_amount; end
-            sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def vision_amount=(_vision_amount); end
-            sig {
-              params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
-             }
-            def initialize(
-              clinic_amount: nil,
-              currency: nil,
-              dental_amount: nil,
-              prescription_amount: nil,
-              purchase_type: nil,
-              total_qualified_amount: nil,
-              verification_status: nil,
-              vision_amount: nil
-            ); end
-          end
           class Lodging < ::Stripe::RequestParams
             # The time of checking into the lodging.
             sig { returns(T.nilable(Integer)) }
@@ -300097,15 +303706,6 @@ module Stripe
             params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel))
            }
           def fuel=(_fuel); end
-          # Healthcare sub-amounts for IIAS-eligible transactions.
-          sig {
-            returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare))
-           }
-          def healthcare; end
-          sig {
-            params(_healthcare: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare)).returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare))
-           }
-          def healthcare=(_healthcare); end
           # Information about lodging that was purchased with this transaction.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging))
@@ -300130,13 +303730,12 @@ module Stripe
           sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
           def reference=(_reference); end
           sig {
-            params(fleet: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel), healthcare: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare), lodging: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
+            params(fleet: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
            }
           def initialize(
             fleet: nil,
             flight: nil,
             fuel: nil,
-            healthcare: nil,
             lodging: nil,
             receipt: nil,
             reference: nil
@@ -300173,6 +303772,25 @@ module Stripe
             }
           end
         end
+        class SettlementDetails < ::Stripe::RequestParams
+          # Positive settlement amount magnitude in the smallest currency unit. Must match the converted merchant amount and, when settlement and cardholder currencies are the same, this capture's finalized transaction amount magnitude. The transaction type determines the output sign.
+          sig { returns(Integer) }
+          def amount; end
+          sig { params(_amount: Integer).returns(Integer) }
+          def amount=(_amount); end
+          # Settlement currency.
+          sig { returns(String) }
+          def currency; end
+          sig { params(_currency: String).returns(String) }
+          def currency=(_currency); end
+          # Exchange rate from merchant amount to settlement amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0.
+          sig { returns(Float) }
+          def exchange_rate; end
+          sig { params(_exchange_rate: Float).returns(Float) }
+          def exchange_rate=(_exchange_rate); end
+          sig { params(amount: Integer, currency: String, exchange_rate: Float).void }
+          def initialize(amount: nil, currency: nil, exchange_rate: nil); end
+        end
         # The total amount to attempt to capture. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         sig { returns(Integer) }
         def amount; end
@@ -300193,6 +303811,11 @@ module Stripe
         def expand; end
         sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def expand=(_expand); end
+        # Exchange rate from merchant amount to cardholder amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0. The supplied amount remains the merchant amount.
+        sig { returns(T.nilable(Float)) }
+        def merchant_amount_exchange_rate; end
+        sig { params(_merchant_amount_exchange_rate: T.nilable(Float)).returns(T.nilable(Float)) }
+        def merchant_amount_exchange_rate=(_merchant_amount_exchange_rate); end
         # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
         sig {
           returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::MerchantData))
@@ -300220,17 +303843,28 @@ module Stripe
           params(_purchase_details: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails)).returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails))
          }
         def purchase_details=(_purchase_details); end
+        # Synthetic settlement values for this purchase force capture. If omitted, defaults to the final signed transaction amount, transaction currency, and effective merchant-to-cardholder exchange rate. Supply all three fields to override. This does not create a settlement or change funding.
         sig {
-          params(amount: Integer, card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), merchant_data: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::MerchantData), network_data: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::NetworkData), purchase_details: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails)).void
+          returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::SettlementDetails))
+         }
+        def settlement_details; end
+        sig {
+          params(_settlement_details: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::SettlementDetails)).returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::SettlementDetails))
+         }
+        def settlement_details=(_settlement_details); end
+        sig {
+          params(amount: Integer, card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), merchant_amount_exchange_rate: T.nilable(Float), merchant_data: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::MerchantData), network_data: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::NetworkData), purchase_details: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails), settlement_details: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::SettlementDetails)).void
          }
         def initialize(
           amount: nil,
           card: nil,
           currency: nil,
           expand: nil,
+          merchant_amount_exchange_rate: nil,
           merchant_data: nil,
           network_data: nil,
-          purchase_details: nil
+          purchase_details: nil,
+          settlement_details: nil
         ); end
         def self.field_encodings
           @field_encodings = {
@@ -300674,61 +304308,6 @@ module Stripe
               }
             end
           end
-          class Healthcare < ::Stripe::RequestParams
-            # Clinic and urgent care sub-amount for Visa only.
-            sig { returns(T.nilable(Integer)) }
-            def clinic_amount; end
-            sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def clinic_amount=(_clinic_amount); end
-            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            sig { returns(String) }
-            def currency; end
-            sig { params(_currency: String).returns(String) }
-            def currency=(_currency); end
-            # Dental care sub-amount for Visa only.
-            sig { returns(T.nilable(Integer)) }
-            def dental_amount; end
-            sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def dental_amount=(_dental_amount); end
-            # Prescription drug sub-amount. Null if the merchant did not send this amount.
-            sig { returns(T.nilable(Integer)) }
-            def prescription_amount; end
-            sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def prescription_amount=(_prescription_amount); end
-            # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
-            sig { returns(T.nilable(String)) }
-            def purchase_type; end
-            sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
-            def purchase_type=(_purchase_type); end
-            # Total FSA/HSA-eligible amount in the smallest currency unit.
-            sig { returns(Integer) }
-            def total_qualified_amount; end
-            sig { params(_total_qualified_amount: Integer).returns(Integer) }
-            def total_qualified_amount=(_total_qualified_amount); end
-            # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
-            sig { returns(String) }
-            def verification_status; end
-            sig { params(_verification_status: String).returns(String) }
-            def verification_status=(_verification_status); end
-            # Vision/optical sub-amount. Null if the merchant did not send this amount.
-            sig { returns(T.nilable(Integer)) }
-            def vision_amount; end
-            sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def vision_amount=(_vision_amount); end
-            sig {
-              params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
-             }
-            def initialize(
-              clinic_amount: nil,
-              currency: nil,
-              dental_amount: nil,
-              prescription_amount: nil,
-              purchase_type: nil,
-              total_qualified_amount: nil,
-              verification_status: nil,
-              vision_amount: nil
-            ); end
-          end
           class Lodging < ::Stripe::RequestParams
             # The time of checking into the lodging.
             sig { returns(T.nilable(Integer)) }
@@ -300799,15 +304378,6 @@ module Stripe
             params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel))
            }
           def fuel=(_fuel); end
-          # Healthcare sub-amounts for IIAS-eligible transactions.
-          sig {
-            returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare))
-           }
-          def healthcare; end
-          sig {
-            params(_healthcare: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare)).returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare))
-           }
-          def healthcare=(_healthcare); end
           # Information about lodging that was purchased with this transaction.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Lodging))
@@ -300832,13 +304402,12 @@ module Stripe
           sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
           def reference=(_reference); end
           sig {
-            params(fleet: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel), healthcare: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare), lodging: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
+            params(fleet: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
            }
           def initialize(
             fleet: nil,
             flight: nil,
             fuel: nil,
-            healthcare: nil,
             lodging: nil,
             receipt: nil,
             reference: nil
@@ -316441,6 +320010,50 @@ module Stripe
                      }
                     def initialize(protections: nil, requested: nil); end
                   end
+                  class Czk < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections), requested: T::Boolean).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
                   class Eur < ::Stripe::RequestParams
                     class Protections < ::Stripe::RequestParams
                       class PspMigration < ::Stripe::RequestParams
@@ -316529,6 +320142,50 @@ module Stripe
                      }
                     def initialize(protections: nil, requested: nil); end
                   end
+                  class Nok < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections), requested: T::Boolean).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
                   class Ousd < ::Stripe::RequestParams
                     class Protections < ::Stripe::RequestParams
                       class PspMigration < ::Stripe::RequestParams
@@ -316570,6 +320227,94 @@ module Stripe
                     def requested=(_requested); end
                     sig {
                       params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Ousd::Protections), requested: T::Boolean).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
+                  class Pln < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections), requested: T::Boolean).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
+                  class Sek < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections), requested: T::Boolean).void
                      }
                     def initialize(protections: nil, requested: nil); end
                   end
@@ -316679,6 +320424,15 @@ module Stripe
                     params(_cad: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Cad)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Cad))
                    }
                   def cad=(_cad); end
+                  # Can receive business storage-type funds on Stripe in CZK.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk))
+                   }
+                  def czk; end
+                  sig {
+                    params(_czk: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk))
+                   }
+                  def czk=(_czk); end
                   # Can receive business storage-type funds on Stripe in EUR.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Eur))
@@ -316697,6 +320451,15 @@ module Stripe
                     params(_gbp: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Gbp)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Gbp))
                    }
                   def gbp=(_gbp); end
+                  # Can receive business storage-type funds on Stripe in NOK.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok))
+                   }
+                  def nok; end
+                  sig {
+                    params(_nok: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok))
+                   }
+                  def nok=(_nok); end
                   # Can receive business storage-type funds on Stripe in OUSD.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Ousd))
@@ -316706,6 +320469,24 @@ module Stripe
                     params(_ousd: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Ousd)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Ousd))
                    }
                   def ousd=(_ousd); end
+                  # Can receive business storage-type funds on Stripe in PLN.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln))
+                   }
+                  def pln; end
+                  sig {
+                    params(_pln: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln))
+                   }
+                  def pln=(_pln); end
+                  # Can receive business storage-type funds on Stripe in SEK.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek))
+                   }
+                  def sek; end
+                  sig {
+                    params(_sek: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek))
+                   }
+                  def sek=(_sek); end
                   # Can receive business storage-type funds on Stripe in USD.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Usd))
@@ -316725,14 +320506,18 @@ module Stripe
                    }
                   def usdc=(_usdc); end
                   sig {
-                    params(aud: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Aud), cad: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Cad), eur: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Eur), gbp: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Gbp), ousd: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Ousd), usd: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Usd), usdc: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Usdc)).void
+                    params(aud: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Aud), cad: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Cad), czk: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk), eur: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Eur), gbp: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Gbp), nok: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok), ousd: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Ousd), pln: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln), sek: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek), usd: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Usd), usdc: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Usdc)).void
                    }
                   def initialize(
                     aud: nil,
                     cad: nil,
+                    czk: nil,
                     eur: nil,
                     gbp: nil,
+                    nok: nil,
                     ousd: nil,
+                    pln: nil,
+                    sek: nil,
                     usd: nil,
                     usdc: nil
                   ); end
@@ -316826,6 +320611,50 @@ module Stripe
                      }
                     def initialize(protections: nil, requested: nil); end
                   end
+                  class Czk < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections), requested: T::Boolean).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
                   class Eur < ::Stripe::RequestParams
                     class Protections < ::Stripe::RequestParams
                       class PspMigration < ::Stripe::RequestParams
@@ -316914,6 +320743,50 @@ module Stripe
                      }
                     def initialize(protections: nil, requested: nil); end
                   end
+                  class Nok < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections), requested: T::Boolean).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
                   class Ousd < ::Stripe::RequestParams
                     class Protections < ::Stripe::RequestParams
                       class PspMigration < ::Stripe::RequestParams
@@ -316955,6 +320828,94 @@ module Stripe
                     def requested=(_requested); end
                     sig {
                       params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Ousd::Protections), requested: T::Boolean).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
+                  class Pln < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections), requested: T::Boolean).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
+                  class Sek < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections), requested: T::Boolean).void
                      }
                     def initialize(protections: nil, requested: nil); end
                   end
@@ -317064,6 +321025,15 @@ module Stripe
                     params(_cad: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Cad)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Cad))
                    }
                   def cad=(_cad); end
+                  # Can send business storage-type funds on Stripe in CZK.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk))
+                   }
+                  def czk; end
+                  sig {
+                    params(_czk: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk))
+                   }
+                  def czk=(_czk); end
                   # Can send business storage-type funds on Stripe in EUR.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Eur))
@@ -317082,6 +321052,15 @@ module Stripe
                     params(_gbp: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Gbp)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Gbp))
                    }
                   def gbp=(_gbp); end
+                  # Can send business storage-type funds on Stripe in NOK.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok))
+                   }
+                  def nok; end
+                  sig {
+                    params(_nok: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok))
+                   }
+                  def nok=(_nok); end
                   # Can send business storage-type funds on Stripe in OUSD.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Ousd))
@@ -317091,6 +321070,24 @@ module Stripe
                     params(_ousd: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Ousd)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Ousd))
                    }
                   def ousd=(_ousd); end
+                  # Can send business storage-type funds on Stripe in PLN.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln))
+                   }
+                  def pln; end
+                  sig {
+                    params(_pln: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln))
+                   }
+                  def pln=(_pln); end
+                  # Can send business storage-type funds on Stripe in SEK.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek))
+                   }
+                  def sek; end
+                  sig {
+                    params(_sek: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek))
+                   }
+                  def sek=(_sek); end
                   # Can send business storage-type funds on Stripe in USD.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Usd))
@@ -317110,14 +321107,18 @@ module Stripe
                    }
                   def usdc=(_usdc); end
                   sig {
-                    params(aud: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Aud), cad: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Cad), eur: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Eur), gbp: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Gbp), ousd: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Ousd), usd: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Usd), usdc: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Usdc)).void
+                    params(aud: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Aud), cad: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Cad), czk: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk), eur: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Eur), gbp: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Gbp), nok: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok), ousd: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Ousd), pln: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln), sek: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek), usd: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Usd), usdc: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Usdc)).void
                    }
                   def initialize(
                     aud: nil,
                     cad: nil,
+                    czk: nil,
                     eur: nil,
                     gbp: nil,
+                    nok: nil,
                     ousd: nil,
+                    pln: nil,
+                    sek: nil,
                     usd: nil,
                     usdc: nil
                   ); end
@@ -321269,6 +325270,50 @@ module Stripe
                 def initialize(protections: nil, requested: nil); end
               end
               class StripeBalance < ::Stripe::RequestParams
+                class StablecoinCustodial < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      sig { returns(T::Boolean) }
+                      def requested; end
+                      sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                      def requested=(_requested); end
+                      sig { params(requested: T::Boolean).void }
+                      def initialize(requested: nil); end
+                    end
+                    # Parameter to request psp_migration protection.
+                    sig {
+                      returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections::PspMigration)
+                     }
+                    def psp_migration; end
+                    sig {
+                      params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections::PspMigration)
+                     }
+                    def psp_migration=(_psp_migration); end
+                    sig {
+                      params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections::PspMigration).void
+                     }
+                    def initialize(psp_migration: nil); end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections))
+                   }
+                  def protections; end
+                  sig {
+                    params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections))
+                   }
+                  def protections=(_protections); end
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T::Boolean) }
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
+                  sig {
+                    params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections), requested: T::Boolean).void
+                   }
+                  def initialize(protections: nil, requested: nil); end
+                end
                 class StripeTransfers < ::Stripe::RequestParams
                   class Protections < ::Stripe::RequestParams
                     class PspMigration < ::Stripe::RequestParams
@@ -321313,6 +325358,15 @@ module Stripe
                    }
                   def initialize(protections: nil, requested: nil); end
                 end
+                # Enables this Account to hold USDC in their Stripe Balance via Bridge custodial wallets.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial))
+                 }
+                def stablecoin_custodial; end
+                sig {
+                  params(_stablecoin_custodial: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial))
+                 }
+                def stablecoin_custodial=(_stablecoin_custodial); end
                 # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
@@ -321323,9 +325377,9 @@ module Stripe
                  }
                 def stripe_transfers=(_stripe_transfers); end
                 sig {
-                  params(stripe_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers)).void
+                  params(stablecoin_custodial: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial), stripe_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers)).void
                  }
-                def initialize(stripe_transfers: nil); end
+                def initialize(stablecoin_custodial: nil, stripe_transfers: nil); end
               end
               # Capabilities that enable OutboundPayments to a bank account linked to this Account.
               sig {
@@ -329681,6 +333735,50 @@ module Stripe
                      }
                     def initialize(protections: nil, requested: nil); end
                   end
+                  class Czk < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk::Protections), requested: T.nilable(T::Boolean)).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
                   class Eur < ::Stripe::RequestParams
                     class Protections < ::Stripe::RequestParams
                       class PspMigration < ::Stripe::RequestParams
@@ -329769,6 +333867,50 @@ module Stripe
                      }
                     def initialize(protections: nil, requested: nil); end
                   end
+                  class Nok < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok::Protections), requested: T.nilable(T::Boolean)).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
                   class Ousd < ::Stripe::RequestParams
                     class Protections < ::Stripe::RequestParams
                       class PspMigration < ::Stripe::RequestParams
@@ -329810,6 +333952,94 @@ module Stripe
                     def requested=(_requested); end
                     sig {
                       params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Ousd::Protections), requested: T.nilable(T::Boolean)).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
+                  class Pln < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln::Protections), requested: T.nilable(T::Boolean)).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
+                  class Sek < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek::Protections), requested: T.nilable(T::Boolean)).void
                      }
                     def initialize(protections: nil, requested: nil); end
                   end
@@ -329919,6 +334149,15 @@ module Stripe
                     params(_cad: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Cad)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Cad))
                    }
                   def cad=(_cad); end
+                  # Can receive business storage-type funds on Stripe in CZK.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk))
+                   }
+                  def czk; end
+                  sig {
+                    params(_czk: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk))
+                   }
+                  def czk=(_czk); end
                   # Can receive business storage-type funds on Stripe in EUR.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Eur))
@@ -329937,6 +334176,15 @@ module Stripe
                     params(_gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Gbp)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Gbp))
                    }
                   def gbp=(_gbp); end
+                  # Can receive business storage-type funds on Stripe in NOK.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok))
+                   }
+                  def nok; end
+                  sig {
+                    params(_nok: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok))
+                   }
+                  def nok=(_nok); end
                   # Can receive business storage-type funds on Stripe in OUSD.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Ousd))
@@ -329946,6 +334194,24 @@ module Stripe
                     params(_ousd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Ousd)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Ousd))
                    }
                   def ousd=(_ousd); end
+                  # Can receive business storage-type funds on Stripe in PLN.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln))
+                   }
+                  def pln; end
+                  sig {
+                    params(_pln: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln))
+                   }
+                  def pln=(_pln); end
+                  # Can receive business storage-type funds on Stripe in SEK.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek))
+                   }
+                  def sek; end
+                  sig {
+                    params(_sek: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek))
+                   }
+                  def sek=(_sek); end
                   # Can receive business storage-type funds on Stripe in USD.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Usd))
@@ -329965,14 +334231,18 @@ module Stripe
                    }
                   def usdc=(_usdc); end
                   sig {
-                    params(aud: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Aud), cad: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Cad), eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Eur), gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Gbp), ousd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Ousd), usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Usd), usdc: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Usdc)).void
+                    params(aud: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Aud), cad: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Cad), czk: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Czk), eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Eur), gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Gbp), nok: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Nok), ousd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Ousd), pln: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Pln), sek: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Sek), usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Usd), usdc: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Inbound::Usdc)).void
                    }
                   def initialize(
                     aud: nil,
                     cad: nil,
+                    czk: nil,
                     eur: nil,
                     gbp: nil,
+                    nok: nil,
                     ousd: nil,
+                    pln: nil,
+                    sek: nil,
                     usd: nil,
                     usdc: nil
                   ); end
@@ -330066,6 +334336,50 @@ module Stripe
                      }
                     def initialize(protections: nil, requested: nil); end
                   end
+                  class Czk < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk::Protections), requested: T.nilable(T::Boolean)).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
                   class Eur < ::Stripe::RequestParams
                     class Protections < ::Stripe::RequestParams
                       class PspMigration < ::Stripe::RequestParams
@@ -330154,6 +334468,50 @@ module Stripe
                      }
                     def initialize(protections: nil, requested: nil); end
                   end
+                  class Nok < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok::Protections), requested: T.nilable(T::Boolean)).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
                   class Ousd < ::Stripe::RequestParams
                     class Protections < ::Stripe::RequestParams
                       class PspMigration < ::Stripe::RequestParams
@@ -330195,6 +334553,94 @@ module Stripe
                     def requested=(_requested); end
                     sig {
                       params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Ousd::Protections), requested: T.nilable(T::Boolean)).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
+                  class Pln < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln::Protections), requested: T.nilable(T::Boolean)).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
+                  class Sek < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    def requested; end
+                    sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek::Protections), requested: T.nilable(T::Boolean)).void
                      }
                     def initialize(protections: nil, requested: nil); end
                   end
@@ -330304,6 +334750,15 @@ module Stripe
                     params(_cad: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Cad)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Cad))
                    }
                   def cad=(_cad); end
+                  # Can send business storage-type funds on Stripe in CZK.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk))
+                   }
+                  def czk; end
+                  sig {
+                    params(_czk: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk))
+                   }
+                  def czk=(_czk); end
                   # Can send business storage-type funds on Stripe in EUR.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Eur))
@@ -330322,6 +334777,15 @@ module Stripe
                     params(_gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Gbp)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Gbp))
                    }
                   def gbp=(_gbp); end
+                  # Can send business storage-type funds on Stripe in NOK.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok))
+                   }
+                  def nok; end
+                  sig {
+                    params(_nok: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok))
+                   }
+                  def nok=(_nok); end
                   # Can send business storage-type funds on Stripe in OUSD.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Ousd))
@@ -330331,6 +334795,24 @@ module Stripe
                     params(_ousd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Ousd)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Ousd))
                    }
                   def ousd=(_ousd); end
+                  # Can send business storage-type funds on Stripe in PLN.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln))
+                   }
+                  def pln; end
+                  sig {
+                    params(_pln: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln))
+                   }
+                  def pln=(_pln); end
+                  # Can send business storage-type funds on Stripe in SEK.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek))
+                   }
+                  def sek; end
+                  sig {
+                    params(_sek: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek))
+                   }
+                  def sek=(_sek); end
                   # Can send business storage-type funds on Stripe in USD.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Usd))
@@ -330350,14 +334832,18 @@ module Stripe
                    }
                   def usdc=(_usdc); end
                   sig {
-                    params(aud: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Aud), cad: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Cad), eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Eur), gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Gbp), ousd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Ousd), usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Usd), usdc: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Usdc)).void
+                    params(aud: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Aud), cad: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Cad), czk: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Czk), eur: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Eur), gbp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Gbp), nok: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Nok), ousd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Ousd), pln: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Pln), sek: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Sek), usd: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Usd), usdc: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::MoneyManager::Capabilities::BusinessStorage::Outbound::Usdc)).void
                    }
                   def initialize(
                     aud: nil,
                     cad: nil,
+                    czk: nil,
                     eur: nil,
                     gbp: nil,
+                    nok: nil,
                     ousd: nil,
+                    pln: nil,
+                    sek: nil,
                     usd: nil,
                     usdc: nil
                   ); end
@@ -334587,6 +339073,50 @@ module Stripe
                 def initialize(protections: nil, requested: nil); end
               end
               class StripeBalance < ::Stripe::RequestParams
+                class StablecoinCustodial < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      sig { returns(T::Boolean) }
+                      def requested; end
+                      sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                      def requested=(_requested); end
+                      sig { params(requested: T::Boolean).void }
+                      def initialize(requested: nil); end
+                    end
+                    # Parameter to request psp_migration protection.
+                    sig {
+                      returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections::PspMigration)
+                     }
+                    def psp_migration; end
+                    sig {
+                      params(_psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections::PspMigration).returns(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections::PspMigration)
+                     }
+                    def psp_migration=(_psp_migration); end
+                    sig {
+                      params(psp_migration: ::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections::PspMigration).void
+                     }
+                    def initialize(psp_migration: nil); end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections))
+                   }
+                  def protections; end
+                  sig {
+                    params(_protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections))
+                   }
+                  def protections=(_protections); end
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T.nilable(T::Boolean)) }
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
+                  sig {
+                    params(protections: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial::Protections), requested: T.nilable(T::Boolean)).void
+                   }
+                  def initialize(protections: nil, requested: nil); end
+                end
                 class StripeTransfers < ::Stripe::RequestParams
                   class Protections < ::Stripe::RequestParams
                     class PspMigration < ::Stripe::RequestParams
@@ -334631,6 +339161,15 @@ module Stripe
                    }
                   def initialize(protections: nil, requested: nil); end
                 end
+                # Enables this Account to hold USDC in their Stripe Balance via Bridge custodial wallets.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial))
+                 }
+                def stablecoin_custodial; end
+                sig {
+                  params(_stablecoin_custodial: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial))
+                 }
+                def stablecoin_custodial=(_stablecoin_custodial); end
                 # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
@@ -334641,9 +339180,9 @@ module Stripe
                  }
                 def stripe_transfers=(_stripe_transfers); end
                 sig {
-                  params(stripe_transfers: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers)).void
+                  params(stablecoin_custodial: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StablecoinCustodial), stripe_transfers: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers)).void
                  }
-                def initialize(stripe_transfers: nil); end
+                def initialize(stablecoin_custodial: nil, stripe_transfers: nil); end
               end
               # Capabilities that enable OutboundPayments to a bank account linked to this Account.
               sig {
@@ -344691,6 +349230,40 @@ end
 module Stripe
   module V2
     module Data
+      class OperationSearchParams < ::Stripe::RequestParams
+        # Restrict results to public resource catalogs. Defaults to all catalogs
+        # available to the caller.
+        sig { returns(T.nilable(T::Array[String])) }
+        def catalogs; end
+        sig { params(_catalogs: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def catalogs=(_catalogs); end
+        # Maximum results. Default: 5, Max: 20.
+        sig { returns(T.nilable(Integer)) }
+        def limit; end
+        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def limit=(_limit); end
+        # The page token for pagination.
+        sig { returns(T.nilable(String)) }
+        def page; end
+        sig { params(_page: T.nilable(String)).returns(T.nilable(String)) }
+        def page=(_page); end
+        # Natural-language question. Required.
+        sig { returns(String) }
+        def query; end
+        sig { params(_query: String).returns(String) }
+        def query=(_query); end
+        sig {
+          params(catalogs: T.nilable(T::Array[String]), limit: T.nilable(Integer), page: T.nilable(String), query: String).void
+         }
+        def initialize(catalogs: nil, limit: nil, page: nil, query: nil); end
+      end
+    end
+  end
+end
+# typed: true
+module Stripe
+  module V2
+    module Data
       class QueryRunCreateParams < ::Stripe::RequestParams
         class Query < ::Stripe::RequestParams
           # Ad-hoc SQL to execute.
@@ -350625,6 +355198,33 @@ module Stripe
           sig { params(reason: String).void }
           def initialize(reason: nil); end
         end
+        class AccountTakeoverConfirmation < ::Stripe::RequestParams
+          # The type of credential involved in the confirmed takeover.
+          sig { returns(String) }
+          def credential_type; end
+          sig { params(_credential_type: String).returns(String) }
+          def credential_type=(_credential_type); end
+          sig { params(credential_type: String).void }
+          def initialize(credential_type: nil); end
+        end
+        class AccountTakeoverReport < ::Stripe::RequestParams
+          # The type of credential involved in the reported takeover.
+          sig { returns(String) }
+          def credential_type; end
+          sig { params(_credential_type: String).returns(String) }
+          def credential_type=(_credential_type); end
+          sig { params(credential_type: String).void }
+          def initialize(credential_type: nil); end
+        end
+        class CredentialChange < ::Stripe::RequestParams
+          # The type of credential that changed.
+          sig { returns(String) }
+          def credential_type; end
+          sig { params(_credential_type: String).returns(String) }
+          def credential_type=(_credential_type); end
+          sig { params(credential_type: String).void }
+          def initialize(credential_type: nil); end
+        end
         class LoginAttempt < ::Stripe::RequestParams
           class ClientDetails < ::Stripe::RequestParams
             class Data < ::Stripe::RequestParams
@@ -350689,6 +355289,24 @@ module Stripe
           def status=(_status); end
           sig { params(status: String).void }
           def initialize(status: nil); end
+        end
+        class MfaAddition < ::Stripe::RequestParams
+          # The authentication method added to the account.
+          sig { returns(String) }
+          def mfa_type; end
+          sig { params(_mfa_type: String).returns(String) }
+          def mfa_type=(_mfa_type); end
+          sig { params(mfa_type: String).void }
+          def initialize(mfa_type: nil); end
+        end
+        class MfaRemoval < ::Stripe::RequestParams
+          # The authentication method removed from the account.
+          sig { returns(String) }
+          def mfa_type; end
+          sig { params(_mfa_type: String).returns(String) }
+          def mfa_type=(_mfa_type); end
+          sig { params(mfa_type: String).void }
+          def initialize(mfa_type: nil); end
         end
         class RegistrationAttempt < ::Stripe::RequestParams
           class ClientDetails < ::Stripe::RequestParams
@@ -350799,6 +355417,33 @@ module Stripe
           params(_account_suspended: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountSuspended)).returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountSuspended))
          }
         def account_suspended=(_account_suspended); end
+        # Required when type is account_takeover_confirmation. Requires an existing customer or account with a customer configuration.
+        sig {
+          returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountTakeoverConfirmation))
+         }
+        def account_takeover_confirmation; end
+        sig {
+          params(_account_takeover_confirmation: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountTakeoverConfirmation)).returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountTakeoverConfirmation))
+         }
+        def account_takeover_confirmation=(_account_takeover_confirmation); end
+        # Required when type is account_takeover_report. Requires an existing customer or account with a customer configuration.
+        sig {
+          returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountTakeoverReport))
+         }
+        def account_takeover_report; end
+        sig {
+          params(_account_takeover_report: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountTakeoverReport)).returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountTakeoverReport))
+         }
+        def account_takeover_report=(_account_takeover_report); end
+        # Required when type is credential_change. Requires an existing customer or account with a customer configuration.
+        sig {
+          returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::CredentialChange))
+         }
+        def credential_change; end
+        sig {
+          params(_credential_change: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::CredentialChange)).returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::CredentialChange))
+         }
+        def credential_change=(_credential_change); end
         # Details for the login attempt. Provide only when type is login_attempt.
         sig { returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::LoginAttempt)) }
         def login_attempt; end
@@ -350822,6 +355467,20 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
+        # Required when type is mfa_addition. Requires an existing customer or account with a customer configuration.
+        sig { returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::MfaAddition)) }
+        def mfa_addition; end
+        sig {
+          params(_mfa_addition: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::MfaAddition)).returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::MfaAddition))
+         }
+        def mfa_addition=(_mfa_addition); end
+        # Required when type is mfa_removal. Requires an existing customer or account with a customer configuration.
+        sig { returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::MfaRemoval)) }
+        def mfa_removal; end
+        sig {
+          params(_mfa_removal: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::MfaRemoval)).returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::MfaRemoval))
+         }
+        def mfa_removal=(_mfa_removal); end
         # Timestamp at which the activity occurred. Defaults to the created time if not provided.
         sig { returns(T.nilable(String)) }
         def occurred_at; end
@@ -350851,7 +355510,7 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(account_details: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountDetails), account_evaluation: T.nilable(String), account_restricted: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountRestricted), account_reviewed: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountReviewed), account_suspended: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountSuspended), login_attempt: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::LoginAttempt), login_decision: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::LoginDecision), metadata: T.nilable(T::Hash[String, String]), occurred_at: T.nilable(String), registration_attempt: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::RegistrationAttempt), registration_decision: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::RegistrationDecision), type: String).void
+          params(account_details: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountDetails), account_evaluation: T.nilable(String), account_restricted: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountRestricted), account_reviewed: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountReviewed), account_suspended: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountSuspended), account_takeover_confirmation: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountTakeoverConfirmation), account_takeover_report: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountTakeoverReport), credential_change: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::CredentialChange), login_attempt: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::LoginAttempt), login_decision: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::LoginDecision), metadata: T.nilable(T::Hash[String, String]), mfa_addition: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::MfaAddition), mfa_removal: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::MfaRemoval), occurred_at: T.nilable(String), registration_attempt: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::RegistrationAttempt), registration_decision: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::RegistrationDecision), type: String).void
          }
         def initialize(
           account_details: nil,
@@ -350859,9 +355518,14 @@ module Stripe
           account_restricted: nil,
           account_reviewed: nil,
           account_suspended: nil,
+          account_takeover_confirmation: nil,
+          account_takeover_report: nil,
+          credential_change: nil,
           login_attempt: nil,
           login_decision: nil,
           metadata: nil,
+          mfa_addition: nil,
+          mfa_removal: nil,
           occurred_at: nil,
           registration_attempt: nil,
           registration_decision: nil,
@@ -350894,6 +355558,33 @@ module Stripe
       class AccountEvaluationCreateParams < ::Stripe::RequestParams
         class AccountActivityDetails < ::Stripe::RequestParams
           class Data < ::Stripe::RequestParams
+            class AccountTakeoverConfirmation < ::Stripe::RequestParams
+              # The type of credential involved in the confirmed takeover.
+              sig { returns(String) }
+              def credential_type; end
+              sig { params(_credential_type: String).returns(String) }
+              def credential_type=(_credential_type); end
+              sig { params(credential_type: String).void }
+              def initialize(credential_type: nil); end
+            end
+            class AccountTakeoverReport < ::Stripe::RequestParams
+              # The type of credential involved in the reported takeover.
+              sig { returns(String) }
+              def credential_type; end
+              sig { params(_credential_type: String).returns(String) }
+              def credential_type=(_credential_type); end
+              sig { params(credential_type: String).void }
+              def initialize(credential_type: nil); end
+            end
+            class CredentialChange < ::Stripe::RequestParams
+              # The type of credential that changed.
+              sig { returns(String) }
+              def credential_type; end
+              sig { params(_credential_type: String).returns(String) }
+              def credential_type=(_credential_type); end
+              sig { params(credential_type: String).void }
+              def initialize(credential_type: nil); end
+            end
             class LoginAttempt < ::Stripe::RequestParams
               class ClientDetails < ::Stripe::RequestParams
                 class Data < ::Stripe::RequestParams
@@ -350949,6 +355640,24 @@ module Stripe
                 params(client_details: ::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt::ClientDetails).void
                }
               def initialize(client_details: nil); end
+            end
+            class MfaAddition < ::Stripe::RequestParams
+              # The authentication method added to the account.
+              sig { returns(String) }
+              def mfa_type; end
+              sig { params(_mfa_type: String).returns(String) }
+              def mfa_type=(_mfa_type); end
+              sig { params(mfa_type: String).void }
+              def initialize(mfa_type: nil); end
+            end
+            class MfaRemoval < ::Stripe::RequestParams
+              # The authentication method removed from the account.
+              sig { returns(String) }
+              def mfa_type; end
+              sig { params(_mfa_type: String).returns(String) }
+              def mfa_type=(_mfa_type); end
+              sig { params(mfa_type: String).void }
+              def initialize(mfa_type: nil); end
             end
             class RegistrationAttempt < ::Stripe::RequestParams
               class ClientDetails < ::Stripe::RequestParams
@@ -351006,6 +355715,33 @@ module Stripe
                }
               def initialize(client_details: nil); end
             end
+            # Required when type is account_takeover_confirmation. Requires an existing customer or account with a customer configuration.
+            sig {
+              returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverConfirmation))
+             }
+            def account_takeover_confirmation; end
+            sig {
+              params(_account_takeover_confirmation: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverConfirmation)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverConfirmation))
+             }
+            def account_takeover_confirmation=(_account_takeover_confirmation); end
+            # Required when type is account_takeover_report. Requires an existing customer or account with a customer configuration.
+            sig {
+              returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverReport))
+             }
+            def account_takeover_report; end
+            sig {
+              params(_account_takeover_report: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverReport)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverReport))
+             }
+            def account_takeover_report=(_account_takeover_report); end
+            # Required when type is credential_change. Requires an existing customer or account with a customer configuration.
+            sig {
+              returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::CredentialChange))
+             }
+            def credential_change; end
+            sig {
+              params(_credential_change: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::CredentialChange)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::CredentialChange))
+             }
+            def credential_change=(_credential_change); end
             # Details for the login attempt. Provide only when type is login_attempt.
             sig {
               returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt))
@@ -351015,6 +355751,24 @@ module Stripe
               params(_login_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt))
              }
             def login_attempt=(_login_attempt); end
+            # Required when type is mfa_addition. Requires an existing customer or account with a customer configuration.
+            sig {
+              returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaAddition))
+             }
+            def mfa_addition; end
+            sig {
+              params(_mfa_addition: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaAddition)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaAddition))
+             }
+            def mfa_addition=(_mfa_addition); end
+            # Required when type is mfa_removal. Requires an existing customer or account with a customer configuration.
+            sig {
+              returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaRemoval))
+             }
+            def mfa_removal; end
+            sig {
+              params(_mfa_removal: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaRemoval)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaRemoval))
+             }
+            def mfa_removal=(_mfa_removal); end
             # Timestamp at which the activity occurred. Defaults to the created time if not provided.
             sig { returns(T.nilable(String)) }
             def occurred_at; end
@@ -351029,16 +355783,22 @@ module Stripe
               params(_registration_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt))
              }
             def registration_attempt=(_registration_attempt); end
-            # The type of activity. Must be registration_attempt or login_attempt.
+            # The type of activity. Supports registration_attempt, login_attempt, mfa_addition, mfa_removal,
+            # credential_change, account_takeover_report, account_takeover_confirmation, or account_takeover_mitigation.
             sig { returns(String) }
             def type; end
             sig { params(_type: String).returns(String) }
             def type=(_type); end
             sig {
-              params(login_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt), occurred_at: T.nilable(String), registration_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt), type: String).void
+              params(account_takeover_confirmation: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverConfirmation), account_takeover_report: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::AccountTakeoverReport), credential_change: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::CredentialChange), login_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt), mfa_addition: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaAddition), mfa_removal: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::MfaRemoval), occurred_at: T.nilable(String), registration_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt), type: String).void
              }
             def initialize(
+              account_takeover_confirmation: nil,
+              account_takeover_report: nil,
+              credential_change: nil,
               login_attempt: nil,
+              mfa_addition: nil,
+              mfa_removal: nil,
               occurred_at: nil,
               registration_attempt: nil,
               type: nil

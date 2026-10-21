@@ -124,6 +124,39 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class AccountTakeoverConfirmation < ::Stripe::StripeObject
+          # The type of credential involved in the confirmed takeover.
+          sig { returns(String) }
+          def credential_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class AccountTakeoverReport < ::Stripe::StripeObject
+          # The type of credential involved in the reported takeover.
+          sig { returns(String) }
+          def credential_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CredentialChange < ::Stripe::StripeObject
+          # The type of credential that changed.
+          sig { returns(String) }
+          def credential_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class LoginAttempt < ::Stripe::StripeObject
           class ClientDetails < ::Stripe::StripeObject
             class Data < ::Stripe::StripeObject
@@ -170,6 +203,28 @@ module Stripe
           # The action the merchant took following the evaluation.
           sig { returns(String) }
           def status; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class MfaAddition < ::Stripe::StripeObject
+          # The authentication method added to the account.
+          sig { returns(String) }
+          def mfa_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class MfaRemoval < ::Stripe::StripeObject
+          # The authentication method removed from the account.
+          sig { returns(String) }
+          def mfa_type; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -248,9 +303,18 @@ module Stripe
         # requires an existing account_details.customer; account_details.account and inline data are unsupported.
         sig { returns(T.nilable(AccountSuspended)) }
         def account_suspended; end
+        # Details for the merchant's takeover confirmation. Present only when type is account_takeover_confirmation.
+        sig { returns(T.nilable(AccountTakeoverConfirmation)) }
+        def account_takeover_confirmation; end
+        # Details for the account holder's takeover report. Present only when type is account_takeover_report.
+        sig { returns(T.nilable(AccountTakeoverReport)) }
+        def account_takeover_report; end
         # Timestamp at which the account activity was created.
         sig { returns(String) }
         def created; end
+        # Details for the credential change. Present only when type is credential_change.
+        sig { returns(T.nilable(CredentialChange)) }
+        def credential_change; end
         # Unique identifier for the account activity.
         sig { returns(String) }
         def id; end
@@ -266,6 +330,12 @@ module Stripe
         # Additional information about the activity.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
+        # Details for the MFA addition. Present only when type is mfa_addition.
+        sig { returns(T.nilable(MfaAddition)) }
+        def mfa_addition; end
+        # Details for the MFA removal. Present only when type is mfa_removal.
+        sig { returns(T.nilable(MfaRemoval)) }
+        def mfa_removal; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end

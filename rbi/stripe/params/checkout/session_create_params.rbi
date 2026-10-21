@@ -815,6 +815,396 @@ module Stripe
         def initialize(enabled: nil, invoice_data: nil); end
       end
       class Item < ::Stripe::RequestParams
+        class MetronomeCommit < ::Stripe::RequestParams
+          class Commit < ::Stripe::RequestParams
+            class AccessSchedule < ::Stripe::RequestParams
+              class ScheduleItem < ::Stripe::RequestParams
+                # The access amount in credit_type_id units.
+                sig { returns(BigDecimal) }
+                def amount; end
+                sig { params(_amount: BigDecimal).returns(BigDecimal) }
+                def amount=(_amount); end
+                # Hour-aligned RFC 3339 timestamp in UTC at which access to the balance amount ends (exclusive).
+                sig { returns(String) }
+                def ending_before; end
+                sig { params(_ending_before: String).returns(String) }
+                def ending_before=(_ending_before); end
+                # Hour-aligned RFC 3339 timestamp in UTC at which access to the balance amount starts (inclusive).
+                sig { returns(String) }
+                def starting_at; end
+                sig { params(_starting_at: String).returns(String) }
+                def starting_at=(_starting_at); end
+                sig { params(amount: BigDecimal, ending_before: String, starting_at: String).void }
+                def initialize(amount: nil, ending_before: nil, starting_at: nil); end
+                def self.field_encodings
+                  @field_encodings = {amount: :decimal_string}
+                end
+              end
+              # The fixed price the buyer pays, in minor currency units.
+              sig { returns(Integer) }
+              def price_amount; end
+              sig { params(_price_amount: Integer).returns(Integer) }
+              def price_amount=(_price_amount); end
+              # When and how many credits become available.
+              sig {
+                returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule::ScheduleItem])
+               }
+              def schedule_items; end
+              sig {
+                params(_schedule_items: T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule::ScheduleItem]).returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule::ScheduleItem])
+               }
+              def schedule_items=(_schedule_items); end
+              sig {
+                params(price_amount: Integer, schedule_items: T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule::ScheduleItem]).void
+               }
+              def initialize(price_amount: nil, schedule_items: nil); end
+              def self.field_encodings
+                @field_encodings = {
+                  schedule_items: {
+                    kind: :array,
+                    element: {kind: :object, fields: {amount: :decimal_string}},
+                  },
+                }
+              end
+            end
+            class CommitOptions < ::Stripe::RequestParams
+              class CustomAmount < ::Stripe::RequestParams
+                # Must be `true` when `custom_amount` is present. Omit `custom_amount` to disable custom amounts.
+                sig { returns(T::Boolean) }
+                def enabled; end
+                sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+                def enabled=(_enabled); end
+                # Maximum `access_amount` the customer can enter. Defaults to `999999999999999` when omitted.
+                sig { returns(T.nilable(Integer)) }
+                def maximum; end
+                sig { params(_maximum: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def maximum=(_maximum); end
+                # Minimum `access_amount` the customer can enter. Defaults to `1` when omitted.
+                sig { returns(T.nilable(Integer)) }
+                def minimum; end
+                sig { params(_minimum: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def minimum=(_minimum); end
+                sig {
+                  params(enabled: T::Boolean, maximum: T.nilable(Integer), minimum: T.nilable(Integer)).void
+                 }
+                def initialize(enabled: nil, maximum: nil, minimum: nil); end
+              end
+              class DiscountTier < ::Stripe::RequestParams
+                # Percentage discount applied to the full access_amount when it falls in this tier.
+                sig { returns(Integer) }
+                def discount_percentage; end
+                sig { params(_discount_percentage: Integer).returns(Integer) }
+                def discount_percentage=(_discount_percentage); end
+                # Upper bound (inclusive) in credit_type_id units. Use `inf` to define an unbounded tier.
+                sig { returns(T.any(Integer, String)) }
+                def up_to; end
+                sig { params(_up_to: T.any(Integer, String)).returns(T.any(Integer, String)) }
+                def up_to=(_up_to); end
+                sig { params(discount_percentage: Integer, up_to: T.any(Integer, String)).void }
+                def initialize(discount_percentage: nil, up_to: nil); end
+              end
+              class Option < ::Stripe::RequestParams
+                # The access amount for this option, in credit_type_id units.
+                sig { returns(Integer) }
+                def access_amount; end
+                sig { params(_access_amount: Integer).returns(Integer) }
+                def access_amount=(_access_amount); end
+                # Whether this option is pre-selected in the Checkout UI. At most one option may be marked true.
+                sig { returns(T.nilable(T::Boolean)) }
+                def default_option; end
+                sig {
+                  params(_default_option: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                 }
+                def default_option=(_default_option); end
+                sig { params(access_amount: Integer, default_option: T.nilable(T::Boolean)).void }
+                def initialize(access_amount: nil, default_option: nil); end
+              end
+              # Optionally let the buyer enter a custom access amount.
+              sig {
+                returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::CustomAmount))
+               }
+              def custom_amount; end
+              sig {
+                params(_custom_amount: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::CustomAmount)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::CustomAmount))
+               }
+              def custom_amount=(_custom_amount); end
+              # Volume-based discount tiers.
+              sig {
+                returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::DiscountTier]))
+               }
+              def discount_tiers; end
+              sig {
+                params(_discount_tiers: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::DiscountTier])).returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::DiscountTier]))
+               }
+              def discount_tiers=(_discount_tiers); end
+              # When access for the purchased credits ends. Hour-aligned UTC timestamp.
+              sig { returns(String) }
+              def ending_before; end
+              sig { params(_ending_before: String).returns(String) }
+              def ending_before=(_ending_before); end
+              # Access-amount presets for the buyer to choose from.
+              sig {
+                returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::Option])
+               }
+              def options; end
+              sig {
+                params(_options: T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::Option]).returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::Option])
+               }
+              def options=(_options); end
+              # When access for the purchased credits starts. Hour-aligned UTC timestamp.
+              sig { returns(String) }
+              def starting_at; end
+              sig { params(_starting_at: String).returns(String) }
+              def starting_at=(_starting_at); end
+              sig {
+                params(custom_amount: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::CustomAmount), discount_tiers: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::DiscountTier]), ending_before: String, options: T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions::Option], starting_at: String).void
+               }
+              def initialize(
+                custom_amount: nil,
+                discount_tiers: nil,
+                ending_before: nil,
+                options: nil,
+                starting_at: nil
+              ); end
+            end
+            class Specifier < ::Stripe::RequestParams
+              # Key-value pairs for presentation group filters.
+              sig { returns(T.nilable(T::Hash[String, String])) }
+              def presentation_group_values; end
+              sig {
+                params(_presentation_group_values: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+               }
+              def presentation_group_values=(_presentation_group_values); end
+              # Key-value pairs for pricing group filters.
+              sig { returns(T.nilable(T::Hash[String, String])) }
+              def pricing_group_values; end
+              sig {
+                params(_pricing_group_values: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+               }
+              def pricing_group_values=(_pricing_group_values); end
+              # Metronome product ID to scope this specifier to.
+              sig { returns(T.nilable(String)) }
+              def product_id; end
+              sig { params(_product_id: T.nilable(String)).returns(T.nilable(String)) }
+              def product_id=(_product_id); end
+              # Metronome product tags to scope this specifier to. A product matches this filter only if it has all specified tags.
+              sig { returns(T.nilable(T::Array[String])) }
+              def product_tags; end
+              sig {
+                params(_product_tags: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+               }
+              def product_tags=(_product_tags); end
+              sig {
+                params(presentation_group_values: T.nilable(T::Hash[String, String]), pricing_group_values: T.nilable(T::Hash[String, String]), product_id: T.nilable(String), product_tags: T.nilable(T::Array[String])).void
+               }
+              def initialize(
+                presentation_group_values: nil,
+                pricing_group_values: nil,
+                product_id: nil,
+                product_tags: nil
+              ); end
+            end
+            class TaxDetails < ::Stripe::RequestParams
+              # Stripe [tax code](https://docs.stripe.com/tax/tax-codes) for this commit (for example, `txcd_10103000`). If the linked Stripe Product has a tax code, this value must match it.
+              sig { returns(String) }
+              def tax_code; end
+              sig { params(_tax_code: String).returns(String) }
+              def tax_code=(_tax_code); end
+              sig { params(tax_code: String).void }
+              def initialize(tax_code: nil); end
+            end
+            # Sets the balance amount and release schedule. Mutually exclusive with `commit_options`.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule))
+             }
+            def access_schedule; end
+            sig {
+              params(_access_schedule: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule))
+             }
+            def access_schedule=(_access_schedule); end
+            # Metronome product tags this commit can be drawn down against. A product matches if it has at least one of the specified tags. Mutually exclusive with `specifiers`. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all omitted, the commit applies to all products. See Metronome's [applicable_product_tags](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-applicable-product-tags).
+            sig { returns(T.nilable(T::Array[String])) }
+            def applicable_metronome_product_tags; end
+            sig {
+              params(_applicable_metronome_product_tags: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def applicable_metronome_product_tags=(_applicable_metronome_product_tags); end
+            # Metronome product IDs this commit can be drawn down against. Mutually exclusive with `specifiers`. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all omitted, the commit applies to all products. See Metronome's [applicable_product_ids](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-applicable-product-ids).
+            sig { returns(T.nilable(T::Array[String])) }
+            def applicable_metronome_products; end
+            sig {
+              params(_applicable_metronome_products: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def applicable_metronome_products=(_applicable_metronome_products); end
+            # Customer selects the balance amount to purchase. Mutually exclusive with `access_schedule`.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions))
+             }
+            def commit_options; end
+            sig {
+              params(_commit_options: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions))
+             }
+            def commit_options=(_commit_options); end
+            # The Metronome Custom Pricing Unit credit type ID for this commit, whose access amounts are credit counts. Omit it to price in fiat, where access amounts are in the smallest unit of `price_configuration[currency]`. Fiat credit type IDs are not accepted.
+            sig { returns(T.nilable(String)) }
+            def credit_type_id; end
+            sig { params(_credit_type_id: T.nilable(String)).returns(T.nilable(String)) }
+            def credit_type_id=(_credit_type_id); end
+            # Key-value pairs forwarded to the Metronome commit's [custom_fields](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-custom-fields).
+            sig { returns(T.nilable(T::Hash[String, String])) }
+            def custom_fields; end
+            sig {
+              params(_custom_fields: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+             }
+            def custom_fields=(_custom_fields); end
+            # Free-form description. Forwarded to the Metronome commit's description.
+            sig { returns(T.nilable(String)) }
+            def description; end
+            sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+            def description=(_description); end
+            # The Metronome product ID for this commit.
+            sig { returns(String) }
+            def metronome_product; end
+            sig { params(_metronome_product: String).returns(String) }
+            def metronome_product=(_metronome_product); end
+            # Display name for the commit. Surfaced on the Metronome commit's name.
+            sig { returns(String) }
+            def name; end
+            sig { params(_name: String).returns(String) }
+            def name=(_name); end
+            # Priority for applying the commit. Lower priority values apply first. Forwarded to Metronome as-is.
+            sig { returns(T.nilable(BigDecimal)) }
+            def priority; end
+            sig { params(_priority: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
+            def priority=(_priority); end
+            # Specifies which rates are used to draw down the commit. Accepts `commit_rate`, `list_rate`, `COMMIT_RATE`, or `LIST_RATE`.
+            sig { returns(T.nilable(String)) }
+            def rate_type; end
+            sig { params(_rate_type: T.nilable(String)).returns(T.nilable(String)) }
+            def rate_type=(_rate_type); end
+            # Fraction of unused balance that rolls over on a Metronome contract transition. Must be between `0` and `1`. Forwarded to Metronome as-is.
+            sig { returns(T.nilable(BigDecimal)) }
+            def rollover_fraction; end
+            sig { params(_rollover_fraction: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
+            def rollover_fraction=(_rollover_fraction); end
+            # Usage filters that determine what draws down the commit. If multiple specifiers are provided, a product only needs to match one. Mutually exclusive with `applicable_metronome_products` and `applicable_metronome_product_tags`. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all omitted, the commit applies to all products. See Metronome's [specifiers](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-specifiers).
+            sig {
+              returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::Specifier]))
+             }
+            def specifiers; end
+            sig {
+              params(_specifiers: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::Specifier])).returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::Specifier]))
+             }
+            def specifiers=(_specifiers); end
+            # Tax details for this commit. If omitted, Stripe uses the tax code from the Stripe product linked to the Metronome commit product. If there is no linked Stripe product or the Stripe product has no tax code configured, the [preset tax rate on your account](https://docs.stripe.com/api/tax/settings/object#tax_settings_object-defaults-tax_code) will be used. If provided, `tax_code` is required.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::TaxDetails))
+             }
+            def tax_details; end
+            sig {
+              params(_tax_details: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::TaxDetails)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::TaxDetails))
+             }
+            def tax_details=(_tax_details); end
+            sig {
+              params(access_schedule: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::AccessSchedule), applicable_metronome_product_tags: T.nilable(T::Array[String]), applicable_metronome_products: T.nilable(T::Array[String]), commit_options: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::CommitOptions), credit_type_id: T.nilable(String), custom_fields: T.nilable(T::Hash[String, String]), description: T.nilable(String), metronome_product: String, name: String, priority: T.nilable(BigDecimal), rate_type: T.nilable(String), rollover_fraction: T.nilable(BigDecimal), specifiers: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::Specifier]), tax_details: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit::TaxDetails)).void
+             }
+            def initialize(
+              access_schedule: nil,
+              applicable_metronome_product_tags: nil,
+              applicable_metronome_products: nil,
+              commit_options: nil,
+              credit_type_id: nil,
+              custom_fields: nil,
+              description: nil,
+              metronome_product: nil,
+              name: nil,
+              priority: nil,
+              rate_type: nil,
+              rollover_fraction: nil,
+              specifiers: nil,
+              tax_details: nil
+            ); end
+            def self.field_encodings
+              @field_encodings = {
+                access_schedule: {
+                  kind: :object,
+                  fields: {
+                    schedule_items: {
+                      kind: :array,
+                      element: {kind: :object, fields: {amount: :decimal_string}},
+                    },
+                  },
+                },
+                priority: :decimal_string,
+                rollover_fraction: :decimal_string,
+              }
+            end
+          end
+          class PriceConfiguration < ::Stripe::RequestParams
+            # The currency for this commit purchase, as an ISO 4217 lowercase string (for example, `usd`).
+            sig { returns(String) }
+            def currency; end
+            sig { params(_currency: String).returns(String) }
+            def currency=(_currency); end
+            # Specifies whether the price is considered inclusive or exclusive of taxes. When omitted and automatic tax is enabled, uses `tax_settings.defaults.tax_behavior`. If no default is set, the request returns an error.
+            sig { returns(T.nilable(String)) }
+            def tax_behavior; end
+            sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
+            def tax_behavior=(_tax_behavior); end
+            sig { params(currency: String, tax_behavior: T.nilable(String)).void }
+            def initialize(currency: nil, tax_behavior: nil); end
+          end
+          # The list of commits to create for this Metronome contract.
+          sig {
+            returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit])
+           }
+          def commits; end
+          sig {
+            params(_commits: T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit]).returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit])
+           }
+          def commits=(_commits); end
+          # The Metronome contract ID to associate with this checkout item.
+          sig { returns(String) }
+          def metronome_contract; end
+          sig { params(_metronome_contract: String).returns(String) }
+          def metronome_contract=(_metronome_contract); end
+          # The currency and tax behavior configuration for this commit purchase.
+          sig {
+            returns(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::PriceConfiguration)
+           }
+          def price_configuration; end
+          sig {
+            params(_price_configuration: ::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::PriceConfiguration).returns(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::PriceConfiguration)
+           }
+          def price_configuration=(_price_configuration); end
+          sig {
+            params(commits: T::Array[::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::Commit], metronome_contract: String, price_configuration: ::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit::PriceConfiguration).void
+           }
+          def initialize(commits: nil, metronome_contract: nil, price_configuration: nil); end
+          def self.field_encodings
+            @field_encodings = {
+              commits: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    access_schedule: {
+                      kind: :object,
+                      fields: {
+                        schedule_items: {
+                          kind: :array,
+                          element: {kind: :object, fields: {amount: :decimal_string}},
+                        },
+                      },
+                    },
+                    priority: :decimal_string,
+                    rollover_fraction: :decimal_string,
+                  },
+                },
+              },
+            }
+          end
+        end
         class Subscription < ::Stripe::RequestParams
           class BillingCycleAnchorConfig < ::Stripe::RequestParams
             # The day of the month the anchor should be. Ranges from 1 to 31.
@@ -877,6 +1267,27 @@ module Stripe
             def initialize(flexible: nil, type: nil); end
           end
           class Item < ::Stripe::RequestParams
+            class AdjustableQuantity < ::Stripe::RequestParams
+              # Set to true if the quantity can be adjusted to any non-negative integer.
+              sig { returns(T::Boolean) }
+              def enabled; end
+              sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+              def enabled=(_enabled); end
+              # The maximum quantity the customer can purchase for the Checkout Session. By default this value is 99. You can specify a value up to 999999.
+              sig { returns(T.nilable(Integer)) }
+              def maximum; end
+              sig { params(_maximum: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def maximum=(_maximum); end
+              # The minimum quantity the customer must purchase for the Checkout Session. By default this value is 0.
+              sig { returns(T.nilable(Integer)) }
+              def minimum; end
+              sig { params(_minimum: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def minimum=(_minimum); end
+              sig {
+                params(enabled: T::Boolean, maximum: T.nilable(Integer), minimum: T.nilable(Integer)).void
+               }
+              def initialize(enabled: nil, maximum: nil, minimum: nil); end
+            end
             class CurrentTrial < ::Stripe::RequestParams
               # The ID of the trial offer to apply to the subscription item.
               sig { returns(String) }
@@ -1037,6 +1448,15 @@ module Stripe
                 @field_encodings = {unit_amount_decimal: :decimal_string}
               end
             end
+            # When set, provides configuration for this item’s quantity to be adjusted by the customer during Checkout.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::AdjustableQuantity))
+             }
+            def adjustable_quantity; end
+            sig {
+              params(_adjustable_quantity: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::AdjustableQuantity)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::AdjustableQuantity))
+             }
+            def adjustable_quantity=(_adjustable_quantity); end
             # The trial offer to apply to this subscription item.
             sig {
               returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::CurrentTrial))
@@ -1066,9 +1486,15 @@ module Stripe
             sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
             def quantity=(_quantity); end
             sig {
-              params(current_trial: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::CurrentTrial), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData), quantity: T.nilable(Integer)).void
+              params(adjustable_quantity: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::AdjustableQuantity), current_trial: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::CurrentTrial), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData), quantity: T.nilable(Integer)).void
              }
-            def initialize(current_trial: nil, price: nil, price_data: nil, quantity: nil); end
+            def initialize(
+              adjustable_quantity: nil,
+              current_trial: nil,
+              price: nil,
+              price_data: nil,
+              quantity: nil
+            ); end
             def self.field_encodings
               @field_encodings = {
                 price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
@@ -1227,6 +1653,13 @@ module Stripe
             }
           end
         end
+        # Configuration for the Metronome commit item.
+        sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit)) }
+        def metronome_commit; end
+        sig {
+          params(_metronome_commit: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit))
+         }
+        def metronome_commit=(_metronome_commit); end
         # Configuration for the subscription item.
         sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription)) }
         def subscription; end
@@ -1240,11 +1673,35 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(subscription: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription), type: String).void
+          params(metronome_commit: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit), subscription: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription), type: String).void
          }
-        def initialize(subscription: nil, type: nil); end
+        def initialize(metronome_commit: nil, subscription: nil, type: nil); end
         def self.field_encodings
           @field_encodings = {
+            metronome_commit: {
+              kind: :object,
+              fields: {
+                commits: {
+                  kind: :array,
+                  element: {
+                    kind: :object,
+                    fields: {
+                      access_schedule: {
+                        kind: :object,
+                        fields: {
+                          schedule_items: {
+                            kind: :array,
+                            element: {kind: :object, fields: {amount: :decimal_string}},
+                          },
+                        },
+                      },
+                      priority: :decimal_string,
+                      rollover_fraction: :decimal_string,
+                    },
+                  },
+                },
+              },
+            },
             subscription: {
               kind: :object,
               fields: {
@@ -1452,7 +1909,7 @@ module Stripe
         def price; end
         sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
         def price=(_price); end
-        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline, for [dynamic pricing](https://docs.stripe.com/products-prices/how-products-and-prices-work#inline-pricing) when the amount isn't known ahead of time. One of `price` or `price_data` is required when creating a new line item.
         sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::PriceData)) }
         def price_data; end
         sig {
@@ -1494,6 +1951,78 @@ module Stripe
         def enabled=(_enabled); end
         sig { params(enabled: T.nilable(T::Boolean)).void }
         def initialize(enabled: nil); end
+      end
+      class MarketingAttribution < ::Stripe::RequestParams
+        class AdConversion < ::Stripe::RequestParams
+          # Whether the customer consented to sending conversion data to an advertising platform.
+          sig { returns(T::Boolean) }
+          def consent_collected; end
+          sig { params(_consent_collected: T::Boolean).returns(T::Boolean) }
+          def consent_collected=(_consent_collected); end
+          sig { params(consent_collected: T::Boolean).void }
+          def initialize(consent_collected: nil); end
+        end
+        # Information used when sending conversions to an advertising platform.
+        sig { returns(::Stripe::Checkout::SessionCreateParams::MarketingAttribution::AdConversion) }
+        def ad_conversion; end
+        sig {
+          params(_ad_conversion: ::Stripe::Checkout::SessionCreateParams::MarketingAttribution::AdConversion).returns(::Stripe::Checkout::SessionCreateParams::MarketingAttribution::AdConversion)
+         }
+        def ad_conversion=(_ad_conversion); end
+        # The advertising platform's click identifier.
+        sig { returns(T.nilable(String)) }
+        def click_id; end
+        sig { params(_click_id: T.nilable(String)).returns(T.nilable(String)) }
+        def click_id=(_click_id); end
+        # The Unix timestamp when the advertising interaction occurred.
+        sig { returns(T.nilable(Integer)) }
+        def occurred_at; end
+        sig { params(_occurred_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def occurred_at=(_occurred_at); end
+        # The advertising group ID from the `utm_adgroup` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_adgroup; end
+        sig { params(_utm_adgroup: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_adgroup=(_utm_adgroup); end
+        # The advertising content identifier from the `utm_content` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_content; end
+        sig { params(_utm_content: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_content=(_utm_content); end
+        # The advertising campaign ID from the `utm_id` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_id; end
+        sig { params(_utm_id: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_id=(_utm_id); end
+        # The marketing medium from the `utm_medium` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_medium; end
+        sig { params(_utm_medium: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_medium=(_utm_medium); end
+        # The referral source from the `utm_source` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_source; end
+        sig { params(_utm_source: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_source=(_utm_source); end
+        # The paid search term from the `utm_term` parameter.
+        sig { returns(T.nilable(String)) }
+        def utm_term; end
+        sig { params(_utm_term: T.nilable(String)).returns(T.nilable(String)) }
+        def utm_term=(_utm_term); end
+        sig {
+          params(ad_conversion: ::Stripe::Checkout::SessionCreateParams::MarketingAttribution::AdConversion, click_id: T.nilable(String), occurred_at: T.nilable(Integer), utm_adgroup: T.nilable(String), utm_content: T.nilable(String), utm_id: T.nilable(String), utm_medium: T.nilable(String), utm_source: T.nilable(String), utm_term: T.nilable(String)).void
+         }
+        def initialize(
+          ad_conversion: nil,
+          click_id: nil,
+          occurred_at: nil,
+          utm_adgroup: nil,
+          utm_content: nil,
+          utm_id: nil,
+          utm_medium: nil,
+          utm_source: nil,
+          utm_term: nil
+        ); end
       end
       class NameCollection < ::Stripe::RequestParams
         class Business < ::Stripe::RequestParams
@@ -4962,6 +5491,15 @@ module Stripe
         params(_managed_payments: T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments))
        }
       def managed_payments=(_managed_payments); end
+      # Advertising attribution information for this Checkout Session. Only one attribution is supported.
+      sig {
+        returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::MarketingAttribution]))
+       }
+      def marketing_attributions; end
+      sig {
+        params(_marketing_attributions: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::MarketingAttribution])).returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::MarketingAttribution]))
+       }
+      def marketing_attributions=(_marketing_attributions); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
@@ -5164,7 +5702,7 @@ module Stripe
        }
       def checkout_items=(_checkout_items); end
       sig {
-        params(adaptive_pricing: T.nilable(::Stripe::Checkout::SessionCreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::SessionCreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), allowed_payment_method_types: T.nilable(T::Array[String]), approval_method: T.nilable(String), automatic_surcharge: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticSurcharge), automatic_tax: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), branding_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CustomField]), custom_payment_method_types: T.nilable(T::Array[String]), custom_text: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), integration_identifier: T.nilable(String), invoice_creation: T.nilable(::Stripe::Checkout::SessionCreateParams::InvoiceCreation), items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item]), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::LineItem]), locale: T.nilable(String), managed_payments: T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), name_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions), payment_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings), permissions: T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::SessionCreateParams::WalletOptions), checkout_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CheckoutItem])).void
+        params(adaptive_pricing: T.nilable(::Stripe::Checkout::SessionCreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::SessionCreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), allowed_payment_method_types: T.nilable(T::Array[String]), approval_method: T.nilable(String), automatic_surcharge: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticSurcharge), automatic_tax: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), branding_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CustomField]), custom_payment_method_types: T.nilable(T::Array[String]), custom_text: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), integration_identifier: T.nilable(String), invoice_creation: T.nilable(::Stripe::Checkout::SessionCreateParams::InvoiceCreation), items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item]), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::LineItem]), locale: T.nilable(String), managed_payments: T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments), marketing_attributions: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::MarketingAttribution]), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), name_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions), payment_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings), permissions: T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::SessionCreateParams::WalletOptions), checkout_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CheckoutItem])).void
        }
       def initialize(
         adaptive_pricing: nil,
@@ -5198,6 +5736,7 @@ module Stripe
         line_items: nil,
         locale: nil,
         managed_payments: nil,
+        marketing_attributions: nil,
         metadata: nil,
         mode: nil,
         name_collection: nil,
@@ -5233,6 +5772,30 @@ module Stripe
             element: {
               kind: :object,
               fields: {
+                metronome_commit: {
+                  kind: :object,
+                  fields: {
+                    commits: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          access_schedule: {
+                            kind: :object,
+                            fields: {
+                              schedule_items: {
+                                kind: :array,
+                                element: {kind: :object, fields: {amount: :decimal_string}},
+                              },
+                            },
+                          },
+                          priority: :decimal_string,
+                          rollover_fraction: :decimal_string,
+                        },
+                      },
+                    },
+                  },
+                },
                 subscription: {
                   kind: :object,
                   fields: {

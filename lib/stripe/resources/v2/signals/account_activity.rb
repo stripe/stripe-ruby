@@ -136,6 +136,45 @@ module Stripe
           end
         end
 
+        class AccountTakeoverConfirmation < ::Stripe::StripeObject
+          # The type of credential involved in the confirmed takeover.
+          attr_reader :credential_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class AccountTakeoverReport < ::Stripe::StripeObject
+          # The type of credential involved in the reported takeover.
+          attr_reader :credential_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CredentialChange < ::Stripe::StripeObject
+          # The type of credential that changed.
+          attr_reader :credential_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class LoginAttempt < ::Stripe::StripeObject
           class ClientDetails < ::Stripe::StripeObject
             class Data < ::Stripe::StripeObject
@@ -182,6 +221,32 @@ module Stripe
         class LoginDecision < ::Stripe::StripeObject
           # The action the merchant took following the evaluation.
           attr_reader :status
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class MfaAddition < ::Stripe::StripeObject
+          # The authentication method added to the account.
+          attr_reader :mfa_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class MfaRemoval < ::Stripe::StripeObject
+          # The authentication method removed from the account.
+          attr_reader :mfa_type
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -260,8 +325,14 @@ module Stripe
         # Details for the account suspension. Present only when type is account_suspended. The activity
         # requires an existing account_details.customer; account_details.account and inline data are unsupported.
         attr_reader :account_suspended
+        # Details for the merchant's takeover confirmation. Present only when type is account_takeover_confirmation.
+        attr_reader :account_takeover_confirmation
+        # Details for the account holder's takeover report. Present only when type is account_takeover_report.
+        attr_reader :account_takeover_report
         # Timestamp at which the account activity was created.
         attr_reader :created
+        # Details for the credential change. Present only when type is credential_change.
+        attr_reader :credential_change
         # Unique identifier for the account activity.
         attr_reader :id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -272,6 +343,10 @@ module Stripe
         attr_reader :login_decision
         # Additional information about the activity.
         attr_reader :metadata
+        # Details for the MFA addition. Present only when type is mfa_addition.
+        attr_reader :mfa_addition
+        # Details for the MFA removal. Present only when type is mfa_removal.
+        attr_reader :mfa_removal
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # Timestamp at which the activity occurred. Defaults to the created time if not provided.
@@ -289,8 +364,13 @@ module Stripe
             account_restricted: AccountRestricted,
             account_reviewed: AccountReviewed,
             account_suspended: AccountSuspended,
+            account_takeover_confirmation: AccountTakeoverConfirmation,
+            account_takeover_report: AccountTakeoverReport,
+            credential_change: CredentialChange,
             login_attempt: LoginAttempt,
             login_decision: LoginDecision,
+            mfa_addition: MfaAddition,
+            mfa_removal: MfaRemoval,
             registration_attempt: RegistrationAttempt,
             registration_decision: RegistrationDecision,
           }

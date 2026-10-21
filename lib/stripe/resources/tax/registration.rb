@@ -310,6 +310,19 @@ module Stripe
           end
         end
 
+        class Bw < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class By < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
@@ -383,6 +396,19 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Ci < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
           end
 
           def self.field_remappings
@@ -753,6 +779,19 @@ module Stripe
         end
 
         class Ge < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Gh < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
 
@@ -1236,6 +1275,19 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Mu < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
           end
 
           def self.field_remappings
@@ -2140,6 +2192,8 @@ module Stripe
         attr_reader :bj
         # Attribute for field bs
         attr_reader :bs
+        # Attribute for field bw
+        attr_reader :bw
         # Attribute for field by
         attr_reader :by
         # Attribute for field ca
@@ -2148,6 +2202,8 @@ module Stripe
         attr_reader :cd
         # Attribute for field ch
         attr_reader :ch
+        # Attribute for field ci
+        attr_reader :ci
         # Attribute for field cl
         attr_reader :cl
         # Attribute for field cm
@@ -2184,6 +2240,8 @@ module Stripe
         attr_reader :gb
         # Attribute for field ge
         attr_reader :ge
+        # Attribute for field gh
+        attr_reader :gh
         # Attribute for field gn
         attr_reader :gn
         # Attribute for field gr
@@ -2236,6 +2294,8 @@ module Stripe
         attr_reader :mr
         # Attribute for field mt
         attr_reader :mt
+        # Attribute for field mu
+        attr_reader :mu
         # Attribute for field mx
         attr_reader :mx
         # Attribute for field my
@@ -2328,10 +2388,12 @@ module Stripe
             bh: Bh,
             bj: Bj,
             bs: Bs,
+            bw: Bw,
             by: By,
             ca: Ca,
             cd: Cd,
             ch: Ch,
+            ci: Ci,
             cl: Cl,
             cm: Cm,
             co: Co,
@@ -2350,6 +2412,7 @@ module Stripe
             fr: Fr,
             gb: Gb,
             ge: Ge,
+            gh: Gh,
             gn: Gn,
             gr: Gr,
             hr: Hr,
@@ -2376,6 +2439,7 @@ module Stripe
             mk: Mk,
             mr: Mr,
             mt: Mt,
+            mu: Mu,
             mx: Mx,
             my: My,
             ng: Ng,

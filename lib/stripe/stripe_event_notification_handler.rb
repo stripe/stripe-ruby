@@ -1974,6 +1974,10 @@ module Stripe
       register("v2.signals.account_evaluation.complete", &callback)
     end
 
+    def on_v2_signals_account_signal_customer_risk_ready(&callback)
+      register("v2.signals.account_signal.customer_risk_ready", &callback)
+    end
+
     def on_v2_signals_account_signal_fraudulent_merchant_ready(&callback)
       register("v2.signals.account_signal.fraudulent_merchant_ready", &callback)
     end
@@ -2003,7 +2007,7 @@ module Stripe
     def initialize(client, webhook_secret, &fallback_callback)
       super(client, &fallback_callback)
 
-      raise ArgumentError, "webhook_secret must be a non-empty string" if webhook_secret.nil? || webhook_secret.empty?
+      raise ArgumentError, "webhook_secret must be a non-empty string" if Util.webhook_secret_blank?(webhook_secret)
 
       @webhook_secret = webhook_secret
     end

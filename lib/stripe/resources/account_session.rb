@@ -190,6 +190,30 @@ module Stripe
         end
       end
 
+      class BusinessProfileManagement < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class CapitalFinancing < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -943,6 +967,30 @@ module Stripe
         end
       end
 
+      class ReportingChart < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class TaxRegistrations < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -1050,6 +1098,8 @@ module Stripe
       attr_reader :balances
       # Configuration for the [Bills](/connect/supported-embedded-components/bills/) embedded component.
       attr_reader :bills
+      # Configuration for the [Business profile management](/connect/supported-embedded-components/business-profile-management/) embedded component.
+      attr_reader :business_profile_management
       # Attribute for field capital_financing
       attr_reader :capital_financing
       # Attribute for field capital_financing_application
@@ -1102,13 +1152,15 @@ module Stripe
       attr_reader :payouts_list
       # Configuration for the [recipients list](/connect/supported-embedded-components/recipients-list/) embedded component.
       attr_reader :recipients_list
+      # Attribute for field reporting_chart
+      attr_reader :reporting_chart
       # Attribute for field tax_registrations
       attr_reader :tax_registrations
       # Attribute for field tax_settings
       attr_reader :tax_settings
-      # Configuration for the [Terminal hardware orders](/connect/supported-embedded-components/terminal-hardware-orders/) embedded component.
+      # Attribute for field terminal_hardware_orders
       attr_reader :terminal_hardware_orders
-      # Configuration for the [Terminal hardware shop](/connect/supported-embedded-components/terminal-hardware-shop/) embedded component.
+      # Attribute for field terminal_hardware_shop
       attr_reader :terminal_hardware_shop
 
       def self.inner_class_types
@@ -1119,6 +1171,7 @@ module Stripe
           balance_report: BalanceReport,
           balances: Balances,
           bills: Bills,
+          business_profile_management: BusinessProfileManagement,
           capital_financing: CapitalFinancing,
           capital_financing_application: CapitalFinancingApplication,
           capital_financing_manual_payment: CapitalFinancingManualPayment,
@@ -1145,6 +1198,7 @@ module Stripe
           payouts: Payouts,
           payouts_list: PayoutsList,
           recipients_list: RecipientsList,
+          reporting_chart: ReportingChart,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
           terminal_hardware_orders: TerminalHardwareOrders,

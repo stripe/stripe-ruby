@@ -418,6 +418,8 @@ module Stripe
       attr_accessor :is_amount_controllable
       # The total amount to attempt to authorize. This amount is in the provided merchant currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
       attr_accessor :merchant_amount
+      # Exchange rate from merchant amount to cardholder amount, expressed in minor units. Must be finite and positive for different currencies. Matching currencies ignore the supplied numeric rate and use 1.0.
+      attr_accessor :merchant_amount_exchange_rate
       # The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_accessor :merchant_currency
       # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
@@ -428,6 +430,8 @@ module Stripe
       attr_accessor :pos_condition
       # Stripe’s assessment of the fraud risk for this authorization.
       attr_accessor :risk_assessment
+      # The type of the authorization object, for example a payment authorization, an original credit authorization, or a refund authorization.
+      attr_accessor :type
       # Verifications that Stripe performed on information that the cardholder provided to the merchant.
       attr_accessor :verification_data
       # The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized.
@@ -446,11 +450,13 @@ module Stripe
         healthcare: nil,
         is_amount_controllable: nil,
         merchant_amount: nil,
+        merchant_amount_exchange_rate: nil,
         merchant_currency: nil,
         merchant_data: nil,
         network_data: nil,
         pos_condition: nil,
         risk_assessment: nil,
+        type: nil,
         verification_data: nil,
         wallet: nil
       )
@@ -466,11 +472,13 @@ module Stripe
         @healthcare = healthcare
         @is_amount_controllable = is_amount_controllable
         @merchant_amount = merchant_amount
+        @merchant_amount_exchange_rate = merchant_amount_exchange_rate
         @merchant_currency = merchant_currency
         @merchant_data = merchant_data
         @network_data = network_data
         @pos_condition = pos_condition
         @risk_assessment = risk_assessment
+        @type = type
         @verification_data = verification_data
         @wallet = wallet
       end

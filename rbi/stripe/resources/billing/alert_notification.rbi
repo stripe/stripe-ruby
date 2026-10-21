@@ -4,6 +4,7 @@
 # typed: true
 module Stripe
   module Billing
+    # A Billing Alert Notification records a notification sent when a billing alert is triggered or recovered. It identifies the alert, customer, and notification event, along with the observed value and the time the notification was sent.
     class AlertNotification < APIResource
       # Whether the alert was triggered or recovered.
       sig { returns(String) }

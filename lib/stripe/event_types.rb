@@ -744,6 +744,8 @@ module Stripe
         Events::V2ReportingReportRunUpdatedEvent.lookup_type => Events::V2ReportingReportRunUpdatedEvent,
         Events::V2SignalsAccountEvaluationCompleteEvent.lookup_type =>
         Events::V2SignalsAccountEvaluationCompleteEvent,
+        Events::V2SignalsAccountSignalCustomerRiskReadyEvent.lookup_type =>
+        Events::V2SignalsAccountSignalCustomerRiskReadyEvent,
         Events::V2SignalsAccountSignalFraudulentMerchantReadyEvent.lookup_type =>
         Events::V2SignalsAccountSignalFraudulentMerchantReadyEvent,
         Events::V2SignalsAccountSignalFraudulentWebsiteReadyEvent.lookup_type =>
@@ -1645,6 +1647,8 @@ module Stripe
         Events::V2ReportingReportRunUpdatedEventNotification,
         Events::V2SignalsAccountEvaluationCompleteEventNotification.lookup_type =>
         Events::V2SignalsAccountEvaluationCompleteEventNotification,
+        Events::V2SignalsAccountSignalCustomerRiskReadyEventNotification.lookup_type =>
+        Events::V2SignalsAccountSignalCustomerRiskReadyEventNotification,
         Events::V2SignalsAccountSignalFraudulentMerchantReadyEventNotification.lookup_type =>
         Events::V2SignalsAccountSignalFraudulentMerchantReadyEventNotification,
         Events::V2SignalsAccountSignalFraudulentWebsiteReadyEventNotification.lookup_type =>

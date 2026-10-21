@@ -9201,7 +9201,7 @@ module Stripe
     end
     should "Test v2 core account evaluation post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_evaluations").to_return(
-        body: '{"object":"v2.core.account_evaluation","created":"1970-01-12T21:42:34.472Z","evaluations_triggered":["user_multi_accounting"],"id":"obj_123","livemode":true}',
+        body: '{"object":"v2.core.account_evaluation","created":"1970-01-12T21:42:34.472Z","evaluations_triggered":["user_account_sharing"],"id":"obj_123","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9816,6 +9816,16 @@ module Stripe
         starts_at: "1970-01-25T15:13:01.215Z",
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/data/analytics/metric_query"
+    end
+    should "Test v2 data operation post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/data/operations/search").to_return(
+        body: '{"object":"v2.data.search_result_list","data":[{"description":"description","execution_spec":{"execution_url":"execution_url","http_method":"GET","id":"obj_123"},"id":"obj_123","name":"name","object_type":"object_type","reference_url":"reference_url","refreshed_at":"1970-01-01T11:25:45.896Z","relevance_score":"1104594632"}],"livemode":true}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      search_result_list = client.v2.data.operations.search({ query: "query" })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/data/operations/search"
     end
     should "Test v2 data query run post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/data/query_runs").to_return(
@@ -11981,12 +11991,14 @@ module Stripe
     end
     should "Test v2 signals account activity post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_activities").to_return(
-        body: '{"object":"v2.signals.account_activity","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"occurred_at":"1970-01-10T01:49:44.717Z","type":"login_attempt"}',
+        body: '{"object":"v2.signals.account_activity","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"occurred_at":"1970-01-10T01:49:44.717Z","type":"registration_decision"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      account_activity = client.v2.signals.account_activities.create({ type: "login_attempt" })
+      account_activity = client.v2.signals.account_activities.create({
+        type: "registration_decision",
+      })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_activities"
     end
     should "Test v2 signals account activity delete (service)" do
@@ -12004,7 +12016,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_activities/id_123"
       ).to_return(
-        body: '{"object":"v2.signals.account_activity","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"occurred_at":"1970-01-10T01:49:44.717Z","type":"login_attempt"}',
+        body: '{"object":"v2.signals.account_activity","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"occurred_at":"1970-01-10T01:49:44.717Z","type":"registration_decision"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -12014,7 +12026,7 @@ module Stripe
     end
     should "Test v2 signals account evaluation post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_evaluations").to_return(
-        body: '{"object":"v2.signals.account_evaluation","account_details":{},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"pending_signals":["user_account_sharing"],"requested_signals":["user_merchant_fit"]}',
+        body: '{"object":"v2.signals.account_evaluation","account_details":{},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"pending_signals":["user_account_sharing"],"requested_signals":["fraudulent_website"]}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -12035,7 +12047,7 @@ module Stripe
             identity: { business_details: { registered_name: "registered_name" } },
           },
         },
-        requested_signals: ["user_merchant_fit"],
+        requested_signals: ["fraudulent_website"],
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_evaluations"
     end
@@ -12044,7 +12056,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_evaluations/id_123"
       ).to_return(
-        body: '{"object":"v2.signals.account_evaluation","account_details":{},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"pending_signals":["user_account_sharing"],"requested_signals":["user_merchant_fit"]}',
+        body: '{"object":"v2.signals.account_evaluation","account_details":{},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"pending_signals":["user_account_sharing"],"requested_signals":["fraudulent_website"]}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -12055,21 +12067,19 @@ module Stripe
     should "Test v2 signals account signal get (service)" do
       stub_request(
         :get,
-        "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_signals?type[0]=payment_delinquency_exposure"
+        "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_signals?type[0]=account_takeover"
       ).to_return(
-        body: '{"data":[{"object":"v2.signals.account_signal","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"type":"payment_delinquency_exposure"}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.signals.account_signal","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"type":"account_takeover"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
-      account_signals = client.v2.signals.account_signals.list({
-        type: ["payment_delinquency_exposure"],
-      })
-      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_signals?type[0]=payment_delinquency_exposure"
+      account_signals = client.v2.signals.account_signals.list({ type: ["account_takeover"] })
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_signals?type[0]=account_takeover"
     end
     should "Test v2 signals account signal get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_signals/id_123").to_return(
-        body: '{"object":"v2.signals.account_signal","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"type":"payment_delinquency_exposure"}',
+        body: '{"object":"v2.signals.account_signal","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"type":"account_takeover"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")

@@ -549,6 +549,270 @@ module Stripe
       end
 
       class Item < ::Stripe::RequestParams
+        class MetronomeCommit < ::Stripe::RequestParams
+          class Commit < ::Stripe::RequestParams
+            class AccessSchedule < ::Stripe::RequestParams
+              class ScheduleItem < ::Stripe::RequestParams
+                # The access amount in credit_type_id units.
+                attr_accessor :amount
+                # Hour-aligned RFC 3339 timestamp in UTC at which access to the balance amount ends (exclusive).
+                attr_accessor :ending_before
+                # Hour-aligned RFC 3339 timestamp in UTC at which access to the balance amount starts (inclusive).
+                attr_accessor :starting_at
+
+                def initialize(amount: nil, ending_before: nil, starting_at: nil)
+                  @amount = amount
+                  @ending_before = ending_before
+                  @starting_at = starting_at
+                end
+
+                def self.field_encodings
+                  @field_encodings = { amount: :decimal_string }
+                end
+              end
+              # The fixed price the buyer pays, in minor currency units.
+              attr_accessor :price_amount
+              # When and how many credits become available.
+              attr_accessor :schedule_items
+
+              def initialize(price_amount: nil, schedule_items: nil)
+                @price_amount = price_amount
+                @schedule_items = schedule_items
+              end
+
+              def self.field_encodings
+                @field_encodings = {
+                  schedule_items: {
+                    kind: :array,
+                    element: { kind: :object, fields: { amount: :decimal_string } },
+                  },
+                }
+              end
+            end
+
+            class CommitOptions < ::Stripe::RequestParams
+              class CustomAmount < ::Stripe::RequestParams
+                # Must be `true` when `custom_amount` is present. Omit `custom_amount` to disable custom amounts.
+                attr_accessor :enabled
+                # Maximum `access_amount` the customer can enter. Defaults to `999999999999999` when omitted.
+                attr_accessor :maximum
+                # Minimum `access_amount` the customer can enter. Defaults to `1` when omitted.
+                attr_accessor :minimum
+
+                def initialize(enabled: nil, maximum: nil, minimum: nil)
+                  @enabled = enabled
+                  @maximum = maximum
+                  @minimum = minimum
+                end
+              end
+
+              class DiscountTier < ::Stripe::RequestParams
+                # Percentage discount applied to the full access_amount when it falls in this tier.
+                attr_accessor :discount_percentage
+                # Upper bound (inclusive) in credit_type_id units. Use `inf` to define an unbounded tier.
+                attr_accessor :up_to
+
+                def initialize(discount_percentage: nil, up_to: nil)
+                  @discount_percentage = discount_percentage
+                  @up_to = up_to
+                end
+              end
+
+              class Option < ::Stripe::RequestParams
+                # The access amount for this option, in credit_type_id units.
+                attr_accessor :access_amount
+                # Whether this option is pre-selected in the Checkout UI. At most one option may be marked true.
+                attr_accessor :default_option
+
+                def initialize(access_amount: nil, default_option: nil)
+                  @access_amount = access_amount
+                  @default_option = default_option
+                end
+              end
+              # Optionally let the buyer enter a custom access amount.
+              attr_accessor :custom_amount
+              # Volume-based discount tiers.
+              attr_accessor :discount_tiers
+              # When access for the purchased credits ends. Hour-aligned UTC timestamp.
+              attr_accessor :ending_before
+              # Access-amount presets for the buyer to choose from.
+              attr_accessor :options
+              # When access for the purchased credits starts. Hour-aligned UTC timestamp.
+              attr_accessor :starting_at
+
+              def initialize(
+                custom_amount: nil,
+                discount_tiers: nil,
+                ending_before: nil,
+                options: nil,
+                starting_at: nil
+              )
+                @custom_amount = custom_amount
+                @discount_tiers = discount_tiers
+                @ending_before = ending_before
+                @options = options
+                @starting_at = starting_at
+              end
+            end
+
+            class Specifier < ::Stripe::RequestParams
+              # Key-value pairs for presentation group filters.
+              attr_accessor :presentation_group_values
+              # Key-value pairs for pricing group filters.
+              attr_accessor :pricing_group_values
+              # Metronome product ID to scope this specifier to.
+              attr_accessor :product_id
+              # Metronome product tags to scope this specifier to. A product matches this filter only if it has all specified tags.
+              attr_accessor :product_tags
+
+              def initialize(
+                presentation_group_values: nil,
+                pricing_group_values: nil,
+                product_id: nil,
+                product_tags: nil
+              )
+                @presentation_group_values = presentation_group_values
+                @pricing_group_values = pricing_group_values
+                @product_id = product_id
+                @product_tags = product_tags
+              end
+            end
+
+            class TaxDetails < ::Stripe::RequestParams
+              # Stripe [tax code](https://docs.stripe.com/tax/tax-codes) for this commit (for example, `txcd_10103000`). If the linked Stripe Product has a tax code, this value must match it.
+              attr_accessor :tax_code
+
+              def initialize(tax_code: nil)
+                @tax_code = tax_code
+              end
+            end
+            # Sets the balance amount and release schedule. Mutually exclusive with `commit_options`.
+            attr_accessor :access_schedule
+            # Metronome product tags this commit can be drawn down against. A product matches if it has at least one of the specified tags. Mutually exclusive with `specifiers`. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all omitted, the commit applies to all products. See Metronome's [applicable_product_tags](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-applicable-product-tags).
+            attr_accessor :applicable_metronome_product_tags
+            # Metronome product IDs this commit can be drawn down against. Mutually exclusive with `specifiers`. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all omitted, the commit applies to all products. See Metronome's [applicable_product_ids](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-applicable-product-ids).
+            attr_accessor :applicable_metronome_products
+            # Customer selects the balance amount to purchase. Mutually exclusive with `access_schedule`.
+            attr_accessor :commit_options
+            # The Metronome Custom Pricing Unit credit type ID for this commit, whose access amounts are credit counts. Omit it to price in fiat, where access amounts are in the smallest unit of `price_configuration[currency]`. Fiat credit type IDs are not accepted.
+            attr_accessor :credit_type_id
+            # Key-value pairs forwarded to the Metronome commit's [custom_fields](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-custom-fields).
+            attr_accessor :custom_fields
+            # Free-form description. Forwarded to the Metronome commit's description.
+            attr_accessor :description
+            # The Metronome product ID for this commit.
+            attr_accessor :metronome_product
+            # Display name for the commit. Surfaced on the Metronome commit's name.
+            attr_accessor :name
+            # Priority for applying the commit. Lower priority values apply first. Forwarded to Metronome as-is.
+            attr_accessor :priority
+            # Specifies which rates are used to draw down the commit. Accepts `commit_rate`, `list_rate`, `COMMIT_RATE`, or `LIST_RATE`.
+            attr_accessor :rate_type
+            # Fraction of unused balance that rolls over on a Metronome contract transition. Must be between `0` and `1`. Forwarded to Metronome as-is.
+            attr_accessor :rollover_fraction
+            # Usage filters that determine what draws down the commit. If multiple specifiers are provided, a product only needs to match one. Mutually exclusive with `applicable_metronome_products` and `applicable_metronome_product_tags`. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all omitted, the commit applies to all products. See Metronome's [specifiers](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-specifiers).
+            attr_accessor :specifiers
+            # Tax details for this commit. If omitted, Stripe uses the tax code from the Stripe product linked to the Metronome commit product. If there is no linked Stripe product or the Stripe product has no tax code configured, the [preset tax rate on your account](https://docs.stripe.com/api/tax/settings/object#tax_settings_object-defaults-tax_code) will be used. If provided, `tax_code` is required.
+            attr_accessor :tax_details
+
+            def initialize(
+              access_schedule: nil,
+              applicable_metronome_product_tags: nil,
+              applicable_metronome_products: nil,
+              commit_options: nil,
+              credit_type_id: nil,
+              custom_fields: nil,
+              description: nil,
+              metronome_product: nil,
+              name: nil,
+              priority: nil,
+              rate_type: nil,
+              rollover_fraction: nil,
+              specifiers: nil,
+              tax_details: nil
+            )
+              @access_schedule = access_schedule
+              @applicable_metronome_product_tags = applicable_metronome_product_tags
+              @applicable_metronome_products = applicable_metronome_products
+              @commit_options = commit_options
+              @credit_type_id = credit_type_id
+              @custom_fields = custom_fields
+              @description = description
+              @metronome_product = metronome_product
+              @name = name
+              @priority = priority
+              @rate_type = rate_type
+              @rollover_fraction = rollover_fraction
+              @specifiers = specifiers
+              @tax_details = tax_details
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                access_schedule: {
+                  kind: :object,
+                  fields: {
+                    schedule_items: {
+                      kind: :array,
+                      element: { kind: :object, fields: { amount: :decimal_string } },
+                    },
+                  },
+                },
+                priority: :decimal_string,
+                rollover_fraction: :decimal_string,
+              }
+            end
+          end
+
+          class PriceConfiguration < ::Stripe::RequestParams
+            # The currency for this commit purchase, as an ISO 4217 lowercase string (for example, `usd`).
+            attr_accessor :currency
+            # Specifies whether the price is considered inclusive or exclusive of taxes. When omitted and automatic tax is enabled, uses `tax_settings.defaults.tax_behavior`. If no default is set, the request returns an error.
+            attr_accessor :tax_behavior
+
+            def initialize(currency: nil, tax_behavior: nil)
+              @currency = currency
+              @tax_behavior = tax_behavior
+            end
+          end
+          # The list of commits to create for this Metronome contract.
+          attr_accessor :commits
+          # The Metronome contract ID to associate with this checkout item.
+          attr_accessor :metronome_contract
+          # The currency and tax behavior configuration for this commit purchase.
+          attr_accessor :price_configuration
+
+          def initialize(commits: nil, metronome_contract: nil, price_configuration: nil)
+            @commits = commits
+            @metronome_contract = metronome_contract
+            @price_configuration = price_configuration
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              commits: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    access_schedule: {
+                      kind: :object,
+                      fields: {
+                        schedule_items: {
+                          kind: :array,
+                          element: { kind: :object, fields: { amount: :decimal_string } },
+                        },
+                      },
+                    },
+                    priority: :decimal_string,
+                    rollover_fraction: :decimal_string,
+                  },
+                },
+              },
+            }
+          end
+        end
+
         class Subscription < ::Stripe::RequestParams
           class BillingCycleAnchorConfig < ::Stripe::RequestParams
             # The day of the month the anchor should be. Ranges from 1 to 31.
@@ -592,6 +856,21 @@ module Stripe
           end
 
           class Item < ::Stripe::RequestParams
+            class AdjustableQuantity < ::Stripe::RequestParams
+              # Set to true if the quantity can be adjusted to any non-negative integer.
+              attr_accessor :enabled
+              # The maximum quantity the customer can purchase for the Checkout Session. By default this value is 99. You can specify a value up to 999999.
+              attr_accessor :maximum
+              # The minimum quantity the customer must purchase for the Checkout Session. By default this value is 0.
+              attr_accessor :minimum
+
+              def initialize(enabled: nil, maximum: nil, minimum: nil)
+                @enabled = enabled
+                @maximum = maximum
+                @minimum = minimum
+              end
+            end
+
             class CurrentTrial < ::Stripe::RequestParams
               # The ID of the trial offer to apply to the subscription item.
               attr_accessor :trial_offer
@@ -696,6 +975,8 @@ module Stripe
                 @field_encodings = { unit_amount_decimal: :decimal_string }
               end
             end
+            # When set, provides configuration for this item’s quantity to be adjusted by the customer during Checkout.
+            attr_accessor :adjustable_quantity
             # The trial offer to apply to this subscription item.
             attr_accessor :current_trial
             # The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required.
@@ -705,7 +986,14 @@ module Stripe
             # Quantity for this item.
             attr_accessor :quantity
 
-            def initialize(current_trial: nil, price: nil, price_data: nil, quantity: nil)
+            def initialize(
+              adjustable_quantity: nil,
+              current_trial: nil,
+              price: nil,
+              price_data: nil,
+              quantity: nil
+            )
+              @adjustable_quantity = adjustable_quantity
               @current_trial = current_trial
               @price = price
               @price_data = price_data
@@ -813,18 +1101,45 @@ module Stripe
             }
           end
         end
+        # Configuration for the Metronome commit item.
+        attr_accessor :metronome_commit
         # Configuration for the subscription item.
         attr_accessor :subscription
         # The type of item.
         attr_accessor :type
 
-        def initialize(subscription: nil, type: nil)
+        def initialize(metronome_commit: nil, subscription: nil, type: nil)
+          @metronome_commit = metronome_commit
           @subscription = subscription
           @type = type
         end
 
         def self.field_encodings
           @field_encodings = {
+            metronome_commit: {
+              kind: :object,
+              fields: {
+                commits: {
+                  kind: :array,
+                  element: {
+                    kind: :object,
+                    fields: {
+                      access_schedule: {
+                        kind: :object,
+                        fields: {
+                          schedule_items: {
+                            kind: :array,
+                            element: { kind: :object, fields: { amount: :decimal_string } },
+                          },
+                        },
+                      },
+                      priority: :decimal_string,
+                      rollover_fraction: :decimal_string,
+                    },
+                  },
+                },
+              },
+            },
             subscription: {
               kind: :object,
               fields: {
@@ -960,7 +1275,7 @@ module Stripe
         attr_accessor :metadata
         # The ID of the [Price](https://docs.stripe.com/api/prices) or [Plan](https://docs.stripe.com/api/plans) object. One of `price` or `price_data` is required.
         attr_accessor :price
-        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline, for [dynamic pricing](https://docs.stripe.com/products-prices/how-products-and-prices-work#inline-pricing) when the amount isn't known ahead of time. One of `price` or `price_data` is required when creating a new line item.
         attr_accessor :price_data
         # The quantity of the line item being purchased. Quantity should not be defined when `recurring.usage_type=metered`.
         attr_accessor :quantity
@@ -996,6 +1311,57 @@ module Stripe
 
         def initialize(enabled: nil)
           @enabled = enabled
+        end
+      end
+
+      class MarketingAttribution < ::Stripe::RequestParams
+        class AdConversion < ::Stripe::RequestParams
+          # Whether the customer consented to sending conversion data to an advertising platform.
+          attr_accessor :consent_collected
+
+          def initialize(consent_collected: nil)
+            @consent_collected = consent_collected
+          end
+        end
+        # Information used when sending conversions to an advertising platform.
+        attr_accessor :ad_conversion
+        # The advertising platform's click identifier.
+        attr_accessor :click_id
+        # The Unix timestamp when the advertising interaction occurred.
+        attr_accessor :occurred_at
+        # The advertising group ID from the `utm_adgroup` parameter.
+        attr_accessor :utm_adgroup
+        # The advertising content identifier from the `utm_content` parameter.
+        attr_accessor :utm_content
+        # The advertising campaign ID from the `utm_id` parameter.
+        attr_accessor :utm_id
+        # The marketing medium from the `utm_medium` parameter.
+        attr_accessor :utm_medium
+        # The referral source from the `utm_source` parameter.
+        attr_accessor :utm_source
+        # The paid search term from the `utm_term` parameter.
+        attr_accessor :utm_term
+
+        def initialize(
+          ad_conversion: nil,
+          click_id: nil,
+          occurred_at: nil,
+          utm_adgroup: nil,
+          utm_content: nil,
+          utm_id: nil,
+          utm_medium: nil,
+          utm_source: nil,
+          utm_term: nil
+        )
+          @ad_conversion = ad_conversion
+          @click_id = click_id
+          @occurred_at = occurred_at
+          @utm_adgroup = utm_adgroup
+          @utm_content = utm_content
+          @utm_id = utm_id
+          @utm_medium = utm_medium
+          @utm_source = utm_source
+          @utm_term = utm_term
         end
       end
 
@@ -3289,6 +3655,8 @@ module Stripe
       attr_accessor :locale
       # Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](/api/payment_intents/object), [Invoices](/api/invoices/object), and [Subscriptions](/api/subscriptions/object).
       attr_accessor :managed_payments
+      # Advertising attribution information for this Checkout Session. Only one attribution is supported.
+      attr_accessor :marketing_attributions
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
@@ -3408,6 +3776,7 @@ module Stripe
         line_items: nil,
         locale: nil,
         managed_payments: nil,
+        marketing_attributions: nil,
         metadata: nil,
         mode: nil,
         name_collection: nil,
@@ -3467,6 +3836,7 @@ module Stripe
         @line_items = line_items
         @locale = locale
         @managed_payments = managed_payments
+        @marketing_attributions = marketing_attributions
         @metadata = metadata
         @mode = mode
         @name_collection = name_collection
@@ -3503,6 +3873,30 @@ module Stripe
             element: {
               kind: :object,
               fields: {
+                metronome_commit: {
+                  kind: :object,
+                  fields: {
+                    commits: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          access_schedule: {
+                            kind: :object,
+                            fields: {
+                              schedule_items: {
+                                kind: :array,
+                                element: { kind: :object, fields: { amount: :decimal_string } },
+                              },
+                            },
+                          },
+                          priority: :decimal_string,
+                          rollover_fraction: :decimal_string,
+                        },
+                      },
+                    },
+                  },
+                },
                 subscription: {
                   kind: :object,
                   fields: {

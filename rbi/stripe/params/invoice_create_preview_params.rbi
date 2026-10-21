@@ -536,12 +536,12 @@ module Stripe
         params(_period: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Period)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Period))
        }
       def period=(_period); end
-      # The ID of the price object. One of `price` or `price_data` is required.
+      # The ID of the price object.
       sig { returns(T.nilable(String)) }
       def price; end
       sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
       def price=(_price); end
-      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline.
       sig { returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::PriceData)) }
       def price_data; end
       sig {

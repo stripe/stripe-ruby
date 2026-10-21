@@ -257,7 +257,7 @@ module Stripe
         end
 
         class TaxId < ::Stripe::StripeObject
-          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
           attr_reader :type
           # The value of the tax ID.
           attr_reader :value
@@ -861,7 +861,7 @@ module Stripe
         end
 
         class TaxId < ::Stripe::StripeObject
-          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `au_acn`, `nz_bn`, `pt_nif`, `cz_dic`, `fr_siret`, `fr_siren`, `fr_spi`, `sm_coe`, `tt_vat`, `tt_bir`, `mu_vat`, `mz_nuit`, `au_wpn`, `md_cf`, `is_kt`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
           attr_reader :type
           # The value of the tax ID.
           attr_reader :value
@@ -1004,6 +1004,279 @@ module Stripe
       end
 
       class Item < ::Stripe::StripeObject
+        class MetronomeCommit < ::Stripe::StripeObject
+          class Commit < ::Stripe::StripeObject
+            class AccessSchedule < ::Stripe::StripeObject
+              class ScheduleItem < ::Stripe::StripeObject
+                # The access amount in credit_type_id units.
+                attr_reader :amount
+                # Hour-aligned RFC 3339 timestamp in UTC at which access to the balance amount ends (exclusive).
+                attr_reader :ending_before
+                # Hour-aligned RFC 3339 timestamp in UTC at which access to the balance amount starts (inclusive).
+                attr_reader :starting_at
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+
+                def self.field_encodings
+                  @field_encodings = { amount: :decimal_string }
+                end
+              end
+              # The fixed price the buyer pays, in minor currency units.
+              attr_reader :price_amount
+              # When and how many credits become available.
+              attr_reader :schedule_items
+
+              def self.inner_class_types
+                @inner_class_types = { schedule_items: ScheduleItem }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+
+              def self.field_encodings
+                @field_encodings = {
+                  schedule_items: {
+                    kind: :array,
+                    element: { kind: :object, fields: { amount: :decimal_string } },
+                  },
+                }
+              end
+            end
+
+            class CommitOptions < ::Stripe::StripeObject
+              class CustomAmount < ::Stripe::StripeObject
+                # Whether custom amount input is enabled.
+                attr_reader :enabled
+                # Maximum `access_amount` the customer can enter. `null` means the effective maximum is `999999999999999`.
+                attr_reader :maximum
+                # Minimum `access_amount` the customer can enter. `null` means the effective minimum is `1`.
+                attr_reader :minimum
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class DiscountTier < ::Stripe::StripeObject
+                # Percentage discount applied to the full access_amount.
+                attr_reader :discount_percentage
+                # Upper bound (inclusive) in credit_type_id units. Null means unbounded.
+                attr_reader :up_to
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class Option < ::Stripe::StripeObject
+                # The access amount for this option.
+                attr_reader :access_amount
+                # Whether this option is pre-selected in the Checkout UI.
+                attr_reader :default_option
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Custom access amount configuration.
+              attr_reader :custom_amount
+              # Volume-based discount tiers.
+              attr_reader :discount_tiers
+              # When access for the purchased credits ends.
+              attr_reader :ending_before
+              # Access-amount presets for the buyer to choose from.
+              attr_reader :options
+              # The selected access amount. It matches an `options[].access_amount` for a preset selection, but may be a custom value when `custom_amount` is enabled. New sessions initialize it from the option marked `default_option`, or from the first option when none is marked. It is not necessarily the item's monetary price; use `amount_details` for display and totals.
+              attr_reader :selected_access_amount
+              # When access for the purchased credits starts.
+              attr_reader :starting_at
+
+              def self.inner_class_types
+                @inner_class_types = {
+                  custom_amount: CustomAmount,
+                  discount_tiers: DiscountTier,
+                  options: Option,
+                }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Specifier < ::Stripe::StripeObject
+              # Key-value pairs for presentation group filters.
+              attr_reader :presentation_group_values
+              # Key-value pairs for pricing group filters.
+              attr_reader :pricing_group_values
+              # Metronome product ID to scope this specifier to.
+              attr_reader :product_id
+              # Metronome product tags to scope this specifier to. Products must have all specified tags.
+              attr_reader :product_tags
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class TaxDetails < ::Stripe::StripeObject
+              # Stripe [tax code](https://docs.stripe.com/tax/tax-codes) for this commit (for example, `txcd_10103000`).
+              attr_reader :tax_code
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Sets the balance amount and release schedule. Mutually exclusive with `commit_options`.
+            attr_reader :access_schedule
+            # Metronome product tags this commit can be drawn down against. Products must have all specified tags. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all absent, the commit applies to all products. See Metronome's [applicable_product_tags](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-applicable-product-tags).
+            attr_reader :applicable_metronome_product_tags
+            # Metronome product IDs this commit can be drawn down against. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all absent, the commit applies to all products. See Metronome's [applicable_product_ids](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-applicable-product-ids).
+            attr_reader :applicable_metronome_products
+            # Customer selects the balance amount to purchase. Mutually exclusive with `access_schedule`.
+            attr_reader :commit_options
+            # The Metronome Custom Pricing Unit credit type ID for this commit. Null when the commit prices in fiat.
+            attr_reader :credit_type_id
+            # Key-value pairs forwarded to the Metronome commit's [custom_fields](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-custom-fields).
+            attr_reader :custom_fields
+            # Free-form description. Forwarded to the Metronome commit's description.
+            attr_reader :description
+            # The Metronome commit ID, populated after successful activation.
+            attr_reader :metronome_commit
+            # The Metronome product ID for this commit.
+            attr_reader :metronome_product
+            # Display name for the commit. Surfaced on the Metronome commit's name.
+            attr_reader :name
+            # Priority for applying the commit. Lower priority values apply first. Forwarded to Metronome as-is.
+            attr_reader :priority
+            # Specifies which rates are used to draw down the commit. Accepts `commit_rate`, `list_rate`, `COMMIT_RATE`, or `LIST_RATE`.
+            attr_reader :rate_type
+            # Fraction of unused balance that rolls over on a Metronome contract transition. Must be between `0` and `1`. Forwarded to Metronome as-is.
+            attr_reader :rollover_fraction
+            # Usage filters that determine what draws down the commit. If `applicable_metronome_products`, `applicable_metronome_product_tags`, and `specifiers` are all absent, the commit applies to all products. See Metronome's [specifiers](https://docs.metronome.com/api-reference/contracts/edit-a-contract#body-add-commits-items-specifiers).
+            attr_reader :specifiers
+            # Tax details for the Stripe product created for this commit. If provided, `tax_code` is required.
+            attr_reader :tax_details
+
+            def self.inner_class_types
+              @inner_class_types = {
+                access_schedule: AccessSchedule,
+                commit_options: CommitOptions,
+                specifiers: Specifier,
+                tax_details: TaxDetails,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                access_schedule: {
+                  kind: :nullable,
+                  inner: {
+                    kind: :object,
+                    fields: {
+                      schedule_items: {
+                        kind: :array,
+                        element: { kind: :object, fields: { amount: :decimal_string } },
+                      },
+                    },
+                  },
+                },
+                priority: { kind: :nullable, inner: :decimal_string },
+                rollover_fraction: { kind: :nullable, inner: :decimal_string },
+              }
+            end
+          end
+
+          class PriceConfiguration < ::Stripe::StripeObject
+            # The currency for this commit purchase, as an ISO 4217 lowercase string (for example, `usd`).
+            attr_reader :currency
+            # Specifies whether the price is considered inclusive or exclusive of taxes. When omitted and automatic tax is enabled, uses `tax_settings.defaults.tax_behavior`. If no default is set, the request returns an error.
+            attr_reader :tax_behavior
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The list of commits for this Metronome contract.
+          attr_reader :commits
+          # The Metronome contract ID associated with this checkout item.
+          attr_reader :metronome_contract
+          # The Metronome customer ID associated with this checkout item, resolved during validation.
+          attr_reader :metronome_customer
+          # Attribute for field price_configuration
+          attr_reader :price_configuration
+
+          def self.inner_class_types
+            @inner_class_types = { commits: Commit, price_configuration: PriceConfiguration }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              commits: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    access_schedule: {
+                      kind: :nullable,
+                      inner: {
+                        kind: :object,
+                        fields: {
+                          schedule_items: {
+                            kind: :array,
+                            element: { kind: :object, fields: { amount: :decimal_string } },
+                          },
+                        },
+                      },
+                    },
+                    priority: { kind: :nullable, inner: :decimal_string },
+                    rollover_fraction: { kind: :nullable, inner: :decimal_string },
+                  },
+                },
+              },
+            }
+          end
+        end
+
         class Subscription < ::Stripe::StripeObject
           class Item < ::Stripe::StripeObject
             class CurrentTrial < ::Stripe::StripeObject
@@ -1110,17 +1383,51 @@ module Stripe
         end
         # The key of the item. Guaranteed to be a unique ID within this checkout session's items.
         attr_reader :key
+        # Attribute for field metronome_commit
+        attr_reader :metronome_commit
         # Attribute for field subscription
         attr_reader :subscription
         # The type of the item.
         attr_reader :type
 
         def self.inner_class_types
-          @inner_class_types = { subscription: Subscription }
+          @inner_class_types = { metronome_commit: MetronomeCommit, subscription: Subscription }
         end
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            metronome_commit: {
+              kind: :object,
+              fields: {
+                commits: {
+                  kind: :array,
+                  element: {
+                    kind: :object,
+                    fields: {
+                      access_schedule: {
+                        kind: :nullable,
+                        inner: {
+                          kind: :object,
+                          fields: {
+                            schedule_items: {
+                              kind: :array,
+                              element: { kind: :object, fields: { amount: :decimal_string } },
+                            },
+                          },
+                        },
+                      },
+                      priority: { kind: :nullable, inner: :decimal_string },
+                      rollover_fraction: { kind: :nullable, inner: :decimal_string },
+                    },
+                  },
+                },
+              },
+            },
+          }
         end
       end
 
@@ -1130,6 +1437,47 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class MarketingAttribution < ::Stripe::StripeObject
+        class AdConversion < ::Stripe::StripeObject
+          # Whether the customer consented to sending conversion data to an advertising platform.
+          attr_reader :consent_collected
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field ad_conversion
+        attr_reader :ad_conversion
+        # The advertising platform's click identifier.
+        attr_reader :click_id
+        # The Unix timestamp when the advertising interaction occurred.
+        attr_reader :occurred_at
+        # The advertising group ID from the `utm_adgroup` parameter.
+        attr_reader :utm_adgroup
+        # The advertising content identifier from the `utm_content` parameter.
+        attr_reader :utm_content
+        # The advertising campaign ID from the `utm_id` parameter.
+        attr_reader :utm_id
+        # The marketing medium from the `utm_medium` parameter.
+        attr_reader :utm_medium
+        # The referral source from the `utm_source` parameter.
+        attr_reader :utm_source
+        # The paid search term from the `utm_term` parameter.
+        attr_reader :utm_term
+
+        def self.inner_class_types
+          @inner_class_types = { ad_conversion: AdConversion }
         end
 
         def self.field_remappings
@@ -1519,6 +1867,37 @@ module Stripe
             end
           end
 
+          class MandateOptions < ::Stripe::StripeObject
+            # Maximum or fixed amount for future payments, in the mandate's currency.
+            attr_reader :amount
+            # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            attr_reader :amount_type
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            attr_reader :currency
+            # A description of the mandate or subscription that is meant to be displayed to the customer.
+            attr_reader :description
+            # End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            attr_reader :end_date
+            # Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
+            attr_reader :interval
+            # The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
+            attr_reader :interval_count
+            # Unique identifier for the mandate or subscription.
+            attr_reader :reference
+            # Start date of the mandate or subscription. Start date should not be lesser than yesterday.
+            attr_reader :start_date
+            # Specifies the type of mandates supported. Possible values are `india`.
+            attr_reader :supported_types
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Restrictions < ::Stripe::StripeObject
             # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             attr_reader :brands_blocked
@@ -1537,6 +1916,8 @@ module Stripe
           attr_reader :capture_method
           # Attribute for field installments
           attr_reader :installments
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
           # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
           attr_reader :request_decremental_authorization
           # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
@@ -1565,7 +1946,11 @@ module Stripe
           attr_reader :statement_descriptor_suffix_kanji
 
           def self.inner_class_types
-            @inner_class_types = { installments: Installments, restrictions: Restrictions }
+            @inner_class_types = {
+              installments: Installments,
+              mandate_options: MandateOptions,
+              restrictions: Restrictions,
+            }
           end
 
           def self.field_remappings
@@ -3204,6 +3589,8 @@ module Stripe
       attr_reader :locale
       # Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](/api/payment_intents/object), [Invoices](/api/invoices/object), and [Subscriptions](/api/subscriptions/object).
       attr_reader :managed_payments
+      # Advertising attribution information for this Checkout Session.
+      attr_reader :marketing_attributions
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
       # The mode of the Checkout Session.
@@ -3222,7 +3609,7 @@ module Stripe
       attr_reader :payment_intent
       # The ID of the Payment Link that created this Session.
       attr_reader :payment_link
-      # Configure whether a Checkout Session should collect a payment method for sessions with mode `payment`. Defaults to `always`.
+      # Configure whether a Checkout Session should collect a payment method. Can only be set in `subscription` mode. Defaults to `always`.
       attr_reader :payment_method_collection
       # Information about the payment method configuration used for this Checkout session if using dynamic payment methods.
       attr_reader :payment_method_configuration_details
@@ -3406,6 +3793,7 @@ module Stripe
           invoice_creation: InvoiceCreation,
           items: Item,
           managed_payments: ManagedPayments,
+          marketing_attributions: MarketingAttribution,
           name_collection: NameCollection,
           optional_items: OptionalItem,
           payment_method_configuration_details: PaymentMethodConfigurationDetails,
@@ -3436,6 +3824,41 @@ module Stripe
           currency_conversion: {
             kind: :nullable,
             inner: { kind: :object, fields: { fx_rate: :decimal_string } },
+          },
+          items: {
+            kind: :array,
+            element: {
+              kind: :object,
+              fields: {
+                metronome_commit: {
+                  kind: :object,
+                  fields: {
+                    commits: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          access_schedule: {
+                            kind: :nullable,
+                            inner: {
+                              kind: :object,
+                              fields: {
+                                schedule_items: {
+                                  kind: :array,
+                                  element: { kind: :object, fields: { amount: :decimal_string } },
+                                },
+                              },
+                            },
+                          },
+                          priority: { kind: :nullable, inner: :decimal_string },
+                          rollover_fraction: { kind: :nullable, inner: :decimal_string },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
           },
           payment_settings: {
             kind: :object,

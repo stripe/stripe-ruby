@@ -103,6 +103,23 @@ module Stripe
           end
         end
         class EvaluatedSignals < ::Stripe::StripeObject
+          class AccountTakeover < ::Stripe::StripeObject
+            # Timestamp at which the signal was evaluated.
+            sig { returns(T.nilable(String)) }
+            def evaluated_at; end
+            # Categorical assessment of the account takeover risk.
+            sig { returns(String) }
+            def risk_level; end
+            # The account signal ID containing the full account takeover signal result.
+            sig { returns(T.nilable(String)) }
+            def signal; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class FraudulentWebsite < ::Stripe::StripeObject
             # Human-readable details about the fraudulent website evaluation, when available.
             sig { returns(T.nilable(String)) }
@@ -192,6 +209,9 @@ module Stripe
               @field_encodings = {score: :decimal_string}
             end
           end
+          # Synchronous account takeover result for the evaluation, when requested.
+          sig { returns(T.nilable(AccountTakeover)) }
+          def account_takeover; end
           # Fraudulent website result for the evaluation, when available.
           sig { returns(T.nilable(FraudulentWebsite)) }
           def fraudulent_website; end
@@ -206,6 +226,7 @@ module Stripe
           def user_multi_accounting; end
           def self.inner_class_types
             @inner_class_types = {
+              account_takeover: AccountTakeover,
               fraudulent_website: FraudulentWebsite,
               user_account_sharing: UserAccountSharing,
               user_merchant_fit: UserMerchantFit,

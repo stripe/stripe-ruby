@@ -180,6 +180,28 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class BusinessProfileManagement < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class CapitalFinancing < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -923,6 +945,28 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ReportingChart < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class TaxRegistrations < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -1029,6 +1073,9 @@ module Stripe
       # Configuration for the [Bills](/connect/supported-embedded-components/bills/) embedded component.
       sig { returns(T.nilable(Bills)) }
       def bills; end
+      # Configuration for the [Business profile management](/connect/supported-embedded-components/business-profile-management/) embedded component.
+      sig { returns(T.nilable(BusinessProfileManagement)) }
+      def business_profile_management; end
       # Attribute for field capital_financing
       sig { returns(T.nilable(CapitalFinancing)) }
       def capital_financing; end
@@ -1107,17 +1154,20 @@ module Stripe
       # Configuration for the [recipients list](/connect/supported-embedded-components/recipients-list/) embedded component.
       sig { returns(T.nilable(RecipientsList)) }
       def recipients_list; end
+      # Attribute for field reporting_chart
+      sig { returns(ReportingChart) }
+      def reporting_chart; end
       # Attribute for field tax_registrations
       sig { returns(TaxRegistrations) }
       def tax_registrations; end
       # Attribute for field tax_settings
       sig { returns(TaxSettings) }
       def tax_settings; end
-      # Configuration for the [Terminal hardware orders](/connect/supported-embedded-components/terminal-hardware-orders/) embedded component.
-      sig { returns(T.nilable(TerminalHardwareOrders)) }
+      # Attribute for field terminal_hardware_orders
+      sig { returns(TerminalHardwareOrders) }
       def terminal_hardware_orders; end
-      # Configuration for the [Terminal hardware shop](/connect/supported-embedded-components/terminal-hardware-shop/) embedded component.
-      sig { returns(T.nilable(TerminalHardwareShop)) }
+      # Attribute for field terminal_hardware_shop
+      sig { returns(TerminalHardwareShop) }
       def terminal_hardware_shop; end
       def self.inner_class_types
         @inner_class_types = {
@@ -1127,6 +1177,7 @@ module Stripe
           balance_report: BalanceReport,
           balances: Balances,
           bills: Bills,
+          business_profile_management: BusinessProfileManagement,
           capital_financing: CapitalFinancing,
           capital_financing_application: CapitalFinancingApplication,
           capital_financing_manual_payment: CapitalFinancingManualPayment,
@@ -1153,6 +1204,7 @@ module Stripe
           payouts: Payouts,
           payouts_list: PayoutsList,
           recipients_list: RecipientsList,
+          reporting_chart: ReportingChart,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
           terminal_hardware_orders: TerminalHardwareOrders,

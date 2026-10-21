@@ -881,6 +881,21 @@ module Stripe
         end
       end
 
+      class ProductEligibilityInquiry < ::Stripe::StripeObject
+        # The anticipated amount that merchants can send before a payment authorization, in the smallest currency unit.
+        attr_reader :anticipated_amount
+        # The currency of the anticipated amount that merchants can send before a payment authorization.
+        attr_reader :anticipated_currency
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Redaction < ::Stripe::StripeObject
         # Indicates whether this object and its related objects have been redacted or not.
         attr_reader :status
@@ -1395,6 +1410,8 @@ module Stripe
       attr_reader :pending_request
       # The point-of-sale initiation condition. This is null when the card network did not provide one.
       attr_reader :pos_condition
+      # Details about the authorization specific to product eligibility inquiries. This field is only populated for `product_eligibility_inquiry` type authorizations.
+      attr_reader :product_eligibility_inquiry
       # Redaction status of this authorization. If the authorization is not redacted, this field will be null.
       attr_reader :redaction
       # History of every time a `pending_request` authorization was approved/declined, either by you directly or by Stripe (e.g. based on your spending_controls). If the merchant changes the authorization by performing an incremental authorization, you can look at this field to see the previous requests for the authorization. This field can be helpful in determining why a given authorization was approved/declined.
@@ -1411,6 +1428,8 @@ module Stripe
       attr_reader :transactions
       # [Treasury](https://docs.stripe.com/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://docs.stripe.com/api/treasury/financial_accounts).
       attr_reader :treasury
+      # The type of the authorization, whether it is for a payment or another type.
+      attr_reader :type
       # Attribute for field verification_data
       attr_reader :verification_data
       # Whether the authorization bypassed fraud risk checks because the cardholder has previously completed a fraud challenge on a similar high-risk authorization from the same merchant.
@@ -1650,6 +1669,7 @@ module Stripe
           merchant_data: MerchantData,
           network_data: NetworkData,
           pending_request: PendingRequest,
+          product_eligibility_inquiry: ProductEligibilityInquiry,
           redaction: Redaction,
           request_history: RequestHistory,
           terminal_data: TerminalData,

@@ -24,6 +24,28 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class AccountTakeover < ::Stripe::StripeObject
+          # Categorical assessment of the account takeover risk.
+          sig { returns(String) }
+          def risk_level; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CustomerRisk < ::Stripe::StripeObject
+          # Categorical assessment of the customer's risk of fraudulent or abusive activity.
+          sig { returns(String) }
+          def risk_level; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class FraudulentMerchant < ::Stripe::StripeObject
           class AdditionalDetails < ::Stripe::StripeObject
             class Indicator < ::Stripe::StripeObject
@@ -279,9 +301,15 @@ module Stripe
         # The account evaluation that produced this signal, if applicable.
         sig { returns(T.nilable(String)) }
         def account_evaluation; end
+        # Data for the account takeover signal. Present only when type is account_takeover.
+        sig { returns(T.nilable(AccountTakeover)) }
+        def account_takeover; end
         # Timestamp at which the signal was created.
         sig { returns(String) }
         def created; end
+        # Data for the customer risk signal. Present only when type is customer_risk.
+        sig { returns(T.nilable(CustomerRisk)) }
+        def customer_risk; end
         # Data for the fraudulent merchant signal. Present only when type is fraudulent_merchant.
         sig { returns(T.nilable(FraudulentMerchant)) }
         def fraudulent_merchant; end

@@ -708,6 +708,11 @@ module Stripe
     autoload :ReleaseRetrieveParams, "stripe/params/reserve/release_retrieve_params"
   end
 
+  module Risk
+    autoload :FormRetrieveParams, "stripe/params/risk/form_retrieve_params"
+    autoload :FormUpdateParams, "stripe/params/risk/form_update_params"
+  end
+
   module SharedPayment
     autoload :GrantedTokenCreateParams, "stripe/params/shared_payment/granted_token_create_params"
     autoload :GrantedTokenRetrieveParams, "stripe/params/shared_payment/granted_token_retrieve_params"
@@ -1166,6 +1171,7 @@ module Stripe
     end
 
     module Data
+      autoload :OperationSearchParams, "stripe/params/v2/data/operation_search_params"
       autoload :QueryRunCreateParams, "stripe/params/v2/data/query_run_create_params"
       autoload :QueryRunRetrieveParams, "stripe/params/v2/data/query_run_retrieve_params"
       autoload :ReportListParams, "stripe/params/v2/data/report_list_params"
@@ -1986,6 +1992,8 @@ module Stripe
     stripe/params/review_approve_params
     stripe/params/review_list_params
     stripe/params/review_retrieve_params
+    stripe/params/risk/form_retrieve_params
+    stripe/params/risk/form_update_params
     stripe/params/setup_attempt_list_params
     stripe/params/setup_intent_cancel_params
     stripe/params/setup_intent_confirm_params
@@ -2390,6 +2398,7 @@ module Stripe
     stripe/params/v2/core/vault/us_bank_account_send_microdeposits_params
     stripe/params/v2/core/vault/us_bank_account_update_params
     stripe/params/v2/data/analytics/metric_query_create_params
+    stripe/params/v2/data/operation_search_params
     stripe/params/v2/data/query_run_create_params
     stripe/params/v2/data/query_run_retrieve_params
     stripe/params/v2/data/report_list_params

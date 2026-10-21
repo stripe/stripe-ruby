@@ -6,6 +6,7 @@ module Stripe
   module V2
     class DataService < StripeService
       attr_reader :analytics
+      attr_reader :operations
       attr_reader :query_runs
       attr_reader :reports
       attr_reader :report_runs

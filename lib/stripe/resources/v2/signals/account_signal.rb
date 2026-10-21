@@ -29,6 +29,32 @@ module Stripe
           end
         end
 
+        class AccountTakeover < ::Stripe::StripeObject
+          # Categorical assessment of the account takeover risk.
+          attr_reader :risk_level
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CustomerRisk < ::Stripe::StripeObject
+          # Categorical assessment of the customer's risk of fraudulent or abusive activity.
+          attr_reader :risk_level
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class FraudulentMerchant < ::Stripe::StripeObject
           class AdditionalDetails < ::Stripe::StripeObject
             class Indicator < ::Stripe::StripeObject
@@ -295,8 +321,12 @@ module Stripe
         attr_reader :account_details
         # The account evaluation that produced this signal, if applicable.
         attr_reader :account_evaluation
+        # Data for the account takeover signal. Present only when type is account_takeover.
+        attr_reader :account_takeover
         # Timestamp at which the signal was created.
         attr_reader :created
+        # Data for the customer risk signal. Present only when type is customer_risk.
+        attr_reader :customer_risk
         # Data for the fraudulent merchant signal. Present only when type is fraudulent_merchant.
         attr_reader :fraudulent_merchant
         # Data for the fraudulent website signal. Present only when type is fraudulent_website.
@@ -323,6 +353,8 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             account_details: AccountDetails,
+            account_takeover: AccountTakeover,
+            customer_risk: CustomerRisk,
             fraudulent_merchant: FraudulentMerchant,
             fraudulent_website: FraudulentWebsite,
             merchant_delinquency: MerchantDelinquency,

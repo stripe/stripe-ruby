@@ -3,6 +3,7 @@ title: Update generated code
 pr_url: https://github.com/stripe/stripe-ruby/pull/1996
 semver_level: major
 is_stripe_api_change: true
+released_in_version: 20.1.0-alpha.4
 ---
 
 * Add support for new resources `Risk::Form` and `V2::Data::SearchResultList`

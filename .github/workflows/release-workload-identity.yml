@@ -79,6 +79,7 @@ jobs:
 
   publish:
     name: Publish
+    environment: workload-identity-release
     if: >-
       ((github.event_name == 'workflow_dispatch') || (github.event_name == 'push')) &&
       startsWith(github.ref, 'refs/tags/workload-identity-v')
@@ -86,6 +87,7 @@ jobs:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
+      id-token: write
     steps:
     - name: Download workflow run artifacts
       uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
@@ -96,7 +98,7 @@ jobs:
       uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
       with:
         ruby-version: '3.1'
+    - name: Configure RubyGems credentials
+      uses: rubygems/configure-rubygems-credentials@dc5a8d8553e6ee01fc26761a49e99e733d17954a # v2.1.0
     - name: Publish gem to Rubygems
       run: gem push gems/*.gem
-      env:
-        GEM_HOST_API_KEY: ${{secrets.GEM_HOST_API_KEY}}

@@ -61,6 +61,7 @@ jobs:
     name: Publish
     needs: build
     runs-on: ubuntu-24.04
+    environment: historical-publish
     permissions:
       contents: read
       id-token: write

@@ -260,11 +260,11 @@ module Stripe
             @field_encodings = {score: :decimal_string}
           end
         end
-        class UserMerchantFit < ::Stripe::StripeObject
-          # Categorical assessment of the user-merchant fit.
+        class UserAffinity < ::Stripe::StripeObject
+          # Categorical assessment of the user affinity.
           sig { returns(String) }
-          def fit_level; end
-          # The specific fit score for the user, between 0.00 and 100.00. Absent when fit_level is unknown.
+          def level; end
+          # The specific affinity score for the user, between 0.00 and 100.00. Absent when level is unknown.
           sig { returns(T.nilable(BigDecimal)) }
           def score; end
           def self.inner_class_types
@@ -337,9 +337,9 @@ module Stripe
         # Data for the user account-sharing signal. Present only when type is user_account_sharing.
         sig { returns(T.nilable(UserAccountSharing)) }
         def user_account_sharing; end
-        # Data for the user-merchant fit signal. Present only when type is user_merchant_fit.
-        sig { returns(T.nilable(UserMerchantFit)) }
-        def user_merchant_fit; end
+        # Data for the user affinity signal. Present only when type is user_affinity.
+        sig { returns(T.nilable(UserAffinity)) }
+        def user_affinity; end
         # Data for the user multi-accounting signal. Present only when type is user_multi_accounting.
         sig { returns(T.nilable(UserMultiAccounting)) }
         def user_multi_accounting; end

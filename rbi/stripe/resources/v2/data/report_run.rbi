@@ -7,7 +7,9 @@ module Stripe
     module Data
       # The `ReportRun` resource represents an instance of a `Report` generated with specific
       # parameter values. Once the object is created, Stripe begins processing the report. When
-      # the report has finished running, it provides a reference to the results.
+      # the report has finished running, it provides a reference to the results. A `ReportRun` and
+      # its results are retained for 90 days after the run completes. After that, Stripe deletes
+      # them and retrieving the `ReportRun` returns a `404` error.
       class ReportRun < APIResource
         class Result < ::Stripe::StripeObject
           class File < ::Stripe::StripeObject
@@ -134,10 +136,10 @@ module Stripe
           end
         end
         class ResultOptions < ::Stripe::StripeObject
-          # If set, the generated result file is compressed into a ZIP archive before
-          # it is stored. This applies only to downloadable file results.
-          sig { returns(T.nilable(T::Boolean)) }
-          def compress_file; end
+          # The compression applied to the generated result file. Defaults to `none`. This applies
+          # only to downloadable file results.
+          sig { returns(T.nilable(String)) }
+          def compression; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -146,6 +148,20 @@ module Stripe
           end
         end
         class StatusDetails < ::Stripe::StripeObject
+          class QueryError < ::Stripe::StripeObject
+            # A human-readable description of the error.
+            sig { returns(String) }
+            def message; end
+            # A short identifier categorizing the type of error.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Time at which the run was canceled. Populated when the run is in the `canceled` state.
           sig { returns(T.nilable(String)) }
           def canceled_at; end
@@ -155,8 +171,11 @@ module Stripe
           # Error message with additional details about the failure.
           sig { returns(T.nilable(String)) }
           def message; end
+          # Errors found in the submitted SQL. Populated when the failure was caused by invalid SQL.
+          sig { returns(T::Array[QueryError]) }
+          def query_errors; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {query_errors: QueryError}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -165,6 +184,9 @@ module Stripe
         # Time at which the `ReportRun` was created.
         sig { returns(String) }
         def created; end
+        # The file format of the result.
+        sig { returns(String) }
+        def format; end
         # The unique identifier of the `ReportRun`.
         sig { returns(String) }
         def id; end
@@ -192,8 +214,8 @@ module Stripe
         # Settings applied to the generated result file.
         sig { returns(T.nilable(ResultOptions)) }
         def result_options; end
-        # The fully-resolved SQL that was executed. Only present when requested via
-        # `include[0]=sql`.
+        # The fully-resolved SQL that was executed, or an explanatory message when the SQL cannot be
+        # exposed. Only present when requested via `include[0]=sql`.
         sig { returns(T.nilable(String)) }
         def sql; end
         # The current status of the `ReportRun`.

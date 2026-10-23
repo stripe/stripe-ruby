@@ -913,7 +913,14 @@ module Stripe
           end
         end
 
-        class SepaDebit < ::Stripe::RequestParams; end
+        class SepaDebit < ::Stripe::RequestParams
+          # Controls when the funds will be captured from the customer's account.
+          attr_accessor :debit_behavior
+
+          def initialize(debit_behavior: nil)
+            @debit_behavior = debit_behavior
+          end
+        end
 
         class Upi < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams

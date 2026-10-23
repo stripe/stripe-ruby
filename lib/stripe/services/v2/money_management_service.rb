@@ -4,7 +4,7 @@
 module Stripe
   module V2
     class MoneyManagementService < StripeService
-      attr_reader :adjustments, :currency_conversions, :debit_disputes, :earned_credits, :financial_accounts, :financial_addresses, :funding_sessions, :inbound_transfers, :inbound_transfer_mandates, :outbound_payments, :outbound_payment_quotes, :outbound_setup_intents, :outbound_transfers, :payout_intents, :payout_methods, :payout_methods_bank_account_spec, :received_credits, :received_debits, :received_debit_mandates, :recipient_verifications, :test_helpers, :transactions, :transaction_entries
+      attr_reader :adjustments, :currency_conversions, :debit_disputes, :earned_credits, :financial_accounts, :financial_addresses, :funding_intents, :funding_sessions, :inbound_transfers, :inbound_transfer_mandates, :outbound_payments, :outbound_payment_quotes, :outbound_setup_intents, :outbound_transfers, :payout_intents, :payout_methods, :payout_methods_bank_account_spec, :received_credits, :received_debits, :received_debit_mandates, :recipient_verifications, :reward_programs, :reward_program_enrollments, :test_helpers, :transactions, :transaction_entries
 
       def initialize(requestor)
         super
@@ -15,6 +15,7 @@ module Stripe
         @earned_credits = Stripe::V2::MoneyManagement::EarnedCreditService.new(@requestor)
         @financial_accounts = Stripe::V2::MoneyManagement::FinancialAccountService.new(@requestor)
         @financial_addresses = Stripe::V2::MoneyManagement::FinancialAddressService.new(@requestor)
+        @funding_intents = Stripe::V2::MoneyManagement::FundingIntentService.new(@requestor)
         @funding_sessions = Stripe::V2::MoneyManagement::FundingSessionService.new(@requestor)
         @inbound_transfers = Stripe::V2::MoneyManagement::InboundTransferService.new(@requestor)
         @inbound_transfer_mandates = Stripe::V2::MoneyManagement::InboundTransferMandateService
@@ -35,6 +36,9 @@ module Stripe
                                    .new(@requestor)
         @recipient_verifications = Stripe::V2::MoneyManagement::RecipientVerificationService
                                    .new(@requestor)
+        @reward_programs = Stripe::V2::MoneyManagement::RewardProgramService.new(@requestor)
+        @reward_program_enrollments = Stripe::V2::MoneyManagement::RewardProgramEnrollmentService
+                                      .new(@requestor)
         @test_helpers = Stripe::V2::MoneyManagement::TestHelperService.new(@requestor)
         @transactions = Stripe::V2::MoneyManagement::TransactionService.new(@requestor)
         @transaction_entries = Stripe::V2::MoneyManagement::TransactionEntryService.new(@requestor)

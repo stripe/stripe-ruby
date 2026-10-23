@@ -8,6 +8,7 @@ module Stripe
       class OutboundPaymentQuoteService < StripeService
         # Creates an OutboundPaymentQuote usable in an OutboundPayment.
         #
+        # ** raises CapabilityNotEnabledError
         # ** raises FeatureNotEnabledError
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::OutboundPaymentQuote)

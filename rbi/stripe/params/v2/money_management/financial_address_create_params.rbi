@@ -12,7 +12,7 @@ module Stripe
           def country; end
           sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
           def country=(_country); end
-          # The currency of the bank account to provision.
+          # The currency of the bank account to provision. Available currencies depend on your account's enabled features and rollout access; `eur` requires the Financial Address Global Payouts EU preview.
           sig { returns(String) }
           def currency; end
           sig { params(_currency: String).returns(String) }
@@ -43,7 +43,7 @@ module Stripe
           params(_bank_account: T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::BankAccount)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::BankAccount))
          }
         def bank_account=(_bank_account); end
-        # Attribute for param field crypto_wallet
+        # Properties for creating a crypto wallet FinancialAddress. Requires `settlement_currency`.
         sig {
           returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::CryptoWallet))
          }
@@ -57,7 +57,7 @@ module Stripe
         def financial_account; end
         sig { params(_financial_account: String).returns(String) }
         def financial_account=(_financial_account); end
-        # Attribute for param field settlement_currency
+        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount. Optional for `bank_account`, where it defaults to `bank_account.currency`; required for all other types.
         sig { returns(T.nilable(String)) }
         def settlement_currency; end
         sig { params(_settlement_currency: T.nilable(String)).returns(T.nilable(String)) }

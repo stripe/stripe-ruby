@@ -135,7 +135,7 @@ module Stripe
         end
         class Documents < ::Stripe::StripeObject
           class CompanyAuthorization < ::Stripe::StripeObject
-            # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+            # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
             sig { returns(T::Array[String]) }
             def files; end
             # The format of the document. Currently supports `files` only.
@@ -149,7 +149,7 @@ module Stripe
             end
           end
           class Passport < ::Stripe::StripeObject
-            # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+            # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
             sig { returns(T::Array[String]) }
             def files; end
             # The format of the document. Currently supports `files` only.
@@ -164,10 +164,10 @@ module Stripe
           end
           class PrimaryVerification < ::Stripe::StripeObject
             class FrontBack < ::Stripe::StripeObject
-              # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+              # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               sig { returns(T.nilable(String)) }
               def back; end
-              # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+              # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               sig { returns(String) }
               def front; end
               def self.inner_class_types
@@ -177,7 +177,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
+            # The [file upload](https://docs.stripe.com/api/files/create) tokens for the front and back of the verification document.
             sig { returns(FrontBack) }
             def front_back; end
             # The format of the verification document. Currently supports `front_back` only.
@@ -192,10 +192,10 @@ module Stripe
           end
           class SecondaryVerification < ::Stripe::StripeObject
             class FrontBack < ::Stripe::StripeObject
-              # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+              # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               sig { returns(T.nilable(String)) }
               def back; end
-              # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+              # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               sig { returns(String) }
               def front; end
               def self.inner_class_types
@@ -205,7 +205,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
+            # The [file upload](https://docs.stripe.com/api/files/create) tokens for the front and back of the verification document.
             sig { returns(FrontBack) }
             def front_back; end
             # The format of the verification document. Currently supports `front_back` only.
@@ -219,7 +219,7 @@ module Stripe
             end
           end
           class Visa < ::Stripe::StripeObject
-            # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+            # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
             sig { returns(T::Array[String]) }
             def files; end
             # The format of the document. Currently supports `files` only.

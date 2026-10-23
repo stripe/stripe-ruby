@@ -2085,10 +2085,13 @@ module Stripe
               @surname = surname
             end
           end
+          # The merchant of record for this account funding transaction. Can only be set when creating a PaymentIntent.
+          attr_accessor :merchant_of_record
           # Inline identity details for the sender of this account funding transaction.
           attr_accessor :sender_details
 
-          def initialize(sender_details: nil)
+          def initialize(merchant_of_record: nil, sender_details: nil)
+            @merchant_of_record = merchant_of_record
             @sender_details = sender_details
           end
         end
@@ -2655,6 +2658,7 @@ module Stripe
       class Sunbit < ::Stripe::RequestParams; end
       class Swish < ::Stripe::RequestParams; end
       class Tamara < ::Stripe::RequestParams; end
+      class TossPay < ::Stripe::RequestParams; end
       class Twint < ::Stripe::RequestParams; end
 
       class Upi < ::Stripe::RequestParams
@@ -2849,6 +2853,8 @@ module Stripe
       attr_accessor :swish
       # If this is a `tamara` PaymentMethod, this hash contains details about the Tamara payment method.
       attr_accessor :tamara
+      # If this is a `toss_pay` PaymentMethod, this hash contains details about the Toss Pay payment method.
+      attr_accessor :toss_pay
       # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
       attr_accessor :twint
       # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -2933,6 +2939,7 @@ module Stripe
         sunbit: nil,
         swish: nil,
         tamara: nil,
+        toss_pay: nil,
         twint: nil,
         type: nil,
         upi: nil,
@@ -3009,6 +3016,7 @@ module Stripe
         @sunbit = sunbit
         @swish = swish
         @tamara = tamara
+        @toss_pay = toss_pay
         @twint = twint
         @type = type
         @upi = upi
@@ -6096,6 +6104,21 @@ module Stripe
         end
       end
 
+      class TossPay < ::Stripe::RequestParams
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_accessor :setup_future_usage
+
+        def initialize(setup_future_usage: nil)
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
       class Twint < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
@@ -6468,6 +6491,8 @@ module Stripe
       attr_accessor :sunbit
       # If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
       attr_accessor :swish
+      # If this is a `toss_pay` PaymentMethod, this sub-hash contains details about the Toss Pay payment method options.
+      attr_accessor :toss_pay
       # If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
       attr_accessor :twint
       # If this is a `upi` PaymentIntent, this sub-hash contains details about the UPI payment method options.
@@ -6545,6 +6570,7 @@ module Stripe
         stripe_balance: nil,
         sunbit: nil,
         swish: nil,
+        toss_pay: nil,
         twint: nil,
         upi: nil,
         us_bank_account: nil,
@@ -6615,6 +6641,7 @@ module Stripe
         @stripe_balance = stripe_balance
         @sunbit = sunbit
         @swish = swish
+        @toss_pay = toss_pay
         @twint = twint
         @upi = upi
         @us_bank_account = us_bank_account

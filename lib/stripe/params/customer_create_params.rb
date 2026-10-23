@@ -91,6 +91,57 @@ module Stripe
       end
     end
 
+    class MarketingAttribution < ::Stripe::RequestParams
+      class AdConversion < ::Stripe::RequestParams
+        # Whether the customer consented to sending conversion data to an advertising platform.
+        attr_accessor :consent_collected
+
+        def initialize(consent_collected: nil)
+          @consent_collected = consent_collected
+        end
+      end
+      # Information used when sending conversions to an advertising platform.
+      attr_accessor :ad_conversion
+      # The advertising platform's click identifier.
+      attr_accessor :click_id
+      # The Unix timestamp when the advertising interaction occurred.
+      attr_accessor :occurred_at
+      # The advertising group ID from the `utm_adgroup` parameter.
+      attr_accessor :utm_adgroup
+      # The advertising content identifier from the `utm_content` parameter.
+      attr_accessor :utm_content
+      # The advertising campaign ID from the `utm_id` parameter.
+      attr_accessor :utm_id
+      # The marketing medium from the `utm_medium` parameter.
+      attr_accessor :utm_medium
+      # The referral source from the `utm_source` parameter.
+      attr_accessor :utm_source
+      # The paid search term from the `utm_term` parameter.
+      attr_accessor :utm_term
+
+      def initialize(
+        ad_conversion: nil,
+        click_id: nil,
+        occurred_at: nil,
+        utm_adgroup: nil,
+        utm_content: nil,
+        utm_id: nil,
+        utm_medium: nil,
+        utm_source: nil,
+        utm_term: nil
+      )
+        @ad_conversion = ad_conversion
+        @click_id = click_id
+        @occurred_at = occurred_at
+        @utm_adgroup = utm_adgroup
+        @utm_content = utm_content
+        @utm_id = utm_id
+        @utm_medium = utm_medium
+        @utm_source = utm_source
+        @utm_term = utm_term
+      end
+    end
+
     class Shipping < ::Stripe::RequestParams
       class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
@@ -179,6 +230,8 @@ module Stripe
     attr_accessor :invoice_prefix
     # Default invoice settings for this customer.
     attr_accessor :invoice_settings
+    # Advertising attribution information for this customer. Only one attribution is supported.
+    attr_accessor :marketing_attributions
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # The customer's full name or business name.
@@ -217,6 +270,7 @@ module Stripe
       individual_name: nil,
       invoice_prefix: nil,
       invoice_settings: nil,
+      marketing_attributions: nil,
       metadata: nil,
       name: nil,
       next_invoice_sequence: nil,
@@ -241,6 +295,7 @@ module Stripe
       @individual_name = individual_name
       @invoice_prefix = invoice_prefix
       @invoice_settings = invoice_settings
+      @marketing_attributions = marketing_attributions
       @metadata = metadata
       @name = name
       @next_invoice_sequence = next_invoice_sequence

@@ -1379,7 +1379,15 @@ module Stripe
            }
           def initialize(expires_after_seconds: nil, mandate_options: nil); end
         end
-        class SepaDebit < ::Stripe::RequestParams; end
+        class SepaDebit < ::Stripe::RequestParams
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def debit_behavior; end
+          sig { params(_debit_behavior: T.nilable(String)).returns(T.nilable(String)) }
+          def debit_behavior=(_debit_behavior); end
+          sig { params(debit_behavior: T.nilable(String)).void }
+          def initialize(debit_behavior: nil); end
+        end
         class Upi < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Amount to be charged for future payments.

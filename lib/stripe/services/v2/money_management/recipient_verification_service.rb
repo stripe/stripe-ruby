@@ -5,7 +5,7 @@ module Stripe
   module V2
     module MoneyManagement
       class RecipientVerificationService < StripeService
-        # Acknowledges an existing RecipientVerification. Only RecipientVerification awaiting acknowledgement can be acknowledged.
+        # Acknowledges an existing RecipientVerification in the `awaiting_acknowledgement` state.
         def acknowledge(id, params = {}, opts = {})
           request(
             method: :post,

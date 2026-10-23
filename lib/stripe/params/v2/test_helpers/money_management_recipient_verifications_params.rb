@@ -10,7 +10,7 @@ module Stripe
         attr_accessor :match_result
         # ID of the payout method.
         attr_accessor :payout_method
-        # ID of the recipient account. Required if the recipient distinct from the sender. Leave empty if the recipient and sender are the same entity (i.e. for me-to-me payouts).
+        # ID of the recipient account. Required if the recipient is different from the sender. Omit for payouts to your own account.
         attr_accessor :recipient
 
         def initialize(match_result: nil, payout_method: nil, recipient: nil)

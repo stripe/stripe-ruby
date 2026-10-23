@@ -2961,6 +2961,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The merchant of record for this account funding transaction.
+          attr_reader :merchant_of_record
           # Attribute for field sender_account
           attr_reader :sender_account
           # Attribute for field sender_details
@@ -5005,6 +5007,25 @@ module Stripe
         end
       end
 
+      class TossPay < ::Stripe::StripeObject
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Twint < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
@@ -5363,6 +5384,8 @@ module Stripe
       attr_reader :sunbit
       # Attribute for field swish
       attr_reader :swish
+      # Attribute for field toss_pay
+      attr_reader :toss_pay
       # Attribute for field twint
       attr_reader :twint
       # Attribute for field upi
@@ -5441,6 +5464,7 @@ module Stripe
           stripe_balance: StripeBalance,
           sunbit: Sunbit,
           swish: Swish,
+          toss_pay: TossPay,
           twint: Twint,
           upi: Upi,
           us_bank_account: UsBankAccount,

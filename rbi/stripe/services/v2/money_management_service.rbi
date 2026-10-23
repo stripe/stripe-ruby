@@ -11,6 +11,7 @@ module Stripe
       attr_reader :earned_credits
       attr_reader :financial_accounts
       attr_reader :financial_addresses
+      attr_reader :funding_intents
       attr_reader :funding_sessions
       attr_reader :inbound_transfers
       attr_reader :inbound_transfer_mandates
@@ -25,6 +26,8 @@ module Stripe
       attr_reader :received_debits
       attr_reader :received_debit_mandates
       attr_reader :recipient_verifications
+      attr_reader :reward_programs
+      attr_reader :reward_program_enrollments
       attr_reader :test_helpers
       attr_reader :transactions
       attr_reader :transaction_entries

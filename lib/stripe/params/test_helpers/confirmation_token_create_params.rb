@@ -357,6 +357,7 @@ module Stripe
         class Sunbit < ::Stripe::RequestParams; end
         class Swish < ::Stripe::RequestParams; end
         class Tamara < ::Stripe::RequestParams; end
+        class TossPay < ::Stripe::RequestParams; end
         class Twint < ::Stripe::RequestParams; end
 
         class Upi < ::Stripe::RequestParams
@@ -551,6 +552,8 @@ module Stripe
         attr_accessor :swish
         # If this is a `tamara` PaymentMethod, this hash contains details about the Tamara payment method.
         attr_accessor :tamara
+        # If this is a `toss_pay` PaymentMethod, this hash contains details about the Toss Pay payment method.
+        attr_accessor :toss_pay
         # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
         attr_accessor :twint
         # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -635,6 +638,7 @@ module Stripe
           sunbit: nil,
           swish: nil,
           tamara: nil,
+          toss_pay: nil,
           twint: nil,
           type: nil,
           upi: nil,
@@ -711,6 +715,7 @@ module Stripe
           @sunbit = sunbit
           @swish = swish
           @tamara = tamara
+          @toss_pay = toss_pay
           @twint = twint
           @type = type
           @upi = upi

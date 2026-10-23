@@ -18,6 +18,8 @@ module Stripe
             attr_reader :column
             # The identifier of the referenced schema.
             attr_reader :schema
+            # The name of the referenced schema.
+            attr_reader :schema_name
 
             def self.inner_class_types
               @inner_class_types = {}
@@ -33,6 +35,8 @@ module Stripe
             attr_reader :column
             # The identifier of the referenced schema.
             attr_reader :schema
+            # The name of the referenced schema.
+            attr_reader :schema_name
 
             def self.inner_class_types
               @inner_class_types = {}

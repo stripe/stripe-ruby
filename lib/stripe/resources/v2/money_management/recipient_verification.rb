@@ -11,11 +11,32 @@ module Stripe
           "v2.money_management.recipient_verification"
         end
 
+        class ConsumedBy < ::Stripe::StripeObject
+          # The ID of the OutboundPayment that consumed the RecipientVerification.
+          attr_reader :outbound_payment
+          # The ID of the OutboundTransfer that consumed the RecipientVerification.
+          attr_reader :outbound_transfer
+          # The type of resource that consumed the RecipientVerification.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class MatchResultDetails < ::Stripe::StripeObject
+          # The business type matched by the provider. Only present for Confirmation of Payee (CoP) verifications.
+          attr_reader :matched_business_type
           # The account name associated with the bank account as provided by the VoP provider, only present if there is a match or close match.
           attr_reader :matched_name
           # A message describing the match result.
           attr_reader :message
+          # The business type provided by the user. Only present for Confirmation of Payee (CoP) verifications.
+          attr_reader :provided_business_type
           # The name associated with the provided recipient.
           attr_reader :provided_name
 
@@ -44,12 +65,12 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The OBP/OBT ID that consumed this verification, present if one is successfully created.
+        # The resource that consumed this verification.
         attr_reader :consumed_by
         # Time at which the RecipientVerification was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         attr_reader :created
-        # Time at which the RecipientVerification expires, 5 minutes after the creation.
+        # Time at which the RecipientVerification expires, 5 minutes after the creation. Only applicable for Verification of Payee (VoP) verifications.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         attr_reader :expires_at
         # The ID of the RecipientVerification.
@@ -62,13 +83,20 @@ module Stripe
         attr_reader :match_result_details
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # Closed Enum. Current status of the RecipientVerification: `verified`, `consumed`, `expired`, `awaiting_acknowledgement`, `acknowledged`.
+        # ID of the payout method that was verified.
+        attr_reader :payout_method
+        # ID of the recipient account. Omitted for same-entity payouts.
+        attr_reader :recipient
+        # Current status of the recipient verification.
         attr_reader :status
         # Hash containing timestamps of when the object transitioned to a particular status.
         attr_reader :status_transitions
+        # Open Enum. The type of verification performed: `verification_of_payee`, `confirmation_of_payee`.
+        attr_reader :verification_type
 
         def self.inner_class_types
           @inner_class_types = {
+            consumed_by: ConsumedBy,
             match_result_details: MatchResultDetails,
             status_transitions: StatusTransitions,
           }

@@ -448,6 +448,7 @@ module Stripe
       autoload :AccountEvaluationService, "stripe/services/v2/core/account_evaluation_service"
       autoload :AccountLinkService, "stripe/services/v2/core/account_link_service"
       autoload :AccountService, "stripe/services/v2/core/account_service"
+      autoload :AccountSessionService, "stripe/services/v2/core/account_session_service"
       autoload :AccountTokenService, "stripe/services/v2/core/account_token_service"
       autoload :ApprovalRequestService, "stripe/services/v2/core/approval_request_service"
       autoload :BatchJobService, "stripe/services/v2/core/batch_job_service"
@@ -515,6 +516,7 @@ module Stripe
       autoload :EarnedCreditService, "stripe/services/v2/money_management/earned_credit_service"
       autoload :FinancialAccountService, "stripe/services/v2/money_management/financial_account_service"
       autoload :FinancialAddressService, "stripe/services/v2/money_management/financial_address_service"
+      autoload :FundingIntentService, "stripe/services/v2/money_management/funding_intent_service"
       autoload :FundingSessionService, "stripe/services/v2/money_management/funding_session_service"
       autoload :InboundTransferMandateService, "stripe/services/v2/money_management/inbound_transfer_mandate_service"
       autoload :InboundTransferService, "stripe/services/v2/money_management/inbound_transfer_service"
@@ -530,6 +532,8 @@ module Stripe
       autoload :ReceivedDebitMandateService, "stripe/services/v2/money_management/received_debit_mandate_service"
       autoload :ReceivedDebitService, "stripe/services/v2/money_management/received_debit_service"
       autoload :RecipientVerificationService, "stripe/services/v2/money_management/recipient_verification_service"
+      autoload :RewardProgramEnrollmentService, "stripe/services/v2/money_management/reward_program_enrollment_service"
+      autoload :RewardProgramService, "stripe/services/v2/money_management/reward_program_service"
       autoload :TestHelperService, "stripe/services/v2/money_management/test_helper_service"
       autoload :TransactionEntryService, "stripe/services/v2/money_management/transaction_entry_service"
       autoload :TransactionService, "stripe/services/v2/money_management/transaction_service"
@@ -537,6 +541,10 @@ module Stripe
       module FinancialAccounts
         autoload :StatementService, "stripe/services/v2/money_management/financial_accounts/statement_service"
         autoload :WalletExportService, "stripe/services/v2/money_management/financial_accounts/wallet_export_service"
+      end
+
+      module RewardPrograms
+        autoload :RuleService, "stripe/services/v2/money_management/reward_programs/rule_service"
       end
 
       module TestHelpers
@@ -583,7 +591,7 @@ module Stripe
     end
 
     module Risk
-      autoload :InquiryService, "stripe/services/v2/risk/inquiry_service"
+      autoload :FormService, "stripe/services/v2/risk/form_service"
     end
 
     module Signals
@@ -899,6 +907,7 @@ module Stripe
     stripe/services/v2/core/account_evaluation_service
     stripe/services/v2/core/account_link_service
     stripe/services/v2/core/account_service
+    stripe/services/v2/core/account_session_service
     stripe/services/v2/core/account_token_service
     stripe/services/v2/core/accounts/person_service
     stripe/services/v2/core/accounts/person_token_service
@@ -942,6 +951,7 @@ module Stripe
     stripe/services/v2/money_management/financial_accounts/statement_service
     stripe/services/v2/money_management/financial_accounts/wallet_export_service
     stripe/services/v2/money_management/financial_address_service
+    stripe/services/v2/money_management/funding_intent_service
     stripe/services/v2/money_management/funding_session_service
     stripe/services/v2/money_management/inbound_transfer_mandate_service
     stripe/services/v2/money_management/inbound_transfer_service
@@ -956,6 +966,9 @@ module Stripe
     stripe/services/v2/money_management/received_debit_mandate_service
     stripe/services/v2/money_management/received_debit_service
     stripe/services/v2/money_management/recipient_verification_service
+    stripe/services/v2/money_management/reward_program_enrollment_service
+    stripe/services/v2/money_management/reward_program_service
+    stripe/services/v2/money_management/reward_programs/rule_service
     stripe/services/v2/money_management/test_helper_service
     stripe/services/v2/money_management/test_helpers/financial_address_service
     stripe/services/v2/money_management/transaction_entry_service
@@ -983,7 +996,7 @@ module Stripe
     stripe/services/v2/reporting/report_run_service
     stripe/services/v2/reporting/report_service
     stripe/services/v2/reporting_service
-    stripe/services/v2/risk/inquiry_service
+    stripe/services/v2/risk/form_service
     stripe/services/v2/risk_service
     stripe/services/v2/signals/account_activity_service
     stripe/services/v2/signals/account_evaluation_service

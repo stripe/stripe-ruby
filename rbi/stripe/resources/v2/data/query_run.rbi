@@ -7,10 +7,12 @@ module Stripe
     module Data
       # The `QueryRun` resource represents an execution of ad-hoc SQL against a dataset. Once
       # created, Stripe processes the query. When the query has finished running, the object
-      # provides a reference to the results.
+      # provides a reference to the results. A `QueryRun` and its results are retained for 90 days
+      # after the run completes. After that, Stripe deletes them and retrieving the `QueryRun`
+      # returns a `404` error.
       class QueryRun < APIResource
         class Query < ::Stripe::StripeObject
-          # Ad-hoc SQL to execute.
+          # Ad-hoc SQL to execute. The maximum length is 100,000 characters.
           sig { returns(T.nilable(String)) }
           def sql; end
           def self.inner_class_types
@@ -145,10 +147,10 @@ module Stripe
           end
         end
         class ResultOptions < ::Stripe::StripeObject
-          # If set, the generated result file is compressed into a ZIP archive before
-          # it is stored. This applies only to downloadable file results.
-          sig { returns(T.nilable(T::Boolean)) }
-          def compress_file; end
+          # The compression applied to the generated result file. Defaults to `none`. This applies
+          # only to downloadable file results.
+          sig { returns(T.nilable(String)) }
+          def compression; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -157,6 +159,20 @@ module Stripe
           end
         end
         class StatusDetails < ::Stripe::StripeObject
+          class QueryError < ::Stripe::StripeObject
+            # A human-readable description of the error.
+            sig { returns(String) }
+            def message; end
+            # A short identifier categorizing the type of error.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Time at which the run was canceled. Populated when the run is in the `canceled` state.
           sig { returns(T.nilable(String)) }
           def canceled_at; end
@@ -166,8 +182,11 @@ module Stripe
           # Error message with additional details about the failure.
           sig { returns(T.nilable(String)) }
           def message; end
+          # Errors found in the submitted SQL. Populated when the failure was caused by invalid SQL.
+          sig { returns(T::Array[QueryError]) }
+          def query_errors; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {query_errors: QueryError}
           end
           def self.field_remappings
             @field_remappings = {}

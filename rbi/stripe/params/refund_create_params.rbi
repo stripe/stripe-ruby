@@ -4,6 +4,57 @@
 # typed: true
 module Stripe
   class RefundCreateParams < ::Stripe::RequestParams
+    class PaymentMethodData < ::Stripe::RequestParams
+      class GiftCard < ::Stripe::RequestParams
+        # The ID of the gift card to receive the refund.
+        sig { returns(String) }
+        def gift_card; end
+        sig { params(_gift_card: String).returns(String) }
+        def gift_card=(_gift_card); end
+        sig { params(gift_card: String).void }
+        def initialize(gift_card: nil); end
+      end
+      # The gift card to receive the refund.
+      sig { returns(T.nilable(::Stripe::RefundCreateParams::PaymentMethodData::GiftCard)) }
+      def gift_card; end
+      sig {
+        params(_gift_card: T.nilable(::Stripe::RefundCreateParams::PaymentMethodData::GiftCard)).returns(T.nilable(::Stripe::RefundCreateParams::PaymentMethodData::GiftCard))
+       }
+      def gift_card=(_gift_card); end
+      # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
+      sig { returns(String) }
+      def type; end
+      sig { params(_type: String).returns(String) }
+      def type=(_type); end
+      sig {
+        params(gift_card: T.nilable(::Stripe::RefundCreateParams::PaymentMethodData::GiftCard), type: String).void
+       }
+      def initialize(gift_card: nil, type: nil); end
+    end
+    class PaymentMethodOptions < ::Stripe::RequestParams
+      class GiftCard < ::Stripe::RequestParams
+        # The type of gift card operation to perform for the refund.
+        sig { returns(T.nilable(String)) }
+        def operation_type; end
+        sig { params(_operation_type: T.nilable(String)).returns(T.nilable(String)) }
+        def operation_type=(_operation_type); end
+        sig { params(operation_type: T.nilable(String)).void }
+        def initialize(operation_type: nil); end
+      end
+      # Gift card refund options.
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::RefundCreateParams::PaymentMethodOptions::GiftCard)))
+       }
+      def gift_card; end
+      sig {
+        params(_gift_card: T.nilable(T.any(String, ::Stripe::RefundCreateParams::PaymentMethodOptions::GiftCard))).returns(T.nilable(T.any(String, ::Stripe::RefundCreateParams::PaymentMethodOptions::GiftCard)))
+       }
+      def gift_card=(_gift_card); end
+      sig {
+        params(gift_card: T.nilable(T.any(String, ::Stripe::RefundCreateParams::PaymentMethodOptions::GiftCard))).void
+       }
+      def initialize(gift_card: nil); end
+    end
     # Attribute for param field amount
     sig { returns(T.nilable(Integer)) }
     def amount; end
@@ -56,6 +107,20 @@ module Stripe
     def payment_intent; end
     sig { params(_payment_intent: T.nilable(String)).returns(T.nilable(String)) }
     def payment_intent=(_payment_intent); end
+    # Used to create the PaymentMethod that will receive the refund.
+    sig { returns(T.nilable(::Stripe::RefundCreateParams::PaymentMethodData)) }
+    def payment_method_data; end
+    sig {
+      params(_payment_method_data: T.nilable(::Stripe::RefundCreateParams::PaymentMethodData)).returns(T.nilable(::Stripe::RefundCreateParams::PaymentMethodData))
+     }
+    def payment_method_data=(_payment_method_data); end
+    # Payment method-specific options for the refund.
+    sig { returns(T.nilable(::Stripe::RefundCreateParams::PaymentMethodOptions)) }
+    def payment_method_options; end
+    sig {
+      params(_payment_method_options: T.nilable(::Stripe::RefundCreateParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::RefundCreateParams::PaymentMethodOptions))
+     }
+    def payment_method_options=(_payment_method_options); end
     # The identifier of the PaymentRecord to refund.
     sig { returns(T.nilable(String)) }
     def payment_record; end
@@ -77,7 +142,7 @@ module Stripe
     sig { params(_reverse_transfer: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def reverse_transfer=(_reverse_transfer); end
     sig {
-      params(amount: T.nilable(Integer), charge: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), expand: T.nilable(T::Array[String]), instructions_email: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), origin: T.nilable(String), payment_attempt_record: T.nilable(String), payment_intent: T.nilable(String), payment_record: T.nilable(String), reason: T.nilable(String), refund_application_fee: T.nilable(T::Boolean), reverse_transfer: T.nilable(T::Boolean)).void
+      params(amount: T.nilable(Integer), charge: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), expand: T.nilable(T::Array[String]), instructions_email: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), origin: T.nilable(String), payment_attempt_record: T.nilable(String), payment_intent: T.nilable(String), payment_method_data: T.nilable(::Stripe::RefundCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::RefundCreateParams::PaymentMethodOptions), payment_record: T.nilable(String), reason: T.nilable(String), refund_application_fee: T.nilable(T::Boolean), reverse_transfer: T.nilable(T::Boolean)).void
      }
     def initialize(
       amount: nil,
@@ -90,6 +155,8 @@ module Stripe
       origin: nil,
       payment_attempt_record: nil,
       payment_intent: nil,
+      payment_method_data: nil,
+      payment_method_options: nil,
       payment_record: nil,
       reason: nil,
       refund_application_fee: nil,

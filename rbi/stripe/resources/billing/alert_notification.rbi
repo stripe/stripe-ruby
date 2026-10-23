@@ -36,7 +36,7 @@ module Stripe
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
-      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+      # The value is `true` for objects in live mode and `false` for objects in a sandbox. For accounts that still have access to legacy test mode, the value is also `false` for objects in that mode.
       sig { returns(T::Boolean) }
       def livemode; end
       # ID of the billing meter associated with this notification. Only present for usage threshold alerts.

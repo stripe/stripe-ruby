@@ -35,6 +35,21 @@ module Stripe
         end
       end
 
+      class AutomaticPassThroughFee < ::Stripe::RequestParams
+        # Whether the fee is calculated on the amount due before or after tax. Required when `enabled` is `true`.
+        attr_accessor :calculation_basis
+        # Set to `true` to calculate a pass-through fee using the customer's payment method details and location.
+        attr_accessor :enabled
+        # The type of fee to calculate. Required when `enabled` is `true`.
+        attr_accessor :type
+
+        def initialize(calculation_basis: nil, enabled: nil, type: nil)
+          @calculation_basis = calculation_basis
+          @enabled = enabled
+          @type = type
+        end
+      end
+
       class AutomaticSurcharge < ::Stripe::RequestParams
         # Determines which amount serves as the basis for calculating the surcharge.
         attr_accessor :calculation_basis
@@ -872,7 +887,7 @@ module Stripe
             end
 
             class CurrentTrial < ::Stripe::RequestParams
-              # The ID of the trial offer to apply to the subscription item.
+              # The ID of the [Trial Offer](https://docs.stripe.com/api/product-catalog/trial-offer?api-version=2026-03-25.preview).
               attr_accessor :trial_offer
 
               def initialize(trial_offer: nil)
@@ -977,11 +992,11 @@ module Stripe
             end
             # When set, provides configuration for this item’s quantity to be adjusted by the customer during Checkout.
             attr_accessor :adjustable_quantity
-            # The trial offer to apply to this subscription item.
+            # The [Trial Offer](https://docs.stripe.com/api/product-catalog/trial-offer?api-version=2026-03-25.preview) to apply to this subscription item. One of `price`, `price_data` or `current_trial` is required.
             attr_accessor :current_trial
-            # The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required.
+            # The ID of the [Price](https://docs.stripe.com/api/prices). One of `price`, `price_data` or `current_trial` is required.
             attr_accessor :price
-            # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+            # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price`, `price_data` or `current_trial` is required.
             attr_accessor :price_data
             # Quantity for this item.
             attr_accessor :quantity
@@ -2436,6 +2451,15 @@ module Stripe
           end
         end
 
+        class Paypay < ::Stripe::RequestParams
+          # The merchant's subscription identifier for this off-session charge.
+          attr_accessor :subscription_reference
+
+          def initialize(subscription_reference: nil)
+            @subscription_reference = subscription_reference
+          end
+        end
+
         class Payto < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Amount that will be collected. It is required when `amount_type` is `fixed`.
@@ -2867,6 +2891,8 @@ module Stripe
         attr_accessor :paynow
         # contains details about the PayPal payment method options.
         attr_accessor :paypal
+        # contains details about the PayPay payment method options.
+        attr_accessor :paypay
         # contains details about the PayTo payment method options.
         attr_accessor :payto
         # contains details about the Pix payment method options.
@@ -2936,6 +2962,7 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           payto: nil,
           pix: nil,
           revolut_pay: nil,
@@ -2989,6 +3016,7 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @payto = payto
           @pix = pix
           @revolut_pay = revolut_pay
@@ -3571,6 +3599,8 @@ module Stripe
       #
       # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](/api/checkout/sessions/approve) from your server.
       attr_accessor :approval_method
+      # Settings for calculating and adding a pass-through fee (a convenience or service fee) to this session.
+      attr_accessor :automatic_pass_through_fee
       # Settings for automatic surcharge calculation for this session.
       attr_accessor :automatic_surcharge
       # Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
@@ -3750,6 +3780,7 @@ module Stripe
         allow_promotion_codes: nil,
         allowed_payment_method_types: nil,
         approval_method: nil,
+        automatic_pass_through_fee: nil,
         automatic_surcharge: nil,
         automatic_tax: nil,
         billing_address_collection: nil,
@@ -3810,6 +3841,7 @@ module Stripe
         @allow_promotion_codes = allow_promotion_codes
         @allowed_payment_method_types = allowed_payment_method_types
         @approval_method = approval_method
+        @automatic_pass_through_fee = automatic_pass_through_fee
         @automatic_surcharge = automatic_surcharge
         @automatic_tax = automatic_tax
         @billing_address_collection = billing_address_collection

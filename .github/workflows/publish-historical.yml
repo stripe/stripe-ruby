@@ -1,0 +1,81 @@
+name: Publish historical release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Stable historical tag to build and publish, such as v7.1.1
+        required: true
+        type: string
+
+permissions: {}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+    - name: Validate release request
+      env:
+        TAG: ${{ inputs.tag }}
+      run: |
+        if [[ "$GITHUB_REF" != "refs/heads/master" ]]; then
+          echo "Historical releases must be dispatched from master, not $GITHUB_REF" >&2
+          exit 1
+        fi
+        if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          echo "Tag must be a stable tag in the form vX.Y.Z" >&2
+          exit 1
+        fi
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        ref: refs/tags/${{ inputs.tag }}
+        persist-credentials: false
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+      with:
+        ruby-version: 3.1
+    - name: Validate version
+      env:
+        TAG: ${{ inputs.tag }}
+      run: |
+        version="$(tr -d '[:space:]' < VERSION)"
+        if [[ "v$version" != "$TAG" ]]; then
+          echo "Tag $TAG does not match VERSION ($version)" >&2
+          exit 1
+        fi
+        echo "GEM_FILE=stripe-$version.gem" >> "$GITHUB_ENV"
+    - name: Build gem
+      run: gem build stripe.gemspec --output "$GEM_FILE"
+    - name: Upload gem
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0 # v7.0.1
+      with:
+        name: historical-gem
+        path: stripe-*.gem
+        if-no-files-found: error
+        retention-days: 1
+
+  publish:
+    name: Publish
+    needs: build
+    runs-on: ubuntu-24.04
+    environment: release
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+    - name: Download gem
+      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      with:
+        name: historical-gem
+        path: gems
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+      with:
+        ruby-version: 3.1
+    - name: Configure RubyGems credentials
+      uses: rubygems/configure-rubygems-credentials@dc5a8d8553e6ee01fc26761a49e99e733d17954a # v2.1.0
+    - name: Publish gem to RubyGems
+      run: gem push gems/*.gem

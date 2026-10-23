@@ -1,5 +1,8 @@
 # Changelog
 
+## 8.7.1 - 2026-10-23
+* Update the bundled CA certificates
+
 ## 8.7.0 - 2023-08-10
 * [#1256](https://github.com/stripe/stripe-ruby/pull/1256) Update generated code
   Add resources `Tax::CalculationLineItem`, `Tax::TransactionLineItem`, and `Treasury::FinancialAccountFeatures`. These resources have no methods on them, but do represent the return type of methods elsewhere.

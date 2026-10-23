@@ -1,4 +1,7 @@
 # Changelog
+## 9.4.1 - 2026-10-23
+* Update the bundled CA certificates
+
 ## 9.4.0 - 2023-10-05
 * [#1277](https://github.com/stripe/stripe-ruby/pull/1277) Update generated code
   * Add support for new resources `Issuing.Token`

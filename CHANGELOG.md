@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.1.1 - 2026-10-23
+* Update the bundled CA certificates
+
 ## 7.1.0 - 2022-08-19
 * [#1116](https://github.com/stripe/stripe-ruby/pull/1116) API Updates
   * Add support for new resource `CustomerCashBalanceTransaction`

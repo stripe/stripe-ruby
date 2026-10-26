@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require File.expand_path("test_helper", __dir__)
+require "aws-sdk-core"
 
 module Stripe
   class AwsWorkloadIdentityTest < Test::Unit::TestCase

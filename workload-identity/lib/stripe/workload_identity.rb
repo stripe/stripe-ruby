@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "aws-sdk-core"
-require "googleauth"
-
 require "stripe/workload_identity/version"
 
 module Stripe
@@ -23,6 +20,8 @@ module Stripe
       end
 
       def identity_assertion
+        require "googleauth"
+
         credentials = Google::Auth::GCECredentials.new(token_type: :id_token, target_audience: AUDIENCE)
 
         begin
@@ -68,6 +67,8 @@ module Stripe
       end
 
       def identity_assertion
+        require "aws-sdk-core"
+
         client = Aws::STS::Client.new(**@sts_client_options)
 
         begin

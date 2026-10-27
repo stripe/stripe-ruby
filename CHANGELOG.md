@@ -1,4 +1,6 @@
 # Changelog
+## 19.6.3 - 2026-10-27
+* Update the bundled CA certificates
 
 ## 19.6.2 - 2026-09-09
 * [#1960](https://github.com/stripe/stripe-ruby/pull/1960) Validate that webhook secrets are non-empty

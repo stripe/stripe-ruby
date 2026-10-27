@@ -1,4 +1,7 @@
 # Changelog
+## 12.6.1 - 2026-10-27
+* Update the bundled CA certificates
+
 ## 12.6.0 - 2024-09-12
 * [#1442](https://github.com/stripe/stripe-ruby/pull/1442) Update generated code
   * Add support for new resource `InvoiceRenderingTemplate`

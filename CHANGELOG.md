@@ -1,4 +1,7 @@
 # Changelog
+## 14.0.1 - 2026-10-27
+* Update the bundled CA certificates
+
 ## 14.0.0 - 2025-04-01
 * [#1559](https://github.com/stripe/stripe-ruby/pull/1559) Add RBI annotations for fields and params
   * Adds explicit field types for resources and parameters for methods, and add RBI static annotations for all resources and services

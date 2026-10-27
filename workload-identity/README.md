@@ -61,8 +61,8 @@ client = Stripe::StripeClient.for_workload_identity(
 client.v1.customers.list
 ```
 
-`AwsWorkloadIdentity.new` accepts `audience:` and `signing_algorithm:` overrides — only set these if
-Stripe has told you to use different values — plus any other keyword, which is forwarded to
+`AwsWorkloadIdentity.new` accepts `audience:` and `signing_algorithm:` overrides (only set these if
+Stripe has told you to use different values) plus any other keyword, which is forwarded to
 `Aws::STS::Client.new` (for example `region:`).
 
 ## Development

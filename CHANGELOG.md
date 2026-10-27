@@ -1,4 +1,7 @@
 # Changelog
+## 13.5.2 - 2026-10-27
+* Update the bundled CA certificates
+
 ## 13.5.1 - 2025-04-21
 * [#1576](https://github.com/stripe/stripe-ruby/pull/1576) Explicitly pass through custom headers in retrieve
 

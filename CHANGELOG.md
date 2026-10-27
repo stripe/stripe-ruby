@@ -1,4 +1,7 @@
 # Changelog
+## 15.5.1 - 2026-10-27
+* Update the bundled CA certificates
+
 ## 15.5.0 - 2025-08-27
 * [#1638](https://github.com/stripe/stripe-ruby/pull/1638) Add section on private preview SDKs in readme
 * [#1631](https://github.com/stripe/stripe-ruby/pull/1631) Update generated code. This release changes the pinned API version to `2025-08-27.basil`.

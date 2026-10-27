@@ -1,5 +1,6 @@
 ---
 title: Update the bundled CA certificates
+pr_url: https://github.com/stripe/stripe-ruby/pull/2010
 semver_level: patch
 ---
 

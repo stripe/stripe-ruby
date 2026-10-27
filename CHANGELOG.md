@@ -1,4 +1,7 @@
 # Changelog
+## 10.15.1 - 2026-10-27
+* Update the bundled CA certificates
+
 ## 10.15.0 - 2024-04-09
 * [#1377](https://github.com/stripe/stripe-ruby/pull/1377) Add last_response to StripeObject
   * Users can now retrieve raw response from the returned resource, using the `last_response` property. See [README](https://github.com/stripe/stripe-ruby/blob/master/README.md) for an example.

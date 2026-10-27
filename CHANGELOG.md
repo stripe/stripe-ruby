@@ -1,4 +1,7 @@
 # Changelog
+## 16.0.1 - 2026-10-27
+* Update the bundled CA certificates
+
 ## 16.0.0 - 2025-09-30
 This release changes the pinned API version to `2025-09-30.basil` and contains breaking changes (prefixed with ⚠️ below)
 

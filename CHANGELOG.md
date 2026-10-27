@@ -1,4 +1,7 @@
 # Changelog
+## 18.4.3 - 2026-10-27
+* Update the bundled CA certificates
+
 ## 18.4.2 - 2026-03-10
 * [#1811](https://github.com/stripe/stripe-ruby/pull/1811) Retry on Net::HTTPFatalError
   - Fixes a bug where `Net::HTTPFatalError` errors were being thrown and not retried (unlike other 5xx responses from the Stripe API)

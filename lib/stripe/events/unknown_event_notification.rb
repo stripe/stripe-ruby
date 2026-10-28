@@ -1,4 +1,3 @@
-# File copied from our code generator; changes here will be overwritten.
 # frozen_string_literal: true
 
 require "stripe/resources/v2/core/event_notification"

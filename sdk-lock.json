@@ -1,6 +1,6 @@
 {
   "runtime": {
-    "minVersion": "2.7.0",
+    "minVersion": "3.0.0",
     "commands": [
       {
         "name": "ruby",
@@ -18,9 +18,9 @@
     "format": {
       "commands": [
         "bundle install --quiet",
-        "bundle exec rubocop -o /dev/null --autocorrect"
+        "bundle exec rubocop --autocorrect --display-only-fail-level-offenses"
       ],
-      "sourceHash": "sha256:6c5312af4d27d23c7a2472cdd7ee237d8577903e0c5bd3fce423eeeaa95176a6"
+      "sourceHash": "sha256:4959e3fbd4fb498d063d83fd4d0cc51defc400dfe6e851f6a172879a6bce8733"
     }
   }
 }

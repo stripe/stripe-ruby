@@ -11,7 +11,7 @@ module Stripe
 
       params[:client_id] = client_id(params)
 
-      params[:response_type] = "code" if params.include?(:response_type)
+      params[:response_type] ||= "code"
 
       query = Util.encode_parameters(params, :v1)
 

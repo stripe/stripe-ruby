@@ -16,6 +16,8 @@ resource files, tests, and documentation are excluded.
 
 ## Updating
 
-This branch is rebuilt from `master` using the `create-ruby-base.sh` script in
-the sdk-codegen toolchain. Do not commit directly to this branch — changes will
+This branch is rebuilt from `master` using the `plugins/generate/scripts/create-ruby-base.sh` script in
+[stripe-cli-ts-plugins](https://github.com/stripe/stripe-cli-ts-plugins).
+Pass the source ref explicitly (`origin/master`) when rebuilding; sync consumers
+from the resulting base branch or its proposed update ref. Do not commit directly to this branch — changes will
 be overwritten on the next rebuild.

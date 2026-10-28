@@ -85,6 +85,10 @@ module Stripe
         end
 
         break if page.empty?
+      rescue LocalJumpError => e
+        raise unless e.reason == :break
+
+        break
       end
     end
 

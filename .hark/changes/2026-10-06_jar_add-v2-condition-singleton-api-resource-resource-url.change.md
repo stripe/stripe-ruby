@@ -1,7 +1,8 @@
 ---
-title: "Add V2 condition to top of SingletonAPIResource self.resource_url"
-semver_level: patch
+title: Add V2 condition to top of SingletonAPIResource self.resource_url
 pr_url: https://github.com/stripe/stripe-ruby/pull/1992
+semver_level: patch
+released_in_version: 20.1.0
 ---
 
 <!--

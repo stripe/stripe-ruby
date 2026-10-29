@@ -52,6 +52,14 @@ module Stripe
         )
         assert_equal("t=#{timestamp.to_i},#{scheme}=#{signature}", header)
       end
+
+      should "include debug metadata when supplied" do
+        opts = { payload: EVENT_PAYLOAD, timestamp: Time.at(123), signature: "test_signature", debug_metadata: { secret: "whsec_**abcd", destination: "we_example", payload: "12345678" } }
+        assert_equal(
+          "t=123,v1=test_signature,secret=whsec_**abcd,destination=we_example,payload=12345678",
+          Test::WebhookHelpers.generate_header(opts)
+        )
+      end
     end
 
     context ".construct_event" do
@@ -152,6 +160,20 @@ module Stripe
         assert_match("No signatures found with expected scheme", e.message)
       end
 
+      should "raise a SignatureVerificationError when a required header value is missing or invalid" do
+        [
+          ["t", "Unable to extract timestamp and signatures from header"],
+          ["t=now", "Unable to extract timestamp and signatures from header"],
+          ["t=now,v1=123", "Unable to extract timestamp and signatures from header"],
+          ["t=12345678,v1", "No signatures found with expected scheme v1"],
+        ].each do |header, expected_message|
+          e = assert_raises(Stripe::SignatureVerificationError) do
+            Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET)
+          end
+          assert_equal(expected_message, e.message)
+        end
+      end
+
       should "raise a SignatureVerificationError when there are no valid signatures for the payload" do
         header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD, signature: "bad_signature")
         e = assert_raises(Stripe::SignatureVerificationError) do
@@ -221,6 +243,101 @@ module Stripe
       should "return true when the header contains a valid signature and the timestamp is off but no tolerance is provided" do
         header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD, timestamp: Time.at(12_345))
         assert(Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET))
+      end
+
+      context "with debug metadata" do
+        correct_payload_hash = OpenSSL::Digest::SHA256.hexdigest(EVENT_PAYLOAD)[-8, 8]
+
+        should "diagnose a secret mismatch" do
+          header = Test::WebhookHelpers.generate_header(
+            payload: EVENT_PAYLOAD,
+            debug_metadata: { secret: "whsec_****************************1q84", destination: "we_example", payload: correct_payload_hash }
+          )
+          secret = "whsec_abcdefghijklmnopqrstuvwxyz"
+
+          e = assert_raises(Stripe::SignatureVerificationError) do
+            Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, secret)
+          end
+          assert_equal(<<~MESSAGE.chomp, e.message)
+            Webhook signature verification failed. This request may not have originated from Stripe.
+
+            The signing secret you provided is 32 characters long and ends in `wxyz`. However, the signing secret for this destination is 38 characters long and looks like `whsec_****************************1q84`. Ensure you're using the signing secret for this destination, as shown on the Dashboard: https://dashboard.stripe.com/webhooks/we_example
+
+            Learn more: https://docs.stripe.com/webhooks/signature
+          MESSAGE
+        end
+
+        should "diagnose a secret mismatch with missing destination" do
+          header = Test::WebhookHelpers.generate_header(
+            payload: EVENT_PAYLOAD,
+            debug_metadata: { secret: "whsec_****************************1q84", payload: correct_payload_hash }
+          )
+          secret = "whsec_abcdefghijklmnopqrstuvwxyz"
+          e = assert_raises(Stripe::SignatureVerificationError) do
+            Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, secret)
+          end
+          # Signing secret error shown, but without a specific event destination in the URL
+          assert_match(/The signing secret you provided/, e.message)
+          assert_match(%r{Dashboard: https://dashboard.stripe.com/webhooks\n}, e.message)
+        end
+
+        should "diagnose a payload mismatch based on its hash" do
+          header = Test::WebhookHelpers.generate_header(
+            payload: EVENT_PAYLOAD,
+            debug_metadata: { secret: "whsec_*******cret", payload: correct_payload_hash.upcase }
+          )
+
+          # User supplies the payload with errant whitespace
+          user_payload = EVENT_PAYLOAD + " "
+          user_payload_hash = OpenSSL::Digest::SHA256.hexdigest(user_payload)[-8, 8]
+          e = assert_raises(Stripe::SignatureVerificationError) do
+            Stripe::Webhook::Signature.verify_header(user_payload, header, Test::WebhookHelpers::SECRET)
+          end
+          assert_equal(<<~MESSAGE.chomp, e.message)
+            Webhook signature verification failed.
+
+            The request body you passed to this function differs from the request body sent by Stripe to this webhook destination.
+            The SHA-256 hash of the body should end in `#{correct_payload_hash}`. However, the SHA-256 hash of the body you provided ends in `#{user_payload_hash}`.
+
+            Make sure your code does not reformat or otherwise alter the raw HTTP request body before passing it to this function.
+
+            Learn more: https://docs.stripe.com/webhooks/signature
+          MESSAGE
+        end
+
+        should "not show secret mismatch info, if provided with invalid metadata" do
+          ["whsec_unmasked", "whsec_long#{'*' * 100}long"].each do |masked_secret|
+            header = Test::WebhookHelpers.generate_header(
+              payload: EVENT_PAYLOAD, signature: "bad_signature",
+              debug_metadata: { secret: masked_secret, payload: correct_payload_hash }
+            )
+            e = assert_raises(Stripe::SignatureVerificationError) do
+              Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET)
+            end
+            # Fall through to generic error
+            assert_equal("No signatures found matching the expected signature for payload", e.message)
+          end
+        end
+
+        should "not show payload mismatch info, if provided with invalid metadata" do
+          header = Test::WebhookHelpers.generate_header(
+            payload: EVENT_PAYLOAD, signature: "bad_signature",
+            debug_metadata: { secret: "whsec_*******cret", payload: "abcde#{'f' * 100}" }
+          )
+          e = assert_raises(Stripe::SignatureVerificationError) do
+            Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET)
+          end
+          # Fall through to generic error
+          assert_equal("No signatures found matching the expected signature for payload", e.message)
+        end
+
+        should "ignore malformed debug key-value pairs" do
+          header = "t=123,v1=123456,secret,destination,payload"
+          e = assert_raises(Stripe::SignatureVerificationError) do
+            Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET)
+          end
+          assert_equal("No signatures found matching the expected signature for payload", e.message)
+        end
       end
     end
   end

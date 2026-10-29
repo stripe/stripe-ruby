@@ -7,7 +7,7 @@ module Stripe
     module Core
       module Accounts
         class PersonListParams < ::Stripe::RequestParams
-          # The upper limit on the number of accounts returned by the List Account request.
+          # The maximum number of items returned by the list request.
           sig { returns(T.nilable(Integer)) }
           def limit; end
           sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }

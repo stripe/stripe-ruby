@@ -33,7 +33,7 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
-    # The email address to send this charge's receipt to. This will override the previously-specified email address for this charge, if one was set. Receipts will not be sent in test mode.
+    # The email address to send this charge's receipt to. This will override the previously-specified email address for this charge, if one was set. Receipts are only sent for payments in live mode.
     sig { returns(T.nilable(String)) }
     def receipt_email; end
     sig { params(_receipt_email: T.nilable(String)).returns(T.nilable(String)) }

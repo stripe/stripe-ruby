@@ -59,7 +59,7 @@ module Stripe
     # If the payout fails or cancels, this is the ID of the balance transaction that reverses the initial balance transaction and returns the funds from the failed payout back in your balance.
     sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
     def failure_balance_transaction; end
-    # Error code that provides a reason for a payout failure, if available. View our [list of failure codes](https://docs.stripe.com/api#payout_failures).
+    # Error code that provides a reason for a payout failure, if available.
     sig { returns(T.nilable(String)) }
     def failure_code; end
     # Message that provides the reason for a payout failure, if available.

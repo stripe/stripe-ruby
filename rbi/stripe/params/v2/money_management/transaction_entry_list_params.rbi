@@ -1,0 +1,62 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+# typed: true
+module Stripe
+  module V2
+    module MoneyManagement
+      class TransactionEntryListParams < ::Stripe::RequestParams
+        class Created < ::Stripe::RequestParams
+          # Filter for objects created after the specified timestamp.
+          sig { returns(T.nilable(String)) }
+          def gt; end
+          sig { params(_gt: T.nilable(String)).returns(T.nilable(String)) }
+          def gt=(_gt); end
+          # Filter for objects created at or after the specified timestamp.
+          sig { returns(T.nilable(String)) }
+          def gte; end
+          sig { params(_gte: T.nilable(String)).returns(T.nilable(String)) }
+          def gte=(_gte); end
+          # Filter for objects created before the specified timestamp.
+          sig { returns(T.nilable(String)) }
+          def lt; end
+          sig { params(_lt: T.nilable(String)).returns(T.nilable(String)) }
+          def lt=(_lt); end
+          # Filter for objects created at or before the specified timestamp.
+          sig { returns(T.nilable(String)) }
+          def lte; end
+          sig { params(_lte: T.nilable(String)).returns(T.nilable(String)) }
+          def lte=(_lte); end
+          sig {
+            params(gt: T.nilable(String), gte: T.nilable(String), lt: T.nilable(String), lte: T.nilable(String)).void
+           }
+          def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
+        end
+        # Filter for TransactionEntries created within a specified time range.
+        sig {
+          returns(T.nilable(::Stripe::V2::MoneyManagement::TransactionEntryListParams::Created))
+         }
+        def created; end
+        sig {
+          params(_created: T.nilable(::Stripe::V2::MoneyManagement::TransactionEntryListParams::Created)).returns(T.nilable(::Stripe::V2::MoneyManagement::TransactionEntryListParams::Created))
+         }
+        def created=(_created); end
+        # The page limit.
+        sig { returns(T.nilable(Integer)) }
+        def limit; end
+        sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def limit=(_limit); end
+        # Filter for TransactionEntries belonging to a specific Transaction. This filter only supports
+        # filtering by a Transaction ID, which appears in each TransactionEntry's `transaction` field.
+        sig { returns(T.nilable(String)) }
+        def transaction; end
+        sig { params(_transaction: T.nilable(String)).returns(T.nilable(String)) }
+        def transaction=(_transaction); end
+        sig {
+          params(created: T.nilable(::Stripe::V2::MoneyManagement::TransactionEntryListParams::Created), limit: T.nilable(Integer), transaction: T.nilable(String)).void
+         }
+        def initialize(created: nil, limit: nil, transaction: nil); end
+      end
+    end
+  end
+end

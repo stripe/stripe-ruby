@@ -5,7 +5,7 @@
 module Stripe
   module TestHelpers
     class CustomerService < StripeService
-      # Create an incoming testmode bank transfer
+      # Create a test incoming bank transfer
       sig {
         params(customer: String, params: T.any(::Stripe::TestHelpers::CustomerFundCashBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CustomerCashBalanceTransaction)
        }

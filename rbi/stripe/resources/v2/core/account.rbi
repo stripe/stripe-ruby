@@ -237,10 +237,10 @@ module Stripe
               end
             end
             class Branding < ::Stripe::StripeObject
-              # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
+              # ID of a [file upload](https://docs.stripe.com/api/files/create): An icon for the merchant. Must be square and at least 128px x 128px.
               sig { returns(T.nilable(String)) }
               def icon; end
-              # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
+              # ID of a [file upload](https://docs.stripe.com/api/files/create): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
               sig { returns(T.nilable(String)) }
               def logo; end
               # A CSS hex color value representing the primary branding color for the merchant.
@@ -2079,6 +2079,267 @@ module Stripe
           end
           class Recipient < ::Stripe::StripeObject
             class Capabilities < ::Stripe::StripeObject
+              class BankAccounts < ::Stripe::StripeObject
+                class Ach < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class Fedwire < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class Fps < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class Local < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class Rtp < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class Sepa < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class Swift < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over ACH rails.
+                sig { returns(T.nilable(Ach)) }
+                def ach; end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over Fedwire or CHIPS.
+                sig { returns(T.nilable(Fedwire)) }
+                def fedwire; end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over FPS rails.
+                sig { returns(T.nilable(Fps)) }
+                def fps; end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
+                sig { returns(T.nilable(Local)) }
+                def local; end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over RTP rails.
+                sig { returns(T.nilable(Rtp)) }
+                def rtp; end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over SEPA rails.
+                sig { returns(T.nilable(Sepa)) }
+                def sepa; end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over SWIFT.
+                sig { returns(T.nilable(Swift)) }
+                def swift; end
+                def self.inner_class_types
+                  @inner_class_types = {
+                    ach: Ach,
+                    fedwire: Fedwire,
+                    fps: Fps,
+                    local: Local,
+                    rtp: Rtp,
+                    sepa: Sepa,
+                    swift: Swift,
+                  }
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class Cards < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               class StripeBalance < ::Stripe::StripeObject
                 class Payouts < ::Stripe::StripeObject
                   class StatusDetail < ::Stripe::StripeObject
@@ -2149,11 +2410,21 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              # Capabilities that enable OutboundPayments to a bank account linked to this Account.
+              sig { returns(T.nilable(BankAccounts)) }
+              def bank_accounts; end
+              # Enables this Account to receive OutboundPayments to a linked debit card.
+              sig { returns(T.nilable(Cards)) }
+              def cards; end
               # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
               sig { returns(T.nilable(StripeBalance)) }
               def stripe_balance; end
               def self.inner_class_types
-                @inner_class_types = {stripe_balance: StripeBalance}
+                @inner_class_types = {
+                  bank_accounts: BankAccounts,
+                  cards: Cards,
+                  stripe_balance: StripeBalance,
+                }
               end
               def self.field_remappings
                 @field_remappings = {}
@@ -2229,6 +2500,9 @@ module Stripe
           # The Account's preferred locales (languages), ordered by preference.
           sig { returns(T.nilable(T::Array[String])) }
           def locales; end
+          # Default payout methods per currency. Keys are three-letter [ISO currency codes](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Values are v2 Payout Method IDs.
+          sig { returns(T.nilable(T::Hash[String, String])) }
+          def payout_methods; end
           # Account profile information.
           sig { returns(T.nilable(Profile)) }
           def profile; end
@@ -2243,6 +2517,115 @@ module Stripe
           end
         end
         class FutureRequirements < ::Stripe::StripeObject
+          class Alternative < ::Stripe::StripeObject
+            class Option < ::Stripe::StripeObject
+              class Entry < ::Stripe::StripeObject
+                class Error < ::Stripe::StripeObject
+                  # Machine-readable code describing the error.
+                  sig { returns(String) }
+                  def code; end
+                  # Human-readable description of the error.
+                  sig { returns(String) }
+                  def description; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class Reference < ::Stripe::StripeObject
+                  # If `inquiry` is the type, the inquiry token.
+                  sig { returns(T.nilable(String)) }
+                  def inquiry; end
+                  # If `resource` is the type, the resource token.
+                  sig { returns(T.nilable(String)) }
+                  def resource; end
+                  # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+                  # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+                  sig { returns(String) }
+                  def type; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Indicates whether the user or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
+                sig { returns(String) }
+                def awaiting_action_from; end
+                # Machine-readable string describing the requirement.
+                sig { returns(String) }
+                def description; end
+                # Descriptions of why the requirement must be collected, or why the collected information isn't satisfactory to Stripe.
+                sig { returns(T::Array[Error]) }
+                def errors; end
+                # A reference to the location of the requirement.
+                sig { returns(T.nilable(Reference)) }
+                def reference; end
+                def self.inner_class_types
+                  @inner_class_types = {errors: Error, reference: Reference}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The requirements that must all be provided to satisfy this option.
+              sig { returns(T::Array[Entry]) }
+              def entries; end
+              def self.inner_class_types
+                @inner_class_types = {entries: Entry}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class OriginalEntry < ::Stripe::StripeObject
+              class Reference < ::Stripe::StripeObject
+                # If `inquiry` is the type, the inquiry token.
+                sig { returns(T.nilable(String)) }
+                def inquiry; end
+                # If `resource` is the type, the resource token.
+                sig { returns(T.nilable(String)) }
+                def resource; end
+                # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+                # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+                sig { returns(String) }
+                def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Machine-readable string describing the requirement.
+              sig { returns(String) }
+              def description; end
+              # A reference to the location of the requirement.
+              sig { returns(T.nilable(Reference)) }
+              def reference; end
+              def self.inner_class_types
+                @inner_class_types = {reference: Reference}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The alternative sets of requirements that can be provided. Providing every entry in any one of these options resolves all of the requirements in `original_entries`.
+            sig { returns(T::Array[Option]) }
+            def options; end
+            # The requirements that can be satisfied either directly, or by providing every entry in any one of `options`.
+            sig { returns(T::Array[OriginalEntry]) }
+            def original_entries; end
+            def self.inner_class_types
+              @inner_class_types = {options: Option, original_entries: OriginalEntry}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Entry < ::Stripe::StripeObject
             class Error < ::Stripe::StripeObject
               # Machine-readable code describing the error.
@@ -2337,7 +2720,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Indicates whether the platform or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
+            # Indicates whether the user or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
             sig { returns(String) }
             def awaiting_action_from; end
             # Machine-readable string describing the requirement.
@@ -2396,6 +2779,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # A list of alternative sets of requirements that can be provided in lieu of requirements in `entries`.
+          sig { returns(T.nilable(T::Array[Alternative])) }
+          def alternatives; end
           # A list of requirements for the Account.
           sig { returns(T.nilable(T::Array[Entry])) }
           def entries; end
@@ -2406,7 +2792,7 @@ module Stripe
           sig { returns(T.nilable(Summary)) }
           def summary; end
           def self.inner_class_types
-            @inner_class_types = {entries: Entry, summary: Summary}
+            @inner_class_types = {alternatives: Alternative, entries: Entry, summary: Summary}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -2503,7 +2889,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
+              # Details on the Account's acceptance of the Stripe Services Agreement.
               sig { returns(T.nilable(Account)) }
               def account; end
               def self.inner_class_types
@@ -2619,7 +3005,7 @@ module Stripe
             end
             class Documents < ::Stripe::StripeObject
               class BankAccountOwnershipVerification < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -2633,7 +3019,7 @@ module Stripe
                 end
               end
               class CompanyLicense < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -2647,7 +3033,7 @@ module Stripe
                 end
               end
               class CompanyMemorandumOfAssociation < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -2661,7 +3047,7 @@ module Stripe
                 end
               end
               class CompanyMinisterialDecree < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -2675,7 +3061,7 @@ module Stripe
                 end
               end
               class CompanyRegistrationVerification < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -2689,7 +3075,7 @@ module Stripe
                 end
               end
               class CompanyTaxIdVerification < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -2704,10 +3090,10 @@ module Stripe
               end
               class PrimaryVerification < ::Stripe::StripeObject
                 class FrontBack < ::Stripe::StripeObject
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(String) }
                   def front; end
                   def self.inner_class_types
@@ -2717,7 +3103,7 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
+                # The [file upload](https://docs.stripe.com/api/files/create) tokens for the front and back of the verification document.
                 sig { returns(FrontBack) }
                 def front_back; end
                 # The format of the verification document. Currently supports `front_back` only.
@@ -2731,7 +3117,7 @@ module Stripe
                 end
               end
               class ProofOfAddress < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -2756,7 +3142,7 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # Person that is signing the document.
@@ -2784,7 +3170,7 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # Person that is signing the document.
@@ -3183,7 +3569,7 @@ module Stripe
             end
             class Documents < ::Stripe::StripeObject
               class CompanyAuthorization < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -3197,7 +3583,7 @@ module Stripe
                 end
               end
               class Passport < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -3212,10 +3598,10 @@ module Stripe
               end
               class PrimaryVerification < ::Stripe::StripeObject
                 class FrontBack < ::Stripe::StripeObject
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(String) }
                   def front; end
                   def self.inner_class_types
@@ -3225,7 +3611,7 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
+                # The [file upload](https://docs.stripe.com/api/files/create) tokens for the front and back of the verification document.
                 sig { returns(FrontBack) }
                 def front_back; end
                 # The format of the verification document. Currently supports `front_back` only.
@@ -3240,10 +3626,10 @@ module Stripe
               end
               class SecondaryVerification < ::Stripe::StripeObject
                 class FrontBack < ::Stripe::StripeObject
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(String) }
                   def front; end
                   def self.inner_class_types
@@ -3253,7 +3639,7 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
+                # The [file upload](https://docs.stripe.com/api/files/create) tokens for the front and back of the verification document.
                 sig { returns(FrontBack) }
                 def front_back; end
                 # The format of the verification document. Currently supports `front_back` only.
@@ -3267,7 +3653,7 @@ module Stripe
                 end
               end
               class Visa < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -3597,6 +3983,115 @@ module Stripe
           end
         end
         class Requirements < ::Stripe::StripeObject
+          class Alternative < ::Stripe::StripeObject
+            class Option < ::Stripe::StripeObject
+              class Entry < ::Stripe::StripeObject
+                class Error < ::Stripe::StripeObject
+                  # Machine-readable code describing the error.
+                  sig { returns(String) }
+                  def code; end
+                  # Human-readable description of the error.
+                  sig { returns(String) }
+                  def description; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class Reference < ::Stripe::StripeObject
+                  # If `inquiry` is the type, the inquiry token.
+                  sig { returns(T.nilable(String)) }
+                  def inquiry; end
+                  # If `resource` is the type, the resource token.
+                  sig { returns(T.nilable(String)) }
+                  def resource; end
+                  # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+                  # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+                  sig { returns(String) }
+                  def type; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Indicates whether the user or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
+                sig { returns(String) }
+                def awaiting_action_from; end
+                # Machine-readable string describing the requirement.
+                sig { returns(String) }
+                def description; end
+                # Descriptions of why the requirement must be collected, or why the collected information isn't satisfactory to Stripe.
+                sig { returns(T::Array[Error]) }
+                def errors; end
+                # A reference to the location of the requirement.
+                sig { returns(T.nilable(Reference)) }
+                def reference; end
+                def self.inner_class_types
+                  @inner_class_types = {errors: Error, reference: Reference}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The requirements that must all be provided to satisfy this option.
+              sig { returns(T::Array[Entry]) }
+              def entries; end
+              def self.inner_class_types
+                @inner_class_types = {entries: Entry}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class OriginalEntry < ::Stripe::StripeObject
+              class Reference < ::Stripe::StripeObject
+                # If `inquiry` is the type, the inquiry token.
+                sig { returns(T.nilable(String)) }
+                def inquiry; end
+                # If `resource` is the type, the resource token.
+                sig { returns(T.nilable(String)) }
+                def resource; end
+                # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+                # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+                sig { returns(String) }
+                def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Machine-readable string describing the requirement.
+              sig { returns(String) }
+              def description; end
+              # A reference to the location of the requirement.
+              sig { returns(T.nilable(Reference)) }
+              def reference; end
+              def self.inner_class_types
+                @inner_class_types = {reference: Reference}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The alternative sets of requirements that can be provided. Providing every entry in any one of these options resolves all of the requirements in `original_entries`.
+            sig { returns(T::Array[Option]) }
+            def options; end
+            # The requirements that can be satisfied either directly, or by providing every entry in any one of `options`.
+            sig { returns(T::Array[OriginalEntry]) }
+            def original_entries; end
+            def self.inner_class_types
+              @inner_class_types = {options: Option, original_entries: OriginalEntry}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Entry < ::Stripe::StripeObject
             class Error < ::Stripe::StripeObject
               # Machine-readable code describing the error.
@@ -3691,7 +4186,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Indicates whether the platform or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
+            # Indicates whether the user or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
             sig { returns(String) }
             def awaiting_action_from; end
             # Machine-readable string describing the requirement.
@@ -3750,6 +4245,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # A list of alternative sets of requirements that can be provided in lieu of requirements in `entries`.
+          sig { returns(T.nilable(T::Array[Alternative])) }
+          def alternatives; end
           # A list of requirements for the Account.
           sig { returns(T.nilable(T::Array[Entry])) }
           def entries; end
@@ -3757,7 +4255,7 @@ module Stripe
           sig { returns(T.nilable(Summary)) }
           def summary; end
           def self.inner_class_types
-            @inner_class_types = {entries: Entry, summary: Summary}
+            @inner_class_types = {alternatives: Alternative, entries: Entry, summary: Summary}
           end
           def self.field_remappings
             @field_remappings = {}

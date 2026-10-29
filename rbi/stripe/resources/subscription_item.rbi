@@ -18,13 +18,13 @@ module Stripe
       end
     end
     class CurrentTrial < ::Stripe::StripeObject
-      # Attribute for field end_date
+      # The time the current trial ends.
       sig { returns(Integer) }
       def end_date; end
-      # Attribute for field start_date
+      # The time the current trial started.
       sig { returns(Integer) }
       def start_date; end
-      # Attribute for field trial_offer
+      # The Trial Offer ID applied to the subscription item.
       sig { returns(String) }
       def trial_offer; end
       def self.inner_class_types

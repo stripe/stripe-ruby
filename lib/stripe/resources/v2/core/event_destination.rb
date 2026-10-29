@@ -116,7 +116,7 @@ module Stripe
         attr_reader :name
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # For snapshot events only, the Stripe API version used to render event objects. Thin events are not pinned to an API version.
+        # For snapshot events only, the Stripe API version used to render event objects. You can't change this value after you create the event destination. Thin events are not pinned to an API version.
         attr_reader :snapshot_api_version
         # Whether Stripe currently attempts delivery. Stripe attempts delivery to enabled destinations when their provider configuration is active; disabled destinations do not receive delivery attempts.
         attr_reader :status

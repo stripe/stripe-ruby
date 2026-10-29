@@ -221,7 +221,7 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
-      # The most recent information about the account's owners.
+      # The ID of the [Financial Connections Account Ownership](https://docs.stripe.com/api/financial_connections/ownership) object associated with this account.
       sig { returns(T.nilable(T.any(String, ::Stripe::FinancialConnections::AccountOwnership))) }
       def ownership; end
       # The state of the most recent attempt to refresh the account owners.

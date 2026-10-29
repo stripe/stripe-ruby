@@ -258,12 +258,52 @@ module Stripe
     autoload :V1CustomerDiscountCreatedEventNotification, "stripe/events/v1_customer_discount_created_event"
     autoload :V1CustomerDiscountDeletedEvent, "stripe/events/v1_customer_discount_deleted_event"
     autoload :V1CustomerDiscountDeletedEventNotification, "stripe/events/v1_customer_discount_deleted_event"
+    autoload :V1CustomerDiscountSourceChangedEvent, "stripe/events/v1_customer_discount_source_changed_event"
+    autoload :V1CustomerDiscountSourceChangedEventNotification,
+             "stripe/events/v1_customer_discount_source_changed_event"
     autoload :V1CustomerDiscountUpdatedEvent, "stripe/events/v1_customer_discount_updated_event"
     autoload :V1CustomerDiscountUpdatedEventNotification, "stripe/events/v1_customer_discount_updated_event"
+    autoload :V1CustomerSubscriptionActiveEvent, "stripe/events/v1_customer_subscription_active_event"
+    autoload :V1CustomerSubscriptionActiveEventNotification, "stripe/events/v1_customer_subscription_active_event"
+    autoload :V1CustomerSubscriptionCancelAtChangedEvent,
+             "stripe/events/v1_customer_subscription_cancel_at_changed_event"
+    autoload :V1CustomerSubscriptionCancelAtChangedEventNotification,
+             "stripe/events/v1_customer_subscription_cancel_at_changed_event"
     autoload :V1CustomerSubscriptionCreatedEvent, "stripe/events/v1_customer_subscription_created_event"
     autoload :V1CustomerSubscriptionCreatedEventNotification, "stripe/events/v1_customer_subscription_created_event"
+    autoload :V1CustomerSubscriptionDefaultPaymentMethodChangedEvent,
+             "stripe/events/v1_customer_subscription_default_payment_method_changed_event"
+    autoload :V1CustomerSubscriptionDefaultPaymentMethodChangedEventNotification,
+             "stripe/events/v1_customer_subscription_default_payment_method_changed_event"
     autoload :V1CustomerSubscriptionDeletedEvent, "stripe/events/v1_customer_subscription_deleted_event"
     autoload :V1CustomerSubscriptionDeletedEventNotification, "stripe/events/v1_customer_subscription_deleted_event"
+    autoload :V1CustomerSubscriptionIncompleteEvent, "stripe/events/v1_customer_subscription_incomplete_event"
+    autoload :V1CustomerSubscriptionIncompleteEventNotification,
+             "stripe/events/v1_customer_subscription_incomplete_event"
+    autoload :V1CustomerSubscriptionIncompleteExpiredEvent,
+             "stripe/events/v1_customer_subscription_incomplete_expired_event"
+    autoload :V1CustomerSubscriptionIncompleteExpiredEventNotification,
+             "stripe/events/v1_customer_subscription_incomplete_expired_event"
+    autoload :V1CustomerSubscriptionItemAddedEvent, "stripe/events/v1_customer_subscription_item_added_event"
+    autoload :V1CustomerSubscriptionItemAddedEventNotification,
+             "stripe/events/v1_customer_subscription_item_added_event"
+    autoload :V1CustomerSubscriptionItemPriceChangedEvent,
+             "stripe/events/v1_customer_subscription_item_price_changed_event"
+    autoload :V1CustomerSubscriptionItemPriceChangedEventNotification,
+             "stripe/events/v1_customer_subscription_item_price_changed_event"
+    autoload :V1CustomerSubscriptionItemQuantityChangedEvent,
+             "stripe/events/v1_customer_subscription_item_quantity_changed_event"
+    autoload :V1CustomerSubscriptionItemQuantityChangedEventNotification,
+             "stripe/events/v1_customer_subscription_item_quantity_changed_event"
+    autoload :V1CustomerSubscriptionItemRemovedEvent, "stripe/events/v1_customer_subscription_item_removed_event"
+    autoload :V1CustomerSubscriptionItemRemovedEventNotification,
+             "stripe/events/v1_customer_subscription_item_removed_event"
+    autoload :V1CustomerSubscriptionItemTaxRatesChangedEvent,
+             "stripe/events/v1_customer_subscription_item_tax_rates_changed_event"
+    autoload :V1CustomerSubscriptionItemTaxRatesChangedEventNotification,
+             "stripe/events/v1_customer_subscription_item_tax_rates_changed_event"
+    autoload :V1CustomerSubscriptionPastDueEvent, "stripe/events/v1_customer_subscription_past_due_event"
+    autoload :V1CustomerSubscriptionPastDueEventNotification, "stripe/events/v1_customer_subscription_past_due_event"
     autoload :V1CustomerSubscriptionPausedEvent, "stripe/events/v1_customer_subscription_paused_event"
     autoload :V1CustomerSubscriptionPausedEventNotification, "stripe/events/v1_customer_subscription_paused_event"
     autoload :V1CustomerSubscriptionPendingUpdateAppliedEvent,
@@ -276,9 +316,13 @@ module Stripe
              "stripe/events/v1_customer_subscription_pending_update_expired_event"
     autoload :V1CustomerSubscriptionResumedEvent, "stripe/events/v1_customer_subscription_resumed_event"
     autoload :V1CustomerSubscriptionResumedEventNotification, "stripe/events/v1_customer_subscription_resumed_event"
+    autoload :V1CustomerSubscriptionTrialingEvent, "stripe/events/v1_customer_subscription_trialing_event"
+    autoload :V1CustomerSubscriptionTrialingEventNotification, "stripe/events/v1_customer_subscription_trialing_event"
     autoload :V1CustomerSubscriptionTrialWillEndEvent, "stripe/events/v1_customer_subscription_trial_will_end_event"
     autoload :V1CustomerSubscriptionTrialWillEndEventNotification,
              "stripe/events/v1_customer_subscription_trial_will_end_event"
+    autoload :V1CustomerSubscriptionUnpaidEvent, "stripe/events/v1_customer_subscription_unpaid_event"
+    autoload :V1CustomerSubscriptionUnpaidEventNotification, "stripe/events/v1_customer_subscription_unpaid_event"
     autoload :V1CustomerSubscriptionUpdatedEvent, "stripe/events/v1_customer_subscription_updated_event"
     autoload :V1CustomerSubscriptionUpdatedEventNotification, "stripe/events/v1_customer_subscription_updated_event"
     autoload :V1CustomerTaxIdCreatedEvent, "stripe/events/v1_customer_tax_id_created_event"
@@ -289,6 +333,14 @@ module Stripe
     autoload :V1CustomerTaxIdUpdatedEventNotification, "stripe/events/v1_customer_tax_id_updated_event"
     autoload :V1CustomerUpdatedEvent, "stripe/events/v1_customer_updated_event"
     autoload :V1CustomerUpdatedEventNotification, "stripe/events/v1_customer_updated_event"
+    autoload :V1EntitlementsActiveEntitlementSummaryEntitlementAddedEvent,
+             "stripe/events/v1_entitlements_active_entitlement_summary_entitlement_added_event"
+    autoload :V1EntitlementsActiveEntitlementSummaryEntitlementAddedEventNotification,
+             "stripe/events/v1_entitlements_active_entitlement_summary_entitlement_added_event"
+    autoload :V1EntitlementsActiveEntitlementSummaryEntitlementRemovedEvent,
+             "stripe/events/v1_entitlements_active_entitlement_summary_entitlement_removed_event"
+    autoload :V1EntitlementsActiveEntitlementSummaryEntitlementRemovedEventNotification,
+             "stripe/events/v1_entitlements_active_entitlement_summary_entitlement_removed_event"
     autoload :V1EntitlementsActiveEntitlementSummaryUpdatedEvent,
              "stripe/events/v1_entitlements_active_entitlement_summary_updated_event"
     autoload :V1EntitlementsActiveEntitlementSummaryUpdatedEventNotification,
@@ -299,6 +351,14 @@ module Stripe
              "stripe/events/v1_financial_connections_account_account_numbers_updated_event"
     autoload :V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification,
              "stripe/events/v1_financial_connections_account_account_numbers_updated_event"
+    autoload :V1FinancialConnectionsAccountBalanceRefreshFailedEvent,
+             "stripe/events/v1_financial_connections_account_balance_refresh_failed_event"
+    autoload :V1FinancialConnectionsAccountBalanceRefreshFailedEventNotification,
+             "stripe/events/v1_financial_connections_account_balance_refresh_failed_event"
+    autoload :V1FinancialConnectionsAccountBalanceRefreshSucceededEvent,
+             "stripe/events/v1_financial_connections_account_balance_refresh_succeeded_event"
+    autoload :V1FinancialConnectionsAccountBalanceRefreshSucceededEventNotification,
+             "stripe/events/v1_financial_connections_account_balance_refresh_succeeded_event"
     autoload :V1FinancialConnectionsAccountCreatedEvent, "stripe/events/v1_financial_connections_account_created_event"
     autoload :V1FinancialConnectionsAccountCreatedEventNotification,
              "stripe/events/v1_financial_connections_account_created_event"
@@ -314,6 +374,22 @@ module Stripe
              "stripe/events/v1_financial_connections_account_expected_deactivation_date_updated_event"
     autoload :V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification,
              "stripe/events/v1_financial_connections_account_expected_deactivation_date_updated_event"
+    autoload :V1FinancialConnectionsAccountInferredBalancesRefreshFailedEvent,
+             "stripe/events/v1_financial_connections_account_inferred_balances_refresh_failed_event"
+    autoload :V1FinancialConnectionsAccountInferredBalancesRefreshFailedEventNotification,
+             "stripe/events/v1_financial_connections_account_inferred_balances_refresh_failed_event"
+    autoload :V1FinancialConnectionsAccountInferredBalancesRefreshSucceededEvent,
+             "stripe/events/v1_financial_connections_account_inferred_balances_refresh_succeeded_event"
+    autoload :V1FinancialConnectionsAccountInferredBalancesRefreshSucceededEventNotification,
+             "stripe/events/v1_financial_connections_account_inferred_balances_refresh_succeeded_event"
+    autoload :V1FinancialConnectionsAccountOwnershipRefreshFailedEvent,
+             "stripe/events/v1_financial_connections_account_ownership_refresh_failed_event"
+    autoload :V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification,
+             "stripe/events/v1_financial_connections_account_ownership_refresh_failed_event"
+    autoload :V1FinancialConnectionsAccountOwnershipRefreshSucceededEvent,
+             "stripe/events/v1_financial_connections_account_ownership_refresh_succeeded_event"
+    autoload :V1FinancialConnectionsAccountOwnershipRefreshSucceededEventNotification,
+             "stripe/events/v1_financial_connections_account_ownership_refresh_succeeded_event"
     autoload :V1FinancialConnectionsAccountReactivatedEvent,
              "stripe/events/v1_financial_connections_account_reactivated_event"
     autoload :V1FinancialConnectionsAccountReactivatedEventNotification,
@@ -330,10 +406,26 @@ module Stripe
              "stripe/events/v1_financial_connections_account_refreshed_transactions_event"
     autoload :V1FinancialConnectionsAccountRefreshedTransactionsEventNotification,
              "stripe/events/v1_financial_connections_account_refreshed_transactions_event"
+    autoload :V1FinancialConnectionsAccountRiskIntelligenceRefreshFailedEvent,
+             "stripe/events/v1_financial_connections_account_risk_intelligence_refresh_failed_event"
+    autoload :V1FinancialConnectionsAccountRiskIntelligenceRefreshFailedEventNotification,
+             "stripe/events/v1_financial_connections_account_risk_intelligence_refresh_failed_event"
+    autoload :V1FinancialConnectionsAccountRiskIntelligenceRefreshSucceededEvent,
+             "stripe/events/v1_financial_connections_account_risk_intelligence_refresh_succeeded_event"
+    autoload :V1FinancialConnectionsAccountRiskIntelligenceRefreshSucceededEventNotification,
+             "stripe/events/v1_financial_connections_account_risk_intelligence_refresh_succeeded_event"
     autoload :V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEvent,
              "stripe/events/v1_financial_connections_account_supported_payment_method_types_updated_event"
     autoload :V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification,
              "stripe/events/v1_financial_connections_account_supported_payment_method_types_updated_event"
+    autoload :V1FinancialConnectionsAccountTransactionsRefreshFailedEvent,
+             "stripe/events/v1_financial_connections_account_transactions_refresh_failed_event"
+    autoload :V1FinancialConnectionsAccountTransactionsRefreshFailedEventNotification,
+             "stripe/events/v1_financial_connections_account_transactions_refresh_failed_event"
+    autoload :V1FinancialConnectionsAccountTransactionsRefreshSucceededEvent,
+             "stripe/events/v1_financial_connections_account_transactions_refresh_succeeded_event"
+    autoload :V1FinancialConnectionsAccountTransactionsRefreshSucceededEventNotification,
+             "stripe/events/v1_financial_connections_account_transactions_refresh_succeeded_event"
     autoload :V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEvent,
              "stripe/events/v1_financial_connections_account_upcoming_account_number_expiry_event"
     autoload :V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEventNotification,
@@ -369,14 +461,34 @@ module Stripe
     autoload :V1InvoiceCreatedEventNotification, "stripe/events/v1_invoice_created_event"
     autoload :V1InvoiceDeletedEvent, "stripe/events/v1_invoice_deleted_event"
     autoload :V1InvoiceDeletedEventNotification, "stripe/events/v1_invoice_deleted_event"
+    autoload :V1InvoiceDiscountAddedEvent, "stripe/events/v1_invoice_discount_added_event"
+    autoload :V1InvoiceDiscountAddedEventNotification, "stripe/events/v1_invoice_discount_added_event"
+    autoload :V1InvoiceDiscountRemovedEvent, "stripe/events/v1_invoice_discount_removed_event"
+    autoload :V1InvoiceDiscountRemovedEventNotification, "stripe/events/v1_invoice_discount_removed_event"
     autoload :V1InvoiceFinalizationFailedEvent, "stripe/events/v1_invoice_finalization_failed_event"
     autoload :V1InvoiceFinalizationFailedEventNotification, "stripe/events/v1_invoice_finalization_failed_event"
     autoload :V1InvoiceFinalizedEvent, "stripe/events/v1_invoice_finalized_event"
     autoload :V1InvoiceFinalizedEventNotification, "stripe/events/v1_invoice_finalized_event"
+    autoload :V1InvoiceitemAmountChangedEvent, "stripe/events/v1_invoiceitem_amount_changed_event"
+    autoload :V1InvoiceitemAmountChangedEventNotification, "stripe/events/v1_invoiceitem_amount_changed_event"
     autoload :V1InvoiceitemCreatedEvent, "stripe/events/v1_invoiceitem_created_event"
     autoload :V1InvoiceitemCreatedEventNotification, "stripe/events/v1_invoiceitem_created_event"
     autoload :V1InvoiceitemDeletedEvent, "stripe/events/v1_invoiceitem_deleted_event"
     autoload :V1InvoiceitemDeletedEventNotification, "stripe/events/v1_invoiceitem_deleted_event"
+    autoload :V1InvoiceitemDiscountAddedEvent, "stripe/events/v1_invoiceitem_discount_added_event"
+    autoload :V1InvoiceitemDiscountAddedEventNotification, "stripe/events/v1_invoiceitem_discount_added_event"
+    autoload :V1InvoiceitemDiscountRemovedEvent, "stripe/events/v1_invoiceitem_discount_removed_event"
+    autoload :V1InvoiceitemDiscountRemovedEventNotification, "stripe/events/v1_invoiceitem_discount_removed_event"
+    autoload :V1InvoiceLineItemAddedEvent, "stripe/events/v1_invoice_line_item_added_event"
+    autoload :V1InvoiceLineItemAddedEventNotification, "stripe/events/v1_invoice_line_item_added_event"
+    autoload :V1InvoiceLineItemPricingChangedEvent, "stripe/events/v1_invoice_line_item_pricing_changed_event"
+    autoload :V1InvoiceLineItemPricingChangedEventNotification,
+             "stripe/events/v1_invoice_line_item_pricing_changed_event"
+    autoload :V1InvoiceLineItemQuantityChangedEvent, "stripe/events/v1_invoice_line_item_quantity_changed_event"
+    autoload :V1InvoiceLineItemQuantityChangedEventNotification,
+             "stripe/events/v1_invoice_line_item_quantity_changed_event"
+    autoload :V1InvoiceLineItemRemovedEvent, "stripe/events/v1_invoice_line_item_removed_event"
+    autoload :V1InvoiceLineItemRemovedEventNotification, "stripe/events/v1_invoice_line_item_removed_event"
     autoload :V1InvoiceMarkedUncollectibleEvent, "stripe/events/v1_invoice_marked_uncollectible_event"
     autoload :V1InvoiceMarkedUncollectibleEventNotification, "stripe/events/v1_invoice_marked_uncollectible_event"
     autoload :V1InvoiceOverdueEvent, "stripe/events/v1_invoice_overdue_event"
@@ -390,8 +502,12 @@ module Stripe
     autoload :V1InvoicePaymentAttemptRequiredEvent, "stripe/events/v1_invoice_payment_attempt_required_event"
     autoload :V1InvoicePaymentAttemptRequiredEventNotification,
              "stripe/events/v1_invoice_payment_attempt_required_event"
+    autoload :V1InvoicePaymentCanceledEvent, "stripe/events/v1_invoice_payment_canceled_event"
+    autoload :V1InvoicePaymentCanceledEventNotification, "stripe/events/v1_invoice_payment_canceled_event"
     autoload :V1InvoicePaymentFailedEvent, "stripe/events/v1_invoice_payment_failed_event"
     autoload :V1InvoicePaymentFailedEventNotification, "stripe/events/v1_invoice_payment_failed_event"
+    autoload :V1InvoicePaymentOpenEvent, "stripe/events/v1_invoice_payment_open_event"
+    autoload :V1InvoicePaymentOpenEventNotification, "stripe/events/v1_invoice_payment_open_event"
     autoload :V1InvoicePaymentPaidEvent, "stripe/events/v1_invoice_payment_paid_event"
     autoload :V1InvoicePaymentPaidEventNotification, "stripe/events/v1_invoice_payment_paid_event"
     autoload :V1InvoicePaymentSucceededEvent, "stripe/events/v1_invoice_payment_succeeded_event"
@@ -518,20 +634,38 @@ module Stripe
     autoload :V1PlanDeletedEventNotification, "stripe/events/v1_plan_deleted_event"
     autoload :V1PlanUpdatedEvent, "stripe/events/v1_plan_updated_event"
     autoload :V1PlanUpdatedEventNotification, "stripe/events/v1_plan_updated_event"
+    autoload :V1PriceActivatedEvent, "stripe/events/v1_price_activated_event"
+    autoload :V1PriceActivatedEventNotification, "stripe/events/v1_price_activated_event"
     autoload :V1PriceCreatedEvent, "stripe/events/v1_price_created_event"
     autoload :V1PriceCreatedEventNotification, "stripe/events/v1_price_created_event"
+    autoload :V1PriceDeactivatedEvent, "stripe/events/v1_price_deactivated_event"
+    autoload :V1PriceDeactivatedEventNotification, "stripe/events/v1_price_deactivated_event"
     autoload :V1PriceDeletedEvent, "stripe/events/v1_price_deleted_event"
     autoload :V1PriceDeletedEventNotification, "stripe/events/v1_price_deleted_event"
+    autoload :V1PriceLookupKeyChangedEvent, "stripe/events/v1_price_lookup_key_changed_event"
+    autoload :V1PriceLookupKeyChangedEventNotification, "stripe/events/v1_price_lookup_key_changed_event"
+    autoload :V1PriceTaxBehaviorChangedEvent, "stripe/events/v1_price_tax_behavior_changed_event"
+    autoload :V1PriceTaxBehaviorChangedEventNotification, "stripe/events/v1_price_tax_behavior_changed_event"
     autoload :V1PriceUpdatedEvent, "stripe/events/v1_price_updated_event"
     autoload :V1PriceUpdatedEventNotification, "stripe/events/v1_price_updated_event"
+    autoload :V1ProductActivatedEvent, "stripe/events/v1_product_activated_event"
+    autoload :V1ProductActivatedEventNotification, "stripe/events/v1_product_activated_event"
     autoload :V1ProductCreatedEvent, "stripe/events/v1_product_created_event"
     autoload :V1ProductCreatedEventNotification, "stripe/events/v1_product_created_event"
+    autoload :V1ProductDeactivatedEvent, "stripe/events/v1_product_deactivated_event"
+    autoload :V1ProductDeactivatedEventNotification, "stripe/events/v1_product_deactivated_event"
+    autoload :V1ProductDefaultPriceChangedEvent, "stripe/events/v1_product_default_price_changed_event"
+    autoload :V1ProductDefaultPriceChangedEventNotification, "stripe/events/v1_product_default_price_changed_event"
     autoload :V1ProductDeletedEvent, "stripe/events/v1_product_deleted_event"
     autoload :V1ProductDeletedEventNotification, "stripe/events/v1_product_deleted_event"
+    autoload :V1ProductTaxCodeChangedEvent, "stripe/events/v1_product_tax_code_changed_event"
+    autoload :V1ProductTaxCodeChangedEventNotification, "stripe/events/v1_product_tax_code_changed_event"
     autoload :V1ProductUpdatedEvent, "stripe/events/v1_product_updated_event"
     autoload :V1ProductUpdatedEventNotification, "stripe/events/v1_product_updated_event"
     autoload :V1PromotionCodeCreatedEvent, "stripe/events/v1_promotion_code_created_event"
     autoload :V1PromotionCodeCreatedEventNotification, "stripe/events/v1_promotion_code_created_event"
+    autoload :V1PromotionCodeFullyRedeemedEvent, "stripe/events/v1_promotion_code_fully_redeemed_event"
+    autoload :V1PromotionCodeFullyRedeemedEventNotification, "stripe/events/v1_promotion_code_fully_redeemed_event"
     autoload :V1PromotionCodeUpdatedEvent, "stripe/events/v1_promotion_code_updated_event"
     autoload :V1PromotionCodeUpdatedEventNotification, "stripe/events/v1_promotion_code_updated_event"
     autoload :V1QuoteAcceptedEvent, "stripe/events/v1_quote_accepted_event"
@@ -590,6 +724,24 @@ module Stripe
     autoload :V1SubscriptionScheduleCreatedEventNotification, "stripe/events/v1_subscription_schedule_created_event"
     autoload :V1SubscriptionScheduleExpiringEvent, "stripe/events/v1_subscription_schedule_expiring_event"
     autoload :V1SubscriptionScheduleExpiringEventNotification, "stripe/events/v1_subscription_schedule_expiring_event"
+    autoload :V1SubscriptionSchedulePhaseAddedEvent, "stripe/events/v1_subscription_schedule_phase_added_event"
+    autoload :V1SubscriptionSchedulePhaseAddedEventNotification,
+             "stripe/events/v1_subscription_schedule_phase_added_event"
+    autoload :V1SubscriptionSchedulePhaseDefaultTaxRatesChangedEvent,
+             "stripe/events/v1_subscription_schedule_phase_default_tax_rates_changed_event"
+    autoload :V1SubscriptionSchedulePhaseDefaultTaxRatesChangedEventNotification,
+             "stripe/events/v1_subscription_schedule_phase_default_tax_rates_changed_event"
+    autoload :V1SubscriptionSchedulePhaseEndDateChangedEvent,
+             "stripe/events/v1_subscription_schedule_phase_end_date_changed_event"
+    autoload :V1SubscriptionSchedulePhaseEndDateChangedEventNotification,
+             "stripe/events/v1_subscription_schedule_phase_end_date_changed_event"
+    autoload :V1SubscriptionSchedulePhaseRemovedEvent, "stripe/events/v1_subscription_schedule_phase_removed_event"
+    autoload :V1SubscriptionSchedulePhaseRemovedEventNotification,
+             "stripe/events/v1_subscription_schedule_phase_removed_event"
+    autoload :V1SubscriptionSchedulePhaseTrialEndChangedEvent,
+             "stripe/events/v1_subscription_schedule_phase_trial_end_changed_event"
+    autoload :V1SubscriptionSchedulePhaseTrialEndChangedEventNotification,
+             "stripe/events/v1_subscription_schedule_phase_trial_end_changed_event"
     autoload :V1SubscriptionScheduleReleasedEvent, "stripe/events/v1_subscription_schedule_released_event"
     autoload :V1SubscriptionScheduleReleasedEventNotification, "stripe/events/v1_subscription_schedule_released_event"
     autoload :V1SubscriptionScheduleUpdatedEvent, "stripe/events/v1_subscription_schedule_updated_event"
@@ -708,6 +860,137 @@ module Stripe
     autoload :V2CoreAccountUpdatedEventNotification, "stripe/events/v2_core_account_updated_event"
     autoload :V2CoreEventDestinationPingEvent, "stripe/events/v2_core_event_destination_ping_event"
     autoload :V2CoreEventDestinationPingEventNotification, "stripe/events/v2_core_event_destination_ping_event"
+    autoload :V2MoneyManagementAdjustmentCreatedEvent, "stripe/events/v2_money_management_adjustment_created_event"
+    autoload :V2MoneyManagementAdjustmentCreatedEventNotification,
+             "stripe/events/v2_money_management_adjustment_created_event"
+    autoload :V2MoneyManagementFinancialAccountCreatedEvent,
+             "stripe/events/v2_money_management_financial_account_created_event"
+    autoload :V2MoneyManagementFinancialAccountCreatedEventNotification,
+             "stripe/events/v2_money_management_financial_account_created_event"
+    autoload :V2MoneyManagementFinancialAccountUpdatedEvent,
+             "stripe/events/v2_money_management_financial_account_updated_event"
+    autoload :V2MoneyManagementFinancialAccountUpdatedEventNotification,
+             "stripe/events/v2_money_management_financial_account_updated_event"
+    autoload :V2MoneyManagementFinancialAddressActivatedEvent,
+             "stripe/events/v2_money_management_financial_address_activated_event"
+    autoload :V2MoneyManagementFinancialAddressActivatedEventNotification,
+             "stripe/events/v2_money_management_financial_address_activated_event"
+    autoload :V2MoneyManagementFinancialAddressFailedEvent,
+             "stripe/events/v2_money_management_financial_address_failed_event"
+    autoload :V2MoneyManagementFinancialAddressFailedEventNotification,
+             "stripe/events/v2_money_management_financial_address_failed_event"
+    autoload :V2MoneyManagementInboundTransferAvailableEvent,
+             "stripe/events/v2_money_management_inbound_transfer_available_event"
+    autoload :V2MoneyManagementInboundTransferAvailableEventNotification,
+             "stripe/events/v2_money_management_inbound_transfer_available_event"
+    autoload :V2MoneyManagementInboundTransferBankDebitFailedEvent,
+             "stripe/events/v2_money_management_inbound_transfer_bank_debit_failed_event"
+    autoload :V2MoneyManagementInboundTransferBankDebitFailedEventNotification,
+             "stripe/events/v2_money_management_inbound_transfer_bank_debit_failed_event"
+    autoload :V2MoneyManagementInboundTransferBankDebitProcessingEvent,
+             "stripe/events/v2_money_management_inbound_transfer_bank_debit_processing_event"
+    autoload :V2MoneyManagementInboundTransferBankDebitProcessingEventNotification,
+             "stripe/events/v2_money_management_inbound_transfer_bank_debit_processing_event"
+    autoload :V2MoneyManagementInboundTransferBankDebitQueuedEvent,
+             "stripe/events/v2_money_management_inbound_transfer_bank_debit_queued_event"
+    autoload :V2MoneyManagementInboundTransferBankDebitQueuedEventNotification,
+             "stripe/events/v2_money_management_inbound_transfer_bank_debit_queued_event"
+    autoload :V2MoneyManagementInboundTransferBankDebitReturnedEvent,
+             "stripe/events/v2_money_management_inbound_transfer_bank_debit_returned_event"
+    autoload :V2MoneyManagementInboundTransferBankDebitReturnedEventNotification,
+             "stripe/events/v2_money_management_inbound_transfer_bank_debit_returned_event"
+    autoload :V2MoneyManagementInboundTransferBankDebitSucceededEvent,
+             "stripe/events/v2_money_management_inbound_transfer_bank_debit_succeeded_event"
+    autoload :V2MoneyManagementInboundTransferBankDebitSucceededEventNotification,
+             "stripe/events/v2_money_management_inbound_transfer_bank_debit_succeeded_event"
+    autoload :V2MoneyManagementOutboundPaymentCanceledEvent,
+             "stripe/events/v2_money_management_outbound_payment_canceled_event"
+    autoload :V2MoneyManagementOutboundPaymentCanceledEventNotification,
+             "stripe/events/v2_money_management_outbound_payment_canceled_event"
+    autoload :V2MoneyManagementOutboundPaymentCreatedEvent,
+             "stripe/events/v2_money_management_outbound_payment_created_event"
+    autoload :V2MoneyManagementOutboundPaymentCreatedEventNotification,
+             "stripe/events/v2_money_management_outbound_payment_created_event"
+    autoload :V2MoneyManagementOutboundPaymentFailedEvent,
+             "stripe/events/v2_money_management_outbound_payment_failed_event"
+    autoload :V2MoneyManagementOutboundPaymentFailedEventNotification,
+             "stripe/events/v2_money_management_outbound_payment_failed_event"
+    autoload :V2MoneyManagementOutboundPaymentPostedEvent,
+             "stripe/events/v2_money_management_outbound_payment_posted_event"
+    autoload :V2MoneyManagementOutboundPaymentPostedEventNotification,
+             "stripe/events/v2_money_management_outbound_payment_posted_event"
+    autoload :V2MoneyManagementOutboundPaymentReturnedEvent,
+             "stripe/events/v2_money_management_outbound_payment_returned_event"
+    autoload :V2MoneyManagementOutboundPaymentReturnedEventNotification,
+             "stripe/events/v2_money_management_outbound_payment_returned_event"
+    autoload :V2MoneyManagementOutboundPaymentUnderReviewEvent,
+             "stripe/events/v2_money_management_outbound_payment_under_review_event"
+    autoload :V2MoneyManagementOutboundPaymentUnderReviewEventNotification,
+             "stripe/events/v2_money_management_outbound_payment_under_review_event"
+    autoload :V2MoneyManagementOutboundPaymentUpdatedEvent,
+             "stripe/events/v2_money_management_outbound_payment_updated_event"
+    autoload :V2MoneyManagementOutboundPaymentUpdatedEventNotification,
+             "stripe/events/v2_money_management_outbound_payment_updated_event"
+    autoload :V2MoneyManagementPayoutIntentCanceledEvent,
+             "stripe/events/v2_money_management_payout_intent_canceled_event"
+    autoload :V2MoneyManagementPayoutIntentCanceledEventNotification,
+             "stripe/events/v2_money_management_payout_intent_canceled_event"
+    autoload :V2MoneyManagementPayoutIntentCreatedEvent, "stripe/events/v2_money_management_payout_intent_created_event"
+    autoload :V2MoneyManagementPayoutIntentCreatedEventNotification,
+             "stripe/events/v2_money_management_payout_intent_created_event"
+    autoload :V2MoneyManagementPayoutIntentPendingEvent, "stripe/events/v2_money_management_payout_intent_pending_event"
+    autoload :V2MoneyManagementPayoutIntentPendingEventNotification,
+             "stripe/events/v2_money_management_payout_intent_pending_event"
+    autoload :V2MoneyManagementPayoutIntentPostedEvent, "stripe/events/v2_money_management_payout_intent_posted_event"
+    autoload :V2MoneyManagementPayoutIntentPostedEventNotification,
+             "stripe/events/v2_money_management_payout_intent_posted_event"
+    autoload :V2MoneyManagementPayoutIntentProcessingEvent,
+             "stripe/events/v2_money_management_payout_intent_processing_event"
+    autoload :V2MoneyManagementPayoutIntentProcessingEventNotification,
+             "stripe/events/v2_money_management_payout_intent_processing_event"
+    autoload :V2MoneyManagementPayoutIntentRequiresActionEvent,
+             "stripe/events/v2_money_management_payout_intent_requires_action_event"
+    autoload :V2MoneyManagementPayoutIntentRequiresActionEventNotification,
+             "stripe/events/v2_money_management_payout_intent_requires_action_event"
+    autoload :V2MoneyManagementPayoutIntentUpdatedEvent, "stripe/events/v2_money_management_payout_intent_updated_event"
+    autoload :V2MoneyManagementPayoutIntentUpdatedEventNotification,
+             "stripe/events/v2_money_management_payout_intent_updated_event"
+    autoload :V2MoneyManagementPayoutMethodCreatedEvent, "stripe/events/v2_money_management_payout_method_created_event"
+    autoload :V2MoneyManagementPayoutMethodCreatedEventNotification,
+             "stripe/events/v2_money_management_payout_method_created_event"
+    autoload :V2MoneyManagementPayoutMethodUpdatedEvent, "stripe/events/v2_money_management_payout_method_updated_event"
+    autoload :V2MoneyManagementPayoutMethodUpdatedEventNotification,
+             "stripe/events/v2_money_management_payout_method_updated_event"
+    autoload :V2MoneyManagementReceivedCreditAvailableEvent,
+             "stripe/events/v2_money_management_received_credit_available_event"
+    autoload :V2MoneyManagementReceivedCreditAvailableEventNotification,
+             "stripe/events/v2_money_management_received_credit_available_event"
+    autoload :V2MoneyManagementReceivedCreditFailedEvent,
+             "stripe/events/v2_money_management_received_credit_failed_event"
+    autoload :V2MoneyManagementReceivedCreditFailedEventNotification,
+             "stripe/events/v2_money_management_received_credit_failed_event"
+    autoload :V2MoneyManagementReceivedCreditReturnedEvent,
+             "stripe/events/v2_money_management_received_credit_returned_event"
+    autoload :V2MoneyManagementReceivedCreditReturnedEventNotification,
+             "stripe/events/v2_money_management_received_credit_returned_event"
+    autoload :V2MoneyManagementReceivedCreditSucceededEvent,
+             "stripe/events/v2_money_management_received_credit_succeeded_event"
+    autoload :V2MoneyManagementReceivedCreditSucceededEventNotification,
+             "stripe/events/v2_money_management_received_credit_succeeded_event"
+    autoload :V2MoneyManagementRecipientVerificationCreatedEvent,
+             "stripe/events/v2_money_management_recipient_verification_created_event"
+    autoload :V2MoneyManagementRecipientVerificationCreatedEventNotification,
+             "stripe/events/v2_money_management_recipient_verification_created_event"
+    autoload :V2MoneyManagementRecipientVerificationUpdatedEvent,
+             "stripe/events/v2_money_management_recipient_verification_updated_event"
+    autoload :V2MoneyManagementRecipientVerificationUpdatedEventNotification,
+             "stripe/events/v2_money_management_recipient_verification_updated_event"
+    autoload :V2MoneyManagementTransactionCreatedEvent, "stripe/events/v2_money_management_transaction_created_event"
+    autoload :V2MoneyManagementTransactionCreatedEventNotification,
+             "stripe/events/v2_money_management_transaction_created_event"
+    autoload :V2MoneyManagementTransactionUpdatedEvent, "stripe/events/v2_money_management_transaction_updated_event"
+    autoload :V2MoneyManagementTransactionUpdatedEventNotification,
+             "stripe/events/v2_money_management_transaction_updated_event"
   end
 
   module FinancialConnections
@@ -832,6 +1115,29 @@ module Stripe
       autoload :EventReasonRequest, "stripe/resources/v2/core/event_notification"
       autoload :RelatedObject, "stripe/resources/v2/core/event_notification"
       autoload :RelatedSingletonObject, "stripe/resources/v2/core/event_notification"
+
+      module Vault
+        autoload :GbBankAccount, "stripe/resources/v2/core/vault/gb_bank_account"
+        autoload :UsBankAccount, "stripe/resources/v2/core/vault/us_bank_account"
+      end
+    end
+
+    module MoneyManagement
+      autoload :Adjustment, "stripe/resources/v2/money_management/adjustment"
+      autoload :FinancialAccount, "stripe/resources/v2/money_management/financial_account"
+      autoload :FinancialAddress, "stripe/resources/v2/money_management/financial_address"
+      autoload :FinancialAddressCreditSimulation,
+               "stripe/resources/v2/money_management/financial_address_credit_simulation"
+      autoload :InboundTransfer, "stripe/resources/v2/money_management/inbound_transfer"
+      autoload :OutboundPayment, "stripe/resources/v2/money_management/outbound_payment"
+      autoload :OutboundSetupIntent, "stripe/resources/v2/money_management/outbound_setup_intent"
+      autoload :PayoutIntent, "stripe/resources/v2/money_management/payout_intent"
+      autoload :PayoutMethod, "stripe/resources/v2/money_management/payout_method"
+      autoload :PayoutMethodsBankAccountSpec, "stripe/resources/v2/money_management/payout_methods_bank_account_spec"
+      autoload :ReceivedCredit, "stripe/resources/v2/money_management/received_credit"
+      autoload :RecipientVerification, "stripe/resources/v2/money_management/recipient_verification"
+      autoload :Transaction, "stripe/resources/v2/money_management/transaction"
+      autoload :TransactionEntry, "stripe/resources/v2/money_management/transaction_entry"
     end
   end
 end
@@ -1003,7 +1309,23 @@ module Stripe
     stripe/resources/v2/core/account_token
     stripe/resources/v2/core/event
     stripe/resources/v2/core/event_destination
+    stripe/resources/v2/core/vault/gb_bank_account
+    stripe/resources/v2/core/vault/us_bank_account
     stripe/resources/v2/deleted_object
+    stripe/resources/v2/money_management/adjustment
+    stripe/resources/v2/money_management/financial_account
+    stripe/resources/v2/money_management/financial_address
+    stripe/resources/v2/money_management/financial_address_credit_simulation
+    stripe/resources/v2/money_management/inbound_transfer
+    stripe/resources/v2/money_management/outbound_payment
+    stripe/resources/v2/money_management/outbound_setup_intent
+    stripe/resources/v2/money_management/payout_intent
+    stripe/resources/v2/money_management/payout_method
+    stripe/resources/v2/money_management/payout_methods_bank_account_spec
+    stripe/resources/v2/money_management/received_credit
+    stripe/resources/v2/money_management/recipient_verification
+    stripe/resources/v2/money_management/transaction
+    stripe/resources/v2/money_management/transaction_entry
     stripe/resources/webhook_endpoint
     stripe/events/v1_account_application_authorized_event
     stripe/events/v1_account_application_deauthorized_event
@@ -1066,31 +1388,57 @@ module Stripe
     stripe/events/v1_customer_deleted_event
     stripe/events/v1_customer_discount_created_event
     stripe/events/v1_customer_discount_deleted_event
+    stripe/events/v1_customer_discount_source_changed_event
     stripe/events/v1_customer_discount_updated_event
+    stripe/events/v1_customer_subscription_active_event
+    stripe/events/v1_customer_subscription_cancel_at_changed_event
     stripe/events/v1_customer_subscription_created_event
+    stripe/events/v1_customer_subscription_default_payment_method_changed_event
     stripe/events/v1_customer_subscription_deleted_event
+    stripe/events/v1_customer_subscription_incomplete_event
+    stripe/events/v1_customer_subscription_incomplete_expired_event
+    stripe/events/v1_customer_subscription_item_added_event
+    stripe/events/v1_customer_subscription_item_price_changed_event
+    stripe/events/v1_customer_subscription_item_quantity_changed_event
+    stripe/events/v1_customer_subscription_item_removed_event
+    stripe/events/v1_customer_subscription_item_tax_rates_changed_event
+    stripe/events/v1_customer_subscription_past_due_event
     stripe/events/v1_customer_subscription_paused_event
     stripe/events/v1_customer_subscription_pending_update_applied_event
     stripe/events/v1_customer_subscription_pending_update_expired_event
     stripe/events/v1_customer_subscription_resumed_event
     stripe/events/v1_customer_subscription_trial_will_end_event
+    stripe/events/v1_customer_subscription_trialing_event
+    stripe/events/v1_customer_subscription_unpaid_event
     stripe/events/v1_customer_subscription_updated_event
     stripe/events/v1_customer_tax_id_created_event
     stripe/events/v1_customer_tax_id_deleted_event
     stripe/events/v1_customer_tax_id_updated_event
     stripe/events/v1_customer_updated_event
+    stripe/events/v1_entitlements_active_entitlement_summary_entitlement_added_event
+    stripe/events/v1_entitlements_active_entitlement_summary_entitlement_removed_event
     stripe/events/v1_entitlements_active_entitlement_summary_updated_event
     stripe/events/v1_file_created_event
     stripe/events/v1_financial_connections_account_account_numbers_updated_event
+    stripe/events/v1_financial_connections_account_balance_refresh_failed_event
+    stripe/events/v1_financial_connections_account_balance_refresh_succeeded_event
     stripe/events/v1_financial_connections_account_created_event
     stripe/events/v1_financial_connections_account_deactivated_event
     stripe/events/v1_financial_connections_account_disconnected_event
     stripe/events/v1_financial_connections_account_expected_deactivation_date_updated_event
+    stripe/events/v1_financial_connections_account_inferred_balances_refresh_failed_event
+    stripe/events/v1_financial_connections_account_inferred_balances_refresh_succeeded_event
+    stripe/events/v1_financial_connections_account_ownership_refresh_failed_event
+    stripe/events/v1_financial_connections_account_ownership_refresh_succeeded_event
     stripe/events/v1_financial_connections_account_reactivated_event
     stripe/events/v1_financial_connections_account_refreshed_balance_event
     stripe/events/v1_financial_connections_account_refreshed_ownership_event
     stripe/events/v1_financial_connections_account_refreshed_transactions_event
+    stripe/events/v1_financial_connections_account_risk_intelligence_refresh_failed_event
+    stripe/events/v1_financial_connections_account_risk_intelligence_refresh_succeeded_event
     stripe/events/v1_financial_connections_account_supported_payment_method_types_updated_event
+    stripe/events/v1_financial_connections_account_transactions_refresh_failed_event
+    stripe/events/v1_financial_connections_account_transactions_refresh_succeeded_event
     stripe/events/v1_financial_connections_account_upcoming_account_number_expiry_event
     stripe/events/v1_financial_connections_account_upcoming_deactivation_event
     stripe/events/v1_identity_verification_session_canceled_event
@@ -1101,15 +1449,23 @@ module Stripe
     stripe/events/v1_identity_verification_session_verified_event
     stripe/events/v1_invoice_created_event
     stripe/events/v1_invoice_deleted_event
+    stripe/events/v1_invoice_discount_added_event
+    stripe/events/v1_invoice_discount_removed_event
     stripe/events/v1_invoice_finalization_failed_event
     stripe/events/v1_invoice_finalized_event
+    stripe/events/v1_invoice_line_item_added_event
+    stripe/events/v1_invoice_line_item_pricing_changed_event
+    stripe/events/v1_invoice_line_item_quantity_changed_event
+    stripe/events/v1_invoice_line_item_removed_event
     stripe/events/v1_invoice_marked_uncollectible_event
     stripe/events/v1_invoice_overdue_event
     stripe/events/v1_invoice_overpaid_event
     stripe/events/v1_invoice_paid_event
     stripe/events/v1_invoice_payment_action_required_event
     stripe/events/v1_invoice_payment_attempt_required_event
+    stripe/events/v1_invoice_payment_canceled_event
     stripe/events/v1_invoice_payment_failed_event
+    stripe/events/v1_invoice_payment_open_event
     stripe/events/v1_invoice_payment_paid_event
     stripe/events/v1_invoice_payment_succeeded_event
     stripe/events/v1_invoice_sent_event
@@ -1117,8 +1473,11 @@ module Stripe
     stripe/events/v1_invoice_updated_event
     stripe/events/v1_invoice_voided_event
     stripe/events/v1_invoice_will_be_due_event
+    stripe/events/v1_invoiceitem_amount_changed_event
     stripe/events/v1_invoiceitem_created_event
     stripe/events/v1_invoiceitem_deleted_event
+    stripe/events/v1_invoiceitem_discount_added_event
+    stripe/events/v1_invoiceitem_discount_removed_event
     stripe/events/v1_issuing_authorization_created_event
     stripe/events/v1_issuing_authorization_request_event
     stripe/events/v1_issuing_authorization_updated_event
@@ -1168,13 +1527,22 @@ module Stripe
     stripe/events/v1_plan_created_event
     stripe/events/v1_plan_deleted_event
     stripe/events/v1_plan_updated_event
+    stripe/events/v1_price_activated_event
     stripe/events/v1_price_created_event
+    stripe/events/v1_price_deactivated_event
     stripe/events/v1_price_deleted_event
+    stripe/events/v1_price_lookup_key_changed_event
+    stripe/events/v1_price_tax_behavior_changed_event
     stripe/events/v1_price_updated_event
+    stripe/events/v1_product_activated_event
     stripe/events/v1_product_created_event
+    stripe/events/v1_product_deactivated_event
+    stripe/events/v1_product_default_price_changed_event
     stripe/events/v1_product_deleted_event
+    stripe/events/v1_product_tax_code_changed_event
     stripe/events/v1_product_updated_event
     stripe/events/v1_promotion_code_created_event
+    stripe/events/v1_promotion_code_fully_redeemed_event
     stripe/events/v1_promotion_code_updated_event
     stripe/events/v1_quote_accepted_event
     stripe/events/v1_quote_canceled_event
@@ -1202,6 +1570,11 @@ module Stripe
     stripe/events/v1_subscription_schedule_completed_event
     stripe/events/v1_subscription_schedule_created_event
     stripe/events/v1_subscription_schedule_expiring_event
+    stripe/events/v1_subscription_schedule_phase_added_event
+    stripe/events/v1_subscription_schedule_phase_default_tax_rates_changed_event
+    stripe/events/v1_subscription_schedule_phase_end_date_changed_event
+    stripe/events/v1_subscription_schedule_phase_removed_event
+    stripe/events/v1_subscription_schedule_phase_trial_end_changed_event
     stripe/events/v1_subscription_schedule_released_event
     stripe/events/v1_subscription_schedule_updated_event
     stripe/events/v1_tax_rate_created_event
@@ -1245,6 +1618,41 @@ module Stripe
     stripe/events/v2_core_account_person_updated_event
     stripe/events/v2_core_account_updated_event
     stripe/events/v2_core_event_destination_ping_event
+    stripe/events/v2_money_management_adjustment_created_event
+    stripe/events/v2_money_management_financial_account_created_event
+    stripe/events/v2_money_management_financial_account_updated_event
+    stripe/events/v2_money_management_financial_address_activated_event
+    stripe/events/v2_money_management_financial_address_failed_event
+    stripe/events/v2_money_management_inbound_transfer_available_event
+    stripe/events/v2_money_management_inbound_transfer_bank_debit_failed_event
+    stripe/events/v2_money_management_inbound_transfer_bank_debit_processing_event
+    stripe/events/v2_money_management_inbound_transfer_bank_debit_queued_event
+    stripe/events/v2_money_management_inbound_transfer_bank_debit_returned_event
+    stripe/events/v2_money_management_inbound_transfer_bank_debit_succeeded_event
+    stripe/events/v2_money_management_outbound_payment_canceled_event
+    stripe/events/v2_money_management_outbound_payment_created_event
+    stripe/events/v2_money_management_outbound_payment_failed_event
+    stripe/events/v2_money_management_outbound_payment_posted_event
+    stripe/events/v2_money_management_outbound_payment_returned_event
+    stripe/events/v2_money_management_outbound_payment_under_review_event
+    stripe/events/v2_money_management_outbound_payment_updated_event
+    stripe/events/v2_money_management_payout_intent_canceled_event
+    stripe/events/v2_money_management_payout_intent_created_event
+    stripe/events/v2_money_management_payout_intent_pending_event
+    stripe/events/v2_money_management_payout_intent_posted_event
+    stripe/events/v2_money_management_payout_intent_processing_event
+    stripe/events/v2_money_management_payout_intent_requires_action_event
+    stripe/events/v2_money_management_payout_intent_updated_event
+    stripe/events/v2_money_management_payout_method_created_event
+    stripe/events/v2_money_management_payout_method_updated_event
+    stripe/events/v2_money_management_received_credit_available_event
+    stripe/events/v2_money_management_received_credit_failed_event
+    stripe/events/v2_money_management_received_credit_returned_event
+    stripe/events/v2_money_management_received_credit_succeeded_event
+    stripe/events/v2_money_management_recipient_verification_created_event
+    stripe/events/v2_money_management_recipient_verification_updated_event
+    stripe/events/v2_money_management_transaction_created_event
+    stripe/events/v2_money_management_transaction_updated_event
   ].freeze
   # rubocop:enable Metrics/CollectionLiteralLength
 end

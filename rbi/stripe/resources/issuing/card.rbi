@@ -138,6 +138,9 @@ module Stripe
         # Additional information that may be required for clearing customs.
         sig { returns(T.nilable(Customs)) }
         def customs; end
+        # The time the card was reported as delivered. Null for undelivered or untracked shipments, or if Stripe has not recorded a delivery time.
+        sig { returns(T.nilable(Integer)) }
+        def delivered_at; end
         # A unix timestamp representing a best estimate of when the card will be delivered.
         sig { returns(T.nilable(Integer)) }
         def eta; end
@@ -153,6 +156,9 @@ module Stripe
         # Shipment service, such as `standard` or `express`.
         sig { returns(String) }
         def service; end
+        # The time the card was reported as shipped. Null if Stripe has not recorded a shipment time.
+        sig { returns(T.nilable(Integer)) }
+        def shipped_at; end
         # The delivery status of the card.
         sig { returns(T.nilable(String)) }
         def status; end

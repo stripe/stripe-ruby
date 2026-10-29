@@ -19,6 +19,31 @@ module Stripe
     #
     # Related guide: [Customer management](https://docs.stripe.com/customer-management)
     class Session < APIResource
+      class AfterExpiration < ::Stripe::StripeObject
+        class CustomerLogin < ::Stripe::StripeObject
+          # The time after which the customer can no longer recover this session.
+          sig { returns(T.nilable(Integer)) }
+          def expires_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Configuration for authenticating the customer after the session expires.
+        sig { returns(T.nilable(CustomerLogin)) }
+        def customer_login; end
+        # The behavior to apply when the session expires.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {customer_login: CustomerLogin}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Flow < ::Stripe::StripeObject
         class AfterCompletion < ::Stripe::StripeObject
           class HostedConfirmation < ::Stripe::StripeObject
@@ -106,6 +131,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class SubscriptionPause < ::Stripe::StripeObject
+          # The ID of the subscription to be paused.
+          sig { returns(String) }
+          def subscription; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class SubscriptionUpdate < ::Stripe::StripeObject
           # The ID of the subscription to be updated.
           sig { returns(String) }
@@ -174,6 +210,9 @@ module Stripe
         # Configuration when `flow.type=subscription_cancel`.
         sig { returns(T.nilable(SubscriptionCancel)) }
         def subscription_cancel; end
+        # Configuration when `flow.type=subscription_pause`.
+        sig { returns(T.nilable(SubscriptionPause)) }
+        def subscription_pause; end
         # Configuration when `flow.type=subscription_update`.
         sig { returns(T.nilable(SubscriptionUpdate)) }
         def subscription_update; end
@@ -188,6 +227,7 @@ module Stripe
             after_completion: AfterCompletion,
             customer_update: CustomerUpdate,
             subscription_cancel: SubscriptionCancel,
+            subscription_pause: SubscriptionPause,
             subscription_update: SubscriptionUpdate,
             subscription_update_confirm: SubscriptionUpdateConfirm,
           }
@@ -196,6 +236,9 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Behavior after the portal session expires.
+      sig { returns(T.nilable(AfterExpiration)) }
+      def after_expiration; end
       # The configuration used by this session, describing the features available.
       sig { returns(T.any(String, ::Stripe::BillingPortal::Configuration)) }
       def configuration; end

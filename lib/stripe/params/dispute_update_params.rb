@@ -4,6 +4,26 @@
 module Stripe
   class DisputeUpdateParams < ::Stripe::RequestParams
     class Evidence < ::Stripe::RequestParams
+      class Appeal < ::Stripe::RequestParams
+        class Card < ::Stripe::RequestParams
+          # An explanation of the reason for filing the appeal.
+          attr_accessor :reason_for_filing
+          # One or more document IDs returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
+          attr_accessor :supporting_files
+
+          def initialize(reason_for_filing: nil, supporting_files: nil)
+            @reason_for_filing = reason_for_filing
+            @supporting_files = supporting_files
+          end
+        end
+        # Evidence for a card dispute appeal.
+        attr_accessor :card
+
+        def initialize(card: nil)
+          @card = card
+        end
+      end
+
       class EnhancedEvidence < ::Stripe::RequestParams
         class MastercardCompliance < ::Stripe::RequestParams
           # A field acknowledging the fee incurred when countering a Mastercard compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute.
@@ -190,6 +210,8 @@ module Stripe
       end
       # Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity. Has a maximum character count of 20,000.
       attr_accessor :access_activity_log
+      # Evidence to submit when appealing a dispute.
+      attr_accessor :appeal
       # The billing address provided by the customer.
       attr_accessor :billing_address
       # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your subscription cancellation policy, as shown to the customer.
@@ -247,6 +269,7 @@ module Stripe
 
       def initialize(
         access_activity_log: nil,
+        appeal: nil,
         billing_address: nil,
         cancellation_policy: nil,
         cancellation_policy_disclosure: nil,
@@ -276,6 +299,7 @@ module Stripe
         uncategorized_text: nil
       )
         @access_activity_log = access_activity_log
+        @appeal = appeal
         @billing_address = billing_address
         @cancellation_policy = cancellation_policy
         @cancellation_policy_disclosure = cancellation_policy_disclosure
@@ -309,14 +333,23 @@ module Stripe
     attr_accessor :evidence
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
+    # Intended submission method for the dispute.
+    attr_accessor :intended_submission_method
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default).
     attr_accessor :submit
 
-    def initialize(evidence: nil, expand: nil, metadata: nil, submit: nil)
+    def initialize(
+      evidence: nil,
+      expand: nil,
+      intended_submission_method: nil,
+      metadata: nil,
+      submit: nil
+    )
       @evidence = evidence
       @expand = expand
+      @intended_submission_method = intended_submission_method
       @metadata = metadata
       @submit = submit
     end

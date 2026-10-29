@@ -17,6 +17,33 @@ module Stripe
     end
 
     class Evidence < ::Stripe::StripeObject
+      class Appeal < ::Stripe::StripeObject
+        class Card < ::Stripe::StripeObject
+          # The reason for filing the appeal.
+          attr_reader :reason_for_filing
+          # One or more document IDs returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
+          attr_reader :supporting_files
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field card
+        attr_reader :card
+
+        def self.inner_class_types
+          @inner_class_types = { card: Card }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class EnhancedEvidence < ::Stripe::StripeObject
         class MastercardCompliance < ::Stripe::StripeObject
           # A field acknowledging the fee incurred when countering a Mastercard compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute.
@@ -179,6 +206,8 @@ module Stripe
       end
       # Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
       attr_reader :access_activity_log
+      # Appeal evidence submitted during the appeal stage.
+      attr_reader :appeal
       # The billing address provided by the customer.
       attr_reader :billing_address
       # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your subscription cancellation policy, as shown to the customer.
@@ -235,7 +264,7 @@ module Stripe
       attr_reader :uncategorized_text
 
       def self.inner_class_types
-        @inner_class_types = { enhanced_evidence: EnhancedEvidence }
+        @inner_class_types = { appeal: Appeal, enhanced_evidence: EnhancedEvidence }
       end
 
       def self.field_remappings
@@ -314,6 +343,8 @@ module Stripe
       attr_reader :past_due
       # The number of times evidence has been submitted. Typically, you may only submit evidence once.
       attr_reader :submission_count
+      # Whether the dispute was submitted manually, with Smart Disputes, or not submitted.
+      attr_reader :submission_method
 
       def self.inner_class_types
         @inner_class_types = { enhanced_eligibility: EnhancedEligibility }
@@ -423,6 +454,8 @@ module Stripe
     attr_reader :evidence_details
     # Unique identifier for the object.
     attr_reader :id
+    # Intended submission method for the dispute.
+    attr_reader :intended_submission_method
     # If true, it's still possible to refund the disputed payment. After the payment has been fully refunded, no further funds are withdrawn from your Stripe account as a result of this dispute.
     attr_reader :is_charge_refundable
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -439,7 +472,7 @@ module Stripe
     attr_reader :payment_method_details
     # Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `noncompliant`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://docs.stripe.com/disputes/categories).
     attr_reader :reason
-    # The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
+    # The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `appeal_needs_response`, `appeal_under_review`, `won`, `lost`, or `prevented`.
     attr_reader :status
 
     # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.

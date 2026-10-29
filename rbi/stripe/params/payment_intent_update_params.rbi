@@ -2044,6 +2044,11 @@ module Stripe
           params(_require_cvc_recollection: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
          }
         def require_cvc_recollection=(_require_cvc_recollection); end
+        # Set to indicate the future transaction type usage for the card being set up.
+        sig { returns(T.nilable(String)) }
+        def setup_credential_usage; end
+        sig { params(_setup_credential_usage: T.nilable(String)).returns(T.nilable(String)) }
+        def setup_credential_usage=(_setup_credential_usage); end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2071,6 +2076,17 @@ module Stripe
           params(_statement_descriptor_suffix_kanji: T.nilable(String)).returns(T.nilable(String))
          }
         def statement_descriptor_suffix_kanji=(_statement_descriptor_suffix_kanji); end
+        # Use this parameter in scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards).
+        #
+        #  When making an off session payment with a previously saved card (that was saved with a SetupIntent or with a PaymentIntent with `setup_future_usage`), set this parameter to indicate the type of transaction.
+        #
+        #  You can set this parameter at any time before or during PaymentIntent confirmation, and confirm this PaymentIntent with `off_session=true`.
+        #
+        #  Note that this parameter is currently unsupported with the `setup_future_usage` parameter.
+        sig { returns(T.nilable(String)) }
+        def stored_credential_usage; end
+        sig { params(_stored_credential_usage: T.nilable(String)).returns(T.nilable(String)) }
+        def stored_credential_usage=(_stored_credential_usage); end
         # If 3D Secure authentication was performed with a third-party provider,
         # the authentication details to use for this payment.
         sig {
@@ -2082,7 +2098,7 @@ module Stripe
          }
         def three_d_secure=(_three_d_secure); end
         sig {
-          params(capture_method: T.nilable(String), cvc_token: T.nilable(String), installments: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::Installments), mandate_options: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::MandateOptions), moto: T.nilable(T::Boolean), network: T.nilable(String), request_extended_authorization: T.nilable(String), request_incremental_authorization: T.nilable(String), request_multicapture: T.nilable(String), request_overcapture: T.nilable(String), request_three_d_secure: T.nilable(String), require_cvc_recollection: T.nilable(T::Boolean), setup_future_usage: T.nilable(String), statement_descriptor_suffix_kana: T.nilable(String), statement_descriptor_suffix_kanji: T.nilable(String), three_d_secure: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::ThreeDSecure)).void
+          params(capture_method: T.nilable(String), cvc_token: T.nilable(String), installments: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::Installments), mandate_options: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::MandateOptions), moto: T.nilable(T::Boolean), network: T.nilable(String), request_extended_authorization: T.nilable(String), request_incremental_authorization: T.nilable(String), request_multicapture: T.nilable(String), request_overcapture: T.nilable(String), request_three_d_secure: T.nilable(String), require_cvc_recollection: T.nilable(T::Boolean), setup_credential_usage: T.nilable(String), setup_future_usage: T.nilable(String), statement_descriptor_suffix_kana: T.nilable(String), statement_descriptor_suffix_kanji: T.nilable(String), stored_credential_usage: T.nilable(String), three_d_secure: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::ThreeDSecure)).void
          }
         def initialize(
           capture_method: nil,
@@ -2097,9 +2113,11 @@ module Stripe
           request_overcapture: nil,
           request_three_d_secure: nil,
           require_cvc_recollection: nil,
+          setup_credential_usage: nil,
           setup_future_usage: nil,
           statement_descriptor_suffix_kana: nil,
           statement_descriptor_suffix_kanji: nil,
+          stored_credential_usage: nil,
           three_d_secure: nil
         ); end
       end
@@ -3028,12 +3046,12 @@ module Stripe
         def amount_includes_iof; end
         sig { params(_amount_includes_iof: T.nilable(String)).returns(T.nilable(String)) }
         def amount_includes_iof=(_amount_includes_iof); end
-        # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+        # The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If neither expiration option is supplied, defaults to 14400 seconds (4 hours). Mutually exclusive with `expires_at`.
         sig { returns(T.nilable(Integer)) }
         def expires_after_seconds; end
         sig { params(_expires_after_seconds: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def expires_after_seconds=(_expires_after_seconds); end
-        # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
+        # The absolute Unix timestamp at which the Pix expires, between 60 and 1209600 seconds from the current time. If neither expiration option is supplied, the Pix expires 14400 seconds (4 hours) after PaymentIntent confirmation. Mutually exclusive with `expires_after_seconds`.
         sig { returns(T.nilable(Integer)) }
         def expires_at; end
         sig { params(_expires_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -4364,7 +4382,7 @@ module Stripe
       params(_payment_details: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentDetails))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentDetails)))
      }
     def payment_details=(_payment_details); end
-    # ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://docs.stripe.com/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. To unset this field to null, pass in an empty string.
+    # The ID of a PaymentMethod to attach to this PaymentIntent. To unset this field to null, pass in an empty string.
     sig { returns(T.nilable(String)) }
     def payment_method; end
     sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }

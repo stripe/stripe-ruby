@@ -186,6 +186,25 @@ module Stripe
         V2::Core::AccountToken.object_name => V2::Core::AccountToken,
         V2::Core::Event.object_name => V2::Core::Event,
         V2::Core::EventDestination.object_name => V2::Core::EventDestination,
+        V2::Core::Vault::GbBankAccount.object_name => V2::Core::Vault::GbBankAccount,
+        V2::Core::Vault::UsBankAccount.object_name => V2::Core::Vault::UsBankAccount,
+        V2::MoneyManagement::Adjustment.object_name => V2::MoneyManagement::Adjustment,
+        V2::MoneyManagement::FinancialAccount.object_name => V2::MoneyManagement::FinancialAccount,
+        V2::MoneyManagement::FinancialAddress.object_name => V2::MoneyManagement::FinancialAddress,
+        V2::MoneyManagement::FinancialAddressCreditSimulation.object_name =>
+        V2::MoneyManagement::FinancialAddressCreditSimulation,
+        V2::MoneyManagement::InboundTransfer.object_name => V2::MoneyManagement::InboundTransfer,
+        V2::MoneyManagement::OutboundPayment.object_name => V2::MoneyManagement::OutboundPayment,
+        V2::MoneyManagement::OutboundSetupIntent.object_name => V2::MoneyManagement::OutboundSetupIntent,
+        V2::MoneyManagement::PayoutIntent.object_name => V2::MoneyManagement::PayoutIntent,
+        V2::MoneyManagement::PayoutMethod.object_name => V2::MoneyManagement::PayoutMethod,
+        V2::MoneyManagement::PayoutMethodsBankAccountSpec.object_name =>
+        V2::MoneyManagement::PayoutMethodsBankAccountSpec,
+        V2::MoneyManagement::ReceivedCredit.object_name => V2::MoneyManagement::ReceivedCredit,
+        V2::MoneyManagement::RecipientVerification.object_name =>
+        V2::MoneyManagement::RecipientVerification,
+        V2::MoneyManagement::Transaction.object_name => V2::MoneyManagement::Transaction,
+        V2::MoneyManagement::TransactionEntry.object_name => V2::MoneyManagement::TransactionEntry,
         # v2 object classes: The end of the section generated from our OpenAPI spec
       }
     end

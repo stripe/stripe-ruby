@@ -10,6 +10,7 @@ module Stripe
       attr_reader :account_tokens
       attr_reader :events
       attr_reader :event_destinations
+      attr_reader :vault
     end
   end
 end

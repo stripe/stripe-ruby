@@ -185,9 +185,9 @@ module Stripe
             end
 
             class Branding < ::Stripe::RequestParams
-              # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
+              # ID of a [file upload](https://docs.stripe.com/api/files/create): An icon for the merchant. Must be square and at least 128px x 128px.
               attr_accessor :icon
-              # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
+              # ID of a [file upload](https://docs.stripe.com/api/files/create): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
               attr_accessor :logo
               # A CSS hex color value representing the primary branding color for the merchant.
               attr_accessor :primary_color
@@ -1011,7 +1011,7 @@ module Stripe
             attr_accessor :script_statement_descriptor
             # Settings for SEPA Direct Debit payments.
             attr_accessor :sepa_debit_payments
-            # Settings for the default [statement descriptor](/connect/statement-descriptors) text.
+            # Settings for the default statement descriptor text.
             attr_accessor :statement_descriptor
             # Publicly available contact information for sending support issues to.
             attr_accessor :support
@@ -1045,6 +1045,112 @@ module Stripe
 
           class Recipient < ::Stripe::RequestParams
             class Capabilities < ::Stripe::RequestParams
+              class BankAccounts < ::Stripe::RequestParams
+                class Ach < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+
+                class Fedwire < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+
+                class Fps < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+
+                class Local < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+
+                class Rtp < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+
+                class Sepa < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+
+                class Swift < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over ACH rails.
+                attr_accessor :ach
+                # Enables this Account to receive OutboundPayments to linked bank accounts over Fedwire or CHIPS.
+                attr_accessor :fedwire
+                # Enables this Account to receive OutboundPayments to linked bank accounts over FPS rails.
+                attr_accessor :fps
+                # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
+                attr_accessor :local
+                # Enables this Account to receive OutboundPayments to linked bank accounts over RTP rails.
+                attr_accessor :rtp
+                # Enables this Account to receive OutboundPayments to linked bank accounts over SEPA rails.
+                attr_accessor :sepa
+                # Enables this Account to receive OutboundPayments to linked bank accounts over SWIFT.
+                attr_accessor :swift
+
+                def initialize(
+                  ach: nil,
+                  fedwire: nil,
+                  fps: nil,
+                  local: nil,
+                  rtp: nil,
+                  sepa: nil,
+                  swift: nil
+                )
+                  @ach = ach
+                  @fedwire = fedwire
+                  @fps = fps
+                  @local = local
+                  @rtp = rtp
+                  @sepa = sepa
+                  @swift = swift
+                end
+              end
+
+              class Cards < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(requested: nil)
+                  @requested = requested
+                end
+              end
+
               class StripeBalance < ::Stripe::RequestParams
                 class StripeTransfers < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
@@ -1061,10 +1167,16 @@ module Stripe
                   @stripe_transfers = stripe_transfers
                 end
               end
+              # Capabilities that enable OutboundPayments to a bank account linked to this Account.
+              attr_accessor :bank_accounts
+              # Capability that enable OutboundPayments to a debit card linked to this Account.
+              attr_accessor :cards
               # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
               attr_accessor :stripe_balance
 
-              def initialize(stripe_balance: nil)
+              def initialize(bank_accounts: nil, cards: nil, stripe_balance: nil)
+                @bank_accounts = bank_accounts
+                @cards = cards
                 @stripe_balance = stripe_balance
               end
             end
@@ -1123,14 +1235,23 @@ module Stripe
           attr_accessor :currency
           # The Account's preferred locales (languages), ordered by preference.
           attr_accessor :locales
+          # Default payout methods per currency. Keys are three-letter [ISO currency codes](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Values are v2 Payout Method IDs.
+          attr_accessor :payout_methods
           # Account profile information.
           attr_accessor :profile
           # Default responsibilities held by either Stripe or the platform.
           attr_accessor :responsibilities
 
-          def initialize(currency: nil, locales: nil, profile: nil, responsibilities: nil)
+          def initialize(
+            currency: nil,
+            locales: nil,
+            payout_methods: nil,
+            profile: nil,
+            responsibilities: nil
+          )
             @currency = currency
             @locales = locales
+            @payout_methods = payout_methods
             @profile = profile
             @responsibilities = responsibilities
           end
@@ -1251,7 +1372,7 @@ module Stripe
                   @user_agent = user_agent
                 end
               end
-              # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
+              # Details on the Account's acceptance of the Stripe Services Agreement.
               attr_accessor :account
               # Details on the Account's acceptance of Crypto-specific terms of service.
               attr_accessor :crypto_money_manager
@@ -1379,7 +1500,7 @@ module Stripe
 
             class Documents < ::Stripe::RequestParams
               class BankAccountOwnershipVerification < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
@@ -1391,7 +1512,7 @@ module Stripe
               end
 
               class CompanyLicense < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
@@ -1403,7 +1524,7 @@ module Stripe
               end
 
               class CompanyMemorandumOfAssociation < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
@@ -1415,7 +1536,7 @@ module Stripe
               end
 
               class CompanyMinisterialDecree < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
@@ -1427,7 +1548,7 @@ module Stripe
               end
 
               class CompanyRegistrationVerification < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
@@ -1439,7 +1560,7 @@ module Stripe
               end
 
               class CompanyTaxIdVerification < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
@@ -1452,9 +1573,9 @@ module Stripe
 
               class PrimaryVerification < ::Stripe::RequestParams
                 class FrontBack < ::Stripe::RequestParams
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :back
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :front
 
                   def initialize(back: nil, front: nil)
@@ -1462,7 +1583,7 @@ module Stripe
                     @front = front
                   end
                 end
-                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+                # The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
                 attr_accessor :front_back
                 # The format of the verification document. Currently supports `front_back` only.
                 attr_accessor :type
@@ -1474,7 +1595,7 @@ module Stripe
               end
 
               class ProofOfAddress < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
@@ -1494,7 +1615,7 @@ module Stripe
                     @person = person
                   end
                 end
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # Person that is signing the document.
                 attr_accessor :signer
@@ -1517,7 +1638,7 @@ module Stripe
                     @person = person
                   end
                 end
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # Person that is signing the document.
                 attr_accessor :signer
@@ -1892,7 +2013,7 @@ module Stripe
 
             class Documents < ::Stripe::RequestParams
               class CompanyAuthorization < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
@@ -1904,7 +2025,7 @@ module Stripe
               end
 
               class Passport < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
@@ -1917,9 +2038,9 @@ module Stripe
 
               class PrimaryVerification < ::Stripe::RequestParams
                 class FrontBack < ::Stripe::RequestParams
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :back
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :front
 
                   def initialize(back: nil, front: nil)
@@ -1927,7 +2048,7 @@ module Stripe
                     @front = front
                   end
                 end
-                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+                # The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
                 attr_accessor :front_back
                 # The format of the verification document. Currently supports `front_back` only.
                 attr_accessor :type
@@ -1940,9 +2061,9 @@ module Stripe
 
               class SecondaryVerification < ::Stripe::RequestParams
                 class FrontBack < ::Stripe::RequestParams
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :back
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   attr_accessor :front
 
                   def initialize(back: nil, front: nil)
@@ -1950,7 +2071,7 @@ module Stripe
                     @front = front
                   end
                 end
-                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+                # The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
                 attr_accessor :front_back
                 # The format of the verification document. Currently supports `front_back` only.
                 attr_accessor :type
@@ -1962,7 +2083,7 @@ module Stripe
               end
 
               class Visa < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 attr_accessor :files
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type

@@ -1881,6 +1881,9 @@ module Stripe
         # When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
         sig { returns(T.nilable(T::Boolean)) }
         def require_cvc_recollection; end
+        # Set to indicate the future transaction type usage for the card being set up.
+        sig { returns(T.nilable(String)) }
+        def setup_credential_usage; end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1896,6 +1899,9 @@ module Stripe
         # Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
         sig { returns(T.nilable(String)) }
         def statement_descriptor_suffix_kanji; end
+        # Selected usage to indicate the transaction type of the off-session payment.
+        sig { returns(T.nilable(String)) }
+        def stored_credential_usage; end
         def self.inner_class_types
           @inner_class_types = {installments: Installments, mandate_options: MandateOptions}
         end
@@ -2524,10 +2530,10 @@ module Stripe
         # Determines if the amount includes the IOF tax.
         sig { returns(T.nilable(String)) }
         def amount_includes_iof; end
-        # The number of seconds (between 10 and 1209600) after which Pix payment will expire.
+        # The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If neither expiration option is supplied, defaults to 14400 seconds (4 hours). Mutually exclusive with `expires_at`.
         sig { returns(T.nilable(Integer)) }
         def expires_after_seconds; end
-        # The timestamp at which the Pix expires.
+        # The absolute Unix timestamp at which the Pix expires. When supplied as an input, it must be between 60 and 1209600 seconds from the current time at validation, inclusive. If neither expiration option is supplied, the Pix expires 14400 seconds (4 hours) after PaymentIntent confirmation. Mutually exclusive with `expires_after_seconds`.
         sig { returns(T.nilable(Integer)) }
         def expires_at; end
         # Attribute for field mandate_options

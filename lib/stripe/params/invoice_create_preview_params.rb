@@ -113,7 +113,7 @@ module Stripe
       end
 
       class TaxId < ::Stripe::RequestParams
-        # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+        # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_acn`, `au_arn`, `au_wpn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `bw_vat`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `ci_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `cz_dic`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `fr_siren`, `fr_siret`, `fr_spi`, `gb_vat`, `ge_vat`, `gh_tin`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_kt`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_cf`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mu_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `mz_nuit`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_bn`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `pt_nif`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sm_coe`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tt_bir`, `tt_vat`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
         attr_accessor :type
         # Value of the tax ID.
         attr_accessor :value
@@ -232,9 +232,9 @@ module Stripe
       attr_accessor :metadata
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://docs.stripe.com/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://docs.stripe.com/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
       attr_accessor :period
-      # The ID of the price object. One of `price` or `price_data` is required.
+      # The ID of the price object.
       attr_accessor :price
-      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline.
       attr_accessor :price_data
       # Non-negative integer. The quantity of units for the invoice item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
       attr_accessor :quantity
@@ -328,6 +328,142 @@ module Stripe
         def initialize(flexible: nil, type: nil)
           @flexible = flexible
           @type = type
+        end
+      end
+
+      class PauseSchedule < ::Stripe::RequestParams
+        class Pause < ::Stripe::RequestParams
+          class PauseAt < ::Stripe::RequestParams
+            # The Unix timestamp at which to pause the subscription. Required when `type` is `timestamp`.
+            attr_accessor :timestamp
+            # When to pause the subscription. Use `now` to pause immediately or `timestamp` to pause at a specific time.
+            attr_accessor :type
+
+            def initialize(timestamp: nil, type: nil)
+              @timestamp = timestamp
+              @type = type
+            end
+          end
+
+          class Settings < ::Stripe::RequestParams
+            class BillFor < ::Stripe::RequestParams
+              class OutstandingUsageThrough < ::Stripe::RequestParams
+                # Determines whether to collect metered usage accrued up to the pause date. When adding a pause schedule, defaults to `pause_at`. On updates, the existing value is preserved if not provided.
+                attr_accessor :type
+
+                def initialize(type: nil)
+                  @type = type
+                end
+              end
+
+              class UnusedTimeFrom < ::Stripe::RequestParams
+                # Determines which point in the billing period unused time is credited from. When adding a pause schedule, defaults to `pause_at`. On updates, the existing value is preserved if not provided.
+                attr_accessor :type
+
+                def initialize(type: nil)
+                  @type = type
+                end
+              end
+              # Controls whether to collect metered usage accrued up to the pause date.
+              attr_accessor :outstanding_usage_through
+              # Controls how unused time on subscription items is credited when pausing.
+              attr_accessor :unused_time_from
+
+              def initialize(outstanding_usage_through: nil, unused_time_from: nil)
+                @outstanding_usage_through = outstanding_usage_through
+                @unused_time_from = unused_time_from
+              end
+            end
+            # Controls what to bill for when pausing the subscription.
+            attr_accessor :bill_for
+            # Determines whether to generate an invoice for outstanding amounts when pausing. When adding a pause schedule, defaults to `pending_invoice_item`. On updates, the existing value is preserved if not provided.
+            attr_accessor :invoicing_behavior
+            # The pause type. Currently only `subscription` is supported.
+            attr_accessor :type
+
+            def initialize(bill_for: nil, invoicing_behavior: nil, type: nil)
+              @bill_for = bill_for
+              @invoicing_behavior = invoicing_behavior
+              @type = type
+            end
+          end
+          # When to pause the subscription.
+          attr_accessor :pause_at
+          # Settings controlling billing behavior during the pause.
+          attr_accessor :settings
+
+          def initialize(pause_at: nil, settings: nil)
+            @pause_at = pause_at
+            @settings = settings
+          end
+        end
+
+        class Resume < ::Stripe::RequestParams
+          class ResumeAt < ::Stripe::RequestParams
+            class Duration < ::Stripe::RequestParams
+              # The time unit for the resume duration. One of `day`, `week`, `month`, or `year`.
+              attr_accessor :interval
+              # The number of intervals after which the subscription resumes.
+              attr_accessor :interval_count
+
+              def initialize(interval: nil, interval_count: nil)
+                @interval = interval
+                @interval_count = interval_count
+              end
+            end
+            # The duration after which to resume the subscription. Required when `type` is `duration`.
+            attr_accessor :duration
+            # The Unix timestamp at which to resume the subscription. Required when `type` is `timestamp`.
+            attr_accessor :timestamp
+            # When to resume the subscription. Use `now` to resume immediately, `duration` to resume after a set duration, or `timestamp` to resume at a specific time.
+            attr_accessor :type
+
+            def initialize(duration: nil, timestamp: nil, type: nil)
+              @duration = duration
+              @timestamp = timestamp
+              @type = type
+            end
+          end
+
+          class Settings < ::Stripe::RequestParams
+            # Controls the billing cycle anchor when the subscription resumes. When adding a pause schedule, defaults to `resume_at`. On updates, the existing value is preserved if not provided.
+            attr_accessor :billing_cycle_anchor
+            # Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. When adding a pause schedule, defaults to `resume_on_payment_success`. On updates, the existing value is preserved if not provided.
+            attr_accessor :payment_behavior
+            # Determines how to handle prorations when the subscription resumes. When adding a pause schedule, defaults to `create_prorations`. On updates, the existing value is preserved if not provided.
+            attr_accessor :proration_behavior
+
+            def initialize(
+              billing_cycle_anchor: nil,
+              payment_behavior: nil,
+              proration_behavior: nil
+            )
+              @billing_cycle_anchor = billing_cycle_anchor
+              @payment_behavior = payment_behavior
+              @proration_behavior = proration_behavior
+            end
+          end
+          # When to resume the subscription.
+          attr_accessor :resume_at
+          # Settings controlling how the subscription resumes.
+          attr_accessor :settings
+
+          def initialize(resume_at: nil, settings: nil)
+            @resume_at = resume_at
+            @settings = settings
+          end
+        end
+        # A unique identifier for this pause schedule entry.
+        attr_accessor :key
+        # Configuration for when and how the subscription pauses.
+        attr_accessor :pause
+        # Configuration for when and how the subscription resumes.
+        attr_accessor :resume
+
+        def initialize(key: nil, pause: nil, resume: nil)
+          @key = key
+          @pause = pause
+          @resume = resume
         end
       end
 
@@ -790,14 +926,23 @@ module Stripe
       attr_accessor :billing_mode
       # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
       attr_accessor :end_behavior
+      # The subscription's pause behavior and optional resume behavior. You can provide one entry. Include its `key` to update an existing pause schedule. Omit `pause_schedules` to leave the existing schedule unchanged, or pass an empty string (`""`) to clear it.
+      attr_accessor :pause_schedules
       # List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
       attr_accessor :phases
       # In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
       attr_accessor :proration_behavior
 
-      def initialize(billing_mode: nil, end_behavior: nil, phases: nil, proration_behavior: nil)
+      def initialize(
+        billing_mode: nil,
+        end_behavior: nil,
+        pause_schedules: nil,
+        phases: nil,
+        proration_behavior: nil
+      )
         @billing_mode = billing_mode
         @end_behavior = end_behavior
+        @pause_schedules = pause_schedules
         @phases = phases
         @proration_behavior = proration_behavior
       end

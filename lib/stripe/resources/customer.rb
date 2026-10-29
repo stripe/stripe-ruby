@@ -413,7 +413,7 @@ module Stripe
         "Customer"
       end
 
-      # Create an incoming testmode bank transfer
+      # Create a test incoming bank transfer
       def self.fund_cash_balance(customer, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -423,7 +423,7 @@ module Stripe
         )
       end
 
-      # Create an incoming testmode bank transfer
+      # Create a test incoming bank transfer
       def fund_cash_balance(params = {}, opts = {})
         @resource.request_stripe_object(
           method: :post,

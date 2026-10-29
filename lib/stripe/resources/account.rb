@@ -268,6 +268,8 @@ module Stripe
       attr_reader :us_bank_account_ach_payments
       # The status of the US customer_balance payments (USD currency) capability of the account, or whether the account can directly process US customer_balance charges.
       attr_reader :us_bank_transfer_payments
+      # The status of the Wero capability of the account, or whether the account can directly process Wero payments.
+      attr_reader :wero_payments
       # The status of the Zip capability of the account, or whether the account can directly process Zip charges.
       attr_reader :zip_payments
 
@@ -411,6 +413,29 @@ module Stripe
         end
       end
 
+      class PhysicalAddress < ::Stripe::StripeObject
+        # City, district, suburb, town, or village.
+        attr_reader :city
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        attr_reader :country
+        # Address line 1, such as the street, PO Box, or company name.
+        attr_reader :line1
+        # Address line 2, such as the apartment, suite, unit, or building.
+        attr_reader :line2
+        # ZIP or postal code.
+        attr_reader :postal_code
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class PrincipalPlaceOfBusiness < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         attr_reader :city
@@ -530,6 +555,8 @@ module Stripe
       attr_reader :ownership_exemption_reason
       # The company's phone number (used for verification).
       attr_reader :phone
+      # Attribute for field physical_address
+      attr_reader :physical_address
       # Attribute for field principal_place_of_business
       attr_reader :principal_place_of_business
       # Attribute for field registration_date
@@ -555,6 +582,7 @@ module Stripe
           administrative_address: AdministrativeAddress,
           directorship_declaration: DirectorshipDeclaration,
           ownership_declaration: OwnershipDeclaration,
+          physical_address: PhysicalAddress,
           principal_place_of_business: PrincipalPlaceOfBusiness,
           registration_date: RegistrationDate,
           representative_declaration: RepresentativeDeclaration,

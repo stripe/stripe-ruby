@@ -1,0 +1,117 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+module Stripe
+  module V2
+    module MoneyManagement
+      # Use the PayoutMethods API to list and interact with PayoutMethod objects.
+      class PayoutMethod < APIResource
+        OBJECT_NAME = "v2.money_management.payout_method"
+        def self.object_name
+          "v2.money_management.payout_method"
+        end
+
+        class BankAccount < ::Stripe::StripeObject
+          # The type of bank account (checking or savings).
+          attr_reader :bank_account_type
+          # The name of the bank this bank account is in. This field is populated automatically by Stripe.
+          attr_reader :bank_name
+          # The branch number of the bank account, if present.
+          attr_reader :branch_number
+          # The country code of the bank account.
+          attr_reader :country
+          # The ID of the Financial Connections Account used to create the bank account.
+          attr_reader :financial_connections_account
+          # The last 4 digits of the account number.
+          attr_reader :last4
+          # The routing number of the bank account, if present.
+          attr_reader :routing_number
+          # The list of currencies supported by this bank account.
+          attr_reader :supported_currencies
+          # The swift code of the bank or financial institution.
+          attr_reader :swift_code
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Card < ::Stripe::StripeObject
+          # The month the card expires.
+          attr_reader :exp_month
+          # The year the card expires.
+          attr_reader :exp_year
+          # Uniquely identifies this particular card number. You can use this attribute to check whether two
+          # recipients who've signed up with you are using the same card number, for example.
+          attr_reader :fingerprint
+          # The last 4 digits of the card number.
+          attr_reader :last4
+          # The list of currencies supported by this bank account.
+          attr_reader :supported_currencies
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class UsageStatus < ::Stripe::StripeObject
+          # Payments status - used when sending OutboundPayments (sending funds to recipients).
+          # If disabled, enable the payout method by creating an OutboundSetupIntent using [`POST /v2/money_management/outbound_setup_intents`](https://docs.stripe.com/api/v2/money-management/outbound-setup-intents/create).
+          attr_reader :payments
+          # Transfers status - used when making an OutboundTransfer (sending funds to yourself).
+          # If disabled, enable the payout method by creating an OutboundSetupIntent using [`POST /v2/money_management/outbound_setup_intents`](https://docs.stripe.com/api/v2/money-management/outbound-setup-intents/create).
+          attr_reader :transfers
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the payout method was archived. Payout methods can be archived through the /archive API,
+        # and they will not be automatically archived by Stripe. Archived payout methods cannot be used
+        # for outbound money movement.
+        attr_reader :archived
+        # The PayoutMethodBankAccount object details.
+        attr_reader :bank_account
+        # The PayoutMethodCard object details.
+        attr_reader :card
+        # Created timestamp.
+        attr_reader :created
+        # ID of the PayoutMethod object.
+        attr_reader :id
+        # ID of the underlying active OutboundSetupIntent object, if any.
+        attr_reader :latest_outbound_setup_intent
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        attr_reader :object
+        # Whether the Payout Method is currently unusable for money movement, despite potentially being correctly set up.
+        # Please reach out to Stripe Support for more information.
+        attr_reader :restricted
+        # Open Enum. The type of payout method.
+        attr_reader :type
+        # Indicates whether the payout method has met the necessary requirements for outbound money movement.
+        attr_reader :usage_status
+
+        def self.inner_class_types
+          @inner_class_types = { bank_account: BankAccount, card: Card, usage_status: UsageStatus }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+    end
+  end
+end

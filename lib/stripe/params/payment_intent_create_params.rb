@@ -1423,6 +1423,8 @@ module Stripe
         attr_accessor :request_three_d_secure
         # When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
         attr_accessor :require_cvc_recollection
+        # Set to indicate the future transaction type usage for the card being set up.
+        attr_accessor :setup_credential_usage
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1437,6 +1439,14 @@ module Stripe
         attr_accessor :statement_descriptor_suffix_kana
         # Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
         attr_accessor :statement_descriptor_suffix_kanji
+        # Use this parameter in scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards).
+        #
+        #  When making an off session payment with a previously saved card (that was saved with a SetupIntent or with a PaymentIntent with `setup_future_usage`), set this parameter to indicate the type of transaction.
+        #
+        #  You can set this parameter at any time before or during PaymentIntent confirmation, and confirm this PaymentIntent with `off_session=true`.
+        #
+        #  Note that this parameter is currently unsupported with the `setup_future_usage` parameter.
+        attr_accessor :stored_credential_usage
         # If 3D Secure authentication was performed with a third-party provider,
         # the authentication details to use for this payment.
         attr_accessor :three_d_secure
@@ -1454,9 +1464,11 @@ module Stripe
           request_overcapture: nil,
           request_three_d_secure: nil,
           require_cvc_recollection: nil,
+          setup_credential_usage: nil,
           setup_future_usage: nil,
           statement_descriptor_suffix_kana: nil,
           statement_descriptor_suffix_kanji: nil,
+          stored_credential_usage: nil,
           three_d_secure: nil
         )
           @capture_method = capture_method
@@ -1471,9 +1483,11 @@ module Stripe
           @request_overcapture = request_overcapture
           @request_three_d_secure = request_three_d_secure
           @require_cvc_recollection = require_cvc_recollection
+          @setup_credential_usage = setup_credential_usage
           @setup_future_usage = setup_future_usage
           @statement_descriptor_suffix_kana = statement_descriptor_suffix_kana
           @statement_descriptor_suffix_kanji = statement_descriptor_suffix_kanji
+          @stored_credential_usage = stored_credential_usage
           @three_d_secure = three_d_secure
         end
       end
@@ -2206,9 +2220,9 @@ module Stripe
         end
         # Determines if the amount includes the IOF tax. Defaults to `never`.
         attr_accessor :amount_includes_iof
-        # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+        # The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If neither expiration option is supplied, defaults to 14400 seconds (4 hours). Mutually exclusive with `expires_at`.
         attr_accessor :expires_after_seconds
-        # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
+        # The absolute Unix timestamp at which the Pix expires, between 60 and 1209600 seconds from the current time. If neither expiration option is supplied, the Pix expires 14400 seconds (4 hours) after PaymentIntent confirmation. Mutually exclusive with `expires_after_seconds`.
         attr_accessor :expires_at
         # Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
         attr_accessor :mandate_options
@@ -3023,7 +3037,7 @@ module Stripe
     attr_accessor :on_behalf_of
     # Provides industry-specific information about the charge.
     attr_accessor :payment_details
-    # ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://docs.stripe.com/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
+    # The ID of a PaymentMethod to attach to this PaymentIntent.
     #
     # If you don't provide the `payment_method` parameter or the `source` parameter with `confirm=true`, `source` automatically populates with `customer.default_source` to improve migration for users of the Charges API. We recommend that you explicitly provide the `payment_method` moving forward.
     # If the payment method is attached to a Customer, you must also provide the ID of that Customer as the [customer](https://docs.stripe.com/api#create_payment_intent-customer) parameter of this PaymentIntent.

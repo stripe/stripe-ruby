@@ -1,0 +1,49 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+# typed: true
+module Stripe
+  module V2
+    module MoneyManagement
+      class FinancialAddressCreateParams < ::Stripe::RequestParams
+        class BankAccount < ::Stripe::RequestParams
+          # The country for the bank account. Used to select the appropriate rails (e.g. for SEPA).
+          sig { returns(T.nilable(String)) }
+          def country; end
+          sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+          def country=(_country); end
+          # The currency of the bank account to provision. Available currencies depend on your account's enabled features and rollout access; `eur` requires the Financial Address Global Payouts EU preview.
+          sig { returns(String) }
+          def currency; end
+          sig { params(_currency: String).returns(String) }
+          def currency=(_currency); end
+          sig { params(country: T.nilable(String), currency: String).void }
+          def initialize(country: nil, currency: nil); end
+        end
+        # Properties for creating a bank account FinancialAddress.
+        sig {
+          returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::BankAccount))
+         }
+        def bank_account; end
+        sig {
+          params(_bank_account: T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::BankAccount)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::BankAccount))
+         }
+        def bank_account=(_bank_account); end
+        # The ID of the FinancialAccount the new FinancialAddress should be associated with.
+        sig { returns(String) }
+        def financial_account; end
+        sig { params(_financial_account: String).returns(String) }
+        def financial_account=(_financial_account); end
+        # The type of FinancialAddress to create. Must agree with which branch of financial_address_type_properties is set.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig {
+          params(bank_account: T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::BankAccount), financial_account: String, type: String).void
+         }
+        def initialize(bank_account: nil, financial_account: nil, type: nil); end
+      end
+    end
+  end
+end

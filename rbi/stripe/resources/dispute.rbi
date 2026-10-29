@@ -10,6 +10,31 @@ module Stripe
   # Related guide: [Disputes and fraud](https://docs.stripe.com/disputes)
   class Dispute < APIResource
     class Evidence < ::Stripe::StripeObject
+      class Appeal < ::Stripe::StripeObject
+        class Card < ::Stripe::StripeObject
+          # The reason for filing the appeal.
+          sig { returns(T.nilable(String)) }
+          def reason_for_filing; end
+          # One or more document IDs returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
+          sig { returns(T.nilable(T::Array[String])) }
+          def supporting_files; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field card
+        sig { returns(T.nilable(Card)) }
+        def card; end
+        def self.inner_class_types
+          @inner_class_types = {card: Card}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class EnhancedEvidence < ::Stripe::StripeObject
         class MastercardCompliance < ::Stripe::StripeObject
           # A field acknowledging the fee incurred when countering a Mastercard compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute.
@@ -189,6 +214,9 @@ module Stripe
       # Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
       sig { returns(T.nilable(String)) }
       def access_activity_log; end
+      # Appeal evidence submitted during the appeal stage.
+      sig { returns(T.nilable(Appeal)) }
+      def appeal; end
       # The billing address provided by the customer.
       sig { returns(T.nilable(String)) }
       def billing_address; end
@@ -271,7 +299,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def uncategorized_text; end
       def self.inner_class_types
-        @inner_class_types = {enhanced_evidence: EnhancedEvidence}
+        @inner_class_types = {appeal: Appeal, enhanced_evidence: EnhancedEvidence}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -350,6 +378,9 @@ module Stripe
       # The number of times evidence has been submitted. Typically, you may only submit evidence once.
       sig { returns(Integer) }
       def submission_count; end
+      # Whether the dispute was submitted manually, with Smart Disputes, or not submitted.
+      sig { returns(String) }
+      def submission_method; end
       def self.inner_class_types
         @inner_class_types = {enhanced_eligibility: EnhancedEligibility}
       end
@@ -466,6 +497,9 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
+    # Intended submission method for the dispute.
+    sig { returns(T.nilable(String)) }
+    def intended_submission_method; end
     # If true, it's still possible to refund the disputed payment. After the payment has been fully refunded, no further funds are withdrawn from your Stripe account as a result of this dispute.
     sig { returns(T::Boolean) }
     def is_charge_refundable; end
@@ -490,7 +524,7 @@ module Stripe
     # Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `noncompliant`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://docs.stripe.com/disputes/categories).
     sig { returns(String) }
     def reason; end
-    # The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
+    # The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `appeal_needs_response`, `appeal_under_review`, `won`, `lost`, or `prevented`.
     sig { returns(String) }
     def status; end
     # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.

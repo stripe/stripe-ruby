@@ -7,5 +7,7 @@ module Stripe
     attr_reader :billing
     attr_reader :commerce
     attr_reader :core
+    attr_reader :money_management
+    attr_reader :test_helpers
   end
 end

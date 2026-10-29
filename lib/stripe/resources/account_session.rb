@@ -619,6 +619,30 @@ module Stripe
         end
       end
 
+      class ReportingChart < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class TaxRegistrations < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -644,6 +668,54 @@ module Stripe
       end
 
       class TaxSettings < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class TerminalHardwareOrders < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class TerminalHardwareShop < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
@@ -706,10 +778,16 @@ module Stripe
       attr_reader :payouts
       # Attribute for field payouts_list
       attr_reader :payouts_list
+      # Attribute for field reporting_chart
+      attr_reader :reporting_chart
       # Attribute for field tax_registrations
       attr_reader :tax_registrations
       # Attribute for field tax_settings
       attr_reader :tax_settings
+      # Attribute for field terminal_hardware_orders
+      attr_reader :terminal_hardware_orders
+      # Attribute for field terminal_hardware_shop
+      attr_reader :terminal_hardware_shop
 
       def self.inner_class_types
         @inner_class_types = {
@@ -733,8 +811,11 @@ module Stripe
           payout_reconciliation_report: PayoutReconciliationReport,
           payouts: Payouts,
           payouts_list: PayoutsList,
+          reporting_chart: ReportingChart,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
+          terminal_hardware_orders: TerminalHardwareOrders,
+          terminal_hardware_shop: TerminalHardwareShop,
         }
       end
 

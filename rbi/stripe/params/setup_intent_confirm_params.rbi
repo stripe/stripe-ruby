@@ -1327,6 +1327,11 @@ module Stripe
         def request_three_d_secure; end
         sig { params(_request_three_d_secure: T.nilable(String)).returns(T.nilable(String)) }
         def request_three_d_secure=(_request_three_d_secure); end
+        # Set to indicate the future transaction type usage for the card being set up.
+        sig { returns(T.nilable(String)) }
+        def setup_credential_usage; end
+        sig { params(_setup_credential_usage: T.nilable(String)).returns(T.nilable(String)) }
+        def setup_credential_usage=(_setup_credential_usage); end
         # If 3D Secure authentication was performed with a third-party provider,
         # the authentication details to use for this setup.
         sig {
@@ -1338,13 +1343,14 @@ module Stripe
          }
         def three_d_secure=(_three_d_secure); end
         sig {
-          params(mandate_options: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodOptions::Card::MandateOptions), moto: T.nilable(T::Boolean), network: T.nilable(String), request_three_d_secure: T.nilable(String), three_d_secure: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodOptions::Card::ThreeDSecure)).void
+          params(mandate_options: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodOptions::Card::MandateOptions), moto: T.nilable(T::Boolean), network: T.nilable(String), request_three_d_secure: T.nilable(String), setup_credential_usage: T.nilable(String), three_d_secure: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodOptions::Card::ThreeDSecure)).void
          }
         def initialize(
           mandate_options: nil,
           moto: nil,
           network: nil,
           request_three_d_secure: nil,
+          setup_credential_usage: nil,
           three_d_secure: nil
         ); end
       end
@@ -1978,7 +1984,7 @@ module Stripe
       params(_mandate_data: T.nilable(T.any(String, ::Stripe::SetupIntentConfirmParams::MandateData))).returns(T.nilable(T.any(String, ::Stripe::SetupIntentConfirmParams::MandateData)))
      }
     def mandate_data=(_mandate_data); end
-    # ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+    # The ID of a PaymentMethod to attach to this SetupIntent.
     sig { returns(T.nilable(String)) }
     def payment_method; end
     sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }

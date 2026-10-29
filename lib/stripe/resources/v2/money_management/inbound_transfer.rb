@@ -1,0 +1,177 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+module Stripe
+  module V2
+    module MoneyManagement
+      # An InboundTransfer object, representing a money movement from a
+      # user owned PaymentMethod to a FinancialAccount belonging to the same user.
+      class InboundTransfer < APIResource
+        OBJECT_NAME = "v2.money_management.inbound_transfer"
+        def self.object_name
+          "v2.money_management.inbound_transfer"
+        end
+
+        class From < ::Stripe::StripeObject
+          class PaymentMethod < ::Stripe::StripeObject
+            # The type of PaymentMethod used to create the InboundTransfer. Clients should tolerate future values.
+            attr_reader :type
+            # The destination US bank account identifier. eg "usba_***".
+            attr_reader :us_bank_account
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The amount in specified currency that was debited from the Payment Method.
+          attr_reader :debited
+          # The bank account credential used to fund the InboundTransfer (for example, a US bank account), not a Payments API `pm_` PaymentMethod.
+          attr_reader :payment_method
+
+          def self.inner_class_types
+            @inner_class_types = { payment_method: PaymentMethod }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class To < ::Stripe::StripeObject
+          # The amount by which the FinancialAccount balance is credited.
+          attr_reader :credited
+          # The FinancialAccount that funds will land in.
+          attr_reader :financial_account
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class TransferHistory < ::Stripe::StripeObject
+          class BankDebitFailed < ::Stripe::StripeObject
+            # Open Enum. The return reason for the failed InboundTransfer.
+            attr_reader :failure_reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class BankDebitProcessing < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class BankDebitQueued < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class BankDebitReturned < ::Stripe::StripeObject
+            # Open Enum. The return reason for the returned InboundTransfer.
+            attr_reader :return_reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class BankDebitSucceeded < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The InboundTransfer failed. See `failure_reason` for more details.
+          attr_reader :bank_debit_failed
+          # The InboundTransfer was submitted to the scheme for processing. The debit is still in progress and can later succeed or fail.
+          attr_reader :bank_debit_processing
+          # The InboundTransfer was created and is waiting to be submitted to the scheme for processing.
+          attr_reader :bank_debit_queued
+          # The InboundTransfer was returned. The original transaction has been reversed.
+          attr_reader :bank_debit_returned
+          # The InboundTransfer succeeded. Funds might not yet be available; check the associated Transaction for availability.
+          attr_reader :bank_debit_succeeded
+          # Creation time of the HistoryEntry in RFC 3339 format and UTC.
+          attr_reader :created
+          # Effective at time of the HistoryEntry in RFC 3339 format and UTC.
+          attr_reader :effective_at
+          # A unique ID for the HistoryEntry.
+          attr_reader :id
+          # Open Enum. The type of the HistoryEntry.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {
+              bank_debit_failed: BankDebitFailed,
+              bank_debit_processing: BankDebitProcessing,
+              bank_debit_queued: BankDebitQueued,
+              bank_debit_returned: BankDebitReturned,
+              bank_debit_succeeded: BankDebitSucceeded,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The amount in specified currency that will land in the FinancialAccount balance.
+        attr_reader :amount
+        # Creation time of the InboundTransfer. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+        attr_reader :created
+        # A freeform text field provided by user, containing metadata.
+        attr_reader :description
+        # A nested object containing information about the origin of the InboundTransfer.
+        attr_reader :from
+        # Unique identifier for the InboundTransfer.
+        attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        attr_reader :object
+        # A nested object containing information about the destination of the InboundTransfer.
+        attr_reader :to
+        # A list of history objects, representing changes in the state of the InboundTransfer. The most recent entry's type indicates the current status of the InboundTransfer.
+        attr_reader :transfer_history
+
+        def self.inner_class_types
+          @inner_class_types = { from: From, to: To, transfer_history: TransferHistory }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+    end
+  end
+end

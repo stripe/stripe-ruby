@@ -41,7 +41,7 @@ module Stripe
 
         class RecipientNotification < ::Stripe::StripeObject
           # Closed Enum. Configuration option to enable or disable notifications to recipients.
-          # Do not send notifications when setting is NONE. Default to account setting when setting is CONFIGURED or not set.
+          # Do not send notifications when `setting` is `none`. Use the account setting when `setting` is `configured` or omitted.
           attr_reader :setting
 
           def self.inner_class_types
@@ -132,15 +132,69 @@ module Stripe
         end
 
         class To < ::Stripe::StripeObject
+          class PayoutMethodOptions < ::Stripe::StripeObject
+            class BankAccount < ::Stripe::StripeObject
+              class PreferredNetworkOptions < ::Stripe::StripeObject
+                class Ach < ::Stripe::StripeObject
+                  # Open Enum. ACH submission timing.
+                  attr_reader :submission
+                  # The transaction purpose for this ACH payment.
+                  attr_reader :transaction_purpose
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # ACH-specific network options.
+                attr_reader :ach
+
+                def self.inner_class_types
+                  @inner_class_types = { ach: Ach }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Per-network configuration options.
+              attr_reader :preferred_network_options
+              # The preferred networks to use for this OutboundPayment.
+              attr_reader :preferred_networks
+
+              def self.inner_class_types
+                @inner_class_types = { preferred_network_options: PreferredNetworkOptions }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Options for bank account payout methods.
+            attr_reader :bank_account
+
+            def self.inner_class_types
+              @inner_class_types = { bank_account: BankAccount }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The monetary amount being credited to the destination.
           attr_reader :credited
           # The payout method which the OutboundPayment uses to send payout.
           attr_reader :payout_method
+          # Payout method options for the OutboundPayment.
+          attr_reader :payout_method_options
           # To which account the OutboundPayment is sent.
           attr_reader :recipient
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { payout_method_options: PayoutMethodOptions }
           end
 
           def self.field_remappings
@@ -151,7 +205,7 @@ module Stripe
         class TraceId < ::Stripe::StripeObject
           # Possible values are `pending`, `supported`, and `unsupported`. Initially set to `pending`, it changes to
           # `supported` when the recipient bank provides a trace ID, or `unsupported` if the recipient bank doesn't support it.
-          # Note that this status may not align with the OutboundPayment or OutboundTransfer status and can remain `pending`
+          # This status may not align with the OutboundPayment or OutboundTransfer status and can remain `pending`
           # even after the payment or transfer is posted.
           attr_reader :status
           # The trace ID value if `trace_id.status` is `supported`, otherwise empty.
@@ -165,7 +219,70 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The "presentment amount" for the OutboundPayment.
+
+        class TrackingDetails < ::Stripe::StripeObject
+          class BankAccount < ::Stripe::StripeObject
+            # A unique identifier that can be used to track this OutboundPayment with the recipient bank. Banks might call this a “reference number” or something similar.
+            attr_reader :trace_id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Card < ::Stripe::StripeObject
+            # A unique identifier that can be used to track this OutboundPayment with the recipient card.
+            attr_reader :retrieval_reference
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class CryptoWallet < ::Stripe::StripeObject
+            # A unique identifier that can be used to track this OutboundPayment with the recipient crypto wallet.
+            attr_reader :blockchain_transaction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Bank account tracking details.
+          attr_reader :bank_account
+          # Card tracking details.
+          attr_reader :card
+          # Crypto wallet tracking details.
+          attr_reader :crypto_wallet
+          # The status of the tracking details for this OutboundPayment.
+          attr_reader :status
+          # The type of tracking details for this OutboundPayment.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {
+              bank_account: BankAccount,
+              card: Card,
+              crypto_wallet: CryptoWallet,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The amount and currency requested for this OutboundPayment.
         attr_reader :amount
         # Returns true if the OutboundPayment can be canceled, and false otherwise.
         attr_reader :cancelable
@@ -191,18 +308,21 @@ module Stripe
         attr_reader :object
         # The quote for this OutboundPayment. Only required for countries with regulatory mandates to display fee estimates before OutboundPayment creation.
         attr_reader :outbound_payment_quote
+        # The PayoutIntent ID that triggered this OutboundPayment.
+        attr_reader :payout_intent
         # The purpose of the OutboundPayment.
         attr_reader :purpose
         # A link to the Stripe-hosted receipt for this OutboundPayment. The receipt link remains active for 60 days from the OutboundPayment creation date. After this period, the link will expire and the receipt url value will be null.
         attr_reader :receipt_url
         # Details about the OutboundPayment notification settings for recipient.
         attr_reader :recipient_notification
-        # The description that appears on the receiving end for an OutboundPayment (for example, bank statement for external bank transfer). It will default to `STRIPE` if not set on the account settings.
+        # The ID of the RecipientVerification for this OutboundPayment. Required where recipient-name verification is mandated before creating an OutboundPayment.
+        attr_reader :recipient_verification
+        # The description that appears on the receiving end of an OutboundPayment (for example, on a bank statement). Defaults to `STRIPE` if not configured in the account settings.
         attr_reader :statement_descriptor
-        # Closed Enum. Current status of the OutboundPayment: `processing`, `failed`, `posted`, `returned`, `canceled`.
-        # An OutboundPayment is `processing` if it has been created and is processing.
-        # The status changes to `posted` once the OutboundPayment has been "confirmed" and funds have left the account, or to `failed` or `canceled`.
-        # If an OutboundPayment fails to arrive at its payout method, its status will change to `returned`.
+        # Current status of the OutboundPayment.
+        # An OutboundPayment is `processing` after creation. It becomes `posted` when funds leave the account,
+        # `failed` if it cannot be sent, `canceled` if canceled before posting, or `returned` if the funds are returned.
         attr_reader :status
         # Status details for an OutboundPayment in a `processing`, `failed`, or `returned` state.
         attr_reader :status_details
@@ -212,6 +332,8 @@ module Stripe
         attr_reader :to
         # A unique identifier that can be used to track this OutboundPayment with recipient bank. Banks might call this a "reference number" or something similar.
         attr_reader :trace_id
+        # Information to track this OutboundPayment with the recipient bank.
+        attr_reader :tracking_details
 
         def self.inner_class_types
           @inner_class_types = {
@@ -222,6 +344,7 @@ module Stripe
             status_transitions: StatusTransitions,
             to: To,
             trace_id: TraceId,
+            tracking_details: TrackingDetails,
           }
         end
 

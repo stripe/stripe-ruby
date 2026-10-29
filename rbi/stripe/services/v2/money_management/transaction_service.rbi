@@ -12,11 +12,23 @@ module Stripe
          }
         def list(params = {}, opts = {}); end
 
+        # Creates a fresh hosted URL for a Transaction's regulatory receipt.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::TransactionRefreshRegulatoryReceiptParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::Transaction)
+         }
+        def refresh_regulatory_receipt(id, params = {}, opts = {}); end
+
         # Retrieves the details of a Transaction by ID.
         sig {
           params(id: String, params: T.any(::Stripe::V2::MoneyManagement::TransactionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::Transaction)
          }
         def retrieve(id, params = {}, opts = {}); end
+
+        # Updates an existing Transaction. You can update its description and metadata.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::TransactionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::Transaction)
+         }
+        def update(id, params = {}, opts = {}); end
       end
     end
   end

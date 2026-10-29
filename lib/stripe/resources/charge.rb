@@ -950,7 +950,7 @@ module Stripe
         attr_reader :regulated_status
         # The payment_method_options.card.setup_credential_usage value that was passed when setup_future_usage was present at confirmation, one of `recurring`, `unscheduled`, or `installment`
         attr_reader :setup_credential_usage
-        # The payment_method_options.card.stored_credential_usage value that was passed for an off session, merchant-initiated transaction, one of `recurring`, `unscheduled`, `on_session`, or `installment`
+        # The payment_method_options.card.stored_credential_usage value that was passed for an off session, merchant-initiated transaction.
         attr_reader :stored_credential_usage
         # Populated if this transaction used 3D Secure authentication.
         attr_reader :three_d_secure
@@ -2161,6 +2161,16 @@ module Stripe
         end
       end
 
+      class Wero < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Zip < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -2310,6 +2320,8 @@ module Stripe
       attr_reader :wechat
       # Attribute for field wechat_pay
       attr_reader :wechat_pay
+      # Attribute for field wero
+      attr_reader :wero
       # Attribute for field zip
       attr_reader :zip
 
@@ -2383,6 +2395,7 @@ module Stripe
           us_bank_account: UsBankAccount,
           wechat: Wechat,
           wechat_pay: WechatPay,
+          wero: Wero,
           zip: Zip,
         }
       end

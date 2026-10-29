@@ -879,12 +879,16 @@ module Stripe
         BlockedByStripeError.new(error_data[:message], **opts)
       when "cannot_proceed"
         CannotProceedError.new(error_data[:message], **opts, reason: error_data[:reason])
+      when "capability_not_enabled"
+        CapabilityNotEnabledError.new(error_data[:message], **opts)
       when "controlled_by_alternate_resource"
         ControlledByAlternateResourceError.new(error_data[:message], **opts)
       when "feature_not_enabled"
         FeatureNotEnabledError.new(error_data[:message], **opts)
       when "financial_account_not_open"
         FinancialAccountNotOpenError.new(error_data[:message], **opts)
+      when "fx_quote_needs_refresh"
+        FxQuoteNeedsRefreshError.new(error_data[:message], **opts)
       when "insufficient_funds"
         InsufficientFundsError.new(error_data[:message], **opts)
       when "invalid_payment_method"

@@ -67,6 +67,32 @@ module Stripe
       end
     end
 
+    class TestV2SearchParams < RequestParams
+      attr_accessor :limit, :query
+    end
+
+    context "v2 search parameters" do
+      should "convert typed request parameters before lifting limit into the query" do
+        requestor = APIRequestor.new("sk_test_123")
+        service = StripeService.new(requestor)
+        params = TestV2SearchParams.new
+        params.limit = 2
+        params.query = "widgets"
+
+        requestor.expects(:execute_request)
+                 .with(:post, "/v2/widgets/search?limit=2", :api,
+                       has_entries(params: { query: "widgets" }))
+                 .returns([{ object: "v2.search_result", data: [] }, nil])
+
+        service.request(
+          method: :post,
+          path: "/v2/widgets/search",
+          base_address: :api,
+          params: params
+        )
+      end
+    end
+
     context "usage parameter" do
       should "send usage stripe_client with request" do
         stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/test")

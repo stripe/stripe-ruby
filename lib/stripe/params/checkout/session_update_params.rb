@@ -263,7 +263,7 @@ module Stripe
         attr_accessor :metadata
         # The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required when creating a new line item.
         attr_accessor :price
-        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline, for [dynamic pricing](https://docs.stripe.com/products-prices/how-products-and-prices-work#inline-pricing) when the amount isn't known ahead of time. One of `price` or `price_data` is required when creating a new line item.
         attr_accessor :price_data
         # The quantity of the line item being purchased. Quantity should not be defined when `recurring.usage_type=metered`.
         attr_accessor :quantity
@@ -312,6 +312,7 @@ module Stripe
         #
         # When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
         #
+        # You must wrap any Checkout Session update that mutates `setup_future_usage` in [`runServerUpdate`](/js/custom_checkout/run_server_update) and await it before continuing with the payment.
         # Pass an empty string to remove a previously supplied configuration.
         attr_accessor :setup_future_usage
         # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).

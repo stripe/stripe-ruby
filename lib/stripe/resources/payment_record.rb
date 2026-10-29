@@ -1897,6 +1897,16 @@ module Stripe
         end
       end
 
+      class Wero < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Zip < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -2056,6 +2066,8 @@ module Stripe
       attr_reader :wechat
       # Attribute for field wechat_pay
       attr_reader :wechat_pay
+      # Attribute for field wero
+      attr_reader :wero
       # Attribute for field zip
       attr_reader :zip
 
@@ -2132,6 +2144,7 @@ module Stripe
           us_bank_account: UsBankAccount,
           wechat: Wechat,
           wechat_pay: WechatPay,
+          wero: Wero,
           zip: Zip,
         }
       end

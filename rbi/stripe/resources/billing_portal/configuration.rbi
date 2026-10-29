@@ -100,6 +100,48 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class SubscriptionPause < ::Stripe::StripeObject
+          class Duration < ::Stripe::StripeObject
+            class IntervalOption < ::Stripe::StripeObject
+              # Specifies the pause duration unit. Either `day`, `week`, `month`, or `year`.
+              sig { returns(String) }
+              def interval; end
+              # The number of intervals in the pause duration. The maximum duration is three years.
+              sig { returns(Integer) }
+              def interval_count; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The preset pause durations customers can choose from.
+            sig { returns(T::Array[IntervalOption]) }
+            def interval_options; end
+            # Whether subscriptions can be paused indefinitely or for a preset duration.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {interval_options: IntervalOption}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field duration
+          sig { returns(Duration) }
+          def duration; end
+          # Whether the feature is enabled. Customers can only pause subscriptions in the [redesigned customer portal](/customer-management).
+          sig { returns(T::Boolean) }
+          def enabled; end
+          def self.inner_class_types
+            @inner_class_types = {duration: Duration}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class SubscriptionUpdate < ::Stripe::StripeObject
           class Product < ::Stripe::StripeObject
             class AdjustableQuantity < ::Stripe::StripeObject
@@ -197,6 +239,9 @@ module Stripe
         # Attribute for field subscription_cancel
         sig { returns(SubscriptionCancel) }
         def subscription_cancel; end
+        # Attribute for field subscription_pause
+        sig { returns(SubscriptionPause) }
+        def subscription_pause; end
         # Attribute for field subscription_update
         sig { returns(SubscriptionUpdate) }
         def subscription_update; end
@@ -206,6 +251,7 @@ module Stripe
             invoice_history: InvoiceHistory,
             payment_method_update: PaymentMethodUpdate,
             subscription_cancel: SubscriptionCancel,
+            subscription_pause: SubscriptionPause,
             subscription_update: SubscriptionUpdate,
           }
         end

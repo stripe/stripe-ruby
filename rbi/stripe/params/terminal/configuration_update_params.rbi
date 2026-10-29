@@ -82,6 +82,15 @@ module Stripe
         sig { params(splashscreen: T.nilable(String)).void }
         def initialize(splashscreen: nil); end
       end
+      class StripeT600 < ::Stripe::RequestParams
+        # A File ID representing an image you want to display on the reader.
+        sig { returns(T.nilable(String)) }
+        def splashscreen; end
+        sig { params(_splashscreen: T.nilable(String)).returns(T.nilable(String)) }
+        def splashscreen=(_splashscreen); end
+        sig { params(splashscreen: T.nilable(String)).void }
+        def initialize(splashscreen: nil); end
+      end
       class Tipping < ::Stripe::RequestParams
         class Aed < ::Stripe::RequestParams
           # Fixed amounts displayed when collecting a tip
@@ -1027,6 +1036,15 @@ module Stripe
         params(_stripe_s710: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::StripeS710))).returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::StripeS710)))
        }
       def stripe_s710=(_stripe_s710); end
+      # An object containing device type specific settings for Stripe T600 readers.
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::StripeT600)))
+       }
+      def stripe_t600; end
+      sig {
+        params(_stripe_t600: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::StripeT600))).returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::StripeT600)))
+       }
+      def stripe_t600=(_stripe_t600); end
       # Tipping configurations for readers that support on-reader tips.
       sig {
         returns(T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Tipping)))
@@ -1089,7 +1107,7 @@ module Stripe
        }
       def wifi=(_wifi); end
       sig {
-        params(bbpos_wisepad3: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::BbposWisepad3)), bbpos_wisepos_e: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::BbposWiseposE)), cellular: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Cellular)), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Offline)), reader_security: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::ReaderSecurity)), reboot_window: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::RebootWindow)), stripe_s700: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::StripeS700)), stripe_s710: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::StripeS710)), tipping: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Tipping)), verifone_m425: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::VerifoneM425)), verifone_p400: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::VerifoneP400)), verifone_p630: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::VerifoneP630)), verifone_ux700: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::VerifoneUx700)), verifone_v660p: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::VerifoneV660p)), wifi: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Wifi))).void
+        params(bbpos_wisepad3: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::BbposWisepad3)), bbpos_wisepos_e: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::BbposWiseposE)), cellular: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Cellular)), expand: T.nilable(T::Array[String]), name: T.nilable(String), offline: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Offline)), reader_security: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::ReaderSecurity)), reboot_window: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::RebootWindow)), stripe_s700: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::StripeS700)), stripe_s710: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::StripeS710)), stripe_t600: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::StripeT600)), tipping: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Tipping)), verifone_m425: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::VerifoneM425)), verifone_p400: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::VerifoneP400)), verifone_p630: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::VerifoneP630)), verifone_ux700: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::VerifoneUx700)), verifone_v660p: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::VerifoneV660p)), wifi: T.nilable(T.any(String, ::Stripe::Terminal::ConfigurationUpdateParams::Wifi))).void
        }
       def initialize(
         bbpos_wisepad3: nil,
@@ -1102,6 +1120,7 @@ module Stripe
         reboot_window: nil,
         stripe_s700: nil,
         stripe_s710: nil,
+        stripe_t600: nil,
         tipping: nil,
         verifone_m425: nil,
         verifone_p400: nil,

@@ -152,6 +152,8 @@ module Stripe
         attr_reader :carrier
         # Additional information that may be required for clearing customs.
         attr_reader :customs
+        # The time the card was reported as delivered. Null for undelivered or untracked shipments, or if Stripe has not recorded a delivery time.
+        attr_reader :delivered_at
         # A unix timestamp representing a best estimate of when the card will be delivered.
         attr_reader :eta
         # Recipient name.
@@ -162,6 +164,8 @@ module Stripe
         attr_reader :require_signature
         # Shipment service, such as `standard` or `express`.
         attr_reader :service
+        # The time the card was reported as shipped. Null if Stripe has not recorded a shipment time.
+        attr_reader :shipped_at
         # The delivery status of the card.
         attr_reader :status
         # A tracking number for a card shipment.

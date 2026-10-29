@@ -80,6 +80,20 @@ module Stripe
           def initialize(address: nil, email: nil, name: nil, phone: nil); end
         end
         class UsBankAccount < ::Stripe::RequestParams
+          class ExternalToken < ::Stripe::RequestParams
+            # The Plaid processor token to use for this bank account.
+            sig { returns(T.nilable(String)) }
+            def plaid_processor_token; end
+            sig { params(_plaid_processor_token: T.nilable(String)).returns(T.nilable(String)) }
+            def plaid_processor_token=(_plaid_processor_token); end
+            # The type of external token.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig { params(plaid_processor_token: T.nilable(String), type: String).void }
+            def initialize(plaid_processor_token: nil, type: nil); end
+          end
           # Account holder type: individual or company.
           sig { returns(T.nilable(String)) }
           def account_holder_type; end
@@ -95,6 +109,15 @@ module Stripe
           def account_type; end
           sig { params(_account_type: T.nilable(String)).returns(T.nilable(String)) }
           def account_type=(_account_type); end
+          # An external token used to create a payment method.
+          sig {
+            returns(T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::UsBankAccount::ExternalToken))
+           }
+          def external_token; end
+          sig {
+            params(_external_token: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::UsBankAccount::ExternalToken)).returns(T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::UsBankAccount::ExternalToken))
+           }
+          def external_token=(_external_token); end
           # The ID of a Financial Connections Account to use as a payment method.
           sig { returns(T.nilable(String)) }
           def financial_connections_account; end
@@ -108,12 +131,13 @@ module Stripe
           sig { params(_routing_number: T.nilable(String)).returns(T.nilable(String)) }
           def routing_number=(_routing_number); end
           sig {
-            params(account_holder_type: T.nilable(String), account_number: T.nilable(String), account_type: T.nilable(String), financial_connections_account: T.nilable(String), routing_number: T.nilable(String)).void
+            params(account_holder_type: T.nilable(String), account_number: T.nilable(String), account_type: T.nilable(String), external_token: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData::UsBankAccount::ExternalToken), financial_connections_account: T.nilable(String), routing_number: T.nilable(String)).void
            }
           def initialize(
             account_holder_type: nil,
             account_number: nil,
             account_type: nil,
+            external_token: nil,
             financial_connections_account: nil,
             routing_number: nil
           ); end

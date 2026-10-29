@@ -14,7 +14,7 @@ module Stripe
 
         class From < ::Stripe::StripeObject
           class PaymentMethod < ::Stripe::StripeObject
-            # The type of object this destination represents. For a us bank account, we expect us_bank_account.
+            # The type of PaymentMethod used to create the InboundTransfer. Clients should tolerate future values.
             attr_reader :type
             # The destination US bank account identifier. eg "usba_***".
             attr_reader :us_bank_account
@@ -29,7 +29,7 @@ module Stripe
           end
           # The amount in specified currency that was debited from the Payment Method.
           attr_reader :debited
-          # The Payment Method object used to create the InboundTransfer.
+          # The bank account credential used to fund the InboundTransfer (for example, a US bank account), not a Payments API `pm_` PaymentMethod.
           attr_reader :payment_method
 
           def self.inner_class_types

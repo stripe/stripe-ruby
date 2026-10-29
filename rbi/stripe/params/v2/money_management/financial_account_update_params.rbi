@@ -6,12 +6,13 @@ module Stripe
   module V2
     module MoneyManagement
       class FinancialAccountUpdateParams < ::Stripe::RequestParams
-        # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
+        # A descriptive name for the FinancialAccount, up to 50 characters long. This name appears in the Stripe Dashboard and embedded components.
         sig { returns(T.nilable(String)) }
         def display_name; end
         sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
         def display_name=(_display_name); end
-        # Metadata associated with the FinancialAccount.
+        # Set of key-value pairs that you can attach to the FinancialAccount. Individual keys can be unset by posting
+        # null to them.
         sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
         def metadata; end
         sig {

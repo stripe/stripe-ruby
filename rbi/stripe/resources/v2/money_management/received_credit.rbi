@@ -34,29 +34,6 @@ module Stripe
           end
         end
         class BankTransfer < ::Stripe::StripeObject
-          class GbBankAccount < ::Stripe::StripeObject
-            # The bank name the transfer was received from.
-            sig { returns(T.nilable(String)) }
-            def account_holder_name; end
-            # The bank name the transfer was received from.
-            sig { returns(T.nilable(String)) }
-            def bank_name; end
-            # The last 4 digits of the account number that originated the transfer.
-            sig { returns(T.nilable(String)) }
-            def last4; end
-            # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-            sig { returns(String) }
-            def network; end
-            # The sort code of the account that originated the transfer.
-            sig { returns(T.nilable(String)) }
-            def sort_code; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class OriginatingBankAccount < ::Stripe::StripeObject
             class Aba < ::Stripe::StripeObject
               # The name of the account holder that sent the payment.
@@ -68,9 +45,6 @@ module Stripe
               # The last 4 digits of the account number that originated the transfer.
               sig { returns(T.nilable(String)) }
               def last4; end
-              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-              sig { returns(String) }
-              def network; end
               # The routing number of the account that originated the transfer.
               sig { returns(T.nilable(String)) }
               def routing_number; end
@@ -97,9 +71,6 @@ module Stripe
               # The IBAN that originated the transfer.
               sig { returns(T.nilable(String)) }
               def iban; end
-              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-              sig { returns(String) }
-              def network; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -117,9 +88,6 @@ module Stripe
               # The last 4 digits of the account number that originated the transfer.
               sig { returns(T.nilable(String)) }
               def last4; end
-              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-              sig { returns(String) }
-              def network; end
               # The sort code of the account that originated the transfer.
               sig { returns(T.nilable(String)) }
               def sort_code; end
@@ -149,80 +117,20 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class SepaBankAccount < ::Stripe::StripeObject
-            # The account holder name of the bank account the transfer was received from.
-            sig { returns(T.nilable(String)) }
-            def account_holder_name; end
-            # The bank name the transfer was received from.
-            sig { returns(T.nilable(String)) }
-            def bank_name; end
-            # The BIC of the SEPA account.
-            sig { returns(T.nilable(String)) }
-            def bic; end
-            # The origination country of the bank transfer.
-            sig { returns(T.nilable(String)) }
-            def country; end
-            # The IBAN that originated the transfer.
-            sig { returns(T.nilable(String)) }
-            def iban; end
-            # The money transmission network used to send funds for this ReceivedCredit.
-            sig { returns(String) }
-            def network; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class UsBankAccount < ::Stripe::StripeObject
-            # The name of the account holder that sent the payment.
-            sig { returns(T.nilable(String)) }
-            def account_holder_name; end
-            # The bank name the transfer was received from.
-            sig { returns(T.nilable(String)) }
-            def bank_name; end
-            # The last 4 digits of the account number that originated the transfer.
-            sig { returns(T.nilable(String)) }
-            def last4; end
-            # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-            sig { returns(String) }
-            def network; end
-            # The routing number of the account that originated the transfer.
-            sig { returns(T.nilable(String)) }
-            def routing_number; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           # Financial Address on which funds for ReceivedCredit were received.
           sig { returns(String) }
           def financial_address; end
-          # Deprecated. Use `originating_bank_account.sort_code` instead.
-          sig { returns(T.nilable(GbBankAccount)) }
-          def gb_bank_account; end
+          # The money transmission network used to send funds for this ReceivedCredit.
+          sig { returns(String) }
+          def network; end
           # Hash containing the originating bank account details and type for this bank transfer.
           sig { returns(OriginatingBankAccount) }
           def originating_bank_account; end
-          # Deprecated. Use `originating_bank_account.iban` instead.
-          sig { returns(T.nilable(SepaBankAccount)) }
-          def sepa_bank_account; end
           # Freeform string set by originator of the external ReceivedCredit.
           sig { returns(T.nilable(String)) }
           def statement_descriptor; end
-          # Deprecated. Use `originating_bank_account.aba` instead.
-          sig { returns(T.nilable(UsBankAccount)) }
-          def us_bank_account; end
           def self.inner_class_types
-            @inner_class_types = {
-              gb_bank_account: GbBankAccount,
-              originating_bank_account: OriginatingBankAccount,
-              sepa_bank_account: SepaBankAccount,
-              us_bank_account: UsBankAccount,
-            }
+            @inner_class_types = {originating_bank_account: OriginatingBankAccount}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -284,10 +192,10 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The amount and currency of the ReceivedCredit.
+        # The amount and currency credited to the FinancialAccount.
         sig { returns(::Stripe::V2::Amount) }
         def amount; end
-        # The amount and currency of the ReceivedCredit that was received.
+        # The amount and currency Stripe received from the external source, before any conversion or fees.
         sig { returns(::Stripe::V2::Amount) }
         def amount_received; end
         # This object stores details about the originating Stripe transaction that resulted in the ReceivedCredit. Present if `type` field value is `balance_transfer`.

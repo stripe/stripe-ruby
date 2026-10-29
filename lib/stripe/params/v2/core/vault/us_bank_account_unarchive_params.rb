@@ -1,12 +1,11 @@
 # File generated from our OpenAPI spec
 # frozen_string_literal: true
 
-# typed: true
 module Stripe
   module V2
     module Core
       module Vault
-        class GbBankAccountAcknowledgeConfirmationOfPayeeParams < ::Stripe::RequestParams; end
+        class UsBankAccountUnarchiveParams < ::Stripe::RequestParams; end
       end
     end
   end

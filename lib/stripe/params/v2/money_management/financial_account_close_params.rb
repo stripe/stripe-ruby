@@ -6,9 +6,10 @@ module Stripe
     module MoneyManagement
       class FinancialAccountCloseParams < ::Stripe::RequestParams
         class ForwardingSettings < ::Stripe::RequestParams
-          # The address to send forwarded payments to.
+          # ID of the FinancialAccount that supplies funds to cover negative balances
+          # during or after this FinancialAccount's closure.
           attr_accessor :payment_method
-          # The address to send forwarded payouts to.
+          # ID of the FinancialAccount that receives funds forwarded from this FinancialAccount when it closes.
           attr_accessor :payout_method
 
           def initialize(payment_method: nil, payout_method: nil)
@@ -16,7 +17,8 @@ module Stripe
             @payout_method = payout_method
           end
         end
-        # The addresses to forward any incoming transactions to.
+        # Settings that specify where to send positive balances and how to cover negative balances.
+        # You must provide these settings if the FinancialAccount has a non-zero balance.
         attr_accessor :forwarding_settings
 
         def initialize(forwarding_settings: nil)

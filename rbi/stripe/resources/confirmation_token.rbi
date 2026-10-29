@@ -1620,6 +1620,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Wero < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Zip < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -1832,6 +1840,9 @@ module Stripe
       # Attribute for field wechat_pay
       sig { returns(T.nilable(WechatPay)) }
       def wechat_pay; end
+      # Attribute for field wero
+      sig { returns(T.nilable(Wero)) }
+      def wero; end
       # Attribute for field zip
       sig { returns(T.nilable(Zip)) }
       def zip; end
@@ -1901,6 +1912,7 @@ module Stripe
           upi: Upi,
           us_bank_account: UsBankAccount,
           wechat_pay: WechatPay,
+          wero: Wero,
           zip: Zip,
         }
       end

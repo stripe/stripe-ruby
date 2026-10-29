@@ -54,12 +54,25 @@ module Stripe
         end
 
         class UsBankAccount < ::Stripe::RequestParams
+          class ExternalToken < ::Stripe::RequestParams
+            # The Plaid processor token to use for this bank account.
+            attr_accessor :plaid_processor_token
+            # The type of external token.
+            attr_accessor :type
+
+            def initialize(plaid_processor_token: nil, type: nil)
+              @plaid_processor_token = plaid_processor_token
+              @type = type
+            end
+          end
           # Account holder type: individual or company.
           attr_accessor :account_holder_type
           # Account number of the bank account.
           attr_accessor :account_number
           # Account type: checkings or savings. Defaults to checking if omitted.
           attr_accessor :account_type
+          # An external token used to create a payment method.
+          attr_accessor :external_token
           # The ID of a Financial Connections Account to use as a payment method.
           attr_accessor :financial_connections_account
           # Routing number of the bank account.
@@ -69,12 +82,14 @@ module Stripe
             account_holder_type: nil,
             account_number: nil,
             account_type: nil,
+            external_token: nil,
             financial_connections_account: nil,
             routing_number: nil
           )
             @account_holder_type = account_holder_type
             @account_number = account_number
             @account_type = account_type
+            @external_token = external_token
             @financial_connections_account = financial_connections_account
             @routing_number = routing_number
           end

@@ -3,6 +3,9 @@
 
 # typed: true
 module Stripe
+  # A subscription schedule allows you to create and manage the lifecycle of a subscription by
+  # predefining expected changes. A quote preview subscription schedule shows the subscription schedule
+  # that would be created by accepting the quote.
   class QuotePreviewSubscriptionSchedule < APIResource
     class AppliesTo < ::Stripe::StripeObject
       # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
@@ -975,7 +978,7 @@ module Stripe
     sig { returns(String) }
     def object; end
     # The pause schedules for this subscription schedule.
-    sig { returns(T.nilable(T::Array[PauseSchedule])) }
+    sig { returns(T::Array[PauseSchedule]) }
     def pause_schedules; end
     # Configuration for the subscription schedule's phases.
     sig { returns(T::Array[Phase]) }

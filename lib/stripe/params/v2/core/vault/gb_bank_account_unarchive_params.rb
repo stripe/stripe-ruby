@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Core
       module Vault
-        class GbBankAccountAcknowledgeConfirmationOfPayeeParams < ::Stripe::RequestParams; end
+        class GbBankAccountUnarchiveParams < ::Stripe::RequestParams; end
       end
     end
   end

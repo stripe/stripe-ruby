@@ -5,7 +5,7 @@ module Stripe
   module V2
     module MoneyManagement
       class FinancialAccountService < StripeService
-        # Closes a FinancialAccount with or without forwarding settings.
+        # Closes a FinancialAccount. You must provide forwarding settings if it has a non-zero balance.
         #
         # ** raises NonZeroBalanceError
         def close(id, params = {}, opts = {})
@@ -32,7 +32,7 @@ module Stripe
           )
         end
 
-        # Lists FinancialAccounts in this compartment.
+        # Returns a list of FinancialAccounts in your account that match the provided filters.
         def list(params = {}, opts = {})
           request(
             method: :get,
@@ -54,7 +54,7 @@ module Stripe
           )
         end
 
-        # Updates an existing FinancialAccount.
+        # Updates an existing FinancialAccount using the provided parameters.
         def update(id, params = {}, opts = {})
           request(
             method: :post,

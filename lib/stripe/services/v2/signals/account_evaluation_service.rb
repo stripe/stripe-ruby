@@ -16,7 +16,7 @@ module Stripe
           )
         end
 
-        # Retrieves an AccountEvaluation by its ID.
+        # Retrieves an AccountEvaluation by its ID when its created timestamp is no more than 90 days old.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,

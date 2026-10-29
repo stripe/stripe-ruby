@@ -118,13 +118,62 @@ module Stripe
         end
 
         class To < ::Stripe::StripeObject
+          class PayoutMethodOptions < ::Stripe::StripeObject
+            class BankAccount < ::Stripe::StripeObject
+              class PreferredNetworkOptions < ::Stripe::StripeObject
+                class Ach < ::Stripe::StripeObject
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # ACH-specific network options.
+                attr_reader :ach
+
+                def self.inner_class_types
+                  @inner_class_types = { ach: Ach }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Per-network configuration options.
+              attr_reader :preferred_network_options
+              # The preferred networks to use for this OutboundTransfer.
+              attr_reader :preferred_networks
+
+              def self.inner_class_types
+                @inner_class_types = { preferred_network_options: PreferredNetworkOptions }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Options for bank account payout methods.
+            attr_reader :bank_account
+
+            def self.inner_class_types
+              @inner_class_types = { bank_account: BankAccount }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The monetary amount being credited to the destination.
           attr_reader :credited
           # The payout method which the OutboundTransfer uses to send payout.
           attr_reader :payout_method
+          # Payout method options for the OutboundTransfer.
+          attr_reader :payout_method_options
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { payout_method_options: PayoutMethodOptions }
           end
 
           def self.field_remappings
@@ -135,7 +184,7 @@ module Stripe
         class TraceId < ::Stripe::StripeObject
           # Possible values are `pending`, `supported`, and `unsupported`. Initially set to `pending`, it changes to
           # `supported` when the recipient bank provides a trace ID, or `unsupported` if the recipient bank doesn't support it.
-          # Note that this status may not align with the OutboundPayment or OutboundTransfer status and can remain `pending`
+          # This status may not align with the OutboundPayment or OutboundTransfer status and can remain `pending`
           # even after the payment or transfer is posted.
           attr_reader :status
           # The trace ID value if `trace_id.status` is `supported`, otherwise empty.

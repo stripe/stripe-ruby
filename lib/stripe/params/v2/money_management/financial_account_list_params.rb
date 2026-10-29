@@ -9,7 +9,8 @@ module Stripe
         attr_accessor :include
         # The page limit.
         attr_accessor :limit
-        # Filter for FinancialAccount `status`. By default, closed FinancialAccounts are not returned.
+        # Return FinancialAccounts whose `status` matches any of the provided values.
+        # If omitted, closed FinancialAccounts are not returned.
         attr_accessor :statuses
 
         def initialize(include: nil, limit: nil, statuses: nil)

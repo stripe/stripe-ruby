@@ -9,7 +9,7 @@ module Stripe
       class FinancialAddress < APIResource
         class BankAccount < ::Stripe::StripeObject
           class Aba < ::Stripe::StripeObject
-            class AccountHolderAddress < ::Stripe::StripeObject
+            class Address < ::Stripe::StripeObject
               # City.
               sig { returns(String) }
               def city; end
@@ -38,26 +38,23 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # The address of the account holder.
-            sig { returns(T.nilable(AccountHolderAddress)) }
-            def account_holder_address; end
             # The name of the account holder.
             sig { returns(T.nilable(String)) }
             def account_holder_name; end
-            # The full account number.
-            sig { returns(T.nilable(String)) }
+            # The full account number. Empty while the bank account is pending allocation.
+            sig { returns(String) }
             def account_number; end
+            # The address of the account holder.
+            sig { returns(T.nilable(Address)) }
+            def address; end
             # The name of the bank.
             sig { returns(T.nilable(String)) }
             def bank_name; end
-            # The last four digits of the account number.
-            sig { returns(String) }
-            def last4; end
             # The ABA routing number.
             sig { returns(String) }
             def routing_number; end
             def self.inner_class_types
-              @inner_class_types = {account_holder_address: AccountHolderAddress}
+              @inner_class_types = {address: Address}
             end
             def self.field_remappings
               @field_remappings = {}
@@ -70,15 +67,9 @@ module Stripe
             # The name of the bank.
             sig { returns(String) }
             def bank_name; end
-            # The country of the bank account.
+            # The full IBAN. Empty while the bank account is pending allocation.
             sig { returns(String) }
-            def country; end
-            # The full IBAN.
-            sig { returns(T.nilable(String)) }
             def iban; end
-            # The last four digits of the IBAN.
-            sig { returns(String) }
-            def last4; end
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -90,12 +81,9 @@ module Stripe
             # The name of the account holder.
             sig { returns(String) }
             def account_holder_name; end
-            # The full account number.
-            sig { returns(T.nilable(String)) }
-            def account_number; end
-            # The last four digits of the account number.
+            # The full account number. Empty while the bank account is pending allocation.
             sig { returns(String) }
-            def last4; end
+            def account_number; end
             # The sort code.
             sig { returns(String) }
             def sort_code; end
@@ -109,7 +97,8 @@ module Stripe
           # ABA bank account details (US).
           sig { returns(T.nilable(Aba)) }
           def aba; end
-          # The country of the bank account.
+          # The country of the bank account. Always included in the response, but null while the bank
+          # account is pending and its country is not yet known.
           sig { returns(T.nilable(String)) }
           def country; end
           # Open Enum. The currency of the bank account.
@@ -149,8 +138,8 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
-        sig { returns(T.nilable(String)) }
+        # Attribute for field settlement_currency
+        sig { returns(String) }
         def settlement_currency; end
         # Closed Enum. The status of the FinancialAddress.
         sig { returns(String) }

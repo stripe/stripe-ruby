@@ -5,16 +5,16 @@
 module Stripe
   module V2
     module MoneyManagement
-      # A FinancialAccount represents a balance and can be used as the source or destination for the money management (`/v2/money_management`) APIs.
+      # A FinancialAccount represents a balance and can be the source or destination of money movement.
       class FinancialAccount < APIResource
         class Balance < ::Stripe::StripeObject
-          # Balance that can be used for money movement.
+          # Balance available for money movement.
           sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
           def available; end
-          # Balance of inbound funds that will later transition to the `available` balance.
+          # Balance of inbound funds that aren't yet available for money movement and will later move to the `available` balance.
           sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
           def inbound_pending; end
-          # Balance of funds that are being used for a pending outbound money movement.
+          # Balance of funds being used for pending outbound money movements.
           sig { returns(T::Hash[String, ::Stripe::V2::Amount]) }
           def outbound_pending; end
           def self.inner_class_types
@@ -25,7 +25,8 @@ module Stripe
           end
         end
         class Other < ::Stripe::StripeObject
-          # The type of the FinancialAccount, represented as a string. Upgrade your API version to see the type reflected in `financial_account.type`.
+          # The FinancialAccount's actual type, represented as a string.
+          # Upgrade your API version to see this value in `financial_account.type`.
           sig { returns(String) }
           def type; end
           def self.inner_class_types
@@ -38,10 +39,11 @@ module Stripe
         class StatusDetails < ::Stripe::StripeObject
           class Closed < ::Stripe::StripeObject
             class ForwardingSettings < ::Stripe::StripeObject
-              # The address to send forwarded payments to.
+              # ID of the FinancialAccount that supplies funds to cover negative balances
+              # during or after this FinancialAccount's closure.
               sig { returns(T.nilable(String)) }
               def payment_method; end
-              # The address to send forwarded payouts to.
+              # ID of the FinancialAccount that receives funds forwarded from this FinancialAccount when it closes.
               sig { returns(T.nilable(String)) }
               def payout_method; end
               def self.inner_class_types
@@ -51,10 +53,10 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # The forwarding settings for the closed FinancialAccount.
+            # When configured, the forwarding settings for the closed FinancialAccount.
             sig { returns(T.nilable(ForwardingSettings)) }
             def forwarding_settings; end
-            # The reason the FinancialAccount was closed.
+            # Closed Enum. The reason the FinancialAccount was closed.
             sig { returns(String) }
             def reason; end
             def self.inner_class_types
@@ -64,7 +66,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Details related to the closed state of the FinancialAccount.
+          # Details about the FinancialAccount's closure. Only populated when `status` is `closed`.
           sig { returns(T.nilable(Closed)) }
           def closed; end
           def self.inner_class_types
@@ -105,16 +107,17 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Multi-currency balance of this FinancialAccount, split by availability state. Each balance is represented as a hash where the key is the three-letter ISO currency code, in lowercase, and the value is the amount for that currency.
+        # The FinancialAccount's balance, split into `available`, `inbound_pending`, and `outbound_pending` balances.
+        # Each balance is a hash keyed by lowercase currency codes, with an amount for each currency.
         sig { returns(Balance) }
         def balance; end
-        # Open Enum. Two-letter country code that represents the country where the LegalEntity associated with the FinancialAccount is based in.
+        # Open Enum. The country where the LegalEntity associated with the FinancialAccount is based, represented as a two-letter country code.
         sig { returns(String) }
         def country; end
-        # Time at which the object was created.
+        # Time at which the object was created. Represented as an RFC 3339 timestamp in UTC with millisecond precision, for example `2022-09-18T13:22:18.123Z`.
         sig { returns(String) }
         def created; end
-        # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
+        # A descriptive name for the FinancialAccount, up to 50 characters long. This name appears in the Stripe Dashboard and embedded components.
         sig { returns(T.nilable(String)) }
         def display_name; end
         # Unique identifier for the object.
@@ -123,13 +126,15 @@ module Stripe
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end
-        # Metadata associated with the FinancialAccount.
+        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information
+        # about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # If this is a `other` FinancialAccount, this hash indicates what the actual type is. Upgrade your API version to see it reflected in `type`.
+        # If the FinancialAccount's `type` is `other`, this hash identifies its actual type.
+        # Upgrade your API version to see that type in `type`.
         sig { returns(T.nilable(Other)) }
         def other; end
         # Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
@@ -138,11 +143,11 @@ module Stripe
         # Additional details related to the status of the FinancialAccount.
         sig { returns(T.nilable(StatusDetails)) }
         def status_details; end
-        # If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
+        # If the FinancialAccount's `type` is `storage`, this hash contains details specific to that type.
         sig { returns(T.nilable(Storage)) }
         def storage; end
-        # Type of the FinancialAccount. An additional hash is included on the FinancialAccount with a name matching this value.
-        # It contains additional information specific to the FinancialAccount type.
+        # Closed Enum. The type of the FinancialAccount. Details specific to the type appear in the matching hash.
+        # For example, a `storage` FinancialAccount includes a `storage` hash.
         sig { returns(String) }
         def type; end
       end

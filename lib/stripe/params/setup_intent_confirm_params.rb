@@ -408,12 +408,25 @@ module Stripe
       end
 
       class UsBankAccount < ::Stripe::RequestParams
+        class ExternalToken < ::Stripe::RequestParams
+          # The Plaid processor token to use for this bank account.
+          attr_accessor :plaid_processor_token
+          # The type of external token.
+          attr_accessor :type
+
+          def initialize(plaid_processor_token: nil, type: nil)
+            @plaid_processor_token = plaid_processor_token
+            @type = type
+          end
+        end
         # Account holder type: individual or company.
         attr_accessor :account_holder_type
         # Account number of the bank account.
         attr_accessor :account_number
         # Account type: checkings or savings. Defaults to checking if omitted.
         attr_accessor :account_type
+        # An external token used to create a payment method.
+        attr_accessor :external_token
         # The ID of a Financial Connections Account to use as a payment method.
         attr_accessor :financial_connections_account
         # Routing number of the bank account.
@@ -423,18 +436,21 @@ module Stripe
           account_holder_type: nil,
           account_number: nil,
           account_type: nil,
+          external_token: nil,
           financial_connections_account: nil,
           routing_number: nil
         )
           @account_holder_type = account_holder_type
           @account_number = account_number
           @account_type = account_type
+          @external_token = external_token
           @financial_connections_account = financial_connections_account
           @routing_number = routing_number
         end
       end
 
       class WechatPay < ::Stripe::RequestParams; end
+      class Wero < ::Stripe::RequestParams; end
       class Zip < ::Stripe::RequestParams; end
       # If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
       attr_accessor :acss_debit
@@ -570,6 +586,8 @@ module Stripe
       attr_accessor :us_bank_account
       # If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
       attr_accessor :wechat_pay
+      # If this is a Wero PaymentMethod, this hash contains details about the Wero payment method.
+      attr_accessor :wero
       # If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
       attr_accessor :zip
 
@@ -641,6 +659,7 @@ module Stripe
         upi: nil,
         us_bank_account: nil,
         wechat_pay: nil,
+        wero: nil,
         zip: nil
       )
         @acss_debit = acss_debit
@@ -710,6 +729,7 @@ module Stripe
         @upi = upi
         @us_bank_account = us_bank_account
         @wechat_pay = wechat_pay
+        @wero = wero
         @zip = zip
       end
     end
@@ -1355,7 +1375,7 @@ module Stripe
     attr_accessor :expand
     # Attribute for param field mandate_data
     attr_accessor :mandate_data
-    # ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+    # The ID of a PaymentMethod to attach to this SetupIntent.
     attr_accessor :payment_method
     # When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-payment_method)
     # value in the SetupIntent.

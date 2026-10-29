@@ -412,7 +412,7 @@ module Stripe
         def price; end
         sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
         def price=(_price); end
-        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline, for [dynamic pricing](https://docs.stripe.com/products-prices/how-products-and-prices-work#inline-pricing) when the amount isn't known ahead of time. One of `price` or `price_data` is required when creating a new line item.
         sig { returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData)) }
         def price_data; end
         sig {
@@ -474,6 +474,7 @@ module Stripe
         #
         # When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
         #
+        # You must wrap any Checkout Session update that mutates `setup_future_usage` in [`runServerUpdate`](/js/custom_checkout/run_server_update) and await it before continuing with the payment.
         # Pass an empty string to remove a previously supplied configuration.
         sig { returns(T.nilable(String)) }
         def setup_future_usage; end

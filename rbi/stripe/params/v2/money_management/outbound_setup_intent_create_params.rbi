@@ -82,6 +82,25 @@ module Stripe
              }
             def initialize(currency: nil, exp_month: nil, exp_year: nil, number: nil); end
           end
+          class CryptoWallet < ::Stripe::RequestParams
+            # Crypto wallet address.
+            sig { returns(String) }
+            def address; end
+            sig { params(_address: String).returns(String) }
+            def address=(_address); end
+            # Optional field, required if network supports memos (only "stellar" currently).
+            sig { returns(T.nilable(String)) }
+            def memo; end
+            sig { params(_memo: T.nilable(String)).returns(T.nilable(String)) }
+            def memo=(_memo); end
+            # Which rail we should use to make an Outbound money movement to this wallet.
+            sig { returns(String) }
+            def network; end
+            sig { params(_network: String).returns(String) }
+            def network=(_network); end
+            sig { params(address: String, memo: T.nilable(String), network: String).void }
+            def initialize(address: nil, memo: nil, network: nil); end
+          end
           # The type specific details of the bank account payout method.
           sig {
             returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount))
@@ -100,15 +119,24 @@ module Stripe
             params(_card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card))
            }
           def card=(_card); end
+          # The type specific details of the crypto wallet payout method.
+          sig {
+            returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CryptoWallet))
+           }
+          def crypto_wallet; end
+          sig {
+            params(_crypto_wallet: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CryptoWallet)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CryptoWallet))
+           }
+          def crypto_wallet=(_crypto_wallet); end
           # Open Enum. The type of payout method to be created.
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount), card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card), type: String).void
+            params(bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount), card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card), crypto_wallet: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CryptoWallet), type: String).void
            }
-          def initialize(bank_account: nil, card: nil, type: nil); end
+          def initialize(bank_account: nil, card: nil, crypto_wallet: nil, type: nil); end
         end
         # If provided, the existing payout method resource to link to this setup intent.
         # Any payout_method_data provided is used to update information on this linked payout method resource.

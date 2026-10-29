@@ -12,7 +12,7 @@ module Stripe
           def country; end
           sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
           def country=(_country); end
-          # The currency of the bank account to provision.
+          # The currency of the bank account to provision. Available currencies depend on your account's enabled features and rollout access; `eur` requires the Financial Address Global Payouts EU preview.
           sig { returns(String) }
           def currency; end
           sig { params(_currency: String).returns(String) }
@@ -34,25 +34,15 @@ module Stripe
         def financial_account; end
         sig { params(_financial_account: String).returns(String) }
         def financial_account=(_financial_account); end
-        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
-        sig { returns(T.nilable(String)) }
-        def settlement_currency; end
-        sig { params(_settlement_currency: T.nilable(String)).returns(T.nilable(String)) }
-        def settlement_currency=(_settlement_currency); end
         # The type of FinancialAddress to create. Must agree with which branch of financial_address_type_properties is set.
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(bank_account: T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::BankAccount), financial_account: String, settlement_currency: T.nilable(String), type: String).void
+          params(bank_account: T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::BankAccount), financial_account: String, type: String).void
          }
-        def initialize(
-          bank_account: nil,
-          financial_account: nil,
-          settlement_currency: nil,
-          type: nil
-        ); end
+        def initialize(bank_account: nil, financial_account: nil, type: nil); end
       end
     end
   end

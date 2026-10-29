@@ -13,7 +13,7 @@ module Stripe
 
         class BankAccount < ::Stripe::StripeObject
           class Aba < ::Stripe::StripeObject
-            class AccountHolderAddress < ::Stripe::StripeObject
+            class Address < ::Stripe::StripeObject
               # City.
               attr_reader :city
               # Country.
@@ -37,21 +37,19 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # The address of the account holder.
-            attr_reader :account_holder_address
             # The name of the account holder.
             attr_reader :account_holder_name
-            # The full account number.
+            # The full account number. Empty while the bank account is pending allocation.
             attr_reader :account_number
+            # The address of the account holder.
+            attr_reader :address
             # The name of the bank.
             attr_reader :bank_name
-            # The last four digits of the account number.
-            attr_reader :last4
             # The ABA routing number.
             attr_reader :routing_number
 
             def self.inner_class_types
-              @inner_class_types = { account_holder_address: AccountHolderAddress }
+              @inner_class_types = { address: Address }
             end
 
             def self.field_remappings
@@ -64,12 +62,8 @@ module Stripe
             attr_reader :account_holder_name
             # The name of the bank.
             attr_reader :bank_name
-            # The country of the bank account.
-            attr_reader :country
-            # The full IBAN.
+            # The full IBAN. Empty while the bank account is pending allocation.
             attr_reader :iban
-            # The last four digits of the IBAN.
-            attr_reader :last4
 
             def self.inner_class_types
               @inner_class_types = {}
@@ -83,10 +77,8 @@ module Stripe
           class SortCode < ::Stripe::StripeObject
             # The name of the account holder.
             attr_reader :account_holder_name
-            # The full account number.
+            # The full account number. Empty while the bank account is pending allocation.
             attr_reader :account_number
-            # The last four digits of the account number.
-            attr_reader :last4
             # The sort code.
             attr_reader :sort_code
 
@@ -100,7 +92,8 @@ module Stripe
           end
           # ABA bank account details (US).
           attr_reader :aba
-          # The country of the bank account.
+          # The country of the bank account. Always included in the response, but null while the bank
+          # account is pending and its country is not yet known.
           attr_reader :country
           # Open Enum. The currency of the bank account.
           attr_reader :currency
@@ -131,7 +124,7 @@ module Stripe
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
+        # Attribute for field settlement_currency
         attr_reader :settlement_currency
         # Closed Enum. The status of the FinancialAddress.
         attr_reader :status

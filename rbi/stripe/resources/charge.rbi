@@ -1004,7 +1004,7 @@ module Stripe
         # The payment_method_options.card.setup_credential_usage value that was passed when setup_future_usage was present at confirmation, one of `recurring`, `unscheduled`, or `installment`
         sig { returns(T.nilable(String)) }
         def setup_credential_usage; end
-        # The payment_method_options.card.stored_credential_usage value that was passed for an off session, merchant-initiated transaction, one of `recurring`, `unscheduled`, `on_session`, or `installment`
+        # The payment_method_options.card.stored_credential_usage value that was passed for an off session, merchant-initiated transaction.
         sig { returns(T.nilable(String)) }
         def stored_credential_usage; end
         # Populated if this transaction used 3D Secure authentication.
@@ -2267,6 +2267,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Wero < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Zip < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -2484,6 +2492,9 @@ module Stripe
       # Attribute for field wechat_pay
       sig { returns(T.nilable(WechatPay)) }
       def wechat_pay; end
+      # Attribute for field wero
+      sig { returns(T.nilable(Wero)) }
+      def wero; end
       # Attribute for field zip
       sig { returns(T.nilable(Zip)) }
       def zip; end
@@ -2557,6 +2568,7 @@ module Stripe
           us_bank_account: UsBankAccount,
           wechat: Wechat,
           wechat_pay: WechatPay,
+          wero: Wero,
           zip: Zip,
         }
       end

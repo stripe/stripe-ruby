@@ -677,6 +677,28 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ReportingChart < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class TaxRegistrations < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -700,6 +722,50 @@ module Stripe
         end
       end
       class TaxSettings < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class TerminalHardwareOrders < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class TerminalHardwareShop < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
@@ -790,12 +856,21 @@ module Stripe
       # Attribute for field payouts_list
       sig { returns(PayoutsList) }
       def payouts_list; end
+      # Attribute for field reporting_chart
+      sig { returns(ReportingChart) }
+      def reporting_chart; end
       # Attribute for field tax_registrations
       sig { returns(TaxRegistrations) }
       def tax_registrations; end
       # Attribute for field tax_settings
       sig { returns(TaxSettings) }
       def tax_settings; end
+      # Attribute for field terminal_hardware_orders
+      sig { returns(TerminalHardwareOrders) }
+      def terminal_hardware_orders; end
+      # Attribute for field terminal_hardware_shop
+      sig { returns(TerminalHardwareShop) }
+      def terminal_hardware_shop; end
       def self.inner_class_types
         @inner_class_types = {
           account_management: AccountManagement,
@@ -821,8 +896,11 @@ module Stripe
           payout_reconciliation_report: PayoutReconciliationReport,
           payouts: Payouts,
           payouts_list: PayoutsList,
+          reporting_chart: ReportingChart,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
+          terminal_hardware_orders: TerminalHardwareOrders,
+          terminal_hardware_shop: TerminalHardwareShop,
         }
       end
       def self.field_remappings

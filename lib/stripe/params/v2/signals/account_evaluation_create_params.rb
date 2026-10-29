@@ -80,7 +80,8 @@ module Stripe
             attr_accessor :occurred_at
             # Details for the registration attempt. Provide only when type is registration_attempt.
             attr_accessor :registration_attempt
-            # The type of activity. Must be registration_attempt or login_attempt.
+            # The type of activity. Supports registration_attempt, login_attempt, mfa_addition, mfa_removal,
+            # credential_change, account_takeover_report, account_takeover_confirmation, or account_takeover_mitigation.
             attr_accessor :type
 
             def initialize(
@@ -147,19 +148,22 @@ module Stripe
                 @business_details = business_details
               end
             end
+            # The account's contact email.
+            attr_accessor :contact_email
             # Default account settings.
             attr_accessor :defaults
             # Identity data.
             attr_accessor :identity
 
-            def initialize(defaults: nil, identity: nil)
+            def initialize(contact_email: nil, defaults: nil, identity: nil)
+              @contact_email = contact_email
               @defaults = defaults
               @identity = identity
             end
           end
           # The v2 account ID of the account.
           attr_accessor :account
-          # The v1 customer ID of the account, for users not yet migrated to v2/accounts.
+          # The v1 customer ID of the account, for users not yet migrated to v2 accounts.
           attr_accessor :customer
           # Inline account data to evaluate without creating a v2 account.
           attr_accessor :data

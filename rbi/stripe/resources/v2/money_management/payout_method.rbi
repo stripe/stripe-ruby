@@ -40,6 +40,10 @@ module Stripe
           # The ID of the Financial Connections Account used to create the bank account.
           sig { returns(T.nilable(String)) }
           def financial_connections_account; end
+          # Uniquely identifies this particular bank account. You can use this attribute to check whether two
+          # recipients who've signed up with you are using the same bank account, for example.
+          sig { returns(T.nilable(String)) }
+          def fingerprint; end
           # The last 4 digits of the account number.
           sig { returns(String) }
           def last4; end
@@ -67,7 +71,7 @@ module Stripe
           sig { returns(String) }
           def exp_year; end
           # Uniquely identifies this particular card number. You can use this attribute to check whether two
-          # recipients who’ve signed up with you are using the same card number, for example.
+          # recipients who've signed up with you are using the same card number, for example.
           sig { returns(String) }
           def fingerprint; end
           # The last 4 digits of the card number.
@@ -76,6 +80,23 @@ module Stripe
           # The list of currencies supported by this bank account.
           sig { returns(T::Array[String]) }
           def supported_currencies; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CryptoWallet < ::Stripe::StripeObject
+          # Destination wallet address.
+          sig { returns(String) }
+          def address; end
+          # Optional field, required if network supports memos (only "stellar" currently).
+          sig { returns(T.nilable(String)) }
+          def memo; end
+          # Which rail is being used to make an outbound money movement to this wallet.
+          sig { returns(String) }
+          def network; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -119,6 +140,9 @@ module Stripe
         # Created timestamp.
         sig { returns(String) }
         def created; end
+        # The PayoutMethodCryptoWallet object details.
+        sig { returns(T.nilable(CryptoWallet)) }
+        def crypto_wallet; end
         # ID of the PayoutMethod object.
         sig { returns(String) }
         def id; end

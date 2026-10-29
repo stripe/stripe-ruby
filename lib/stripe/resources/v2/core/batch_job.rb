@@ -13,15 +13,57 @@ module Stripe
 
         class StatusDetails < ::Stripe::StripeObject
           class BatchFailed < ::Stripe::StripeObject
+            class PartialOutputFile < ::Stripe::StripeObject
+              class DownloadUrl < ::Stripe::StripeObject
+                # The time that the URL expires.
+                attr_reader :expires_at
+                # The URL that can be used for accessing the file.
+                attr_reader :url
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The content type of the file.
+              attr_reader :content_type
+              # A pre-signed URL that allows secure, time-limited access to download the file.
+              attr_reader :download_url
+              # The total size of the file in bytes.
+              attr_reader :size
+
+              def self.inner_class_types
+                @inner_class_types = { download_url: DownloadUrl }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+
+              def self.field_encodings
+                @field_encodings = { size: :int64_string }
+              end
+            end
             # Details about the `batch_job` failure.
             attr_reader :error
+            # The partial output file details, containing everything processed before the `batch_job` failed. Absent for jobs that failed before producing any output.
+            attr_reader :partial_output_file
 
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = { partial_output_file: PartialOutputFile }
             end
 
             def self.field_remappings
               @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                partial_output_file: { kind: :object, fields: { size: :int64_string } },
+              }
             end
           end
 
@@ -360,6 +402,10 @@ module Stripe
 
           def self.field_encodings
             @field_encodings = {
+              batch_failed: {
+                kind: :object,
+                fields: { partial_output_file: { kind: :object, fields: { size: :int64_string } } },
+              },
               canceled: {
                 kind: :object,
                 fields: {
@@ -439,6 +485,10 @@ module Stripe
             status_details: {
               kind: :object,
               fields: {
+                batch_failed: {
+                  kind: :object,
+                  fields: { partial_output_file: { kind: :object, fields: { size: :int64_string } } },
+                },
                 canceled: {
                   kind: :object,
                   fields: {

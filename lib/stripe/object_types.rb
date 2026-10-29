@@ -114,6 +114,7 @@ module Stripe
         PaymentMethod.object_name => PaymentMethod,
         PaymentMethodConfiguration.object_name => PaymentMethodConfiguration,
         PaymentMethodDomain.object_name => PaymentMethodDomain,
+        PaymentPlan.object_name => PaymentPlan,
         PaymentRecord.object_name => PaymentRecord,
         Payout.object_name => Payout,
         Person.object_name => Person,
@@ -198,6 +199,7 @@ module Stripe
     def self.v2_object_names_to_classes
       {
         V2::ListObject.object_name => V2::ListObject,
+        V2::SearchResultObject.object_name => V2::SearchResultObject,
 
         # v2 object classes: The beginning of the section generated from our OpenAPI spec
         V2::Billing::BillSetting.object_name => V2::Billing::BillSetting,
@@ -221,7 +223,11 @@ module Stripe
         V2::Core::EventDestination.object_name => V2::Core::EventDestination,
         V2::Core::Vault::GbBankAccount.object_name => V2::Core::Vault::GbBankAccount,
         V2::Core::Vault::UsBankAccount.object_name => V2::Core::Vault::UsBankAccount,
+        V2::Data::QueryRun.object_name => V2::Data::QueryRun,
+        V2::Data::Report.object_name => V2::Data::Report,
+        V2::Data::ReportRun.object_name => V2::Data::ReportRun,
         V2::Data::Reporting::QueryRun.object_name => V2::Data::Reporting::QueryRun,
+        V2::Data::Schema.object_name => V2::Data::Schema,
         V2::Extend::Workflow.object_name => V2::Extend::Workflow,
         V2::Extend::WorkflowRun.object_name => V2::Extend::WorkflowRun,
         V2::Iam::ActivityLog.object_name => V2::Iam::ActivityLog,
@@ -237,11 +243,14 @@ module Stripe
         V2::MoneyManagement::OutboundPaymentQuote.object_name => V2::MoneyManagement::OutboundPaymentQuote,
         V2::MoneyManagement::OutboundSetupIntent.object_name => V2::MoneyManagement::OutboundSetupIntent,
         V2::MoneyManagement::OutboundTransfer.object_name => V2::MoneyManagement::OutboundTransfer,
+        V2::MoneyManagement::PayoutIntent.object_name => V2::MoneyManagement::PayoutIntent,
         V2::MoneyManagement::PayoutMethod.object_name => V2::MoneyManagement::PayoutMethod,
         V2::MoneyManagement::PayoutMethodsBankAccountSpec.object_name =>
         V2::MoneyManagement::PayoutMethodsBankAccountSpec,
         V2::MoneyManagement::ReceivedCredit.object_name => V2::MoneyManagement::ReceivedCredit,
         V2::MoneyManagement::ReceivedDebit.object_name => V2::MoneyManagement::ReceivedDebit,
+        V2::MoneyManagement::RecipientVerification.object_name =>
+        V2::MoneyManagement::RecipientVerification,
         V2::MoneyManagement::Transaction.object_name => V2::MoneyManagement::Transaction,
         V2::MoneyManagement::TransactionEntry.object_name => V2::MoneyManagement::TransactionEntry,
         V2::Network::BusinessProfile.object_name => V2::Network::BusinessProfile,

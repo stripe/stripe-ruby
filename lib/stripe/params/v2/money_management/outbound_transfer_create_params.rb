@@ -27,6 +27,34 @@ module Stripe
         end
 
         class To < ::Stripe::RequestParams
+          class PayoutMethodOptions < ::Stripe::RequestParams
+            class BankAccount < ::Stripe::RequestParams
+              class PreferredNetworkOptions < ::Stripe::RequestParams
+                class Ach < ::Stripe::RequestParams; end
+                # ACH-specific network options.
+                attr_accessor :ach
+
+                def initialize(ach: nil)
+                  @ach = ach
+                end
+              end
+              # Per-network configuration options.
+              attr_accessor :preferred_network_options
+              # The preferred networks to use for this OutboundTransfer.
+              attr_accessor :preferred_networks
+
+              def initialize(preferred_network_options: nil, preferred_networks: nil)
+                @preferred_network_options = preferred_network_options
+                @preferred_networks = preferred_networks
+              end
+            end
+            # Options for bank account payout methods.
+            attr_accessor :bank_account
+
+            def initialize(bank_account: nil)
+              @bank_account = bank_account
+            end
+          end
           # Describes the currency to send to the recipient.
           # If included, this currency must match a currency supported by the destination.
           # Can be omitted in the following cases:
@@ -37,10 +65,13 @@ module Stripe
           attr_accessor :currency
           # The payout method which the OutboundTransfer uses to send payout.
           attr_accessor :payout_method
+          # Payout method options for the OutboundTransfer.
+          attr_accessor :payout_method_options
 
-          def initialize(currency: nil, payout_method: nil)
+          def initialize(currency: nil, payout_method: nil, payout_method_options: nil)
             @currency = currency
             @payout_method = payout_method
+            @payout_method_options = payout_method_options
           end
         end
         # The "presentment amount" for the OutboundPayment.
@@ -53,6 +84,8 @@ module Stripe
         attr_accessor :from
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_accessor :metadata
+        # The description that appears on the receiving end for an OutboundTransfer (for example, on a bank statement). Must be between 3 and 22 characters long for most destinations (500 for FinancialAccount destinations), and not contain profanity.
+        attr_accessor :statement_descriptor
         # To which payout method to send the OutboundTransfer.
         attr_accessor :to
 
@@ -62,6 +95,7 @@ module Stripe
           description: nil,
           from: nil,
           metadata: nil,
+          statement_descriptor: nil,
           to: nil
         )
           @amount = amount
@@ -69,6 +103,7 @@ module Stripe
           @description = description
           @from = from
           @metadata = metadata
+          @statement_descriptor = statement_descriptor
           @to = to
         end
       end

@@ -6,6 +6,8 @@ module Stripe
   # later. You can also store multiple debit cards on a recipient in order to
   # transfer to those cards later.
   #
+  # This API is deprecated. Use the [PaymentMethods API](https://docs.stripe.com/api/payment_methods) instead.
+  #
   # Related guide: [Card payments with Sources](https://docs.stripe.com/sources/cards)
   class Card < APIResource
     include Stripe::APIOperations::Delete
@@ -42,7 +44,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    # Attribute for field account
+    # The account this card belongs to. Only applicable on Accounts (not customers or recipients) This property is only available when returned as an [External Account](/api/external_account_cards/object) where [controller.is_controller](/api/accounts/object#account_object-controller-is_controller) is `true`.
     attr_reader :account
     # City/District/Suburb/Town/Village.
     attr_reader :address_city

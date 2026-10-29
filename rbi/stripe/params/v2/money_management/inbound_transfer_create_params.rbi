@@ -13,7 +13,7 @@ module Stripe
           def currency; end
           sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
           def currency=(_currency); end
-          # ID of the Payment Method using which IBT will be made.
+          # ID of the verified bank account credential to debit for this InboundTransfer (for example, `usba_`), not a Payments API `pm_` PaymentMethod.
           sig { returns(String) }
           def payment_method; end
           sig { params(_payment_method: String).returns(String) }
@@ -22,12 +22,12 @@ module Stripe
           def initialize(currency: nil, payment_method: nil); end
         end
         class To < ::Stripe::RequestParams
-          # The currency in which funds will land in.
+          # The currency to credit to the FinancialAccount.
           sig { returns(String) }
           def currency; end
           sig { params(_currency: String).returns(String) }
           def currency=(_currency); end
-          # The FinancialAccount that funds will land in.
+          # The FinancialAccount that receives the funds.
           sig { returns(String) }
           def financial_account; end
           sig { params(_financial_account: String).returns(String) }
@@ -35,7 +35,7 @@ module Stripe
           sig { params(currency: String, financial_account: String).void }
           def initialize(currency: nil, financial_account: nil); end
         end
-        # The amount, in specified currency, by which the FinancialAccount balance will increase due to the InboundTransfer.
+        # The amount and currency to credit to the FinancialAccount.
         sig { returns(::Stripe::V2::Amount) }
         def amount; end
         sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
@@ -45,14 +45,14 @@ module Stripe
         def description; end
         sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
         def description=(_description); end
-        # Object containing details about where the funds will originate from.
+        # The verified bank account credential to debit for this InboundTransfer.
         sig { returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From) }
         def from; end
         sig {
           params(_from: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From).returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From)
          }
         def from=(_from); end
-        # Object containing details about where the funds will land.
+        # The FinancialAccount and currency to credit with the transferred funds.
         sig { returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To) }
         def to; end
         sig {

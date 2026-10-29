@@ -6,7 +6,7 @@ module Stripe
     class InstallCreateParams < ::Stripe::RequestParams
       # The ID of the app to install.
       attr_accessor :app
-      # The distribution channel to install from. Defaults to `public`. A private app must be installed on `private_test` or `private_live`, matching the mode of the API key.
+      # The distribution channel to install from. Defaults to `public`, which only app developers and embedding platforms can use. An account installing its own private app must pass `private_test` or `private_live`, matching the mode of the API key.
       attr_accessor :channel
       # For OAuth apps, the PKCE code challenge used to issue the `auth_code` returned on the install. Must be 43 to 128 characters and contain only letters, numbers, `-`, `.`, `_`, and `~`. Only applies to installs made by the app developer or an embedding platform; ignored when an account installs its own private app.
       attr_accessor :code_challenge

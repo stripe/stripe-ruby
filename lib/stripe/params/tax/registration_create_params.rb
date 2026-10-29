@@ -312,6 +312,15 @@ module Stripe
           end
         end
 
+        class Bw < ::Stripe::RequestParams
+          # Type of registration to be created in `country`.
+          attr_accessor :type
+
+          def initialize(type: nil)
+            @type = type
+          end
+        end
+
         class By < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
@@ -377,6 +386,15 @@ module Stripe
 
           def initialize(standard: nil, type: nil)
             @standard = standard
+            @type = type
+          end
+        end
+
+        class Ci < ::Stripe::RequestParams
+          # Type of registration to be created in `country`.
+          attr_accessor :type
+
+          def initialize(type: nil)
             @type = type
           end
         end
@@ -657,6 +675,15 @@ module Stripe
         end
 
         class Ge < ::Stripe::RequestParams
+          # Type of registration to be created in `country`.
+          attr_accessor :type
+
+          def initialize(type: nil)
+            @type = type
+          end
+        end
+
+        class Gh < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
           attr_accessor :type
 
@@ -1060,6 +1087,15 @@ module Stripe
 
           def initialize(standard: nil, type: nil)
             @standard = standard
+            @type = type
+          end
+        end
+
+        class Mu < ::Stripe::RequestParams
+          # Type of registration to be created in `country`.
+          attr_accessor :type
+
+          def initialize(type: nil)
             @type = type
           end
         end
@@ -1570,7 +1606,7 @@ module Stripe
 
           class StateSalesTax < ::Stripe::RequestParams
             class Election < ::Stripe::RequestParams
-              # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `003` (Allegheny County) and `60000` (Philadelphia City).
+              # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
               attr_accessor :jurisdiction
               # The type of the election for the state sales tax registration.
               attr_accessor :type
@@ -1590,6 +1626,15 @@ module Stripe
 
           class TourismTax < ::Stripe::RequestParams
             # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=tourism_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
+          class UtilityUsersTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=utility_users_tax#registration-types).
             attr_accessor :jurisdiction
 
             def initialize(jurisdiction: nil)
@@ -1626,6 +1671,8 @@ module Stripe
           attr_accessor :tourism_tax
           # Type of registration to be created in the US.
           attr_accessor :type
+          # Options for the utility users tax registration.
+          attr_accessor :utility_users_tax
 
           def initialize(
             admissions_tax: nil,
@@ -1642,7 +1689,8 @@ module Stripe
             state: nil,
             state_sales_tax: nil,
             tourism_tax: nil,
-            type: nil
+            type: nil,
+            utility_users_tax: nil
           )
             @admissions_tax = admissions_tax
             @attendance_tax = attendance_tax
@@ -1659,6 +1707,7 @@ module Stripe
             @state_sales_tax = state_sales_tax
             @tourism_tax = tourism_tax
             @type = type
+            @utility_users_tax = utility_users_tax
           end
         end
 
@@ -1782,6 +1831,8 @@ module Stripe
         attr_accessor :bj
         # Options for the registration in BS.
         attr_accessor :bs
+        # Options for the registration in BW.
+        attr_accessor :bw
         # Options for the registration in BY.
         attr_accessor :by
         # Options for the registration in CA.
@@ -1790,6 +1841,8 @@ module Stripe
         attr_accessor :cd
         # Options for the registration in CH.
         attr_accessor :ch
+        # Options for the registration in CI.
+        attr_accessor :ci
         # Options for the registration in CL.
         attr_accessor :cl
         # Options for the registration in CM.
@@ -1826,6 +1879,8 @@ module Stripe
         attr_accessor :gb
         # Options for the registration in GE.
         attr_accessor :ge
+        # Options for the registration in GH.
+        attr_accessor :gh
         # Options for the registration in GN.
         attr_accessor :gn
         # Options for the registration in GR.
@@ -1878,6 +1933,8 @@ module Stripe
         attr_accessor :mr
         # Options for the registration in MT.
         attr_accessor :mt
+        # Options for the registration in MU.
+        attr_accessor :mu
         # Options for the registration in MX.
         attr_accessor :mx
         # Options for the registration in MY.
@@ -1969,10 +2026,12 @@ module Stripe
           bh: nil,
           bj: nil,
           bs: nil,
+          bw: nil,
           by: nil,
           ca: nil,
           cd: nil,
           ch: nil,
+          ci: nil,
           cl: nil,
           cm: nil,
           co: nil,
@@ -1991,6 +2050,7 @@ module Stripe
           fr: nil,
           gb: nil,
           ge: nil,
+          gh: nil,
           gn: nil,
           gr: nil,
           hr: nil,
@@ -2017,6 +2077,7 @@ module Stripe
           mk: nil,
           mr: nil,
           mt: nil,
+          mu: nil,
           mx: nil,
           my: nil,
           ng: nil,
@@ -2071,10 +2132,12 @@ module Stripe
           @bh = bh
           @bj = bj
           @bs = bs
+          @bw = bw
           @by = by
           @ca = ca
           @cd = cd
           @ch = ch
+          @ci = ci
           @cl = cl
           @cm = cm
           @co = co
@@ -2093,6 +2156,7 @@ module Stripe
           @fr = fr
           @gb = gb
           @ge = ge
+          @gh = gh
           @gn = gn
           @gr = gr
           @hr = hr
@@ -2119,6 +2183,7 @@ module Stripe
           @mk = mk
           @mr = mr
           @mt = mt
+          @mu = mu
           @mx = mx
           @my = my
           @ng = ng

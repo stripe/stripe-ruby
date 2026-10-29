@@ -2267,12 +2267,25 @@ module Stripe
       end
 
       class UsBankAccount < ::Stripe::RequestParams
+        class ExternalToken < ::Stripe::RequestParams
+          # The Plaid processor token to use for this bank account.
+          attr_accessor :plaid_processor_token
+          # The type of external token.
+          attr_accessor :type
+
+          def initialize(plaid_processor_token: nil, type: nil)
+            @plaid_processor_token = plaid_processor_token
+            @type = type
+          end
+        end
         # Account holder type: individual or company.
         attr_accessor :account_holder_type
         # Account number of the bank account.
         attr_accessor :account_number
         # Account type: checkings or savings. Defaults to checking if omitted.
         attr_accessor :account_type
+        # An external token used to create a payment method.
+        attr_accessor :external_token
         # The ID of a Financial Connections Account to use as a payment method.
         attr_accessor :financial_connections_account
         # Routing number of the bank account.
@@ -2282,18 +2295,21 @@ module Stripe
           account_holder_type: nil,
           account_number: nil,
           account_type: nil,
+          external_token: nil,
           financial_connections_account: nil,
           routing_number: nil
         )
           @account_holder_type = account_holder_type
           @account_number = account_number
           @account_type = account_type
+          @external_token = external_token
           @financial_connections_account = financial_connections_account
           @routing_number = routing_number
         end
       end
 
       class WechatPay < ::Stripe::RequestParams; end
+      class Wero < ::Stripe::RequestParams; end
       class Zip < ::Stripe::RequestParams; end
       # If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
       attr_accessor :acss_debit
@@ -2429,6 +2445,8 @@ module Stripe
       attr_accessor :us_bank_account
       # If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
       attr_accessor :wechat_pay
+      # If this is a Wero PaymentMethod, this hash contains details about the Wero payment method.
+      attr_accessor :wero
       # If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
       attr_accessor :zip
 
@@ -2500,6 +2518,7 @@ module Stripe
         upi: nil,
         us_bank_account: nil,
         wechat_pay: nil,
+        wero: nil,
         zip: nil
       )
         @acss_debit = acss_debit
@@ -2569,6 +2588,7 @@ module Stripe
         @upi = upi
         @us_bank_account = us_bank_account
         @wechat_pay = wechat_pay
+        @wero = wero
         @zip = zip
       end
     end
@@ -5004,9 +5024,9 @@ module Stripe
         end
         # Determines if the amount includes the IOF tax. Defaults to `never`.
         attr_accessor :amount_includes_iof
-        # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+        # The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If neither expiration option is supplied, defaults to 14400 seconds (4 hours). Mutually exclusive with `expires_at`.
         attr_accessor :expires_after_seconds
-        # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
+        # The absolute Unix timestamp at which the Pix expires, between 60 and 1209600 seconds from the current time. If neither expiration option is supplied, the Pix expires 14400 seconds (4 hours) after PaymentIntent confirmation. Mutually exclusive with `expires_after_seconds`.
         attr_accessor :expires_at
         # Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
         attr_accessor :mandate_options
@@ -5476,6 +5496,23 @@ module Stripe
         end
       end
 
+      class Wero < ::Stripe::RequestParams
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        #
+        # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        attr_accessor :setup_future_usage
+
+        def initialize(setup_future_usage: nil)
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
       class Zip < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
@@ -5618,6 +5655,8 @@ module Stripe
       attr_accessor :us_bank_account
       # If this is a `wechat_pay` PaymentMethod, this sub-hash contains details about the WeChat Pay payment method options.
       attr_accessor :wechat_pay
+      # If this is a `wero` PaymentMethod, this sub-hash contains details about the Wero payment method options.
+      attr_accessor :wero
       # If this is a `zip` PaymentMethod, this sub-hash contains details about the Zip payment method options.
       attr_accessor :zip
 
@@ -5685,6 +5724,7 @@ module Stripe
         upi: nil,
         us_bank_account: nil,
         wechat_pay: nil,
+        wero: nil,
         zip: nil
       )
         @acss_debit = acss_debit
@@ -5750,6 +5790,7 @@ module Stripe
         @upi = upi
         @us_bank_account = us_bank_account
         @wechat_pay = wechat_pay
+        @wero = wero
         @zip = zip
       end
     end

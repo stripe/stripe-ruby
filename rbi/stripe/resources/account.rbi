@@ -367,6 +367,9 @@ module Stripe
       # The status of the US customer_balance payments (USD currency) capability of the account, or whether the account can directly process US customer_balance charges.
       sig { returns(T.nilable(String)) }
       def us_bank_transfer_payments; end
+      # The status of the Wero capability of the account, or whether the account can directly process Wero payments.
+      sig { returns(T.nilable(String)) }
+      def wero_payments; end
       # The status of the Zip capability of the account, or whether the account can directly process Zip charges.
       sig { returns(T.nilable(String)) }
       def zip_payments; end
@@ -522,6 +525,32 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class PhysicalAddress < ::Stripe::StripeObject
+        # City, district, suburb, town, or village.
+        sig { returns(T.nilable(String)) }
+        def city; end
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        sig { returns(T.nilable(String)) }
+        def country; end
+        # Address line 1, such as the street, PO Box, or company name.
+        sig { returns(T.nilable(String)) }
+        def line1; end
+        # Address line 2, such as the apartment, suite, unit, or building.
+        sig { returns(T.nilable(String)) }
+        def line2; end
+        # ZIP or postal code.
+        sig { returns(T.nilable(String)) }
+        def postal_code; end
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        sig { returns(T.nilable(String)) }
+        def state; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class PrincipalPlaceOfBusiness < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         sig { returns(T.nilable(String)) }
@@ -661,6 +690,9 @@ module Stripe
       # The company's phone number (used for verification).
       sig { returns(T.nilable(String)) }
       def phone; end
+      # Attribute for field physical_address
+      sig { returns(T.nilable(PhysicalAddress)) }
+      def physical_address; end
       # Attribute for field principal_place_of_business
       sig { returns(T.nilable(PrincipalPlaceOfBusiness)) }
       def principal_place_of_business; end
@@ -693,6 +725,7 @@ module Stripe
           administrative_address: AdministrativeAddress,
           directorship_declaration: DirectorshipDeclaration,
           ownership_declaration: OwnershipDeclaration,
+          physical_address: PhysicalAddress,
           principal_place_of_business: PrincipalPlaceOfBusiness,
           registration_date: RegistrationDate,
           representative_declaration: RepresentativeDeclaration,

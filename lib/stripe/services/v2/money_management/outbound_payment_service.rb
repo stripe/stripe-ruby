@@ -23,9 +23,10 @@ module Stripe
         #
         # ** raises BlockedByStripeError
         # ** raises InsufficientFundsError
-        # ** raises FeatureNotEnabledError
+        # ** raises CapabilityNotEnabledError
         # ** raises QuotaExceededError
         # ** raises RecipientNotNotifiableError
+        # ** raises FeatureNotEnabledError
         def create(params = {}, opts = {})
           request(
             method: :post,

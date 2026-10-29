@@ -5,9 +5,10 @@ module Stripe
   module V2
     module MoneyManagement
       class FinancialAccountUpdateParams < ::Stripe::RequestParams
-        # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
+        # A descriptive name for the FinancialAccount, up to 50 characters long. This name appears in the Stripe Dashboard and embedded components.
         attr_accessor :display_name
-        # Metadata associated with the FinancialAccount.
+        # Set of key-value pairs that you can attach to the FinancialAccount. Individual keys can be unset by posting
+        # null to them.
         attr_accessor :metadata
 
         def initialize(display_name: nil, metadata: nil)

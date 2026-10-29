@@ -5,16 +5,16 @@
 module Stripe
   module V2
     module MoneyManagement
-      # TransactionEntries represent individual money movements across different states within a Transaction.
+      # TransactionEntries model funds moving between availability states for a given Transaction.
       class TransactionEntry < APIResource
         class BalanceImpact < ::Stripe::StripeObject
-          # Impact to the available balance.
+          # The change to the available balance.
           sig { returns(::Stripe::V2::Amount) }
           def available; end
-          # Impact to the inbound_pending balance.
+          # The change to the `inbound_pending` balance.
           sig { returns(::Stripe::V2::Amount) }
           def inbound_pending; end
-          # Impact to the outbound_pending balance.
+          # The change to the `outbound_pending` balance.
           sig { returns(::Stripe::V2::Amount) }
           def outbound_pending; end
           def self.inner_class_types
@@ -29,12 +29,12 @@ module Stripe
             # If applicable, the ID of the Adjustment that created this Transaction.
             sig { returns(T.nilable(String)) }
             def adjustment; end
-            # In the future, this will be the ID of the currency conversion that created this Transaction. For now, this field is always null.
+            # When available, the ID of the CurrencyConversion that created this Transaction.
             sig { returns(T.nilable(String)) }
             def currency_conversion; end
-            # If applicable, the ID of the FeeTransaction that created this Transaction.
+            # If applicable, the ID of the FeeBatch that created this Transaction.
             sig { returns(T.nilable(String)) }
-            def fee_transaction; end
+            def fee_batch; end
             # If applicable, the ID of the InboundTransfer that created this Transaction.
             sig { returns(T.nilable(String)) }
             def inbound_transfer; end
@@ -50,7 +50,7 @@ module Stripe
             # If applicable, the ID of the ReceivedDebit that created this Transaction.
             sig { returns(T.nilable(String)) }
             def received_debit; end
-            # Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
+            # Open Enum. The type of flow that created the Transaction. When available, the flow's ID is provided in the corresponding field.
             sig { returns(String) }
             def type; end
             def self.inner_class_types
@@ -60,13 +60,18 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Closed Enum for now, and will be turned into an Open Enum soon. A descriptive category used to classify the Transaction.
+          # Open Enum. The category of this TransactionEntry's parent Transaction.
           sig { returns(String) }
           def category; end
-          # Indicates the FinancialAccount affected by this Transaction.
+          # The ID of the FinancialAccount affected by this Transaction.
           sig { returns(String) }
           def financial_account; end
-          # Details about the Flow object that created the Transaction.
+          # Details about the flow object that created the Transaction this entry belongs to, such as an
+          # InboundTransfer or OutboundPayment. `transaction_details.flow.type` identifies the kind of object.
+          # The corresponding field contains its ID, when available: for an InboundTransfer,
+          # `transaction_details.flow.inbound_transfer` contains the InboundTransfer's ID. To list entries for
+          # the parent Transaction, pass the TransactionEntry's `transaction` ID to the `transaction` parameter
+          # on List Transaction Entries.
           sig { returns(T.nilable(Flow)) }
           def flow; end
           def self.inner_class_types
@@ -76,13 +81,13 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The delta to the FinancialAccount's balance.
+        # The change to the FinancialAccount's balance that takes effect at this TransactionEntry's `effective_at` timestamp.
         sig { returns(BalanceImpact) }
         def balance_impact; end
-        # Time at which the object was created.
+        # Time at which the object was created. Represented as an RFC 3339 timestamp in UTC with millisecond precision, for example `2022-09-18T13:22:18.123Z`.
         sig { returns(String) }
         def created; end
-        # Time at which the entry impacted (or will impact if it's in the future) the FinancialAccount balance.
+        # Time at which the TransactionEntry affects the FinancialAccount balance. This can be in the past or future.
         sig { returns(String) }
         def effective_at; end
         # Unique identifier for the object.
@@ -94,10 +99,10 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # The Transaction that this TransactionEntry belongs to.
+        # The ID of the Transaction that this TransactionEntry belongs to.
         sig { returns(String) }
         def transaction; end
-        # Details copied from the transaction that this TransactionEntry belongs to.
+        # Details copied from the Transaction that this TransactionEntry belongs to.
         sig { returns(TransactionDetails) }
         def transaction_details; end
       end

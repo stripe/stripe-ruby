@@ -39,6 +39,9 @@ module Stripe
           attr_reader :enabled_delivery_schemes
           # The ID of the Financial Connections Account used to create the bank account.
           attr_reader :financial_connections_account
+          # Uniquely identifies this particular bank account. You can use this attribute to check whether two
+          # recipients who've signed up with you are using the same bank account, for example.
+          attr_reader :fingerprint
           # The last 4 digits of the account number.
           attr_reader :last4
           # The routing number of the bank account, if present.
@@ -63,12 +66,29 @@ module Stripe
           # The year the card expires.
           attr_reader :exp_year
           # Uniquely identifies this particular card number. You can use this attribute to check whether two
-          # recipients who’ve signed up with you are using the same card number, for example.
+          # recipients who've signed up with you are using the same card number, for example.
           attr_reader :fingerprint
           # The last 4 digits of the card number.
           attr_reader :last4
           # The list of currencies supported by this bank account.
           attr_reader :supported_currencies
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CryptoWallet < ::Stripe::StripeObject
+          # Destination wallet address.
+          attr_reader :address
+          # Optional field, required if network supports memos (only "stellar" currently).
+          attr_reader :memo
+          # Which rail is being used to make an outbound money movement to this wallet.
+          attr_reader :network
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -109,6 +129,8 @@ module Stripe
         attr_reader :card
         # Created timestamp.
         attr_reader :created
+        # The PayoutMethodCryptoWallet object details.
+        attr_reader :crypto_wallet
         # ID of the PayoutMethod object.
         attr_reader :id
         # ID of the underlying active OutboundSetupIntent object, if any.
@@ -130,6 +152,7 @@ module Stripe
             alternative_reference: AlternativeReference,
             bank_account: BankAccount,
             card: Card,
+            crypto_wallet: CryptoWallet,
             usage_status: UsageStatus,
           }
         end

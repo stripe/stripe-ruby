@@ -207,6 +207,10 @@ module Stripe
   autoload :PaymentMethodListParams, "stripe/params/payment_method_list_params"
   autoload :PaymentMethodRetrieveParams, "stripe/params/payment_method_retrieve_params"
   autoload :PaymentMethodUpdateParams, "stripe/params/payment_method_update_params"
+  autoload :PaymentPlanCreateParams, "stripe/params/payment_plan_create_params"
+  autoload :PaymentPlanListParams, "stripe/params/payment_plan_list_params"
+  autoload :PaymentPlanRetrieveParams, "stripe/params/payment_plan_retrieve_params"
+  autoload :PaymentPlanUpdateParams, "stripe/params/payment_plan_update_params"
   autoload :PaymentRecordListParams, "stripe/params/payment_record_list_params"
   autoload :PaymentRecordReportPaymentAttemptCanceledParams,
            "stripe/params/payment_record_report_payment_attempt_canceled_params"
@@ -886,14 +890,11 @@ module Stripe
       end
 
       module Vault
-        autoload :GbBankAccountAcknowledgeConfirmationOfPayeeParams,
-                 "stripe/params/v2/core/vault/gb_bank_account_acknowledge_confirmation_of_payee_params"
         autoload :GbBankAccountArchiveParams, "stripe/params/v2/core/vault/gb_bank_account_archive_params"
         autoload :GbBankAccountCreateParams, "stripe/params/v2/core/vault/gb_bank_account_create_params"
-        autoload :GbBankAccountInitiateConfirmationOfPayeeParams,
-                 "stripe/params/v2/core/vault/gb_bank_account_initiate_confirmation_of_payee_params"
         autoload :GbBankAccountListParams, "stripe/params/v2/core/vault/gb_bank_account_list_params"
         autoload :GbBankAccountRetrieveParams, "stripe/params/v2/core/vault/gb_bank_account_retrieve_params"
+        autoload :GbBankAccountUnarchiveParams, "stripe/params/v2/core/vault/gb_bank_account_unarchive_params"
         autoload :UsBankAccountArchiveParams, "stripe/params/v2/core/vault/us_bank_account_archive_params"
         autoload :UsBankAccountConfirmMicrodepositsParams,
                  "stripe/params/v2/core/vault/us_bank_account_confirm_microdeposits_params"
@@ -902,11 +903,21 @@ module Stripe
         autoload :UsBankAccountRetrieveParams, "stripe/params/v2/core/vault/us_bank_account_retrieve_params"
         autoload :UsBankAccountSendMicrodepositsParams,
                  "stripe/params/v2/core/vault/us_bank_account_send_microdeposits_params"
+        autoload :UsBankAccountUnarchiveParams, "stripe/params/v2/core/vault/us_bank_account_unarchive_params"
         autoload :UsBankAccountUpdateParams, "stripe/params/v2/core/vault/us_bank_account_update_params"
       end
     end
 
     module Data
+      autoload :QueryRunCreateParams, "stripe/params/v2/data/query_run_create_params"
+      autoload :QueryRunRetrieveParams, "stripe/params/v2/data/query_run_retrieve_params"
+      autoload :ReportListParams, "stripe/params/v2/data/report_list_params"
+      autoload :ReportRetrieveParams, "stripe/params/v2/data/report_retrieve_params"
+      autoload :ReportRunCreateParams, "stripe/params/v2/data/report_run_create_params"
+      autoload :ReportRunRetrieveParams, "stripe/params/v2/data/report_run_retrieve_params"
+      autoload :SchemaListParams, "stripe/params/v2/data/schema_list_params"
+      autoload :SchemaRetrieveParams, "stripe/params/v2/data/schema_retrieve_params"
+
       module Reporting
         autoload :QueryRunCreateParams, "stripe/params/v2/data/reporting/query_run_create_params"
         autoload :QueryRunRetrieveParams, "stripe/params/v2/data/reporting/query_run_retrieve_params"
@@ -958,6 +969,16 @@ module Stripe
       autoload :OutboundTransferCreateParams, "stripe/params/v2/money_management/outbound_transfer_create_params"
       autoload :OutboundTransferListParams, "stripe/params/v2/money_management/outbound_transfer_list_params"
       autoload :OutboundTransferRetrieveParams, "stripe/params/v2/money_management/outbound_transfer_retrieve_params"
+      autoload :PayoutIntentCancelParams, "stripe/params/v2/money_management/payout_intent_cancel_params"
+      autoload :PayoutIntentConfirmParams, "stripe/params/v2/money_management/payout_intent_confirm_params"
+      autoload :PayoutIntentCreateParams, "stripe/params/v2/money_management/payout_intent_create_params"
+      autoload :PayoutIntentListParams, "stripe/params/v2/money_management/payout_intent_list_params"
+      autoload :PayoutIntentRefreshFxQuoteParams,
+               "stripe/params/v2/money_management/payout_intent_refresh_fx_quote_params"
+      autoload :PayoutIntentRefreshRecipientVerificationParams,
+               "stripe/params/v2/money_management/payout_intent_refresh_recipient_verification_params"
+      autoload :PayoutIntentRetrieveParams, "stripe/params/v2/money_management/payout_intent_retrieve_params"
+      autoload :PayoutIntentUpdateParams, "stripe/params/v2/money_management/payout_intent_update_params"
       autoload :PayoutMethodArchiveParams, "stripe/params/v2/money_management/payout_method_archive_params"
       autoload :PayoutMethodDisableParams, "stripe/params/v2/money_management/payout_method_disable_params"
       autoload :PayoutMethodListParams, "stripe/params/v2/money_management/payout_method_list_params"
@@ -969,10 +990,19 @@ module Stripe
       autoload :ReceivedCreditRetrieveParams, "stripe/params/v2/money_management/received_credit_retrieve_params"
       autoload :ReceivedDebitListParams, "stripe/params/v2/money_management/received_debit_list_params"
       autoload :ReceivedDebitRetrieveParams, "stripe/params/v2/money_management/received_debit_retrieve_params"
+      autoload :RecipientVerificationAcknowledgeParams,
+               "stripe/params/v2/money_management/recipient_verification_acknowledge_params"
+      autoload :RecipientVerificationCreateParams,
+               "stripe/params/v2/money_management/recipient_verification_create_params"
+      autoload :RecipientVerificationRetrieveParams,
+               "stripe/params/v2/money_management/recipient_verification_retrieve_params"
       autoload :TransactionEntryListParams, "stripe/params/v2/money_management/transaction_entry_list_params"
       autoload :TransactionEntryRetrieveParams, "stripe/params/v2/money_management/transaction_entry_retrieve_params"
       autoload :TransactionListParams, "stripe/params/v2/money_management/transaction_list_params"
+      autoload :TransactionRefreshRegulatoryReceiptParams,
+               "stripe/params/v2/money_management/transaction_refresh_regulatory_receipt_params"
       autoload :TransactionRetrieveParams, "stripe/params/v2/money_management/transaction_retrieve_params"
+      autoload :TransactionUpdateParams, "stripe/params/v2/money_management/transaction_update_params"
 
       module TestHelpers
         autoload :FinancialAddressCreditParams,
@@ -1003,6 +1033,11 @@ module Stripe
       autoload :AccountEvaluationRetrieveParams, "stripe/params/v2/signals/account_evaluation_retrieve_params"
       autoload :AccountSignalListParams, "stripe/params/v2/signals/account_signal_list_params"
       autoload :AccountSignalRetrieveParams, "stripe/params/v2/signals/account_signal_retrieve_params"
+    end
+
+    module TestHelpers
+      autoload :MoneyManagementRecipientVerificationsParams,
+               "stripe/params/v2/test_helpers/money_management_recipient_verifications_params"
     end
   end
 end
@@ -1371,6 +1406,10 @@ module Stripe
     stripe/params/payment_method_list_params
     stripe/params/payment_method_retrieve_params
     stripe/params/payment_method_update_params
+    stripe/params/payment_plan_create_params
+    stripe/params/payment_plan_list_params
+    stripe/params/payment_plan_retrieve_params
+    stripe/params/payment_plan_update_params
     stripe/params/payment_record_list_params
     stripe/params/payment_record_report_payment_attempt_canceled_params
     stripe/params/payment_record_report_payment_attempt_failed_params
@@ -1756,21 +1795,29 @@ module Stripe
     stripe/params/v2/core/event_destination_update_params
     stripe/params/v2/core/event_list_params
     stripe/params/v2/core/event_retrieve_params
-    stripe/params/v2/core/vault/gb_bank_account_acknowledge_confirmation_of_payee_params
     stripe/params/v2/core/vault/gb_bank_account_archive_params
     stripe/params/v2/core/vault/gb_bank_account_create_params
-    stripe/params/v2/core/vault/gb_bank_account_initiate_confirmation_of_payee_params
     stripe/params/v2/core/vault/gb_bank_account_list_params
     stripe/params/v2/core/vault/gb_bank_account_retrieve_params
+    stripe/params/v2/core/vault/gb_bank_account_unarchive_params
     stripe/params/v2/core/vault/us_bank_account_archive_params
     stripe/params/v2/core/vault/us_bank_account_confirm_microdeposits_params
     stripe/params/v2/core/vault/us_bank_account_create_params
     stripe/params/v2/core/vault/us_bank_account_list_params
     stripe/params/v2/core/vault/us_bank_account_retrieve_params
     stripe/params/v2/core/vault/us_bank_account_send_microdeposits_params
+    stripe/params/v2/core/vault/us_bank_account_unarchive_params
     stripe/params/v2/core/vault/us_bank_account_update_params
+    stripe/params/v2/data/query_run_create_params
+    stripe/params/v2/data/query_run_retrieve_params
+    stripe/params/v2/data/report_list_params
+    stripe/params/v2/data/report_retrieve_params
+    stripe/params/v2/data/report_run_create_params
+    stripe/params/v2/data/report_run_retrieve_params
     stripe/params/v2/data/reporting/query_run_create_params
     stripe/params/v2/data/reporting/query_run_retrieve_params
+    stripe/params/v2/data/schema_list_params
+    stripe/params/v2/data/schema_retrieve_params
     stripe/params/v2/extend/workflow_invoke_params
     stripe/params/v2/extend/workflow_list_params
     stripe/params/v2/extend/workflow_retrieve_params
@@ -1806,6 +1853,14 @@ module Stripe
     stripe/params/v2/money_management/outbound_transfer_create_params
     stripe/params/v2/money_management/outbound_transfer_list_params
     stripe/params/v2/money_management/outbound_transfer_retrieve_params
+    stripe/params/v2/money_management/payout_intent_cancel_params
+    stripe/params/v2/money_management/payout_intent_confirm_params
+    stripe/params/v2/money_management/payout_intent_create_params
+    stripe/params/v2/money_management/payout_intent_list_params
+    stripe/params/v2/money_management/payout_intent_refresh_fx_quote_params
+    stripe/params/v2/money_management/payout_intent_refresh_recipient_verification_params
+    stripe/params/v2/money_management/payout_intent_retrieve_params
+    stripe/params/v2/money_management/payout_intent_update_params
     stripe/params/v2/money_management/payout_method_archive_params
     stripe/params/v2/money_management/payout_method_disable_params
     stripe/params/v2/money_management/payout_method_list_params
@@ -1816,12 +1871,17 @@ module Stripe
     stripe/params/v2/money_management/received_credit_retrieve_params
     stripe/params/v2/money_management/received_debit_list_params
     stripe/params/v2/money_management/received_debit_retrieve_params
+    stripe/params/v2/money_management/recipient_verification_acknowledge_params
+    stripe/params/v2/money_management/recipient_verification_create_params
+    stripe/params/v2/money_management/recipient_verification_retrieve_params
     stripe/params/v2/money_management/test_helpers/financial_address_credit_params
     stripe/params/v2/money_management/test_helpers/financial_address_generate_microdeposits_params
     stripe/params/v2/money_management/transaction_entry_list_params
     stripe/params/v2/money_management/transaction_entry_retrieve_params
     stripe/params/v2/money_management/transaction_list_params
+    stripe/params/v2/money_management/transaction_refresh_regulatory_receipt_params
     stripe/params/v2/money_management/transaction_retrieve_params
+    stripe/params/v2/money_management/transaction_update_params
     stripe/params/v2/network/business_profile_me_params
     stripe/params/v2/network/business_profile_retrieve_params
     stripe/params/v2/orchestrated_commerce/agreement_confirm_params
@@ -1836,6 +1896,7 @@ module Stripe
     stripe/params/v2/signals/account_evaluation_retrieve_params
     stripe/params/v2/signals/account_signal_list_params
     stripe/params/v2/signals/account_signal_retrieve_params
+    stripe/params/v2/test_helpers/money_management_recipient_verifications_params
     stripe/params/webhook_endpoint_create_params
     stripe/params/webhook_endpoint_delete_params
     stripe/params/webhook_endpoint_list_params

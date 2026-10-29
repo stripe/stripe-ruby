@@ -67,6 +67,7 @@ module Stripe
   autoload :PaymentMethodConfigurationService, "stripe/services/payment_method_configuration_service"
   autoload :PaymentMethodDomainService, "stripe/services/payment_method_domain_service"
   autoload :PaymentMethodService, "stripe/services/payment_method_service"
+  autoload :PaymentPlanService, "stripe/services/payment_plan_service"
   autoload :PaymentRecordService, "stripe/services/payment_record_service"
   autoload :PayoutService, "stripe/services/payout_service"
   autoload :PlanService, "stripe/services/plan_service"
@@ -316,6 +317,7 @@ module Stripe
     autoload :NetworkService, "stripe/services/v2/network_service"
     autoload :OrchestratedCommerceService, "stripe/services/v2/orchestrated_commerce_service"
     autoload :SignalsService, "stripe/services/v2/signals_service"
+    autoload :TestHelperService, "stripe/services/v2/test_helper_service"
 
     module Billing
       autoload :BillSettingService, "stripe/services/v2/billing/bill_setting_service"
@@ -366,7 +368,11 @@ module Stripe
     end
 
     module Data
+      autoload :QueryRunService, "stripe/services/v2/data/query_run_service"
       autoload :ReportingService, "stripe/services/v2/data/reporting_service"
+      autoload :ReportRunService, "stripe/services/v2/data/report_run_service"
+      autoload :ReportService, "stripe/services/v2/data/report_service"
+      autoload :SchemaService, "stripe/services/v2/data/schema_service"
 
       module Reporting
         autoload :QueryRunService, "stripe/services/v2/data/reporting/query_run_service"
@@ -391,11 +397,13 @@ module Stripe
       autoload :OutboundPaymentService, "stripe/services/v2/money_management/outbound_payment_service"
       autoload :OutboundSetupIntentService, "stripe/services/v2/money_management/outbound_setup_intent_service"
       autoload :OutboundTransferService, "stripe/services/v2/money_management/outbound_transfer_service"
+      autoload :PayoutIntentService, "stripe/services/v2/money_management/payout_intent_service"
       autoload :PayoutMethodsBankAccountSpecService,
                "stripe/services/v2/money_management/payout_methods_bank_account_spec_service"
       autoload :PayoutMethodService, "stripe/services/v2/money_management/payout_method_service"
       autoload :ReceivedCreditService, "stripe/services/v2/money_management/received_credit_service"
       autoload :ReceivedDebitService, "stripe/services/v2/money_management/received_debit_service"
+      autoload :RecipientVerificationService, "stripe/services/v2/money_management/recipient_verification_service"
       autoload :TestHelpersService, "stripe/services/v2/money_management/test_helpers_service"
       autoload :TransactionEntryService, "stripe/services/v2/money_management/transaction_entry_service"
       autoload :TransactionService, "stripe/services/v2/money_management/transaction_service"
@@ -417,6 +425,10 @@ module Stripe
       autoload :AccountActivityService, "stripe/services/v2/signals/account_activity_service"
       autoload :AccountEvaluationService, "stripe/services/v2/signals/account_evaluation_service"
       autoload :AccountSignalService, "stripe/services/v2/signals/account_signal_service"
+    end
+
+    module TestHelpers
+      autoload :MoneyManagementService, "stripe/services/v2/test_helpers/money_management_service"
     end
   end
 end
@@ -535,6 +547,7 @@ module Stripe
     stripe/services/payment_method_configuration_service
     stripe/services/payment_method_domain_service
     stripe/services/payment_method_service
+    stripe/services/payment_plan_service
     stripe/services/payment_record_service
     stripe/services/payout_service
     stripe/services/plan_service
@@ -667,8 +680,12 @@ module Stripe
     stripe/services/v2/core/vault/us_bank_account_service
     stripe/services/v2/core/vault_service
     stripe/services/v2/core_service
+    stripe/services/v2/data/query_run_service
+    stripe/services/v2/data/report_run_service
+    stripe/services/v2/data/report_service
     stripe/services/v2/data/reporting/query_run_service
     stripe/services/v2/data/reporting_service
+    stripe/services/v2/data/schema_service
     stripe/services/v2/data_service
     stripe/services/v2/extend/workflow_run_service
     stripe/services/v2/extend/workflow_service
@@ -683,10 +700,12 @@ module Stripe
     stripe/services/v2/money_management/outbound_payment_service
     stripe/services/v2/money_management/outbound_setup_intent_service
     stripe/services/v2/money_management/outbound_transfer_service
+    stripe/services/v2/money_management/payout_intent_service
     stripe/services/v2/money_management/payout_method_service
     stripe/services/v2/money_management/payout_methods_bank_account_spec_service
     stripe/services/v2/money_management/received_credit_service
     stripe/services/v2/money_management/received_debit_service
+    stripe/services/v2/money_management/recipient_verification_service
     stripe/services/v2/money_management/test_helpers/financial_address_service
     stripe/services/v2/money_management/test_helpers_service
     stripe/services/v2/money_management/transaction_entry_service
@@ -700,6 +719,8 @@ module Stripe
     stripe/services/v2/signals/account_evaluation_service
     stripe/services/v2/signals/account_signal_service
     stripe/services/v2/signals_service
+    stripe/services/v2/test_helper_service
+    stripe/services/v2/test_helpers/money_management_service
     stripe/services/v2_services
     stripe/services/webhook_endpoint_service
   ].freeze

@@ -214,7 +214,7 @@ module Stripe
       # Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
       sig { returns(T.nilable(String)) }
       def access_activity_log; end
-      # Attribute for field appeal
+      # Appeal evidence submitted during the appeal stage.
       sig { returns(T.nilable(Appeal)) }
       def appeal; end
       # The billing address provided by the customer.
@@ -379,7 +379,7 @@ module Stripe
       sig { returns(Integer) }
       def submission_count; end
       # Whether the dispute was submitted manually, with Smart Disputes, or not submitted.
-      sig { returns(T.nilable(String)) }
+      sig { returns(String) }
       def submission_method; end
       def self.inner_class_types
         @inner_class_types = {enhanced_eligibility: EnhancedEligibility}
@@ -541,7 +541,7 @@ module Stripe
     # Attribute for field smart_disputes
     sig { returns(T.nilable(SmartDisputes)) }
     def smart_disputes; end
-    # The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
+    # The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `appeal_needs_response`, `appeal_under_review`, `won`, `lost`, or `prevented`.
     sig { returns(String) }
     def status; end
     # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.

@@ -195,6 +195,9 @@ module Stripe
     end
   end
 
+  class CapabilityNotEnabledError < StripeError
+  end
+
   class ControlledByAlternateResourceError < StripeError
   end
 
@@ -202,6 +205,9 @@ module Stripe
   end
 
   class FinancialAccountNotOpenError < StripeError
+  end
+
+  class FxQuoteNeedsRefreshError < StripeError
   end
 
   class InsufficientFundsError < StripeError

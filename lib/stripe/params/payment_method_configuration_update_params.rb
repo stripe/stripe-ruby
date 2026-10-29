@@ -1108,6 +1108,23 @@ module Stripe
       end
     end
 
+    class Wero < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
     class Zip < ::Stripe::RequestParams
       class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
@@ -1260,6 +1277,8 @@ module Stripe
     attr_accessor :us_bank_account
     # WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://docs.stripe.com/payments/wechat-pay) for more details.
     attr_accessor :wechat_pay
+    # Wero is a pan-European payment method that enables secure and instant money transfers between bank accounts. Learn more about the [Wero](https://docs.stripe.com/payments/wero) payment method.
+    attr_accessor :wero
     # Zip gives your customers a way to split purchases over a series of payments. Check this [page](https://docs.stripe.com/payments/zip) for more details like country availability.
     attr_accessor :zip
 
@@ -1332,6 +1351,7 @@ module Stripe
       upi: nil,
       us_bank_account: nil,
       wechat_pay: nil,
+      wero: nil,
       zip: nil
     )
       @acss_debit = acss_debit
@@ -1402,6 +1422,7 @@ module Stripe
       @upi = upi
       @us_bank_account = us_bank_account
       @wechat_pay = wechat_pay
+      @wero = wero
       @zip = zip
     end
   end

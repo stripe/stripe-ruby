@@ -13,7 +13,7 @@ module Stripe
 
     # Creates a new StripeContext with the given segments.
     def initialize(segments = nil)
-      @segments = (segments || []).map(&:to_s).freeze
+      @segments = (segments || []).map { |segment| (segment.is_a?(String) ? segment.dup : segment.to_s).freeze }.freeze
     end
 
     # Parses a context string into a StripeContext instance.
@@ -53,6 +53,12 @@ module Stripe
 
     # Alias for == to support eql? method
     alias eql? ==
+
+    # As with equality in #== and #eql?, contexts with equivalent segments
+    # hash to the same value.
+    def hash
+      @segments.hash
+    end
 
     # Returns a human-readable representation for debugging.
     def inspect

@@ -1,0 +1,4 @@
+# may be useful in hiding large schema changes in pull request diffs (but not
+# using it for now)
+spec/*.json binary
+spec/*.yaml binary

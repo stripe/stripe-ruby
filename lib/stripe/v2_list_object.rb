@@ -58,6 +58,10 @@ module Stripe
           break if page.next_page_url.nil?
 
           page = page.fetch_next_page
+        rescue LocalJumpError => e
+          raise unless e.reason == :break
+
+          break
         end
       end
 
@@ -76,7 +80,8 @@ module Stripe
         _request(
           method: :get,
           path: next_page_url,
-          base_address: :api
+          base_address: :api,
+          opts: opts
         )
       end
     end

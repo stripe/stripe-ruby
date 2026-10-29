@@ -145,7 +145,8 @@ module Stripe
       when Hash
         # TODO: This is a terrible hack.
         # Waiting on https://go/j/API_SERVICES-3167 to add an object in v2 lists
-        if api_mode == :v2 && data.include?(:data) && data.include?(:next_page_url)
+        if api_mode == :v2 && data.include?(:data) && data.include?(:next_page_url) &&
+           data[:object] != V2::SearchResultObject::OBJECT_NAME
           return V2::ListObject.construct_from(data, opts, last_response, api_mode, requestor)
         end
 
@@ -173,7 +174,9 @@ module Stripe
 
         # set filters so that we can fetch the same limit, expansions, and
         # predicates when accessing the next and previous pages
-        obj.filters = params.dup if obj && (obj.is_a?(SearchResultObject) || obj.is_a?(ListObject))
+        if obj && (obj.is_a?(SearchResultObject) || obj.is_a?(ListObject) || obj.is_a?(V2::SearchResultObject))
+          obj.filters = StripeObject.send(:deep_copy, params, api_mode: api_mode)
+        end
 
         obj
       else
@@ -314,13 +317,7 @@ module Stripe
       when String
         { api_key: opts }
       when Hash
-        # If the user is using request signing for authentication,
-        # no need to check the api_key per request.
-        if !(opts.key?(:client) &&
-           opts.fetch(:client).config.authenticator) &&
-           opts.key?(:api_key)
-          check_api_key!(opts.fetch(:api_key))
-        end
+        check_api_key!(opts.fetch(:api_key)) if opts.key?(:api_key)
         # Explicitly use dup here instead of clone to avoid preserving freeze
         # state on input params.
         opts.dup
@@ -379,6 +376,42 @@ module Stripe
       res = 0
       str_b.each_byte { |byte| res |= byte ^ l.shift }
       res.zero?
+    end
+
+    def self.webhook_secret_blank?(secret)
+      secret.nil? || secret.empty? || secret.match?(/\A[ \t\r\n\f\v]*\z/)
+    end
+
+    # Asserts that a request path is origin-relative: that it begins with a
+    # single "/" and carries no scheme, authority or userinfo.
+    #
+    # The absolute URL is built by concatenating a base address onto this path,
+    # and no base address ends in a slash. A path like "@evil.example/v1/x" or
+    # ".evil.example/v1/x" would modify the resulting host and direct the request
+    # (including the API key) to a non-Stripe host.
+    #
+    # Because some relative urls arrive from potentially untrusted sources (like
+    # webhook bodies), we have to be a little defensive.
+    #
+    # So, we require that a path starts with a leading slash and that URI.parse
+    # finds no scheme or authority in it.
+    def self.validate_path!(path)
+      unless path.is_a?(String) && path.start_with?("/") && !path.start_with?("//")
+        raise ArgumentError,
+              "path must be a string beginning with a single \"/\", got: #{path.inspect}"
+      end
+
+      uri =
+        begin
+          URI.parse(path)
+        rescue URI::InvalidURIError
+          raise ArgumentError, "path is not a valid URI: #{path.inspect}"
+        end
+
+      return if uri.scheme.nil? && uri.host.nil? && uri.userinfo.nil?
+
+      raise ArgumentError,
+            "path may not contain a scheme or authority, got: #{path.inspect}"
     end
 
     # Returns either v1 or v2 as api_mode based on the given path

@@ -6,7 +6,8 @@ module Stripe
   module V2
     module MoneyManagement
       class TransactionUpdateParams < ::Stripe::RequestParams
-        # Description of this Transaction, up to 100 characters.
+        # A description of the Transaction, up to 100 characters. Pass `null` to clear the description,
+        # or omit this parameter to leave it unchanged.
         sig { returns(T.nilable(String)) }
         def description; end
         sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }

@@ -7,7 +7,7 @@ module Stripe
       class ReportRunRetrieveParams < ::Stripe::RequestParams
         # Any optional includes (see https://docs.stripe.com/api-includable-response-values).
         attr_accessor :include
-        # The maximum number of inline `ReportRun` result rows to return. Defaults to 10. Maximum is 1000.
+        # The maximum number of inline `ReportRun` result rows to return. Defaults to 100. Maximum is 1000.
         attr_accessor :limit
         # The page token for paginating the inline `ReportRun` result rows.
         attr_accessor :page

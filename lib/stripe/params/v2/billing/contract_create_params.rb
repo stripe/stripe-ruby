@@ -507,6 +507,295 @@ module Stripe
             }
           end
         end
+
+        class Term < ::Stripe::RequestParams
+          class AdHocProduct < ::Stripe::RequestParams
+            class BillSchedule < ::Stripe::RequestParams
+              class Custom < ::Stripe::RequestParams
+                class BillAt < ::Stripe::RequestParams
+                  # The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
+                  attr_accessor :timestamp
+                  # The type of the bill_at.
+                  attr_accessor :type
+
+                  def initialize(timestamp: nil, type: nil)
+                    @timestamp = timestamp
+                    @type = type
+                  end
+                end
+                # Non-negative amount with an explicit currency that must match the contract's currency.
+                attr_accessor :amount
+                # A finite bill date. Resolved once per request, including on idempotent retries.
+                attr_accessor :bill_at
+
+                def initialize(amount: nil, bill_at: nil)
+                  @amount = amount
+                  @bill_at = bill_at
+                end
+              end
+              # Between one and ten installments. Empty schedules are allowed only on update.
+              attr_accessor :custom
+              # The type of schedule.
+              attr_accessor :type
+
+              def initialize(custom: nil, type: nil)
+                @custom = custom
+                @type = type
+              end
+            end
+
+            class ServicePeriod < ::Stripe::RequestParams
+              class EndsAt < ::Stripe::RequestParams
+                # The timestamp when the item starts. Required if `type` is `timestamp`.
+                attr_accessor :timestamp
+                # The type of the starts_at.
+                attr_accessor :type
+
+                def initialize(timestamp: nil, type: nil)
+                  @timestamp = timestamp
+                  @type = type
+                end
+              end
+
+              class StartsAt < ::Stripe::RequestParams
+                # The timestamp when the item starts. Required if `type` is `timestamp`.
+                attr_accessor :timestamp
+                # The type of the starts_at.
+                attr_accessor :type
+
+                def initialize(timestamp: nil, type: nil)
+                  @timestamp = timestamp
+                  @type = type
+                end
+              end
+              # The finite exclusive end; must be after starts_at. Never is not supported.
+              attr_accessor :ends_at
+              # The finite inclusive start of the service period.
+              attr_accessor :starts_at
+
+              def initialize(ends_at: nil, starts_at: nil)
+                @ends_at = ends_at
+                @starts_at = starts_at
+              end
+            end
+            # Explicit bill dates and amounts.
+            attr_accessor :bill_schedule
+            # The V1 Product being billed.
+            attr_accessor :product
+            # Informational service period, independent of bill dates.
+            attr_accessor :service_period
+
+            def initialize(bill_schedule: nil, product: nil, service_period: nil)
+              @bill_schedule = bill_schedule
+              @product = product
+              @service_period = service_period
+            end
+          end
+
+          class PricingOverride < ::Stripe::RequestParams
+            class Criterion < ::Stripe::RequestParams
+              class Term < ::Stripe::RequestParams
+                # Select this term by its stable ID.
+                attr_accessor :id
+                # Select this term by its unique lookup key.
+                attr_accessor :lookup_key
+                # Whether the selector uses a term ID or lookup key.
+                attr_accessor :type
+
+                def initialize(id: nil, lookup_key: nil, type: nil)
+                  @id = id
+                  @lookup_key = lookup_key
+                  @type = type
+                end
+              end
+              # Term selectors. Each ID or lookup key resolves to one fixed term ID.
+              # Omitted or empty selects all charge-bearing terms. Override terms cannot be targets.
+              attr_accessor :terms
+              # Whether to include or exclude the selected recurring or ad_hoc_product terms.
+              attr_accessor :type
+
+              def initialize(terms: nil, type: nil)
+                @terms = terms
+                @type = type
+              end
+            end
+
+            class EndsAt < ::Stripe::RequestParams
+              # The timestamp when the item ends. Required if `type` is `timestamp`.
+              attr_accessor :timestamp
+              # The type of the ends_at.
+              attr_accessor :type
+
+              def initialize(timestamp: nil, type: nil)
+                @timestamp = timestamp
+                @type = type
+              end
+            end
+
+            class Multiply < ::Stripe::RequestParams
+              # The multiplier, for example 0.85 for a 15% discount.
+              attr_accessor :factor
+
+              def initialize(factor: nil)
+                @factor = factor
+              end
+
+              def self.field_encodings
+                @field_encodings = { factor: :decimal_string }
+              end
+            end
+
+            class Overwrite < ::Stripe::RequestParams
+              # The replacement per-unit amount in minor currency units.
+              attr_accessor :unit_amount_decimal
+
+              def initialize(unit_amount_decimal: nil)
+                @unit_amount_decimal = unit_amount_decimal
+              end
+
+              def self.field_encodings
+                @field_encodings = { unit_amount_decimal: :decimal_string }
+              end
+            end
+
+            class StartsAt < ::Stripe::RequestParams
+              # The timestamp when the item starts. Required if `type` is `timestamp`.
+              attr_accessor :timestamp
+              # The type of the starts_at.
+              attr_accessor :type
+
+              def initialize(timestamp: nil, type: nil)
+                @timestamp = timestamp
+                @type = type
+              end
+            end
+            # Optional criteria selecting recurring or ad_hoc_product terms. If omitted, the override applies to all recurring and ad_hoc_product terms.
+            attr_accessor :criteria
+            # The exclusive end. Omitted means open-ended.
+            attr_accessor :ends_at
+            # Required when type is multiply.
+            attr_accessor :multiply
+            # Required when type is overwrite.
+            attr_accessor :overwrite
+            # Lower numbers win; defaults to 50.
+            attr_accessor :priority
+            # The inclusive start of the validity window.
+            attr_accessor :starts_at
+            # The pricing operation. Exactly one matching pricing payload is required.
+            attr_accessor :type
+
+            def initialize(
+              criteria: nil,
+              ends_at: nil,
+              multiply: nil,
+              overwrite: nil,
+              priority: nil,
+              starts_at: nil,
+              type: nil
+            )
+              @criteria = criteria
+              @ends_at = ends_at
+              @multiply = multiply
+              @overwrite = overwrite
+              @priority = priority
+              @starts_at = starts_at
+              @type = type
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                multiply: { kind: :object, fields: { factor: :decimal_string } },
+                overwrite: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+              }
+            end
+          end
+
+          class RecurringPrice < ::Stripe::RequestParams
+            class EndsAt < ::Stripe::RequestParams
+              # The timestamp when the item ends. Required if `type` is `timestamp`.
+              attr_accessor :timestamp
+              # The type of the ends_at.
+              attr_accessor :type
+
+              def initialize(timestamp: nil, type: nil)
+                @timestamp = timestamp
+                @type = type
+              end
+            end
+
+            class StartsAt < ::Stripe::RequestParams
+              # The timestamp when the item starts. Required if `type` is `timestamp`.
+              attr_accessor :timestamp
+              # The type of the starts_at.
+              attr_accessor :type
+
+              def initialize(timestamp: nil, type: nil)
+                @timestamp = timestamp
+                @type = type
+              end
+            end
+            # The exclusive end. Omitted means open-ended.
+            attr_accessor :ends_at
+            # The V1 recurring Price.
+            attr_accessor :price
+            # Initial licensed quantity. Defaults to 1; must be omitted for metered Prices.
+            attr_accessor :quantity
+            # The inclusive start of the term.
+            attr_accessor :starts_at
+
+            def initialize(ends_at: nil, price: nil, quantity: nil, starts_at: nil)
+              @ends_at = ends_at
+              @price = price
+              @quantity = quantity
+              @starts_at = starts_at
+            end
+
+            def self.field_encodings
+              @field_encodings = { quantity: :decimal_string }
+            end
+          end
+          # Required when type is ad_hoc_product.
+          attr_accessor :ad_hoc_product
+          # Lookup key unique across all term types on the contract.
+          attr_accessor :lookup_key
+          # Set of key-value pairs attached to the term.
+          attr_accessor :metadata
+          # Required when type is pricing_override.
+          attr_accessor :pricing_override
+          # Required when type is recurring_price.
+          attr_accessor :recurring_price
+          # The term type. Production types require exactly one matching payload.
+          attr_accessor :type
+
+          def initialize(
+            ad_hoc_product: nil,
+            lookup_key: nil,
+            metadata: nil,
+            pricing_override: nil,
+            recurring_price: nil,
+            type: nil
+          )
+            @ad_hoc_product = ad_hoc_product
+            @lookup_key = lookup_key
+            @metadata = metadata
+            @pricing_override = pricing_override
+            @recurring_price = recurring_price
+            @type = type
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              pricing_override: {
+                kind: :object,
+                fields: {
+                  multiply: { kind: :object, fields: { factor: :decimal_string } },
+                  overwrite: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+                },
+              },
+              recurring_price: { kind: :object, fields: { quantity: :decimal_string } },
+            }
+          end
+        end
         # The billing cycle anchor for the contract. If not provided, defaults to the pricing line start time.
         # It is only at the top-level of the contract with no option to override at the pricing line level.
         attr_accessor :billing_cycle_anchor
@@ -527,6 +816,8 @@ module Stripe
         attr_accessor :pricing_lines
         # A list of pricing overrides to create with the contract.
         attr_accessor :pricing_overrides
+        # Terms to create. Cannot be combined with pricing_lines, pricing_overrides, or one_time_fees.
+        attr_accessor :terms
 
         def initialize(
           billing_cycle_anchor: nil,
@@ -537,7 +828,8 @@ module Stripe
           metadata: nil,
           one_time_fees: nil,
           pricing_lines: nil,
-          pricing_overrides: nil
+          pricing_overrides: nil,
+          terms: nil
         )
           @billing_cycle_anchor = billing_cycle_anchor
           @billing_settings = billing_settings
@@ -548,6 +840,7 @@ module Stripe
           @one_time_fees = one_time_fees
           @pricing_lines = pricing_lines
           @pricing_overrides = pricing_overrides
+          @terms = terms
         end
 
         def self.field_encodings
@@ -591,6 +884,22 @@ module Stripe
               element: {
                 kind: :object,
                 fields: { multiply_pricing: { kind: :object, fields: { factor: :decimal_string } } },
+              },
+            },
+            terms: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: {
+                  pricing_override: {
+                    kind: :object,
+                    fields: {
+                      multiply: { kind: :object, fields: { factor: :decimal_string } },
+                      overwrite: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+                    },
+                  },
+                  recurring_price: { kind: :object, fields: { quantity: :decimal_string } },
+                },
               },
             },
           }

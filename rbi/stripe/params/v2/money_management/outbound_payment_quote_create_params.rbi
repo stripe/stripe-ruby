@@ -83,12 +83,14 @@ module Stripe
                }
               def preferred_network_options=(_preferred_network_options); end
               # The preferred networks to use for this OutboundPayment.
-              sig { returns(T::Array[String]) }
+              sig { returns(T.nilable(T::Array[String])) }
               def preferred_networks; end
-              sig { params(_preferred_networks: T::Array[String]).returns(T::Array[String]) }
+              sig {
+                params(_preferred_networks: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+               }
               def preferred_networks=(_preferred_networks); end
               sig {
-                params(preferred_network_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions), preferred_networks: T::Array[String]).void
+                params(preferred_network_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions), preferred_networks: T.nilable(T::Array[String])).void
                }
               def initialize(preferred_network_options: nil, preferred_networks: nil); end
             end

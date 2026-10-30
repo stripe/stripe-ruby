@@ -187,7 +187,7 @@ module Stripe
         class TraceId < ::Stripe::StripeObject
           # Possible values are `pending`, `supported`, and `unsupported`. Initially set to `pending`, it changes to
           # `supported` when the recipient bank provides a trace ID, or `unsupported` if the recipient bank doesn't support it.
-          # Note that this status may not align with the OutboundPayment or OutboundTransfer status and can remain `pending`
+          # This status may not align with the OutboundPayment or OutboundTransfer status and can remain `pending`
           # even after the payment or transfer is posted.
           attr_reader :status
           # The trace ID value if `trace_id.status` is `supported`, otherwise empty.

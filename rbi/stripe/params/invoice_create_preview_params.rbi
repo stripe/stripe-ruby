@@ -156,7 +156,7 @@ module Stripe
         def initialize(ip_address: nil); end
       end
       class TaxId < ::Stripe::RequestParams
-        # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+        # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_acn`, `au_arn`, `au_wpn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `bw_vat`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `ci_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `cz_dic`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `fr_siren`, `fr_siret`, `fr_spi`, `gb_vat`, `ge_vat`, `gh_tin`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_kt`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_cf`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mu_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `mz_nuit`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_bn`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `pt_nif`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sm_coe`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tt_bir`, `tt_vat`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }
@@ -1913,6 +1913,228 @@ module Stripe
         sig { params(phase_effective_at: T.nilable(String)).void }
         def initialize(phase_effective_at: nil); end
       end
+      class PauseSchedule < ::Stripe::RequestParams
+        class Pause < ::Stripe::RequestParams
+          class PauseAt < ::Stripe::RequestParams
+            # The Unix timestamp at which to pause the subscription. Required when `type` is `timestamp`.
+            sig { returns(T.nilable(Integer)) }
+            def timestamp; end
+            sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def timestamp=(_timestamp); end
+            # When to pause the subscription. Use `now` to pause immediately or `timestamp` to pause at a specific time.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig { params(timestamp: T.nilable(Integer), type: String).void }
+            def initialize(timestamp: nil, type: nil); end
+          end
+          class Settings < ::Stripe::RequestParams
+            class BillFor < ::Stripe::RequestParams
+              class OutstandingUsageThrough < ::Stripe::RequestParams
+                # Determines whether to collect metered usage accrued up to the pause date. When adding a pause schedule, defaults to `pause_at`. On updates, the existing value is preserved if not provided.
+                sig { returns(T.nilable(String)) }
+                def type; end
+                sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+                def type=(_type); end
+                sig { params(type: T.nilable(String)).void }
+                def initialize(type: nil); end
+              end
+              class UnusedTimeFrom < ::Stripe::RequestParams
+                # Determines which point in the billing period unused time is credited from. When adding a pause schedule, defaults to `pause_at`. On updates, the existing value is preserved if not provided.
+                sig { returns(T.nilable(String)) }
+                def type; end
+                sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+                def type=(_type); end
+                sig { params(type: T.nilable(String)).void }
+                def initialize(type: nil); end
+              end
+              # Controls whether to collect metered usage accrued up to the pause date.
+              sig {
+                returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings::BillFor::OutstandingUsageThrough))
+               }
+              def outstanding_usage_through; end
+              sig {
+                params(_outstanding_usage_through: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings::BillFor::OutstandingUsageThrough)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings::BillFor::OutstandingUsageThrough))
+               }
+              def outstanding_usage_through=(_outstanding_usage_through); end
+              # Controls how unused time on subscription items is credited when pausing.
+              sig {
+                returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings::BillFor::UnusedTimeFrom))
+               }
+              def unused_time_from; end
+              sig {
+                params(_unused_time_from: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings::BillFor::UnusedTimeFrom)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings::BillFor::UnusedTimeFrom))
+               }
+              def unused_time_from=(_unused_time_from); end
+              sig {
+                params(outstanding_usage_through: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings::BillFor::OutstandingUsageThrough), unused_time_from: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings::BillFor::UnusedTimeFrom)).void
+               }
+              def initialize(outstanding_usage_through: nil, unused_time_from: nil); end
+            end
+            # Controls what to bill for when pausing the subscription.
+            sig {
+              returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings::BillFor))
+             }
+            def bill_for; end
+            sig {
+              params(_bill_for: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings::BillFor)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings::BillFor))
+             }
+            def bill_for=(_bill_for); end
+            # Determines whether to generate an invoice for outstanding amounts when pausing. When adding a pause schedule, defaults to `pending_invoice_item`. On updates, the existing value is preserved if not provided.
+            sig { returns(T.nilable(String)) }
+            def invoicing_behavior; end
+            sig { params(_invoicing_behavior: T.nilable(String)).returns(T.nilable(String)) }
+            def invoicing_behavior=(_invoicing_behavior); end
+            # The pause type. Currently only `subscription` is supported.
+            sig { returns(T.nilable(String)) }
+            def type; end
+            sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+            def type=(_type); end
+            sig {
+              params(bill_for: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings::BillFor), invoicing_behavior: T.nilable(String), type: T.nilable(String)).void
+             }
+            def initialize(bill_for: nil, invoicing_behavior: nil, type: nil); end
+          end
+          # When to pause the subscription.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::PauseAt))
+           }
+          def pause_at; end
+          sig {
+            params(_pause_at: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::PauseAt)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::PauseAt))
+           }
+          def pause_at=(_pause_at); end
+          # Settings controlling billing behavior during the pause.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings))
+           }
+          def settings; end
+          sig {
+            params(_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings))
+           }
+          def settings=(_settings); end
+          sig {
+            params(pause_at: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::PauseAt), settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause::Settings)).void
+           }
+          def initialize(pause_at: nil, settings: nil); end
+        end
+        class Resume < ::Stripe::RequestParams
+          class ResumeAt < ::Stripe::RequestParams
+            class Duration < ::Stripe::RequestParams
+              # The time unit for the resume duration. One of `day`, `week`, `month`, or `year`.
+              sig { returns(String) }
+              def interval; end
+              sig { params(_interval: String).returns(String) }
+              def interval=(_interval); end
+              # The number of intervals after which the subscription resumes.
+              sig { returns(T.nilable(Integer)) }
+              def interval_count; end
+              sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def interval_count=(_interval_count); end
+              sig { params(interval: String, interval_count: T.nilable(Integer)).void }
+              def initialize(interval: nil, interval_count: nil); end
+            end
+            # The duration after which to resume the subscription. Required when `type` is `duration`.
+            sig {
+              returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume::ResumeAt::Duration))
+             }
+            def duration; end
+            sig {
+              params(_duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume::ResumeAt::Duration)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume::ResumeAt::Duration))
+             }
+            def duration=(_duration); end
+            # The Unix timestamp at which to resume the subscription. Required when `type` is `timestamp`.
+            sig { returns(T.nilable(Integer)) }
+            def timestamp; end
+            sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def timestamp=(_timestamp); end
+            # When to resume the subscription. Use `now` to resume immediately, `duration` to resume after a set duration, or `timestamp` to resume at a specific time.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig {
+              params(duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume::ResumeAt::Duration), timestamp: T.nilable(Integer), type: String).void
+             }
+            def initialize(duration: nil, timestamp: nil, type: nil); end
+          end
+          class Settings < ::Stripe::RequestParams
+            # Controls the billing cycle anchor when the subscription resumes. When adding a pause schedule, defaults to `resume_at`. On updates, the existing value is preserved if not provided.
+            sig { returns(T.nilable(String)) }
+            def billing_cycle_anchor; end
+            sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
+            def billing_cycle_anchor=(_billing_cycle_anchor); end
+            # Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. When adding a pause schedule, defaults to `resume_on_payment_success`. On updates, the existing value is preserved if not provided.
+            sig { returns(T.nilable(String)) }
+            def payment_behavior; end
+            sig { params(_payment_behavior: T.nilable(String)).returns(T.nilable(String)) }
+            def payment_behavior=(_payment_behavior); end
+            # Determines how to handle prorations when the subscription resumes. When adding a pause schedule, defaults to `create_prorations`. On updates, the existing value is preserved if not provided.
+            sig { returns(T.nilable(String)) }
+            def proration_behavior; end
+            sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
+            def proration_behavior=(_proration_behavior); end
+            sig {
+              params(billing_cycle_anchor: T.nilable(String), payment_behavior: T.nilable(String), proration_behavior: T.nilable(String)).void
+             }
+            def initialize(
+              billing_cycle_anchor: nil,
+              payment_behavior: nil,
+              proration_behavior: nil
+            ); end
+          end
+          # When to resume the subscription.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume::ResumeAt))
+           }
+          def resume_at; end
+          sig {
+            params(_resume_at: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume::ResumeAt)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume::ResumeAt))
+           }
+          def resume_at=(_resume_at); end
+          # Settings controlling how the subscription resumes.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume::Settings))
+           }
+          def settings; end
+          sig {
+            params(_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume::Settings)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume::Settings))
+           }
+          def settings=(_settings); end
+          sig {
+            params(resume_at: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume::ResumeAt), settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume::Settings)).void
+           }
+          def initialize(resume_at: nil, settings: nil); end
+        end
+        # A unique identifier for this pause schedule entry.
+        sig { returns(T.nilable(String)) }
+        def key; end
+        sig { params(_key: T.nilable(String)).returns(T.nilable(String)) }
+        def key=(_key); end
+        # Configuration for when and how the subscription pauses.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause))
+         }
+        def pause; end
+        sig {
+          params(_pause: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause))
+         }
+        def pause=(_pause); end
+        # Configuration for when and how the subscription resumes.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume)))
+         }
+        def resume; end
+        sig {
+          params(_resume: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume))).returns(T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume)))
+         }
+        def resume=(_resume); end
+        sig {
+          params(key: T.nilable(String), pause: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Pause), resume: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule::Resume))).void
+         }
+        def initialize(key: nil, pause: nil, resume: nil); end
+      end
       class Phase < ::Stripe::RequestParams
         class AddInvoiceItem < ::Stripe::RequestParams
           class Discount < ::Stripe::RequestParams
@@ -3167,6 +3389,15 @@ module Stripe
       def end_behavior; end
       sig { params(_end_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def end_behavior=(_end_behavior); end
+      # The subscription's pause behavior and optional resume behavior. You can provide one entry. Include its `key` to update an existing pause schedule. Omit `pause_schedules` to leave the existing schedule unchanged, or pass an empty string (`""`) to clear it.
+      sig {
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule])))
+       }
+      def pause_schedules; end
+      sig {
+        params(_pause_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule]))).returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule])))
+       }
+      def pause_schedules=(_pause_schedules); end
       # List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
       sig {
         returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase]))
@@ -3191,7 +3422,7 @@ module Stripe
       sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def proration_behavior=(_proration_behavior); end
       sig {
-        params(amendments: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment]), billing_behavior: T.nilable(String), billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingMode), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule])), default_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::DefaultSettings), end_behavior: T.nilable(String), phases: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase]), prebilling: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling])), proration_behavior: T.nilable(String)).void
+        params(amendments: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment]), billing_behavior: T.nilable(String), billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingMode), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule])), default_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::DefaultSettings), end_behavior: T.nilable(String), pause_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::PauseSchedule])), phases: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase]), prebilling: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling])), proration_behavior: T.nilable(String)).void
        }
       def initialize(
         amendments: nil,
@@ -3200,6 +3431,7 @@ module Stripe
         billing_schedules: nil,
         default_settings: nil,
         end_behavior: nil,
+        pause_schedules: nil,
         phases: nil,
         prebilling: nil,
         proration_behavior: nil

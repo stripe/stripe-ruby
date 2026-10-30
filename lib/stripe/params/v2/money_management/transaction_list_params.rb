@@ -6,13 +6,13 @@ module Stripe
     module MoneyManagement
       class TransactionListParams < ::Stripe::RequestParams
         class Created < ::Stripe::RequestParams
-          # Filter for Transactions created after the specified timestamp.
+          # Filter for objects created after the specified timestamp.
           attr_accessor :gt
-          # Filter for Transactions created at or after the specified timestamp.
+          # Filter for objects created at or after the specified timestamp.
           attr_accessor :gte
-          # Filter for Transactions created before the specified timestamp.
+          # Filter for objects created before the specified timestamp.
           attr_accessor :lt
-          # Filter for Transactions created at or before the specified timestamp.
+          # Filter for objects created at or before the specified timestamp.
           attr_accessor :lte
 
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
@@ -22,11 +22,13 @@ module Stripe
             @lte = lte
           end
         end
-        # Set of filters to query Transactions within a range of `created` timestamps.
+        # Filter for Transactions created within a specified time range.
         attr_accessor :created
-        # Filter for Transactions belonging to a FinancialAccount.
+        # Filter for Transactions belonging to a specific FinancialAccount. This filter only supports filtering by the FinancialAccount's ID.
         attr_accessor :financial_account
-        # Filter for Transactions corresponding to a Flow.
+        # Filter for Transactions created by a specific flow object. This filter only supports filtering by
+        # the flow object's ID, such as `ibt_123` for an InboundTransfer. A value that doesn't match a flow ID
+        # returns an empty list.
         attr_accessor :flow
         # The page limit.
         attr_accessor :limit

@@ -6,6 +6,859 @@ module Stripe
   module V2
     module Billing
       class ContractUpdateParams < ::Stripe::RequestParams
+        class Action < ::Stripe::RequestParams
+          class AddTerm < ::Stripe::RequestParams
+            class AdHocProduct < ::Stripe::RequestParams
+              class BillSchedule < ::Stripe::RequestParams
+                class Custom < ::Stripe::RequestParams
+                  class BillAt < ::Stripe::RequestParams
+                    # The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
+                    sig { returns(T.nilable(String)) }
+                    def timestamp; end
+                    sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                    def timestamp=(_timestamp); end
+                    # The type of the bill_at.
+                    sig { returns(String) }
+                    def type; end
+                    sig { params(_type: String).returns(String) }
+                    def type=(_type); end
+                    sig { params(timestamp: T.nilable(String), type: String).void }
+                    def initialize(timestamp: nil, type: nil); end
+                  end
+                  # Non-negative amount with an explicit currency that must match the contract's currency.
+                  sig { returns(::Stripe::V2::Amount) }
+                  def amount; end
+                  sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
+                  def amount=(_amount); end
+                  # A finite bill date. Resolved once per request, including on idempotent retries.
+                  sig {
+                    returns(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::BillSchedule::Custom::BillAt)
+                   }
+                  def bill_at; end
+                  sig {
+                    params(_bill_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::BillSchedule::Custom::BillAt).returns(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::BillSchedule::Custom::BillAt)
+                   }
+                  def bill_at=(_bill_at); end
+                  sig {
+                    params(amount: ::Stripe::V2::Amount, bill_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::BillSchedule::Custom::BillAt).void
+                   }
+                  def initialize(amount: nil, bill_at: nil); end
+                end
+                # Between one and ten installments. Empty schedules are allowed only on update.
+                sig {
+                  returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::BillSchedule::Custom]))
+                 }
+                def custom; end
+                sig {
+                  params(_custom: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::BillSchedule::Custom])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::BillSchedule::Custom]))
+                 }
+                def custom=(_custom); end
+                # The type of schedule.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig {
+                  params(custom: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::BillSchedule::Custom]), type: String).void
+                 }
+                def initialize(custom: nil, type: nil); end
+              end
+              class ServicePeriod < ::Stripe::RequestParams
+                class EndsAt < ::Stripe::RequestParams
+                  # The timestamp when the item starts. Required if `type` is `timestamp`.
+                  sig { returns(T.nilable(String)) }
+                  def timestamp; end
+                  sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                  def timestamp=(_timestamp); end
+                  # The type of the starts_at.
+                  sig { returns(String) }
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
+                  sig { params(timestamp: T.nilable(String), type: String).void }
+                  def initialize(timestamp: nil, type: nil); end
+                end
+                class StartsAt < ::Stripe::RequestParams
+                  # The timestamp when the item starts. Required if `type` is `timestamp`.
+                  sig { returns(T.nilable(String)) }
+                  def timestamp; end
+                  sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                  def timestamp=(_timestamp); end
+                  # The type of the starts_at.
+                  sig { returns(String) }
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
+                  sig { params(timestamp: T.nilable(String), type: String).void }
+                  def initialize(timestamp: nil, type: nil); end
+                end
+                # The finite exclusive end; must be after starts_at. Never is not supported.
+                sig {
+                  returns(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::ServicePeriod::EndsAt)
+                 }
+                def ends_at; end
+                sig {
+                  params(_ends_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::ServicePeriod::EndsAt).returns(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::ServicePeriod::EndsAt)
+                 }
+                def ends_at=(_ends_at); end
+                # The finite inclusive start of the service period.
+                sig {
+                  returns(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::ServicePeriod::StartsAt)
+                 }
+                def starts_at; end
+                sig {
+                  params(_starts_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::ServicePeriod::StartsAt).returns(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::ServicePeriod::StartsAt)
+                 }
+                def starts_at=(_starts_at); end
+                sig {
+                  params(ends_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::ServicePeriod::EndsAt, starts_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::ServicePeriod::StartsAt).void
+                 }
+                def initialize(ends_at: nil, starts_at: nil); end
+              end
+              # Explicit bill dates and amounts.
+              sig {
+                returns(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::BillSchedule)
+               }
+              def bill_schedule; end
+              sig {
+                params(_bill_schedule: ::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::BillSchedule).returns(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::BillSchedule)
+               }
+              def bill_schedule=(_bill_schedule); end
+              # The V1 Product being billed.
+              sig { returns(String) }
+              def product; end
+              sig { params(_product: String).returns(String) }
+              def product=(_product); end
+              # Informational service period, independent of bill dates.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::ServicePeriod))
+               }
+              def service_period; end
+              sig {
+                params(_service_period: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::ServicePeriod)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::ServicePeriod))
+               }
+              def service_period=(_service_period); end
+              sig {
+                params(bill_schedule: ::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::BillSchedule, product: String, service_period: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct::ServicePeriod)).void
+               }
+              def initialize(bill_schedule: nil, product: nil, service_period: nil); end
+            end
+            class PricingOverride < ::Stripe::RequestParams
+              class Criterion < ::Stripe::RequestParams
+                class Term < ::Stripe::RequestParams
+                  # Select this term by its stable ID.
+                  sig { returns(T.nilable(String)) }
+                  def id; end
+                  sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
+                  def id=(_id); end
+                  # Select this term by its unique lookup key.
+                  sig { returns(T.nilable(String)) }
+                  def lookup_key; end
+                  sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
+                  def lookup_key=(_lookup_key); end
+                  # Whether the selector uses a term ID or lookup key.
+                  sig { returns(String) }
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
+                  sig {
+                    params(id: T.nilable(String), lookup_key: T.nilable(String), type: String).void
+                   }
+                  def initialize(id: nil, lookup_key: nil, type: nil); end
+                end
+                # Term selectors. Each ID or lookup key resolves to one fixed term ID.
+                # Omitted or empty selects all charge-bearing terms. Override terms cannot be targets.
+                sig {
+                  returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Criterion::Term]))
+                 }
+                def terms; end
+                sig {
+                  params(_terms: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Criterion::Term])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Criterion::Term]))
+                 }
+                def terms=(_terms); end
+                # Whether to include or exclude the selected recurring or ad_hoc_product terms.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig {
+                  params(terms: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Criterion::Term]), type: String).void
+                 }
+                def initialize(terms: nil, type: nil); end
+              end
+              class EndsAt < ::Stripe::RequestParams
+                # The timestamp when the item ends. Required if `type` is `timestamp`.
+                sig { returns(T.nilable(String)) }
+                def timestamp; end
+                sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                def timestamp=(_timestamp); end
+                # The type of the ends_at.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig { params(timestamp: T.nilable(String), type: String).void }
+                def initialize(timestamp: nil, type: nil); end
+              end
+              class Multiply < ::Stripe::RequestParams
+                # The multiplier, for example 0.85 for a 15% discount.
+                sig { returns(BigDecimal) }
+                def factor; end
+                sig { params(_factor: BigDecimal).returns(BigDecimal) }
+                def factor=(_factor); end
+                sig { params(factor: BigDecimal).void }
+                def initialize(factor: nil); end
+                def self.field_encodings
+                  @field_encodings = {factor: :decimal_string}
+                end
+              end
+              class Overwrite < ::Stripe::RequestParams
+                # The replacement per-unit amount in minor currency units.
+                sig { returns(T.nilable(BigDecimal)) }
+                def unit_amount_decimal; end
+                sig {
+                  params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal))
+                 }
+                def unit_amount_decimal=(_unit_amount_decimal); end
+                sig { params(unit_amount_decimal: T.nilable(BigDecimal)).void }
+                def initialize(unit_amount_decimal: nil); end
+                def self.field_encodings
+                  @field_encodings = {unit_amount_decimal: :decimal_string}
+                end
+              end
+              class StartsAt < ::Stripe::RequestParams
+                # The timestamp when the item starts. Required if `type` is `timestamp`.
+                sig { returns(T.nilable(String)) }
+                def timestamp; end
+                sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                def timestamp=(_timestamp); end
+                # The type of the starts_at.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig { params(timestamp: T.nilable(String), type: String).void }
+                def initialize(timestamp: nil, type: nil); end
+              end
+              # Optional criteria selecting recurring or ad_hoc_product terms. If omitted, the override applies to all recurring and ad_hoc_product terms.
+              sig {
+                returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Criterion]))
+               }
+              def criteria; end
+              sig {
+                params(_criteria: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Criterion])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Criterion]))
+               }
+              def criteria=(_criteria); end
+              # The exclusive end. Omitted means open-ended.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::EndsAt))
+               }
+              def ends_at; end
+              sig {
+                params(_ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::EndsAt)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::EndsAt))
+               }
+              def ends_at=(_ends_at); end
+              # Required when type is multiply.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Multiply))
+               }
+              def multiply; end
+              sig {
+                params(_multiply: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Multiply)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Multiply))
+               }
+              def multiply=(_multiply); end
+              # Required when type is overwrite.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Overwrite))
+               }
+              def overwrite; end
+              sig {
+                params(_overwrite: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Overwrite)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Overwrite))
+               }
+              def overwrite=(_overwrite); end
+              # Lower numbers win; defaults to 50.
+              sig { returns(T.nilable(Integer)) }
+              def priority; end
+              sig { params(_priority: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def priority=(_priority); end
+              # The inclusive start of the validity window.
+              sig {
+                returns(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::StartsAt)
+               }
+              def starts_at; end
+              sig {
+                params(_starts_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::StartsAt).returns(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::StartsAt)
+               }
+              def starts_at=(_starts_at); end
+              # The pricing operation. Exactly one matching pricing payload is required.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              sig {
+                params(criteria: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Criterion]), ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::EndsAt), multiply: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Multiply), overwrite: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::Overwrite), priority: T.nilable(Integer), starts_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride::StartsAt, type: String).void
+               }
+              def initialize(
+                criteria: nil,
+                ends_at: nil,
+                multiply: nil,
+                overwrite: nil,
+                priority: nil,
+                starts_at: nil,
+                type: nil
+              ); end
+              def self.field_encodings
+                @field_encodings = {
+                  multiply: {kind: :object, fields: {factor: :decimal_string}},
+                  overwrite: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+                }
+              end
+            end
+            class RecurringPrice < ::Stripe::RequestParams
+              class EndsAt < ::Stripe::RequestParams
+                # The timestamp when the item ends. Required if `type` is `timestamp`.
+                sig { returns(T.nilable(String)) }
+                def timestamp; end
+                sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                def timestamp=(_timestamp); end
+                # The type of the ends_at.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig { params(timestamp: T.nilable(String), type: String).void }
+                def initialize(timestamp: nil, type: nil); end
+              end
+              class StartsAt < ::Stripe::RequestParams
+                # The timestamp when the item starts. Required if `type` is `timestamp`.
+                sig { returns(T.nilable(String)) }
+                def timestamp; end
+                sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                def timestamp=(_timestamp); end
+                # The type of the starts_at.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig { params(timestamp: T.nilable(String), type: String).void }
+                def initialize(timestamp: nil, type: nil); end
+              end
+              # The exclusive end. Omitted means open-ended.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::RecurringPrice::EndsAt))
+               }
+              def ends_at; end
+              sig {
+                params(_ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::RecurringPrice::EndsAt)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::RecurringPrice::EndsAt))
+               }
+              def ends_at=(_ends_at); end
+              # The V1 recurring Price.
+              sig { returns(String) }
+              def price; end
+              sig { params(_price: String).returns(String) }
+              def price=(_price); end
+              # Initial licensed quantity. Defaults to 1; must be omitted for metered Prices.
+              sig { returns(T.nilable(BigDecimal)) }
+              def quantity; end
+              sig { params(_quantity: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
+              def quantity=(_quantity); end
+              # The inclusive start of the term.
+              sig {
+                returns(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::RecurringPrice::StartsAt)
+               }
+              def starts_at; end
+              sig {
+                params(_starts_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::RecurringPrice::StartsAt).returns(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::RecurringPrice::StartsAt)
+               }
+              def starts_at=(_starts_at); end
+              sig {
+                params(ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::RecurringPrice::EndsAt), price: String, quantity: T.nilable(BigDecimal), starts_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::RecurringPrice::StartsAt).void
+               }
+              def initialize(ends_at: nil, price: nil, quantity: nil, starts_at: nil); end
+              def self.field_encodings
+                @field_encodings = {quantity: :decimal_string}
+              end
+            end
+            # Required when type is ad_hoc_product.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct))
+             }
+            def ad_hoc_product; end
+            sig {
+              params(_ad_hoc_product: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct))
+             }
+            def ad_hoc_product=(_ad_hoc_product); end
+            # Lookup key unique across all term types on the contract.
+            sig { returns(T.nilable(String)) }
+            def lookup_key; end
+            sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
+            def lookup_key=(_lookup_key); end
+            # Set of key-value pairs attached to the term.
+            sig { returns(T.nilable(T::Hash[String, String])) }
+            def metadata; end
+            sig {
+              params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+             }
+            def metadata=(_metadata); end
+            # Required when type is pricing_override.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride))
+             }
+            def pricing_override; end
+            sig {
+              params(_pricing_override: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride))
+             }
+            def pricing_override=(_pricing_override); end
+            # Required when type is recurring_price.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::RecurringPrice))
+             }
+            def recurring_price; end
+            sig {
+              params(_recurring_price: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::RecurringPrice)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::RecurringPrice))
+             }
+            def recurring_price=(_recurring_price); end
+            # The term type. Production types require exactly one matching payload.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig {
+              params(ad_hoc_product: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::AdHocProduct), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), pricing_override: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::PricingOverride), recurring_price: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm::RecurringPrice), type: String).void
+             }
+            def initialize(
+              ad_hoc_product: nil,
+              lookup_key: nil,
+              metadata: nil,
+              pricing_override: nil,
+              recurring_price: nil,
+              type: nil
+            ); end
+            def self.field_encodings
+              @field_encodings = {
+                pricing_override: {
+                  kind: :object,
+                  fields: {
+                    multiply: {kind: :object, fields: {factor: :decimal_string}},
+                    overwrite: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+                  },
+                },
+                recurring_price: {kind: :object, fields: {quantity: :decimal_string}},
+              }
+            end
+          end
+          class RemoveTerm < ::Stripe::RequestParams
+            class Term < ::Stripe::RequestParams
+              # Select this term by its stable ID.
+              sig { returns(T.nilable(String)) }
+              def id; end
+              sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
+              def id=(_id); end
+              # Select this term by its unique lookup key.
+              sig { returns(T.nilable(String)) }
+              def lookup_key; end
+              sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
+              def lookup_key=(_lookup_key); end
+              # Whether the selector uses a term ID or lookup key.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              sig {
+                params(id: T.nilable(String), lookup_key: T.nilable(String), type: String).void
+               }
+              def initialize(id: nil, lookup_key: nil, type: nil); end
+            end
+            # Select a term by ID or its unique lookup key.
+            sig { returns(::Stripe::V2::Billing::ContractUpdateParams::Action::RemoveTerm::Term) }
+            def term; end
+            sig {
+              params(_term: ::Stripe::V2::Billing::ContractUpdateParams::Action::RemoveTerm::Term).returns(::Stripe::V2::Billing::ContractUpdateParams::Action::RemoveTerm::Term)
+             }
+            def term=(_term); end
+            sig {
+              params(term: ::Stripe::V2::Billing::ContractUpdateParams::Action::RemoveTerm::Term).void
+             }
+            def initialize(term: nil); end
+          end
+          class UpdateTerm < ::Stripe::RequestParams
+            class AdHocProduct < ::Stripe::RequestParams
+              class BillSchedule < ::Stripe::RequestParams
+                class Custom < ::Stripe::RequestParams
+                  class BillAt < ::Stripe::RequestParams
+                    # The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
+                    sig { returns(T.nilable(String)) }
+                    def timestamp; end
+                    sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                    def timestamp=(_timestamp); end
+                    # The type of the bill_at.
+                    sig { returns(String) }
+                    def type; end
+                    sig { params(_type: String).returns(String) }
+                    def type=(_type); end
+                    sig { params(timestamp: T.nilable(String), type: String).void }
+                    def initialize(timestamp: nil, type: nil); end
+                  end
+                  # Non-negative amount with an explicit currency that must match the contract's currency.
+                  sig { returns(::Stripe::V2::Amount) }
+                  def amount; end
+                  sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
+                  def amount=(_amount); end
+                  # A finite bill date. Resolved once per request, including on idempotent retries.
+                  sig {
+                    returns(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::BillSchedule::Custom::BillAt)
+                   }
+                  def bill_at; end
+                  sig {
+                    params(_bill_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::BillSchedule::Custom::BillAt).returns(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::BillSchedule::Custom::BillAt)
+                   }
+                  def bill_at=(_bill_at); end
+                  sig {
+                    params(amount: ::Stripe::V2::Amount, bill_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::BillSchedule::Custom::BillAt).void
+                   }
+                  def initialize(amount: nil, bill_at: nil); end
+                end
+                # Full replacement of up to ten unbilled installments. An explicit empty array cancels all of them.
+                sig {
+                  returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::BillSchedule::Custom]))
+                 }
+                def custom; end
+                sig {
+                  params(_custom: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::BillSchedule::Custom])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::BillSchedule::Custom]))
+                 }
+                def custom=(_custom); end
+                # The type of schedule.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig {
+                  params(custom: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::BillSchedule::Custom]), type: String).void
+                 }
+                def initialize(custom: nil, type: nil); end
+              end
+              class ServicePeriod < ::Stripe::RequestParams
+                class EndsAt < ::Stripe::RequestParams
+                  # The timestamp when the item starts. Required if `type` is `timestamp`.
+                  sig { returns(T.nilable(String)) }
+                  def timestamp; end
+                  sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                  def timestamp=(_timestamp); end
+                  # The type of the starts_at.
+                  sig { returns(String) }
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
+                  sig { params(timestamp: T.nilable(String), type: String).void }
+                  def initialize(timestamp: nil, type: nil); end
+                end
+                class StartsAt < ::Stripe::RequestParams
+                  # The timestamp when the item starts. Required if `type` is `timestamp`.
+                  sig { returns(T.nilable(String)) }
+                  def timestamp; end
+                  sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                  def timestamp=(_timestamp); end
+                  # The type of the starts_at.
+                  sig { returns(String) }
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
+                  sig { params(timestamp: T.nilable(String), type: String).void }
+                  def initialize(timestamp: nil, type: nil); end
+                end
+                # The finite exclusive end; must be after starts_at. Never is not supported.
+                sig {
+                  returns(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::ServicePeriod::EndsAt)
+                 }
+                def ends_at; end
+                sig {
+                  params(_ends_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::ServicePeriod::EndsAt).returns(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::ServicePeriod::EndsAt)
+                 }
+                def ends_at=(_ends_at); end
+                # The finite inclusive start of the service period.
+                sig {
+                  returns(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::ServicePeriod::StartsAt)
+                 }
+                def starts_at; end
+                sig {
+                  params(_starts_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::ServicePeriod::StartsAt).returns(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::ServicePeriod::StartsAt)
+                 }
+                def starts_at=(_starts_at); end
+                sig {
+                  params(ends_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::ServicePeriod::EndsAt, starts_at: ::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::ServicePeriod::StartsAt).void
+                 }
+                def initialize(ends_at: nil, starts_at: nil); end
+              end
+              # Replace remaining unbilled installments. Billed entries remain immutable.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::BillSchedule))
+               }
+              def bill_schedule; end
+              sig {
+                params(_bill_schedule: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::BillSchedule)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::BillSchedule))
+               }
+              def bill_schedule=(_bill_schedule); end
+              # Informational service period; cannot change historical billing.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::ServicePeriod))
+               }
+              def service_period; end
+              sig {
+                params(_service_period: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::ServicePeriod)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::ServicePeriod))
+               }
+              def service_period=(_service_period); end
+              sig {
+                params(bill_schedule: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::BillSchedule), service_period: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct::ServicePeriod)).void
+               }
+              def initialize(bill_schedule: nil, service_period: nil); end
+            end
+            class PricingOverride < ::Stripe::RequestParams
+              class EndsAt < ::Stripe::RequestParams
+                # The timestamp when the item ends. Required if `type` is `timestamp`.
+                sig { returns(T.nilable(String)) }
+                def timestamp; end
+                sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                def timestamp=(_timestamp); end
+                # The type of the ends_at.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig { params(timestamp: T.nilable(String), type: String).void }
+                def initialize(timestamp: nil, type: nil); end
+              end
+              class StartsAt < ::Stripe::RequestParams
+                # The timestamp when the item starts. Required if `type` is `timestamp`.
+                sig { returns(T.nilable(String)) }
+                def timestamp; end
+                sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                def timestamp=(_timestamp); end
+                # The type of the starts_at.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig { params(timestamp: T.nilable(String), type: String).void }
+                def initialize(timestamp: nil, type: nil); end
+              end
+              # Omission leaves the end unchanged; never requests an open end.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::PricingOverride::EndsAt))
+               }
+              def ends_at; end
+              sig {
+                params(_ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::PricingOverride::EndsAt)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::PricingOverride::EndsAt))
+               }
+              def ends_at=(_ends_at); end
+              # Can change only before the override starts. Accepts timestamp or now.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::PricingOverride::StartsAt))
+               }
+              def starts_at; end
+              sig {
+                params(_starts_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::PricingOverride::StartsAt)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::PricingOverride::StartsAt))
+               }
+              def starts_at=(_starts_at); end
+              sig {
+                params(ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::PricingOverride::EndsAt), starts_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::PricingOverride::StartsAt)).void
+               }
+              def initialize(ends_at: nil, starts_at: nil); end
+            end
+            class RecurringPrice < ::Stripe::RequestParams
+              class EndsAt < ::Stripe::RequestParams
+                # The timestamp when the item ends. Required if `type` is `timestamp`.
+                sig { returns(T.nilable(String)) }
+                def timestamp; end
+                sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                def timestamp=(_timestamp); end
+                # The type of the ends_at.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig { params(timestamp: T.nilable(String), type: String).void }
+                def initialize(timestamp: nil, type: nil); end
+              end
+              class StartsAt < ::Stripe::RequestParams
+                # The timestamp when the item starts. Required if `type` is `timestamp`.
+                sig { returns(T.nilable(String)) }
+                def timestamp; end
+                sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                def timestamp=(_timestamp); end
+                # The type of the starts_at.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig { params(timestamp: T.nilable(String), type: String).void }
+                def initialize(timestamp: nil, type: nil); end
+              end
+              # Omission leaves the end unchanged; never requests an open end.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::RecurringPrice::EndsAt))
+               }
+              def ends_at; end
+              sig {
+                params(_ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::RecurringPrice::EndsAt)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::RecurringPrice::EndsAt))
+               }
+              def ends_at=(_ends_at); end
+              # Update an active term's licensed quantity at the contract's current clock time,
+              # or an unstarted term's initial quantity, preserving its ID. Ended terms cannot change quantity.
+              sig { returns(T.nilable(BigDecimal)) }
+              def quantity; end
+              sig { params(_quantity: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
+              def quantity=(_quantity); end
+              # Reschedule an unstarted term in place.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::RecurringPrice::StartsAt))
+               }
+              def starts_at; end
+              sig {
+                params(_starts_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::RecurringPrice::StartsAt)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::RecurringPrice::StartsAt))
+               }
+              def starts_at=(_starts_at); end
+              sig {
+                params(ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::RecurringPrice::EndsAt), quantity: T.nilable(BigDecimal), starts_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::RecurringPrice::StartsAt)).void
+               }
+              def initialize(ends_at: nil, quantity: nil, starts_at: nil); end
+              def self.field_encodings
+                @field_encodings = {quantity: :decimal_string}
+              end
+            end
+            class Term < ::Stripe::RequestParams
+              # Select this term by its stable ID.
+              sig { returns(T.nilable(String)) }
+              def id; end
+              sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
+              def id=(_id); end
+              # Select this term by its unique lookup key.
+              sig { returns(T.nilable(String)) }
+              def lookup_key; end
+              sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
+              def lookup_key=(_lookup_key); end
+              # Whether the selector uses a term ID or lookup key.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              sig {
+                params(id: T.nilable(String), lookup_key: T.nilable(String), type: String).void
+               }
+              def initialize(id: nil, lookup_key: nil, type: nil); end
+            end
+            # Must match the existing term's type.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct))
+             }
+            def ad_hoc_product; end
+            sig {
+              params(_ad_hoc_product: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct))
+             }
+            def ad_hoc_product=(_ad_hoc_product); end
+            # Metadata changes to apply immediately.
+            sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
+            def metadata; end
+            sig {
+              params(_metadata: T.nilable(T::Hash[String, T.nilable(String)])).returns(T.nilable(T::Hash[String, T.nilable(String)]))
+             }
+            def metadata=(_metadata); end
+            # Only validity dates can change; pricing, criteria, and priority are immutable.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::PricingOverride))
+             }
+            def pricing_override; end
+            sig {
+              params(_pricing_override: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::PricingOverride)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::PricingOverride))
+             }
+            def pricing_override=(_pricing_override); end
+            # Must match the existing term's type.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::RecurringPrice))
+             }
+            def recurring_price; end
+            sig {
+              params(_recurring_price: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::RecurringPrice)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::RecurringPrice))
+             }
+            def recurring_price=(_recurring_price); end
+            # Select a term by ID or its unique lookup key.
+            sig { returns(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::Term) }
+            def term; end
+            sig {
+              params(_term: ::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::Term).returns(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::Term)
+             }
+            def term=(_term); end
+            sig {
+              params(ad_hoc_product: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::AdHocProduct), metadata: T.nilable(T::Hash[String, T.nilable(String)]), pricing_override: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::PricingOverride), recurring_price: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::RecurringPrice), term: ::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm::Term).void
+             }
+            def initialize(
+              ad_hoc_product: nil,
+              metadata: nil,
+              pricing_override: nil,
+              recurring_price: nil,
+              term: nil
+            ); end
+            def self.field_encodings
+              @field_encodings = {
+                recurring_price: {kind: :object, fields: {quantity: :decimal_string}},
+              }
+            end
+          end
+          # Prepend a term, preserving relative order among additions in this request.
+          sig { returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm)) }
+          def add_term; end
+          sig {
+            params(_add_term: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm))
+           }
+          def add_term=(_add_term); end
+          # Remove a term that has not started.
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::RemoveTerm))
+           }
+          def remove_term; end
+          sig {
+            params(_remove_term: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::RemoveTerm)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::RemoveTerm))
+           }
+          def remove_term=(_remove_term); end
+          # The action type. Exactly one matching payload is required.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          # Edit a term without changing its display position.
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm))
+           }
+          def update_term; end
+          sig {
+            params(_update_term: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm))
+           }
+          def update_term=(_update_term); end
+          sig {
+            params(add_term: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::AddTerm), remove_term: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::RemoveTerm), type: String, update_term: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::Action::UpdateTerm)).void
+           }
+          def initialize(add_term: nil, remove_term: nil, type: nil, update_term: nil); end
+          def self.field_encodings
+            @field_encodings = {
+              add_term: {
+                kind: :object,
+                fields: {
+                  pricing_override: {
+                    kind: :object,
+                    fields: {
+                      multiply: {kind: :object, fields: {factor: :decimal_string}},
+                      overwrite: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+                    },
+                  },
+                  recurring_price: {kind: :object, fields: {quantity: :decimal_string}},
+                },
+              },
+              update_term: {
+                kind: :object,
+                fields: {recurring_price: {kind: :object, fields: {quantity: :decimal_string}}},
+              },
+            }
+          end
+        end
         class BillingSettings < ::Stripe::RequestParams
           class BillSettingsDetails < ::Stripe::RequestParams
             class Calculation < ::Stripe::RequestParams
@@ -1528,6 +2381,13 @@ module Stripe
            }
           def initialize(add: nil, remove: nil, type: nil, update: nil); end
         end
+        # Apply all actions atomically. Cannot be combined with the legacy child action arrays.
+        sig { returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action])) }
+        def actions; end
+        sig {
+          params(_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action]))
+         }
+        def actions=(_actions); end
         # The billing settings to update on the contract.
         sig { returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings)) }
         def billing_settings; end
@@ -1575,9 +2435,10 @@ module Stripe
          }
         def pricing_override_actions=(_pricing_override_actions); end
         sig {
-          params(billing_settings: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, T.nilable(String)]), one_time_fee_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::OneTimeFeeAction]), pricing_line_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction]), pricing_override_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction])).void
+          params(actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::Action]), billing_settings: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, T.nilable(String)]), one_time_fee_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::OneTimeFeeAction]), pricing_line_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction]), pricing_override_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction])).void
          }
         def initialize(
+          actions: nil,
           billing_settings: nil,
           include: nil,
           metadata: nil,
@@ -1587,6 +2448,34 @@ module Stripe
         ); end
         def self.field_encodings
           @field_encodings = {
+            actions: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: {
+                  add_term: {
+                    kind: :object,
+                    fields: {
+                      pricing_override: {
+                        kind: :object,
+                        fields: {
+                          multiply: {kind: :object, fields: {factor: :decimal_string}},
+                          overwrite: {
+                            kind: :object,
+                            fields: {unit_amount_decimal: :decimal_string},
+                          },
+                        },
+                      },
+                      recurring_price: {kind: :object, fields: {quantity: :decimal_string}},
+                    },
+                  },
+                  update_term: {
+                    kind: :object,
+                    fields: {recurring_price: {kind: :object, fields: {quantity: :decimal_string}}},
+                  },
+                },
+              },
+            },
             pricing_line_actions: {
               kind: :array,
               element: {

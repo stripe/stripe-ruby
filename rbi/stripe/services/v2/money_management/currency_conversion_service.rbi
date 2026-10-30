@@ -6,7 +6,7 @@ module Stripe
   module V2
     module MoneyManagement
       class CurrencyConversionService < StripeService
-        # Create a CurrencyConversion.
+        # Create a new Currency Conversion in a Financial Account or the payments balance.
         #
         # ** raises FxQuoteExpiredError
         # ** raises FeatureNotEnabledError
@@ -15,13 +15,13 @@ module Stripe
          }
         def create(params = {}, opts = {}); end
 
-        # List all CurrencyConversion on an account with the option to filter by FinancialAccount.
+        # Lists all Currency Conversions that match the provided filters.
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::CurrencyConversionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
          }
         def list(params = {}, opts = {}); end
 
-        # Retrieve details of a CurrencyConversion by id.
+        # Retrieves the details of a Currency Conversion by its ID.
         sig {
           params(id: String, params: T.any(::Stripe::V2::MoneyManagement::CurrencyConversionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::CurrencyConversion)
          }

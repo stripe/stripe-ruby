@@ -913,7 +913,14 @@ module Stripe
           end
         end
 
-        class SepaDebit < ::Stripe::RequestParams; end
+        class SepaDebit < ::Stripe::RequestParams
+          # Controls when the funds will be captured from the customer's account.
+          attr_accessor :debit_behavior
+
+          def initialize(debit_behavior: nil)
+            @debit_behavior = debit_behavior
+          end
+        end
 
         class Upi < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
@@ -1062,6 +1069,8 @@ module Stripe
           @wechat_pay = wechat_pay
         end
       end
+      # The ID of the mandate to use for the subscription's default payment method.
+      attr_accessor :mandate
       # Payment-method-specific configuration to provide to invoices created by the subscription.
       attr_accessor :payment_method_options
       # The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -1070,10 +1079,12 @@ module Stripe
       attr_accessor :save_default_payment_method
 
       def initialize(
+        mandate: nil,
         payment_method_options: nil,
         payment_method_types: nil,
         save_default_payment_method: nil
       )
+        @mandate = mandate
         @payment_method_options = payment_method_options
         @payment_method_types = payment_method_types
         @save_default_payment_method = save_default_payment_method

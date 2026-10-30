@@ -29,6 +29,6 @@ Gem::Specification.new do |s|
   s.files = Dir.chdir(File.dirname(__FILE__)) { `git ls-files -- lib rbi`.split("\n") }
   s.require_paths = ["lib"]
 
-  s.add_dependency "aws-sdk-core", "~> 3"
+  s.add_dependency "aws-sdk-core", "~> 3.238"
   s.add_dependency "googleauth", "~> 1.8"
 end

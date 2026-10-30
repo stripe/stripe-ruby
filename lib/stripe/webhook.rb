@@ -44,7 +44,13 @@ module Stripe
     private_class_method :_build_v1_event
 
     def self._maybe_extract_from_cloud_provider_envelope(payload)
-      payload = payload.encode("utf-8") if payload.respond_to?(:encode)
+      if payload.respond_to?(:encode)
+        payload = if payload.encoding == Encoding::BINARY
+                    payload.dup.force_encoding(Encoding::UTF_8)
+                  else
+                    payload.encode(Encoding::UTF_8)
+                  end
+      end
       data = JSON.parse(payload, symbolize_names: true)
 
       # Could add as many checks as we want here, but we'll start simple

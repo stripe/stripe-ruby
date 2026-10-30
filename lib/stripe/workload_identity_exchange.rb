@@ -16,7 +16,7 @@ module Stripe
     TOKEN_PATH = "/wif/oauth2/token"
     TOKEN_URL = "https://#{TOKEN_HOST}#{TOKEN_PATH}".freeze
 
-    SUPPORTED_PROVIDERS = ["gcp"].freeze
+    SUPPORTED_PROVIDERS = %w[gcp aws].freeze
 
     # The exchange endpoint is fixed and deliberately independent of any
     # configurable `api_base`, so a misconfigured or malicious API base can

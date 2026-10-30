@@ -8,7 +8,7 @@ module Stripe
         class UsBankAccountListParams < ::Stripe::RequestParams
           # Optionally set the maximum number of results per page. Defaults to 10.
           attr_accessor :limit
-          # Optionally filter by verification status. Mutually exclusive with `unverified`, `verified`, `awaiting_verification`, and `verification_failed`.
+          # Closed Enum. Optionally filter by verification status.
           attr_accessor :verification_status
 
           def initialize(limit: nil, verification_status: nil)

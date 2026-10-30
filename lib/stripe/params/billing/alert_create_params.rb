@@ -140,6 +140,8 @@ module Stripe
           attr_accessor :billable_items
           # Filter by billing cadence ID.
           attr_accessor :billing_cadence
+          # Filter by billing group ID.
+          attr_accessor :billing_group
           # Filter by pricing plan ID.
           attr_accessor :pricing_plan
           # Filter by pricing plan subscription ID.
@@ -148,11 +150,13 @@ module Stripe
           def initialize(
             billable_items: nil,
             billing_cadence: nil,
+            billing_group: nil,
             pricing_plan: nil,
             pricing_plan_subscription: nil
           )
             @billable_items = billable_items
             @billing_cadence = billing_cadence
+            @billing_group = billing_group
             @pricing_plan = pricing_plan
             @pricing_plan_subscription = pricing_plan_subscription
           end

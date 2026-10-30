@@ -18,12 +18,12 @@ module Stripe
         end
 
         class ResultOptions < ::Stripe::RequestParams
-          # If set, the generated result file is compressed into a ZIP archive before
-          # it is stored. This applies only to downloadable file results.
-          attr_accessor :compress_file
+          # The compression applied to the generated result file. Defaults to `none`. This applies
+          # only to downloadable file results.
+          attr_accessor :compression
 
-          def initialize(compress_file: nil)
-            @compress_file = compress_file
+          def initialize(compression: nil)
+            @compression = compression
           end
         end
         # The file format for the result.

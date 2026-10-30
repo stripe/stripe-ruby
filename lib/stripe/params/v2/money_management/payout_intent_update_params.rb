@@ -5,21 +5,9 @@ module Stripe
   module V2
     module MoneyManagement
       class PayoutIntentUpdateParams < ::Stripe::RequestParams
-        class From < ::Stripe::RequestParams
-          # The currency of the financial account.
-          attr_accessor :currency
-          # The FinancialAccount that funds are pulled from.
-          attr_accessor :financial_account
-
-          def initialize(currency: nil, financial_account: nil)
-            @currency = currency
-            @financial_account = financial_account
-          end
-        end
-
         class RecipientNotification < ::Stripe::RequestParams
           # Closed Enum. Configuration option to enable or disable notifications to recipients.
-          # Do not send notifications when setting is NONE. Default to account setting when setting is CONFIGURED or not set.
+          # Do not send notifications when `setting` is `none`. Use the account setting when `setting` is `configured` or omitted.
           attr_accessor :setting
 
           def initialize(setting: nil)
@@ -80,11 +68,11 @@ module Stripe
           end
           # The currency to send to the recipient.
           attr_accessor :currency
-          # The payout method ID. Optional for OutboundPayment if recipient has default payment method. Required for OutboundTransfer.
+          # The payout method ID for the PayoutIntent. Optional when the PayoutIntent creates an OutboundPayment and the recipient has a default payout method. Required when the PayoutIntent creates an OutboundTransfer.
           attr_accessor :payout_method
           # Payout method options for the PayoutIntent.
           attr_accessor :payout_method_options
-          # The recipient ID. Only relevant for OutboundPayment.
+          # The recipient ID for the PayoutIntent.
           attr_accessor :recipient
 
           def initialize(
@@ -99,17 +87,13 @@ module Stripe
             @recipient = recipient
           end
         end
-        # The monetary amount to be sent.
-        attr_accessor :amount
         # An arbitrary string attached to the PayoutIntent. Often useful for displaying to users.
         attr_accessor :description
-        # From which FinancialAccount to pull funds.
-        attr_accessor :from
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_accessor :metadata
-        # Details about the OutboundPayment notification settings for recipient. Only applicable to OutboundPayment.
+        # Recipient notification settings for the PayoutIntent. Only applicable when the PayoutIntent creates an OutboundPayment.
         attr_accessor :recipient_notification
-        # Scheduling options for the payout. If this is nil, we assume immediate execution.
+        # Scheduling options for the payout. If omitted, the payout is scheduled for immediate execution.
         attr_accessor :schedule_options
         # The description that appears on the receiving end for the payout (for example, on a bank statement).
         attr_accessor :statement_descriptor
@@ -117,18 +101,14 @@ module Stripe
         attr_accessor :to
 
         def initialize(
-          amount: nil,
           description: nil,
-          from: nil,
           metadata: nil,
           recipient_notification: nil,
           schedule_options: nil,
           statement_descriptor: nil,
           to: nil
         )
-          @amount = amount
           @description = description
-          @from = from
           @metadata = metadata
           @recipient_notification = recipient_notification
           @schedule_options = schedule_options

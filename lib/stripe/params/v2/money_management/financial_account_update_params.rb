@@ -6,9 +6,10 @@ module Stripe
     module MoneyManagement
       class FinancialAccountUpdateParams < ::Stripe::RequestParams
         class ForwardingSettings < ::Stripe::RequestParams
-          # The address to send forwarded payments to.
+          # ID of the FinancialAccount that supplies funds to cover negative balances
+          # during or after this FinancialAccount's closure.
           attr_accessor :payment_method
-          # The address to send forwarded payouts to.
+          # ID of the FinancialAccount that receives funds forwarded from this FinancialAccount when it closes.
           attr_accessor :payout_method
           # Whether to skip forwarding exportable self-custodied wallet balances. Defaults to false. This does not skip non-exportable or fiat balances, inbound-pending checks, or negative-balance requirements.
           attr_accessor :skip_exportable_balances
@@ -45,11 +46,12 @@ module Stripe
             @holds_currencies = holds_currencies
           end
         end
-        # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
+        # A descriptive name for the FinancialAccount, up to 50 characters long. This name appears in the Stripe Dashboard and embedded components.
         attr_accessor :display_name
         # Forwarding settings for a closed FinancialAccount. Post-close forwarding updates are not yet implemented.
         attr_accessor :forwarding_settings
-        # Metadata associated with the FinancialAccount.
+        # Set of key-value pairs that you can attach to the FinancialAccount. Individual keys can be unset by posting
+        # null to them.
         attr_accessor :metadata
         # Parameters for updating storage-specific fields on the FinancialAccount.
         attr_accessor :storage

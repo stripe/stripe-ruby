@@ -23,7 +23,7 @@ module Stripe
       # Attribute for field invoice_details
       sig { returns(InvoiceDetails) }
       def invoice_details; end
-      # The type of object this plan collects against. Currently always `invoice_details`.
+      # The type of object this plan collects against. This is always `invoice_details`.
       sig { returns(String) }
       def type; end
       def self.inner_class_types
@@ -154,7 +154,7 @@ module Stripe
       # Attribute for field amounts_due
       sig { returns(AmountsDue) }
       def amounts_due; end
-      # The type of schedule. Currently always `amounts_due`.
+      # The type of schedule. This is always `amounts_due`.
       sig { returns(String) }
       def type; end
       def self.inner_class_types

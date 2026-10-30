@@ -21,7 +21,10 @@ module Stripe
       # The type of billing alert that generated this notification.
       sig { returns(String) }
       def alert_type; end
-      # The billing cadence associated with this notification. Only present for spend threshold alerts grouped by billing cadence.
+      # The billing group associated with this notification. Only present for spend threshold alerts grouped by billing group.
+      sig { returns(T.nilable(String)) }
+      def billing_group; end
+      # The cadence associated with this notification. Only present for spend threshold alerts grouped by cadence.
       sig { returns(T.nilable(String)) }
       def cadence; end
       # Three-letter ISO currency code for the value, in lowercase. Only present for spend and credit balance threshold alerts.
@@ -36,7 +39,7 @@ module Stripe
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
-      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+      # The value is `true` for objects in live mode and `false` for objects in a sandbox. For accounts that still have access to legacy test mode, the value is also `false` for objects in that mode.
       sig { returns(T::Boolean) }
       def livemode; end
       # ID of the billing meter associated with this notification. Only present for usage threshold alerts.

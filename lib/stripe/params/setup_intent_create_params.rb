@@ -409,6 +409,7 @@ module Stripe
       class Sunbit < ::Stripe::RequestParams; end
       class Swish < ::Stripe::RequestParams; end
       class Tamara < ::Stripe::RequestParams; end
+      class TossPay < ::Stripe::RequestParams; end
       class Twint < ::Stripe::RequestParams; end
 
       class Upi < ::Stripe::RequestParams
@@ -438,12 +439,25 @@ module Stripe
       end
 
       class UsBankAccount < ::Stripe::RequestParams
+        class ExternalToken < ::Stripe::RequestParams
+          # The Plaid processor token to use for this bank account.
+          attr_accessor :plaid_processor_token
+          # The type of external token.
+          attr_accessor :type
+
+          def initialize(plaid_processor_token: nil, type: nil)
+            @plaid_processor_token = plaid_processor_token
+            @type = type
+          end
+        end
         # Account holder type: individual or company.
         attr_accessor :account_holder_type
         # Account number of the bank account.
         attr_accessor :account_number
         # Account type: checkings or savings. Defaults to checking if omitted.
         attr_accessor :account_type
+        # An external token used to create a payment method.
+        attr_accessor :external_token
         # The ID of a Financial Connections Account to use as a payment method.
         attr_accessor :financial_connections_account
         # Routing number of the bank account.
@@ -453,12 +467,14 @@ module Stripe
           account_holder_type: nil,
           account_number: nil,
           account_type: nil,
+          external_token: nil,
           financial_connections_account: nil,
           routing_number: nil
         )
           @account_holder_type = account_holder_type
           @account_number = account_number
           @account_type = account_type
+          @external_token = external_token
           @financial_connections_account = financial_connections_account
           @routing_number = routing_number
         end
@@ -603,6 +619,8 @@ module Stripe
       attr_accessor :swish
       # If this is a `tamara` PaymentMethod, this hash contains details about the Tamara payment method.
       attr_accessor :tamara
+      # If this is a `toss_pay` PaymentMethod, this hash contains details about the Toss Pay payment method.
+      attr_accessor :toss_pay
       # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
       attr_accessor :twint
       # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -687,6 +705,7 @@ module Stripe
         sunbit: nil,
         swish: nil,
         tamara: nil,
+        toss_pay: nil,
         twint: nil,
         type: nil,
         upi: nil,
@@ -763,6 +782,7 @@ module Stripe
         @sunbit = sunbit
         @swish = swish
         @tamara = tamara
+        @toss_pay = toss_pay
         @twint = twint
         @type = type
         @upi = upi

@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      # The CurrencyConversion object. Contains details such as the amount debited and credited and the FinancialAccount the CurrencyConversion was performed on.
+      # A Currency Conversion represents a standalone conversion between currencies in a [Financial Account](https://docs.stripe.com/api/v2/money-management/financial-accounts) or the payments balance.
       class CurrencyConversion < APIResource
         OBJECT_NAME = "v2.money_management.currency_conversion"
         def self.object_name
@@ -12,7 +12,7 @@ module Stripe
         end
 
         class From < ::Stripe::StripeObject
-          # Amount object.
+          # A specific amount.
           attr_reader :amount
 
           def self.inner_class_types
@@ -25,7 +25,7 @@ module Stripe
         end
 
         class To < ::Stripe::StripeObject
-          # Amount object.
+          # A specific amount.
           attr_reader :amount
 
           def self.inner_class_types
@@ -36,21 +36,21 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The time the CurrencyConversion was created at.
+        # The time the Currency Conversion was created at.
         attr_reader :created
-        # The exchange rate used when processing the CurrencyConversion.
+        # The exchange rate used, excluding applicable fees.
         attr_reader :exchange_rate
-        # The FinancialAccount the CurrencyConversion was performed on.
+        # The ID of the Financial Account the Currency Conversion was created in. If `null`, it was created in the payments balance.
         attr_reader :financial_account
-        # The from block containing what was debited.
+        # The amount that was debited from the source currency.
         attr_reader :from
-        # The id of the CurrencyConversion.
+        # The ID of the Currency Conversion.
         attr_reader :id
-        # If the CurrencyConversion was performed in livemode or not.
+        # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # The to block containing what was credited.
+        # The amount that was credited to the destination currency.
         attr_reader :to
 
         def self.inner_class_types

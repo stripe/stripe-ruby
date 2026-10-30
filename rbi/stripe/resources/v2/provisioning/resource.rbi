@@ -8,6 +8,18 @@ module Stripe
       # The `Resource` resource represents a provider-managed resource provisioned on behalf of
       # a `Project`.
       class Resource < APIResource
+        class Configuration < ::Stripe::StripeObject
+          # Exact top-level configuration key names, unique and sorted in ascending lexicographic order.
+          # This array is present and empty when the available configuration has no entries.
+          sig { returns(T::Array[String]) }
+          def key_names; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class UserMessage < ::Stripe::StripeObject
           # Message from the provider to display to the user.
           sig { returns(String) }
@@ -25,6 +37,11 @@ module Stripe
         # Catalog partition containing the resource's provider service.
         sig { returns(T.nilable(String)) }
         def catalog; end
+        # Names of the provider-issued configuration entries available for this resource. This is null
+        # unless explicitly included on RetrieveResource and the resource is complete with an available,
+        # unexpired configuration. Values are never exposed through this field.
+        sig { returns(T.nilable(Configuration)) }
+        def configuration; end
         # Time at which the resource was created.
         sig { returns(String) }
         def created; end

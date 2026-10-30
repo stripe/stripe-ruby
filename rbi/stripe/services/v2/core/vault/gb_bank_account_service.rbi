@@ -39,6 +39,14 @@ module Stripe
             params(id: String, params: T.any(::Stripe::V2::Core::Vault::GbBankAccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::GbBankAccount)
            }
           def retrieve(id, params = {}, opts = {}); end
+
+          # Unarchive a GBBankAccount object.
+          #
+          # ** raises ControlledByAlternateResourceError
+          sig {
+            params(id: String, params: T.any(::Stripe::V2::Core::Vault::GbBankAccountUnarchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::GbBankAccount)
+           }
+          def unarchive(id, params = {}, opts = {}); end
         end
       end
     end

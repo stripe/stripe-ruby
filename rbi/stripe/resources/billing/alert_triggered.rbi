@@ -23,6 +23,9 @@ module Stripe
         # The billing cadence ID, populated when type is `billing_cadence`
         sig { returns(T.nilable(String)) }
         def billing_cadence; end
+        # The billing group ID, populated when type is `billing_group`
+        sig { returns(T.nilable(String)) }
+        def billing_group; end
         # The pricing plan subscription ID, populated when type is `pricing_plan_subscription`
         sig { returns(T.nilable(String)) }
         def pricing_plan_subscription; end

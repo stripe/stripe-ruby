@@ -9,7 +9,7 @@ module Stripe
         attr_accessor :applied_configurations
         # Filter by whether the account is closed. If omitted, returns only Accounts that are not closed.
         attr_accessor :closed
-        # The upper limit on the number of accounts returned by the List Account request.
+        # The maximum number of items returned by the list request.
         attr_accessor :limit
         # The ID of a [Business Profile](https://docs.stripe.com/api/v2/network/business-profiles) to filter Accounts by.
         # A Business Profile represents a business's public identity on the Stripe network.

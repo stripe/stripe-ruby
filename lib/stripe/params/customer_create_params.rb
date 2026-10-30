@@ -91,6 +91,57 @@ module Stripe
       end
     end
 
+    class MarketingAttribution < ::Stripe::RequestParams
+      class AdConversion < ::Stripe::RequestParams
+        # Whether the customer consented to sending conversion data to an advertising platform.
+        attr_accessor :consent_collected
+
+        def initialize(consent_collected: nil)
+          @consent_collected = consent_collected
+        end
+      end
+      # Information used when sending conversions to an advertising platform.
+      attr_accessor :ad_conversion
+      # The advertising platform's click identifier.
+      attr_accessor :click_id
+      # The Unix timestamp when the advertising interaction occurred.
+      attr_accessor :occurred_at
+      # The advertising group ID from the `utm_adgroup` parameter.
+      attr_accessor :utm_adgroup
+      # The advertising content identifier from the `utm_content` parameter.
+      attr_accessor :utm_content
+      # The advertising campaign ID from the `utm_id` parameter.
+      attr_accessor :utm_id
+      # The marketing medium from the `utm_medium` parameter.
+      attr_accessor :utm_medium
+      # The referral source from the `utm_source` parameter.
+      attr_accessor :utm_source
+      # The paid search term from the `utm_term` parameter.
+      attr_accessor :utm_term
+
+      def initialize(
+        ad_conversion: nil,
+        click_id: nil,
+        occurred_at: nil,
+        utm_adgroup: nil,
+        utm_content: nil,
+        utm_id: nil,
+        utm_medium: nil,
+        utm_source: nil,
+        utm_term: nil
+      )
+        @ad_conversion = ad_conversion
+        @click_id = click_id
+        @occurred_at = occurred_at
+        @utm_adgroup = utm_adgroup
+        @utm_content = utm_content
+        @utm_id = utm_id
+        @utm_medium = utm_medium
+        @utm_source = utm_source
+        @utm_term = utm_term
+      end
+    end
+
     class Shipping < ::Stripe::RequestParams
       class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
@@ -149,7 +200,7 @@ module Stripe
     end
 
     class TaxIdDatum < ::Stripe::RequestParams
-      # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+      # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_acn`, `au_arn`, `au_wpn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `bw_vat`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `ci_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `cz_dic`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `fr_siren`, `fr_siret`, `fr_spi`, `gb_vat`, `ge_vat`, `gh_tin`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_kt`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_cf`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mu_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `mz_nuit`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_bn`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `pt_nif`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sm_coe`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tt_bir`, `tt_vat`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
       attr_accessor :type
       # Value of the tax ID.
       attr_accessor :value
@@ -179,6 +230,8 @@ module Stripe
     attr_accessor :invoice_prefix
     # Default invoice settings for this customer.
     attr_accessor :invoice_settings
+    # Advertising attribution information for this customer. Only one attribution is supported.
+    attr_accessor :marketing_attributions
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # The customer's full name or business name.
@@ -217,6 +270,7 @@ module Stripe
       individual_name: nil,
       invoice_prefix: nil,
       invoice_settings: nil,
+      marketing_attributions: nil,
       metadata: nil,
       name: nil,
       next_invoice_sequence: nil,
@@ -241,6 +295,7 @@ module Stripe
       @individual_name = individual_name
       @invoice_prefix = invoice_prefix
       @invoice_settings = invoice_settings
+      @marketing_attributions = marketing_attributions
       @metadata = metadata
       @name = name
       @next_invoice_sequence = next_invoice_sequence

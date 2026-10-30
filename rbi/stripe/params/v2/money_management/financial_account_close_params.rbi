@@ -7,12 +7,13 @@ module Stripe
     module MoneyManagement
       class FinancialAccountCloseParams < ::Stripe::RequestParams
         class ForwardingSettings < ::Stripe::RequestParams
-          # The address to send forwarded payments to.
+          # ID of the FinancialAccount that supplies funds to cover negative balances
+          # during or after this FinancialAccount's closure.
           sig { returns(T.nilable(String)) }
           def payment_method; end
           sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
           def payment_method=(_payment_method); end
-          # The address to send forwarded payouts to.
+          # ID of the FinancialAccount that receives funds forwarded from this FinancialAccount when it closes.
           sig { returns(T.nilable(String)) }
           def payout_method; end
           sig { params(_payout_method: T.nilable(String)).returns(T.nilable(String)) }
@@ -33,7 +34,8 @@ module Stripe
             skip_exportable_balances: nil
           ); end
         end
-        # The addresses to forward any incoming transactions to.
+        # Settings that specify where to send positive balances and how to cover negative balances.
+        # You must provide these settings if the FinancialAccount has a non-zero balance.
         sig {
           returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCloseParams::ForwardingSettings))
          }

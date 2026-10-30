@@ -1302,12 +1302,12 @@ module Stripe
               def initialize(display_name: nil); end
             end
             class Branding < ::Stripe::RequestParams
-              # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
+              # ID of a [file upload](https://docs.stripe.com/api/files/create): An icon for the merchant. Must be square and at least 128px x 128px.
               sig { returns(T.nilable(String)) }
               def icon; end
               sig { params(_icon: T.nilable(String)).returns(T.nilable(String)) }
               def icon=(_icon); end
-              # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
+              # ID of a [file upload](https://docs.stripe.com/api/files/create): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
               sig { returns(T.nilable(String)) }
               def logo; end
               sig { params(_logo: T.nilable(String)).returns(T.nilable(String)) }
@@ -1501,6 +1501,50 @@ module Stripe
                 def requested=(_requested); end
                 sig {
                   params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments::Protections), requested: T::Boolean).void
+                 }
+                def initialize(protections: nil, requested: nil); end
+              end
+              class AlipayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Parameter to request psp_migration protection.
+                  sig {
+                    returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlipayPayments::Protections::PspMigration)
+                   }
+                  def psp_migration; end
+                  sig {
+                    params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlipayPayments::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlipayPayments::Protections::PspMigration)
+                   }
+                  def psp_migration=(_psp_migration); end
+                  sig {
+                    params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlipayPayments::Protections::PspMigration).void
+                   }
+                  def initialize(psp_migration: nil); end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlipayPayments::Protections))
+                 }
+                def protections; end
+                sig {
+                  params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlipayPayments::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlipayPayments::Protections))
+                 }
+                def protections=(_protections); end
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                sig { returns(T::Boolean) }
+                def requested; end
+                sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                def requested=(_requested); end
+                sig {
+                  params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlipayPayments::Protections), requested: T::Boolean).void
                  }
                 def initialize(protections: nil, requested: nil); end
               end
@@ -3088,6 +3132,50 @@ module Stripe
                  }
                 def initialize(protections: nil, requested: nil); end
               end
+              class ScalapayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Parameter to request psp_migration protection.
+                  sig {
+                    returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ScalapayPayments::Protections::PspMigration)
+                   }
+                  def psp_migration; end
+                  sig {
+                    params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ScalapayPayments::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ScalapayPayments::Protections::PspMigration)
+                   }
+                  def psp_migration=(_psp_migration); end
+                  sig {
+                    params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ScalapayPayments::Protections::PspMigration).void
+                   }
+                  def initialize(psp_migration: nil); end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ScalapayPayments::Protections))
+                 }
+                def protections; end
+                sig {
+                  params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ScalapayPayments::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ScalapayPayments::Protections))
+                 }
+                def protections=(_protections); end
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                sig { returns(T::Boolean) }
+                def requested; end
+                sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                def requested=(_requested); end
+                sig {
+                  params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ScalapayPayments::Protections), requested: T::Boolean).void
+                 }
+                def initialize(protections: nil, requested: nil); end
+              end
               class SepaBankTransferPayments < ::Stripe::RequestParams
                 class Protections < ::Stripe::RequestParams
                   class PspMigration < ::Stripe::RequestParams
@@ -3352,6 +3440,50 @@ module Stripe
                  }
                 def initialize(protections: nil, requested: nil); end
               end
+              class UpiPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Parameter to request psp_migration protection.
+                  sig {
+                    returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UpiPayments::Protections::PspMigration)
+                   }
+                  def psp_migration; end
+                  sig {
+                    params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UpiPayments::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UpiPayments::Protections::PspMigration)
+                   }
+                  def psp_migration=(_psp_migration); end
+                  sig {
+                    params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UpiPayments::Protections::PspMigration).void
+                   }
+                  def initialize(psp_migration: nil); end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UpiPayments::Protections))
+                 }
+                def protections; end
+                sig {
+                  params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UpiPayments::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UpiPayments::Protections))
+                 }
+                def protections=(_protections); end
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                sig { returns(T::Boolean) }
+                def requested; end
+                sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                def requested=(_requested); end
+                sig {
+                  params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UpiPayments::Protections), requested: T::Boolean).void
+                 }
+                def initialize(protections: nil, requested: nil); end
+              end
               class UsBankTransferPayments < ::Stripe::RequestParams
                 class Protections < ::Stripe::RequestParams
                   class PspMigration < ::Stripe::RequestParams
@@ -3520,6 +3652,15 @@ module Stripe
                 params(_afterpay_clearpay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments))
                }
               def afterpay_clearpay_payments=(_afterpay_clearpay_payments); end
+              # Allow the merchant to process Alipay payments.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlipayPayments))
+               }
+              def alipay_payments; end
+              sig {
+                params(_alipay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlipayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlipayPayments))
+               }
+              def alipay_payments=(_alipay_payments); end
               # Allow the merchant to process Alma payments.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlmaPayments))
@@ -3844,6 +3985,15 @@ module Stripe
                 params(_satispay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SatispayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SatispayPayments))
                }
               def satispay_payments=(_satispay_payments); end
+              # Allow the merchant to process Scalapay payments.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ScalapayPayments))
+               }
+              def scalapay_payments; end
+              sig {
+                params(_scalapay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ScalapayPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ScalapayPayments))
+               }
+              def scalapay_payments=(_scalapay_payments); end
               # Allow the merchant to process SEPA bank transfer payments.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments))
@@ -3898,6 +4048,15 @@ module Stripe
                 params(_twint_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::TwintPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::TwintPayments))
                }
               def twint_payments=(_twint_payments); end
+              # Allow the merchant to process UPI payments.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UpiPayments))
+               }
+              def upi_payments; end
+              sig {
+                params(_upi_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UpiPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UpiPayments))
+               }
+              def upi_payments=(_upi_payments); end
               # Allow the merchant to process US bank transfer payments.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments))
@@ -3926,13 +4085,14 @@ module Stripe
                }
               def zip_payments=(_zip_payments); end
               sig {
-                params(ach_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AchDebitPayments), acss_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AmazonPayPayments), au_becs_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BancontactPayments), blik_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BlikPayments), blik_recurring_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BlikRecurringPayments), boleto_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BoletoPayments), card_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CashappPayments), eps_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::EpsPayments), fpx_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments), grabpay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GrabpayPayments), ideal_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::IdealPayments), jcb_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KlarnaPayments), konbini_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KrCardPayments), link_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::LinkPayments), mobilepay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::NaverPayPayments), oxxo_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::OxxoPayments), p24_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PayByBankPayments), payco_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaycoPayments), paynow_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaynowPayments), promptpay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SamsungPayPayments), satispay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SatispayPayments), sepa_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaDebitPayments), sequra_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SequraPayments), sunbit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SunbitPayments), swish_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SwishPayments), twint_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::TwintPayments), us_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments), vipps_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::VippsPayments), zip_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ZipPayments)).void
+                params(ach_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AchDebitPayments), acss_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AfterpayClearpayPayments), alipay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlipayPayments), alma_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AmazonPayPayments), au_becs_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BancontactPayments), blik_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BlikPayments), blik_recurring_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BlikRecurringPayments), boleto_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::BoletoPayments), card_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::CashappPayments), eps_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::EpsPayments), fpx_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GbBankTransferPayments), grabpay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::GrabpayPayments), ideal_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::IdealPayments), jcb_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KlarnaPayments), konbini_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::KrCardPayments), link_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::LinkPayments), mobilepay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::NaverPayPayments), oxxo_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::OxxoPayments), p24_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PayByBankPayments), payco_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaycoPayments), paynow_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PaynowPayments), promptpay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SamsungPayPayments), satispay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SatispayPayments), scalapay_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ScalapayPayments), sepa_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SepaDebitPayments), sequra_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SequraPayments), sunbit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SunbitPayments), swish_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::SwishPayments), twint_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::TwintPayments), upi_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UpiPayments), us_bank_transfer_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::UsBankTransferPayments), vipps_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::VippsPayments), zip_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities::ZipPayments)).void
                }
               def initialize(
                 ach_debit_payments: nil,
                 acss_debit_payments: nil,
                 affirm_payments: nil,
                 afterpay_clearpay_payments: nil,
+                alipay_payments: nil,
                 alma_payments: nil,
                 amazon_pay_payments: nil,
                 au_becs_debit_payments: nil,
@@ -3969,12 +4129,14 @@ module Stripe
                 revolut_pay_payments: nil,
                 samsung_pay_payments: nil,
                 satispay_payments: nil,
+                scalapay_payments: nil,
                 sepa_bank_transfer_payments: nil,
                 sepa_debit_payments: nil,
                 sequra_payments: nil,
                 sunbit_payments: nil,
                 swish_payments: nil,
                 twint_payments: nil,
+                upi_payments: nil,
                 us_bank_transfer_payments: nil,
                 vipps_payments: nil,
                 zip_payments: nil
@@ -6097,6 +6259,65 @@ module Stripe
                   params(inbound: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::ConsumerStorage::Inbound), outbound: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::ConsumerStorage::Outbound)).void
                  }
                 def initialize(inbound: nil, outbound: nil); end
+              end
+              class InboundFundings < ::Stripe::RequestParams
+                class PaperChecks < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      sig { returns(T::Boolean) }
+                      def requested; end
+                      sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                      def requested=(_requested); end
+                      sig { params(requested: T::Boolean).void }
+                      def initialize(requested: nil); end
+                    end
+                    # Parameter to request psp_migration protection.
+                    sig {
+                      returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings::PaperChecks::Protections::PspMigration)
+                     }
+                    def psp_migration; end
+                    sig {
+                      params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings::PaperChecks::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings::PaperChecks::Protections::PspMigration)
+                     }
+                    def psp_migration=(_psp_migration); end
+                    sig {
+                      params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings::PaperChecks::Protections::PspMigration).void
+                     }
+                    def initialize(psp_migration: nil); end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings::PaperChecks::Protections))
+                   }
+                  def protections; end
+                  sig {
+                    params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings::PaperChecks::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings::PaperChecks::Protections))
+                   }
+                  def protections=(_protections); end
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T::Boolean) }
+                  def requested; end
+                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                  def requested=(_requested); end
+                  sig {
+                    params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings::PaperChecks::Protections), requested: T::Boolean).void
+                   }
+                  def initialize(protections: nil, requested: nil); end
+                end
+                # Can fund a FinancialAccount by paper check.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings::PaperChecks))
+                 }
+                def paper_checks; end
+                sig {
+                  params(_paper_checks: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings::PaperChecks)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings::PaperChecks))
+                 }
+                def paper_checks=(_paper_checks); end
+                sig {
+                  params(paper_checks: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings::PaperChecks)).void
+                 }
+                def initialize(paper_checks: nil); end
               end
               class InboundTransfers < ::Stripe::RequestParams
                 class BankAccounts < ::Stripe::RequestParams
@@ -8898,6 +9119,15 @@ module Stripe
                 params(_consumer_storage: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::ConsumerStorage)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::ConsumerStorage))
                }
               def consumer_storage=(_consumer_storage); end
+              # Can fund a FinancialAccount.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings))
+               }
+              def inbound_fundings; end
+              sig {
+                params(_inbound_fundings: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings))
+               }
+              def inbound_fundings=(_inbound_fundings); end
               # Can pull funds from an external source, owned by yourself, to a FinancialAccount.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundTransfers))
@@ -8944,12 +9174,13 @@ module Stripe
                }
               def received_debits=(_received_debits); end
               sig {
-                params(business_custodial_storage: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage), business_storage: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage), consumer_storage: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::ConsumerStorage), inbound_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundTransfers), outbound_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::OutboundPayments), outbound_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers), received_credits: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits), received_debits: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::ReceivedDebits)).void
+                params(business_custodial_storage: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessCustodialStorage), business_storage: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::BusinessStorage), consumer_storage: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::ConsumerStorage), inbound_fundings: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundFundings), inbound_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::InboundTransfers), outbound_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::OutboundPayments), outbound_transfers: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::OutboundTransfers), received_credits: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::ReceivedCredits), received_debits: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager::Capabilities::ReceivedDebits)).void
                }
               def initialize(
                 business_custodial_storage: nil,
                 business_storage: nil,
                 consumer_storage: nil,
+                inbound_fundings: nil,
                 inbound_transfers: nil,
                 outbound_payments: nil,
                 outbound_transfers: nil,
@@ -9309,50 +9540,6 @@ module Stripe
                    }
                   def initialize(protections: nil, requested: nil); end
                 end
-                class Instant < ::Stripe::RequestParams
-                  class Protections < ::Stripe::RequestParams
-                    class PspMigration < ::Stripe::RequestParams
-                      # To request a protection, pass true.
-                      sig { returns(T::Boolean) }
-                      def requested; end
-                      sig { params(_requested: T::Boolean).returns(T::Boolean) }
-                      def requested=(_requested); end
-                      sig { params(requested: T::Boolean).void }
-                      def initialize(requested: nil); end
-                    end
-                    # Parameter to request psp_migration protection.
-                    sig {
-                      returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant::Protections::PspMigration)
-                     }
-                    def psp_migration; end
-                    sig {
-                      params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant::Protections::PspMigration)
-                     }
-                    def psp_migration=(_psp_migration); end
-                    sig {
-                      params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant::Protections::PspMigration).void
-                     }
-                    def initialize(psp_migration: nil); end
-                  end
-                  # Protection types to request for this capability (e.g. "psp_migration").
-                  sig {
-                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant::Protections))
-                   }
-                  def protections; end
-                  sig {
-                    params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant::Protections))
-                   }
-                  def protections=(_protections); end
-                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-                  sig { returns(T::Boolean) }
-                  def requested; end
-                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
-                  def requested=(_requested); end
-                  sig {
-                    params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant::Protections), requested: T::Boolean).void
-                   }
-                  def initialize(protections: nil, requested: nil); end
-                end
                 class Local < ::Stripe::RequestParams
                   class Protections < ::Stripe::RequestParams
                     class PspMigration < ::Stripe::RequestParams
@@ -9485,7 +9672,7 @@ module Stripe
                    }
                   def initialize(protections: nil, requested: nil); end
                 end
-                class SepaCredit < ::Stripe::RequestParams
+                class Sepa < ::Stripe::RequestParams
                   class Protections < ::Stripe::RequestParams
                     class PspMigration < ::Stripe::RequestParams
                       # To request a protection, pass true.
@@ -9498,25 +9685,25 @@ module Stripe
                     end
                     # Parameter to request psp_migration protection.
                     sig {
-                      returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::SepaCredit::Protections::PspMigration)
+                      returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa::Protections::PspMigration)
                      }
                     def psp_migration; end
                     sig {
-                      params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::SepaCredit::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::SepaCredit::Protections::PspMigration)
+                      params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa::Protections::PspMigration)
                      }
                     def psp_migration=(_psp_migration); end
                     sig {
-                      params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::SepaCredit::Protections::PspMigration).void
+                      params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa::Protections::PspMigration).void
                      }
                     def initialize(psp_migration: nil); end
                   end
                   # Protection types to request for this capability (e.g. "psp_migration").
                   sig {
-                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::SepaCredit::Protections))
+                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa::Protections))
                    }
                   def protections; end
                   sig {
-                    params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::SepaCredit::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::SepaCredit::Protections))
+                    params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa::Protections))
                    }
                   def protections=(_protections); end
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
@@ -9525,7 +9712,7 @@ module Stripe
                   sig { params(_requested: T::Boolean).returns(T::Boolean) }
                   def requested=(_requested); end
                   sig {
-                    params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::SepaCredit::Protections), requested: T::Boolean).void
+                    params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa::Protections), requested: T::Boolean).void
                    }
                   def initialize(protections: nil, requested: nil); end
                 end
@@ -9617,50 +9804,6 @@ module Stripe
                    }
                   def initialize(protections: nil, requested: nil); end
                 end
-                class Wire < ::Stripe::RequestParams
-                  class Protections < ::Stripe::RequestParams
-                    class PspMigration < ::Stripe::RequestParams
-                      # To request a protection, pass true.
-                      sig { returns(T::Boolean) }
-                      def requested; end
-                      sig { params(_requested: T::Boolean).returns(T::Boolean) }
-                      def requested=(_requested); end
-                      sig { params(requested: T::Boolean).void }
-                      def initialize(requested: nil); end
-                    end
-                    # Parameter to request psp_migration protection.
-                    sig {
-                      returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire::Protections::PspMigration)
-                     }
-                    def psp_migration; end
-                    sig {
-                      params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire::Protections::PspMigration)
-                     }
-                    def psp_migration=(_psp_migration); end
-                    sig {
-                      params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire::Protections::PspMigration).void
-                     }
-                    def initialize(psp_migration: nil); end
-                  end
-                  # Protection types to request for this capability (e.g. "psp_migration").
-                  sig {
-                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire::Protections))
-                   }
-                  def protections; end
-                  sig {
-                    params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire::Protections))
-                   }
-                  def protections=(_protections); end
-                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-                  sig { returns(T::Boolean) }
-                  def requested; end
-                  sig { params(_requested: T::Boolean).returns(T::Boolean) }
-                  def requested=(_requested); end
-                  sig {
-                    params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire::Protections), requested: T::Boolean).void
-                   }
-                  def initialize(protections: nil, requested: nil); end
-                end
                 # Enables this Account to receive OutboundPayments to linked bank accounts over ACH rails.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Ach))
@@ -9706,15 +9849,6 @@ module Stripe
                   params(_fps: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Fps)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Fps))
                  }
                 def fps=(_fps); end
-                # Enables this Account to receive OutboundPayments to linked bank accounts over real time rails.
-                sig {
-                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant))
-                 }
-                def instant; end
-                sig {
-                  params(_instant: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant))
-                 }
-                def instant=(_instant); end
                 # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Local))
@@ -9742,15 +9876,15 @@ module Stripe
                   params(_rtp: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Rtp)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Rtp))
                  }
                 def rtp=(_rtp); end
-                # Enables this Account to receive OutboundPayments to linked bank accounts over SEPA credit rails.
+                # Enables this Account to receive OutboundPayments to linked bank accounts over SEPA rails.
                 sig {
-                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::SepaCredit))
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa))
                  }
-                def sepa_credit; end
+                def sepa; end
                 sig {
-                  params(_sepa_credit: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::SepaCredit)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::SepaCredit))
+                  params(_sepa: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa))
                  }
-                def sepa_credit=(_sepa_credit); end
+                def sepa=(_sepa); end
                 # Enables this Account to receive OutboundPayments to linked bank accounts over SEPA instant (real time) rails.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::SepaInstant))
@@ -9769,17 +9903,8 @@ module Stripe
                   params(_swift: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Swift)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Swift))
                  }
                 def swift=(_swift); end
-                # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
                 sig {
-                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire))
-                 }
-                def wire; end
-                sig {
-                  params(_wire: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire))
-                 }
-                def wire=(_wire); end
-                sig {
-                  params(ach: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Ach), becs: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Becs), eft: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Eft), fedwire: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Fedwire), fps: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Fps), instant: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Instant), local: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Local), npp: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Npp), rtp: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Rtp), sepa_credit: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::SepaCredit), sepa_instant: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::SepaInstant), swift: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Swift), wire: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Wire)).void
+                  params(ach: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Ach), becs: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Becs), eft: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Eft), fedwire: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Fedwire), fps: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Fps), local: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Local), npp: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Npp), rtp: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Rtp), sepa: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa), sepa_instant: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::SepaInstant), swift: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::BankAccounts::Swift)).void
                  }
                 def initialize(
                   ach: nil,
@@ -9787,14 +9912,12 @@ module Stripe
                   eft: nil,
                   fedwire: nil,
                   fps: nil,
-                  instant: nil,
                   local: nil,
                   npp: nil,
                   rtp: nil,
-                  sepa_credit: nil,
+                  sepa: nil,
                   sepa_instant: nil,
-                  swift: nil,
-                  wire: nil
+                  swift: nil
                 ); end
               end
               class Cards < ::Stripe::RequestParams
@@ -11930,7 +12053,7 @@ module Stripe
                 sig { params(date: String, ip: String, user_agent: T.nilable(String)).void }
                 def initialize(date: nil, ip: nil, user_agent: nil); end
               end
-              # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
+              # Details on the Account's acceptance of the Stripe Services Agreement.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Attestations::TermsOfService::Account))
                }
@@ -12177,7 +12300,7 @@ module Stripe
             end
             class Documents < ::Stripe::RequestParams
               class BankAccountOwnershipVerification < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -12191,7 +12314,7 @@ module Stripe
                 def initialize(files: nil, type: nil); end
               end
               class CompanyLicense < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -12205,7 +12328,7 @@ module Stripe
                 def initialize(files: nil, type: nil); end
               end
               class CompanyMemorandumOfAssociation < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -12219,7 +12342,7 @@ module Stripe
                 def initialize(files: nil, type: nil); end
               end
               class CompanyMinisterialDecree < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -12233,7 +12356,7 @@ module Stripe
                 def initialize(files: nil, type: nil); end
               end
               class CompanyRegistrationVerification < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -12247,7 +12370,7 @@ module Stripe
                 def initialize(files: nil, type: nil); end
               end
               class CompanyTaxIdVerification < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -12262,12 +12385,12 @@ module Stripe
               end
               class PrimaryVerification < ::Stripe::RequestParams
                 class FrontBack < ::Stripe::RequestParams
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
                   sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
                   def back=(_back); end
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(String) }
                   def front; end
                   sig { params(_front: String).returns(String) }
@@ -12275,7 +12398,7 @@ module Stripe
                   sig { params(back: T.nilable(String), front: String).void }
                   def initialize(back: nil, front: nil); end
                 end
-                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+                # The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
                 sig {
                   returns(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack)
                  }
@@ -12295,7 +12418,21 @@ module Stripe
                 def initialize(front_back: nil, type: nil); end
               end
               class ProofOfAddress < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
+                sig { returns(T::Array[String]) }
+                def files; end
+                sig { params(_files: T::Array[String]).returns(T::Array[String]) }
+                def files=(_files); end
+                # The format of the document. Currently supports `files` only.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig { params(files: T::Array[String], type: String).void }
+                def initialize(files: nil, type: nil); end
+              end
+              class ProofOfBusinessPresence < ::Stripe::RequestParams
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -12318,7 +12455,7 @@ module Stripe
                   sig { params(person: String).void }
                   def initialize(person: nil); end
                 end
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -12352,7 +12489,7 @@ module Stripe
                   sig { params(person: String).void }
                   def initialize(person: nil); end
                 end
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -12448,6 +12585,15 @@ module Stripe
                 params(_proof_of_address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfAddress)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfAddress))
                }
               def proof_of_address=(_proof_of_address); end
+              # One or more documents that demonstrate proof of business presence.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfBusinessPresence))
+               }
+              def proof_of_business_presence; end
+              sig {
+                params(_proof_of_business_presence: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfBusinessPresence)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfBusinessPresence))
+               }
+              def proof_of_business_presence=(_proof_of_business_presence); end
               # One or more documents showing the company's proof of registration with the national business registry.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration))
@@ -12469,7 +12615,7 @@ module Stripe
                 _proof_of_ultimate_beneficial_ownership
               ); end
               sig {
-                params(bank_account_ownership_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification), company_license: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyLicense), company_memorandum_of_association: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation), company_ministerial_decree: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree), company_registration_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification), company_tax_id_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification), primary_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification), proof_of_address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfAddress), proof_of_registration: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration), proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership)).void
+                params(bank_account_ownership_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification), company_license: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyLicense), company_memorandum_of_association: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation), company_ministerial_decree: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree), company_registration_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification), company_tax_id_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification), primary_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::PrimaryVerification), proof_of_address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfAddress), proof_of_business_presence: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfBusinessPresence), proof_of_registration: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration), proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfUltimateBeneficialOwnership)).void
                }
               def initialize(
                 bank_account_ownership_verification: nil,
@@ -12480,6 +12626,7 @@ module Stripe
                 company_tax_id_verification: nil,
                 primary_verification: nil,
                 proof_of_address: nil,
+                proof_of_business_presence: nil,
                 proof_of_registration: nil,
                 proof_of_ultimate_beneficial_ownership: nil
               ); end
@@ -12977,7 +13124,7 @@ module Stripe
             end
             class Documents < ::Stripe::RequestParams
               class CompanyAuthorization < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -12991,7 +13138,7 @@ module Stripe
                 def initialize(files: nil, type: nil); end
               end
               class Passport < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -13006,12 +13153,12 @@ module Stripe
               end
               class PrimaryVerification < ::Stripe::RequestParams
                 class FrontBack < ::Stripe::RequestParams
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
                   sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
                   def back=(_back); end
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(String) }
                   def front; end
                   sig { params(_front: String).returns(String) }
@@ -13019,7 +13166,7 @@ module Stripe
                   sig { params(back: T.nilable(String), front: String).void }
                   def initialize(back: nil, front: nil); end
                 end
-                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+                # The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
                 sig {
                   returns(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack)
                  }
@@ -13040,12 +13187,12 @@ module Stripe
               end
               class SecondaryVerification < ::Stripe::RequestParams
                 class FrontBack < ::Stripe::RequestParams
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
                   sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
                   def back=(_back); end
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(String) }
                   def front; end
                   sig { params(_front: String).returns(String) }
@@ -13053,7 +13200,7 @@ module Stripe
                   sig { params(back: T.nilable(String), front: String).void }
                   def initialize(back: nil, front: nil); end
                 end
-                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+                # The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
                 sig {
                   returns(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack)
                  }
@@ -13073,7 +13220,7 @@ module Stripe
                 def initialize(front_back: nil, type: nil); end
               end
               class Visa < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }

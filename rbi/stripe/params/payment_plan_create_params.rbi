@@ -21,7 +21,7 @@ module Stripe
         params(_invoice_details: ::Stripe::PaymentPlanCreateParams::CollectsOn::InvoiceDetails).returns(::Stripe::PaymentPlanCreateParams::CollectsOn::InvoiceDetails)
        }
       def invoice_details=(_invoice_details); end
-      # The type of object this plan collects on. Currently always `invoice_details`.
+      # The type of object this plan collects on. This is always `invoice_details`.
       sig { returns(String) }
       def type; end
       sig { params(_type: String).returns(String) }
@@ -137,7 +137,7 @@ module Stripe
             type: nil
           ); end
         end
-        # The list of installment entries. Must contain at least 2 entries.
+        # The list of installment entries. Must contain at least two entries.
         sig { returns(T::Array[::Stripe::PaymentPlanCreateParams::Schedule::AmountsDue::Amount]) }
         def amounts; end
         sig {
@@ -149,14 +149,14 @@ module Stripe
          }
         def initialize(amounts: nil); end
       end
-      # Required when type is 'amounts_due'. Must contain at least 2 installment entries.
+      # Required when type is 'amounts_due'. Must contain at least two installment entries.
       sig { returns(::Stripe::PaymentPlanCreateParams::Schedule::AmountsDue) }
       def amounts_due; end
       sig {
         params(_amounts_due: ::Stripe::PaymentPlanCreateParams::Schedule::AmountsDue).returns(::Stripe::PaymentPlanCreateParams::Schedule::AmountsDue)
        }
       def amounts_due=(_amounts_due); end
-      # The schedule type. Currently only 'amounts_due' is supported.
+      # The schedule type. It only supports 'amounts_due'.
       sig { returns(String) }
       def type; end
       sig { params(_type: String).returns(String) }
@@ -166,7 +166,7 @@ module Stripe
        }
       def initialize(amounts_due: nil, type: nil); end
     end
-    # The invoice(s) this payment plan collects on. Currently must contain exactly one invoice entry.
+    # The invoices this payment plan collects on. It must contain exactly one invoice entry.
     sig { returns(T::Array[::Stripe::PaymentPlanCreateParams::CollectsOn]) }
     def collects_on; end
     sig {

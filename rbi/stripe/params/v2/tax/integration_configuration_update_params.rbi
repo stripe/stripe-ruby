@@ -24,6 +24,15 @@ module Stripe
           sig { params(automatic_tax_default_value: String).void }
           def initialize(automatic_tax_default_value: nil); end
         end
+        class Subscriptions < ::Stripe::RequestParams
+          # Controls the default value of automatic_tax[enabled] on new Subscriptions.
+          sig { returns(String) }
+          def automatic_tax_default_value; end
+          sig { params(_automatic_tax_default_value: String).returns(String) }
+          def automatic_tax_default_value=(_automatic_tax_default_value); end
+          sig { params(automatic_tax_default_value: String).void }
+          def initialize(automatic_tax_default_value: nil); end
+        end
         # Configuration for Checkout Sessions automatic tax behavior.
         sig {
           returns(T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::CheckoutSessions))
@@ -42,10 +51,19 @@ module Stripe
           params(_invoices: T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::Invoices)).returns(T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::Invoices))
          }
         def invoices=(_invoices); end
+        # Configuration for Subscriptions automatic tax behavior.
         sig {
-          params(checkout_sessions: T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::CheckoutSessions), invoices: T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::Invoices)).void
+          returns(T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::Subscriptions))
          }
-        def initialize(checkout_sessions: nil, invoices: nil); end
+        def subscriptions; end
+        sig {
+          params(_subscriptions: T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::Subscriptions)).returns(T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::Subscriptions))
+         }
+        def subscriptions=(_subscriptions); end
+        sig {
+          params(checkout_sessions: T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::CheckoutSessions), invoices: T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::Invoices), subscriptions: T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::Subscriptions)).void
+         }
+        def initialize(checkout_sessions: nil, invoices: nil, subscriptions: nil); end
       end
     end
   end

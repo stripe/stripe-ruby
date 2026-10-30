@@ -6,7 +6,7 @@ module Stripe
   module V2
     module MoneyManagement
       class InboundTransferService < StripeService
-        # InboundTransfers APIs are used to create, retrieve or list InboundTransfers.
+        # Creates an InboundTransfer to pull funds from a bank account into a financial account. Per-transfer and rolling weekly limits vary by account and payment rail. See [transfer limits](https://docs.stripe.com/treasury/add-funds#transfer-limits).
         #
         # ** raises BlockedByStripeError
         sig {

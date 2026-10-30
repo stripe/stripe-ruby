@@ -58,6 +58,19 @@ module Stripe
               base_address: :api
             )
           end
+
+          # Unarchive a GBBankAccount object.
+          #
+          # ** raises ControlledByAlternateResourceError
+          def unarchive(id, params = {}, opts = {})
+            request(
+              method: :post,
+              path: format("/v2/core/vault/gb_bank_accounts/%<id>s/unarchive", { id: CGI.escape(id) }),
+              params: params,
+              opts: opts,
+              base_address: :api
+            )
+          end
         end
       end
     end

@@ -43,11 +43,37 @@ module Stripe
         end
 
         class CustomerRisk < ::Stripe::StripeObject
+          class AdditionalDetails < ::Stripe::StripeObject
+            class Indicator < ::Stripe::StripeObject
+              # The name of the customer risk indicator.
+              attr_reader :indicator
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Indicators providing risk context. Not all indicators directly contribute to the overall risk level.
+            attr_reader :indicators
+
+            def self.inner_class_types
+              @inner_class_types = { indicators: Indicator }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Supplementary contextual data for the signal, including indicators. Absent when no indicators are available.
+          attr_reader :additional_details
           # Categorical assessment of the customer's risk of fraudulent or abusive activity.
           attr_reader :risk_level
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { additional_details: AdditionalDetails }
           end
 
           def self.field_remappings
@@ -279,10 +305,10 @@ module Stripe
           end
         end
 
-        class UserMerchantFit < ::Stripe::StripeObject
-          # Categorical assessment of the user-merchant fit.
-          attr_reader :fit_level
-          # The specific fit score for the user, between 0.00 and 100.00. Absent when fit_level is unknown.
+        class UserAffinity < ::Stripe::StripeObject
+          # Categorical assessment of the user affinity.
+          attr_reader :level
+          # The specific affinity score for the user, between 0.00 and 100.00. Absent when level is unknown.
           attr_reader :score
 
           def self.inner_class_types
@@ -345,8 +371,8 @@ module Stripe
         attr_reader :type
         # Data for the user account-sharing signal. Present only when type is user_account_sharing.
         attr_reader :user_account_sharing
-        # Data for the user-merchant fit signal. Present only when type is user_merchant_fit.
-        attr_reader :user_merchant_fit
+        # Data for the user affinity signal. Present only when type is user_affinity.
+        attr_reader :user_affinity
         # Data for the user multi-accounting signal. Present only when type is user_multi_accounting.
         attr_reader :user_multi_accounting
 
@@ -360,7 +386,7 @@ module Stripe
             merchant_delinquency: MerchantDelinquency,
             payment_delinquency_exposure: PaymentDelinquencyExposure,
             user_account_sharing: UserAccountSharing,
-            user_merchant_fit: UserMerchantFit,
+            user_affinity: UserAffinity,
             user_multi_accounting: UserMultiAccounting,
           }
         end
@@ -384,7 +410,7 @@ module Stripe
               },
             },
             user_account_sharing: { kind: :object, fields: { score: :decimal_string } },
-            user_merchant_fit: { kind: :object, fields: { score: :decimal_string } },
+            user_affinity: { kind: :object, fields: { score: :decimal_string } },
             user_multi_accounting: { kind: :object, fields: { score: :decimal_string } },
           }
         end

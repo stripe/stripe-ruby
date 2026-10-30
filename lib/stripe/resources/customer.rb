@@ -94,6 +94,47 @@ module Stripe
       end
     end
 
+    class MarketingAttribution < ::Stripe::StripeObject
+      class AdConversion < ::Stripe::StripeObject
+        # Whether the customer consented to sending conversion data to an advertising platform.
+        attr_reader :consent_collected
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field ad_conversion
+      attr_reader :ad_conversion
+      # The advertising platform's click identifier.
+      attr_reader :click_id
+      # The Unix timestamp when the advertising interaction occurred.
+      attr_reader :occurred_at
+      # The advertising group ID from the `utm_adgroup` parameter.
+      attr_reader :utm_adgroup
+      # The advertising content identifier from the `utm_content` parameter.
+      attr_reader :utm_content
+      # The advertising campaign ID from the `utm_id` parameter.
+      attr_reader :utm_id
+      # The marketing medium from the `utm_medium` parameter.
+      attr_reader :utm_medium
+      # The referral source from the `utm_source` parameter.
+      attr_reader :utm_source
+      # The paid search term from the `utm_term` parameter.
+      attr_reader :utm_term
+
+      def self.inner_class_types
+        @inner_class_types = { ad_conversion: AdConversion }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Redaction < ::Stripe::StripeObject
       # Indicates whether this object and its related objects have been redacted or not.
       attr_reader :status
@@ -228,6 +269,8 @@ module Stripe
     attr_reader :invoice_settings
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
+    # Advertising attribution information for this customer.
+    attr_reader :marketing_attributions
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # The customer's full name or business name.
@@ -454,6 +497,7 @@ module Stripe
       @inner_class_types = {
         address: Address,
         invoice_settings: InvoiceSettings,
+        marketing_attributions: MarketingAttribution,
         redaction: Redaction,
         shipping: Shipping,
         tax: Tax,

@@ -175,6 +175,23 @@ module Stripe
           end
         end
 
+        class CustomMarketingAction < ::Stripe::StripeObject
+          # A description of the action.
+          attr_reader :description
+          # The outcome of the action.
+          attr_reader :outcome
+          # Additional user-defined properties of the action.
+          attr_reader :properties
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class LoginAttempt < ::Stripe::StripeObject
           class ClientDetails < ::Stripe::StripeObject
             class Data < ::Stripe::StripeObject
@@ -219,11 +236,27 @@ module Stripe
         end
 
         class LoginDecision < ::Stripe::StripeObject
+          class MfaChallenge < ::Stripe::StripeObject
+            # The authentication method used for the challenge.
+            attr_reader :mfa_type
+            # The outcome of the authentication challenge.
+            attr_reader :status
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Multi-factor authentication challenges performed during the login process.
+          attr_reader :mfa_challenges
           # The action the merchant took following the evaluation.
           attr_reader :status
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { mfa_challenges: MfaChallenge }
           end
 
           def self.field_remappings
@@ -333,6 +366,8 @@ module Stripe
         attr_reader :created
         # Details for the credential change. Present only when type is credential_change.
         attr_reader :credential_change
+        # Details for the custom marketing action. Present only when type is custom_marketing_action.
+        attr_reader :custom_marketing_action
         # Unique identifier for the account activity.
         attr_reader :id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -355,6 +390,9 @@ module Stripe
         attr_reader :registration_attempt
         # Details for the registration decision. Present only when type is registration_decision.
         attr_reader :registration_decision
+        # The AccountSignal that prompted this activity, when applicable. This historical reference
+        # may coexist with account_evaluation and remains present after the signal expires.
+        attr_reader :triggering_signal
         # The type of activity.
         attr_reader :type
 
@@ -367,6 +405,7 @@ module Stripe
             account_takeover_confirmation: AccountTakeoverConfirmation,
             account_takeover_report: AccountTakeoverReport,
             credential_change: CredentialChange,
+            custom_marketing_action: CustomMarketingAction,
             login_attempt: LoginAttempt,
             login_decision: LoginDecision,
             mfa_addition: MfaAddition,

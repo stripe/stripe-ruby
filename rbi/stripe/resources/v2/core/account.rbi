@@ -2939,10 +2939,10 @@ module Stripe
               end
             end
             class Branding < ::Stripe::StripeObject
-              # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
+              # ID of a [file upload](https://docs.stripe.com/api/files/create): An icon for the merchant. Must be square and at least 128px x 128px.
               sig { returns(T.nilable(String)) }
               def icon; end
-              # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
+              # ID of a [file upload](https://docs.stripe.com/api/files/create): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
               sig { returns(T.nilable(String)) }
               def logo; end
               # A CSS hex color value representing the primary branding color for the merchant.
@@ -3209,6 +3209,89 @@ module Stripe
                 end
               end
               class AfterpayClearpayPayments < ::Stripe::StripeObject
+                class Protections < ::Stripe::StripeObject
+                  class PspMigration < ::Stripe::StripeObject
+                    # The time until which the protection will expire, as a Unix timestamp.
+                    sig { returns(T.nilable(Integer)) }
+                    def expires_at; end
+                    # The time at which the protection was requested, as a Unix timestamp.
+                    sig { returns(Integer) }
+                    def requested_at; end
+                    # The current status of the protection.
+                    sig { returns(String) }
+                    def status; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {expires_at: :int64_string, requested_at: :int64_string}
+                    end
+                  end
+                  # Protection details for PSP migration.
+                  sig { returns(PspMigration) }
+                  def psp_migration; end
+                  def self.inner_class_types
+                    @inner_class_types = {psp_migration: PspMigration}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                  def self.field_encodings
+                    @field_encodings = {
+                      psp_migration: {
+                        kind: :object,
+                        fields: {expires_at: :int64_string, requested_at: :int64_string},
+                      },
+                    }
+                  end
+                end
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                sig { returns(Protections) }
+                def protections; end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+                def self.field_encodings
+                  @field_encodings = {
+                    protections: {
+                      kind: :object,
+                      fields: {
+                        psp_migration: {
+                          kind: :object,
+                          fields: {expires_at: :int64_string, requested_at: :int64_string},
+                        },
+                      },
+                    },
+                  }
+                end
+              end
+              class AlipayPayments < ::Stripe::StripeObject
                 class Protections < ::Stripe::StripeObject
                   class PspMigration < ::Stripe::StripeObject
                     # The time until which the protection will expire, as a Unix timestamp.
@@ -6279,6 +6362,89 @@ module Stripe
                   }
                 end
               end
+              class ScalapayPayments < ::Stripe::StripeObject
+                class Protections < ::Stripe::StripeObject
+                  class PspMigration < ::Stripe::StripeObject
+                    # The time until which the protection will expire, as a Unix timestamp.
+                    sig { returns(T.nilable(Integer)) }
+                    def expires_at; end
+                    # The time at which the protection was requested, as a Unix timestamp.
+                    sig { returns(Integer) }
+                    def requested_at; end
+                    # The current status of the protection.
+                    sig { returns(String) }
+                    def status; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {expires_at: :int64_string, requested_at: :int64_string}
+                    end
+                  end
+                  # Protection details for PSP migration.
+                  sig { returns(PspMigration) }
+                  def psp_migration; end
+                  def self.inner_class_types
+                    @inner_class_types = {psp_migration: PspMigration}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                  def self.field_encodings
+                    @field_encodings = {
+                      psp_migration: {
+                        kind: :object,
+                        fields: {expires_at: :int64_string, requested_at: :int64_string},
+                      },
+                    }
+                  end
+                end
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                sig { returns(Protections) }
+                def protections; end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+                def self.field_encodings
+                  @field_encodings = {
+                    protections: {
+                      kind: :object,
+                      fields: {
+                        psp_migration: {
+                          kind: :object,
+                          fields: {expires_at: :int64_string, requested_at: :int64_string},
+                        },
+                      },
+                    },
+                  }
+                end
+              end
               class SepaBankTransferPayments < ::Stripe::StripeObject
                 class Protections < ::Stripe::StripeObject
                   class PspMigration < ::Stripe::StripeObject
@@ -6889,6 +7055,89 @@ module Stripe
                   }
                 end
               end
+              class UpiPayments < ::Stripe::StripeObject
+                class Protections < ::Stripe::StripeObject
+                  class PspMigration < ::Stripe::StripeObject
+                    # The time until which the protection will expire, as a Unix timestamp.
+                    sig { returns(T.nilable(Integer)) }
+                    def expires_at; end
+                    # The time at which the protection was requested, as a Unix timestamp.
+                    sig { returns(Integer) }
+                    def requested_at; end
+                    # The current status of the protection.
+                    sig { returns(String) }
+                    def status; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {expires_at: :int64_string, requested_at: :int64_string}
+                    end
+                  end
+                  # Protection details for PSP migration.
+                  sig { returns(PspMigration) }
+                  def psp_migration; end
+                  def self.inner_class_types
+                    @inner_class_types = {psp_migration: PspMigration}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                  def self.field_encodings
+                    @field_encodings = {
+                      psp_migration: {
+                        kind: :object,
+                        fields: {expires_at: :int64_string, requested_at: :int64_string},
+                      },
+                    }
+                  end
+                end
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                sig { returns(Protections) }
+                def protections; end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+                def self.field_encodings
+                  @field_encodings = {
+                    protections: {
+                      kind: :object,
+                      fields: {
+                        psp_migration: {
+                          kind: :object,
+                          fields: {expires_at: :int64_string, requested_at: :int64_string},
+                        },
+                      },
+                    },
+                  }
+                end
+              end
               class UsBankTransferPayments < ::Stripe::StripeObject
                 class Protections < ::Stripe::StripeObject
                   class PspMigration < ::Stripe::StripeObject
@@ -7150,6 +7399,9 @@ module Stripe
               # Allow the merchant to process Afterpay/Clearpay payments.
               sig { returns(T.nilable(AfterpayClearpayPayments)) }
               def afterpay_clearpay_payments; end
+              # Allow the merchant to process Alipay payments.
+              sig { returns(T.nilable(AlipayPayments)) }
+              def alipay_payments; end
               # Allow the merchant to process Alma payments.
               sig { returns(T.nilable(AlmaPayments)) }
               def alma_payments; end
@@ -7258,6 +7510,9 @@ module Stripe
               # Allow the merchant to process Satispay payments.
               sig { returns(T.nilable(SatispayPayments)) }
               def satispay_payments; end
+              # Allow the merchant to process Scalapay payments.
+              sig { returns(T.nilable(ScalapayPayments)) }
+              def scalapay_payments; end
               # Allow the merchant to process SEPA bank transfer payments.
               sig { returns(T.nilable(SepaBankTransferPayments)) }
               def sepa_bank_transfer_payments; end
@@ -7279,6 +7534,9 @@ module Stripe
               # Allow the merchant to process TWINT payments.
               sig { returns(T.nilable(TwintPayments)) }
               def twint_payments; end
+              # Allow the merchant to process UPI payments.
+              sig { returns(T.nilable(UpiPayments)) }
+              def upi_payments; end
               # Allow the merchant to process US bank transfer payments.
               sig { returns(T.nilable(UsBankTransferPayments)) }
               def us_bank_transfer_payments; end
@@ -7294,6 +7552,7 @@ module Stripe
                   acss_debit_payments: AcssDebitPayments,
                   affirm_payments: AffirmPayments,
                   afterpay_clearpay_payments: AfterpayClearpayPayments,
+                  alipay_payments: AlipayPayments,
                   alma_payments: AlmaPayments,
                   amazon_pay_payments: AmazonPayPayments,
                   au_becs_debit_payments: AuBecsDebitPayments,
@@ -7330,6 +7589,7 @@ module Stripe
                   revolut_pay_payments: RevolutPayPayments,
                   samsung_pay_payments: SamsungPayPayments,
                   satispay_payments: SatispayPayments,
+                  scalapay_payments: ScalapayPayments,
                   sepa_bank_transfer_payments: SepaBankTransferPayments,
                   sepa_debit_payments: SepaDebitPayments,
                   sequra_payments: SequraPayments,
@@ -7337,6 +7597,7 @@ module Stripe
                   sunbit_payments: SunbitPayments,
                   swish_payments: SwishPayments,
                   twint_payments: TwintPayments,
+                  upi_payments: UpiPayments,
                   us_bank_transfer_payments: UsBankTransferPayments,
                   vipps_payments: VippsPayments,
                   zip_payments: ZipPayments,
@@ -7390,6 +7651,20 @@ module Stripe
                     },
                   },
                   afterpay_clearpay_payments: {
+                    kind: :object,
+                    fields: {
+                      protections: {
+                        kind: :object,
+                        fields: {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        },
+                      },
+                    },
+                  },
+                  alipay_payments: {
                     kind: :object,
                     fields: {
                       protections: {
@@ -7907,6 +8182,20 @@ module Stripe
                       },
                     },
                   },
+                  scalapay_payments: {
+                    kind: :object,
+                    fields: {
+                      protections: {
+                        kind: :object,
+                        fields: {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        },
+                      },
+                    },
+                  },
                   sepa_bank_transfer_payments: {
                     kind: :object,
                     fields: {
@@ -7997,6 +8286,20 @@ module Stripe
                     },
                   },
                   twint_payments: {
+                    kind: :object,
+                    fields: {
+                      protections: {
+                        kind: :object,
+                        fields: {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        },
+                      },
+                    },
+                  },
+                  upi_payments: {
                     kind: :object,
                     fields: {
                       protections: {
@@ -8379,6 +8682,20 @@ module Stripe
                       },
                     },
                     afterpay_clearpay_payments: {
+                      kind: :object,
+                      fields: {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      },
+                    },
+                    alipay_payments: {
                       kind: :object,
                       fields: {
                         protections: {
@@ -8896,6 +9213,20 @@ module Stripe
                         },
                       },
                     },
+                    scalapay_payments: {
+                      kind: :object,
+                      fields: {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      },
+                    },
                     sepa_bank_transfer_payments: {
                       kind: :object,
                       fields: {
@@ -8986,6 +9317,20 @@ module Stripe
                       },
                     },
                     twint_payments: {
+                      kind: :object,
+                      fields: {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      },
+                    },
+                    upi_payments: {
                       kind: :object,
                       fields: {
                         protections: {
@@ -12730,6 +13075,118 @@ module Stripe
                                   fields: {expires_at: :int64_string, requested_at: :int64_string},
                                 },
                               },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  }
+                end
+              end
+              class InboundFundings < ::Stripe::StripeObject
+                class PaperChecks < ::Stripe::StripeObject
+                  class Protections < ::Stripe::StripeObject
+                    class PspMigration < ::Stripe::StripeObject
+                      # The time until which the protection will expire, as a Unix timestamp.
+                      sig { returns(T.nilable(Integer)) }
+                      def expires_at; end
+                      # The time at which the protection was requested, as a Unix timestamp.
+                      sig { returns(Integer) }
+                      def requested_at; end
+                      # The current status of the protection.
+                      sig { returns(String) }
+                      def status; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                      def self.field_encodings
+                        @field_encodings = {expires_at: :int64_string, requested_at: :int64_string}
+                      end
+                    end
+                    # Protection details for PSP migration.
+                    sig { returns(PspMigration) }
+                    def psp_migration; end
+                    def self.inner_class_types
+                      @inner_class_types = {psp_migration: PspMigration}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {
+                        psp_migration: {
+                          kind: :object,
+                          fields: {expires_at: :int64_string, requested_at: :int64_string},
+                        },
+                      }
+                    end
+                  end
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                  sig { returns(Protections) }
+                  def protections; end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                  def self.field_encodings
+                    @field_encodings = {
+                      protections: {
+                        kind: :object,
+                        fields: {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        },
+                      },
+                    }
+                  end
+                end
+                # Can fund a FinancialAccount by paper check.
+                sig { returns(T.nilable(PaperChecks)) }
+                def paper_checks; end
+                def self.inner_class_types
+                  @inner_class_types = {paper_checks: PaperChecks}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+                def self.field_encodings
+                  @field_encodings = {
+                    paper_checks: {
+                      kind: :object,
+                      fields: {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
                             },
                           },
                         },
@@ -19378,6 +19835,9 @@ module Stripe
               # Can send or receive consumer storage-type funds on Stripe.
               sig { returns(T.nilable(ConsumerStorage)) }
               def consumer_storage; end
+              # Hash containing capabilities related to funding a FinancialAccount.
+              sig { returns(T.nilable(InboundFundings)) }
+              def inbound_fundings; end
               # Hash containing capabilities related to InboundTransfers.
               sig { returns(T.nilable(InboundTransfers)) }
               def inbound_transfers; end
@@ -19398,6 +19858,7 @@ module Stripe
                   business_custodial_storage: BusinessCustodialStorage,
                   business_storage: BusinessStorage,
                   consumer_storage: ConsumerStorage,
+                  inbound_fundings: InboundFundings,
                   inbound_transfers: InboundTransfers,
                   outbound_payments: OutboundPayments,
                   outbound_transfers: OutboundTransfers,
@@ -19958,6 +20419,25 @@ module Stripe
                                     },
                                   },
                                 },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                  inbound_fundings: {
+                    kind: :object,
+                    fields: {
+                      paper_checks: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
                               },
                             },
                           },
@@ -21458,6 +21938,25 @@ module Stripe
                         },
                       },
                     },
+                    inbound_fundings: {
+                      kind: :object,
+                      fields: {
+                        paper_checks: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
                     inbound_transfers: {
                       kind: :object,
                       fields: {
@@ -22746,89 +23245,6 @@ module Stripe
                     }
                   end
                 end
-                class Instant < ::Stripe::StripeObject
-                  class Protections < ::Stripe::StripeObject
-                    class PspMigration < ::Stripe::StripeObject
-                      # The time until which the protection will expire, as a Unix timestamp.
-                      sig { returns(T.nilable(Integer)) }
-                      def expires_at; end
-                      # The time at which the protection was requested, as a Unix timestamp.
-                      sig { returns(Integer) }
-                      def requested_at; end
-                      # The current status of the protection.
-                      sig { returns(String) }
-                      def status; end
-                      def self.inner_class_types
-                        @inner_class_types = {}
-                      end
-                      def self.field_remappings
-                        @field_remappings = {}
-                      end
-                      def self.field_encodings
-                        @field_encodings = {expires_at: :int64_string, requested_at: :int64_string}
-                      end
-                    end
-                    # Protection details for PSP migration.
-                    sig { returns(PspMigration) }
-                    def psp_migration; end
-                    def self.inner_class_types
-                      @inner_class_types = {psp_migration: PspMigration}
-                    end
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                    def self.field_encodings
-                      @field_encodings = {
-                        psp_migration: {
-                          kind: :object,
-                          fields: {expires_at: :int64_string, requested_at: :int64_string},
-                        },
-                      }
-                    end
-                  end
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    sig { returns(String) }
-                    def code; end
-                    # Machine-readable code explaining how to make the Capability active.
-                    sig { returns(String) }
-                    def resolution; end
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
-                  sig { returns(Protections) }
-                  def protections; end
-                  # The status of the Capability.
-                  sig { returns(String) }
-                  def status; end
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  sig { returns(T::Array[StatusDetail]) }
-                  def status_details; end
-                  def self.inner_class_types
-                    @inner_class_types = {protections: Protections, status_details: StatusDetail}
-                  end
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                  def self.field_encodings
-                    @field_encodings = {
-                      protections: {
-                        kind: :object,
-                        fields: {
-                          psp_migration: {
-                            kind: :object,
-                            fields: {expires_at: :int64_string, requested_at: :int64_string},
-                          },
-                        },
-                      },
-                    }
-                  end
-                end
                 class Local < ::Stripe::StripeObject
                   class Protections < ::Stripe::StripeObject
                     class PspMigration < ::Stripe::StripeObject
@@ -23078,7 +23494,7 @@ module Stripe
                     }
                   end
                 end
-                class SepaCredit < ::Stripe::StripeObject
+                class Sepa < ::Stripe::StripeObject
                   class Protections < ::Stripe::StripeObject
                     class PspMigration < ::Stripe::StripeObject
                       # The time until which the protection will expire, as a Unix timestamp.
@@ -23327,89 +23743,6 @@ module Stripe
                     }
                   end
                 end
-                class Wire < ::Stripe::StripeObject
-                  class Protections < ::Stripe::StripeObject
-                    class PspMigration < ::Stripe::StripeObject
-                      # The time until which the protection will expire, as a Unix timestamp.
-                      sig { returns(T.nilable(Integer)) }
-                      def expires_at; end
-                      # The time at which the protection was requested, as a Unix timestamp.
-                      sig { returns(Integer) }
-                      def requested_at; end
-                      # The current status of the protection.
-                      sig { returns(String) }
-                      def status; end
-                      def self.inner_class_types
-                        @inner_class_types = {}
-                      end
-                      def self.field_remappings
-                        @field_remappings = {}
-                      end
-                      def self.field_encodings
-                        @field_encodings = {expires_at: :int64_string, requested_at: :int64_string}
-                      end
-                    end
-                    # Protection details for PSP migration.
-                    sig { returns(PspMigration) }
-                    def psp_migration; end
-                    def self.inner_class_types
-                      @inner_class_types = {psp_migration: PspMigration}
-                    end
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                    def self.field_encodings
-                      @field_encodings = {
-                        psp_migration: {
-                          kind: :object,
-                          fields: {expires_at: :int64_string, requested_at: :int64_string},
-                        },
-                      }
-                    end
-                  end
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    sig { returns(String) }
-                    def code; end
-                    # Machine-readable code explaining how to make the Capability active.
-                    sig { returns(String) }
-                    def resolution; end
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
-                  sig { returns(Protections) }
-                  def protections; end
-                  # The status of the Capability.
-                  sig { returns(String) }
-                  def status; end
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  sig { returns(T::Array[StatusDetail]) }
-                  def status_details; end
-                  def self.inner_class_types
-                    @inner_class_types = {protections: Protections, status_details: StatusDetail}
-                  end
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                  def self.field_encodings
-                    @field_encodings = {
-                      protections: {
-                        kind: :object,
-                        fields: {
-                          psp_migration: {
-                            kind: :object,
-                            fields: {expires_at: :int64_string, requested_at: :int64_string},
-                          },
-                        },
-                      },
-                    }
-                  end
-                end
                 # Enables this Account to receive OutboundPayments to linked bank accounts over ACH rails.
                 sig { returns(T.nilable(Ach)) }
                 def ach; end
@@ -23425,9 +23758,6 @@ module Stripe
                 # Enables this Account to receive OutboundPayments to linked bank accounts over FPS rails.
                 sig { returns(T.nilable(Fps)) }
                 def fps; end
-                # Enables this Account to receive OutboundPayments to linked bank accounts over real time rails.
-                sig { returns(T.nilable(Instant)) }
-                def instant; end
                 # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
                 sig { returns(T.nilable(Local)) }
                 def local; end
@@ -23437,18 +23767,15 @@ module Stripe
                 # Enables this Account to receive OutboundPayments to linked bank accounts over RTP rails.
                 sig { returns(T.nilable(Rtp)) }
                 def rtp; end
-                # Enables this Account to receive OutboundPayments to linked bank accounts over SEPA credit rails.
-                sig { returns(T.nilable(SepaCredit)) }
-                def sepa_credit; end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over SEPA rails.
+                sig { returns(T.nilable(Sepa)) }
+                def sepa; end
                 # Enables this Account to receive OutboundPayments to linked bank accounts over SEPA instant (real time) rails.
                 sig { returns(T.nilable(SepaInstant)) }
                 def sepa_instant; end
                 # Enables this Account to receive OutboundPayments to linked bank accounts over SWIFT.
                 sig { returns(T.nilable(Swift)) }
                 def swift; end
-                # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
-                sig { returns(T.nilable(Wire)) }
-                def wire; end
                 def self.inner_class_types
                   @inner_class_types = {
                     ach: Ach,
@@ -23456,14 +23783,12 @@ module Stripe
                     eft: Eft,
                     fedwire: Fedwire,
                     fps: Fps,
-                    instant: Instant,
                     local: Local,
                     npp: Npp,
                     rtp: Rtp,
-                    sepa_credit: SepaCredit,
+                    sepa: Sepa,
                     sepa_instant: SepaInstant,
                     swift: Swift,
-                    wire: Wire,
                   }
                 end
                 def self.field_remappings
@@ -23541,20 +23866,6 @@ module Stripe
                         },
                       },
                     },
-                    instant: {
-                      kind: :object,
-                      fields: {
-                        protections: {
-                          kind: :object,
-                          fields: {
-                            psp_migration: {
-                              kind: :object,
-                              fields: {expires_at: :int64_string, requested_at: :int64_string},
-                            },
-                          },
-                        },
-                      },
-                    },
                     local: {
                       kind: :object,
                       fields: {
@@ -23597,7 +23908,7 @@ module Stripe
                         },
                       },
                     },
-                    sepa_credit: {
+                    sepa: {
                       kind: :object,
                       fields: {
                         protections: {
@@ -23626,20 +23937,6 @@ module Stripe
                       },
                     },
                     swift: {
-                      kind: :object,
-                      fields: {
-                        protections: {
-                          kind: :object,
-                          fields: {
-                            psp_migration: {
-                              kind: :object,
-                              fields: {expires_at: :int64_string, requested_at: :int64_string},
-                            },
-                          },
-                        },
-                      },
-                    },
-                    wire: {
                       kind: :object,
                       fields: {
                         protections: {
@@ -24410,20 +24707,6 @@ module Stripe
                           },
                         },
                       },
-                      instant: {
-                        kind: :object,
-                        fields: {
-                          protections: {
-                            kind: :object,
-                            fields: {
-                              psp_migration: {
-                                kind: :object,
-                                fields: {expires_at: :int64_string, requested_at: :int64_string},
-                              },
-                            },
-                          },
-                        },
-                      },
                       local: {
                         kind: :object,
                         fields: {
@@ -24466,7 +24749,7 @@ module Stripe
                           },
                         },
                       },
-                      sepa_credit: {
+                      sepa: {
                         kind: :object,
                         fields: {
                           protections: {
@@ -24495,20 +24778,6 @@ module Stripe
                         },
                       },
                       swift: {
-                        kind: :object,
-                        fields: {
-                          protections: {
-                            kind: :object,
-                            fields: {
-                              psp_migration: {
-                                kind: :object,
-                                fields: {expires_at: :int64_string, requested_at: :int64_string},
-                              },
-                            },
-                          },
-                        },
-                      },
-                      wire: {
                         kind: :object,
                         fields: {
                           protections: {
@@ -24630,34 +24899,14 @@ module Stripe
                 }
               end
             end
-            class DefaultOutboundDestination < ::Stripe::StripeObject
-              # The payout method ID of the default outbound destination.
-              sig { returns(String) }
-              def id; end
-              # Closed Enum. The payout method type of the default outbound destination.
-              sig { returns(String) }
-              def type; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
             # Indicates whether the recipient configuration is active. You can deactivate or reactivate the recipient configuration by updating this property. Deactivating the configuration by setting this value to false  unrequest all capabilities within the configuration. It will not delete any of the configuration's other properties.
             sig { returns(T::Boolean) }
             def applied; end
             # Capabilities that have been requested on the Recipient Configuration.
             sig { returns(T.nilable(Capabilities)) }
             def capabilities; end
-            # The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard or APIs.
-            sig { returns(T.nilable(DefaultOutboundDestination)) }
-            def default_outbound_destination; end
             def self.inner_class_types
-              @inner_class_types = {
-                capabilities: Capabilities,
-                default_outbound_destination: DefaultOutboundDestination,
-              }
+              @inner_class_types = {capabilities: Capabilities}
             end
             def self.field_remappings
               @field_remappings = {}
@@ -24740,20 +24989,6 @@ module Stripe
                             },
                           },
                         },
-                        instant: {
-                          kind: :object,
-                          fields: {
-                            protections: {
-                              kind: :object,
-                              fields: {
-                                psp_migration: {
-                                  kind: :object,
-                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
-                                },
-                              },
-                            },
-                          },
-                        },
                         local: {
                           kind: :object,
                           fields: {
@@ -24796,7 +25031,7 @@ module Stripe
                             },
                           },
                         },
-                        sepa_credit: {
+                        sepa: {
                           kind: :object,
                           fields: {
                             protections: {
@@ -24825,20 +25060,6 @@ module Stripe
                           },
                         },
                         swift: {
-                          kind: :object,
-                          fields: {
-                            protections: {
-                              kind: :object,
-                              fields: {
-                                psp_migration: {
-                                  kind: :object,
-                                  fields: {expires_at: :int64_string, requested_at: :int64_string},
-                                },
-                              },
-                            },
-                          },
-                        },
-                        wire: {
                           kind: :object,
                           fields: {
                             protections: {
@@ -25403,6 +25624,20 @@ module Stripe
                           },
                         },
                       },
+                      alipay_payments: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
                       alma_payments: {
                         kind: :object,
                         fields: {
@@ -25907,6 +26142,20 @@ module Stripe
                           },
                         },
                       },
+                      scalapay_payments: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
                       sepa_bank_transfer_payments: {
                         kind: :object,
                         fields: {
@@ -26000,6 +26249,20 @@ module Stripe
                         },
                       },
                       twint_payments: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
+                      upi_payments: {
                         kind: :object,
                         fields: {
                           protections: {
@@ -26612,6 +26875,28 @@ module Stripe
                                           requested_at: :int64_string,
                                         },
                                       },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                      inbound_fundings: {
+                        kind: :object,
+                        fields: {
+                          paper_checks: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
                                     },
                                   },
                                 },
@@ -27619,23 +27904,6 @@ module Stripe
                               },
                             },
                           },
-                          instant: {
-                            kind: :object,
-                            fields: {
-                              protections: {
-                                kind: :object,
-                                fields: {
-                                  psp_migration: {
-                                    kind: :object,
-                                    fields: {
-                                      expires_at: :int64_string,
-                                      requested_at: :int64_string,
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
                           local: {
                             kind: :object,
                             fields: {
@@ -27687,7 +27955,7 @@ module Stripe
                               },
                             },
                           },
-                          sepa_credit: {
+                          sepa: {
                             kind: :object,
                             fields: {
                               protections: {
@@ -27722,23 +27990,6 @@ module Stripe
                             },
                           },
                           swift: {
-                            kind: :object,
-                            fields: {
-                              protections: {
-                                kind: :object,
-                                fields: {
-                                  psp_migration: {
-                                    kind: :object,
-                                    fields: {
-                                      expires_at: :int64_string,
-                                      requested_at: :int64_string,
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                          wire: {
                             kind: :object,
                             fields: {
                               protections: {
@@ -27937,6 +28188,115 @@ module Stripe
           end
         end
         class FutureRequirements < ::Stripe::StripeObject
+          class Alternative < ::Stripe::StripeObject
+            class Option < ::Stripe::StripeObject
+              class Entry < ::Stripe::StripeObject
+                class Error < ::Stripe::StripeObject
+                  # Machine-readable code describing the error.
+                  sig { returns(String) }
+                  def code; end
+                  # Human-readable description of the error.
+                  sig { returns(String) }
+                  def description; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class Reference < ::Stripe::StripeObject
+                  # If `inquiry` is the type, the inquiry token.
+                  sig { returns(T.nilable(String)) }
+                  def inquiry; end
+                  # If `resource` is the type, the resource token.
+                  sig { returns(T.nilable(String)) }
+                  def resource; end
+                  # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+                  # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+                  sig { returns(String) }
+                  def type; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Indicates whether the user or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
+                sig { returns(String) }
+                def awaiting_action_from; end
+                # Machine-readable string describing the requirement.
+                sig { returns(String) }
+                def description; end
+                # Descriptions of why the requirement must be collected, or why the collected information isn't satisfactory to Stripe.
+                sig { returns(T::Array[Error]) }
+                def errors; end
+                # A reference to the location of the requirement.
+                sig { returns(T.nilable(Reference)) }
+                def reference; end
+                def self.inner_class_types
+                  @inner_class_types = {errors: Error, reference: Reference}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The requirements that must all be provided to satisfy this option.
+              sig { returns(T::Array[Entry]) }
+              def entries; end
+              def self.inner_class_types
+                @inner_class_types = {entries: Entry}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class OriginalEntry < ::Stripe::StripeObject
+              class Reference < ::Stripe::StripeObject
+                # If `inquiry` is the type, the inquiry token.
+                sig { returns(T.nilable(String)) }
+                def inquiry; end
+                # If `resource` is the type, the resource token.
+                sig { returns(T.nilable(String)) }
+                def resource; end
+                # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+                # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+                sig { returns(String) }
+                def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Machine-readable string describing the requirement.
+              sig { returns(String) }
+              def description; end
+              # A reference to the location of the requirement.
+              sig { returns(T.nilable(Reference)) }
+              def reference; end
+              def self.inner_class_types
+                @inner_class_types = {reference: Reference}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The alternative sets of requirements that can be provided. Providing every entry in any one of these options resolves all of the requirements in `original_entries`.
+            sig { returns(T::Array[Option]) }
+            def options; end
+            # The requirements that can be satisfied either directly, or by providing every entry in any one of `options`.
+            sig { returns(T::Array[OriginalEntry]) }
+            def original_entries; end
+            def self.inner_class_types
+              @inner_class_types = {options: Option, original_entries: OriginalEntry}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Entry < ::Stripe::StripeObject
             class Error < ::Stripe::StripeObject
               # Machine-readable code describing the error.
@@ -28031,7 +28391,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Indicates whether the platform or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
+            # Indicates whether the user or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
             sig { returns(String) }
             def awaiting_action_from; end
             # Machine-readable string describing the requirement.
@@ -28090,6 +28450,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # A list of alternative sets of requirements that can be provided in lieu of requirements in `entries`.
+          sig { returns(T.nilable(T::Array[Alternative])) }
+          def alternatives; end
           # A list of requirements for the Account.
           sig { returns(T.nilable(T::Array[Entry])) }
           def entries; end
@@ -28100,7 +28463,7 @@ module Stripe
           sig { returns(T.nilable(Summary)) }
           def summary; end
           def self.inner_class_types
-            @inner_class_types = {entries: Entry, summary: Summary}
+            @inner_class_types = {alternatives: Alternative, entries: Entry, summary: Summary}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -29389,7 +29752,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
+              # Details on the Account's acceptance of the Stripe Services Agreement.
               sig { returns(T.nilable(Account)) }
               def account; end
               # Details on the Account's acceptance of Issuing-specific terms of service.
@@ -29527,7 +29890,7 @@ module Stripe
             end
             class Documents < ::Stripe::StripeObject
               class BankAccountOwnershipVerification < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -29541,7 +29904,7 @@ module Stripe
                 end
               end
               class CompanyLicense < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -29555,7 +29918,7 @@ module Stripe
                 end
               end
               class CompanyMemorandumOfAssociation < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -29569,7 +29932,7 @@ module Stripe
                 end
               end
               class CompanyMinisterialDecree < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -29583,7 +29946,7 @@ module Stripe
                 end
               end
               class CompanyRegistrationVerification < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -29597,7 +29960,7 @@ module Stripe
                 end
               end
               class CompanyTaxIdVerification < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -29612,10 +29975,10 @@ module Stripe
               end
               class PrimaryVerification < ::Stripe::StripeObject
                 class FrontBack < ::Stripe::StripeObject
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(String) }
                   def front; end
                   def self.inner_class_types
@@ -29625,7 +29988,7 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
+                # The [file upload](https://docs.stripe.com/api/files/create) tokens for the front and back of the verification document.
                 sig { returns(FrontBack) }
                 def front_back; end
                 # The format of the verification document. Currently supports `front_back` only.
@@ -29639,7 +30002,21 @@ module Stripe
                 end
               end
               class ProofOfAddress < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
+                sig { returns(T::Array[String]) }
+                def files; end
+                # The format of the document. Currently supports `files` only.
+                sig { returns(String) }
+                def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class ProofOfBusinessPresence < ::Stripe::StripeObject
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -29664,7 +30041,7 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # Person that is signing the document.
@@ -29692,7 +30069,7 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # Person that is signing the document.
@@ -29732,6 +30109,9 @@ module Stripe
               # One or more documents that demonstrate proof of address.
               sig { returns(T.nilable(ProofOfAddress)) }
               def proof_of_address; end
+              # One or more documents that demonstrate proof of business presence.
+              sig { returns(T.nilable(ProofOfBusinessPresence)) }
+              def proof_of_business_presence; end
               # One or more documents showing the company's proof of registration with the national business registry.
               sig { returns(T.nilable(ProofOfRegistration)) }
               def proof_of_registration; end
@@ -29748,6 +30128,7 @@ module Stripe
                   company_tax_id_verification: CompanyTaxIdVerification,
                   primary_verification: PrimaryVerification,
                   proof_of_address: ProofOfAddress,
+                  proof_of_business_presence: ProofOfBusinessPresence,
                   proof_of_registration: ProofOfRegistration,
                   proof_of_ultimate_beneficial_ownership: ProofOfUltimateBeneficialOwnership,
                 }
@@ -30094,7 +30475,7 @@ module Stripe
             end
             class Documents < ::Stripe::StripeObject
               class CompanyAuthorization < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -30108,7 +30489,7 @@ module Stripe
                 end
               end
               class Passport < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -30123,10 +30504,10 @@ module Stripe
               end
               class PrimaryVerification < ::Stripe::StripeObject
                 class FrontBack < ::Stripe::StripeObject
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(String) }
                   def front; end
                   def self.inner_class_types
@@ -30136,7 +30517,7 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
+                # The [file upload](https://docs.stripe.com/api/files/create) tokens for the front and back of the verification document.
                 sig { returns(FrontBack) }
                 def front_back; end
                 # The format of the verification document. Currently supports `front_back` only.
@@ -30151,10 +30532,10 @@ module Stripe
               end
               class SecondaryVerification < ::Stripe::StripeObject
                 class FrontBack < ::Stripe::StripeObject
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(String) }
                   def front; end
                   def self.inner_class_types
@@ -30164,7 +30545,7 @@ module Stripe
                     @field_remappings = {}
                   end
                 end
-                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
+                # The [file upload](https://docs.stripe.com/api/files/create) tokens for the front and back of the verification document.
                 sig { returns(FrontBack) }
                 def front_back; end
                 # The format of the verification document. Currently supports `front_back` only.
@@ -30178,7 +30559,7 @@ module Stripe
                 end
               end
               class Visa < ::Stripe::StripeObject
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 # The format of the document. Currently supports `files` only.
@@ -30507,6 +30888,28 @@ module Stripe
             }
           end
         end
+        class Rejection < ::Stripe::StripeObject
+          class PlatformRejection < ::Stripe::StripeObject
+            # The reason the platform rejected the Account.
+            sig { returns(String) }
+            def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Details about the platform's rejection of the Account. Null if the platform hasn't rejected the Account.
+          sig { returns(T.nilable(PlatformRejection)) }
+          def platform_rejection; end
+          def self.inner_class_types
+            @inner_class_types = {platform_rejection: PlatformRejection}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class RelatedNetworkObject < ::Stripe::StripeObject
           # The ID of the network business profile associated with this Account.
           sig { returns(T.nilable(String)) }
@@ -30522,6 +30925,115 @@ module Stripe
           end
         end
         class Requirements < ::Stripe::StripeObject
+          class Alternative < ::Stripe::StripeObject
+            class Option < ::Stripe::StripeObject
+              class Entry < ::Stripe::StripeObject
+                class Error < ::Stripe::StripeObject
+                  # Machine-readable code describing the error.
+                  sig { returns(String) }
+                  def code; end
+                  # Human-readable description of the error.
+                  sig { returns(String) }
+                  def description; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class Reference < ::Stripe::StripeObject
+                  # If `inquiry` is the type, the inquiry token.
+                  sig { returns(T.nilable(String)) }
+                  def inquiry; end
+                  # If `resource` is the type, the resource token.
+                  sig { returns(T.nilable(String)) }
+                  def resource; end
+                  # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+                  # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+                  sig { returns(String) }
+                  def type; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Indicates whether the user or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
+                sig { returns(String) }
+                def awaiting_action_from; end
+                # Machine-readable string describing the requirement.
+                sig { returns(String) }
+                def description; end
+                # Descriptions of why the requirement must be collected, or why the collected information isn't satisfactory to Stripe.
+                sig { returns(T::Array[Error]) }
+                def errors; end
+                # A reference to the location of the requirement.
+                sig { returns(T.nilable(Reference)) }
+                def reference; end
+                def self.inner_class_types
+                  @inner_class_types = {errors: Error, reference: Reference}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The requirements that must all be provided to satisfy this option.
+              sig { returns(T::Array[Entry]) }
+              def entries; end
+              def self.inner_class_types
+                @inner_class_types = {entries: Entry}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class OriginalEntry < ::Stripe::StripeObject
+              class Reference < ::Stripe::StripeObject
+                # If `inquiry` is the type, the inquiry token.
+                sig { returns(T.nilable(String)) }
+                def inquiry; end
+                # If `resource` is the type, the resource token.
+                sig { returns(T.nilable(String)) }
+                def resource; end
+                # The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+                # Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+                sig { returns(String) }
+                def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Machine-readable string describing the requirement.
+              sig { returns(String) }
+              def description; end
+              # A reference to the location of the requirement.
+              sig { returns(T.nilable(Reference)) }
+              def reference; end
+              def self.inner_class_types
+                @inner_class_types = {reference: Reference}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The alternative sets of requirements that can be provided. Providing every entry in any one of these options resolves all of the requirements in `original_entries`.
+            sig { returns(T::Array[Option]) }
+            def options; end
+            # The requirements that can be satisfied either directly, or by providing every entry in any one of `options`.
+            sig { returns(T::Array[OriginalEntry]) }
+            def original_entries; end
+            def self.inner_class_types
+              @inner_class_types = {options: Option, original_entries: OriginalEntry}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Entry < ::Stripe::StripeObject
             class Error < ::Stripe::StripeObject
               # Machine-readable code describing the error.
@@ -30616,7 +31128,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Indicates whether the platform or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
+            # Indicates whether the user or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
             sig { returns(String) }
             def awaiting_action_from; end
             # Machine-readable string describing the requirement.
@@ -30675,6 +31187,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # A list of alternative sets of requirements that can be provided in lieu of requirements in `entries`.
+          sig { returns(T.nilable(T::Array[Alternative])) }
+          def alternatives; end
           # A list of requirements for the Account.
           sig { returns(T.nilable(T::Array[Entry])) }
           def entries; end
@@ -30682,7 +31197,7 @@ module Stripe
           sig { returns(T.nilable(Summary)) }
           def summary; end
           def self.inner_class_types
-            @inner_class_types = {entries: Entry, summary: Summary}
+            @inner_class_types = {alternatives: Alternative, entries: Entry, summary: Summary}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -30733,6 +31248,9 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
+        # Information about the rejection of the Account. Null if the platform has not rejected the Account.
+        sig { returns(T.nilable(Rejection)) }
+        def rejection; end
         # The network object related to this Account.
         sig { returns(T.nilable(RelatedNetworkObject)) }
         def related_network_object; end

@@ -59,6 +59,8 @@ module Stripe
         attr_reader :grouping_key
         # The user impact.
         attr_reader :impact
+        # The severity of the alert.
+        attr_reader :severity
         # The time when impact on the user experience was first detected.
         attr_reader :started_at
         # A short description of the alert.

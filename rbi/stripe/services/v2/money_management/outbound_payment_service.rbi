@@ -19,9 +19,10 @@ module Stripe
         #
         # ** raises BlockedByStripeError
         # ** raises InsufficientFundsError
-        # ** raises FeatureNotEnabledError
+        # ** raises CapabilityNotEnabledError
         # ** raises QuotaExceededError
         # ** raises RecipientNotNotifiableError
+        # ** raises FeatureNotEnabledError
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::OutboundPaymentCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::OutboundPayment)
          }

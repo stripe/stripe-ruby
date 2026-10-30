@@ -36,11 +36,36 @@ module Stripe
           end
         end
         class CustomerRisk < ::Stripe::StripeObject
+          class AdditionalDetails < ::Stripe::StripeObject
+            class Indicator < ::Stripe::StripeObject
+              # The name of the customer risk indicator.
+              sig { returns(String) }
+              def indicator; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Indicators providing risk context. Not all indicators directly contribute to the overall risk level.
+            sig { returns(T::Array[Indicator]) }
+            def indicators; end
+            def self.inner_class_types
+              @inner_class_types = {indicators: Indicator}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Supplementary contextual data for the signal, including indicators. Absent when no indicators are available.
+          sig { returns(T.nilable(AdditionalDetails)) }
+          def additional_details; end
           # Categorical assessment of the customer's risk of fraudulent or abusive activity.
           sig { returns(String) }
           def risk_level; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {additional_details: AdditionalDetails}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -260,11 +285,11 @@ module Stripe
             @field_encodings = {score: :decimal_string}
           end
         end
-        class UserMerchantFit < ::Stripe::StripeObject
-          # Categorical assessment of the user-merchant fit.
+        class UserAffinity < ::Stripe::StripeObject
+          # Categorical assessment of the user affinity.
           sig { returns(String) }
-          def fit_level; end
-          # The specific fit score for the user, between 0.00 and 100.00. Absent when fit_level is unknown.
+          def level; end
+          # The specific affinity score for the user, between 0.00 and 100.00. Absent when level is unknown.
           sig { returns(T.nilable(BigDecimal)) }
           def score; end
           def self.inner_class_types
@@ -337,9 +362,9 @@ module Stripe
         # Data for the user account-sharing signal. Present only when type is user_account_sharing.
         sig { returns(T.nilable(UserAccountSharing)) }
         def user_account_sharing; end
-        # Data for the user-merchant fit signal. Present only when type is user_merchant_fit.
-        sig { returns(T.nilable(UserMerchantFit)) }
-        def user_merchant_fit; end
+        # Data for the user affinity signal. Present only when type is user_affinity.
+        sig { returns(T.nilable(UserAffinity)) }
+        def user_affinity; end
         # Data for the user multi-accounting signal. Present only when type is user_multi_accounting.
         sig { returns(T.nilable(UserMultiAccounting)) }
         def user_multi_accounting; end

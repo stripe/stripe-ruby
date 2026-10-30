@@ -20,6 +20,7 @@ module Stripe
 
         # Fetches the current state and details of a previously created `ReportRun`. If the
         # `ReportRun` has succeeded, the endpoint provides details for how to retrieve the results.
+        # Returns a `404` error if the `ReportRun` doesn't exist or its retention period has ended.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,

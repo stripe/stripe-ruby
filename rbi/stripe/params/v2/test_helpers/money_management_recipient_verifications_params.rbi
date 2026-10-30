@@ -17,7 +17,7 @@ module Stripe
         def payout_method; end
         sig { params(_payout_method: String).returns(String) }
         def payout_method=(_payout_method); end
-        # ID of the recipient account. Required if the recipient distinct from the sender. Leave empty if the recipient and sender are the same entity (i.e. for me-to-me payouts).
+        # ID of the recipient account. Required if the recipient is different from the sender. Omit for payouts to your own account.
         sig { returns(T.nilable(String)) }
         def recipient; end
         sig { params(_recipient: T.nilable(String)).returns(T.nilable(String)) }

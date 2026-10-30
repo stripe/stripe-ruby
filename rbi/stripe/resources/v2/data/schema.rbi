@@ -16,6 +16,9 @@ module Stripe
             # The identifier of the referenced schema.
             sig { returns(String) }
             def schema; end
+            # The name of the referenced schema.
+            sig { returns(String) }
+            def schema_name; end
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -30,6 +33,9 @@ module Stripe
             # The identifier of the referenced schema.
             sig { returns(String) }
             def schema; end
+            # The name of the referenced schema.
+            sig { returns(String) }
+            def schema_name; end
             def self.inner_class_types
               @inner_class_types = {}
             end

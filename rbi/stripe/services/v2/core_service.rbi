@@ -8,6 +8,7 @@ module Stripe
       attr_reader :accounts
       attr_reader :account_evaluations
       attr_reader :account_links
+      attr_reader :account_sessions
       attr_reader :account_tokens
       attr_reader :approval_requests
       attr_reader :batch_jobs

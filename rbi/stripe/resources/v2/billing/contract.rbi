@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      # Contract resource representing a comprehensive sales agreement
+      # Contract resource representing a comprehensive sales agreement.
       class Contract < APIResource
         class BillingCycleAnchor < ::Stripe::StripeObject
           # The billing cycle anchor as a UTC timestamp.
@@ -519,6 +519,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Terms < ::Stripe::StripeObject
+          # All terms in display order.
+          sig { returns(T::Array[::Stripe::V2::Billing::ContractTerm]) }
+          def data; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The billing cycle anchor.
         sig { returns(T.nilable(BillingCycleAnchor)) }
         def billing_cycle_anchor; end
@@ -570,6 +581,9 @@ module Stripe
         # Historical timestamps of when the contract transitioned into each status.
         sig { returns(T.nilable(StatusTransitions)) }
         def status_transitions; end
+        # All terms in display order. Only populated when `terms` is included.
+        sig { returns(T.nilable(Terms)) }
+        def terms; end
       end
     end
   end

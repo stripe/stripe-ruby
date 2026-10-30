@@ -201,6 +201,9 @@ module Stripe
     end
   end
 
+  class CapabilityNotEnabledError < StripeError
+  end
+
   class ControlledByAlternateResourceError < StripeError
   end
 

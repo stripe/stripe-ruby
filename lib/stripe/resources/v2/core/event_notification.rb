@@ -63,7 +63,7 @@ module Stripe
           @related_object = related_object_class.new(event_payload[:related_object]) if event_payload[:related_object]
 
           # internal use
-          @client = client
+          @client = client.with_stripe_context(@context)
         end
 
         # Retrieves the Event that generated this EventNotification.

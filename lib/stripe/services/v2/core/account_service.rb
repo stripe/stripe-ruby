@@ -56,6 +56,19 @@ module Stripe
           )
         end
 
+        # Rejects an Account and prevents it from operating across its configurations.
+        #
+        # ** raises RateLimitError
+        def reject(id, params = {}, opts = {})
+          request(
+            method: :post,
+            path: format("/v2/core/accounts/%<id>s/reject", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
         # Retrieves the details of an Account.
         #
         # ** raises RateLimitError
@@ -63,6 +76,19 @@ module Stripe
           request(
             method: :get,
             path: format("/v2/core/accounts/%<id>s", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
+        # Reverses a platform rejection on an Account. Restrictions applied by Stripe or other risk controls remain in place.
+        #
+        # ** raises RateLimitError
+        def unreject(id, params = {}, opts = {})
+          request(
+            method: :post,
+            path: format("/v2/core/accounts/%<id>s/unreject", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api

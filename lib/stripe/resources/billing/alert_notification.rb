@@ -20,7 +20,9 @@ module Stripe
       attr_reader :alert
       # The type of billing alert that generated this notification.
       attr_reader :alert_type
-      # The billing cadence associated with this notification. Only present for spend threshold alerts grouped by billing cadence.
+      # The billing group associated with this notification. Only present for spend threshold alerts grouped by billing group.
+      attr_reader :billing_group
+      # The cadence associated with this notification. Only present for spend threshold alerts grouped by cadence.
       attr_reader :cadence
       # Three-letter ISO currency code for the value, in lowercase. Only present for spend and credit balance threshold alerts.
       attr_reader :currency
@@ -30,7 +32,7 @@ module Stripe
       attr_reader :customer
       # Unique identifier for the object.
       attr_reader :id
-      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+      # The value is `true` for objects in live mode and `false` for objects in a sandbox. For accounts that still have access to legacy test mode, the value is also `false` for objects in that mode.
       attr_reader :livemode
       # ID of the billing meter associated with this notification. Only present for usage threshold alerts.
       attr_reader :meter

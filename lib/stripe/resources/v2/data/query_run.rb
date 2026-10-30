@@ -6,7 +6,9 @@ module Stripe
     module Data
       # The `QueryRun` resource represents an execution of ad-hoc SQL against a dataset. Once
       # created, Stripe processes the query. When the query has finished running, the object
-      # provides a reference to the results.
+      # provides a reference to the results. A `QueryRun` and its results are retained for 90 days
+      # after the run completes. After that, Stripe deletes them and retrieving the `QueryRun`
+      # returns a `404` error.
       class QueryRun < APIResource
         OBJECT_NAME = "v2.data.query_run"
         def self.object_name
@@ -14,7 +16,7 @@ module Stripe
         end
 
         class Query < ::Stripe::StripeObject
-          # Ad-hoc SQL to execute.
+          # Ad-hoc SQL to execute. The maximum length is 100,000 characters.
           attr_reader :sql
 
           def self.inner_class_types
@@ -152,9 +154,9 @@ module Stripe
         end
 
         class ResultOptions < ::Stripe::StripeObject
-          # If set, the generated result file is compressed into a ZIP archive before
-          # it is stored. This applies only to downloadable file results.
-          attr_reader :compress_file
+          # The compression applied to the generated result file. Defaults to `none`. This applies
+          # only to downloadable file results.
+          attr_reader :compression
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -166,15 +168,31 @@ module Stripe
         end
 
         class StatusDetails < ::Stripe::StripeObject
+          class QueryError < ::Stripe::StripeObject
+            # A human-readable description of the error.
+            attr_reader :message
+            # A short identifier categorizing the type of error.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Time at which the run was canceled. Populated when the run is in the `canceled` state.
           attr_reader :canceled_at
           # Error code categorizing the reason the run failed.
           attr_reader :code
           # Error message with additional details about the failure.
           attr_reader :message
+          # Errors found in the submitted SQL. Populated when the failure was caused by invalid SQL.
+          attr_reader :query_errors
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { query_errors: QueryError }
           end
 
           def self.field_remappings

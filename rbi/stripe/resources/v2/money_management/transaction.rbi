@@ -5,16 +5,17 @@
 module Stripe
   module V2
     module MoneyManagement
-      # Use Transactions to view changes to your FinancialAccount balance over time. Every flow that moves money, such as OutboundPayments or ReceivedCredits, will have one or more Transactions that describes how the flow impacted your balance. Note that while the FinancialAccount balance will always be up to date, be aware that Transactions and TransactionEntries are created shortly after to reflect changes.
+      # A Transaction records how a money movement flow affects your FinancialAccount balance.
+      # A flow can create one or more Transactions.
       class Transaction < APIResource
         class BalanceImpact < ::Stripe::StripeObject
-          # Impact to the available balance.
+          # The change to the available balance.
           sig { returns(::Stripe::V2::Amount) }
           def available; end
-          # Impact to the inbound_pending balance.
+          # The change to the `inbound_pending` balance.
           sig { returns(::Stripe::V2::Amount) }
           def inbound_pending; end
-          # Impact to the outbound_pending balance.
+          # The change to the `outbound_pending` balance.
           sig { returns(::Stripe::V2::Amount) }
           def outbound_pending; end
           def self.inner_class_types
@@ -51,7 +52,7 @@ module Stripe
           # If applicable, the ID of the Charge that created this Transaction.
           sig { returns(T.nilable(String)) }
           def charge; end
-          # In the future, this will be the ID of the currency conversion that created this Transaction. For now, this field is always null.
+          # When available, the ID of the CurrencyConversion that created this Transaction.
           sig { returns(T.nilable(String)) }
           def currency_conversion; end
           # If applicable, the ID of the DebitDispute that created this Transaction.
@@ -63,9 +64,9 @@ module Stripe
           # If applicable, the ID of the EarnedCredit that created this Transaction.
           sig { returns(T.nilable(String)) }
           def earned_credit; end
-          # If applicable, the ID of the FeeTransaction that created this Transaction.
+          # If applicable, the ID of the FeeBatch that created this Transaction.
           sig { returns(T.nilable(String)) }
-          def fee_transaction; end
+          def fee_batch; end
           # If applicable, the ID of the InboundTransfer that created this Transaction.
           sig { returns(T.nilable(String)) }
           def inbound_transfer; end
@@ -138,7 +139,7 @@ module Stripe
           # If applicable, the ID of the Treasury ReceivedDebit that created this Transaction.
           sig { returns(T.nilable(String)) }
           def treasury_received_debit; end
-          # Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
+          # Open Enum. The type of flow that created the Transaction. When available, the flow's ID is provided in the corresponding field.
           sig { returns(String) }
           def type; end
           def self.inner_class_types
@@ -166,10 +167,10 @@ module Stripe
           end
         end
         class StatusTransitions < ::Stripe::StripeObject
-          # The time at which the Transaction became posted. Only present if status == posted.
+          # The time at which the Transaction became `posted`. Only present when `status` is `posted`.
           sig { returns(T.nilable(String)) }
           def posted_at; end
-          # The time at which the Transaction became void. Only present if status == void.
+          # The time at which the Transaction became `void`. Only present when `status` is `void`.
           sig { returns(T.nilable(String)) }
           def void_at; end
           def self.inner_class_types
@@ -182,27 +183,30 @@ module Stripe
         # The amount of the Transaction.
         sig { returns(::Stripe::V2::Amount) }
         def amount; end
-        # The delta to the FinancialAccount's balance. The balance_impact for the Transaction is equal to sum of its
-        # TransactionEntries that have `effective_at`s in the past.
+        # The change to the FinancialAccount's balance. This is the sum of the balance impacts of this Transaction's
+        # TransactionEntries with `effective_at` timestamps in the past.
         sig { returns(BalanceImpact) }
         def balance_impact; end
-        # Open Enum. A descriptive category used to classify the Transaction.
+        # Open Enum. A category used to classify the Transaction.
         sig { returns(String) }
         def category; end
-        # Counterparty to this Transaction.
+        # Details about the counterparty to this Transaction.
         sig { returns(T.nilable(Counterparty)) }
         def counterparty; end
-        # Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+        # Time at which the object was created. Represented as an RFC 3339 timestamp in UTC with millisecond precision, for example `2022-09-18T13:22:18.123Z`.
         sig { returns(String) }
         def created; end
-        # Description of this Transaction. When applicable, the description is copied from the Flow object at the time
-        # of transaction creation.
+        # A description of the Transaction. When applicable, the description is copied from the flow object when
+        # the Transaction is created. You can update it using the Update Transaction endpoint.
         sig { returns(T.nilable(String)) }
         def description; end
-        # Indicates the FinancialAccount affected by this Transaction.
+        # The ID of the FinancialAccount affected by this Transaction.
         sig { returns(String) }
         def financial_account; end
-        # Details about the Flow object that created the Transaction.
+        # Details about the flow object that created the Transaction, such as an InboundTransfer or OutboundPayment.
+        # `flow.type` identifies the kind of object. The corresponding field contains its ID, when available:
+        # for an InboundTransfer, `flow.inbound_transfer` contains the InboundTransfer's ID. Pass that ID to
+        # the `flow` parameter on List Transactions.
         sig { returns(T.nilable(Flow)) }
         def flow; end
         # Unique identifier for the object.
@@ -218,17 +222,17 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Hosted transaction receipt that is provided when money movement is considered regulated under Stripe's money transmission licenses. If not applicable, `regulatory_receipt.status` will be `not_applicable` and no URL will be provided.
+        # Hosted transaction receipt that is provided when money movement is considered regulated under Stripe's money transmission licenses. If not applicable, `regulatory_receipt.status` will be `not_applicable` and no URL will be provided unless you opt in by calling `/refresh_regulatory_receipt`.
         sig { returns(RegulatoryReceipt) }
         def regulatory_receipt; end
-        # Closed Enum. Current status of the Transaction.
+        # Closed Enum. The current status of the Transaction.
         # A Transaction is `pending` if either `balance_impact.inbound_pending` or `balance_impact.outbound_pending` is non-zero.
         # A Transaction is `posted` if only `balance_impact.available` is non-zero.
         # A Transaction is `void` if there is no balance impact.
-        # `posted` and `void` are terminal states, and no additional entries will be added to the Transaction.
+        # `posted` and `void` are terminal states, and no additional TransactionEntries will be added to the Transaction.
         sig { returns(String) }
         def status; end
-        # Timestamps for when the Transaction transitioned to a particular status.
+        # Timestamps for when the Transaction transitioned to each status.
         sig { returns(StatusTransitions) }
         def status_transitions; end
         # The v1 Treasury transaction associated with this transaction.

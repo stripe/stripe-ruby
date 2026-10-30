@@ -243,6 +243,8 @@ module Stripe
         V2::Billing::Contract.object_name => V2::Billing::Contract,
         V2::Billing::ContractPricingLineQuantityChange.object_name =>
         V2::Billing::ContractPricingLineQuantityChange,
+        V2::Billing::ContractTerm.object_name => V2::Billing::ContractTerm,
+        V2::Billing::ContractTermQuantityChange.object_name => V2::Billing::ContractTermQuantityChange,
         V2::Billing::CustomPricingUnit.object_name => V2::Billing::CustomPricingUnit,
         V2::Billing::Intent.object_name => V2::Billing::Intent,
         V2::Billing::IntentAction.object_name => V2::Billing::IntentAction,
@@ -272,6 +274,7 @@ module Stripe
         V2::Core::AccountLink.object_name => V2::Core::AccountLink,
         V2::Core::AccountPerson.object_name => V2::Core::AccountPerson,
         V2::Core::AccountPersonToken.object_name => V2::Core::AccountPersonToken,
+        V2::Core::AccountSession.object_name => V2::Core::AccountSession,
         V2::Core::AccountToken.object_name => V2::Core::AccountToken,
         V2::Core::ApprovalRequest.object_name => V2::Core::ApprovalRequest,
         V2::Core::BatchJob.object_name => V2::Core::BatchJob,
@@ -317,7 +320,9 @@ module Stripe
         V2::MoneyManagement::FinancialAddressDebitSimulation,
         V2::MoneyManagement::FinancialAddressGeneratedMicrodeposits.object_name =>
         V2::MoneyManagement::FinancialAddressGeneratedMicrodeposits,
+        V2::MoneyManagement::FundingIntent.object_name => V2::MoneyManagement::FundingIntent,
         V2::MoneyManagement::FundingSession.object_name => V2::MoneyManagement::FundingSession,
+        V2::MoneyManagement::InboundFunding.object_name => V2::MoneyManagement::InboundFunding,
         V2::MoneyManagement::InboundTransfer.object_name => V2::MoneyManagement::InboundTransfer,
         V2::MoneyManagement::InboundTransferMandate.object_name =>
         V2::MoneyManagement::InboundTransferMandate,
@@ -334,6 +339,10 @@ module Stripe
         V2::MoneyManagement::ReceivedDebitMandate.object_name => V2::MoneyManagement::ReceivedDebitMandate,
         V2::MoneyManagement::RecipientVerification.object_name =>
         V2::MoneyManagement::RecipientVerification,
+        V2::MoneyManagement::RewardProgram.object_name => V2::MoneyManagement::RewardProgram,
+        V2::MoneyManagement::RewardProgramEnrollment.object_name =>
+        V2::MoneyManagement::RewardProgramEnrollment,
+        V2::MoneyManagement::RewardProgramRule.object_name => V2::MoneyManagement::RewardProgramRule,
         V2::MoneyManagement::Transaction.object_name => V2::MoneyManagement::Transaction,
         V2::MoneyManagement::TransactionEntry.object_name => V2::MoneyManagement::TransactionEntry,
         V2::Network::BusinessProfile.object_name => V2::Network::BusinessProfile,
@@ -356,7 +365,7 @@ module Stripe
         V2::Provisioning::ResourceAccessConfiguration,
         V2::Reporting::Report.object_name => V2::Reporting::Report,
         V2::Reporting::ReportRun.object_name => V2::Reporting::ReportRun,
-        V2::Risk::Inquiry.object_name => V2::Risk::Inquiry,
+        V2::Risk::Form.object_name => V2::Risk::Form,
         V2::Signals::AccountActivity.object_name => V2::Signals::AccountActivity,
         V2::Signals::AccountEvaluation.object_name => V2::Signals::AccountEvaluation,
         V2::Signals::AccountSignal.object_name => V2::Signals::AccountSignal,

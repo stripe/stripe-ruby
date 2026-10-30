@@ -55,10 +55,19 @@ module Stripe
           # Send microdeposits in order to verify your US Bank Account so it is eligible to transfer funds. This will start the verification process and you must Confirm Microdeposits to successfully verify your US Bank Account.
           #
           # ** raises ControlledByAlternateResourceError
+          # ** raises CannotProceedError
           sig {
             params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountSendMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::UsBankAccount)
            }
           def send_microdeposits(id, params = {}, opts = {}); end
+
+          # Unarchive a USBankAccount object.
+          #
+          # ** raises ControlledByAlternateResourceError
+          sig {
+            params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountUnarchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::UsBankAccount)
+           }
+          def unarchive(id, params = {}, opts = {}); end
 
           # Update a USBankAccount object. This is limited to supplying a previously empty routing_number field.
           #

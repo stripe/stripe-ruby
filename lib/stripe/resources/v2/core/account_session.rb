@@ -238,6 +238,30 @@ module Stripe
             end
           end
 
+          class BusinessProfileManagement < ::Stripe::StripeObject
+            class Scopes < ::Stripe::StripeObject
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Whether this embedded component is enabled.
+            attr_reader :enabled
+            # The scopes available to this embedded component.
+            attr_reader :scopes
+
+            def self.inner_class_types
+              @inner_class_types = { scopes: Scopes }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class CapitalFinancing < ::Stripe::StripeObject
             class Scopes < ::Stripe::StripeObject
               def self.inner_class_types
@@ -1114,6 +1138,8 @@ module Stripe
           attr_reader :balances
           # Settings for the Bills embedded component.
           attr_reader :bills
+          # Settings for the Business Profile Management embedded component.
+          attr_reader :business_profile_management
           # Settings for the Capital Financing embedded component.
           attr_reader :capital_financing
           # Settings for the Capital Financing Application embedded component.
@@ -1187,6 +1213,7 @@ module Stripe
               balance_report: BalanceReport,
               balances: Balances,
               bills: Bills,
+              business_profile_management: BusinessProfileManagement,
               capital_financing: CapitalFinancing,
               capital_financing_application: CapitalFinancingApplication,
               capital_financing_promotion: CapitalFinancingPromotion,

@@ -84,12 +84,47 @@ module Stripe
                        has_entries(params: { query: "widgets" }))
                  .returns([{ object: "v2.search_result", data: [] }, nil])
 
-        service.request(
+        service.request_v2_search(
           method: :post,
           path: "/v2/widgets/search",
           base_address: :api,
           params: params
         )
+        assert_equal 2, params.limit
+        assert_equal "widgets", params.query
+      end
+    end
+
+    context "v2 search dispatch" do
+      [
+        ["/v2/widgets/search", { limit: 2, query: "widgets" }, "/v2/widgets/search?limit=2", { query: "widgets" }],
+        ["/v2/widgets/search", { "limit" => 2, "query" => "widgets" }, "/v2/widgets/search?limit=2", { "query" => "widgets" }],
+        ["/v2/widgets/search?page=2&limit=2", { limit: 9, query: "widgets" }, "/v2/widgets/search?page=2&limit=2", { query: "widgets" }],
+        ["/v2/widgets/search?page=2", { limit: 9, query: "widgets" }, "/v2/widgets/search?page=2", { query: "widgets" }],
+        ["/v2/widgets/search", { query: "widgets" }, "/v2/widgets/search", { query: "widgets" }],
+      ].each_with_index do |(path, params, expected_path, body), index|
+        should "prepare and delegate search once for case #{index}" do
+          service = StripeService.new(nil)
+          original = params.dup
+          opts = { stripe_account: "acct_123" }
+          service.expects(:request).once.with(method: :post, path: expected_path,
+                                              base_address: :meter_events, params: body, opts: opts)
+          service.request_v2_search(method: :post, path: path, params: params,
+                                    base_address: :meter_events, opts: opts)
+          assert_equal original, params
+        end
+      end
+
+      should "keep custom search limit in the body and preserve options and usage" do
+        requestor = APIRequestor.new("sk_test_123")
+        service = StripeService.new(requestor)
+        params = { limit: 2, query: "widgets" }.freeze
+        requestor.expects(:execute_request).once
+                 .with(:post, "/v2/data/operations/search", :api,
+                       has_entries(params: params, opts: has_entries(stripe_account: "acct_123"),
+                                   usage: ["stripe_client"]))
+        service.request(method: :post, path: "/v2/data/operations/search", base_address: :api,
+                        params: params, opts: { stripe_account: "acct_123" })
       end
     end
 

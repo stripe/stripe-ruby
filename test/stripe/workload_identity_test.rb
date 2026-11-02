@@ -176,6 +176,21 @@ module Stripe
         assert_raises(WorkloadIdentityError) { client.v1.customers.list }
       end
 
+      should "reject a token at the refresh safety margin but accept one just beyond it" do
+        margin = WorkloadIdentity::REFRESH_SAFETY_MARGIN_SEC
+        stub_request(:post, EXCHANGE_URL).to_return(status: 200, body: valid_exchange_response(expires_in: margin))
+        client = StripeClient.for_workload_identity("wci_123", FakeProvider.new)
+
+        e = assert_raises(WorkloadIdentityError) { client.v1.customers.list }
+        assert_match(/too short a lifetime/, e.message)
+
+        stub_request(:post, EXCHANGE_URL).to_return(status: 200, body: valid_exchange_response(expires_in: margin + 1))
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers")
+          .to_return(status: 200, body: JSON.generate(object: "list", data: []))
+
+        assert_nothing_raised { client.v1.customers.list }
+      end
+
       should "redact the assertion from an exchange rejection error message" do
         stub_request(:post, EXCHANGE_URL)
           .to_return(status: 400,
@@ -247,6 +262,28 @@ module Stripe
         refute_equal first_token, credentials.token
         assert_equal 2, call_count
       end
+    end
+
+    should "only refresh once the safety margin before expiry is reached" do
+      call_count = 0
+      transport = lambda { |_body|
+        call_count += 1
+        [200, valid_exchange_response(expires_in: 600)]
+      }
+      credentials = WorkloadIdentity::Credentials.new("wci_123", FakeProvider.new, transport: transport)
+
+      t = Util.monotonic_time
+      Util.stubs(:monotonic_time).returns(t)
+      credentials.token
+      assert_equal 1, call_count
+
+      Util.stubs(:monotonic_time).returns(t + 479)
+      credentials.token
+      assert_equal 1, call_count
+
+      Util.stubs(:monotonic_time).returns(t + 480)
+      credentials.token
+      assert_equal 2, call_count
     end
 
     context "401 replay" do

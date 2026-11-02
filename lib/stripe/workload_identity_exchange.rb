@@ -28,7 +28,7 @@ module Stripe
 
     # Number of seconds before actual expiry that a cached token is
     # considered stale and eligible for proactive refresh.
-    REFRESH_SAFETY_MARGIN_SEC = 300
+    REFRESH_SAFETY_MARGIN_SEC = 120
 
     def self.validate_provider!(identity_provider)
       unless identity_provider.respond_to?(:provider) && identity_provider.respond_to?(:identity_assertion)

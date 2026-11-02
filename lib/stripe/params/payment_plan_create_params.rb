@@ -14,7 +14,7 @@ module Stripe
       end
       # Details of the invoice this payment plan collects on.
       attr_accessor :invoice_details
-      # The type of object this plan collects on. Currently always `invoice_details`.
+      # The type of object this plan collects on. This is always `invoice_details`.
       attr_accessor :type
 
       def initialize(invoice_details: nil, type: nil)
@@ -92,16 +92,16 @@ module Stripe
             @type = type
           end
         end
-        # The list of installment entries. Must contain at least 2 entries.
+        # The list of installment entries. Must contain at least two entries.
         attr_accessor :amounts
 
         def initialize(amounts: nil)
           @amounts = amounts
         end
       end
-      # Required when type is 'amounts_due'. Must contain at least 2 installment entries.
+      # Required when type is 'amounts_due'. Must contain at least two installment entries.
       attr_accessor :amounts_due
-      # The schedule type. Currently only 'amounts_due' is supported.
+      # The schedule type. It only supports 'amounts_due'.
       attr_accessor :type
 
       def initialize(amounts_due: nil, type: nil)
@@ -109,7 +109,7 @@ module Stripe
         @type = type
       end
     end
-    # The invoice(s) this payment plan collects on. Currently must contain exactly one invoice entry.
+    # The invoices this payment plan collects on. It must contain exactly one invoice entry.
     attr_accessor :collects_on
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand

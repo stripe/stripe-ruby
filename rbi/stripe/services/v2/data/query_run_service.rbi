@@ -13,7 +13,8 @@ module Stripe
          }
         def create(params = {}, opts = {}); end
 
-        # Retrieves the status and results of a previously created `QueryRun`.
+        # Retrieves the status and results of a previously created `QueryRun`. Returns a `404` error
+        # if the `QueryRun` doesn't exist or its retention period has ended.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Data::QueryRunRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Data::QueryRun)
          }

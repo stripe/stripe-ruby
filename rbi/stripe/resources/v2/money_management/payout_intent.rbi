@@ -61,7 +61,7 @@ module Stripe
           # The fee amount.
           sig { returns(::Stripe::V2::Amount) }
           def amount; end
-          # Details about the network and options associated with this fee. Present when type is network_fee.
+          # Details about the network and options associated with this fee. Present when `type` is `network_fee`.
           sig { returns(T.nilable(NetworkFeeDetails)) }
           def network_fee_details; end
           # Tax charged for this fee, if applicable. Value expressed as a decimal string in major units.
@@ -96,8 +96,8 @@ module Stripe
         end
         class FxQuote < ::Stripe::StripeObject
           class Rates < ::Stripe::StripeObject
-            # The exchange rate going from_currency -> to_currency, represented as a decimal string
-            # (e.g., "1.1520") to preserve the full precision of the rate.
+            # The exchange rate from the source currency to `to_currency`, represented as a decimal string
+            # (for example, `1.1520`) to preserve the full precision of the rate.
             sig { returns(String) }
             def exchange_rate; end
             def self.inner_class_types
@@ -116,7 +116,7 @@ module Stripe
           # Open Enum. Lock status of the FX rate.
           sig { returns(String) }
           def lock_status; end
-          # Key: source currency. Value: exchange rate from source currency to to_currency.
+          # Maps each source currency to its exchange rate into `to_currency`.
           sig { returns(T::Hash[String, Rates]) }
           def rates; end
           # The destination currency.
@@ -148,6 +148,9 @@ module Stripe
         end
         class NextAction < ::Stripe::StripeObject
           class Confirm < ::Stripe::StripeObject
+            # The PayoutIntent fields that must be reviewed before confirmation.
+            sig { returns(T.nilable(T::Array[String])) }
+            def fields_to_review; end
             # Open Enum. The reason the PayoutIntent requires confirmation.
             sig { returns(String) }
             def reason; end
@@ -169,10 +172,10 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Details about a confirmation required. Populated when type is confirm.
+          # Details about a confirmation required. Populated when `type` is `confirm`.
           sig { returns(T.nilable(Confirm)) }
           def confirm; end
-          # Details about a failure that requires user action. Populated when type is handle_failure.
+          # Details about a failure that requires user action. Populated when `type` is `handle_failure`.
           sig { returns(T.nilable(HandleFailure)) }
           def handle_failure; end
           # Open Enum. The type of next action required.
@@ -187,11 +190,48 @@ module Stripe
         end
         class RecipientNotification < ::Stripe::StripeObject
           # Closed Enum. Configuration option to enable or disable notifications to recipients.
-          # Do not send notifications when setting is NONE. Default to account setting when setting is CONFIGURED or not set.
+          # Do not send notifications when `setting` is `none`. Use the account setting when `setting` is `configured` or omitted.
           sig { returns(String) }
           def setting; end
           def self.inner_class_types
             @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class RecipientVerification < ::Stripe::StripeObject
+          class MatchResultDetails < ::Stripe::StripeObject
+            # The business type returned by the recipient-verification provider.
+            sig { returns(T.nilable(String)) }
+            def matched_business_type; end
+            # The account name returned by the recipient-verification provider.
+            sig { returns(T.nilable(String)) }
+            def matched_name; end
+            # A message describing the match result.
+            sig { returns(String) }
+            def message; end
+            # The business type provided for recipient verification.
+            sig { returns(T.nilable(String)) }
+            def provided_business_type; end
+            # The name associated with the provided recipient.
+            sig { returns(String) }
+            def provided_name; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Closed Enum. The recipient-verification provider's match result.
+          sig { returns(String) }
+          def match_result; end
+          # Details associated with the match result.
+          sig { returns(MatchResultDetails) }
+          def match_result_details; end
+          def self.inner_class_types
+            @inner_class_types = {match_result_details: MatchResultDetails}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -267,7 +307,7 @@ module Stripe
               sig { returns(T.nilable(PreferredNetworkOptions)) }
               def preferred_network_options; end
               # The preferred networks to use for this PayoutIntent.
-              sig { returns(T::Array[String]) }
+              sig { returns(T.nilable(T::Array[String])) }
               def preferred_networks; end
               def self.inner_class_types
                 @inner_class_types = {preferred_network_options: PreferredNetworkOptions}
@@ -292,13 +332,13 @@ module Stripe
           # The currency to send to the recipient.
           sig { returns(T.nilable(String)) }
           def currency; end
-          # The payout method ID. Optional for OutboundPayment if recipient has default payment method. Required for OutboundTransfer.
+          # The payout method ID for the PayoutIntent. Optional when the PayoutIntent creates an OutboundPayment and the recipient has a default payout method. Required when the PayoutIntent creates an OutboundTransfer.
           sig { returns(T.nilable(String)) }
           def payout_method; end
           # Payout method options for the PayoutIntent.
           sig { returns(T.nilable(PayoutMethodOptions)) }
           def payout_method_options; end
-          # The recipient ID. Only relevant for OutboundPayment.
+          # The recipient ID for the PayoutIntent.
           sig { returns(T.nilable(String)) }
           def recipient; end
           def self.inner_class_types
@@ -311,7 +351,8 @@ module Stripe
         # The monetary amount to be sent.
         sig { returns(::Stripe::V2::Amount) }
         def amount; end
-        # Controls whether the intent requires explicit confirmation before transitioning to pending.
+        # Controls whether the PayoutIntent requires explicit confirmation before transitioning to `pending`.
+        # Even when `automatic`, regulatory requirements may require confirmation. See [Send money with Global Payouts](https://docs.stripe.com/global-payouts/send-money) for details.
         sig { returns(String) }
         def confirmation_method; end
         # Time at which the PayoutIntent was created.
@@ -334,7 +375,7 @@ module Stripe
         sig { returns(String) }
         def id; end
         # Details about the latest payout associated with this PayoutIntent.
-        sig { returns(LatestPayout) }
+        sig { returns(T.nilable(LatestPayout)) }
         def latest_payout; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
@@ -342,22 +383,25 @@ module Stripe
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
-        # Next action required for a PayoutIntent in the requires_action state. Populated when status is requires_action.
+        # Next action required for a PayoutIntent in the `requires_action` state. Populated when `status` is `requires_action`.
         sig { returns(T.nilable(NextAction)) }
         def next_action; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Details about the OutboundPayment notification settings for recipient. Only applicable to OutboundPayment.
+        # Recipient notification settings for the PayoutIntent. Only applicable when the PayoutIntent creates an OutboundPayment.
         sig { returns(T.nilable(RecipientNotification)) }
         def recipient_notification; end
-        # Scheduling options for the payout. If this is nil, we assume immediate execution.
+        # Recipient verification details for this PayoutIntent.
+        sig { returns(T.nilable(RecipientVerification)) }
+        def recipient_verification; end
+        # Scheduling options for the payout. If omitted, the payout is scheduled for immediate execution.
         sig { returns(T.nilable(ScheduleOptions)) }
         def schedule_options; end
         # The description that appears on the receiving end for the payout (for example, on a bank statement).
         sig { returns(T.nilable(String)) }
         def statement_descriptor; end
-        # Open Enum. Current status of the PayoutIntent: `pending`, `processing`, `posted`, `canceled`, `requires_action`.
+        # Current status of the PayoutIntent.
         sig { returns(String) }
         def status; end
         # Hash containing timestamps of when transitioned to a particular status.

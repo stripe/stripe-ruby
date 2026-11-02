@@ -89,6 +89,11 @@ module Stripe
         # Specification of the parameters that the `Report` accepts, keyed by parameter name.
         sig { returns(T.nilable(T::Hash[String, Parameters])) }
         def parameters; end
+        # The most recent time through which data is available for this report, not the time the
+        # report definition was updated. Unset if the report has no data-availability policy, or if no
+        # freshness watermark is available yet.
+        sig { returns(T.nilable(String)) }
+        def refreshed_at; end
       end
     end
   end

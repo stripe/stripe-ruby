@@ -178,6 +178,27 @@ module Stripe
           sig { params(credential_type: String).void }
           def initialize(credential_type: nil); end
         end
+        class CustomMarketingAction < ::Stripe::RequestParams
+          # A description of the action, between 1 and 100 characters.
+          sig { returns(String) }
+          def description; end
+          sig { params(_description: String).returns(String) }
+          def description=(_description); end
+          # The outcome of the action.
+          sig { returns(String) }
+          def outcome; end
+          sig { params(_outcome: String).returns(String) }
+          def outcome=(_outcome); end
+          # Additional user-defined properties of the action.
+          sig { returns(T::Hash[String, String]) }
+          def properties; end
+          sig { params(_properties: T::Hash[String, String]).returns(T::Hash[String, String]) }
+          def properties=(_properties); end
+          sig {
+            params(description: String, outcome: String, properties: T::Hash[String, String]).void
+           }
+          def initialize(description: nil, outcome: nil, properties: nil); end
+        end
         class LoginAttempt < ::Stripe::RequestParams
           class ClientDetails < ::Stripe::RequestParams
             class Data < ::Stripe::RequestParams
@@ -235,13 +256,38 @@ module Stripe
           def initialize(client_details: nil); end
         end
         class LoginDecision < ::Stripe::RequestParams
+          class MfaChallenge < ::Stripe::RequestParams
+            # The authentication method used for the challenge.
+            sig { returns(String) }
+            def mfa_type; end
+            sig { params(_mfa_type: String).returns(String) }
+            def mfa_type=(_mfa_type); end
+            # The outcome of the authentication challenge.
+            sig { returns(String) }
+            def status; end
+            sig { params(_status: String).returns(String) }
+            def status=(_status); end
+            sig { params(mfa_type: String, status: String).void }
+            def initialize(mfa_type: nil, status: nil); end
+          end
+          # Multi-factor authentication challenges performed during the login process.
+          sig {
+            returns(T.nilable(T::Array[::Stripe::V2::Signals::AccountActivityCreateParams::LoginDecision::MfaChallenge]))
+           }
+          def mfa_challenges; end
+          sig {
+            params(_mfa_challenges: T.nilable(T::Array[::Stripe::V2::Signals::AccountActivityCreateParams::LoginDecision::MfaChallenge])).returns(T.nilable(T::Array[::Stripe::V2::Signals::AccountActivityCreateParams::LoginDecision::MfaChallenge]))
+           }
+          def mfa_challenges=(_mfa_challenges); end
           # The action the merchant took following the evaluation.
           sig { returns(String) }
           def status; end
           sig { params(_status: String).returns(String) }
           def status=(_status); end
-          sig { params(status: String).void }
-          def initialize(status: nil); end
+          sig {
+            params(mfa_challenges: T.nilable(T::Array[::Stripe::V2::Signals::AccountActivityCreateParams::LoginDecision::MfaChallenge]), status: String).void
+           }
+          def initialize(mfa_challenges: nil, status: nil); end
         end
         class MfaAddition < ::Stripe::RequestParams
           # The authentication method added to the account.
@@ -397,6 +443,15 @@ module Stripe
           params(_credential_change: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::CredentialChange)).returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::CredentialChange))
          }
         def credential_change=(_credential_change); end
+        # Details for the custom marketing action. Provide only when type is custom_marketing_action.
+        sig {
+          returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::CustomMarketingAction))
+         }
+        def custom_marketing_action; end
+        sig {
+          params(_custom_marketing_action: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::CustomMarketingAction)).returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::CustomMarketingAction))
+         }
+        def custom_marketing_action=(_custom_marketing_action); end
         # Details for the login attempt. Provide only when type is login_attempt.
         sig { returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::LoginAttempt)) }
         def login_attempt; end
@@ -457,13 +512,20 @@ module Stripe
           params(_registration_decision: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::RegistrationDecision)).returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::RegistrationDecision))
          }
         def registration_decision=(_registration_decision); end
+        # An accessible AccountSignal that prompted this activity. The signal must be within its
+        # 90-day retrieval window and match the existing account or customer in account_details.
+        # Inline data is unsupported. May be supplied together with account_evaluation.
+        sig { returns(T.nilable(String)) }
+        def triggering_signal; end
+        sig { params(_triggering_signal: T.nilable(String)).returns(T.nilable(String)) }
+        def triggering_signal=(_triggering_signal); end
         # The type of activity.
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(account_details: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountDetails), account_evaluation: T.nilable(String), account_restricted: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountRestricted), account_reviewed: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountReviewed), account_suspended: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountSuspended), account_takeover_confirmation: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountTakeoverConfirmation), account_takeover_report: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountTakeoverReport), credential_change: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::CredentialChange), login_attempt: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::LoginAttempt), login_decision: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::LoginDecision), metadata: T.nilable(T::Hash[String, String]), mfa_addition: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::MfaAddition), mfa_removal: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::MfaRemoval), occurred_at: T.nilable(String), registration_attempt: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::RegistrationAttempt), registration_decision: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::RegistrationDecision), type: String).void
+          params(account_details: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountDetails), account_evaluation: T.nilable(String), account_restricted: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountRestricted), account_reviewed: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountReviewed), account_suspended: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountSuspended), account_takeover_confirmation: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountTakeoverConfirmation), account_takeover_report: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountTakeoverReport), credential_change: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::CredentialChange), custom_marketing_action: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::CustomMarketingAction), login_attempt: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::LoginAttempt), login_decision: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::LoginDecision), metadata: T.nilable(T::Hash[String, String]), mfa_addition: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::MfaAddition), mfa_removal: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::MfaRemoval), occurred_at: T.nilable(String), registration_attempt: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::RegistrationAttempt), registration_decision: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::RegistrationDecision), triggering_signal: T.nilable(String), type: String).void
          }
         def initialize(
           account_details: nil,
@@ -474,6 +536,7 @@ module Stripe
           account_takeover_confirmation: nil,
           account_takeover_report: nil,
           credential_change: nil,
+          custom_marketing_action: nil,
           login_attempt: nil,
           login_decision: nil,
           metadata: nil,
@@ -482,6 +545,7 @@ module Stripe
           occurred_at: nil,
           registration_attempt: nil,
           registration_decision: nil,
+          triggering_signal: nil,
           type: nil
         ); end
       end

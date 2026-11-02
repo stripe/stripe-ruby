@@ -5,7 +5,7 @@ module Stripe
   module V2
     module MoneyManagement
       class CurrencyConversionService < StripeService
-        # Create a CurrencyConversion.
+        # Create a new Currency Conversion in a Financial Account or the payments balance.
         #
         # ** raises FxQuoteExpiredError
         # ** raises FeatureNotEnabledError
@@ -19,7 +19,7 @@ module Stripe
           )
         end
 
-        # List all CurrencyConversion on an account with the option to filter by FinancialAccount.
+        # Lists all Currency Conversions that match the provided filters.
         def list(params = {}, opts = {})
           request(
             method: :get,
@@ -30,7 +30,7 @@ module Stripe
           )
         end
 
-        # Retrieve details of a CurrencyConversion by id.
+        # Retrieves the details of a Currency Conversion by its ID.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,

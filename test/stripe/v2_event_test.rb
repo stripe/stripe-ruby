@@ -182,6 +182,60 @@ module Stripe
                            headers: { "Stripe-Request-Trigger" => "event=evt_234" })
         end
 
+        should "retain the event context on fetched related objects" do
+          client = StripeClient.new(
+            "test_123",
+            stripe_account: "acct_platform",
+            stripe_context: "ctx_platform"
+          )
+          payload = {
+            "id" => "evt_123",
+            "object" => "v2.core.event",
+            "type" => "v1.product.updated",
+            "created" => "2022-02-15T00:27:45.330Z",
+            "context" => "acct_child",
+            "related_object" => {
+              "id" => "prod_shared",
+              "type" => "product",
+              "url" => "/v1/products/prod_shared",
+            },
+          }.to_json
+          stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared")
+            .to_return(body: JSON.generate({ "id" => "prod_shared", "object" => "product" }))
+          stub_request(:delete, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared")
+            .to_return(body: JSON.generate({ "id" => "prod_shared", "object" => "product", "deleted" => true }))
+
+          notification = client.parse_event_notification(
+            payload,
+            Test::WebhookHelpers.generate_header(payload: payload),
+            Test::WebhookHelpers::SECRET
+          )
+          product = notification.fetch_related_object
+          product.delete
+
+          assert_requested(
+            :get,
+            "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared",
+            headers: {
+              "Authorization" => "Bearer test_123",
+              "Stripe-Context" => "acct_child",
+            }
+          )
+          assert_requested(
+            :delete,
+            "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared",
+            headers: {
+              "Authorization" => "Bearer test_123",
+              "Stripe-Context" => "acct_child",
+            }
+          )
+          assert_not_requested(
+            :delete,
+            "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared",
+            headers: { "Stripe-Account" => "acct_platform" }
+          )
+        end
+
         should "correctly retrieve events" do
           event_notif = parse_signed_event(@v2_push_payload)
           stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_234")

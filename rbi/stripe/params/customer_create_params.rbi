@@ -137,6 +137,78 @@ module Stripe
         rendering_options: nil
       ); end
     end
+    class MarketingAttribution < ::Stripe::RequestParams
+      class AdConversion < ::Stripe::RequestParams
+        # Whether the customer consented to sending conversion data to an advertising platform.
+        sig { returns(T::Boolean) }
+        def consent_collected; end
+        sig { params(_consent_collected: T::Boolean).returns(T::Boolean) }
+        def consent_collected=(_consent_collected); end
+        sig { params(consent_collected: T::Boolean).void }
+        def initialize(consent_collected: nil); end
+      end
+      # Information used when sending conversions to an advertising platform.
+      sig { returns(T.nilable(::Stripe::CustomerCreateParams::MarketingAttribution::AdConversion)) }
+      def ad_conversion; end
+      sig {
+        params(_ad_conversion: T.nilable(::Stripe::CustomerCreateParams::MarketingAttribution::AdConversion)).returns(T.nilable(::Stripe::CustomerCreateParams::MarketingAttribution::AdConversion))
+       }
+      def ad_conversion=(_ad_conversion); end
+      # The advertising platform's click identifier.
+      sig { returns(T.nilable(String)) }
+      def click_id; end
+      sig { params(_click_id: T.nilable(String)).returns(T.nilable(String)) }
+      def click_id=(_click_id); end
+      # The Unix timestamp when the advertising interaction occurred.
+      sig { returns(T.nilable(Integer)) }
+      def occurred_at; end
+      sig { params(_occurred_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
+      def occurred_at=(_occurred_at); end
+      # The advertising group ID from the `utm_adgroup` parameter.
+      sig { returns(T.nilable(String)) }
+      def utm_adgroup; end
+      sig { params(_utm_adgroup: T.nilable(String)).returns(T.nilable(String)) }
+      def utm_adgroup=(_utm_adgroup); end
+      # The advertising content identifier from the `utm_content` parameter.
+      sig { returns(T.nilable(String)) }
+      def utm_content; end
+      sig { params(_utm_content: T.nilable(String)).returns(T.nilable(String)) }
+      def utm_content=(_utm_content); end
+      # The advertising campaign ID from the `utm_id` parameter.
+      sig { returns(T.nilable(String)) }
+      def utm_id; end
+      sig { params(_utm_id: T.nilable(String)).returns(T.nilable(String)) }
+      def utm_id=(_utm_id); end
+      # The marketing medium from the `utm_medium` parameter.
+      sig { returns(T.nilable(String)) }
+      def utm_medium; end
+      sig { params(_utm_medium: T.nilable(String)).returns(T.nilable(String)) }
+      def utm_medium=(_utm_medium); end
+      # The referral source from the `utm_source` parameter.
+      sig { returns(T.nilable(String)) }
+      def utm_source; end
+      sig { params(_utm_source: T.nilable(String)).returns(T.nilable(String)) }
+      def utm_source=(_utm_source); end
+      # The paid search term from the `utm_term` parameter.
+      sig { returns(T.nilable(String)) }
+      def utm_term; end
+      sig { params(_utm_term: T.nilable(String)).returns(T.nilable(String)) }
+      def utm_term=(_utm_term); end
+      sig {
+        params(ad_conversion: T.nilable(::Stripe::CustomerCreateParams::MarketingAttribution::AdConversion), click_id: T.nilable(String), occurred_at: T.nilable(Integer), utm_adgroup: T.nilable(String), utm_content: T.nilable(String), utm_id: T.nilable(String), utm_medium: T.nilable(String), utm_source: T.nilable(String), utm_term: T.nilable(String)).void
+       }
+      def initialize(
+        ad_conversion: nil,
+        click_id: nil,
+        occurred_at: nil,
+        utm_adgroup: nil,
+        utm_content: nil,
+        utm_id: nil,
+        utm_medium: nil,
+        utm_source: nil,
+        utm_term: nil
+      ); end
+    end
     class Shipping < ::Stripe::RequestParams
       class Address < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
@@ -218,7 +290,7 @@ module Stripe
       def initialize(ip_address: nil, validate_location: nil); end
     end
     class TaxIdDatum < ::Stripe::RequestParams
-      # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+      # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_acn`, `au_arn`, `au_wpn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `bw_vat`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `ci_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `cz_dic`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `fr_siren`, `fr_siret`, `fr_spi`, `gb_vat`, `ge_vat`, `gh_tin`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_kt`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_cf`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mu_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `mz_nuit`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_bn`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `pt_nif`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sm_coe`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tt_bir`, `tt_vat`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
       sig { returns(String) }
       def type; end
       sig { params(_type: String).returns(String) }
@@ -287,6 +359,13 @@ module Stripe
       params(_invoice_settings: T.nilable(::Stripe::CustomerCreateParams::InvoiceSettings)).returns(T.nilable(::Stripe::CustomerCreateParams::InvoiceSettings))
      }
     def invoice_settings=(_invoice_settings); end
+    # Advertising attribution information for this customer. Only one attribution is supported.
+    sig { returns(T.nilable(T::Array[::Stripe::CustomerCreateParams::MarketingAttribution])) }
+    def marketing_attributions; end
+    sig {
+      params(_marketing_attributions: T.nilable(T::Array[::Stripe::CustomerCreateParams::MarketingAttribution])).returns(T.nilable(T::Array[::Stripe::CustomerCreateParams::MarketingAttribution]))
+     }
+    def marketing_attributions=(_marketing_attributions); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
@@ -363,7 +442,7 @@ module Stripe
     sig { params(_validate: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def validate=(_validate); end
     sig {
-      params(address: T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Address)), balance: T.nilable(Integer), business_name: T.nilable(String), cash_balance: T.nilable(::Stripe::CustomerCreateParams::CashBalance), description: T.nilable(String), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual_name: T.nilable(String), invoice_prefix: T.nilable(String), invoice_settings: T.nilable(::Stripe::CustomerCreateParams::InvoiceSettings), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), next_invoice_sequence: T.nilable(Integer), payment_method: T.nilable(String), phone: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), shipping: T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Shipping)), source: T.nilable(String), tax: T.nilable(::Stripe::CustomerCreateParams::Tax), tax_exempt: T.nilable(String), tax_id_data: T.nilable(T::Array[::Stripe::CustomerCreateParams::TaxIdDatum]), test_clock: T.nilable(String), validate: T.nilable(T::Boolean)).void
+      params(address: T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Address)), balance: T.nilable(Integer), business_name: T.nilable(String), cash_balance: T.nilable(::Stripe::CustomerCreateParams::CashBalance), description: T.nilable(String), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual_name: T.nilable(String), invoice_prefix: T.nilable(String), invoice_settings: T.nilable(::Stripe::CustomerCreateParams::InvoiceSettings), marketing_attributions: T.nilable(T::Array[::Stripe::CustomerCreateParams::MarketingAttribution]), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), next_invoice_sequence: T.nilable(Integer), payment_method: T.nilable(String), phone: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), shipping: T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Shipping)), source: T.nilable(String), tax: T.nilable(::Stripe::CustomerCreateParams::Tax), tax_exempt: T.nilable(String), tax_id_data: T.nilable(T::Array[::Stripe::CustomerCreateParams::TaxIdDatum]), test_clock: T.nilable(String), validate: T.nilable(T::Boolean)).void
      }
     def initialize(
       address: nil,
@@ -376,6 +455,7 @@ module Stripe
       individual_name: nil,
       invoice_prefix: nil,
       invoice_settings: nil,
+      marketing_attributions: nil,
       metadata: nil,
       name: nil,
       next_invoice_sequence: nil,

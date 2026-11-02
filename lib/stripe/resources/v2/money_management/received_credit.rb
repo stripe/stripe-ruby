@@ -35,87 +35,6 @@ module Stripe
         end
 
         class BankTransfer < ::Stripe::StripeObject
-          class CaBankAccount < ::Stripe::StripeObject
-            # The account holder name of the bank account the transfer was received from.
-            attr_reader :account_holder_name
-            # The bank name the transfer was received from.
-            attr_reader :bank_name
-            # The last 4 digits of the account number that originated the transfer.
-            # Depending on the bank, this may instead be the last 4 digits of the return account number.
-            attr_reader :last4
-            # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-            attr_reader :network
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class EuBankAccount < ::Stripe::StripeObject
-            # The account holder name of the bank account the transfer was received from.
-            attr_reader :account_holder_name
-            # The bank name the transfer was received from.
-            attr_reader :bank_name
-            # The bic of the account that originated the transfer.
-            attr_reader :bic
-            # The last 4 digits of the account number that originated the transfer.
-            attr_reader :last4
-            # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-            attr_reader :network
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class GbBankAccount < ::Stripe::StripeObject
-            # The bank name the transfer was received from.
-            attr_reader :account_holder_name
-            # The bank name the transfer was received from.
-            attr_reader :bank_name
-            # The last 4 digits of the account number that originated the transfer.
-            attr_reader :last4
-            # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-            attr_reader :network
-            # The sort code of the account that originated the transfer.
-            attr_reader :sort_code
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class MxBankAccount < ::Stripe::StripeObject
-            # The account holder name of the bank account the transfer was received from.
-            attr_reader :account_holder_name
-            # The bank name the transfer was received from.
-            attr_reader :bank_name
-            # The last 4 digits of the account number that originated the transfer.
-            attr_reader :last4
-            # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-            attr_reader :network
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
           class NetworkDetails < ::Stripe::StripeObject
             class Ach < ::Stripe::StripeObject
               # Payment-related information from the ACH addenda record, up to 80 characters.
@@ -165,8 +84,6 @@ module Stripe
               attr_reader :bic
               # The last 4 digits of the account number that originated the transfer.
               attr_reader :last4
-              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-              attr_reader :network
               # The routing number of the account that originated the transfer.
               attr_reader :routing_number
 
@@ -184,8 +101,6 @@ module Stripe
               attr_reader :account_holder_name
               # The last 4 digits of the account number that originated the transfer.
               attr_reader :last4
-              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-              attr_reader :network
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -205,8 +120,6 @@ module Stripe
               attr_reader :bic
               # The last 4 digits of the account number that originated the transfer.
               attr_reader :last4
-              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-              attr_reader :network
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -226,8 +139,6 @@ module Stripe
               attr_reader :bic
               # The last 4 digits of the account number that originated the transfer.
               attr_reader :last4
-              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-              attr_reader :network
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -249,8 +160,6 @@ module Stripe
               attr_reader :country
               # The IBAN that originated the transfer.
               attr_reader :iban
-              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-              attr_reader :network
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -270,8 +179,6 @@ module Stripe
               attr_reader :bank_name
               # The last 4 digits of the account number that originated the transfer.
               attr_reader :last4
-              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-              attr_reader :network
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -289,8 +196,6 @@ module Stripe
               attr_reader :bank_name
               # The Pix BR code of the account that originated the transfer.
               attr_reader :br_code
-              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-              attr_reader :network
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -310,8 +215,6 @@ module Stripe
               attr_reader :bic
               # The last 4 digits of the account number that originated the transfer.
               attr_reader :last4
-              # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-              attr_reader :network
               # The sort code of the account that originated the transfer.
               attr_reader :sort_code
 
@@ -359,81 +262,21 @@ module Stripe
               @field_remappings = {}
             end
           end
-
-          class SepaBankAccount < ::Stripe::StripeObject
-            # The account holder name of the bank account the transfer was received from.
-            attr_reader :account_holder_name
-            # The bank name the transfer was received from.
-            attr_reader :bank_name
-            # The BIC of the SEPA account.
-            attr_reader :bic
-            # The origination country of the bank transfer.
-            attr_reader :country
-            # The IBAN that originated the transfer.
-            attr_reader :iban
-            # The money transmission network used to send funds for this ReceivedCredit.
-            attr_reader :network
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class UsBankAccount < ::Stripe::StripeObject
-            # The name of the account holder that sent the payment.
-            attr_reader :account_holder_name
-            # The bank name the transfer was received from.
-            attr_reader :bank_name
-            # The last 4 digits of the account number that originated the transfer.
-            attr_reader :last4
-            # Open Enum. The money transmission network used to send funds for this ReceivedCredit.
-            attr_reader :network
-            # The routing number of the account that originated the transfer.
-            attr_reader :routing_number
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Deprecated. Use `originating_bank_account.cpa` instead.
-          attr_reader :ca_bank_account
-          # Deprecated. Use `originating_bank_account.iban` instead.
-          attr_reader :eu_bank_account
           # Financial Address on which funds for ReceivedCredit were received.
           attr_reader :financial_address
-          # Deprecated. Use `originating_bank_account.sort_code` instead.
-          attr_reader :gb_bank_account
-          # Deprecated. Use `originating_bank_account.clabe` instead.
-          attr_reader :mx_bank_account
+          # The money transmission network used to send funds for this ReceivedCredit.
+          attr_reader :network
           # Network-level detail for the transfer that created this ReceivedCredit. Present only for ACH.
           attr_reader :network_details
           # Hash containing the originating bank account details and type for this bank transfer.
           attr_reader :originating_bank_account
-          # Deprecated. Use `originating_bank_account.iban` instead.
-          attr_reader :sepa_bank_account
           # Freeform string set by originator of the external ReceivedCredit.
           attr_reader :statement_descriptor
-          # Deprecated. Use `originating_bank_account.aba` instead.
-          attr_reader :us_bank_account
 
           def self.inner_class_types
             @inner_class_types = {
-              ca_bank_account: CaBankAccount,
-              eu_bank_account: EuBankAccount,
-              gb_bank_account: GbBankAccount,
-              mx_bank_account: MxBankAccount,
               network_details: NetworkDetails,
               originating_bank_account: OriginatingBankAccount,
-              sepa_bank_account: SepaBankAccount,
-              us_bank_account: UsBankAccount,
             }
           end
 
@@ -646,9 +489,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The amount and currency of the ReceivedCredit.
+        # The amount and currency credited to the FinancialAccount.
         attr_reader :amount
-        # The amount and currency of the ReceivedCredit that was received.
+        # The amount and currency Stripe received from the external source, before any conversion or fees.
         attr_reader :amount_received
         # This object stores details about the originating Stripe transaction that resulted in the ReceivedCredit. Present if `type` field value is `balance_transfer`.
         attr_reader :balance_transfer

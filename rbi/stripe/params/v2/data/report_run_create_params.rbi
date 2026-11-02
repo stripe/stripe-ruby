@@ -21,14 +21,14 @@ module Stripe
           def initialize(id: nil, name: nil); end
         end
         class ResultOptions < ::Stripe::RequestParams
-          # If set, the generated result file is compressed into a ZIP archive before
-          # it is stored. This applies only to downloadable file results.
-          sig { returns(T.nilable(T::Boolean)) }
-          def compress_file; end
-          sig { params(_compress_file: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-          def compress_file=(_compress_file); end
-          sig { params(compress_file: T.nilable(T::Boolean)).void }
-          def initialize(compress_file: nil); end
+          # The compression applied to the generated result file. Defaults to `none`. This applies
+          # only to downloadable file results.
+          sig { returns(T.nilable(String)) }
+          def compression; end
+          sig { params(_compression: T.nilable(String)).returns(T.nilable(String)) }
+          def compression=(_compression); end
+          sig { params(compression: T.nilable(String)).void }
+          def initialize(compression: nil); end
         end
         # The file format for the result.
         sig { returns(String) }

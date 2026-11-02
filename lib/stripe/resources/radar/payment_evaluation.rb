@@ -560,7 +560,7 @@ module Stripe
         end
         # A payment evaluation signal with evaluated_at, risk_level, and score fields.
         attr_reader :bank_initiated_return
-        # A payment evaluation signal with evaluated_at, risk_level, and score fields.
+        # The likelihood that this `PaymentEvaluation` results in an early fraud warning.
         attr_reader :early_fraud_warning
         # The likelihood that this `PaymentEvaluation` results in a dispute with reason code `fraudulent`.
         attr_reader :fraudulent_dispute

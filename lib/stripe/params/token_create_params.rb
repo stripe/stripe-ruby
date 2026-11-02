@@ -167,6 +167,37 @@ module Stripe
           end
         end
 
+        class PhysicalAddress < ::Stripe::RequestParams
+          # City, district, suburb, town, or village.
+          attr_accessor :city
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          attr_accessor :country
+          # Address line 1, such as the street, PO Box, or company name.
+          attr_accessor :line1
+          # Address line 2, such as the apartment, suite, unit, or building.
+          attr_accessor :line2
+          # ZIP or postal code.
+          attr_accessor :postal_code
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          attr_accessor :state
+
+          def initialize(
+            city: nil,
+            country: nil,
+            line1: nil,
+            line2: nil,
+            postal_code: nil,
+            state: nil
+          )
+            @city = city
+            @country = country
+            @line1 = line1
+            @line2 = line2
+            @postal_code = postal_code
+            @state = state
+          end
+        end
+
         class PrincipalPlaceOfBusiness < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           attr_accessor :city
@@ -281,6 +312,8 @@ module Stripe
         attr_accessor :ownership_exemption_reason
         # The company's phone number (used for verification).
         attr_accessor :phone
+        # A location where the business has a meaningful physical operating presence.
+        attr_accessor :physical_address
         # The primary location where the business conducts operations.
         attr_accessor :principal_place_of_business
         # When the business was incorporated or registered.
@@ -320,6 +353,7 @@ module Stripe
           ownership_declaration_shown_and_signed: nil,
           ownership_exemption_reason: nil,
           phone: nil,
+          physical_address: nil,
           principal_place_of_business: nil,
           registration_date: nil,
           registration_number: nil,
@@ -347,6 +381,7 @@ module Stripe
           @ownership_declaration_shown_and_signed = ownership_declaration_shown_and_signed
           @ownership_exemption_reason = ownership_exemption_reason
           @phone = phone
+          @physical_address = physical_address
           @principal_place_of_business = principal_place_of_business
           @registration_date = registration_date
           @registration_number = registration_number

@@ -27,6 +27,8 @@ module Stripe
       class GroupBy < ::Stripe::StripeObject
         # The billing cadence ID, populated when type is `billing_cadence`
         attr_reader :billing_cadence
+        # The billing group ID, populated when type is `billing_group`
+        attr_reader :billing_group
         # The pricing plan subscription ID, populated when type is `pricing_plan_subscription`
         attr_reader :pricing_plan_subscription
         # The type of grouping used for this alert notification

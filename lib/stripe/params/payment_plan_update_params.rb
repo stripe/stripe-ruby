@@ -72,16 +72,16 @@ module Stripe
             @type = type
           end
         end
-        # The list of installment entries. Must contain at least 2 entries.
+        # The list of installment entries. Must contain at least two entries.
         attr_accessor :amounts
 
         def initialize(amounts: nil)
           @amounts = amounts
         end
       end
-      # Required when type is 'amounts_due'. Must contain at least 2 installment entries.
+      # Required when type is 'amounts_due'. Must contain at least two installment entries.
       attr_accessor :amounts_due
-      # The schedule type. Currently only 'amounts_due' is supported.
+      # The schedule type. It only supports 'amounts_due'.
       attr_accessor :type
 
       def initialize(amounts_due: nil, type: nil)

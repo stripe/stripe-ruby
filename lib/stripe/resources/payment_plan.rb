@@ -31,7 +31,7 @@ module Stripe
       end
       # Attribute for field invoice_details
       attr_reader :invoice_details
-      # The type of object this plan collects against. Currently always `invoice_details`.
+      # The type of object this plan collects against. This is always `invoice_details`.
       attr_reader :type
 
       def self.inner_class_types
@@ -154,7 +154,7 @@ module Stripe
       end
       # Attribute for field amounts_due
       attr_reader :amounts_due
-      # The type of schedule. Currently always `amounts_due`.
+      # The type of schedule. This is always `amounts_due`.
       attr_reader :type
 
       def self.inner_class_types

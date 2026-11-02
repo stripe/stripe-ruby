@@ -1223,7 +1223,7 @@ module Stripe
     sig { returns(String) }
     def object; end
     # The pause schedules for this subscription schedule.
-    sig { returns(T.nilable(T::Array[PauseSchedule])) }
+    sig { returns(T::Array[PauseSchedule]) }
     def pause_schedules; end
     # Configuration for the subscription schedule's phases.
     sig { returns(T::Array[Phase]) }

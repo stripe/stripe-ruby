@@ -174,7 +174,7 @@ module Stripe
               sig { returns(T.nilable(PreferredNetworkOptions)) }
               def preferred_network_options; end
               # The preferred networks to use for this OutboundPayment.
-              sig { returns(T::Array[String]) }
+              sig { returns(T.nilable(T::Array[String])) }
               def preferred_networks; end
               def self.inner_class_types
                 @inner_class_types = {preferred_network_options: PreferredNetworkOptions}

@@ -8,7 +8,7 @@ module Stripe
       class FinancialAccountService < StripeService
         attr_reader :statements
         attr_reader :wallet_export
-        # Closes a FinancialAccount with or without forwarding settings.
+        # Closes a FinancialAccount. You must provide forwarding settings if it has a non-zero balance.
         #
         # ** raises NonZeroBalanceError
         sig {
@@ -25,7 +25,7 @@ module Stripe
          }
         def create(params = {}, opts = {}); end
 
-        # Lists FinancialAccounts in this account.
+        # Returns a list of FinancialAccounts in your account that match the provided filters.
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
          }
@@ -37,7 +37,7 @@ module Stripe
          }
         def retrieve(id, params = {}, opts = {}); end
 
-        # Updates an existing FinancialAccount.
+        # Updates an existing FinancialAccount using the provided parameters.
         sig {
           params(id: String, params: T.any(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::FinancialAccount)
          }

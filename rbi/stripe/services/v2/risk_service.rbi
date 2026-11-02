@@ -5,7 +5,7 @@
 module Stripe
   module V2
     class RiskService < StripeService
-      attr_reader :inquiries
+      attr_reader :forms
     end
   end
 end

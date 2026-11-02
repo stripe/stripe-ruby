@@ -22,7 +22,7 @@ module Stripe
         end
         class RecipientNotification < ::Stripe::RequestParams
           # Closed Enum. Configuration option to enable or disable notifications to recipients.
-          # Do not send notifications when setting is NONE. Default to account setting when setting is CONFIGURED or not set.
+          # Do not send notifications when `setting` is `none`. Use the account setting when `setting` is `configured` or omitted.
           sig { returns(String) }
           def setting; end
           sig { params(_setting: String).returns(String) }
@@ -88,12 +88,14 @@ module Stripe
                }
               def preferred_network_options=(_preferred_network_options); end
               # The preferred networks to use for this PayoutIntent.
-              sig { returns(T::Array[String]) }
+              sig { returns(T.nilable(T::Array[String])) }
               def preferred_networks; end
-              sig { params(_preferred_networks: T::Array[String]).returns(T::Array[String]) }
+              sig {
+                params(_preferred_networks: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+               }
               def preferred_networks=(_preferred_networks); end
               sig {
-                params(preferred_network_options: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions), preferred_networks: T::Array[String]).void
+                params(preferred_network_options: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions), preferred_networks: T.nilable(T::Array[String])).void
                }
               def initialize(preferred_network_options: nil, preferred_networks: nil); end
             end
@@ -116,7 +118,7 @@ module Stripe
           def currency; end
           sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
           def currency=(_currency); end
-          # The payout method ID. Optional for OutboundPayment if recipient has default payment method. Required for OutboundTransfer.
+          # The payout method ID for the PayoutIntent. Optional when the PayoutIntent creates an OutboundPayment and the recipient has a default payout method. Required when the PayoutIntent creates an OutboundTransfer.
           sig { returns(T.nilable(String)) }
           def payout_method; end
           sig { params(_payout_method: T.nilable(String)).returns(T.nilable(String)) }
@@ -130,7 +132,7 @@ module Stripe
             params(_payout_method_options: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::To::PayoutMethodOptions)).returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::To::PayoutMethodOptions))
            }
           def payout_method_options=(_payout_method_options); end
-          # The recipient ID. Only relevant for OutboundPayment.
+          # The recipient ID for the PayoutIntent.
           sig { returns(T.nilable(String)) }
           def recipient; end
           sig { params(_recipient: T.nilable(String)).returns(T.nilable(String)) }
@@ -150,7 +152,7 @@ module Stripe
         def amount; end
         sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
         def amount=(_amount); end
-        # Controls whether the intent requires explicit confirmation before transitioning to pending. Defaults to automatic.
+        # Controls whether the PayoutIntent requires explicit confirmation before transitioning to `pending`. Defaults to `automatic`, but regulatory requirements may still require confirmation. See [Send money with Global Payouts](https://docs.stripe.com/global-payouts/send-money) for details.
         sig { returns(T.nilable(String)) }
         def confirmation_method; end
         sig { params(_confirmation_method: T.nilable(String)).returns(T.nilable(String)) }
@@ -174,7 +176,7 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
-        # Details about the OutboundPayment notification settings for recipient. Only applicable to OutboundPayment.
+        # Recipient notification settings for the PayoutIntent. Only applicable when the PayoutIntent creates an OutboundPayment.
         sig {
           returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::RecipientNotification))
          }
@@ -183,7 +185,7 @@ module Stripe
           params(_recipient_notification: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::RecipientNotification)).returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::RecipientNotification))
          }
         def recipient_notification=(_recipient_notification); end
-        # Scheduling options for the payout. If this is nil, we assume immediate execution.
+        # Scheduling options for the payout. If omitted, the payout is scheduled for immediate execution.
         sig {
           returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::ScheduleOptions))
          }

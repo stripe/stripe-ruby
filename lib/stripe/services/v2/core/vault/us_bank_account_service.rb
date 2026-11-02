@@ -79,10 +79,24 @@ module Stripe
           # Send microdeposits in order to verify your US Bank Account so it is eligible to transfer funds. This will start the verification process and you must Confirm Microdeposits to successfully verify your US Bank Account.
           #
           # ** raises ControlledByAlternateResourceError
+          # ** raises CannotProceedError
           def send_microdeposits(id, params = {}, opts = {})
             request(
               method: :post,
               path: format("/v2/core/vault/us_bank_accounts/%<id>s/send_microdeposits", { id: CGI.escape(id) }),
+              params: params,
+              opts: opts,
+              base_address: :api
+            )
+          end
+
+          # Unarchive a USBankAccount object.
+          #
+          # ** raises ControlledByAlternateResourceError
+          def unarchive(id, params = {}, opts = {})
+            request(
+              method: :post,
+              path: format("/v2/core/vault/us_bank_accounts/%<id>s/unarchive", { id: CGI.escape(id) }),
               params: params,
               opts: opts,
               base_address: :api

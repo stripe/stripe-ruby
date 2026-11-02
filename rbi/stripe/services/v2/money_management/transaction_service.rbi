@@ -24,7 +24,7 @@ module Stripe
          }
         def retrieve(id, params = {}, opts = {}); end
 
-        # Updates the description of an existing Transaction.
+        # Updates an existing Transaction. You can update its description and metadata.
         sig {
           params(id: String, params: T.any(::Stripe::V2::MoneyManagement::TransactionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::Transaction)
          }

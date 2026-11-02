@@ -70,12 +70,19 @@ module Stripe
           # Creation time of the object.
           sig { returns(String) }
           def created; end
+          # Same as `fingerprint`, but uniquely identifies the bank account using its `fedwire_routing_number` instead of its `routing_number`.
+          sig { returns(T.nilable(String)) }
+          def fedwire_fingerprint; end
           # The fedwire routing number of the bank account.
           sig { returns(T.nilable(String)) }
           def fedwire_routing_number; end
           # The ID of the Financial Connections Account used to create the bank account.
           sig { returns(T.nilable(String)) }
           def financial_connections_account; end
+          # Uniquely identifies this particular bank account. You can use this attribute to check whether two
+          # recipients who've signed up with you are using the same bank account, for example.
+          sig { returns(T.nilable(String)) }
+          def fingerprint; end
           # The ID of the USBankAccount object.
           sig { returns(String) }
           def id; end

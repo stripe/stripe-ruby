@@ -12,7 +12,7 @@ module Stripe
           def limit; end
           sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def limit=(_limit); end
-          # Optionally filter by verification status. Mutually exclusive with `unverified`, `verified`, `awaiting_verification`, and `verification_failed`.
+          # Closed Enum. Optionally filter by verification status.
           sig { returns(T.nilable(String)) }
           def verification_status; end
           sig { params(_verification_status: T.nilable(String)).returns(T.nilable(String)) }

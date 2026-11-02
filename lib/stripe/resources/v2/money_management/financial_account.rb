@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module MoneyManagement
-      # A FinancialAccount represents a balance and can be used as the source or destination for the money management (`/v2/money_management`) APIs.
+      # A FinancialAccount represents a balance and can be the source or destination of money movement.
       class FinancialAccount < APIResource
         OBJECT_NAME = "v2.money_management.financial_account"
         def self.object_name
@@ -27,11 +27,11 @@ module Stripe
         end
 
         class Balance < ::Stripe::StripeObject
-          # Balance that can be used for money movement.
+          # Balance available for money movement.
           attr_reader :available
-          # Balance of inbound funds that will later transition to the `available` balance.
+          # Balance of inbound funds that aren't yet available for money movement and will later move to the `available` balance.
           attr_reader :inbound_pending
-          # Balance of funds that are being used for a pending outbound money movement.
+          # Balance of funds being used for pending outbound money movements.
           attr_reader :outbound_pending
 
           def self.inner_class_types
@@ -98,7 +98,8 @@ module Stripe
         end
 
         class Other < ::Stripe::StripeObject
-          # The type of the FinancialAccount, represented as a string. Upgrade your API version to see the type reflected in `financial_account.type`.
+          # The FinancialAccount's actual type, represented as a string.
+          # Upgrade your API version to see this value in `financial_account.type`.
           attr_reader :type
 
           def self.inner_class_types
@@ -113,11 +114,11 @@ module Stripe
         class Payments < ::Stripe::StripeObject
           class BalanceByFundsType < ::Stripe::StripeObject
             class PaymentProcessing < ::Stripe::StripeObject
-              # Balance that can be used for money movement.
+              # Balance available for money movement.
               attr_reader :available
-              # Balance of inbound funds that will later transition to the `available` balance.
+              # Balance of inbound funds that aren't yet available for money movement and will later move to the `available` balance.
               attr_reader :inbound_pending
-              # Balance of funds that are being used for a pending outbound money movement.
+              # Balance of funds being used for pending outbound money movements.
               attr_reader :outbound_pending
 
               def self.inner_class_types
@@ -130,11 +131,11 @@ module Stripe
             end
 
             class StoredValue < ::Stripe::StripeObject
-              # Balance that can be used for money movement.
+              # Balance available for money movement.
               attr_reader :available
-              # Balance of inbound funds that will later transition to the `available` balance.
+              # Balance of inbound funds that aren't yet available for money movement and will later move to the `available` balance.
               attr_reader :inbound_pending
-              # Balance of funds that are being used for a pending outbound money movement.
+              # Balance of funds being used for pending outbound money movements.
               attr_reader :outbound_pending
 
               def self.inner_class_types
@@ -259,9 +260,10 @@ module Stripe
         class StatusDetails < ::Stripe::StripeObject
           class Closed < ::Stripe::StripeObject
             class ForwardingSettings < ::Stripe::StripeObject
-              # The address to send forwarded payments to.
+              # ID of the FinancialAccount that supplies funds to cover negative balances
+              # during or after this FinancialAccount's closure.
               attr_reader :payment_method
-              # The address to send forwarded payouts to.
+              # ID of the FinancialAccount that receives funds forwarded from this FinancialAccount when it closes.
               attr_reader :payout_method
               # Whether to skip forwarding exportable self-custodied wallet balances. Defaults to false. This does not skip non-exportable or fiat balances, inbound-pending checks, or negative-balance requirements.
               attr_reader :skip_exportable_balances
@@ -274,9 +276,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # The forwarding settings for the closed FinancialAccount.
+            # When configured, the forwarding settings for the closed FinancialAccount.
             attr_reader :forwarding_settings
-            # The reason the FinancialAccount was closed.
+            # Closed Enum. The reason the FinancialAccount was closed.
             attr_reader :reason
 
             def self.inner_class_types
@@ -287,7 +289,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Details related to the closed state of the FinancialAccount.
+          # Details about the FinancialAccount's closure. Only populated when `status` is `closed`.
           attr_reader :closed
 
           def self.inner_class_types
@@ -353,27 +355,30 @@ module Stripe
         end
         # If this is a `accrued_fees` FinancialAccount, this hash include details specific to `accrued_fees` FinancialAccount.
         attr_reader :accrued_fees
-        # Multi-currency balance of this FinancialAccount, split by availability state. Each balance is represented as a hash where the key is the three-letter ISO currency code, in lowercase, and the value is the amount for that currency.
+        # The FinancialAccount's balance, split into `available`, `inbound_pending`, and `outbound_pending` balances.
+        # Each balance is a hash keyed by lowercase currency codes, with an amount for each currency.
         attr_reader :balance
-        # Open Enum. Two-letter country code that represents the country where the LegalEntity associated with the FinancialAccount is based in.
+        # Open Enum. The country where the LegalEntity associated with the FinancialAccount is based, represented as a two-letter country code.
         attr_reader :country
-        # Time at which the object was created.
+        # Time at which the object was created. Represented as an RFC 3339 timestamp in UTC with millisecond precision, for example `2022-09-18T13:22:18.123Z`.
         attr_reader :created
         # If this is a `credit` FinancialAccount, this hash includes details specific to `credit` FinancialAccounts.
         attr_reader :credit
-        # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
+        # A descriptive name for the FinancialAccount, up to 50 characters long. This name appears in the Stripe Dashboard and embedded components.
         attr_reader :display_name
         # Unique identifier for the object.
         attr_reader :id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
-        # Metadata associated with the FinancialAccount.
+        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information
+        # about the object in a structured format.
         attr_reader :metadata
         # If this is a `multiprocessor_settlement` FinancialAccount, this hash includes details specific to `multiprocessor_settlement` FinancialAccounts.
         attr_reader :multiprocessor_settlement
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # If this is a `other` FinancialAccount, this hash indicates what the actual type is. Upgrade your API version to see it reflected in `type`.
+        # If the FinancialAccount's `type` is `other`, this hash identifies its actual type.
+        # Upgrade your API version to see that type in `type`.
         attr_reader :other
         # If this is a `payments` FinancialAccount, this hash include details specific to `payments` FinancialAccount.
         attr_reader :payments
@@ -383,10 +388,10 @@ module Stripe
         attr_reader :status
         # Additional details related to the status of the FinancialAccount.
         attr_reader :status_details
-        # If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
+        # If the FinancialAccount's `type` is `storage`, this hash contains details specific to that type.
         attr_reader :storage
-        # Type of the FinancialAccount. An additional hash is included on the FinancialAccount with a name matching this value.
-        # It contains additional information specific to the FinancialAccount type.
+        # Closed Enum. The type of the FinancialAccount. Details specific to the type appear in the matching hash.
+        # For example, a `storage` FinancialAccount includes a `storage` hash.
         attr_reader :type
 
         def self.inner_class_types

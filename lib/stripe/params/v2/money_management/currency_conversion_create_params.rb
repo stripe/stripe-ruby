@@ -6,9 +6,9 @@ module Stripe
     module MoneyManagement
       class CurrencyConversionCreateParams < ::Stripe::RequestParams
         class From < ::Stripe::RequestParams
-          # Amount object.
+          # An amount specified for conversion.
           attr_accessor :amount
-          # A lowercase alpha3 currency code like "usd".
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
 
           def initialize(amount: nil, currency: nil)
@@ -18,9 +18,9 @@ module Stripe
         end
 
         class To < ::Stripe::RequestParams
-          # Amount object.
+          # An amount specified for conversion.
           attr_accessor :amount
-          # A lowercase alpha3 currency code like "usd".
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           attr_accessor :currency
 
           def initialize(amount: nil, currency: nil)
@@ -28,13 +28,13 @@ module Stripe
             @currency = currency
           end
         end
-        # The FinancialAccount id to create the CurrencyConversion on.
+        # The ID of the Financial Account in which the Currency Conversion should be created. If omitted, it will be created in the payments balance.
         attr_accessor :financial_account
-        # From amount object indicating the from currency or optional amount.
+        # The source currency to debit, optionally including an amount. Either `from` or `to` must contain a specific amount (but not both).
         attr_accessor :from
-        # The FX quote to use for the conversion.
+        # The ID of the [FX Quote](https://docs.stripe.com/api/fx_quotes) to use.
         attr_accessor :fx_quote
-        # To amount object indicating the to currency or optional amount.
+        # The destination currency to credit, optionally including an amount.
         attr_accessor :to
 
         def initialize(financial_account: nil, from: nil, fx_quote: nil, to: nil)

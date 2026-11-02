@@ -7,6 +7,7 @@ module Stripe
       class OutboundPaymentQuoteService < StripeService
         # Creates an OutboundPaymentQuote usable in an OutboundPayment.
         #
+        # ** raises CapabilityNotEnabledError
         # ** raises FeatureNotEnabledError
         def create(params = {}, opts = {})
           request(

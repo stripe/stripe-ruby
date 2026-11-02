@@ -7,7 +7,7 @@ module Stripe
     module Data
       class QueryRunCreateParams < ::Stripe::RequestParams
         class Query < ::Stripe::RequestParams
-          # Ad-hoc SQL to execute.
+          # Ad-hoc SQL to execute. The maximum length is 100,000 characters.
           sig { returns(T.nilable(String)) }
           def sql; end
           sig { params(_sql: T.nilable(String)).returns(T.nilable(String)) }
@@ -16,14 +16,14 @@ module Stripe
           def initialize(sql: nil); end
         end
         class ResultOptions < ::Stripe::RequestParams
-          # If set, the generated result file is compressed into a ZIP archive before
-          # it is stored. This applies only to downloadable file results.
-          sig { returns(T.nilable(T::Boolean)) }
-          def compress_file; end
-          sig { params(_compress_file: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-          def compress_file=(_compress_file); end
-          sig { params(compress_file: T.nilable(T::Boolean)).void }
-          def initialize(compress_file: nil); end
+          # The compression applied to the generated result file. Defaults to `none`. This applies
+          # only to downloadable file results.
+          sig { returns(T.nilable(String)) }
+          def compression; end
+          sig { params(_compression: T.nilable(String)).returns(T.nilable(String)) }
+          def compression=(_compression); end
+          sig { params(compression: T.nilable(String)).void }
+          def initialize(compression: nil); end
         end
         # The dataset to query.
         sig { returns(String) }
@@ -35,6 +35,16 @@ module Stripe
         def format; end
         sig { params(_format: String).returns(String) }
         def format=(_format); end
+        # Named bind parameters for the query. Keys are parameter names referenced in
+        # the SQL (without any prefix). Omit this field for a non-parameterized query.
+        # Values are strings, integers, or booleans. Fractional numbers, timestamps,
+        # and dates should be passed as strings.
+        sig { returns(T.nilable(T::Hash[String, T.untyped])) }
+        def parameters; end
+        sig {
+          params(_parameters: T.nilable(T::Hash[String, T.untyped])).returns(T.nilable(T::Hash[String, T.untyped]))
+         }
+        def parameters=(_parameters); end
         # The query to execute.
         sig { returns(::Stripe::V2::Data::QueryRunCreateParams::Query) }
         def query; end
@@ -50,9 +60,15 @@ module Stripe
          }
         def result_options=(_result_options); end
         sig {
-          params(dataset: String, format: String, query: ::Stripe::V2::Data::QueryRunCreateParams::Query, result_options: T.nilable(::Stripe::V2::Data::QueryRunCreateParams::ResultOptions)).void
+          params(dataset: String, format: String, parameters: T.nilable(T::Hash[String, T.untyped]), query: ::Stripe::V2::Data::QueryRunCreateParams::Query, result_options: T.nilable(::Stripe::V2::Data::QueryRunCreateParams::ResultOptions)).void
          }
-        def initialize(dataset: nil, format: nil, query: nil, result_options: nil); end
+        def initialize(
+          dataset: nil,
+          format: nil,
+          parameters: nil,
+          query: nil,
+          result_options: nil
+        ); end
       end
     end
   end

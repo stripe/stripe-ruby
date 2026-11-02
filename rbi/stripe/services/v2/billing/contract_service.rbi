@@ -7,6 +7,7 @@ module Stripe
     module Billing
       class ContractService < StripeService
         attr_reader :pricing_lines
+        attr_reader :terms
         # Activate a draft contract.
         #
         # ** raises RateLimitError

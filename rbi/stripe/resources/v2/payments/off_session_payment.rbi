@@ -352,7 +352,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def statement_descriptor_suffix; end
         # Status of this OffSessionPayment, one of `pending`, `pending_retry`, `processing`,
-        # `failed`, `canceled`, `requires_capture`, or `succeeded`.
+        # `failed`, `canceled`, or `succeeded`.
         sig { returns(String) }
         def status; end
         # Provides a way to schedule deferred payments for cards and debits, in YYYY-MM-DD format.

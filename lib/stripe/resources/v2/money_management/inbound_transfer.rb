@@ -31,7 +31,7 @@ module Stripe
           end
           # The amount in specified currency that was debited from the Payment Method.
           attr_reader :debited
-          # The Payment Method object used to create the InboundTransfer.
+          # The bank account credential used to fund the InboundTransfer (for example, a US bank account), not a Payments API `pm_` PaymentMethod.
           attr_reader :payment_method
 
           def self.inner_class_types

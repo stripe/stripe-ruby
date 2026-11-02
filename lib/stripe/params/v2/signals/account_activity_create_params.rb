@@ -127,6 +127,21 @@ module Stripe
           end
         end
 
+        class CustomMarketingAction < ::Stripe::RequestParams
+          # A description of the action, between 1 and 100 characters.
+          attr_accessor :description
+          # The outcome of the action.
+          attr_accessor :outcome
+          # Additional user-defined properties of the action.
+          attr_accessor :properties
+
+          def initialize(description: nil, outcome: nil, properties: nil)
+            @description = description
+            @outcome = outcome
+            @properties = properties
+          end
+        end
+
         class LoginAttempt < ::Stripe::RequestParams
           class ClientDetails < ::Stripe::RequestParams
             class Data < ::Stripe::RequestParams
@@ -162,10 +177,24 @@ module Stripe
         end
 
         class LoginDecision < ::Stripe::RequestParams
+          class MfaChallenge < ::Stripe::RequestParams
+            # The authentication method used for the challenge.
+            attr_accessor :mfa_type
+            # The outcome of the authentication challenge.
+            attr_accessor :status
+
+            def initialize(mfa_type: nil, status: nil)
+              @mfa_type = mfa_type
+              @status = status
+            end
+          end
+          # Multi-factor authentication challenges performed during the login process.
+          attr_accessor :mfa_challenges
           # The action the merchant took following the evaluation.
           attr_accessor :status
 
-          def initialize(status: nil)
+          def initialize(mfa_challenges: nil, status: nil)
+            @mfa_challenges = mfa_challenges
             @status = status
           end
         end
@@ -249,6 +278,8 @@ module Stripe
         attr_accessor :account_takeover_report
         # Required when type is credential_change. Requires an existing customer or account with a customer configuration.
         attr_accessor :credential_change
+        # Details for the custom marketing action. Provide only when type is custom_marketing_action.
+        attr_accessor :custom_marketing_action
         # Details for the login attempt. Provide only when type is login_attempt.
         attr_accessor :login_attempt
         # Details for the login decision. Provide only when type is login_decision.
@@ -265,6 +296,10 @@ module Stripe
         attr_accessor :registration_attempt
         # Details for the registration decision. Provide only when type is registration_decision.
         attr_accessor :registration_decision
+        # An accessible AccountSignal that prompted this activity. The signal must be within its
+        # 90-day retrieval window and match the existing account or customer in account_details.
+        # Inline data is unsupported. May be supplied together with account_evaluation.
+        attr_accessor :triggering_signal
         # The type of activity.
         attr_accessor :type
 
@@ -277,6 +312,7 @@ module Stripe
           account_takeover_confirmation: nil,
           account_takeover_report: nil,
           credential_change: nil,
+          custom_marketing_action: nil,
           login_attempt: nil,
           login_decision: nil,
           metadata: nil,
@@ -285,6 +321,7 @@ module Stripe
           occurred_at: nil,
           registration_attempt: nil,
           registration_decision: nil,
+          triggering_signal: nil,
           type: nil
         )
           @account_details = account_details
@@ -295,6 +332,7 @@ module Stripe
           @account_takeover_confirmation = account_takeover_confirmation
           @account_takeover_report = account_takeover_report
           @credential_change = credential_change
+          @custom_marketing_action = custom_marketing_action
           @login_attempt = login_attempt
           @login_decision = login_decision
           @metadata = metadata
@@ -303,6 +341,7 @@ module Stripe
           @occurred_at = occurred_at
           @registration_attempt = registration_attempt
           @registration_decision = registration_decision
+          @triggering_signal = triggering_signal
           @type = type
         end
       end

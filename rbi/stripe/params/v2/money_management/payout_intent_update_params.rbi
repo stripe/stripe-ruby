@@ -6,23 +6,9 @@ module Stripe
   module V2
     module MoneyManagement
       class PayoutIntentUpdateParams < ::Stripe::RequestParams
-        class From < ::Stripe::RequestParams
-          # The currency of the financial account.
-          sig { returns(String) }
-          def currency; end
-          sig { params(_currency: String).returns(String) }
-          def currency=(_currency); end
-          # The FinancialAccount that funds are pulled from.
-          sig { returns(String) }
-          def financial_account; end
-          sig { params(_financial_account: String).returns(String) }
-          def financial_account=(_financial_account); end
-          sig { params(currency: String, financial_account: String).void }
-          def initialize(currency: nil, financial_account: nil); end
-        end
         class RecipientNotification < ::Stripe::RequestParams
           # Closed Enum. Configuration option to enable or disable notifications to recipients.
-          # Do not send notifications when setting is NONE. Default to account setting when setting is CONFIGURED or not set.
+          # Do not send notifications when `setting` is `none`. Use the account setting when `setting` is `configured` or omitted.
           sig { returns(String) }
           def setting; end
           sig { params(_setting: String).returns(String) }
@@ -88,12 +74,14 @@ module Stripe
                }
               def preferred_network_options=(_preferred_network_options); end
               # The preferred networks to use for this PayoutIntent.
-              sig { returns(T::Array[String]) }
+              sig { returns(T.nilable(T::Array[String])) }
               def preferred_networks; end
-              sig { params(_preferred_networks: T::Array[String]).returns(T::Array[String]) }
+              sig {
+                params(_preferred_networks: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+               }
               def preferred_networks=(_preferred_networks); end
               sig {
-                params(preferred_network_options: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions), preferred_networks: T::Array[String]).void
+                params(preferred_network_options: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions), preferred_networks: T.nilable(T::Array[String])).void
                }
               def initialize(preferred_network_options: nil, preferred_networks: nil); end
             end
@@ -116,7 +104,7 @@ module Stripe
           def currency; end
           sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
           def currency=(_currency); end
-          # The payout method ID. Optional for OutboundPayment if recipient has default payment method. Required for OutboundTransfer.
+          # The payout method ID for the PayoutIntent. Optional when the PayoutIntent creates an OutboundPayment and the recipient has a default payout method. Required when the PayoutIntent creates an OutboundTransfer.
           sig { returns(T.nilable(String)) }
           def payout_method; end
           sig { params(_payout_method: T.nilable(String)).returns(T.nilable(String)) }
@@ -130,7 +118,7 @@ module Stripe
             params(_payout_method_options: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::To::PayoutMethodOptions)).returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::To::PayoutMethodOptions))
            }
           def payout_method_options=(_payout_method_options); end
-          # The recipient ID. Only relevant for OutboundPayment.
+          # The recipient ID for the PayoutIntent.
           sig { returns(T.nilable(String)) }
           def recipient; end
           sig { params(_recipient: T.nilable(String)).returns(T.nilable(String)) }
@@ -145,25 +133,11 @@ module Stripe
             recipient: nil
           ); end
         end
-        # The monetary amount to be sent.
-        sig { returns(T.nilable(::Stripe::V2::Amount)) }
-        def amount; end
-        sig {
-          params(_amount: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
-         }
-        def amount=(_amount); end
         # An arbitrary string attached to the PayoutIntent. Often useful for displaying to users.
         sig { returns(T.nilable(String)) }
         def description; end
         sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
         def description=(_description); end
-        # From which FinancialAccount to pull funds.
-        sig { returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::From)) }
-        def from; end
-        sig {
-          params(_from: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::From)).returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::From))
-         }
-        def from=(_from); end
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -171,7 +145,7 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
-        # Details about the OutboundPayment notification settings for recipient. Only applicable to OutboundPayment.
+        # Recipient notification settings for the PayoutIntent. Only applicable when the PayoutIntent creates an OutboundPayment.
         sig {
           returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::RecipientNotification))
          }
@@ -180,7 +154,7 @@ module Stripe
           params(_recipient_notification: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::RecipientNotification)).returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::RecipientNotification))
          }
         def recipient_notification=(_recipient_notification); end
-        # Scheduling options for the payout. If this is nil, we assume immediate execution.
+        # Scheduling options for the payout. If omitted, the payout is scheduled for immediate execution.
         sig {
           returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::ScheduleOptions))
          }
@@ -202,12 +176,10 @@ module Stripe
          }
         def to=(_to); end
         sig {
-          params(amount: T.nilable(::Stripe::V2::Amount), description: T.nilable(String), from: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::From), metadata: T.nilable(T::Hash[String, String]), recipient_notification: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::RecipientNotification), schedule_options: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::ScheduleOptions), statement_descriptor: T.nilable(String), to: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::To)).void
+          params(description: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), recipient_notification: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::RecipientNotification), schedule_options: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::ScheduleOptions), statement_descriptor: T.nilable(String), to: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams::To)).void
          }
         def initialize(
-          amount: nil,
           description: nil,
-          from: nil,
           metadata: nil,
           recipient_notification: nil,
           schedule_options: nil,

@@ -4,11 +4,11 @@
 module Stripe
   module V2
     class RiskService < StripeService
-      attr_reader :inquiries
+      attr_reader :forms
 
       def initialize(requestor)
         super
-        @inquiries = Stripe::V2::Risk::InquiryService.new(@requestor)
+        @forms = Stripe::V2::Risk::FormService.new(@requestor)
       end
     end
   end

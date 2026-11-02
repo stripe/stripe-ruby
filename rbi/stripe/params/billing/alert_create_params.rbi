@@ -216,6 +216,11 @@ module Stripe
           def billing_cadence; end
           sig { params(_billing_cadence: T.nilable(String)).returns(T.nilable(String)) }
           def billing_cadence=(_billing_cadence); end
+          # Filter by billing group ID.
+          sig { returns(T.nilable(String)) }
+          def billing_group; end
+          sig { params(_billing_group: T.nilable(String)).returns(T.nilable(String)) }
+          def billing_group=(_billing_group); end
           # Filter by pricing plan ID.
           sig { returns(T.nilable(String)) }
           def pricing_plan; end
@@ -227,11 +232,12 @@ module Stripe
           sig { params(_pricing_plan_subscription: T.nilable(String)).returns(T.nilable(String)) }
           def pricing_plan_subscription=(_pricing_plan_subscription); end
           sig {
-            params(billable_items: T.nilable(T::Array[String]), billing_cadence: T.nilable(String), pricing_plan: T.nilable(String), pricing_plan_subscription: T.nilable(String)).void
+            params(billable_items: T.nilable(T::Array[String]), billing_cadence: T.nilable(String), billing_group: T.nilable(String), pricing_plan: T.nilable(String), pricing_plan_subscription: T.nilable(String)).void
            }
           def initialize(
             billable_items: nil,
             billing_cadence: nil,
+            billing_group: nil,
             pricing_plan: nil,
             pricing_plan_subscription: nil
           ); end

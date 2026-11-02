@@ -898,6 +898,8 @@ module Stripe
         BlockedByStripeError.new(error_data[:message], **opts)
       when "cannot_proceed"
         CannotProceedError.new(error_data[:message], **opts, reason: error_data[:reason])
+      when "capability_not_enabled"
+        CapabilityNotEnabledError.new(error_data[:message], **opts)
       when "controlled_by_alternate_resource"
         ControlledByAlternateResourceError.new(error_data[:message], **opts)
       when "feature_not_enabled"

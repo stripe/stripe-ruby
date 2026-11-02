@@ -3,6 +3,42 @@
 
 module Stripe
   class RefundCreateParams < ::Stripe::RequestParams
+    class PaymentMethodData < ::Stripe::RequestParams
+      class GiftCard < ::Stripe::RequestParams
+        # The ID of the gift card to receive the refund.
+        attr_accessor :gift_card
+
+        def initialize(gift_card: nil)
+          @gift_card = gift_card
+        end
+      end
+      # The gift card to receive the refund.
+      attr_accessor :gift_card
+      # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
+      attr_accessor :type
+
+      def initialize(gift_card: nil, type: nil)
+        @gift_card = gift_card
+        @type = type
+      end
+    end
+
+    class PaymentMethodOptions < ::Stripe::RequestParams
+      class GiftCard < ::Stripe::RequestParams
+        # The type of gift card operation to perform for the refund.
+        attr_accessor :operation_type
+
+        def initialize(operation_type: nil)
+          @operation_type = operation_type
+        end
+      end
+      # Gift card refund options.
+      attr_accessor :gift_card
+
+      def initialize(gift_card: nil)
+        @gift_card = gift_card
+      end
+    end
     # Attribute for param field amount
     attr_accessor :amount
     # The identifier of the charge to refund.
@@ -23,6 +59,10 @@ module Stripe
     attr_accessor :payment_attempt_record
     # The identifier of the PaymentIntent to refund.
     attr_accessor :payment_intent
+    # Used to create the PaymentMethod that will receive the refund.
+    attr_accessor :payment_method_data
+    # Payment method-specific options for the refund.
+    attr_accessor :payment_method_options
     # The identifier of the PaymentRecord to refund.
     attr_accessor :payment_record
     # String indicating the reason for the refund. If set, possible values are `duplicate`, `fraudulent`, and `requested_by_customer`. If you believe the charge to be fraudulent, specifying `fraudulent` as the reason will add the associated card and email to your [block lists](https://docs.stripe.com/radar/lists), and will also help us improve our fraud detection algorithms.
@@ -43,6 +83,8 @@ module Stripe
       origin: nil,
       payment_attempt_record: nil,
       payment_intent: nil,
+      payment_method_data: nil,
+      payment_method_options: nil,
       payment_record: nil,
       reason: nil,
       refund_application_fee: nil,
@@ -58,6 +100,8 @@ module Stripe
       @origin = origin
       @payment_attempt_record = payment_attempt_record
       @payment_intent = payment_intent
+      @payment_method_data = payment_method_data
+      @payment_method_options = payment_method_options
       @payment_record = payment_record
       @reason = reason
       @refund_application_fee = refund_application_fee

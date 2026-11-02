@@ -7,22 +7,22 @@ module Stripe
     module MoneyManagement
       class TransactionListParams < ::Stripe::RequestParams
         class Created < ::Stripe::RequestParams
-          # Filter for Transactions created after the specified timestamp.
+          # Filter for objects created after the specified timestamp.
           sig { returns(T.nilable(String)) }
           def gt; end
           sig { params(_gt: T.nilable(String)).returns(T.nilable(String)) }
           def gt=(_gt); end
-          # Filter for Transactions created at or after the specified timestamp.
+          # Filter for objects created at or after the specified timestamp.
           sig { returns(T.nilable(String)) }
           def gte; end
           sig { params(_gte: T.nilable(String)).returns(T.nilable(String)) }
           def gte=(_gte); end
-          # Filter for Transactions created before the specified timestamp.
+          # Filter for objects created before the specified timestamp.
           sig { returns(T.nilable(String)) }
           def lt; end
           sig { params(_lt: T.nilable(String)).returns(T.nilable(String)) }
           def lt=(_lt); end
-          # Filter for Transactions created at or before the specified timestamp.
+          # Filter for objects created at or before the specified timestamp.
           sig { returns(T.nilable(String)) }
           def lte; end
           sig { params(_lte: T.nilable(String)).returns(T.nilable(String)) }
@@ -32,19 +32,21 @@ module Stripe
            }
           def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
         end
-        # Set of filters to query Transactions within a range of `created` timestamps.
+        # Filter for Transactions created within a specified time range.
         sig { returns(T.nilable(::Stripe::V2::MoneyManagement::TransactionListParams::Created)) }
         def created; end
         sig {
           params(_created: T.nilable(::Stripe::V2::MoneyManagement::TransactionListParams::Created)).returns(T.nilable(::Stripe::V2::MoneyManagement::TransactionListParams::Created))
          }
         def created=(_created); end
-        # Filter for Transactions belonging to a FinancialAccount.
+        # Filter for Transactions belonging to a specific FinancialAccount. This filter only supports filtering by the FinancialAccount's ID.
         sig { returns(T.nilable(String)) }
         def financial_account; end
         sig { params(_financial_account: T.nilable(String)).returns(T.nilable(String)) }
         def financial_account=(_financial_account); end
-        # Filter for Transactions corresponding to a Flow.
+        # Filter for Transactions created by a specific flow object. This filter only supports filtering by
+        # the flow object's ID, such as `ibt_123` for an InboundTransfer. A value that doesn't match a flow ID
+        # returns an empty list.
         sig { returns(T.nilable(String)) }
         def flow; end
         sig { params(_flow: T.nilable(String)).returns(T.nilable(String)) }

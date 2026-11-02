@@ -63,6 +63,9 @@ module Stripe
           attr_reader :enabled_delivery_schemes
           # The ID of the Financial Connections Account used to create the bank account.
           attr_reader :financial_connections_account
+          # Uniquely identifies this particular bank account. You can use this attribute to check whether two
+          # recipients who've signed up with you are using the same bank account, for example.
+          attr_reader :fingerprint
           # The last 4 digits of the account number.
           attr_reader :last4
           # The routing number of the bank account, if present.

@@ -24,7 +24,7 @@ module Stripe
     def on_behalf_of; end
     sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
     def on_behalf_of=(_on_behalf_of); end
-    # Attribute for param field payment_method
+    # The ID of the payment method whose mandates you want to retrieve.
     sig { returns(String) }
     def payment_method; end
     sig { params(_payment_method: String).returns(String) }

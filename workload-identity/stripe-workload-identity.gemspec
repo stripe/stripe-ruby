@@ -8,11 +8,10 @@ Gem::Specification.new do |s|
   s.name = "stripe-workload-identity"
   s.version = Stripe::WorkloadIdentity::VERSION
   s.required_ruby_version = ">= 3.0.0"
-  s.summary = "GCP workload identity provider for the Stripe Ruby bindings"
-  s.description = "Lets Stripe::StripeClient.for_workload_identity authenticate on Google Cloud " \
-                  "environments with a compatible metadata identity-token endpoint, using a " \
-                  "Google-signed identity token instead of a long-lived API key. Does not depend " \
-                  "on the `stripe` gem."
+  s.summary = "AWS and GCP workload identity providers for the Stripe Ruby bindings"
+  s.description = "Lets Stripe::StripeClient.for_workload_identity authenticate on AWS or Google Cloud " \
+                  "environments using a cloud-signed identity token instead of a long-lived API key. " \
+                  "Does not depend on the `stripe` gem."
   s.author = "Stripe"
   s.email = "support@stripe.com"
   s.homepage = "https://stripe.com/docs/api?lang=ruby"
@@ -30,5 +29,6 @@ Gem::Specification.new do |s|
   s.files = Dir.chdir(File.dirname(__FILE__)) { `git ls-files -- lib rbi`.split("\n") }
   s.require_paths = ["lib"]
 
+  s.add_dependency "aws-sdk-core", "~> 3.238"
   s.add_dependency "googleauth", "~> 1.8"
 end

@@ -67,6 +67,10 @@ module Stripe
           # The ID of the Financial Connections Account used to create the bank account.
           sig { returns(T.nilable(String)) }
           def financial_connections_account; end
+          # Uniquely identifies this particular bank account. You can use this attribute to check whether two
+          # recipients who've signed up with you are using the same bank account, for example.
+          sig { returns(T.nilable(String)) }
+          def fingerprint; end
           # The last 4 digits of the account number.
           sig { returns(String) }
           def last4; end

@@ -167,6 +167,8 @@ module Stripe
       attr_accessor :crypto_wallet
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # The new financial account ID the card will be associated with. This field allows a card to be reassigned to a different financial account.
+      attr_accessor :financial_account
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # Attribute for param field personalization_design
@@ -186,6 +188,7 @@ module Stripe
         cancellation_reason: nil,
         crypto_wallet: nil,
         expand: nil,
+        financial_account: nil,
         metadata: nil,
         personalization_design: nil,
         pin: nil,
@@ -197,6 +200,7 @@ module Stripe
         @cancellation_reason = cancellation_reason
         @crypto_wallet = crypto_wallet
         @expand = expand
+        @financial_account = financial_account
         @metadata = metadata
         @personalization_design = personalization_design
         @pin = pin

@@ -110,7 +110,7 @@ module Stripe
             type: nil
           ); end
         end
-        # The list of installment entries. Must contain at least 2 entries.
+        # The list of installment entries. Must contain at least two entries.
         sig { returns(T::Array[::Stripe::PaymentPlanUpdateParams::Schedule::AmountsDue::Amount]) }
         def amounts; end
         sig {
@@ -122,14 +122,14 @@ module Stripe
          }
         def initialize(amounts: nil); end
       end
-      # Required when type is 'amounts_due'. Must contain at least 2 installment entries.
+      # Required when type is 'amounts_due'. Must contain at least two installment entries.
       sig { returns(::Stripe::PaymentPlanUpdateParams::Schedule::AmountsDue) }
       def amounts_due; end
       sig {
         params(_amounts_due: ::Stripe::PaymentPlanUpdateParams::Schedule::AmountsDue).returns(::Stripe::PaymentPlanUpdateParams::Schedule::AmountsDue)
        }
       def amounts_due=(_amounts_due); end
-      # The schedule type. Currently only 'amounts_due' is supported.
+      # The schedule type. It only supports 'amounts_due'.
       sig { returns(String) }
       def type; end
       sig { params(_type: String).returns(String) }

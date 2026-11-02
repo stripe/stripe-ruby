@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      # Contract resource representing a comprehensive sales agreement
+      # Contract resource representing a comprehensive sales agreement.
       class Contract < APIResource
         OBJECT_NAME = "v2.billing.contract"
         def self.object_name
@@ -532,6 +532,19 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class Terms < ::Stripe::StripeObject
+          # All terms in display order.
+          attr_reader :data
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The billing cycle anchor.
         attr_reader :billing_cycle_anchor
         # The billing settings.
@@ -566,6 +579,8 @@ module Stripe
         attr_reader :status
         # Historical timestamps of when the contract transitioned into each status.
         attr_reader :status_transitions
+        # All terms in display order. Only populated when `terms` is included.
+        attr_reader :terms
 
         def self.inner_class_types
           @inner_class_types = {
@@ -576,6 +591,7 @@ module Stripe
             pricing_lines: PricingLines,
             pricing_overrides: PricingOverrides,
             status_transitions: StatusTransitions,
+            terms: Terms,
           }
         end
 

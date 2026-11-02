@@ -18,6 +18,7 @@ module Stripe
         # Creates an OutboundTransfer.
         #
         # ** raises InsufficientFundsError
+        # ** raises CapabilityNotEnabledError
         # ** raises FeatureNotEnabledError
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::OutboundTransfer)

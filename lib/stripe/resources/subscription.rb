@@ -666,6 +666,9 @@ module Stripe
         end
 
         class SepaDebit < ::Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :debit_behavior
+
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -826,6 +829,8 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # The ID of the mandate for the subscription's default payment method.
+      attr_reader :mandate
       # Payment-method-specific configuration to provide to invoices created by the subscription.
       attr_reader :payment_method_options
       # The list of payment method types to provide to every invoice created by the subscription. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
@@ -1098,7 +1103,7 @@ module Stripe
     #
     # A subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.
     #
-    # A subscription can only enter a `paused` status [when a trial ends without a payment method](https://docs.stripe.com/billing/subscriptions/trials/free-trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
+    # A subscription can enter a `paused` status in several ways, including [when a trial ends without a payment method](https://docs.stripe.com/billing/subscriptions/trials/free-trials#create-free-trials-without-payment) or when you pause it using the [pause endpoint](https://docs.stripe.com/api/subscriptions/pause). A `paused` subscription doesn't advance to a new billing period or generate invoices until it resumes. The `paused` status is different from [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
     #
     # If subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).
     #

@@ -6,7 +6,9 @@ module Stripe
     module Data
       # The `ReportRun` resource represents an instance of a `Report` generated with specific
       # parameter values. Once the object is created, Stripe begins processing the report. When
-      # the report has finished running, it provides a reference to the results.
+      # the report has finished running, it provides a reference to the results. A `ReportRun` and
+      # its results are retained for 90 days after the run completes. After that, Stripe deletes
+      # them and retrieving the `ReportRun` returns a `404` error.
       class ReportRun < APIResource
         OBJECT_NAME = "v2.data.report_run"
         def self.object_name
@@ -139,9 +141,9 @@ module Stripe
         end
 
         class ResultOptions < ::Stripe::StripeObject
-          # If set, the generated result file is compressed into a ZIP archive before
-          # it is stored. This applies only to downloadable file results.
-          attr_reader :compress_file
+          # The compression applied to the generated result file. Defaults to `none`. This applies
+          # only to downloadable file results.
+          attr_reader :compression
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -153,15 +155,31 @@ module Stripe
         end
 
         class StatusDetails < ::Stripe::StripeObject
+          class QueryError < ::Stripe::StripeObject
+            # A human-readable description of the error.
+            attr_reader :message
+            # A short identifier categorizing the type of error.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Time at which the run was canceled. Populated when the run is in the `canceled` state.
           attr_reader :canceled_at
           # Error code categorizing the reason the run failed.
           attr_reader :code
           # Error message with additional details about the failure.
           attr_reader :message
+          # Errors found in the submitted SQL. Populated when the failure was caused by invalid SQL.
+          attr_reader :query_errors
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { query_errors: QueryError }
           end
 
           def self.field_remappings
@@ -170,6 +188,8 @@ module Stripe
         end
         # Time at which the `ReportRun` was created.
         attr_reader :created
+        # The file format of the result.
+        attr_reader :format
         # The unique identifier of the `ReportRun`.
         attr_reader :id
         # Whether the `ReportRun` was executed in live mode.
@@ -188,8 +208,8 @@ module Stripe
         attr_reader :result
         # Settings applied to the generated result file.
         attr_reader :result_options
-        # The fully-resolved SQL that was executed. Only present when requested via
-        # `include[0]=sql`.
+        # The fully-resolved SQL that was executed, or an explanatory message when the SQL cannot be
+        # exposed. Only present when requested via `include[0]=sql`.
         attr_reader :sql
         # The current status of the `ReportRun`.
         attr_reader :status

@@ -1603,6 +1603,17 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class TossPay < ::Stripe::StripeObject
+      # The buyer identifier provided by NICE for this Toss Pay account, when available.
+      sig { returns(T.nilable(String)) }
+      def buyer_id; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Twint < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1960,6 +1971,9 @@ module Stripe
     # Attribute for field tamara
     sig { returns(T.nilable(Tamara)) }
     def tamara; end
+    # Attribute for field toss_pay
+    sig { returns(T.nilable(TossPay)) }
+    def toss_pay; end
     # Attribute for field twint
     sig { returns(T.nilable(Twint)) }
     def twint; end

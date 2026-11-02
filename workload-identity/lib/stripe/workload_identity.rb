@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "googleauth"
-
 require "stripe/workload_identity/version"
 
 module Stripe
@@ -22,6 +20,8 @@ module Stripe
       end
 
       def identity_assertion
+        require "googleauth"
+
         credentials = Google::Auth::GCECredentials.new(token_type: :id_token, target_audience: AUDIENCE)
 
         begin
@@ -36,6 +36,53 @@ module Stripe
 
         token = credentials.id_token
         raise Error, "The GCP metadata server returned no identity token." if token.nil? || token.empty?
+
+        token
+      end
+    end
+
+    # Implements the workload identity provider, matching the
+    # type expected by `Stripe::StripeClient.for_workload_identity`
+    class AwsWorkloadIdentity
+      DEFAULT_SIGNING_ALGORITHM = "ES384"
+
+      SETUP_GUIDANCE = "Check that the process is running on AWS infrastructure with an identity that is " \
+                       "allowed to call sts:GetWebIdentityToken, and that a region is configured (the " \
+                       "operation is not available on the STS global endpoint). For local development, unit " \
+                       "tests, and CI that are not running on AWS, use a Stripe API key with " \
+                       "Stripe::StripeClient.new(...) instead."
+      private_constant :SETUP_GUIDANCE
+
+      # `audience` and `signing_algorithm` override the JWT requested from AWS STS; only set
+      # these if Stripe has told you to use different values. Any other keyword is forwarded
+      # to `Aws::STS::Client.new`.
+      def initialize(audience: AUDIENCE, signing_algorithm: DEFAULT_SIGNING_ALGORITHM, **sts_client_options)
+        @audience = audience
+        @signing_algorithm = signing_algorithm
+        @sts_client_options = sts_client_options
+      end
+
+      def provider
+        "aws"
+      end
+
+      def identity_assertion
+        require "aws-sdk-core"
+
+        client = Aws::STS::Client.new(**@sts_client_options)
+
+        begin
+          response = client.get_web_identity_token(audience: [@audience], signing_algorithm: @signing_algorithm)
+        rescue StandardError
+          raise Error, "Unable to obtain an AWS workload identity assertion: sts:GetWebIdentityToken failed. " \
+                       "#{SETUP_GUIDANCE}"
+        end
+
+        token = response.web_identity_token
+        if token.nil? || token.empty?
+          raise Error, "Unable to obtain an AWS workload identity assertion: sts:GetWebIdentityToken " \
+                       "returned no WebIdentityToken. #{SETUP_GUIDANCE}"
+        end
 
         token
       end

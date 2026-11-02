@@ -12,6 +12,20 @@ module Stripe
           "v2.provisioning.resource"
         end
 
+        class Configuration < ::Stripe::StripeObject
+          # Exact top-level configuration key names, unique and sorted in ascending lexicographic order.
+          # This array is present and empty when the available configuration has no entries.
+          attr_reader :key_names
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class UserMessage < ::Stripe::StripeObject
           # Message from the provider to display to the user.
           attr_reader :message
@@ -28,6 +42,10 @@ module Stripe
         end
         # Catalog partition containing the resource's provider service.
         attr_reader :catalog
+        # Names of the provider-issued configuration entries available for this resource. This is null
+        # unless explicitly included on RetrieveResource and the resource is complete with an available,
+        # unexpired configuration. Values are never exposed through this field.
+        attr_reader :configuration
         # Time at which the resource was created.
         attr_reader :created
         # Provider environment in which the resource runs.
@@ -55,7 +73,7 @@ module Stripe
         attr_reader :user_message
 
         def self.inner_class_types
-          @inner_class_types = { user_message: UserMessage }
+          @inner_class_types = { configuration: Configuration, user_message: UserMessage }
         end
 
         def self.field_remappings

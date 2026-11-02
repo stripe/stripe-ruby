@@ -214,62 +214,9 @@ module Stripe
           end
 
           class UserAccess < ::Stripe::StripeObject
-            class Authentication < ::Stripe::StripeObject
-              class PrimaryFactor < ::Stripe::StripeObject
-                # SSO provider for the authentication factor.
-                attr_reader :sso_provider
-                # Type of authentication factor.
-                attr_reader :type
-
-                def self.inner_class_types
-                  @inner_class_types = {}
-                end
-
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
-
-              class SecondaryFactor < ::Stripe::StripeObject
-                # SSO provider for the authentication factor.
-                attr_reader :sso_provider
-                # Type of authentication factor.
-                attr_reader :type
-
-                def self.inner_class_types
-                  @inner_class_types = {}
-                end
-
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
-              # Primary authentication factor.
-              attr_reader :primary_factor
-              # Secondary authentication factors.
-              attr_reader :secondary_factors
-
-              def self.inner_class_types
-                @inner_class_types = {
-                  primary_factor: PrimaryFactor,
-                  secondary_factors: SecondaryFactor,
-                }
-              end
-
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-
             class DashboardClient < ::Stripe::StripeObject
-              # Browser used for the user access action.
-              attr_reader :browser
-              # Browser version used for the user access action.
-              attr_reader :browser_version
-              # Device type used for the user access action.
-              attr_reader :device_type
-              # Operating system used for the user access action.
-              attr_reader :os
+              # User-Agent header for the user access action.
+              attr_reader :user_agent
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -323,8 +270,6 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Risk level for the user access action.
-              attr_reader :level
               # Risk signals for the user access action.
               attr_reader :signals
 
@@ -336,8 +281,6 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Authentication details for the user access action.
-            attr_reader :authentication
             # Dashboard client details for the user access action.
             attr_reader :dashboard_client
             # Timestamp when the user access expires.
@@ -348,18 +291,11 @@ module Stripe
             attr_reader :risk
             # Roles associated with the user access action.
             attr_reader :roles
-            # Session fingerprint for the user access action.
-            attr_reader :session_fingerprint
             # Surface where the user access action started.
             attr_reader :surface
 
             def self.inner_class_types
-              @inner_class_types = {
-                authentication: Authentication,
-                dashboard_client: DashboardClient,
-                network: Network,
-                risk: Risk,
-              }
+              @inner_class_types = { dashboard_client: DashboardClient, network: Network, risk: Risk }
             end
 
             def self.field_remappings

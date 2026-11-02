@@ -80,6 +80,52 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class MarketingAttribution < ::Stripe::StripeObject
+      class AdConversion < ::Stripe::StripeObject
+        # Whether the customer consented to sending conversion data to an advertising platform.
+        sig { returns(T::Boolean) }
+        def consent_collected; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field ad_conversion
+      sig { returns(T.nilable(AdConversion)) }
+      def ad_conversion; end
+      # The advertising platform's click identifier.
+      sig { returns(T.nilable(String)) }
+      def click_id; end
+      # The Unix timestamp when the advertising interaction occurred.
+      sig { returns(T.nilable(Integer)) }
+      def occurred_at; end
+      # The advertising group ID from the `utm_adgroup` parameter.
+      sig { returns(T.nilable(String)) }
+      def utm_adgroup; end
+      # The advertising content identifier from the `utm_content` parameter.
+      sig { returns(T.nilable(String)) }
+      def utm_content; end
+      # The advertising campaign ID from the `utm_id` parameter.
+      sig { returns(T.nilable(String)) }
+      def utm_id; end
+      # The marketing medium from the `utm_medium` parameter.
+      sig { returns(T.nilable(String)) }
+      def utm_medium; end
+      # The referral source from the `utm_source` parameter.
+      sig { returns(T.nilable(String)) }
+      def utm_source; end
+      # The paid search term from the `utm_term` parameter.
+      sig { returns(T.nilable(String)) }
+      def utm_term; end
+      def self.inner_class_types
+        @inner_class_types = {ad_conversion: AdConversion}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Redaction < ::Stripe::StripeObject
       # Indicates whether this object and its related objects have been redacted or not.
       sig { returns(String) }
@@ -242,6 +288,9 @@ module Stripe
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
+    # Advertising attribution information for this customer.
+    sig { returns(T.nilable(T::Array[MarketingAttribution])) }
+    def marketing_attributions; end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end

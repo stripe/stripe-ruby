@@ -23,7 +23,9 @@ module Stripe
       end
       # Filter results to only include triggered or recovered notifications.
       attr_accessor :action
-      # Filter results to only include notifications for the given billing cadence.
+      # Filter results to only include notifications for the given billing group.
+      attr_accessor :billing_group
+      # Filter results to only include notifications for the given cadence.
       attr_accessor :cadence
       # The customer to list notifications for.
       attr_accessor :customer
@@ -44,6 +46,7 @@ module Stripe
 
       def initialize(
         action: nil,
+        billing_group: nil,
         cadence: nil,
         customer: nil,
         ending_before: nil,
@@ -55,6 +58,7 @@ module Stripe
         subscription: nil
       )
         @action = action
+        @billing_group = billing_group
         @cadence = cadence
         @customer = customer
         @ending_before = ending_before

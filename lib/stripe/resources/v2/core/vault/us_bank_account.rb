@@ -69,10 +69,15 @@ module Stripe
           attr_reader :bank_name
           # Creation time of the object.
           attr_reader :created
+          # Same as `fingerprint`, but uniquely identifies the bank account using its `fedwire_routing_number` instead of its `routing_number`.
+          attr_reader :fedwire_fingerprint
           # The fedwire routing number of the bank account.
           attr_reader :fedwire_routing_number
           # The ID of the Financial Connections Account used to create the bank account.
           attr_reader :financial_connections_account
+          # Uniquely identifies this particular bank account. You can use this attribute to check whether two
+          # recipients who've signed up with you are using the same bank account, for example.
+          attr_reader :fingerprint
           # The ID of the USBankAccount object.
           attr_reader :id
           # The last 4 digits of the account number.

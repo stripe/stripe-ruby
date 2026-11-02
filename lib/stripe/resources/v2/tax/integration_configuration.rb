@@ -37,6 +37,19 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class Subscriptions < ::Stripe::StripeObject
+          # Controls the default value of automatic_tax[enabled] on new Subscriptions.
+          attr_reader :automatic_tax_default_value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Configuration for Checkout Sessions automatic tax behavior.
         attr_reader :checkout_sessions
         # Configuration for standalone Invoices automatic tax behavior.
@@ -45,9 +58,15 @@ module Stripe
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
+        # Configuration for Subscriptions automatic tax behavior.
+        attr_reader :subscriptions
 
         def self.inner_class_types
-          @inner_class_types = { checkout_sessions: CheckoutSessions, invoices: Invoices }
+          @inner_class_types = {
+            checkout_sessions: CheckoutSessions,
+            invoices: Invoices,
+            subscriptions: Subscriptions,
+          }
         end
 
         def self.field_remappings

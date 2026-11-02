@@ -4,7 +4,8 @@
 module Stripe
   module V2
     module MoneyManagement
-      # Adjustments represent Stripe-initiated credits or debits to a user balance. They might be used to amend balances due to technical or operational error.
+      # An Adjustment records a credit or debit that Stripe makes to your Financial Account balance,
+      # for example to correct technical or operational errors.
       class Adjustment < APIResource
         OBJECT_NAME = "v2.money_management.adjustment"
         def self.object_name
@@ -12,7 +13,7 @@ module Stripe
         end
 
         class AdjustedFlow < ::Stripe::StripeObject
-          # If applicable, the ID of the Adjustment linked to this Adjustment.
+          # If applicable, the ID of the original Adjustment linked to this Adjustment.
           attr_reader :adjustment
           # If applicable, the ID of the InboundTransfer linked to this Adjustment.
           attr_reader :inbound_transfer
@@ -35,15 +36,19 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # If applicable, contains information about the original flow linked to this Adjustment.
+        # Details about the original flow object linked to this Adjustment, if applicable.
+        # `adjusted_flow.type` identifies the kind of object. The corresponding field contains its ID:
+        # for an InboundTransfer, `adjusted_flow.inbound_transfer` contains the InboundTransfer's ID.
+        # Pass that ID to the `adjusted_flow` parameter on List Adjustments.
         attr_reader :adjusted_flow
         # The amount of the Adjustment.
         attr_reader :amount
-        # Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+        # Time at which the object was created. Represented as an RFC 3339 timestamp in UTC with millisecond precision,
+        # for example `2022-09-18T13:22:18.123Z`.
         attr_reader :created
-        # Description of the Adjustment and what it was used for.
+        # A description of the Adjustment and its purpose.
         attr_reader :description
-        # The FinancialAccount that this adjustment is for.
+        # The ID of the FinancialAccount whose balance this Adjustment affects.
         attr_reader :financial_account
         # Unique identifier for the object.
         attr_reader :id
@@ -51,7 +56,9 @@ module Stripe
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # A link to the Stripe-hosted receipt that is provided when money movement is considered regulated under Stripe’s money transmission licenses. The receipt link remains active for 60 days from the Adjustment creation date. After this period, the link will expire and the receipt url value will be null.
+        # A link to the Stripe-hosted receipt provided when money movement is regulated under Stripe's money transmission licenses.
+        # You can use this link to view the receipt for 60 days after the Adjustment is created.
+        # After that, the link expires and `receipt_url` is `null`.
         attr_reader :receipt_url
         # A reference for the Adjustment that associates it with related records or operations.
         attr_reader :reference

@@ -122,6 +122,19 @@ module Stripe
         end
       end
 
+      class StripeT600 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        attr_reader :splashscreen
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Tipping < ::Stripe::StripeObject
         class Aed < ::Stripe::StripeObject
           # Fixed amounts displayed when collecting a tip
@@ -722,6 +735,8 @@ module Stripe
       attr_reader :stripe_s700
       # Attribute for field stripe_s710
       attr_reader :stripe_s710
+      # Attribute for field stripe_t600
+      attr_reader :stripe_t600
       # Attribute for field tipping
       attr_reader :tipping
       # Attribute for field verifone_m425
@@ -797,6 +812,7 @@ module Stripe
           reboot_window: RebootWindow,
           stripe_s700: StripeS700,
           stripe_s710: StripeS710,
+          stripe_t600: StripeT600,
           tipping: Tipping,
           verifone_m425: VerifoneM425,
           verifone_p400: VerifoneP400,

@@ -1649,6 +1649,19 @@ module Stripe
         end
       end
 
+      class TossPay < ::Stripe::StripeObject
+        # The buyer identifier provided by NICE for this Toss Pay account, when available.
+        attr_reader :buyer_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Twint < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -1911,6 +1924,8 @@ module Stripe
       attr_reader :swish
       # Attribute for field tamara
       attr_reader :tamara
+      # Attribute for field toss_pay
+      attr_reader :toss_pay
       # Attribute for field twint
       attr_reader :twint
       # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -1994,6 +2009,7 @@ module Stripe
           sunbit: Sunbit,
           swish: Swish,
           tamara: Tamara,
+          toss_pay: TossPay,
           twint: Twint,
           upi: Upi,
           us_bank_account: UsBankAccount,

@@ -60,7 +60,7 @@ module Stripe
         end
         class RecipientNotification < ::Stripe::StripeObject
           # Closed Enum. Configuration option to enable or disable notifications to recipients.
-          # Do not send notifications when setting is NONE. Default to account setting when setting is CONFIGURED or not set.
+          # Do not send notifications when `setting` is `none`. Use the account setting when `setting` is `configured` or omitted.
           sig { returns(String) }
           def setting; end
           def self.inner_class_types
@@ -179,7 +179,7 @@ module Stripe
               sig { returns(T.nilable(PreferredNetworkOptions)) }
               def preferred_network_options; end
               # The preferred networks to use for this OutboundPayment.
-              sig { returns(T::Array[String]) }
+              sig { returns(T.nilable(T::Array[String])) }
               def preferred_networks; end
               def self.inner_class_types
                 @inner_class_types = {preferred_network_options: PreferredNetworkOptions}
@@ -202,7 +202,7 @@ module Stripe
           sig { returns(::Stripe::V2::Amount) }
           def credited; end
           # The payout method which the OutboundPayment uses to send payout.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def payout_method; end
           # Payout method options for the OutboundPayment.
           sig { returns(T.nilable(PayoutMethodOptions)) }
@@ -220,7 +220,7 @@ module Stripe
         class TraceId < ::Stripe::StripeObject
           # Possible values are `pending`, `supported`, and `unsupported`. Initially set to `pending`, it changes to
           # `supported` when the recipient bank provides a trace ID, or `unsupported` if the recipient bank doesn't support it.
-          # Note that this status may not align with the OutboundPayment or OutboundTransfer status and can remain `pending`
+          # This status may not align with the OutboundPayment or OutboundTransfer status and can remain `pending`
           # even after the payment or transfer is posted.
           sig { returns(String) }
           def status; end
@@ -235,6 +235,39 @@ module Stripe
           end
         end
         class TrackingDetails < ::Stripe::StripeObject
+          class BankAccount < ::Stripe::StripeObject
+            # A unique identifier that can be used to track this OutboundPayment with the recipient bank. Banks might call this a “reference number” or something similar.
+            sig { returns(T.nilable(String)) }
+            def trace_id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Card < ::Stripe::StripeObject
+            # A unique identifier that can be used to track this OutboundPayment with the recipient card.
+            sig { returns(T.nilable(String)) }
+            def retrieval_reference; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class CryptoWallet < ::Stripe::StripeObject
+            # A unique identifier that can be used to track this OutboundPayment with the recipient crypto wallet.
+            sig { returns(T.nilable(String)) }
+            def blockchain_transaction; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class PaperCheck < ::Stripe::StripeObject
             class MailingAddress < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
@@ -290,17 +323,37 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Bank account tracking details.
+          sig { returns(T.nilable(BankAccount)) }
+          def bank_account; end
+          # Card tracking details.
+          sig { returns(T.nilable(Card)) }
+          def card; end
+          # Crypto wallet tracking details.
+          sig { returns(T.nilable(CryptoWallet)) }
+          def crypto_wallet; end
           # Paper check tracking details.
           sig { returns(T.nilable(PaperCheck)) }
           def paper_check; end
+          # The status of the tracking details for this OutboundPayment.
+          sig { returns(String) }
+          def status; end
+          # The type of tracking details for this OutboundPayment.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
-            @inner_class_types = {paper_check: PaperCheck}
+            @inner_class_types = {
+              bank_account: BankAccount,
+              card: Card,
+              crypto_wallet: CryptoWallet,
+              paper_check: PaperCheck,
+            }
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
-        # The "presentment amount" for the OutboundPayment.
+        # The amount and currency requested for this OutboundPayment.
         sig { returns(::Stripe::V2::Amount) }
         def amount; end
         # Returns true if the OutboundPayment can be canceled, and false otherwise.
@@ -350,16 +403,15 @@ module Stripe
         # Details about the OutboundPayment notification settings for recipient.
         sig { returns(RecipientNotification) }
         def recipient_notification; end
-        # The recipient verification id for this OutboundPayment. Only required for countries with regulatory mandates to verify recipient names before OutboundPayment creation.
+        # The ID of the RecipientVerification for this OutboundPayment. Required where recipient-name verification is mandated before creating an OutboundPayment.
         sig { returns(T.nilable(String)) }
         def recipient_verification; end
-        # The description that appears on the receiving end for an OutboundPayment (for example, bank statement for external bank transfer). It will default to `STRIPE` if not set on the account settings.
+        # The description that appears on the receiving end of an OutboundPayment (for example, on a bank statement). Defaults to `STRIPE` if not configured in the account settings.
         sig { returns(String) }
         def statement_descriptor; end
-        # Closed Enum. Current status of the OutboundPayment: `processing`, `failed`, `posted`, `returned`, `canceled`.
-        # An OutboundPayment is `processing` if it has been created and is processing.
-        # The status changes to `posted` once the OutboundPayment has been "confirmed" and funds have left the account, or to `failed` or `canceled`.
-        # If an OutboundPayment fails to arrive at its payout method, its status will change to `returned`.
+        # Current status of the OutboundPayment.
+        # An OutboundPayment is `processing` after creation. It becomes `posted` when funds leave the account,
+        # `failed` if it cannot be sent, `canceled` if canceled before posting, or `returned` if the funds are returned.
         sig { returns(String) }
         def status; end
         # Status details for an OutboundPayment in a `processing`, `failed`, or `returned` state.

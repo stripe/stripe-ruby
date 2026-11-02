@@ -6,7 +6,7 @@ module Stripe
     module Core
       module Vault
         class NetworkTokenService < StripeService
-          # Create or Return a Network Token Using Raw Card Data.
+          # Creates a Network Token from raw card data.
           #
           # ** raises CannotProceedError
           # ** raises BlockedByStripeError
@@ -21,7 +21,7 @@ module Stripe
             )
           end
 
-          # Creates or returns a Network Token from an existing card reference.
+          # Creates a Network Token from an existing card reference.
           #
           # ** raises CannotProceedError
           # ** raises BlockedByStripeError
@@ -40,6 +40,7 @@ module Stripe
           #
           # ** raises RateLimitError
           # ** raises CannotProceedError
+          # ** raises MerchantNotGatedError
           def generate_cryptogram(id, params = {}, opts = {})
             request(
               method: :post,

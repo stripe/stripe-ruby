@@ -213,64 +213,10 @@ module Stripe
             end
           end
           class UserAccess < ::Stripe::StripeObject
-            class Authentication < ::Stripe::StripeObject
-              class PrimaryFactor < ::Stripe::StripeObject
-                # SSO provider for the authentication factor.
-                sig { returns(T.nilable(String)) }
-                def sso_provider; end
-                # Type of authentication factor.
-                sig { returns(String) }
-                def type; end
-                def self.inner_class_types
-                  @inner_class_types = {}
-                end
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
-              class SecondaryFactor < ::Stripe::StripeObject
-                # SSO provider for the authentication factor.
-                sig { returns(T.nilable(String)) }
-                def sso_provider; end
-                # Type of authentication factor.
-                sig { returns(String) }
-                def type; end
-                def self.inner_class_types
-                  @inner_class_types = {}
-                end
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
-              # Primary authentication factor.
-              sig { returns(PrimaryFactor) }
-              def primary_factor; end
-              # Secondary authentication factors.
-              sig { returns(T::Array[SecondaryFactor]) }
-              def secondary_factors; end
-              def self.inner_class_types
-                @inner_class_types = {
-                  primary_factor: PrimaryFactor,
-                  secondary_factors: SecondaryFactor,
-                }
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
             class DashboardClient < ::Stripe::StripeObject
-              # Browser used for the user access action.
+              # User-Agent header for the user access action.
               sig { returns(String) }
-              def browser; end
-              # Browser version used for the user access action.
-              sig { returns(String) }
-              def browser_version; end
-              # Device type used for the user access action.
-              sig { returns(String) }
-              def device_type; end
-              # Operating system used for the user access action.
-              sig { returns(String) }
-              def os; end
+              def user_agent; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -321,9 +267,6 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Risk level for the user access action.
-              sig { returns(String) }
-              def level; end
               # Risk signals for the user access action.
               sig { returns(T::Array[Signal]) }
               def signals; end
@@ -334,9 +277,6 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Authentication details for the user access action.
-            sig { returns(Authentication) }
-            def authentication; end
             # Dashboard client details for the user access action.
             sig { returns(T.nilable(DashboardClient)) }
             def dashboard_client; end
@@ -352,19 +292,11 @@ module Stripe
             # Roles associated with the user access action.
             sig { returns(T::Array[String]) }
             def roles; end
-            # Session fingerprint for the user access action.
-            sig { returns(String) }
-            def session_fingerprint; end
             # Surface where the user access action started.
             sig { returns(String) }
             def surface; end
             def self.inner_class_types
-              @inner_class_types = {
-                authentication: Authentication,
-                dashboard_client: DashboardClient,
-                network: Network,
-                risk: Risk,
-              }
+              @inner_class_types = {dashboard_client: DashboardClient, network: Network, risk: Risk}
             end
             def self.field_remappings
               @field_remappings = {}

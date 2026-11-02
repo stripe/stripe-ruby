@@ -5,7 +5,8 @@ module Stripe
   module V2
     module MoneyManagement
       class TransactionUpdateParams < ::Stripe::RequestParams
-        # Description of this Transaction, up to 100 characters.
+        # A description of the Transaction, up to 100 characters. Pass `null` to clear the description,
+        # or omit this parameter to leave it unchanged.
         attr_accessor :description
         # Set of key-value pairs that you can attach to the Transaction. Individual keys can be unset by posting
         # null to them.

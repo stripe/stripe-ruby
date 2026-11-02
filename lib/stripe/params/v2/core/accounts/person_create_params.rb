@@ -138,7 +138,7 @@ module Stripe
 
           class Documents < ::Stripe::RequestParams
             class CompanyAuthorization < ::Stripe::RequestParams
-              # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+              # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
               attr_accessor :files
               # The format of the document. Currently supports `files` only.
               attr_accessor :type
@@ -150,7 +150,7 @@ module Stripe
             end
 
             class Passport < ::Stripe::RequestParams
-              # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+              # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
               attr_accessor :files
               # The format of the document. Currently supports `files` only.
               attr_accessor :type
@@ -163,9 +163,9 @@ module Stripe
 
             class PrimaryVerification < ::Stripe::RequestParams
               class FrontBack < ::Stripe::RequestParams
-                # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                 attr_accessor :back
-                # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                 attr_accessor :front
 
                 def initialize(back: nil, front: nil)
@@ -173,7 +173,7 @@ module Stripe
                   @front = front
                 end
               end
-              # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+              # The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
               attr_accessor :front_back
               # The format of the verification document. Currently supports `front_back` only.
               attr_accessor :type
@@ -186,9 +186,9 @@ module Stripe
 
             class SecondaryVerification < ::Stripe::RequestParams
               class FrontBack < ::Stripe::RequestParams
-                # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                 attr_accessor :back
-                # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                 attr_accessor :front
 
                 def initialize(back: nil, front: nil)
@@ -196,7 +196,7 @@ module Stripe
                   @front = front
                 end
               end
-              # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+              # The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
               attr_accessor :front_back
               # The format of the verification document. Currently supports `front_back` only.
               attr_accessor :type
@@ -208,7 +208,7 @@ module Stripe
             end
 
             class Visa < ::Stripe::RequestParams
-              # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+              # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
               attr_accessor :files
               # The format of the document. Currently supports `files` only.
               attr_accessor :type

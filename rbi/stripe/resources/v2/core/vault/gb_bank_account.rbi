@@ -109,6 +109,10 @@ module Stripe
           # Creation time.
           sig { returns(String) }
           def created; end
+          # Uniquely identifies this particular bank account. You can use this attribute to check whether two
+          # recipients who've signed up with you are using the same bank account, for example.
+          sig { returns(T.nilable(String)) }
+          def fingerprint; end
           # The ID of the GBBankAccount object.
           sig { returns(String) }
           def id; end

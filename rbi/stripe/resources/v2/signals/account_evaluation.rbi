@@ -163,17 +163,17 @@ module Stripe
               @field_encodings = {score: :decimal_string}
             end
           end
-          class UserMerchantFit < ::Stripe::StripeObject
+          class UserAffinity < ::Stripe::StripeObject
             # Timestamp at which the signal was evaluated.
             sig { returns(T.nilable(String)) }
             def evaluated_at; end
-            # Categorical assessment of the user-merchant fit.
+            # Categorical assessment of the user affinity.
             sig { returns(String) }
-            def fit_level; end
-            # The specific fit score for the user, between 0.00 and 100.00. Absent when fit_level is unknown.
+            def level; end
+            # The specific affinity score for the user, between 0.00 and 100.00. Absent when level is unknown.
             sig { returns(T.nilable(BigDecimal)) }
             def score; end
-            # The account signal ID containing the full user-merchant fit signal result.
+            # The account signal ID containing the full user affinity signal result.
             sig { returns(T.nilable(String)) }
             def signal; end
             def self.inner_class_types
@@ -218,9 +218,9 @@ module Stripe
           # User account-sharing result for the evaluation, when available.
           sig { returns(T.nilable(UserAccountSharing)) }
           def user_account_sharing; end
-          # User-merchant fit result for the evaluation, when available.
-          sig { returns(T.nilable(UserMerchantFit)) }
-          def user_merchant_fit; end
+          # User affinity result for the evaluation, when available.
+          sig { returns(T.nilable(UserAffinity)) }
+          def user_affinity; end
           # User multi-accounting result for the evaluation, when available.
           sig { returns(T.nilable(UserMultiAccounting)) }
           def user_multi_accounting; end
@@ -229,7 +229,7 @@ module Stripe
               account_takeover: AccountTakeover,
               fraudulent_website: FraudulentWebsite,
               user_account_sharing: UserAccountSharing,
-              user_merchant_fit: UserMerchantFit,
+              user_affinity: UserAffinity,
               user_multi_accounting: UserMultiAccounting,
             }
           end
@@ -239,7 +239,7 @@ module Stripe
           def self.field_encodings
             @field_encodings = {
               user_account_sharing: {kind: :object, fields: {score: :decimal_string}},
-              user_merchant_fit: {kind: :object, fields: {score: :decimal_string}},
+              user_affinity: {kind: :object, fields: {score: :decimal_string}},
               user_multi_accounting: {kind: :object, fields: {score: :decimal_string}},
             }
           end

@@ -32,7 +32,7 @@ module Stripe
 
       should "raise if provider name is unsupported" do
         e = assert_raises(WorkloadIdentityError) do
-          WorkloadIdentity.validate_provider!(FakeProvider.new(provider: "aws"))
+          WorkloadIdentity.validate_provider!(FakeProvider.new(provider: "azure"))
         end
         assert_match(/Unsupported workload identity provider/, e.message)
       end

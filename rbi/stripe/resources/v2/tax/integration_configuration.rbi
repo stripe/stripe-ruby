@@ -30,6 +30,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Subscriptions < ::Stripe::StripeObject
+          # Controls the default value of automatic_tax[enabled] on new Subscriptions.
+          sig { returns(String) }
+          def automatic_tax_default_value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Configuration for Checkout Sessions automatic tax behavior.
         sig { returns(CheckoutSessions) }
         def checkout_sessions; end
@@ -42,6 +53,9 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
+        # Configuration for Subscriptions automatic tax behavior.
+        sig { returns(Subscriptions) }
+        def subscriptions; end
       end
     end
   end

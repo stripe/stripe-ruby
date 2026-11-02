@@ -137,6 +137,9 @@ module Stripe
           # Filter by billing cadence ID.
           sig { returns(T.nilable(String)) }
           def billing_cadence; end
+          # Filter by billing group ID.
+          sig { returns(T.nilable(String)) }
+          def billing_group; end
           # Filter by pricing plan ID.
           sig { returns(T.nilable(String)) }
           def pricing_plan; end

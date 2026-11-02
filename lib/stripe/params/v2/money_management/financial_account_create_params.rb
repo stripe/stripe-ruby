@@ -26,38 +26,16 @@ module Stripe
               @custody_model = custody_model
             end
           end
-
-          class DepositInsuranceEligibility < ::Stripe::RequestParams
-            # The bank where funds are stored.
-            attr_accessor :bank_name
-            # Currencies eligible for deposit insurance at this bank under this scheme.
-            attr_accessor :currencies
-            # The deposit insurance scheme.
-            attr_accessor :type
-
-            def initialize(bank_name: nil, currencies: nil, type: nil)
-              @bank_name = bank_name
-              @currencies = currencies
-              @type = type
-            end
-          end
-          # Crypto-specific storage configuration. Only populated when `storage.crypto` is passed in the `include` parameter and the FinancialAccount stores crypto assets. Fiat currencies remain configured only through `holds_currencies`.
+          # Crypto-specific storage configuration. Fiat currencies remain configured only through `holds_currencies`.
           attr_accessor :crypto
-          # Array of eligibility objects, segmented by bank name and deposit insurance scheme.
-          attr_accessor :deposit_insurance_eligibility
-          # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
+          # The usage type for funds in this FinancialAccount. Defaults to BUSINESS if not specified.
           attr_accessor :funds_usage_type
-          # The currencies that this FinancialAccount can hold.
+          # The currencies that the storage FinancialAccount can hold a balance in. Three-letter ISO currency code, in lowercase.
+          # Must be a subset of the currencies requested in `configuration.storer.features.holds_currencies` of the v2/accounts API.
           attr_accessor :holds_currencies
 
-          def initialize(
-            crypto: nil,
-            deposit_insurance_eligibility: nil,
-            funds_usage_type: nil,
-            holds_currencies: nil
-          )
+          def initialize(crypto: nil, funds_usage_type: nil, holds_currencies: nil)
             @crypto = crypto
-            @deposit_insurance_eligibility = deposit_insurance_eligibility
             @funds_usage_type = funds_usage_type
             @holds_currencies = holds_currencies
           end

@@ -9,14 +9,56 @@ module Stripe
       class BatchJob < APIResource
         class StatusDetails < ::Stripe::StripeObject
           class BatchFailed < ::Stripe::StripeObject
+            class PartialOutputFile < ::Stripe::StripeObject
+              class DownloadUrl < ::Stripe::StripeObject
+                # The time that the URL expires.
+                sig { returns(T.nilable(String)) }
+                def expires_at; end
+                # The URL that can be used for accessing the file.
+                sig { returns(String) }
+                def url; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The content type of the file.
+              sig { returns(String) }
+              def content_type; end
+              # A pre-signed URL that allows secure, time-limited access to download the file.
+              sig { returns(DownloadUrl) }
+              def download_url; end
+              # The total size of the file in bytes.
+              sig { returns(Integer) }
+              def size; end
+              def self.inner_class_types
+                @inner_class_types = {download_url: DownloadUrl}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+              def self.field_encodings
+                @field_encodings = {size: :int64_string}
+              end
+            end
             # Details about the `batch_job` failure.
             sig { returns(String) }
             def error; end
+            # The partial output file details, containing everything processed before the `batch_job` failed. Absent for jobs that failed before producing any output.
+            sig { returns(T.nilable(PartialOutputFile)) }
+            def partial_output_file; end
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = {partial_output_file: PartialOutputFile}
             end
             def self.field_remappings
               @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {
+                partial_output_file: {kind: :object, fields: {size: :int64_string}},
+              }
             end
           end
           class Canceled < ::Stripe::StripeObject
@@ -349,6 +391,10 @@ module Stripe
           end
           def self.field_encodings
             @field_encodings = {
+              batch_failed: {
+                kind: :object,
+                fields: {partial_output_file: {kind: :object, fields: {size: :int64_string}}},
+              },
               canceled: {
                 kind: :object,
                 fields: {

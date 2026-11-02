@@ -1364,7 +1364,15 @@ module Stripe
            }
           def initialize(expires_after_seconds: nil, mandate_options: nil); end
         end
-        class SepaDebit < ::Stripe::RequestParams; end
+        class SepaDebit < ::Stripe::RequestParams
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def debit_behavior; end
+          sig { params(_debit_behavior: T.nilable(String)).returns(T.nilable(String)) }
+          def debit_behavior=(_debit_behavior); end
+          sig { params(debit_behavior: T.nilable(String)).void }
+          def initialize(debit_behavior: nil); end
+        end
         class Upi < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Amount to be charged for future payments.
@@ -1663,6 +1671,11 @@ module Stripe
           wechat_pay: nil
         ); end
       end
+      # The ID of the mandate to use for the subscription's default payment method.
+      sig { returns(T.nilable(String)) }
+      def mandate; end
+      sig { params(_mandate: T.nilable(String)).returns(T.nilable(String)) }
+      def mandate=(_mandate); end
       # Payment-method-specific configuration to provide to invoices created by the subscription.
       sig {
         returns(T.nilable(::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions))
@@ -1685,9 +1698,10 @@ module Stripe
       sig { params(_save_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }
       def save_default_payment_method=(_save_default_payment_method); end
       sig {
-        params(payment_method_options: T.nilable(::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions), payment_method_types: T.nilable(T.any(String, T::Array[String])), save_default_payment_method: T.nilable(String)).void
+        params(mandate: T.nilable(String), payment_method_options: T.nilable(::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions), payment_method_types: T.nilable(T.any(String, T::Array[String])), save_default_payment_method: T.nilable(String)).void
        }
       def initialize(
+        mandate: nil,
         payment_method_options: nil,
         payment_method_types: nil,
         save_default_payment_method: nil

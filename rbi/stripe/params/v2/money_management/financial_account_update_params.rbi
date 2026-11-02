@@ -7,12 +7,13 @@ module Stripe
     module MoneyManagement
       class FinancialAccountUpdateParams < ::Stripe::RequestParams
         class ForwardingSettings < ::Stripe::RequestParams
-          # The address to send forwarded payments to.
+          # ID of the FinancialAccount that supplies funds to cover negative balances
+          # during or after this FinancialAccount's closure.
           sig { returns(T.nilable(String)) }
           def payment_method; end
           sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
           def payment_method=(_payment_method); end
-          # The address to send forwarded payouts to.
+          # ID of the FinancialAccount that receives funds forwarded from this FinancialAccount when it closes.
           sig { returns(T.nilable(String)) }
           def payout_method; end
           sig { params(_payout_method: T.nilable(String)).returns(T.nilable(String)) }
@@ -74,7 +75,7 @@ module Stripe
            }
           def initialize(crypto: nil, holds_currencies: nil); end
         end
-        # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
+        # A descriptive name for the FinancialAccount, up to 50 characters long. This name appears in the Stripe Dashboard and embedded components.
         sig { returns(T.nilable(String)) }
         def display_name; end
         sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
@@ -88,7 +89,8 @@ module Stripe
           params(_forwarding_settings: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::ForwardingSettings)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::ForwardingSettings))
          }
         def forwarding_settings=(_forwarding_settings); end
-        # Metadata associated with the FinancialAccount.
+        # Set of key-value pairs that you can attach to the FinancialAccount. Individual keys can be unset by posting
+        # null to them.
         sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
         def metadata; end
         sig {

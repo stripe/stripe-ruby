@@ -6,12 +6,12 @@ module Stripe
   module V2
     module MoneyManagement
       class CurrencyConversionListParams < ::Stripe::RequestParams
-        # The ID of the FinancialAccount to filter by.
+        # The ID of the Financial Account for which conversions should be listed.
         sig { returns(T.nilable(String)) }
         def financial_account; end
         sig { params(_financial_account: T.nilable(String)).returns(T.nilable(String)) }
         def financial_account=(_financial_account); end
-        # The page limit.
+        # The maximum number of Currency Conversions to return.
         sig { returns(T.nilable(Integer)) }
         def limit; end
         sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }

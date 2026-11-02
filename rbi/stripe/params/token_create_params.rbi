@@ -232,6 +232,49 @@ module Stripe
            }
           def initialize(date: nil, ip: nil, user_agent: nil); end
         end
+        class PhysicalAddress < ::Stripe::RequestParams
+          # City, district, suburb, town, or village.
+          sig { returns(T.nilable(String)) }
+          def city; end
+          sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+          def city=(_city); end
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          sig { returns(T.nilable(String)) }
+          def country; end
+          sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+          def country=(_country); end
+          # Address line 1, such as the street, PO Box, or company name.
+          sig { returns(T.nilable(String)) }
+          def line1; end
+          sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+          def line1=(_line1); end
+          # Address line 2, such as the apartment, suite, unit, or building.
+          sig { returns(T.nilable(String)) }
+          def line2; end
+          sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+          def line2=(_line2); end
+          # ZIP or postal code.
+          sig { returns(T.nilable(String)) }
+          def postal_code; end
+          sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+          def postal_code=(_postal_code); end
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          sig { returns(T.nilable(String)) }
+          def state; end
+          sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+          def state=(_state); end
+          sig {
+            params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+           }
+          def initialize(
+            city: nil,
+            country: nil,
+            line1: nil,
+            line2: nil,
+            postal_code: nil,
+            state: nil
+          ); end
+        end
         class PrincipalPlaceOfBusiness < ::Stripe::RequestParams
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
@@ -449,6 +492,13 @@ module Stripe
         def phone; end
         sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
         def phone=(_phone); end
+        # A location where the business has a meaningful physical operating presence.
+        sig { returns(T.nilable(::Stripe::TokenCreateParams::Account::Company::PhysicalAddress)) }
+        def physical_address; end
+        sig {
+          params(_physical_address: T.nilable(::Stripe::TokenCreateParams::Account::Company::PhysicalAddress)).returns(T.nilable(::Stripe::TokenCreateParams::Account::Company::PhysicalAddress))
+         }
+        def physical_address=(_physical_address); end
         # The primary location where the business conducts operations.
         sig {
           returns(T.nilable(::Stripe::TokenCreateParams::Account::Company::PrincipalPlaceOfBusiness))
@@ -511,7 +561,7 @@ module Stripe
          }
         def verification=(_verification); end
         sig {
-          params(address: T.nilable(::Stripe::TokenCreateParams::Account::Company::Address), address_kana: T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKana), address_kanji: T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKanji), administrative_address: T.nilable(::Stripe::TokenCreateParams::Account::Company::AdministrativeAddress), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::OwnershipDeclaration), ownership_declaration_shown_and_signed: T.nilable(T::Boolean), ownership_exemption_reason: T.nilable(String), phone: T.nilable(String), principal_place_of_business: T.nilable(::Stripe::TokenCreateParams::Account::Company::PrincipalPlaceOfBusiness), registration_date: T.nilable(T.any(String, ::Stripe::TokenCreateParams::Account::Company::RegistrationDate)), registration_number: T.nilable(String), representative_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::RepresentativeDeclaration), structure: T.nilable(String), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::TokenCreateParams::Account::Company::Verification)).void
+          params(address: T.nilable(::Stripe::TokenCreateParams::Account::Company::Address), address_kana: T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKana), address_kanji: T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKanji), administrative_address: T.nilable(::Stripe::TokenCreateParams::Account::Company::AdministrativeAddress), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::OwnershipDeclaration), ownership_declaration_shown_and_signed: T.nilable(T::Boolean), ownership_exemption_reason: T.nilable(String), phone: T.nilable(String), physical_address: T.nilable(::Stripe::TokenCreateParams::Account::Company::PhysicalAddress), principal_place_of_business: T.nilable(::Stripe::TokenCreateParams::Account::Company::PrincipalPlaceOfBusiness), registration_date: T.nilable(T.any(String, ::Stripe::TokenCreateParams::Account::Company::RegistrationDate)), registration_number: T.nilable(String), representative_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::RepresentativeDeclaration), structure: T.nilable(String), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::TokenCreateParams::Account::Company::Verification)).void
          }
         def initialize(
           address: nil,
@@ -531,6 +581,7 @@ module Stripe
           ownership_declaration_shown_and_signed: nil,
           ownership_exemption_reason: nil,
           phone: nil,
+          physical_address: nil,
           principal_place_of_business: nil,
           registration_date: nil,
           registration_number: nil,

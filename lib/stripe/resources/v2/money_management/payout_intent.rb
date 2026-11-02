@@ -67,7 +67,7 @@ module Stripe
           end
           # The fee amount.
           attr_reader :amount
-          # Details about the network and options associated with this fee. Present when type is network_fee.
+          # Details about the network and options associated with this fee. Present when `type` is `network_fee`.
           attr_reader :network_fee_details
           # Tax charged for this fee, if applicable. Value expressed as a decimal string in major units.
           attr_reader :tax_amount
@@ -102,8 +102,8 @@ module Stripe
 
         class FxQuote < ::Stripe::StripeObject
           class Rates < ::Stripe::StripeObject
-            # The exchange rate going from_currency -> to_currency, represented as a decimal string
-            # (e.g., "1.1520") to preserve the full precision of the rate.
+            # The exchange rate from the source currency to `to_currency`, represented as a decimal string
+            # (for example, `1.1520`) to preserve the full precision of the rate.
             attr_reader :exchange_rate
 
             def self.inner_class_types
@@ -120,7 +120,7 @@ module Stripe
           attr_reader :lock_expires_at
           # Open Enum. Lock status of the FX rate.
           attr_reader :lock_status
-          # Key: source currency. Value: exchange rate from source currency to to_currency.
+          # Maps each source currency to its exchange rate into `to_currency`.
           attr_reader :rates
           # The destination currency.
           attr_reader :to_currency
@@ -153,6 +153,8 @@ module Stripe
 
         class NextAction < ::Stripe::StripeObject
           class Confirm < ::Stripe::StripeObject
+            # The PayoutIntent fields that must be reviewed before confirmation.
+            attr_reader :fields_to_review
             # Open Enum. The reason the PayoutIntent requires confirmation.
             attr_reader :reason
 
@@ -177,9 +179,9 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Details about a confirmation required. Populated when type is confirm.
+          # Details about a confirmation required. Populated when `type` is `confirm`.
           attr_reader :confirm
-          # Details about a failure that requires user action. Populated when type is handle_failure.
+          # Details about a failure that requires user action. Populated when `type` is `handle_failure`.
           attr_reader :handle_failure
           # Open Enum. The type of next action required.
           attr_reader :type
@@ -195,11 +197,46 @@ module Stripe
 
         class RecipientNotification < ::Stripe::StripeObject
           # Closed Enum. Configuration option to enable or disable notifications to recipients.
-          # Do not send notifications when setting is NONE. Default to account setting when setting is CONFIGURED or not set.
+          # Do not send notifications when `setting` is `none`. Use the account setting when `setting` is `configured` or omitted.
           attr_reader :setting
 
           def self.inner_class_types
             @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class RecipientVerification < ::Stripe::StripeObject
+          class MatchResultDetails < ::Stripe::StripeObject
+            # The business type returned by the recipient-verification provider.
+            attr_reader :matched_business_type
+            # The account name returned by the recipient-verification provider.
+            attr_reader :matched_name
+            # A message describing the match result.
+            attr_reader :message
+            # The business type provided for recipient verification.
+            attr_reader :provided_business_type
+            # The name associated with the provided recipient.
+            attr_reader :provided_name
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Closed Enum. The recipient-verification provider's match result.
+          attr_reader :match_result
+          # Details associated with the match result.
+          attr_reader :match_result_details
+
+          def self.inner_class_types
+            @inner_class_types = { match_result_details: MatchResultDetails }
           end
 
           def self.field_remappings
@@ -302,11 +339,11 @@ module Stripe
           attr_reader :credited
           # The currency to send to the recipient.
           attr_reader :currency
-          # The payout method ID. Optional for OutboundPayment if recipient has default payment method. Required for OutboundTransfer.
+          # The payout method ID for the PayoutIntent. Optional when the PayoutIntent creates an OutboundPayment and the recipient has a default payout method. Required when the PayoutIntent creates an OutboundTransfer.
           attr_reader :payout_method
           # Payout method options for the PayoutIntent.
           attr_reader :payout_method_options
-          # The recipient ID. Only relevant for OutboundPayment.
+          # The recipient ID for the PayoutIntent.
           attr_reader :recipient
 
           def self.inner_class_types
@@ -319,7 +356,8 @@ module Stripe
         end
         # The monetary amount to be sent.
         attr_reader :amount
-        # Controls whether the intent requires explicit confirmation before transitioning to pending.
+        # Controls whether the PayoutIntent requires explicit confirmation before transitioning to `pending`.
+        # Even when `automatic`, regulatory requirements may require confirmation. See [Send money with Global Payouts](https://docs.stripe.com/global-payouts/send-money) for details.
         attr_reader :confirmation_method
         # Time at which the PayoutIntent was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
@@ -340,17 +378,19 @@ module Stripe
         attr_reader :livemode
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
-        # Next action required for a PayoutIntent in the requires_action state. Populated when status is requires_action.
+        # Next action required for a PayoutIntent in the `requires_action` state. Populated when `status` is `requires_action`.
         attr_reader :next_action
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # Details about the OutboundPayment notification settings for recipient. Only applicable to OutboundPayment.
+        # Recipient notification settings for the PayoutIntent. Only applicable when the PayoutIntent creates an OutboundPayment.
         attr_reader :recipient_notification
-        # Scheduling options for the payout. If this is nil, we assume immediate execution.
+        # Recipient verification details for this PayoutIntent.
+        attr_reader :recipient_verification
+        # Scheduling options for the payout. If omitted, the payout is scheduled for immediate execution.
         attr_reader :schedule_options
         # The description that appears on the receiving end for the payout (for example, on a bank statement).
         attr_reader :statement_descriptor
-        # Open Enum. Current status of the PayoutIntent: `pending`, `processing`, `posted`, `canceled`, `requires_action`.
+        # Current status of the PayoutIntent.
         attr_reader :status
         # Hash containing timestamps of when transitioned to a particular status.
         attr_reader :status_transitions
@@ -365,6 +405,7 @@ module Stripe
             latest_payout: LatestPayout,
             next_action: NextAction,
             recipient_notification: RecipientNotification,
+            recipient_verification: RecipientVerification,
             schedule_options: ScheduleOptions,
             status_transitions: StatusTransitions,
             to: To,

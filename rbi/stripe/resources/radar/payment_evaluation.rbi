@@ -575,7 +575,7 @@ module Stripe
         # A payment evaluation signal with evaluated_at, risk_level, and score fields.
         sig { returns(T.nilable(BankInitiatedReturn)) }
         def bank_initiated_return; end
-        # A payment evaluation signal with evaluated_at, risk_level, and score fields.
+        # The likelihood that this `PaymentEvaluation` results in an early fraud warning.
         sig { returns(T.nilable(EarlyFraudWarning)) }
         def early_fraud_warning; end
         # The likelihood that this `PaymentEvaluation` results in a dispute with reason code `fraudulent`.

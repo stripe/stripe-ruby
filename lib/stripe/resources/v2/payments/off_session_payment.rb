@@ -335,7 +335,7 @@ module Stripe
         # to form the complete statement descriptor that appears on the customer's statement.
         attr_reader :statement_descriptor_suffix
         # Status of this OffSessionPayment, one of `pending`, `pending_retry`, `processing`,
-        # `failed`, `canceled`, `requires_capture`, or `succeeded`.
+        # `failed`, `canceled`, or `succeeded`.
         attr_reader :status
         # Provides a way to schedule deferred payments for cards and debits, in YYYY-MM-DD format.
         attr_reader :target_date

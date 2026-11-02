@@ -157,6 +157,23 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class CustomMarketingAction < ::Stripe::StripeObject
+          # A description of the action.
+          sig { returns(String) }
+          def description; end
+          # The outcome of the action.
+          sig { returns(String) }
+          def outcome; end
+          # Additional user-defined properties of the action.
+          sig { returns(T::Hash[String, String]) }
+          def properties; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class LoginAttempt < ::Stripe::StripeObject
           class ClientDetails < ::Stripe::StripeObject
             class Data < ::Stripe::StripeObject
@@ -200,11 +217,28 @@ module Stripe
           end
         end
         class LoginDecision < ::Stripe::StripeObject
+          class MfaChallenge < ::Stripe::StripeObject
+            # The authentication method used for the challenge.
+            sig { returns(String) }
+            def mfa_type; end
+            # The outcome of the authentication challenge.
+            sig { returns(String) }
+            def status; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Multi-factor authentication challenges performed during the login process.
+          sig { returns(T.nilable(T::Array[MfaChallenge])) }
+          def mfa_challenges; end
           # The action the merchant took following the evaluation.
           sig { returns(String) }
           def status; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {mfa_challenges: MfaChallenge}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -315,6 +349,9 @@ module Stripe
         # Details for the credential change. Present only when type is credential_change.
         sig { returns(T.nilable(CredentialChange)) }
         def credential_change; end
+        # Details for the custom marketing action. Present only when type is custom_marketing_action.
+        sig { returns(T.nilable(CustomMarketingAction)) }
+        def custom_marketing_action; end
         # Unique identifier for the account activity.
         sig { returns(String) }
         def id; end
@@ -348,6 +385,10 @@ module Stripe
         # Details for the registration decision. Present only when type is registration_decision.
         sig { returns(T.nilable(RegistrationDecision)) }
         def registration_decision; end
+        # The AccountSignal that prompted this activity, when applicable. This historical reference
+        # may coexist with account_evaluation and remains present after the signal expires.
+        sig { returns(T.nilable(String)) }
+        def triggering_signal; end
         # The type of activity.
         sig { returns(String) }
         def type; end

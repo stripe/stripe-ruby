@@ -51,7 +51,7 @@ module Stripe
         sig { returns(String) }
         def object; end
         # Use the PayoutMethods API to list and interact with PayoutMethod objects.
-        sig { returns(::Stripe::V2::MoneyManagement::PayoutMethod) }
+        sig { returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutMethod)) }
         def payout_method; end
         # Closed Enum. Status of the outbound setup intent.
         sig { returns(String) }

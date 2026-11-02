@@ -38,7 +38,7 @@ module Stripe
           )
         end
 
-        # Updates the description of an existing Transaction.
+        # Updates an existing Transaction. You can update its description and metadata.
         def update(id, params = {}, opts = {})
           request(
             method: :post,

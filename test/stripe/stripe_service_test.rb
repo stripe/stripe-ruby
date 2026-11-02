@@ -99,8 +99,9 @@ module Stripe
       [
         ["/v2/widgets/search", { limit: 2, query: "widgets" }, "/v2/widgets/search?limit=2", { query: "widgets" }],
         ["/v2/widgets/search", { "limit" => 2, "query" => "widgets" }, "/v2/widgets/search?limit=2", { "query" => "widgets" }],
-        ["/v2/widgets/search?page=2&limit=2", { limit: 9, query: "widgets" }, "/v2/widgets/search?page=2&limit=2", { query: "widgets" }],
-        ["/v2/widgets/search?page=2", { limit: 9, query: "widgets" }, "/v2/widgets/search?page=2", { query: "widgets" }],
+        ["/v2/widgets/search?page=2&limit=2", { limit: 9, query: "widgets" }, "/v2/widgets/search?limit=9", { query: "widgets" }],
+        ["/v2/widgets/search?page=2", { limit: 9, query: "widgets" }, "/v2/widgets/search?limit=9", { query: "widgets" }],
+        ["/v2/widgets/search?limit=2&unused=value", { query: "widgets" }, "/v2/widgets/search", { query: "widgets" }],
         ["/v2/widgets/search", { query: "widgets" }, "/v2/widgets/search", { query: "widgets" }],
       ].each_with_index do |(path, params, expected_path, body), index|
         should "prepare and delegate search once for case #{index}" do

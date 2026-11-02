@@ -265,26 +265,26 @@ module Stripe
     end
 
     should "only refresh once the safety margin before expiry is reached" do
-        call_count = 0
-        transport = lambda { |_body|
-          call_count += 1
-          [200, valid_exchange_response(expires_in: 600)]
-        }
-        credentials = WorkloadIdentity::Credentials.new("wci_123", FakeProvider.new, transport: transport)
+      call_count = 0
+      transport = lambda { |_body|
+        call_count += 1
+        [200, valid_exchange_response(expires_in: 600)]
+      }
+      credentials = WorkloadIdentity::Credentials.new("wci_123", FakeProvider.new, transport: transport)
 
-        t = Util.monotonic_time
-        Util.stubs(:monotonic_time).returns(t)
-        credentials.token
-        assert_equal 1, call_count
+      t = Util.monotonic_time
+      Util.stubs(:monotonic_time).returns(t)
+      credentials.token
+      assert_equal 1, call_count
 
-        Util.stubs(:monotonic_time).returns(t + 479)
-        credentials.token
-        assert_equal 1, call_count
+      Util.stubs(:monotonic_time).returns(t + 479)
+      credentials.token
+      assert_equal 1, call_count
 
-        Util.stubs(:monotonic_time).returns(t + 480)
-        credentials.token
-        assert_equal 2, call_count
-      end
+      Util.stubs(:monotonic_time).returns(t + 480)
+      credentials.token
+      assert_equal 2, call_count
+    end
 
     context "401 replay" do
       should "refresh and replay exactly once, preserving body and idempotency key" do

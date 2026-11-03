@@ -1,0 +1,34 @@
+name: Canary CI
+
+# Runs the same checks as CI against code generated from the canary specs.
+# sdk-codegen force-pushes these branches; they are never released, so there is
+# no publish job.
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - canary-ga
+      - canary-beta
+      - canary-private-preview
+
+permissions: {}
+
+concurrency:
+  # Each push replaces the branch, so an older run's result is stale.
+  group: canary-ci-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    uses: ./.github/workflows/checks.yml
+    permissions:
+      contents: read
+    with:
+      # Map each canary branch to the channel stripe-mock serves.
+      canary_channel: >-
+        ${{
+          github.ref_name == 'canary-ga' && 'ga' ||
+          github.ref_name == 'canary-beta' && 'beta' ||
+          github.ref_name == 'canary-private-preview' && 'private-preview' ||
+          'unsupported'
+        }}

@@ -1,0 +1,144 @@
+name: Checks
+
+# Lint, build, and test jobs shared by CI and Canary CI. Publishing stays in
+# ci.yml so canary runs never publish.
+on:
+  workflow_call:
+    inputs:
+      canary_channel:
+        description: >-
+          Canary channel (ga, beta, or private-preview) whose specs and fixtures
+          stripe-mock should serve. Empty uses the OPENAPI_VERSION release.
+        required: false
+        type: string
+        default: ''
+
+permissions: {}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+
+    steps:
+    - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+      with:
+        ruby-version:  3.1
+    - name: Lint
+      run: just lint-check
+    - name: Build
+      run: gem build stripe.gemspec
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: gems
+        path: '*.gem'
+
+  test:
+    name: Test (${{ matrix.ruby-version }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-24.04
+        # https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy
+        # https://endoflife.date/ruby
+        ruby-version: ['3.0', '3.1', '3.2', '3.3', '3.4', jruby-9.4.7.0, truffleruby-25.0.0]
+        include:
+          - os: windows-latest
+            # use any modern-ish version
+            ruby-version: '3.4'
+    steps:
+    - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - name: Resolve stripe-mock OpenAPI inputs
+      id: openapi
+      shell: bash
+      env:
+        CANARY_CHANNEL: ${{ inputs.canary_channel }}
+      run: |
+        set -euo pipefail
+
+        if [[ -z "$CANARY_CHANNEL" ]]; then
+          echo "version=$(< OPENAPI_VERSION)" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+
+        case "$CANARY_CHANNEL" in
+          ga)
+            spec_name=spec3.sdk.json
+            fixtures_name=fixtures3.json
+            beta=false
+            ;;
+          beta)
+            spec_name=spec3.beta.sdk.json
+            fixtures_name=fixtures3.beta.json
+            beta=true
+            ;;
+          private-preview)
+            spec_name=spec3.private_preview.sdk.json
+            fixtures_name=fixtures3.private_preview.json
+            beta=true
+            ;;
+          *)
+            echo "::error::Unsupported canary channel: $CANARY_CHANNEL"
+            exit 1
+            ;;
+        esac
+
+        canary_dir="$GITHUB_WORKSPACE/.stripe-mock-canary"
+        mkdir -p "$canary_dir"
+
+        spec_path="$canary_dir/$spec_name"
+        fixtures_path="$canary_dir/$fixtures_name"
+        canary_base="https://raw.githubusercontent.com/stripe/openapi/master/openapi/canary/$CANARY_CHANNEL"
+        curl_options=(
+          --retry 3
+          --retry-all-errors
+          --fail
+          --silent
+          --show-error
+        )
+
+        curl "${curl_options[@]}" "$canary_base/$spec_name" -o "$spec_path"
+        curl "${curl_options[@]}" "$canary_base/$fixtures_name" -o "$fixtures_path"
+
+        {
+          echo "spec_path=$spec_path"
+          echo "fixtures_path=$fixtures_path"
+          echo "beta=$beta"
+        } >> "$GITHUB_OUTPUT"
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+    - uses: stripe/openapi/actions/stripe-mock@master
+      with:
+        openapi_version: ${{ steps.openapi.outputs.version }}
+        spec_path: ${{ steps.openapi.outputs.spec_path }}
+        fixtures: ${{ steps.openapi.outputs.fixtures_path }}
+        beta: ${{ steps.openapi.outputs.beta }}
+    - name: test
+      run: just test
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+        # Use IP instead of 'localhost' to avoid slow DNS resolution on Windows
+        STRIPE_MOCK_HOST: ${{ runner.os == 'Windows' && '127.0.0.1' || 'localhost' }}
+    - name: typecheck
+      # sorbet doesn't support windows
+      if: runner.os != 'Windows'
+      run: just typecheck
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}

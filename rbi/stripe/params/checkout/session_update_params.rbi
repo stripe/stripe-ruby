@@ -278,7 +278,7 @@ module Stripe
         def price; end
         sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
         def price=(_price); end
-        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline, for [dynamic pricing](https://docs.stripe.com/products-prices/how-products-and-prices-work#inline-pricing) when the amount isn't known ahead of time. One of `price` or `price_data` is required when creating a new line item.
         sig { returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::LineItem::PriceData)) }
         def price_data; end
         sig {
@@ -314,6 +314,62 @@ module Stripe
             price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
           }
         end
+      end
+      class PaymentIntentData < ::Stripe::RequestParams
+        # An arbitrary string attached to the object. Often useful for displaying to users. Pass an empty string to clear a previously configured value.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+        def description=(_description); end
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
+        def metadata; end
+        sig {
+          params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+         }
+        def metadata=(_metadata); end
+        # Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
+        #
+        # When setting this to `on_session`, Checkout will show a notice to the customer that their payment details will be saved.
+        #
+        # When setting this to `off_session`, Checkout will show a notice to the customer that their payment details will be saved and used for future payments.
+        #
+        # If a Customer has been provided or Checkout creates a new Customer, Checkout will attach the payment method to the Customer.
+        #
+        # If Checkout does not create a Customer, the payment method is not attached to a Customer. To reuse the payment method, you can retrieve it from the Checkout Session's PaymentIntent.
+        #
+        # When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
+        #
+        # You must wrap any Checkout Session update that mutates `setup_future_usage` in [`runServerUpdate`](/js/custom_checkout/run_server_update) and await it before continuing with the payment.
+        # Pass an empty string to remove a previously supplied configuration.
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
+        def setup_future_usage=(_setup_future_usage); end
+        # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+        #
+        # Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
+        #  Pass an empty string to clear a previously configured value.
+        sig { returns(T.nilable(String)) }
+        def statement_descriptor; end
+        sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
+        def statement_descriptor=(_statement_descriptor); end
+        # Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
+        #  Pass an empty string to clear a previously configured value.
+        sig { returns(T.nilable(String)) }
+        def statement_descriptor_suffix; end
+        sig { params(_statement_descriptor_suffix: T.nilable(String)).returns(T.nilable(String)) }
+        def statement_descriptor_suffix=(_statement_descriptor_suffix); end
+        sig {
+          params(description: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), setup_future_usage: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String)).void
+         }
+        def initialize(
+          description: nil,
+          metadata: nil,
+          setup_future_usage: nil,
+          statement_descriptor: nil,
+          statement_descriptor_suffix: nil
+        ); end
       end
       class ShippingOption < ::Stripe::RequestParams
         class ShippingRateData < ::Stripe::RequestParams
@@ -523,6 +579,15 @@ module Stripe
         params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
        }
       def metadata=(_metadata); end
+      # A subset of parameters to apply to the PaymentIntent for Checkout Sessions in `payment` mode.
+      #
+      # You can only update these parameters when `ui_mode` is `elements` and while the session is active. If the PaymentIntent requires customer action or confirmation, updating these parameters abandons the current payment attempt and returns the PaymentIntent to `requires_payment_method`. You can't update these parameters after the PaymentIntent begins processing, requires capture, succeeds, or is canceled.
+      sig { returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::PaymentIntentData)) }
+      def payment_intent_data; end
+      sig {
+        params(_payment_intent_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::PaymentIntentData)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::PaymentIntentData))
+       }
+      def payment_intent_data=(_payment_intent_data); end
       # The shipping rate options to apply to this Session. Up to a maximum of 5.
       sig {
         returns(T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionUpdateParams::ShippingOption])))
@@ -533,13 +598,14 @@ module Stripe
        }
       def shipping_options=(_shipping_options); end
       sig {
-        params(collected_information: T.nilable(::Stripe::Checkout::SessionUpdateParams::CollectedInformation), expand: T.nilable(T::Array[String]), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionUpdateParams::LineItem]), metadata: T.nilable(T.any(String, T::Hash[String, String])), shipping_options: T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionUpdateParams::ShippingOption]))).void
+        params(collected_information: T.nilable(::Stripe::Checkout::SessionUpdateParams::CollectedInformation), expand: T.nilable(T::Array[String]), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionUpdateParams::LineItem]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_intent_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::PaymentIntentData), shipping_options: T.nilable(T.any(String, T::Array[::Stripe::Checkout::SessionUpdateParams::ShippingOption]))).void
        }
       def initialize(
         collected_information: nil,
         expand: nil,
         line_items: nil,
         metadata: nil,
+        payment_intent_data: nil,
         shipping_options: nil
       ); end
       def self.field_encodings

@@ -4,6 +4,8 @@
 # typed: true
 module Stripe
   module Treasury
+    # Legacy CreditReversals are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Received Credits](https://docs.stripe.com/api/v2/money-management/received-credits?api-version=preview) instead of building a new v1 integration.
+    #
     # You can reverse some [ReceivedCredits](https://docs.stripe.com/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
     class CreditReversal < APIResource
       class StatusTransitions < ::Stripe::StripeObject

@@ -40,6 +40,15 @@ module Stripe
         end
       end
 
+      class ReaderSecurity < ::Stripe::RequestParams
+        # Passcode used to access a reader's admin menu.
+        attr_accessor :admin_menu_passcode
+
+        def initialize(admin_menu_passcode: nil)
+          @admin_menu_passcode = admin_menu_passcode
+        end
+      end
+
       class RebootWindow < ::Stripe::RequestParams
         # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
         attr_accessor :end_hour
@@ -62,6 +71,15 @@ module Stripe
       end
 
       class StripeS710 < ::Stripe::RequestParams
+        # A File ID representing an image you want to display on the reader.
+        attr_accessor :splashscreen
+
+        def initialize(splashscreen: nil)
+          @splashscreen = splashscreen
+        end
+      end
+
+      class StripeT600 < ::Stripe::RequestParams
         # A File ID representing an image you want to display on the reader.
         attr_accessor :splashscreen
 
@@ -610,12 +628,16 @@ module Stripe
       attr_accessor :name
       # Configurations for collecting transactions offline.
       attr_accessor :offline
+      # Configurations for reader security settings.
+      attr_accessor :reader_security
       # Reboot time settings for readers. that support customized reboot time configuration.
       attr_accessor :reboot_window
       # An object containing device type specific settings for Stripe S700 readers.
       attr_accessor :stripe_s700
       # An object containing device type specific settings for Stripe S710 readers.
       attr_accessor :stripe_s710
+      # An object containing device type specific settings for Stripe T600 readers.
+      attr_accessor :stripe_t600
       # Tipping configurations for readers that support on-reader tips.
       attr_accessor :tipping
       # An object containing device type specific settings for Verifone M425 readers.
@@ -638,9 +660,11 @@ module Stripe
         expand: nil,
         name: nil,
         offline: nil,
+        reader_security: nil,
         reboot_window: nil,
         stripe_s700: nil,
         stripe_s710: nil,
+        stripe_t600: nil,
         tipping: nil,
         verifone_m425: nil,
         verifone_p400: nil,
@@ -655,9 +679,11 @@ module Stripe
         @expand = expand
         @name = name
         @offline = offline
+        @reader_security = reader_security
         @reboot_window = reboot_window
         @stripe_s700 = stripe_s700
         @stripe_s710 = stripe_s710
+        @stripe_t600 = stripe_t600
         @tipping = tipping
         @verifone_m425 = verifone_m425
         @verifone_p400 = verifone_p400

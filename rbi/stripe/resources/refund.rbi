@@ -19,6 +19,12 @@ module Stripe
         end
       end
       class AfterpayClearpay < ::Stripe::StripeObject
+        # The reference assigned to the refund.
+        sig { returns(T.nilable(String)) }
+        def reference; end
+        # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+        sig { returns(T.nilable(String)) }
+        def reference_status; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -203,6 +209,12 @@ module Stripe
         end
       end
       class Klarna < ::Stripe::StripeObject
+        # The reference assigned to the refund.
+        sig { returns(T.nilable(String)) }
+        def reference; end
+        # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+        sig { returns(T.nilable(String)) }
+        def reference_status; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -286,6 +298,12 @@ module Stripe
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
         sig { returns(T.nilable(String)) }
         def network_decline_code; end
+        # The reference assigned to the refund.
+        sig { returns(T.nilable(String)) }
+        def reference; end
+        # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+        sig { returns(T.nilable(String)) }
+        def reference_status; end
         def self.inner_class_types
           @inner_class_types = {}
         end

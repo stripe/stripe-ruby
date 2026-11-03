@@ -130,7 +130,7 @@ module Stripe
 
         class Documents < ::Stripe::StripeObject
           class CompanyAuthorization < ::Stripe::StripeObject
-            # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+            # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
             attr_reader :files
             # The format of the document. Currently supports `files` only.
             attr_reader :type
@@ -145,7 +145,7 @@ module Stripe
           end
 
           class Passport < ::Stripe::StripeObject
-            # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+            # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
             attr_reader :files
             # The format of the document. Currently supports `files` only.
             attr_reader :type
@@ -161,9 +161,9 @@ module Stripe
 
           class PrimaryVerification < ::Stripe::StripeObject
             class FrontBack < ::Stripe::StripeObject
-              # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+              # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               attr_reader :back
-              # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+              # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               attr_reader :front
 
               def self.inner_class_types
@@ -174,7 +174,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
+            # The [file upload](https://docs.stripe.com/api/files/create) tokens for the front and back of the verification document.
             attr_reader :front_back
             # The format of the verification document. Currently supports `front_back` only.
             attr_reader :type
@@ -190,9 +190,9 @@ module Stripe
 
           class SecondaryVerification < ::Stripe::StripeObject
             class FrontBack < ::Stripe::StripeObject
-              # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+              # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               attr_reader :back
-              # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+              # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
               attr_reader :front
 
               def self.inner_class_types
@@ -203,7 +203,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens for the front and back of the verification document.
+            # The [file upload](https://docs.stripe.com/api/files/create) tokens for the front and back of the verification document.
             attr_reader :front_back
             # The format of the verification document. Currently supports `front_back` only.
             attr_reader :type
@@ -218,7 +218,7 @@ module Stripe
           end
 
           class Visa < ::Stripe::StripeObject
-            # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+            # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
             attr_reader :files
             # The format of the document. Currently supports `files` only.
             attr_reader :type

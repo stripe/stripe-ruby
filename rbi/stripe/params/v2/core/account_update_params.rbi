@@ -285,12 +285,12 @@ module Stripe
               def initialize(display_name: nil); end
             end
             class Branding < ::Stripe::RequestParams
-              # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
+              # ID of a [file upload](https://docs.stripe.com/api/files/create): An icon for the merchant. Must be square and at least 128px x 128px.
               sig { returns(T.nilable(String)) }
               def icon; end
               sig { params(_icon: T.nilable(String)).returns(T.nilable(String)) }
               def icon=(_icon); end
-              # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
+              # ID of a [file upload](https://docs.stripe.com/api/files/create): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
               sig { returns(T.nilable(String)) }
               def logo; end
               sig { params(_logo: T.nilable(String)).returns(T.nilable(String)) }
@@ -1541,7 +1541,7 @@ module Stripe
               params(_sepa_debit_payments: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::SepaDebitPayments)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::SepaDebitPayments))
              }
             def sepa_debit_payments=(_sepa_debit_payments); end
-            # Settings for the default [statement descriptor](/connect/statement-descriptors) text.
+            # Settings for the default statement descriptor text.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant::StatementDescriptor))
              }
@@ -1578,6 +1578,155 @@ module Stripe
           end
           class Recipient < ::Stripe::RequestParams
             class Capabilities < ::Stripe::RequestParams
+              class BankAccounts < ::Stripe::RequestParams
+                class Ach < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T.nilable(T::Boolean)) }
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
+                  sig { params(requested: T.nilable(T::Boolean)).void }
+                  def initialize(requested: nil); end
+                end
+                class Fedwire < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T.nilable(T::Boolean)) }
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
+                  sig { params(requested: T.nilable(T::Boolean)).void }
+                  def initialize(requested: nil); end
+                end
+                class Fps < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T.nilable(T::Boolean)) }
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
+                  sig { params(requested: T.nilable(T::Boolean)).void }
+                  def initialize(requested: nil); end
+                end
+                class Local < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T.nilable(T::Boolean)) }
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
+                  sig { params(requested: T.nilable(T::Boolean)).void }
+                  def initialize(requested: nil); end
+                end
+                class Rtp < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T.nilable(T::Boolean)) }
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
+                  sig { params(requested: T.nilable(T::Boolean)).void }
+                  def initialize(requested: nil); end
+                end
+                class Sepa < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T.nilable(T::Boolean)) }
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
+                  sig { params(requested: T.nilable(T::Boolean)).void }
+                  def initialize(requested: nil); end
+                end
+                class Swift < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  sig { returns(T.nilable(T::Boolean)) }
+                  def requested; end
+                  sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                  def requested=(_requested); end
+                  sig { params(requested: T.nilable(T::Boolean)).void }
+                  def initialize(requested: nil); end
+                end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over ACH rails.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Ach))
+                 }
+                def ach; end
+                sig {
+                  params(_ach: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Ach)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Ach))
+                 }
+                def ach=(_ach); end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over Fedwire or CHIPS.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Fedwire))
+                 }
+                def fedwire; end
+                sig {
+                  params(_fedwire: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Fedwire)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Fedwire))
+                 }
+                def fedwire=(_fedwire); end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over FPS rails.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Fps))
+                 }
+                def fps; end
+                sig {
+                  params(_fps: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Fps)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Fps))
+                 }
+                def fps=(_fps); end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Local))
+                 }
+                def local; end
+                sig {
+                  params(_local: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Local)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Local))
+                 }
+                def local=(_local); end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over RTP rails.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Rtp))
+                 }
+                def rtp; end
+                sig {
+                  params(_rtp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Rtp)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Rtp))
+                 }
+                def rtp=(_rtp); end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over SEPA rails.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa))
+                 }
+                def sepa; end
+                sig {
+                  params(_sepa: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa))
+                 }
+                def sepa=(_sepa); end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over SWIFT.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Swift))
+                 }
+                def swift; end
+                sig {
+                  params(_swift: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Swift)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Swift))
+                 }
+                def swift=(_swift); end
+                sig {
+                  params(ach: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Ach), fedwire: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Fedwire), fps: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Fps), local: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Local), rtp: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Rtp), sepa: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Sepa), swift: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts::Swift)).void
+                 }
+                def initialize(
+                  ach: nil,
+                  fedwire: nil,
+                  fps: nil,
+                  local: nil,
+                  rtp: nil,
+                  sepa: nil,
+                  swift: nil
+                ); end
+              end
+              class Cards < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                sig { returns(T.nilable(T::Boolean)) }
+                def requested; end
+                sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+                def requested=(_requested); end
+                sig { params(requested: T.nilable(T::Boolean)).void }
+                def initialize(requested: nil); end
+              end
               class StripeBalance < ::Stripe::RequestParams
                 class StripeTransfers < ::Stripe::RequestParams
                   # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
@@ -1602,6 +1751,24 @@ module Stripe
                  }
                 def initialize(stripe_transfers: nil); end
               end
+              # Capabilities that enable OutboundPayments to a bank account linked to this Account.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts))
+               }
+              def bank_accounts; end
+              sig {
+                params(_bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts))
+               }
+              def bank_accounts=(_bank_accounts); end
+              # Capability that enable OutboundPayments to a debit card linked to this Account.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Cards))
+               }
+              def cards; end
+              sig {
+                params(_cards: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Cards)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Cards))
+               }
+              def cards=(_cards); end
               # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance))
@@ -1612,9 +1779,9 @@ module Stripe
                }
               def stripe_balance=(_stripe_balance); end
               sig {
-                params(stripe_balance: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance)).void
+                params(bank_accounts: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::BankAccounts), cards: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::Cards), stripe_balance: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance)).void
                }
-              def initialize(stripe_balance: nil); end
+              def initialize(bank_accounts: nil, cards: nil, stripe_balance: nil); end
             end
             # Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
             sig { returns(T.nilable(T::Boolean)) }
@@ -1713,6 +1880,13 @@ module Stripe
           def locales; end
           sig { params(_locales: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
           def locales=(_locales); end
+          # Default payout methods per currency. Keys are three-letter [ISO currency codes](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Values are v2 Payout Method IDs.
+          sig { returns(T.nilable(T::Hash[String, String])) }
+          def payout_methods; end
+          sig {
+            params(_payout_methods: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+           }
+          def payout_methods=(_payout_methods); end
           # Account profile information.
           sig { returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Defaults::Profile)) }
           def profile; end
@@ -1730,9 +1904,15 @@ module Stripe
            }
           def responsibilities=(_responsibilities); end
           sig {
-            params(currency: T.nilable(String), locales: T.nilable(T::Array[String]), profile: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Defaults::Profile), responsibilities: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Defaults::Responsibilities)).void
+            params(currency: T.nilable(String), locales: T.nilable(T::Array[String]), payout_methods: T.nilable(T::Hash[String, String]), profile: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Defaults::Profile), responsibilities: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Defaults::Responsibilities)).void
            }
-          def initialize(currency: nil, locales: nil, profile: nil, responsibilities: nil); end
+          def initialize(
+            currency: nil,
+            locales: nil,
+            payout_methods: nil,
+            profile: nil,
+            responsibilities: nil
+          ); end
         end
         class Identity < ::Stripe::RequestParams
           class Attestations < ::Stripe::RequestParams
@@ -1896,7 +2076,7 @@ module Stripe
                  }
                 def initialize(date: nil, ip: nil, user_agent: nil); end
               end
-              # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
+              # Details on the Account's acceptance of the Stripe Services Agreement.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::Account))
                }
@@ -2109,7 +2289,7 @@ module Stripe
             end
             class Documents < ::Stripe::RequestParams
               class BankAccountOwnershipVerification < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -2123,7 +2303,7 @@ module Stripe
                 def initialize(files: nil, type: nil); end
               end
               class CompanyLicense < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -2137,7 +2317,7 @@ module Stripe
                 def initialize(files: nil, type: nil); end
               end
               class CompanyMemorandumOfAssociation < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -2151,7 +2331,7 @@ module Stripe
                 def initialize(files: nil, type: nil); end
               end
               class CompanyMinisterialDecree < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -2165,7 +2345,7 @@ module Stripe
                 def initialize(files: nil, type: nil); end
               end
               class CompanyRegistrationVerification < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -2179,7 +2359,7 @@ module Stripe
                 def initialize(files: nil, type: nil); end
               end
               class CompanyTaxIdVerification < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -2194,12 +2374,12 @@ module Stripe
               end
               class PrimaryVerification < ::Stripe::RequestParams
                 class FrontBack < ::Stripe::RequestParams
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
                   sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
                   def back=(_back); end
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def front; end
                   sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -2207,7 +2387,7 @@ module Stripe
                   sig { params(back: T.nilable(String), front: T.nilable(String)).void }
                   def initialize(back: nil, front: nil); end
                 end
-                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+                # The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
                 sig {
                   returns(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents::PrimaryVerification::FrontBack)
                  }
@@ -2227,7 +2407,7 @@ module Stripe
                 def initialize(front_back: nil, type: nil); end
               end
               class ProofOfAddress < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -2250,7 +2430,7 @@ module Stripe
                   sig { params(person: String).void }
                   def initialize(person: nil); end
                 end
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -2284,7 +2464,7 @@ module Stripe
                   sig { params(person: String).void }
                   def initialize(person: nil); end
                 end
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -2901,7 +3081,7 @@ module Stripe
             end
             class Documents < ::Stripe::RequestParams
               class CompanyAuthorization < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -2915,7 +3095,7 @@ module Stripe
                 def initialize(files: nil, type: nil); end
               end
               class Passport < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }
@@ -2930,12 +3110,12 @@ module Stripe
               end
               class PrimaryVerification < ::Stripe::RequestParams
                 class FrontBack < ::Stripe::RequestParams
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
                   sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
                   def back=(_back); end
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def front; end
                   sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -2943,7 +3123,7 @@ module Stripe
                   sig { params(back: T.nilable(String), front: T.nilable(String)).void }
                   def initialize(back: nil, front: nil); end
                 end
-                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+                # The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
                 sig {
                   returns(::Stripe::V2::Core::AccountUpdateParams::Identity::Individual::Documents::PrimaryVerification::FrontBack)
                  }
@@ -2964,12 +3144,12 @@ module Stripe
               end
               class SecondaryVerification < ::Stripe::RequestParams
                 class FrontBack < ::Stripe::RequestParams
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def back; end
                   sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
                   def back=(_back); end
-                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  # A [file upload](https://docs.stripe.com/api/files/create) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
                   sig { returns(T.nilable(String)) }
                   def front; end
                   sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -2977,7 +3157,7 @@ module Stripe
                   sig { params(back: T.nilable(String), front: T.nilable(String)).void }
                   def initialize(back: nil, front: nil); end
                 end
-                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+                # The [file upload](https://docs.stripe.com/api/files/create) tokens referring to each side of the document.
                 sig {
                   returns(::Stripe::V2::Core::AccountUpdateParams::Identity::Individual::Documents::SecondaryVerification::FrontBack)
                  }
@@ -2997,7 +3177,7 @@ module Stripe
                 def initialize(front_back: nil, type: nil); end
               end
               class Visa < ::Stripe::RequestParams
-                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/files/create) with a purpose value of `account_requirement`.
                 sig { returns(T::Array[String]) }
                 def files; end
                 sig { params(_files: T::Array[String]).returns(T::Array[String]) }

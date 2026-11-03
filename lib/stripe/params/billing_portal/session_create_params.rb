@@ -4,6 +4,26 @@
 module Stripe
   module BillingPortal
     class SessionCreateParams < ::Stripe::RequestParams
+      class AfterExpiration < ::Stripe::RequestParams
+        class CustomerLogin < ::Stripe::RequestParams
+          # The Unix timestamp after which the customer can no longer recover this session. Leave unset to allow recovery without a deadline.
+          attr_accessor :expires_at
+
+          def initialize(expires_at: nil)
+            @expires_at = expires_at
+          end
+        end
+        # Configuration for authenticating the customer after the session expires.
+        attr_accessor :customer_login
+        # The behavior to apply when the session expires.
+        attr_accessor :type
+
+        def initialize(customer_login: nil, type: nil)
+          @customer_login = customer_login
+          @type = type
+        end
+      end
+
       class FlowData < ::Stripe::RequestParams
         class AfterCompletion < ::Stripe::RequestParams
           class HostedConfirmation < ::Stripe::RequestParams
@@ -68,6 +88,15 @@ module Stripe
           end
         end
 
+        class SubscriptionPause < ::Stripe::RequestParams
+          # The ID of the subscription to be paused.
+          attr_accessor :subscription
+
+          def initialize(subscription: nil)
+            @subscription = subscription
+          end
+        end
+
         class SubscriptionUpdate < ::Stripe::RequestParams
           # The ID of the subscription to be updated.
           attr_accessor :subscription
@@ -121,6 +150,8 @@ module Stripe
         attr_accessor :after_completion
         # Configuration when `flow_data.type=subscription_cancel`.
         attr_accessor :subscription_cancel
+        # Configuration when `flow_data.type=subscription_pause`.
+        attr_accessor :subscription_pause
         # Configuration when `flow_data.type=subscription_update`.
         attr_accessor :subscription_update
         # Configuration when `flow_data.type=subscription_update_confirm`.
@@ -131,17 +162,21 @@ module Stripe
         def initialize(
           after_completion: nil,
           subscription_cancel: nil,
+          subscription_pause: nil,
           subscription_update: nil,
           subscription_update_confirm: nil,
           type: nil
         )
           @after_completion = after_completion
           @subscription_cancel = subscription_cancel
+          @subscription_pause = subscription_pause
           @subscription_update = subscription_update
           @subscription_update_confirm = subscription_update_confirm
           @type = type
         end
       end
+      # Behavior after the portal session expires.
+      attr_accessor :after_expiration
       # The ID of an existing [configuration](https://docs.stripe.com/api/customer_portal/configurations) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.
       attr_accessor :configuration
       # The ID of an existing customer.
@@ -160,6 +195,7 @@ module Stripe
       attr_accessor :return_url
 
       def initialize(
+        after_expiration: nil,
         configuration: nil,
         customer: nil,
         customer_account: nil,
@@ -169,6 +205,7 @@ module Stripe
         on_behalf_of: nil,
         return_url: nil
       )
+        @after_expiration = after_expiration
         @configuration = configuration
         @customer = customer
         @customer_account = customer_account

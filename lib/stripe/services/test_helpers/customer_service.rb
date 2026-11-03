@@ -4,7 +4,7 @@
 module Stripe
   module TestHelpers
     class CustomerService < StripeService
-      # Create an incoming testmode bank transfer
+      # Create a test incoming bank transfer
       def fund_cash_balance(customer, params = {}, opts = {})
         request(
           method: :post,

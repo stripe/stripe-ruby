@@ -29,6 +29,11 @@ module Stripe
       end
 
       class AfterpayClearpay < ::Stripe::StripeObject
+        # The reference assigned to the refund.
+        attr_reader :reference
+        # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+        attr_reader :reference_status
+
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -238,6 +243,11 @@ module Stripe
       end
 
       class Klarna < ::Stripe::StripeObject
+        # The reference assigned to the refund.
+        attr_reader :reference
+        # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+        attr_reader :reference_status
+
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -330,6 +340,10 @@ module Stripe
       class Paypal < ::Stripe::StripeObject
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
         attr_reader :network_decline_code
+        # The reference assigned to the refund.
+        attr_reader :reference
+        # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+        attr_reader :reference_status
 
         def self.inner_class_types
           @inner_class_types = {}

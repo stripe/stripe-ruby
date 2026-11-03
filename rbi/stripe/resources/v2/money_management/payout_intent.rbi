@@ -1,0 +1,413 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+# typed: true
+module Stripe
+  module V2
+    module MoneyManagement
+      # PayoutIntent represents an intent to send funds from a Financial Account to a payout method.
+      class PayoutIntent < APIResource
+        class EstimatedFee < ::Stripe::StripeObject
+          class NetworkFeeDetails < ::Stripe::StripeObject
+            class NetworkOptions < ::Stripe::StripeObject
+              class Ach < ::Stripe::StripeObject
+                # Open Enum. ACH submission timing.
+                sig { returns(T.nilable(String)) }
+                def submission; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # ACH-specific network fee options.
+              sig { returns(T.nilable(Ach)) }
+              def ach; end
+              def self.inner_class_types
+                @inner_class_types = {ach: Ach}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The network associated with the fee.
+            sig { returns(String) }
+            def network; end
+            # Per-network options that affect the fee.
+            sig { returns(NetworkOptions) }
+            def network_options; end
+            def self.inner_class_types
+              @inner_class_types = {network_options: NetworkOptions}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class TaxAmount < ::Stripe::StripeObject
+            # Currency code.
+            sig { returns(String) }
+            def currency; end
+            # Tax amount value represented as a decimal string in major units.
+            sig { returns(String) }
+            def value_decimal; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The fee amount.
+          sig { returns(::Stripe::V2::Amount) }
+          def amount; end
+          # Details about the network and options associated with this fee. Present when `type` is `network_fee`.
+          sig { returns(T.nilable(NetworkFeeDetails)) }
+          def network_fee_details; end
+          # Tax charged for this fee, if applicable. Value expressed as a decimal string in major units.
+          sig { returns(T.nilable(TaxAmount)) }
+          def tax_amount; end
+          # Open Enum. The type of fee.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {network_fee_details: NetworkFeeDetails, tax_amount: TaxAmount}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class From < ::Stripe::StripeObject
+          # The currency of the financial account.
+          sig { returns(String) }
+          def currency; end
+          # Estimated amount to be debited from the financial account.
+          sig { returns(T.nilable(::Stripe::V2::Amount)) }
+          def debited; end
+          # The FinancialAccount that funds are pulled from.
+          sig { returns(String) }
+          def financial_account; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class FxQuote < ::Stripe::StripeObject
+          class Rates < ::Stripe::StripeObject
+            # The exchange rate from the source currency to `to_currency`, represented as a decimal string
+            # (for example, `1.1520`) to preserve the full precision of the rate.
+            sig { returns(String) }
+            def exchange_rate; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Open Enum. Duration of the FX rate lock.
+          sig { returns(String) }
+          def lock_duration; end
+          # Timestamp when the rate lock expires. Null when rate locking is not supported.
+          sig { returns(T.nilable(String)) }
+          def lock_expires_at; end
+          # Open Enum. Lock status of the FX rate.
+          sig { returns(String) }
+          def lock_status; end
+          # Maps each source currency to its exchange rate into `to_currency`.
+          sig { returns(T::Hash[String, Rates]) }
+          def rates; end
+          # The destination currency.
+          sig { returns(String) }
+          def to_currency; end
+          def self.inner_class_types
+            @inner_class_types = {rates: Rates}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class LatestPayout < ::Stripe::StripeObject
+          # The ID of the OutboundPayment, if applicable.
+          sig { returns(T.nilable(String)) }
+          def outbound_payment; end
+          # The ID of the OutboundTransfer, if applicable.
+          sig { returns(T.nilable(String)) }
+          def outbound_transfer; end
+          # The type of payout.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class NextAction < ::Stripe::StripeObject
+          class Confirm < ::Stripe::StripeObject
+            # The PayoutIntent fields that must be reviewed before confirmation.
+            sig { returns(T.nilable(T::Array[String])) }
+            def fields_to_review; end
+            # Open Enum. The reason the PayoutIntent requires confirmation.
+            sig { returns(String) }
+            def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class HandleFailure < ::Stripe::StripeObject
+            # Open Enum. The reason for the failure.
+            sig { returns(String) }
+            def failure_reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Details about a confirmation required. Populated when `type` is `confirm`.
+          sig { returns(T.nilable(Confirm)) }
+          def confirm; end
+          # Details about a failure that requires user action. Populated when `type` is `handle_failure`.
+          sig { returns(T.nilable(HandleFailure)) }
+          def handle_failure; end
+          # Open Enum. The type of next action required.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {confirm: Confirm, handle_failure: HandleFailure}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class RecipientNotification < ::Stripe::StripeObject
+          # Closed Enum. Configuration option to enable or disable notifications to recipients.
+          # Do not send notifications when `setting` is `none`. Use the account setting when `setting` is `configured` or omitted.
+          sig { returns(String) }
+          def setting; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class RecipientVerification < ::Stripe::StripeObject
+          class MatchResultDetails < ::Stripe::StripeObject
+            # The business type returned by the recipient-verification provider.
+            sig { returns(T.nilable(String)) }
+            def matched_business_type; end
+            # The account name returned by the recipient-verification provider.
+            sig { returns(T.nilable(String)) }
+            def matched_name; end
+            # A message describing the match result.
+            sig { returns(String) }
+            def message; end
+            # The business type provided for recipient verification.
+            sig { returns(T.nilable(String)) }
+            def provided_business_type; end
+            # The name associated with the provided recipient.
+            sig { returns(String) }
+            def provided_name; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Closed Enum. The recipient-verification provider's match result.
+          sig { returns(String) }
+          def match_result; end
+          # Details associated with the match result.
+          sig { returns(MatchResultDetails) }
+          def match_result_details; end
+          def self.inner_class_types
+            @inner_class_types = {match_result_details: MatchResultDetails}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class ScheduleOptions < ::Stripe::StripeObject
+          # The date when the payout should be executed, in YYYY-MM-DD format.
+          sig { returns(T.nilable(String)) }
+          def execute_on; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class StatusTransitions < ::Stripe::StripeObject
+          # Timestamp describing when a PayoutIntent changed status to `canceled`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+          sig { returns(T.nilable(String)) }
+          def canceled_at; end
+          # Timestamp describing when a PayoutIntent changed status to `posted`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+          sig { returns(T.nilable(String)) }
+          def posted_at; end
+          # Timestamp describing when a PayoutIntent changed status to `processing`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+          sig { returns(T.nilable(String)) }
+          def processing_at; end
+          # Timestamp describing when a PayoutIntent changed status to `requires_action`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+          sig { returns(T.nilable(String)) }
+          def requires_action_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class To < ::Stripe::StripeObject
+          class PayoutMethodOptions < ::Stripe::StripeObject
+            class BankAccount < ::Stripe::StripeObject
+              class PreferredNetworkOptions < ::Stripe::StripeObject
+                class Ach < ::Stripe::StripeObject
+                  # Open Enum. ACH submission timing.
+                  sig { returns(T.nilable(String)) }
+                  def submission; end
+                  # The transaction purpose for this ACH payment.
+                  sig { returns(T.nilable(String)) }
+                  def transaction_purpose; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # ACH-specific network options.
+                sig { returns(T.nilable(Ach)) }
+                def ach; end
+                def self.inner_class_types
+                  @inner_class_types = {ach: Ach}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Per-network configuration options.
+              sig { returns(T.nilable(PreferredNetworkOptions)) }
+              def preferred_network_options; end
+              # The preferred networks to use for this PayoutIntent.
+              sig { returns(T.nilable(T::Array[String])) }
+              def preferred_networks; end
+              def self.inner_class_types
+                @inner_class_types = {preferred_network_options: PreferredNetworkOptions}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Options for bank account payout methods.
+            sig { returns(T.nilable(BankAccount)) }
+            def bank_account; end
+            def self.inner_class_types
+              @inner_class_types = {bank_account: BankAccount}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Estimated amount to be credited to the recipient in the destination currency.
+          sig { returns(T.nilable(::Stripe::V2::Amount)) }
+          def credited; end
+          # The currency to send to the recipient.
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          # The payout method ID for the PayoutIntent. Optional when the PayoutIntent creates an OutboundPayment and the recipient has a default payout method. Required when the PayoutIntent creates an OutboundTransfer.
+          sig { returns(T.nilable(String)) }
+          def payout_method; end
+          # Payout method options for the PayoutIntent.
+          sig { returns(T.nilable(PayoutMethodOptions)) }
+          def payout_method_options; end
+          # The recipient ID for the PayoutIntent.
+          sig { returns(T.nilable(String)) }
+          def recipient; end
+          def self.inner_class_types
+            @inner_class_types = {payout_method_options: PayoutMethodOptions}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The monetary amount to be sent.
+        sig { returns(::Stripe::V2::Amount) }
+        def amount; end
+        # Controls whether the PayoutIntent requires explicit confirmation before transitioning to `pending`.
+        # Even when `automatic`, regulatory requirements may require confirmation. See [Send money with Global Payouts](https://docs.stripe.com/global-payouts/send-money) for details.
+        sig { returns(String) }
+        def confirmation_method; end
+        # Time at which the PayoutIntent was created.
+        # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+        sig { returns(String) }
+        def created; end
+        # An arbitrary string attached to the PayoutIntent. Often useful for displaying to users.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        # Estimated fees and taxes.
+        sig { returns(T.nilable(T::Array[EstimatedFee])) }
+        def estimated_fees; end
+        # The FinancialAccount that funds are pulled from.
+        sig { returns(From) }
+        def from; end
+        # FX rate information for fee transparency.
+        sig { returns(T.nilable(FxQuote)) }
+        def fx_quote; end
+        # Unique identifier for the PayoutIntent.
+        sig { returns(String) }
+        def id; end
+        # Details about the latest payout associated with this PayoutIntent.
+        sig { returns(T.nilable(LatestPayout)) }
+        def latest_payout; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
+        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        def metadata; end
+        # Next action required for a PayoutIntent in the `requires_action` state. Populated when `status` is `requires_action`.
+        sig { returns(T.nilable(NextAction)) }
+        def next_action; end
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        sig { returns(String) }
+        def object; end
+        # Recipient notification settings for the PayoutIntent. Only applicable when the PayoutIntent creates an OutboundPayment.
+        sig { returns(T.nilable(RecipientNotification)) }
+        def recipient_notification; end
+        # Recipient verification details for this PayoutIntent.
+        sig { returns(T.nilable(RecipientVerification)) }
+        def recipient_verification; end
+        # Scheduling options for the payout. If omitted, the payout is scheduled for immediate execution.
+        sig { returns(T.nilable(ScheduleOptions)) }
+        def schedule_options; end
+        # The description that appears on the receiving end for the payout (for example, on a bank statement).
+        sig { returns(T.nilable(String)) }
+        def statement_descriptor; end
+        # Current status of the PayoutIntent.
+        sig { returns(String) }
+        def status; end
+        # Hash containing timestamps of when transitioned to a particular status.
+        sig { returns(T.nilable(StatusTransitions)) }
+        def status_transitions; end
+        # To which payout method the payout is sent.
+        sig { returns(To) }
+        def to; end
+      end
+    end
+  end
+end

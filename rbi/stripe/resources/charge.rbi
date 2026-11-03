@@ -967,6 +967,12 @@ module Stripe
         # Status of a card based on the card issuer.
         sig { returns(T.nilable(String)) }
         def regulated_status; end
+        # The payment_method_options.card.setup_credential_usage value that was passed when setup_future_usage was present at confirmation, one of `recurring`, `unscheduled`, or `installment`
+        sig { returns(T.nilable(String)) }
+        def setup_credential_usage; end
+        # The payment_method_options.card.stored_credential_usage value that was passed for an off session, merchant-initiated transaction.
+        sig { returns(T.nilable(String)) }
+        def stored_credential_usage; end
         # Populated if this transaction used 3D Secure authentication.
         sig { returns(T.nilable(ThreeDSecure)) }
         def three_d_secure; end

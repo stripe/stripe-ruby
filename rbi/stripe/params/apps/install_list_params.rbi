@@ -31,7 +31,7 @@ module Stripe
          }
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
-      # Only return installs made by this account. Only useful to app developers and embedding platforms, whose lists span the accounts that installed their app.
+      # Only return installs made by this account. Only useful to an app developer filtering by its own app with its own key, whose list spans the accounts that installed the app; other lists only accept the authenticated account.
       sig { returns(T.nilable(String)) }
       def account; end
       sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
@@ -83,7 +83,7 @@ module Stripe
       def starting_after; end
       sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
       def starting_after=(_starting_after); end
-      # Only return installs with the given status.
+      # Only return installs with the given status: `installed`, `installing`, `install_failed`, `uninstalling`, or `uninstall_failed`.
       sig { returns(T.nilable(String)) }
       def status; end
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }

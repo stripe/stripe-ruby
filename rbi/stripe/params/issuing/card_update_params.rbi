@@ -240,6 +240,11 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
+      # The new financial account ID the card will be associated with. This field allows a card to be reassigned to a different financial account.
+      sig { returns(T.nilable(String)) }
+      def financial_account; end
+      sig { params(_financial_account: T.nilable(String)).returns(T.nilable(String)) }
+      def financial_account=(_financial_account); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
       def metadata; end
@@ -279,11 +284,12 @@ module Stripe
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
       def status=(_status); end
       sig {
-        params(cancellation_reason: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::CardUpdateParams::Pin), shipping: T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::CardUpdateParams::SpendingControls), status: T.nilable(String)).void
+        params(cancellation_reason: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::CardUpdateParams::Pin), shipping: T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::CardUpdateParams::SpendingControls), status: T.nilable(String)).void
        }
       def initialize(
         cancellation_reason: nil,
         expand: nil,
+        financial_account: nil,
         metadata: nil,
         personalization_design: nil,
         pin: nil,

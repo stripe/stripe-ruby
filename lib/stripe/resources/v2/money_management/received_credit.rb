@@ -1,0 +1,236 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+module Stripe
+  module V2
+    module MoneyManagement
+      # Use ReceivedCredits API to retrieve information on when, where, and how funds are sent into your FinancialAccount.
+      class ReceivedCredit < APIResource
+        OBJECT_NAME = "v2.money_management.received_credit"
+        def self.object_name
+          "v2.money_management.received_credit"
+        end
+
+        class BalanceTransfer < ::Stripe::StripeObject
+          # The ID of the account that owns the source object originated the ReceivedCredit.
+          attr_reader :from_account
+          # The ID of the outbound payment object that originated the ReceivedCredit.
+          attr_reader :outbound_payment
+          # The ID of the outbound transfer object that originated the ReceivedCredit.
+          attr_reader :outbound_transfer
+          # The ID of the payout object that originated the ReceivedCredit.
+          attr_reader :payout
+          # The ID of the v1 transfer object that originated the ReceivedCredit.
+          attr_reader :transfer
+          # Open Enum. The type of Stripe Money Movement that originated the ReceivedCredit.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class BankTransfer < ::Stripe::StripeObject
+          class OriginatingBankAccount < ::Stripe::StripeObject
+            class Aba < ::Stripe::StripeObject
+              # The name of the account holder that sent the payment.
+              attr_reader :account_holder_name
+              # The bank name the transfer was received from.
+              attr_reader :bank_name
+              # The last 4 digits of the account number that originated the transfer.
+              attr_reader :last4
+              # The routing number of the account that originated the transfer.
+              attr_reader :routing_number
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Iban < ::Stripe::StripeObject
+              # The account holder name of the bank account the transfer was received from.
+              attr_reader :account_holder_name
+              # The bank name the transfer was received from.
+              attr_reader :bank_name
+              # The BIC/SWIFT code of the account that originated the transfer.
+              attr_reader :bic
+              # The origination country of the bank transfer.
+              attr_reader :country
+              # The IBAN that originated the transfer.
+              attr_reader :iban
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class SortCode < ::Stripe::StripeObject
+              # The account holder name of the bank account the transfer was received from.
+              attr_reader :account_holder_name
+              # The bank name the transfer was received from.
+              attr_reader :bank_name
+              # The last 4 digits of the account number that originated the transfer.
+              attr_reader :last4
+              # The sort code of the account that originated the transfer.
+              attr_reader :sort_code
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Hash containing the transaction bank details. Present if `type` field value is `aba`.
+            attr_reader :aba
+            # Hash containing the transaction bank details. Present if `type` field value is `iban`.
+            attr_reader :iban
+            # Hash containing the transaction bank details. Present if `type` field value is `sort_code`.
+            attr_reader :sort_code
+            # Open Enum. The type of bank transfer that originated this ReceivedCredit.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { aba: Aba, iban: Iban, sort_code: SortCode }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Financial Address on which funds for ReceivedCredit were received.
+          attr_reader :financial_address
+          # The money transmission network used to send funds for this ReceivedCredit.
+          attr_reader :network
+          # Hash containing the originating bank account details and type for this bank transfer.
+          attr_reader :originating_bank_account
+          # Freeform string set by originator of the external ReceivedCredit.
+          attr_reader :statement_descriptor
+
+          def self.inner_class_types
+            @inner_class_types = { originating_bank_account: OriginatingBankAccount }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class StatusDetails < ::Stripe::StripeObject
+          class Failed < ::Stripe::StripeObject
+            # Open Enum. The `failed` status reason.
+            attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Returned < ::Stripe::StripeObject
+            # Open Enum. The `returned` status reason.
+            attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Hash that provides additional information regarding the reason behind a `failed` ReceivedCredit status. It is only present when the ReceivedCredit status is `failed`.
+          attr_reader :failed
+          # Hash that provides additional information regarding the reason behind a `returned` ReceivedCredit status. It is only present when the ReceivedCredit status is `returned`.
+          attr_reader :returned
+
+          def self.inner_class_types
+            @inner_class_types = { failed: Failed, returned: Returned }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class StatusTransitions < ::Stripe::StripeObject
+          # Timestamp describing when the ReceivedCredit was marked as `failed`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+          attr_reader :failed_at
+          # Timestamp describing when the ReceivedCredit changed status to `returned`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+          attr_reader :returned_at
+          # Timestamp describing when the ReceivedCredit was marked as `succeeded`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+          attr_reader :succeeded_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The amount and currency credited to the FinancialAccount.
+        attr_reader :amount
+        # The amount and currency Stripe received from the external source, before any conversion or fees.
+        attr_reader :amount_received
+        # This object stores details about the originating Stripe transaction that resulted in the ReceivedCredit. Present if `type` field value is `balance_transfer`.
+        attr_reader :balance_transfer
+        # This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `bank_transfer`.
+        attr_reader :bank_transfer
+        # Time at which the ReceivedCredit was created.
+        # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+        attr_reader :created
+        # Freeform string set by originator of the ReceivedCredit.
+        attr_reader :description
+        # Financial Account ID on which funds for ReceivedCredit were received.
+        attr_reader :financial_account
+        # Unique identifier for the ReceivedCredit.
+        attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        attr_reader :object
+        # Open Enum. The status of the ReceivedCredit.
+        attr_reader :status
+        # This hash contains detailed information that elaborates on the specific status of the ReceivedCredit. e.g the reason behind a failure if the status is marked as `failed`.
+        attr_reader :status_details
+        # Hash containing timestamps of when the object transitioned to a particular status.
+        attr_reader :status_transitions
+        # Open Enum. The type of flow that caused the ReceivedCredit.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            balance_transfer: BalanceTransfer,
+            bank_transfer: BankTransfer,
+            status_details: StatusDetails,
+            status_transitions: StatusTransitions,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+    end
+  end
+end

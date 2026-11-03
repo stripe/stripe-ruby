@@ -1,0 +1,71 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+# typed: true
+module Stripe
+  module V2
+    module MoneyManagement
+      class PayoutIntentService < StripeService
+        # Cancels a PayoutIntent in the `pending` or `requires_action` state, or a `processing` PayoutIntent with a cancelable OutboundPayment.
+        #
+        # ** raises NotCancelableError
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::PayoutIntentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutIntent)
+         }
+        def cancel(id, params = {}, opts = {}); end
+
+        # Confirms a PayoutIntent in the `requires_action` state, transitioning it to `pending`.
+        #
+        # ** raises FxQuoteNeedsRefreshError
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::PayoutIntentConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutIntent)
+         }
+        def confirm(id, params = {}, opts = {}); end
+
+        # Creates a PayoutIntent.
+        #
+        # ** raises CapabilityNotEnabledError
+        # ** raises RecipientNotNotifiableError
+        # ** raises FeatureNotEnabledError
+        sig {
+          params(params: T.any(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutIntent)
+         }
+        def create(params = {}, opts = {}); end
+
+        # Returns a list of PayoutIntents.
+        sig {
+          params(params: T.any(::Stripe::V2::MoneyManagement::PayoutIntentListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
+         }
+        def list(params = {}, opts = {}); end
+
+        # Refreshes the FX quote for a PayoutIntent.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::PayoutIntentRefreshFxQuoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutIntent)
+         }
+        def refresh_fx_quote(id, params = {}, opts = {}); end
+
+        # Refreshes the recipient verification for a PayoutIntent.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::PayoutIntentRefreshRecipientVerificationParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutIntent)
+         }
+        def refresh_recipient_verification(id, params = {}, opts = {}); end
+
+        # Retrieves the details of an existing PayoutIntent by passing the unique PayoutIntent ID.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::PayoutIntentRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutIntent)
+         }
+        def retrieve(id, params = {}, opts = {}); end
+
+        # Updates an editable PayoutIntent in the `pending` or `requires_action` state.
+        #
+        # ** raises CapabilityNotEnabledError
+        # ** raises RecipientNotNotifiableError
+        # ** raises FeatureNotEnabledError
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutIntent)
+         }
+        def update(id, params = {}, opts = {}); end
+      end
+    end
+  end
+end

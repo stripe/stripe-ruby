@@ -256,6 +256,8 @@ module Stripe
     autoload :BillingService, "stripe/services/v2/billing_service"
     autoload :CommerceService, "stripe/services/v2/commerce_service"
     autoload :CoreService, "stripe/services/v2/core_service"
+    autoload :MoneyManagementService, "stripe/services/v2/money_management_service"
+    autoload :TestHelperService, "stripe/services/v2/test_helper_service"
 
     module Billing
       autoload :MeterEventAdjustmentService, "stripe/services/v2/billing/meter_event_adjustment_service"
@@ -278,11 +280,43 @@ module Stripe
       autoload :AccountTokenService, "stripe/services/v2/core/account_token_service"
       autoload :EventDestinationService, "stripe/services/v2/core/event_destination_service"
       autoload :EventService, "stripe/services/v2/core/event_service"
+      autoload :VaultService, "stripe/services/v2/core/vault_service"
 
       module Accounts
         autoload :PersonService, "stripe/services/v2/core/accounts/person_service"
         autoload :PersonTokenService, "stripe/services/v2/core/accounts/person_token_service"
       end
+
+      module Vault
+        autoload :GbBankAccountService, "stripe/services/v2/core/vault/gb_bank_account_service"
+        autoload :UsBankAccountService, "stripe/services/v2/core/vault/us_bank_account_service"
+      end
+    end
+
+    module MoneyManagement
+      autoload :AdjustmentService, "stripe/services/v2/money_management/adjustment_service"
+      autoload :FinancialAccountService, "stripe/services/v2/money_management/financial_account_service"
+      autoload :FinancialAddressService, "stripe/services/v2/money_management/financial_address_service"
+      autoload :InboundTransferService, "stripe/services/v2/money_management/inbound_transfer_service"
+      autoload :OutboundPaymentService, "stripe/services/v2/money_management/outbound_payment_service"
+      autoload :OutboundSetupIntentService, "stripe/services/v2/money_management/outbound_setup_intent_service"
+      autoload :PayoutIntentService, "stripe/services/v2/money_management/payout_intent_service"
+      autoload :PayoutMethodsBankAccountSpecService,
+               "stripe/services/v2/money_management/payout_methods_bank_account_spec_service"
+      autoload :PayoutMethodService, "stripe/services/v2/money_management/payout_method_service"
+      autoload :ReceivedCreditService, "stripe/services/v2/money_management/received_credit_service"
+      autoload :RecipientVerificationService, "stripe/services/v2/money_management/recipient_verification_service"
+      autoload :TestHelpersService, "stripe/services/v2/money_management/test_helpers_service"
+      autoload :TransactionEntryService, "stripe/services/v2/money_management/transaction_entry_service"
+      autoload :TransactionService, "stripe/services/v2/money_management/transaction_service"
+
+      module TestHelpers
+        autoload :FinancialAddressService, "stripe/services/v2/money_management/test_helpers/financial_address_service"
+      end
+    end
+
+    module TestHelpers
+      autoload :MoneyManagementService, "stripe/services/v2/test_helpers/money_management_service"
     end
   end
 end
@@ -485,7 +519,28 @@ module Stripe
     stripe/services/v2/core/accounts/person_token_service
     stripe/services/v2/core/event_destination_service
     stripe/services/v2/core/event_service
+    stripe/services/v2/core/vault/gb_bank_account_service
+    stripe/services/v2/core/vault/us_bank_account_service
+    stripe/services/v2/core/vault_service
     stripe/services/v2/core_service
+    stripe/services/v2/money_management/adjustment_service
+    stripe/services/v2/money_management/financial_account_service
+    stripe/services/v2/money_management/financial_address_service
+    stripe/services/v2/money_management/inbound_transfer_service
+    stripe/services/v2/money_management/outbound_payment_service
+    stripe/services/v2/money_management/outbound_setup_intent_service
+    stripe/services/v2/money_management/payout_intent_service
+    stripe/services/v2/money_management/payout_method_service
+    stripe/services/v2/money_management/payout_methods_bank_account_spec_service
+    stripe/services/v2/money_management/received_credit_service
+    stripe/services/v2/money_management/recipient_verification_service
+    stripe/services/v2/money_management/test_helpers/financial_address_service
+    stripe/services/v2/money_management/test_helpers_service
+    stripe/services/v2/money_management/transaction_entry_service
+    stripe/services/v2/money_management/transaction_service
+    stripe/services/v2/money_management_service
+    stripe/services/v2/test_helper_service
+    stripe/services/v2/test_helpers/money_management_service
     stripe/services/v2_services
     stripe/services/webhook_endpoint_service
   ].freeze

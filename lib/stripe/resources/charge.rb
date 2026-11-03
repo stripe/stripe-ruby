@@ -914,6 +914,10 @@ module Stripe
         attr_reader :overcapture
         # Status of a card based on the card issuer.
         attr_reader :regulated_status
+        # The payment_method_options.card.setup_credential_usage value that was passed when setup_future_usage was present at confirmation, one of `recurring`, `unscheduled`, or `installment`
+        attr_reader :setup_credential_usage
+        # The payment_method_options.card.stored_credential_usage value that was passed for an off session, merchant-initiated transaction.
+        attr_reader :stored_credential_usage
         # Populated if this transaction used 3D Secure authentication.
         attr_reader :three_d_secure
         # Transaction Link ID (TLID) is a unique identifier for a transaction. This is used by some card networks, such as Mastercard, for transaction linking, in addition to Network Transaction IDs. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.

@@ -21,7 +21,7 @@ module Stripe
           @lte = lte
         end
       end
-      # Only return installs made by this account. Only useful to app developers and embedding platforms, whose lists span the accounts that installed their app.
+      # Only return installs made by this account. Only useful to an app developer filtering by its own app with its own key, whose list spans the accounts that installed the app; other lists only accept the authenticated account.
       attr_accessor :account
       # Only return installs for the app specified by this app ID.
       attr_accessor :app
@@ -41,7 +41,7 @@ module Stripe
       attr_accessor :limit
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
-      # Only return installs with the given status.
+      # Only return installs with the given status: `installed`, `installing`, `install_failed`, `uninstalling`, or `uninstall_failed`.
       attr_accessor :status
 
       def initialize(

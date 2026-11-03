@@ -46,6 +46,9 @@ module Stripe
           # If applicable, the ID of the FeeBatch that created this Transaction.
           sig { returns(T.nilable(String)) }
           def fee_batch; end
+          # If applicable, the ID of the Hold that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def hold; end
           # If applicable, the ID of the InboundTransfer that created this Transaction.
           sig { returns(T.nilable(String)) }
           def inbound_transfer; end

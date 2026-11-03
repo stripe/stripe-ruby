@@ -41,13 +41,18 @@ module Stripe
         def reporting_category; end
         sig { params(_reporting_category: T.nilable(String)).returns(T.nilable(String)) }
         def reporting_category=(_reporting_category); end
+        # The tax invoice month in YYYY-MM format.
+        sig { returns(T.nilable(String)) }
+        def tax_invoice_month; end
+        sig { params(_tax_invoice_month: T.nilable(String)).returns(T.nilable(String)) }
+        def tax_invoice_month=(_tax_invoice_month); end
         # Defaults to `Etc/UTC`. The output timezone for all timestamps in the report. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones). Has no effect on `interval_start` or `interval_end`.
         sig { returns(T.nilable(String)) }
         def timezone; end
         sig { params(_timezone: T.nilable(String)).returns(T.nilable(String)) }
         def timezone=(_timezone); end
         sig {
-          params(columns: T.nilable(T::Array[String]), connected_account: T.nilable(String), currency: T.nilable(String), interval_end: T.nilable(Integer), interval_start: T.nilable(Integer), payout: T.nilable(String), reporting_category: T.nilable(String), timezone: T.nilable(String)).void
+          params(columns: T.nilable(T::Array[String]), connected_account: T.nilable(String), currency: T.nilable(String), interval_end: T.nilable(Integer), interval_start: T.nilable(Integer), payout: T.nilable(String), reporting_category: T.nilable(String), tax_invoice_month: T.nilable(String), timezone: T.nilable(String)).void
          }
         def initialize(
           columns: nil,
@@ -57,6 +62,7 @@ module Stripe
           interval_start: nil,
           payout: nil,
           reporting_category: nil,
+          tax_invoice_month: nil,
           timezone: nil
         ); end
       end

@@ -11,11 +11,39 @@ module Stripe
     # Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
     class InboundTransfer < APIResource
       class FailureDetails < ::Stripe::StripeObject
+        class NetworkDetails < ::Stripe::StripeObject
+          class Ach < ::Stripe::StripeObject
+            # NACHA ACH return code.
+            sig { returns(T.nilable(String)) }
+            def return_code; end
+            # NACHA ACH return reason.
+            sig { returns(T.nilable(String)) }
+            def return_reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # ACH return details.
+          sig { returns(T.nilable(Ach)) }
+          def ach; end
+          def self.inner_class_types
+            @inner_class_types = {ach: Ach}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Reason for the failure.
         sig { returns(String) }
         def code; end
+        # Money movement network-specific details regarding the failure.
+        sig { returns(T.nilable(NetworkDetails)) }
+        def network_details; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {network_details: NetworkDetails}
         end
         def self.field_remappings
           @field_remappings = {}

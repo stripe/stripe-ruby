@@ -251,6 +251,10 @@ module Stripe
       register("v1.checkout.session.completed", &callback)
     end
 
+    def on_v1_checkout_session_created(&callback)
+      register("v1.checkout.session.created", &callback)
+    end
+
     def on_v1_checkout_session_expired(&callback)
       register("v1.checkout.session.expired", &callback)
     end
@@ -691,10 +695,6 @@ module Stripe
       register("v1.issuing_authorization.created", &callback)
     end
 
-    def on_v1_issuing_authorization_request(&callback)
-      register("v1.issuing_authorization.request", &callback)
-    end
-
     def on_v1_issuing_authorization_updated(&callback)
       register("v1.issuing_authorization.updated", &callback)
     end
@@ -811,8 +811,16 @@ module Stripe
       register("v1.payment_intent.succeeded", &callback)
     end
 
+    def on_v1_payment_link_activated(&callback)
+      register("v1.payment_link.activated", &callback)
+    end
+
     def on_v1_payment_link_created(&callback)
       register("v1.payment_link.created", &callback)
+    end
+
+    def on_v1_payment_link_deactivated(&callback)
+      register("v1.payment_link.deactivated", &callback)
     end
 
     def on_v1_payment_link_updated(&callback)
@@ -1241,6 +1249,26 @@ module Stripe
 
     def on_v2_core_account_person_updated(&callback)
       register("v2.core.account_person.updated", &callback)
+    end
+
+    def on_v2_core_claimable_sandbox_claimed(&callback)
+      register("v2.core.claimable_sandbox.claimed", &callback)
+    end
+
+    def on_v2_core_claimable_sandbox_created(&callback)
+      register("v2.core.claimable_sandbox.created", &callback)
+    end
+
+    def on_v2_core_claimable_sandbox_expired(&callback)
+      register("v2.core.claimable_sandbox.expired", &callback)
+    end
+
+    def on_v2_core_claimable_sandbox_expiring(&callback)
+      register("v2.core.claimable_sandbox.expiring", &callback)
+    end
+
+    def on_v2_core_claimable_sandbox_updated(&callback)
+      register("v2.core.claimable_sandbox.updated", &callback)
     end
 
     def on_v2_core_event_destination_ping(&callback)

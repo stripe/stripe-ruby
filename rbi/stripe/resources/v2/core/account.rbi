@@ -509,6 +509,34 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              class BilliePayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               class BlikPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1013,6 +1041,34 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              class MbWayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               class MobilepayPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1098,6 +1154,34 @@ module Stripe
                 end
               end
               class NaverPayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class NzBankAccountBecsDebitPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
@@ -1238,6 +1322,62 @@ module Stripe
                 end
               end
               class PaynowPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class PaypayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class PixPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
@@ -1667,6 +1807,9 @@ module Stripe
               # Allow the merchant to process Bancontact payments.
               sig { returns(T.nilable(BancontactPayments)) }
               def bancontact_payments; end
+              # Allow the merchant to process Billie payments.
+              sig { returns(T.nilable(BilliePayments)) }
+              def billie_payments; end
               # Allow the merchant to process BLIK payments.
               sig { returns(T.nilable(BlikPayments)) }
               def blik_payments; end
@@ -1721,6 +1864,9 @@ module Stripe
               # Allow the merchant to process Link payments.
               sig { returns(T.nilable(LinkPayments)) }
               def link_payments; end
+              # Allow the merchant to process MB WAY payments.
+              sig { returns(T.nilable(MbWayPayments)) }
+              def mb_way_payments; end
               # Allow the merchant to process MobilePay payments.
               sig { returns(T.nilable(MobilepayPayments)) }
               def mobilepay_payments; end
@@ -1733,6 +1879,9 @@ module Stripe
               # Allow the merchant to process Naver Pay payments.
               sig { returns(T.nilable(NaverPayPayments)) }
               def naver_pay_payments; end
+              # Allow the merchant to process New Zealand BECS Direct Debit payments.
+              sig { returns(T.nilable(NzBankAccountBecsDebitPayments)) }
+              def nz_bank_account_becs_debit_payments; end
               # Allow the merchant to process OXXO payments.
               sig { returns(T.nilable(OxxoPayments)) }
               def oxxo_payments; end
@@ -1748,6 +1897,12 @@ module Stripe
               # Allow the merchant to process PayNow payments.
               sig { returns(T.nilable(PaynowPayments)) }
               def paynow_payments; end
+              # Allow the merchant to process PayPay payments.
+              sig { returns(T.nilable(PaypayPayments)) }
+              def paypay_payments; end
+              # Allow the merchant to process Pix payments.
+              sig { returns(T.nilable(PixPayments)) }
+              def pix_payments; end
               # Allow the merchant to process PromptPay payments.
               sig { returns(T.nilable(PromptpayPayments)) }
               def promptpay_payments; end
@@ -1798,6 +1953,7 @@ module Stripe
                   au_becs_debit_payments: AuBecsDebitPayments,
                   bacs_debit_payments: BacsDebitPayments,
                   bancontact_payments: BancontactPayments,
+                  billie_payments: BilliePayments,
                   blik_payments: BlikPayments,
                   blik_recurring_payments: BlikRecurringPayments,
                   boleto_payments: BoletoPayments,
@@ -1816,15 +1972,19 @@ module Stripe
                   konbini_payments: KonbiniPayments,
                   kr_card_payments: KrCardPayments,
                   link_payments: LinkPayments,
+                  mb_way_payments: MbWayPayments,
                   mobilepay_payments: MobilepayPayments,
                   multibanco_payments: MultibancoPayments,
                   mx_bank_transfer_payments: MxBankTransferPayments,
                   naver_pay_payments: NaverPayPayments,
+                  nz_bank_account_becs_debit_payments: NzBankAccountBecsDebitPayments,
                   oxxo_payments: OxxoPayments,
                   p24_payments: P24Payments,
                   pay_by_bank_payments: PayByBankPayments,
                   payco_payments: PaycoPayments,
                   paynow_payments: PaynowPayments,
+                  paypay_payments: PaypayPayments,
+                  pix_payments: PixPayments,
                   promptpay_payments: PromptpayPayments,
                   revolut_pay_payments: RevolutPayPayments,
                   samsung_pay_payments: SamsungPayPayments,
@@ -1906,6 +2066,23 @@ module Stripe
               def support; end
               def self.inner_class_types
                 @inner_class_types = {support: Support}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class PaypayPayments < ::Stripe::StripeObject
+              # Additional files supporting PayPay payments configuration.
+              sig { returns(T::Array[String]) }
+              def additional_files; end
+              # The type of goods sold by the merchant for PayPay payments.
+              sig { returns(T.nilable(String)) }
+              def goods_type; end
+              # URL to the Specified Commercial Transactions Act page for PayPay payments.
+              sig { returns(T.nilable(String)) }
+              def specified_commercial_transactions_act_url; end
+              def self.inner_class_types
+                @inner_class_types = {}
               end
               def self.field_remappings
                 @field_remappings = {}
@@ -2048,6 +2225,9 @@ module Stripe
             # The Merchant Category Code (MCC) for the merchant. MCCs classify businesses based on the goods or services they provide.
             sig { returns(T.nilable(String)) }
             def mcc; end
+            # Settings for PayPay payments.
+            sig { returns(T.nilable(PaypayPayments)) }
+            def paypay_payments; end
             # Settings for the default text that appears on statements for language variations.
             sig { returns(T.nilable(ScriptStatementDescriptor)) }
             def script_statement_descriptor; end
@@ -2067,6 +2247,7 @@ module Stripe
                 capabilities: Capabilities,
                 card_payments: CardPayments,
                 konbini_payments: KonbiniPayments,
+                paypay_payments: PaypayPayments,
                 script_statement_descriptor: ScriptStatementDescriptor,
                 sepa_debit_payments: SepaDebitPayments,
                 statement_descriptor: StatementDescriptor,
@@ -2400,7 +2581,7 @@ module Stripe
                 # Enables this Account to complete payouts from their Stripe Balance (/v1/balance).
                 sig { returns(T.nilable(Payouts)) }
                 def payouts; end
-                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance). Use this capability if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
                 sig { returns(T.nilable(StripeTransfers)) }
                 def stripe_transfers; end
                 def self.inner_class_types
@@ -2449,7 +2630,7 @@ module Stripe
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           sig { returns(T.nilable(Merchant)) }
           def merchant; end
-          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
+          # The Recipient Configuration allows the Account to receive funds from you.
           sig { returns(T.nilable(Recipient)) }
           def recipient; end
           def self.inner_class_types
@@ -2478,10 +2659,10 @@ module Stripe
             end
           end
           class Responsibilities < ::Stripe::StripeObject
-            # Indicates whether the platform or connected account is responsible for paying Stripe fees for pricing-control-eligible products.
+            # Controls who pays Stripe fees for direct charges and other pricing-control-eligible Stripe products. For new integrations, setting `losses_collector=application` requires `fees_collector=application`; legacy Custom and Express accounts can also use `application_custom` or `application_express`. For destination charges and separate charges and transfers, Stripe bills the platform regardless of this setting. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior), including application fees and pricing considerations.
             sig { returns(T.nilable(String)) }
             def fees_collector; end
-            # A value indicating the responsibility for losses on this account.
+            # Controls who is responsible for payment-related negative balances on this account. The platform remains liable for negative balances on its own account. To use Stripe negative balance liability, your integration must meet [Managed Risk requirements](https://docs.stripe.com/connect/risk-management/managed-risk).
             sig { returns(T.nilable(String)) }
             def losses_collector; end
             # A value indicating responsibility for collecting requirements on this account.
@@ -4279,7 +4460,7 @@ module Stripe
         # Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }
         def created; end
-        # A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
+        # Specifies the account's Stripe-hosted Dashboard access. Available values depend on the configurations enabled for the account. Learn more about [configuring Dashboard access](https://docs.stripe.com/connect/accounts-v2/connected-account-configuration#set-dashboard-access).
         sig { returns(T.nilable(String)) }
         def dashboard; end
         # Default values for settings shared across Account configurations.

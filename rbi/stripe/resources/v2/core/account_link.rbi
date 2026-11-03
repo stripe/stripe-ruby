@@ -5,9 +5,21 @@
 module Stripe
   module V2
     module Core
-      # Account Links let a platform create a temporary, single-use URL that an account can use to access a Stripe-hosted flow for collecting or updating required information.
+      # Account Links let a platform create a temporary, single-use URL that an account can use to access a Stripe-hosted flow for collecting or updating required information, or to access its Stripe-hosted Dashboard.
       class AccountLink < APIResource
         class UseCase < ::Stripe::StripeObject
+          class AccountDashboard < ::Stripe::StripeObject
+            # The URL to redirect to if the Account Link has expired or has already
+            # been used. Authenticate the user before generating a replacement link.
+            sig { returns(String) }
+            def refresh_url; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class AccountOnboarding < ::Stripe::StripeObject
             class CollectionOptions < ::Stripe::StripeObject
               # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don’t specify collection_options, the default value is currently_due.
@@ -70,6 +82,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Hash containing configuration options for an Account Link that provides access to the account's Stripe-hosted Dashboard.
+          sig { returns(T.nilable(AccountDashboard)) }
+          def account_dashboard; end
           # Hash containing configuration options for an Account Link object that onboards a new account.
           sig { returns(T.nilable(AccountOnboarding)) }
           def account_onboarding; end
@@ -81,6 +96,7 @@ module Stripe
           def type; end
           def self.inner_class_types
             @inner_class_types = {
+              account_dashboard: AccountDashboard,
               account_onboarding: AccountOnboarding,
               account_update: AccountUpdate,
             }

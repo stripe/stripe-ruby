@@ -274,6 +274,15 @@ module Stripe
                 end
               end
 
+              class BilliePayments < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(requested: nil)
+                  @requested = requested
+                end
+              end
+
               class BlikPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
@@ -436,6 +445,15 @@ module Stripe
                 end
               end
 
+              class MbWayPayments < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(requested: nil)
+                  @requested = requested
+                end
+              end
+
               class MobilepayPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
@@ -464,6 +482,15 @@ module Stripe
               end
 
               class NaverPayPayments < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(requested: nil)
+                  @requested = requested
+                end
+              end
+
+              class NzBankAccountBecsDebitPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -509,6 +536,24 @@ module Stripe
               end
 
               class PaynowPayments < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(requested: nil)
+                  @requested = requested
+                end
+              end
+
+              class PaypayPayments < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(requested: nil)
+                  @requested = requested
+                end
+              end
+
+              class PixPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -642,6 +687,8 @@ module Stripe
               attr_accessor :bacs_debit_payments
               # Allow the merchant to process Bancontact payments.
               attr_accessor :bancontact_payments
+              # Allow the merchant to process Billie payments.
+              attr_accessor :billie_payments
               # Allow the merchant to process BLIK payments.
               attr_accessor :blik_payments
               # Allow the merchant to process recurring BLIK payments.
@@ -678,6 +725,8 @@ module Stripe
               attr_accessor :kr_card_payments
               # Allow the merchant to process Link payments.
               attr_accessor :link_payments
+              # Allow the merchant to process MB WAY payments.
+              attr_accessor :mb_way_payments
               # Allow the merchant to process MobilePay payments.
               attr_accessor :mobilepay_payments
               # Allow the merchant to process Multibanco payments.
@@ -686,6 +735,8 @@ module Stripe
               attr_accessor :mx_bank_transfer_payments
               # Allow the merchant to process Naver Pay payments.
               attr_accessor :naver_pay_payments
+              # Allow the merchant to process New Zealand BECS Direct Debit payments.
+              attr_accessor :nz_bank_account_becs_debit_payments
               # Allow the merchant to process OXXO payments.
               attr_accessor :oxxo_payments
               # Allow the merchant to process Przelewy24 (P24) payments.
@@ -696,6 +747,10 @@ module Stripe
               attr_accessor :payco_payments
               # Allow the merchant to process PayNow payments.
               attr_accessor :paynow_payments
+              # Allow the merchant to process PayPay payments.
+              attr_accessor :paypay_payments
+              # Allow the merchant to process Pix payments.
+              attr_accessor :pix_payments
               # Allow the merchant to process PromptPay payments.
               attr_accessor :promptpay_payments
               # Allow the merchant to process Revolut Pay payments.
@@ -731,6 +786,7 @@ module Stripe
                 au_becs_debit_payments: nil,
                 bacs_debit_payments: nil,
                 bancontact_payments: nil,
+                billie_payments: nil,
                 blik_payments: nil,
                 blik_recurring_payments: nil,
                 boleto_payments: nil,
@@ -749,15 +805,19 @@ module Stripe
                 konbini_payments: nil,
                 kr_card_payments: nil,
                 link_payments: nil,
+                mb_way_payments: nil,
                 mobilepay_payments: nil,
                 multibanco_payments: nil,
                 mx_bank_transfer_payments: nil,
                 naver_pay_payments: nil,
+                nz_bank_account_becs_debit_payments: nil,
                 oxxo_payments: nil,
                 p24_payments: nil,
                 pay_by_bank_payments: nil,
                 payco_payments: nil,
                 paynow_payments: nil,
+                paypay_payments: nil,
+                pix_payments: nil,
                 promptpay_payments: nil,
                 revolut_pay_payments: nil,
                 samsung_pay_payments: nil,
@@ -780,6 +840,7 @@ module Stripe
                 @au_becs_debit_payments = au_becs_debit_payments
                 @bacs_debit_payments = bacs_debit_payments
                 @bancontact_payments = bancontact_payments
+                @billie_payments = billie_payments
                 @blik_payments = blik_payments
                 @blik_recurring_payments = blik_recurring_payments
                 @boleto_payments = boleto_payments
@@ -798,15 +859,19 @@ module Stripe
                 @konbini_payments = konbini_payments
                 @kr_card_payments = kr_card_payments
                 @link_payments = link_payments
+                @mb_way_payments = mb_way_payments
                 @mobilepay_payments = mobilepay_payments
                 @multibanco_payments = multibanco_payments
                 @mx_bank_transfer_payments = mx_bank_transfer_payments
                 @naver_pay_payments = naver_pay_payments
+                @nz_bank_account_becs_debit_payments = nz_bank_account_becs_debit_payments
                 @oxxo_payments = oxxo_payments
                 @p24_payments = p24_payments
                 @pay_by_bank_payments = pay_by_bank_payments
                 @payco_payments = payco_payments
                 @paynow_payments = paynow_payments
+                @paypay_payments = paypay_payments
+                @pix_payments = pix_payments
                 @promptpay_payments = promptpay_payments
                 @revolut_pay_payments = revolut_pay_payments
                 @samsung_pay_payments = samsung_pay_payments
@@ -873,6 +938,25 @@ module Stripe
 
               def initialize(support: nil)
                 @support = support
+              end
+            end
+
+            class PaypayPayments < ::Stripe::RequestParams
+              # Additional files supporting PayPay payments configuration.
+              attr_accessor :additional_files
+              # The type of goods sold by the merchant for PayPay payments.
+              attr_accessor :goods_type
+              # URL to the Specified Commercial Transactions Act page for PayPay payments.
+              attr_accessor :specified_commercial_transactions_act_url
+
+              def initialize(
+                additional_files: nil,
+                goods_type: nil,
+                specified_commercial_transactions_act_url: nil
+              )
+                @additional_files = additional_files
+                @goods_type = goods_type
+                @specified_commercial_transactions_act_url = specified_commercial_transactions_act_url
               end
             end
 
@@ -995,6 +1079,8 @@ module Stripe
             attr_accessor :konbini_payments
             # The Merchant Category Code (MCC) for the Merchant Configuration. MCCs classify businesses based on the goods or services they provide.
             attr_accessor :mcc
+            # Settings for PayPay payments.
+            attr_accessor :paypay_payments
             # Settings for the default text that appears on statements for language variations.
             attr_accessor :script_statement_descriptor
             # Settings used for SEPA Direct Debit payments.
@@ -1011,6 +1097,7 @@ module Stripe
               card_payments: nil,
               konbini_payments: nil,
               mcc: nil,
+              paypay_payments: nil,
               script_statement_descriptor: nil,
               sepa_debit_payments: nil,
               statement_descriptor: nil,
@@ -1022,6 +1109,7 @@ module Stripe
               @card_payments = card_payments
               @konbini_payments = konbini_payments
               @mcc = mcc
+              @paypay_payments = paypay_payments
               @script_statement_descriptor = script_statement_descriptor
               @sepa_debit_payments = sepa_debit_payments
               @statement_descriptor = statement_descriptor
@@ -1146,7 +1234,7 @@ module Stripe
                     @requested = requested
                   end
                 end
-                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance). Use this capability if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
                 attr_accessor :stripe_transfers
 
                 def initialize(stripe_transfers: nil)
@@ -1177,7 +1265,7 @@ module Stripe
           attr_accessor :customer
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           attr_accessor :merchant
-          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
+          # The Recipient Configuration allows the Account to receive funds from you.
           attr_accessor :recipient
 
           def initialize(customer: nil, merchant: nil, recipient: nil)
@@ -1204,9 +1292,9 @@ module Stripe
           end
 
           class Responsibilities < ::Stripe::RequestParams
-            # A value indicating the party responsible for collecting fees from this account.
+            # Controls who pays Stripe fees for direct charges and other pricing-control-eligible Stripe products. For new integrations, setting `losses_collector=application` requires `fees_collector=application`; legacy Custom and Express accounts can also use `application_custom` or `application_express`. For destination charges and separate charges and transfers, Stripe bills the platform regardless of this setting. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior), including application fees and pricing considerations.
             attr_accessor :fees_collector
-            # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
+            # Controls who is responsible for payment-related negative balances on this account. The platform remains liable for negative balances on its own account. To use Stripe negative balance liability, your integration must meet [Managed Risk requirements](https://docs.stripe.com/connect/risk-management/managed-risk).
             attr_accessor :losses_collector
 
             def initialize(fees_collector: nil, losses_collector: nil)
@@ -2338,7 +2426,7 @@ module Stripe
         attr_accessor :contact_email
         # The default contact phone for the Account.
         attr_accessor :contact_phone
-        # A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
+        # Specifies the account's Stripe-hosted Dashboard access. Available values depend on the configurations enabled for the account. Learn more about [configuring Dashboard access](https://docs.stripe.com/connect/accounts-v2/connected-account-configuration#set-dashboard-access).
         attr_accessor :dashboard
         # Default values to be used on Account Configurations.
         attr_accessor :defaults

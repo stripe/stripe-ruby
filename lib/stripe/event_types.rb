@@ -62,6 +62,7 @@ module Stripe
         Events::V1CheckoutSessionAsyncPaymentSucceededEvent.lookup_type =>
         Events::V1CheckoutSessionAsyncPaymentSucceededEvent,
         Events::V1CheckoutSessionCompletedEvent.lookup_type => Events::V1CheckoutSessionCompletedEvent,
+        Events::V1CheckoutSessionCreatedEvent.lookup_type => Events::V1CheckoutSessionCreatedEvent,
         Events::V1CheckoutSessionExpiredEvent.lookup_type => Events::V1CheckoutSessionExpiredEvent,
         Events::V1ClimateOrderCanceledEvent.lookup_type => Events::V1ClimateOrderCanceledEvent,
         Events::V1ClimateOrderCreatedEvent.lookup_type => Events::V1ClimateOrderCreatedEvent,
@@ -230,8 +231,6 @@ module Stripe
         Events::V1InvoiceitemDiscountRemovedEvent.lookup_type => Events::V1InvoiceitemDiscountRemovedEvent,
         Events::V1IssuingAuthorizationCreatedEvent.lookup_type =>
         Events::V1IssuingAuthorizationCreatedEvent,
-        Events::V1IssuingAuthorizationRequestEvent.lookup_type =>
-        Events::V1IssuingAuthorizationRequestEvent,
         Events::V1IssuingAuthorizationUpdatedEvent.lookup_type =>
         Events::V1IssuingAuthorizationUpdatedEvent,
         Events::V1IssuingCardCreatedEvent.lookup_type => Events::V1IssuingCardCreatedEvent,
@@ -272,7 +271,9 @@ module Stripe
         Events::V1PaymentIntentRequiresActionEvent.lookup_type =>
         Events::V1PaymentIntentRequiresActionEvent,
         Events::V1PaymentIntentSucceededEvent.lookup_type => Events::V1PaymentIntentSucceededEvent,
+        Events::V1PaymentLinkActivatedEvent.lookup_type => Events::V1PaymentLinkActivatedEvent,
         Events::V1PaymentLinkCreatedEvent.lookup_type => Events::V1PaymentLinkCreatedEvent,
+        Events::V1PaymentLinkDeactivatedEvent.lookup_type => Events::V1PaymentLinkDeactivatedEvent,
         Events::V1PaymentLinkUpdatedEvent.lookup_type => Events::V1PaymentLinkUpdatedEvent,
         Events::V1PaymentMethodAttachedEvent.lookup_type => Events::V1PaymentMethodAttachedEvent,
         Events::V1PaymentMethodAutomaticallyUpdatedEvent.lookup_type =>
@@ -418,6 +419,16 @@ module Stripe
         Events::V2CoreAccountPersonDeletedEvent.lookup_type => Events::V2CoreAccountPersonDeletedEvent,
         Events::V2CoreAccountPersonUpdatedEvent.lookup_type => Events::V2CoreAccountPersonUpdatedEvent,
         Events::V2CoreAccountUpdatedEvent.lookup_type => Events::V2CoreAccountUpdatedEvent,
+        Events::V2CoreClaimableSandboxClaimedEvent.lookup_type =>
+        Events::V2CoreClaimableSandboxClaimedEvent,
+        Events::V2CoreClaimableSandboxCreatedEvent.lookup_type =>
+        Events::V2CoreClaimableSandboxCreatedEvent,
+        Events::V2CoreClaimableSandboxExpiredEvent.lookup_type =>
+        Events::V2CoreClaimableSandboxExpiredEvent,
+        Events::V2CoreClaimableSandboxExpiringEvent.lookup_type =>
+        Events::V2CoreClaimableSandboxExpiringEvent,
+        Events::V2CoreClaimableSandboxUpdatedEvent.lookup_type =>
+        Events::V2CoreClaimableSandboxUpdatedEvent,
         Events::V2CoreEventDestinationPingEvent.lookup_type => Events::V2CoreEventDestinationPingEvent,
         Events::V2MoneyManagementAdjustmentCreatedEvent.lookup_type =>
         Events::V2MoneyManagementAdjustmentCreatedEvent,
@@ -573,6 +584,8 @@ module Stripe
         Events::V1CheckoutSessionAsyncPaymentSucceededEventNotification,
         Events::V1CheckoutSessionCompletedEventNotification.lookup_type =>
         Events::V1CheckoutSessionCompletedEventNotification,
+        Events::V1CheckoutSessionCreatedEventNotification.lookup_type =>
+        Events::V1CheckoutSessionCreatedEventNotification,
         Events::V1CheckoutSessionExpiredEventNotification.lookup_type =>
         Events::V1CheckoutSessionExpiredEventNotification,
         Events::V1ClimateOrderCanceledEventNotification.lookup_type =>
@@ -782,8 +795,6 @@ module Stripe
         Events::V1InvoiceitemDiscountRemovedEventNotification,
         Events::V1IssuingAuthorizationCreatedEventNotification.lookup_type =>
         Events::V1IssuingAuthorizationCreatedEventNotification,
-        Events::V1IssuingAuthorizationRequestEventNotification.lookup_type =>
-        Events::V1IssuingAuthorizationRequestEventNotification,
         Events::V1IssuingAuthorizationUpdatedEventNotification.lookup_type =>
         Events::V1IssuingAuthorizationUpdatedEventNotification,
         Events::V1IssuingCardCreatedEventNotification.lookup_type =>
@@ -841,8 +852,12 @@ module Stripe
         Events::V1PaymentIntentRequiresActionEventNotification,
         Events::V1PaymentIntentSucceededEventNotification.lookup_type =>
         Events::V1PaymentIntentSucceededEventNotification,
+        Events::V1PaymentLinkActivatedEventNotification.lookup_type =>
+        Events::V1PaymentLinkActivatedEventNotification,
         Events::V1PaymentLinkCreatedEventNotification.lookup_type =>
         Events::V1PaymentLinkCreatedEventNotification,
+        Events::V1PaymentLinkDeactivatedEventNotification.lookup_type =>
+        Events::V1PaymentLinkDeactivatedEventNotification,
         Events::V1PaymentLinkUpdatedEventNotification.lookup_type =>
         Events::V1PaymentLinkUpdatedEventNotification,
         Events::V1PaymentMethodAttachedEventNotification.lookup_type =>
@@ -1021,6 +1036,16 @@ module Stripe
         Events::V2CoreAccountPersonUpdatedEventNotification,
         Events::V2CoreAccountUpdatedEventNotification.lookup_type =>
         Events::V2CoreAccountUpdatedEventNotification,
+        Events::V2CoreClaimableSandboxClaimedEventNotification.lookup_type =>
+        Events::V2CoreClaimableSandboxClaimedEventNotification,
+        Events::V2CoreClaimableSandboxCreatedEventNotification.lookup_type =>
+        Events::V2CoreClaimableSandboxCreatedEventNotification,
+        Events::V2CoreClaimableSandboxExpiredEventNotification.lookup_type =>
+        Events::V2CoreClaimableSandboxExpiredEventNotification,
+        Events::V2CoreClaimableSandboxExpiringEventNotification.lookup_type =>
+        Events::V2CoreClaimableSandboxExpiringEventNotification,
+        Events::V2CoreClaimableSandboxUpdatedEventNotification.lookup_type =>
+        Events::V2CoreClaimableSandboxUpdatedEventNotification,
         Events::V2CoreEventDestinationPingEventNotification.lookup_type =>
         Events::V2CoreEventDestinationPingEventNotification,
         Events::V2MoneyManagementAdjustmentCreatedEventNotification.lookup_type =>

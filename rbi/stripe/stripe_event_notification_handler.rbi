@@ -280,6 +280,12 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CheckoutSessionCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_checkout_session_created(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CheckoutSessionExpiredEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_checkout_session_expired(&blk);
@@ -940,12 +946,6 @@ module Stripe
     end
     
     sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1IssuingAuthorizationRequestEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_issuing_authorization_request(&blk);
-    end
-    
-    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1IssuingAuthorizationUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_issuing_authorization_updated(&blk);
@@ -1120,9 +1120,21 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1PaymentLinkActivatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_payment_link_activated(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1PaymentLinkCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_payment_link_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1PaymentLinkDeactivatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_payment_link_deactivated(&blk);
     end
     
     sig do
@@ -1765,6 +1777,36 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountPersonUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_person_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreClaimableSandboxClaimedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_claimable_sandbox_claimed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreClaimableSandboxCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_claimable_sandbox_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreClaimableSandboxExpiredEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_claimable_sandbox_expired(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreClaimableSandboxExpiringEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_claimable_sandbox_expiring(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreClaimableSandboxUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_claimable_sandbox_updated(&blk);
     end
     
     sig do

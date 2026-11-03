@@ -217,6 +217,8 @@ module Stripe
              "stripe/events/v1_checkout_session_async_payment_succeeded_event"
     autoload :V1CheckoutSessionCompletedEvent, "stripe/events/v1_checkout_session_completed_event"
     autoload :V1CheckoutSessionCompletedEventNotification, "stripe/events/v1_checkout_session_completed_event"
+    autoload :V1CheckoutSessionCreatedEvent, "stripe/events/v1_checkout_session_created_event"
+    autoload :V1CheckoutSessionCreatedEventNotification, "stripe/events/v1_checkout_session_created_event"
     autoload :V1CheckoutSessionExpiredEvent, "stripe/events/v1_checkout_session_expired_event"
     autoload :V1CheckoutSessionExpiredEventNotification, "stripe/events/v1_checkout_session_expired_event"
     autoload :V1ClimateOrderCanceledEvent, "stripe/events/v1_climate_order_canceled_event"
@@ -524,8 +526,6 @@ module Stripe
     autoload :V1InvoiceWillBeDueEventNotification, "stripe/events/v1_invoice_will_be_due_event"
     autoload :V1IssuingAuthorizationCreatedEvent, "stripe/events/v1_issuing_authorization_created_event"
     autoload :V1IssuingAuthorizationCreatedEventNotification, "stripe/events/v1_issuing_authorization_created_event"
-    autoload :V1IssuingAuthorizationRequestEvent, "stripe/events/v1_issuing_authorization_request_event"
-    autoload :V1IssuingAuthorizationRequestEventNotification, "stripe/events/v1_issuing_authorization_request_event"
     autoload :V1IssuingAuthorizationUpdatedEvent, "stripe/events/v1_issuing_authorization_updated_event"
     autoload :V1IssuingAuthorizationUpdatedEventNotification, "stripe/events/v1_issuing_authorization_updated_event"
     autoload :V1IssuingCardCreatedEvent, "stripe/events/v1_issuing_card_created_event"
@@ -597,8 +597,12 @@ module Stripe
     autoload :V1PaymentIntentRequiresActionEventNotification, "stripe/events/v1_payment_intent_requires_action_event"
     autoload :V1PaymentIntentSucceededEvent, "stripe/events/v1_payment_intent_succeeded_event"
     autoload :V1PaymentIntentSucceededEventNotification, "stripe/events/v1_payment_intent_succeeded_event"
+    autoload :V1PaymentLinkActivatedEvent, "stripe/events/v1_payment_link_activated_event"
+    autoload :V1PaymentLinkActivatedEventNotification, "stripe/events/v1_payment_link_activated_event"
     autoload :V1PaymentLinkCreatedEvent, "stripe/events/v1_payment_link_created_event"
     autoload :V1PaymentLinkCreatedEventNotification, "stripe/events/v1_payment_link_created_event"
+    autoload :V1PaymentLinkDeactivatedEvent, "stripe/events/v1_payment_link_deactivated_event"
+    autoload :V1PaymentLinkDeactivatedEventNotification, "stripe/events/v1_payment_link_deactivated_event"
     autoload :V1PaymentLinkUpdatedEvent, "stripe/events/v1_payment_link_updated_event"
     autoload :V1PaymentLinkUpdatedEventNotification, "stripe/events/v1_payment_link_updated_event"
     autoload :V1PaymentMethodAttachedEvent, "stripe/events/v1_payment_method_attached_event"
@@ -858,6 +862,16 @@ module Stripe
     autoload :V2CoreAccountPersonUpdatedEventNotification, "stripe/events/v2_core_account_person_updated_event"
     autoload :V2CoreAccountUpdatedEvent, "stripe/events/v2_core_account_updated_event"
     autoload :V2CoreAccountUpdatedEventNotification, "stripe/events/v2_core_account_updated_event"
+    autoload :V2CoreClaimableSandboxClaimedEvent, "stripe/events/v2_core_claimable_sandbox_claimed_event"
+    autoload :V2CoreClaimableSandboxClaimedEventNotification, "stripe/events/v2_core_claimable_sandbox_claimed_event"
+    autoload :V2CoreClaimableSandboxCreatedEvent, "stripe/events/v2_core_claimable_sandbox_created_event"
+    autoload :V2CoreClaimableSandboxCreatedEventNotification, "stripe/events/v2_core_claimable_sandbox_created_event"
+    autoload :V2CoreClaimableSandboxExpiredEvent, "stripe/events/v2_core_claimable_sandbox_expired_event"
+    autoload :V2CoreClaimableSandboxExpiredEventNotification, "stripe/events/v2_core_claimable_sandbox_expired_event"
+    autoload :V2CoreClaimableSandboxExpiringEvent, "stripe/events/v2_core_claimable_sandbox_expiring_event"
+    autoload :V2CoreClaimableSandboxExpiringEventNotification, "stripe/events/v2_core_claimable_sandbox_expiring_event"
+    autoload :V2CoreClaimableSandboxUpdatedEvent, "stripe/events/v2_core_claimable_sandbox_updated_event"
+    autoload :V2CoreClaimableSandboxUpdatedEventNotification, "stripe/events/v2_core_claimable_sandbox_updated_event"
     autoload :V2CoreEventDestinationPingEvent, "stripe/events/v2_core_event_destination_ping_event"
     autoload :V2CoreEventDestinationPingEventNotification, "stripe/events/v2_core_event_destination_ping_event"
     autoload :V2MoneyManagementAdjustmentCreatedEvent, "stripe/events/v2_money_management_adjustment_created_event"
@@ -1108,6 +1122,7 @@ module Stripe
       autoload :AccountPerson, "stripe/resources/v2/core/account_person"
       autoload :AccountPersonToken, "stripe/resources/v2/core/account_person_token"
       autoload :AccountToken, "stripe/resources/v2/core/account_token"
+      autoload :ClaimableSandbox, "stripe/resources/v2/core/claimable_sandbox"
       autoload :Event, "stripe/resources/v2/core/event"
       autoload :EventDestination, "stripe/resources/v2/core/event_destination"
       autoload :EventNotification, "stripe/resources/v2/core/event_notification"
@@ -1307,6 +1322,7 @@ module Stripe
     stripe/resources/v2/core/account_person
     stripe/resources/v2/core/account_person_token
     stripe/resources/v2/core/account_token
+    stripe/resources/v2/core/claimable_sandbox
     stripe/resources/v2/core/event
     stripe/resources/v2/core/event_destination
     stripe/resources/v2/core/vault/gb_bank_account
@@ -1369,6 +1385,7 @@ module Stripe
     stripe/events/v1_checkout_session_async_payment_failed_event
     stripe/events/v1_checkout_session_async_payment_succeeded_event
     stripe/events/v1_checkout_session_completed_event
+    stripe/events/v1_checkout_session_created_event
     stripe/events/v1_checkout_session_expired_event
     stripe/events/v1_climate_order_canceled_event
     stripe/events/v1_climate_order_created_event
@@ -1479,7 +1496,6 @@ module Stripe
     stripe/events/v1_invoiceitem_discount_added_event
     stripe/events/v1_invoiceitem_discount_removed_event
     stripe/events/v1_issuing_authorization_created_event
-    stripe/events/v1_issuing_authorization_request_event
     stripe/events/v1_issuing_authorization_updated_event
     stripe/events/v1_issuing_card_created_event
     stripe/events/v1_issuing_card_updated_event
@@ -1509,7 +1525,9 @@ module Stripe
     stripe/events/v1_payment_intent_processing_event
     stripe/events/v1_payment_intent_requires_action_event
     stripe/events/v1_payment_intent_succeeded_event
+    stripe/events/v1_payment_link_activated_event
     stripe/events/v1_payment_link_created_event
+    stripe/events/v1_payment_link_deactivated_event
     stripe/events/v1_payment_link_updated_event
     stripe/events/v1_payment_method_attached_event
     stripe/events/v1_payment_method_automatically_updated_event
@@ -1617,6 +1635,11 @@ module Stripe
     stripe/events/v2_core_account_person_deleted_event
     stripe/events/v2_core_account_person_updated_event
     stripe/events/v2_core_account_updated_event
+    stripe/events/v2_core_claimable_sandbox_claimed_event
+    stripe/events/v2_core_claimable_sandbox_created_event
+    stripe/events/v2_core_claimable_sandbox_expired_event
+    stripe/events/v2_core_claimable_sandbox_expiring_event
+    stripe/events/v2_core_claimable_sandbox_updated_event
     stripe/events/v2_core_event_destination_ping_event
     stripe/events/v2_money_management_adjustment_created_event
     stripe/events/v2_money_management_financial_account_created_event

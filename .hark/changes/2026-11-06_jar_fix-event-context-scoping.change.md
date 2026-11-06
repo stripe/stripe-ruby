@@ -1,5 +1,6 @@
 ---
 title: "Fix account scoping on Event#fetch_related_object"
+pr_url: https://github.com/stripe/stripe-ruby/pull/2022
 semver_level: patch
 jira_tickets_closed:
 - RUN_DEVSDK-3694

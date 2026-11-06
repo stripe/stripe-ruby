@@ -1257,6 +1257,13 @@ module Stripe
     autoload :V2DataReportRunUpdatedEventNotification, "stripe/events/v2_data_report_run_updated_event"
     autoload :V2ExtendExtensionRunFailedEvent, "stripe/events/v2_extend_extension_run_failed_event"
     autoload :V2ExtendExtensionRunFailedEventNotification, "stripe/events/v2_extend_extension_run_failed_event"
+    autoload :V2ExtendObjectDefinitionCreatedEvent, "stripe/events/v2_extend_object_definition_created_event"
+    autoload :V2ExtendObjectDefinitionCreatedEventNotification,
+             "stripe/events/v2_extend_object_definition_created_event"
+    autoload :V2ExtendObjectDefinitionVersionCreatedEvent,
+             "stripe/events/v2_extend_object_definition_version_created_event"
+    autoload :V2ExtendObjectDefinitionVersionCreatedEventNotification,
+             "stripe/events/v2_extend_object_definition_version_created_event"
     autoload :V2ExtendWorkflowRunFailedEvent, "stripe/events/v2_extend_workflow_run_failed_event"
     autoload :V2ExtendWorkflowRunFailedEventNotification, "stripe/events/v2_extend_workflow_run_failed_event"
     autoload :V2ExtendWorkflowRunStartedEvent, "stripe/events/v2_extend_workflow_run_started_event"
@@ -1836,7 +1843,9 @@ module Stripe
     autoload :Association, "stripe/resources/tax/association"
     autoload :Calculation, "stripe/resources/tax/calculation"
     autoload :CalculationLineItem, "stripe/resources/tax/calculation_line_item"
+    autoload :Certificate, "stripe/resources/tax/certificate"
     autoload :Form, "stripe/resources/tax/form"
+    autoload :FormCorrection, "stripe/resources/tax/form_correction"
     autoload :Location, "stripe/resources/tax/location"
     autoload :Registration, "stripe/resources/tax/registration"
     autoload :Settings, "stripe/resources/tax/settings"
@@ -1969,6 +1978,8 @@ module Stripe
     end
 
     module Extend
+      autoload :ObjectDefinition, "stripe/resources/v2/extend/object_definition"
+      autoload :ObjectDefinitionVersion, "stripe/resources/v2/extend/object_definition_version"
       autoload :Workflow, "stripe/resources/v2/extend/workflow"
       autoload :WorkflowRun, "stripe/resources/v2/extend/workflow_run"
     end
@@ -2250,7 +2261,9 @@ module Stripe
     stripe/resources/tax/association
     stripe/resources/tax/calculation
     stripe/resources/tax/calculation_line_item
+    stripe/resources/tax/certificate
     stripe/resources/tax/form
+    stripe/resources/tax/form_correction
     stripe/resources/tax/location
     stripe/resources/tax/registration
     stripe/resources/tax/settings
@@ -2346,6 +2359,8 @@ module Stripe
     stripe/resources/v2/data/schema
     stripe/resources/v2/data/search_result_list
     stripe/resources/v2/deleted_object
+    stripe/resources/v2/extend/object_definition
+    stripe/resources/v2/extend/object_definition_version
     stripe/resources/v2/extend/workflow
     stripe/resources/v2/extend/workflow_run
     stripe/resources/v2/iam/activity_log
@@ -2823,6 +2838,8 @@ module Stripe
     stripe/events/v2_data_reporting_query_run_succeeded_event
     stripe/events/v2_data_reporting_query_run_updated_event
     stripe/events/v2_extend_extension_run_failed_event
+    stripe/events/v2_extend_object_definition_created_event
+    stripe/events/v2_extend_object_definition_version_created_event
     stripe/events/v2_extend_workflow_run_failed_event
     stripe/events/v2_extend_workflow_run_started_event
     stripe/events/v2_extend_workflow_run_succeeded_event

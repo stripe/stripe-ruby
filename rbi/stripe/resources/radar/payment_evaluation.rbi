@@ -301,6 +301,17 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class SepaDebit < ::Stripe::StripeObject
+            # Creditor identifier used for the intended debit.
+            sig { returns(T.nilable(String)) }
+            def creditor_id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class UsBankAccount < ::Stripe::StripeObject
             # Describes the presence of the customer during the payment.
             sig { returns(T.nilable(String)) }
@@ -321,11 +332,14 @@ module Stripe
           # Describes the type of money movement.
           sig { returns(String) }
           def money_movement_type; end
+          # Describes SEPA debit money movement details.
+          sig { returns(T.nilable(SepaDebit)) }
+          def sepa_debit; end
           # Describes US bank account money movement details.
           sig { returns(T.nilable(UsBankAccount)) }
           def us_bank_account; end
           def self.inner_class_types
-            @inner_class_types = {card: Card, us_bank_account: UsBankAccount}
+            @inner_class_types = {card: Card, sepa_debit: SepaDebit, us_bank_account: UsBankAccount}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -521,6 +535,23 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class CardTesting < ::Stripe::StripeObject
+          # The time when this signal was evaluated.
+          sig { returns(Integer) }
+          def evaluated_at; end
+          # Risk level of this signal, based on the score.
+          sig { returns(String) }
+          def risk_level; end
+          # Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
+          sig { returns(T.nilable(Float)) }
+          def score; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class EarlyFraudWarning < ::Stripe::StripeObject
           # The time when this signal was evaluated.
           sig { returns(Integer) }
@@ -575,6 +606,9 @@ module Stripe
         # A payment evaluation signal with evaluated_at, risk_level, and score fields.
         sig { returns(T.nilable(BankInitiatedReturn)) }
         def bank_initiated_return; end
+        # The likelihood that this `PaymentEvaluation` is part of a card testing attack.
+        sig { returns(T.nilable(CardTesting)) }
+        def card_testing; end
         # The likelihood that this `PaymentEvaluation` results in an early fraud warning.
         sig { returns(T.nilable(EarlyFraudWarning)) }
         def early_fraud_warning; end
@@ -587,6 +621,7 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             bank_initiated_return: BankInitiatedReturn,
+            card_testing: CardTesting,
             early_fraud_warning: EarlyFraudWarning,
             fraudulent_dispute: FraudulentDispute,
             fraudulent_payment: FraudulentPayment,
@@ -626,7 +661,7 @@ module Stripe
       # Payment details attached to this payment evaluation.
       sig { returns(T.nilable(PaymentDetails)) }
       def payment_details; end
-      # Recommended action based on the score of the `fraudulent_payment` signal. Possible values are `block`, `continue` and `request_three_d_secure`.
+      # Recommended action for this payment based on its evaluated signals and rules.
       sig { returns(String) }
       def recommended_action; end
       # Details about Radar Rules associated with the payment evaluation.

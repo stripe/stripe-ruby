@@ -138,6 +138,50 @@ module Stripe
       end
     end
 
+    class DisputeDetails < ::Stripe::StripeObject
+      class Reinstated < ::Stripe::StripeObject
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        attr_reader :currency
+        # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Withdrawn < ::Stripe::StripeObject
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        attr_reader :currency
+        # A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Total amounts reinstated across all disputes, keyed by currency, with each value containing the total for that currency. Withdrawals are not subtracted from these totals.
+      attr_reader :reinstated
+      # Total amounts withdrawn across all disputes, keyed by currency, with each value containing the total for that currency. Reinstatements are not subtracted from these totals.
+      attr_reader :withdrawn
+
+      def self.inner_class_types
+        @inner_class_types = { reinstated: Reinstated, withdrawn: Withdrawn }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class PaymentMethodDetails < ::Stripe::StripeObject
       class AchCreditTransfer < ::Stripe::StripeObject
         # Account number to transfer funds to.
@@ -197,6 +241,16 @@ module Stripe
         # Transit number of the bank account.
         attr_reader :transit_number
 
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class AeonPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -347,6 +401,16 @@ module Stripe
         # ID of the mandate used to make this payment.
         attr_reader :mandate
 
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class AuPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -701,6 +765,35 @@ module Stripe
       end
 
       class CardPresent < ::Stripe::StripeObject
+        class Fleet < ::Stripe::StripeObject
+          class TransactionDatum < ::Stripe::StripeObject
+            # The prompt that the Terminal SDK displays to collect this Fleet value.
+            attr_reader :prompt
+            # Whether the collected value is printed on the receipt.
+            attr_reader :receipt_behavior
+            # The value collected for this Fleet prompt.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Fleet prompts and values collected for this transaction.
+          attr_reader :transaction_data
+
+          def self.inner_class_types
+            @inner_class_types = { transaction_data: TransactionDatum }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Multicapture < ::Stripe::StripeObject
           # Indicates whether or not multiple captures are supported.
           attr_reader :status
@@ -807,6 +900,8 @@ module Stripe
         #
         # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
         attr_reader :fingerprint
+        # Attribute for field fleet
+        attr_reader :fleet
         # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
         attr_reader :funding
         # ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
@@ -850,6 +945,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            fleet: Fleet,
             multicapture: Multicapture,
             offline: Offline,
             reauthorization: Reauthorization,
@@ -929,6 +1025,16 @@ module Stripe
       end
 
       class CustomerBalance < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Dbarai < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1323,6 +1429,16 @@ module Stripe
         end
       end
 
+      class Merpay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Mobilepay < ::Stripe::StripeObject
         class Card < ::Stripe::StripeObject
           # Brand of the card used in the transaction
@@ -1602,6 +1718,8 @@ module Stripe
       end
 
       class Paypay < ::Stripe::StripeObject
+        # Uniquely identifies this particular PayPay account. You can use this attribute to check whether two PayPay accounts are the same.
+        attr_reader :fingerprint
         # ID of the multi-use Mandate created by, or used to make, this PayPay payment.
         attr_reader :mandate
 
@@ -2076,6 +2194,8 @@ module Stripe
       attr_reader :ach_debit
       # Attribute for field acss_debit
       attr_reader :acss_debit
+      # Attribute for field aeon_pay
+      attr_reader :aeon_pay
       # Attribute for field affirm
       attr_reader :affirm
       # Attribute for field afterpay_clearpay
@@ -2088,6 +2208,8 @@ module Stripe
       attr_reader :amazon_pay
       # Attribute for field au_becs_debit
       attr_reader :au_becs_debit
+      # Attribute for field au_pay
+      attr_reader :au_pay
       # Attribute for field bacs_debit
       attr_reader :bacs_debit
       # Attribute for field bancontact
@@ -2118,6 +2240,8 @@ module Stripe
       attr_reader :custom
       # Attribute for field customer_balance
       attr_reader :customer_balance
+      # Attribute for field dbarai
+      attr_reader :dbarai
       # Attribute for field eps
       attr_reader :eps
       # Attribute for field fpx
@@ -2150,6 +2274,8 @@ module Stripe
       attr_reader :link
       # Attribute for field mb_way
       attr_reader :mb_way
+      # Attribute for field merpay
+      attr_reader :merpay
       # Attribute for field mobilepay
       attr_reader :mobilepay
       # Attribute for field momo
@@ -2242,12 +2368,14 @@ module Stripe
           ach_credit_transfer: AchCreditTransfer,
           ach_debit: AchDebit,
           acss_debit: AcssDebit,
+          aeon_pay: AeonPay,
           affirm: Affirm,
           afterpay_clearpay: AfterpayClearpay,
           alipay: Alipay,
           alma: Alma,
           amazon_pay: AmazonPay,
           au_becs_debit: AuBecsDebit,
+          au_pay: AuPay,
           bacs_debit: BacsDebit,
           bancontact: Bancontact,
           billie: Billie,
@@ -2262,6 +2390,7 @@ module Stripe
           crypto: Crypto,
           custom: Custom,
           customer_balance: CustomerBalance,
+          dbarai: Dbarai,
           eps: Eps,
           fpx: Fpx,
           getflex: Getflex,
@@ -2278,6 +2407,7 @@ module Stripe
           kr_card: KrCard,
           link: Link,
           mb_way: MbWay,
+          merpay: Merpay,
           mobilepay: Mobilepay,
           momo: Momo,
           multibanco: Multibanco,
@@ -2467,6 +2597,8 @@ module Stripe
     attr_reader :customer_presence
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
+    # Summary information about disputes associated with this Payment Attempt Record.
+    attr_reader :dispute_details
     # Unique identifier for the object.
     attr_reader :id
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -2666,6 +2798,7 @@ module Stripe
         amount_refunded: AmountRefunded,
         amount_requested: AmountRequested,
         customer_details: CustomerDetails,
+        dispute_details: DisputeDetails,
         payment_method_details: PaymentMethodDetails,
         processor_details: ProcessorDetails,
         shipping_details: ShippingDetails,

@@ -4,10 +4,11 @@
 module Stripe
   module V2
     class ExtendService < StripeService
-      attr_reader :workflows, :workflow_runs
+      attr_reader :object_definitions, :workflows, :workflow_runs
 
       def initialize(requestor)
         super
+        @object_definitions = Stripe::V2::Extend::ObjectDefinitionService.new(@requestor)
         @workflows = Stripe::V2::Extend::WorkflowService.new(@requestor)
         @workflow_runs = Stripe::V2::Extend::WorkflowRunService.new(@requestor)
       end

@@ -904,7 +904,7 @@ module Stripe
           @field_encodings = { unit_amount_decimal: :decimal_string }
         end
       end
-      # The discounts applied to this line item.
+      # The discounts applied to this line item. Repeating coupons are only supported for recurring prices.
       attr_accessor :discounts
       # The ID of the price object. One of `price` or `price_data` is required.
       attr_accessor :price

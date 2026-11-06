@@ -1156,6 +1156,8 @@ module Stripe
     attr_accessor :billing_cadence
     # Controls how the subscription's billing cycle anchor changes. Set `type` to `now` to reset the billing cycle anchor to the current time (in UTC), or `unchanged` to preserve it. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     attr_accessor :billing_cycle_anchor
+    # The Billing Group which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+    attr_accessor :billing_group
     # An array of billing schedules, which allow you to bill customers in advance for multiple service periods. Requires flexible billing mode and API version 2026-05-27.dahlia or later. Learn more about [prebilling](https://docs.stripe.com/billing/subscriptions/prebilling).
     attr_accessor :billing_schedules
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
@@ -1223,6 +1225,7 @@ module Stripe
       automatic_tax: nil,
       billing_cadence: nil,
       billing_cycle_anchor: nil,
+      billing_group: nil,
       billing_schedules: nil,
       billing_thresholds: nil,
       cancel_at: nil,
@@ -1259,6 +1262,7 @@ module Stripe
       @automatic_tax = automatic_tax
       @billing_cadence = billing_cadence
       @billing_cycle_anchor = billing_cycle_anchor
+      @billing_group = billing_group
       @billing_schedules = billing_schedules
       @billing_thresholds = billing_thresholds
       @cancel_at = cancel_at

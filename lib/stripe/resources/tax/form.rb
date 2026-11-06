@@ -7,6 +7,7 @@ module Stripe
     #
     # Related guide: [US tax reporting for Connect platforms](https://stripe.com/docs/connect/tax-reporting)
     class Form < APIResource
+      extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
 
       OBJECT_NAME = "tax.form"
@@ -749,6 +750,16 @@ module Stripe
       attr_reader :us_1099_misc
       # Attribute for field us_1099_nec
       attr_reader :us_1099_nec
+
+      # Creates a correction for a filed tax form. Supply either payee details or numerical values for the tax form type. Created correction forms are not filed automatically.
+      def self.create(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/tax/forms/%<id>s/corrections", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
 
       # Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
       def self.list(params = {}, opts = {})

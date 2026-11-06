@@ -221,6 +221,16 @@ module Stripe
         end
       end
 
+      class AeonPay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Affirm < ::Stripe::StripeObject
         # ID of the location that this reader is assigned to.
         attr_reader :location
@@ -362,6 +372,16 @@ module Stripe
         # ID of the mandate used to make this payment.
         attr_reader :mandate
 
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class AuPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -733,11 +753,144 @@ module Stripe
           end
 
           class Link < ::Stripe::StripeObject
+            class FundingSource < ::Stripe::StripeObject
+              class Card < ::Stripe::StripeObject
+                class Checks < ::Stripe::StripeObject
+                  # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                  attr_reader :address_line1_check
+                  # If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                  attr_reader :address_postal_code_check
+                  # If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                  attr_reader :cvc_check
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+
+                class NetworkToken < ::Stripe::StripeObject
+                  # Indicates if Stripe used a network token, either user provided or Stripe managed when processing the transaction.
+                  attr_reader :used
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+
+                class ThreeDSecure < ::Stripe::StripeObject
+                  # For authenticated transactions: how the customer was authenticated by
+                  # the issuing bank.
+                  attr_reader :authentication_flow
+                  # The Electronic Commerce Indicator (ECI). A protocol-level field
+                  # indicating what degree of authentication was performed.
+                  attr_reader :electronic_commerce_indicator
+                  # The exemption requested via 3DS and accepted by the issuer at authentication time.
+                  attr_reader :exemption_indicator
+                  # Whether Stripe requested the value of `exemption_indicator` in the transaction. This will depend on
+                  # the outcome of Stripe's internal risk assessment.
+                  attr_reader :exemption_indicator_applied
+                  # Indicates the outcome of 3D Secure authentication.
+                  attr_reader :result
+                  # Additional information about why 3D Secure succeeded or failed based
+                  # on the `result`.
+                  attr_reader :result_reason
+                  # The 3D Secure 1 XID or 3D Secure 2 Directory Server Transaction ID
+                  # (dsTransId) for this payment.
+                  attr_reader :transaction_id
+                  # The version of 3D Secure that was used.
+                  attr_reader :version
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The authorized amount.
+                attr_reader :amount_authorized
+                # Authorization code on the charge.
+                attr_reader :authorization_code
+                # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
+                attr_reader :brand
+                # Check results by Card networks on Card address and CVC at time of payment.
+                attr_reader :checks
+                # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+                attr_reader :country
+                # A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
+                attr_reader :description
+                # The Electronic Commerce Indicator (ECI) returned by the card network in the authorization response. Indicates the level of authentication used. Only populated for Visa and Mastercard transactions. This is the network's final ECI and can differ from the request value. An authenticated ECI alone doesn't determine liability shift.
+                attr_reader :electronic_commerce_indicator
+                # Two-digit number representing the card's expiration month.
+                attr_reader :exp_month
+                # Four-digit number representing the card's expiration year.
+                attr_reader :exp_year
+                # Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+                #
+                # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+                attr_reader :fingerprint
+                # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+                attr_reader :funding
+                # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
+                attr_reader :iin
+                # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
+                attr_reader :issuer
+                # The last four digits of the card.
+                attr_reader :last4
+                # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                attr_reader :network
+                # If this card has network token credentials, this contains the details of the network token credentials.
+                attr_reader :network_token
+                # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
+                attr_reader :network_transaction_id
+                # Status of a card based on the card issuer.
+                attr_reader :regulated_status
+                # Populated if this transaction used 3D Secure authentication.
+                attr_reader :three_d_secure
+                # Transaction Link ID (TLID) is a unique identifier for a transaction. This is used by some card networks, such as Mastercard, for transaction linking, in addition to Network Transaction IDs. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
+                attr_reader :transaction_link_id
+
+                def self.inner_class_types
+                  @inner_class_types = {
+                    checks: Checks,
+                    network_token: NetworkToken,
+                    three_d_secure: ThreeDSecure,
+                  }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Attribute for field card
+              attr_reader :card
+              # The type of funding source used for this Link payment.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = { card: Card }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
             attr_reader :funding_source_group
+            # Details about the funding sources used for this Link payment.
+            attr_reader :funding_sources
 
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = { funding_sources: FundingSource }
             end
 
             def self.field_remappings
@@ -1031,6 +1184,35 @@ module Stripe
       end
 
       class CardPresent < ::Stripe::StripeObject
+        class Fleet < ::Stripe::StripeObject
+          class TransactionDatum < ::Stripe::StripeObject
+            # The prompt that the Terminal SDK displays to collect this Fleet value.
+            attr_reader :prompt
+            # Whether the collected value is printed on the receipt.
+            attr_reader :receipt_behavior
+            # The value collected for this Fleet prompt.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Fleet prompts and values collected for this transaction.
+          attr_reader :transaction_data
+
+          def self.inner_class_types
+            @inner_class_types = { transaction_data: TransactionDatum }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Multicapture < ::Stripe::StripeObject
           # Indicates whether or not multiple captures are supported.
           attr_reader :status
@@ -1137,6 +1319,8 @@ module Stripe
         #
         # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
         attr_reader :fingerprint
+        # Attribute for field fleet
+        attr_reader :fleet
         # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
         attr_reader :funding
         # ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
@@ -1180,6 +1364,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            fleet: Fleet,
             multicapture: Multicapture,
             offline: Offline,
             reauthorization: Reauthorization,
@@ -1244,6 +1429,16 @@ module Stripe
       end
 
       class CustomerBalance < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Dbarai < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1621,12 +1816,155 @@ module Stripe
       end
 
       class Link < ::Stripe::StripeObject
+        class FundingSource < ::Stripe::StripeObject
+          class Card < ::Stripe::StripeObject
+            class Checks < ::Stripe::StripeObject
+              # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+              attr_reader :address_line1_check
+              # If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+              attr_reader :address_postal_code_check
+              # If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+              attr_reader :cvc_check
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class NetworkToken < ::Stripe::StripeObject
+              # Indicates if Stripe used a network token, either user provided or Stripe managed when processing the transaction.
+              attr_reader :used
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class ThreeDSecure < ::Stripe::StripeObject
+              # For authenticated transactions: how the customer was authenticated by
+              # the issuing bank.
+              attr_reader :authentication_flow
+              # The Electronic Commerce Indicator (ECI). A protocol-level field
+              # indicating what degree of authentication was performed.
+              attr_reader :electronic_commerce_indicator
+              # The exemption requested via 3DS and accepted by the issuer at authentication time.
+              attr_reader :exemption_indicator
+              # Whether Stripe requested the value of `exemption_indicator` in the transaction. This will depend on
+              # the outcome of Stripe's internal risk assessment.
+              attr_reader :exemption_indicator_applied
+              # Indicates the outcome of 3D Secure authentication.
+              attr_reader :result
+              # Additional information about why 3D Secure succeeded or failed based
+              # on the `result`.
+              attr_reader :result_reason
+              # The 3D Secure 1 XID or 3D Secure 2 Directory Server Transaction ID
+              # (dsTransId) for this payment.
+              attr_reader :transaction_id
+              # The version of 3D Secure that was used.
+              attr_reader :version
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The authorized amount.
+            attr_reader :amount_authorized
+            # Authorization code on the charge.
+            attr_reader :authorization_code
+            # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
+            attr_reader :brand
+            # Check results by Card networks on Card address and CVC at time of payment.
+            attr_reader :checks
+            # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+            attr_reader :country
+            # A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
+            attr_reader :description
+            # The Electronic Commerce Indicator (ECI) returned by the card network in the authorization response. Indicates the level of authentication used. Only populated for Visa and Mastercard transactions. This is the network's final ECI and can differ from the request value. An authenticated ECI alone doesn't determine liability shift.
+            attr_reader :electronic_commerce_indicator
+            # Two-digit number representing the card's expiration month.
+            attr_reader :exp_month
+            # Four-digit number representing the card's expiration year.
+            attr_reader :exp_year
+            # Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+            #
+            # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+            attr_reader :fingerprint
+            # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+            attr_reader :funding
+            # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
+            attr_reader :iin
+            # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
+            attr_reader :issuer
+            # The last four digits of the card.
+            attr_reader :last4
+            # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            attr_reader :network
+            # If this card has network token credentials, this contains the details of the network token credentials.
+            attr_reader :network_token
+            # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
+            attr_reader :network_transaction_id
+            # Status of a card based on the card issuer.
+            attr_reader :regulated_status
+            # Populated if this transaction used 3D Secure authentication.
+            attr_reader :three_d_secure
+            # Transaction Link ID (TLID) is a unique identifier for a transaction. This is used by some card networks, such as Mastercard, for transaction linking, in addition to Network Transaction IDs. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
+            attr_reader :transaction_link_id
+
+            def self.inner_class_types
+              @inner_class_types = {
+                checks: Checks,
+                network_token: NetworkToken,
+                three_d_secure: ThreeDSecure,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field card
+          attr_reader :card
+          # The type of funding source used for this Link payment.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { card: Card }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Two-letter ISO code representing the funding source country beneath the Link payment.
         # You could use this attribute to get a sense of international fees.
         attr_reader :country
         # The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
         attr_reader :funding_source_group
+        # Details about the funding sources used for this Link payment.
+        attr_reader :funding_sources
 
+        def self.inner_class_types
+          @inner_class_types = { funding_sources: FundingSource }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class MbWay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1636,7 +1974,7 @@ module Stripe
         end
       end
 
-      class MbWay < ::Stripe::StripeObject
+      class Merpay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1912,6 +2250,8 @@ module Stripe
       end
 
       class Paypay < ::Stripe::StripeObject
+        # Uniquely identifies this particular PayPay account. You can use this attribute to check whether two PayPay accounts are the same.
+        attr_reader :fingerprint
         # ID of the multi-use Mandate created by, or used to make, this PayPay payment.
         attr_reader :mandate
 
@@ -2388,6 +2728,8 @@ module Stripe
       attr_reader :ach_debit
       # Attribute for field acss_debit
       attr_reader :acss_debit
+      # Attribute for field aeon_pay
+      attr_reader :aeon_pay
       # Attribute for field affirm
       attr_reader :affirm
       # Attribute for field afterpay_clearpay
@@ -2400,6 +2742,8 @@ module Stripe
       attr_reader :amazon_pay
       # Attribute for field au_becs_debit
       attr_reader :au_becs_debit
+      # Attribute for field au_pay
+      attr_reader :au_pay
       # Attribute for field bacs_debit
       attr_reader :bacs_debit
       # Attribute for field bancontact
@@ -2424,6 +2768,8 @@ module Stripe
       attr_reader :crypto
       # Attribute for field customer_balance
       attr_reader :customer_balance
+      # Attribute for field dbarai
+      attr_reader :dbarai
       # Attribute for field eps
       attr_reader :eps
       # Attribute for field fpx
@@ -2456,6 +2802,8 @@ module Stripe
       attr_reader :link
       # Attribute for field mb_way
       attr_reader :mb_way
+      # Attribute for field merpay
+      attr_reader :merpay
       # Attribute for field mobilepay
       attr_reader :mobilepay
       # Attribute for field multibanco
@@ -2546,12 +2894,14 @@ module Stripe
           ach_credit_transfer: AchCreditTransfer,
           ach_debit: AchDebit,
           acss_debit: AcssDebit,
+          aeon_pay: AeonPay,
           affirm: Affirm,
           afterpay_clearpay: AfterpayClearpay,
           alipay: Alipay,
           alma: Alma,
           amazon_pay: AmazonPay,
           au_becs_debit: AuBecsDebit,
+          au_pay: AuPay,
           bacs_debit: BacsDebit,
           bancontact: Bancontact,
           billie: Billie,
@@ -2564,6 +2914,7 @@ module Stripe
           cashapp: Cashapp,
           crypto: Crypto,
           customer_balance: CustomerBalance,
+          dbarai: Dbarai,
           eps: Eps,
           fpx: Fpx,
           getflex: Getflex,
@@ -2580,6 +2931,7 @@ module Stripe
           kr_card: KrCard,
           link: Link,
           mb_way: MbWay,
+          merpay: Merpay,
           mobilepay: Mobilepay,
           multibanco: Multibanco,
           naver_pay: NaverPay,

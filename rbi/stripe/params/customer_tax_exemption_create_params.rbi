@@ -27,14 +27,41 @@ module Stripe
       sig { params(state: String).void }
       def initialize(state: nil); end
     end
+    class ReasonDetails < ::Stripe::RequestParams
+      class Other < ::Stripe::RequestParams
+        # A free-text description of the exemption reason. Maximum 5000 characters.
+        sig { returns(String) }
+        def reason_text; end
+        sig { params(_reason_text: String).returns(String) }
+        def reason_text=(_reason_text); end
+        sig { params(reason_text: String).void }
+        def initialize(reason_text: nil); end
+      end
+      # Details for the `other` exemption reason.
+      sig { returns(T.nilable(::Stripe::CustomerTaxExemptionCreateParams::ReasonDetails::Other)) }
+      def other; end
+      sig {
+        params(_other: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::ReasonDetails::Other)).returns(T.nilable(::Stripe::CustomerTaxExemptionCreateParams::ReasonDetails::Other))
+       }
+      def other=(_other); end
+      sig {
+        params(other: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::ReasonDetails::Other)).void
+       }
+      def initialize(other: nil); end
+    end
     class Us < ::Stripe::RequestParams
       # Two-letter US state code (ISO 3166-2).
       sig { returns(String) }
       def state; end
       sig { params(_state: String).returns(String) }
       def state=(_state); end
-      sig { params(state: String).void }
-      def initialize(state: nil); end
+      # The group of tax codes this exemption applies to. Defaults to `all`. `saas` is only available when `state` is `CA`.
+      sig { returns(T.nilable(String)) }
+      def tax_code_group; end
+      sig { params(_tax_code_group: T.nilable(String)).returns(T.nilable(String)) }
+      def tax_code_group=(_tax_code_group); end
+      sig { params(state: String, tax_code_group: T.nilable(String)).void }
+      def initialize(state: nil, tax_code_group: nil); end
     end
     # Canada-specific exemption details. Required when country is CA; must be absent otherwise.
     sig { returns(T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Ca)) }
@@ -70,6 +97,18 @@ module Stripe
     def expiration_date; end
     sig { params(_expiration_date: T.nilable(String)).returns(T.nilable(String)) }
     def expiration_date=(_expiration_date); end
+    # The reason the customer is exempt. Required when `us.tax_code_group` is `saas`.
+    sig { returns(T.nilable(String)) }
+    def reason; end
+    sig { params(_reason: T.nilable(String)).returns(T.nilable(String)) }
+    def reason=(_reason); end
+    # Additional details about the exemption reason.
+    sig { returns(T.nilable(::Stripe::CustomerTaxExemptionCreateParams::ReasonDetails)) }
+    def reason_details; end
+    sig {
+      params(_reason_details: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::ReasonDetails)).returns(T.nilable(::Stripe::CustomerTaxExemptionCreateParams::ReasonDetails))
+     }
+    def reason_details=(_reason_details); end
     # US-specific exemption details. Required when country is US; must be absent otherwise.
     sig { returns(T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Us)) }
     def us; end
@@ -78,7 +117,7 @@ module Stripe
      }
     def us=(_us); end
     sig {
-      params(ca: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Ca), country: String, effective_date: String, es: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Es), expand: T.nilable(T::Array[String]), expiration_date: T.nilable(String), us: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Us)).void
+      params(ca: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Ca), country: String, effective_date: String, es: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Es), expand: T.nilable(T::Array[String]), expiration_date: T.nilable(String), reason: T.nilable(String), reason_details: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::ReasonDetails), us: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Us)).void
      }
     def initialize(
       ca: nil,
@@ -87,6 +126,8 @@ module Stripe
       es: nil,
       expand: nil,
       expiration_date: nil,
+      reason: nil,
+      reason_details: nil,
       us: nil
     ); end
   end

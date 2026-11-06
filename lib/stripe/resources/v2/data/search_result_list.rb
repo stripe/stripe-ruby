@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Data
       # A ranked set of public analytical resources matching a natural-language query.
-      class SearchResultList < APIResource
+      class SearchResultList < StripeObject
         OBJECT_NAME = "v2.data.search_result_list"
         def self.object_name
           "v2.data.search_result_list"

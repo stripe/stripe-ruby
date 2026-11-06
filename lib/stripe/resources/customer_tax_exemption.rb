@@ -37,9 +37,36 @@ module Stripe
       end
     end
 
+    class ReasonDetails < ::Stripe::StripeObject
+      class Other < ::Stripe::StripeObject
+        # A free-text description of the exemption reason.
+        attr_reader :reason_text
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field other
+      attr_reader :other
+
+      def self.inner_class_types
+        @inner_class_types = { other: Other }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Us < ::Stripe::StripeObject
       # Two-letter US state code (ISO 3166-2).
       attr_reader :state
+      # The group of tax codes this exemption applies to. Exemptions created without one have `all`.
+      attr_reader :tax_code_group
 
       def self.inner_class_types
         @inner_class_types = {}
@@ -71,11 +98,15 @@ module Stripe
     attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+    # The reason the customer is exempt.
+    attr_reader :reason
+    # Additional details about the exemption reason.
+    attr_reader :reason_details
     # Attribute for field us
     attr_reader :us
 
     def self.inner_class_types
-      @inner_class_types = { ca: Ca, es: Es, us: Us }
+      @inner_class_types = { ca: Ca, es: Es, reason_details: ReasonDetails, us: Us }
     end
 
     def self.field_remappings

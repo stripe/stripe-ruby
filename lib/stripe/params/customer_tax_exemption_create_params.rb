@@ -24,12 +24,32 @@ module Stripe
       end
     end
 
+    class ReasonDetails < ::Stripe::RequestParams
+      class Other < ::Stripe::RequestParams
+        # A free-text description of the exemption reason. Maximum 5000 characters.
+        attr_accessor :reason_text
+
+        def initialize(reason_text: nil)
+          @reason_text = reason_text
+        end
+      end
+      # Details for the `other` exemption reason.
+      attr_accessor :other
+
+      def initialize(other: nil)
+        @other = other
+      end
+    end
+
     class Us < ::Stripe::RequestParams
       # Two-letter US state code (ISO 3166-2).
       attr_accessor :state
+      # The group of tax codes this exemption applies to. Defaults to `all`. `saas` is only available when `state` is `CA`.
+      attr_accessor :tax_code_group
 
-      def initialize(state: nil)
+      def initialize(state: nil, tax_code_group: nil)
         @state = state
+        @tax_code_group = tax_code_group
       end
     end
     # Canada-specific exemption details. Required when country is CA; must be absent otherwise.
@@ -44,6 +64,10 @@ module Stripe
     attr_accessor :expand
     # ISO 8601 date (YYYY-MM-DD) when the exemption expires.
     attr_accessor :expiration_date
+    # The reason the customer is exempt. Required when `us.tax_code_group` is `saas`.
+    attr_accessor :reason
+    # Additional details about the exemption reason.
+    attr_accessor :reason_details
     # US-specific exemption details. Required when country is US; must be absent otherwise.
     attr_accessor :us
 
@@ -54,6 +78,8 @@ module Stripe
       es: nil,
       expand: nil,
       expiration_date: nil,
+      reason: nil,
+      reason_details: nil,
       us: nil
     )
       @ca = ca
@@ -62,6 +88,8 @@ module Stripe
       @es = es
       @expand = expand
       @expiration_date = expiration_date
+      @reason = reason
+      @reason_details = reason_details
       @us = us
     end
   end

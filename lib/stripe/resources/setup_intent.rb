@@ -255,7 +255,7 @@ module Stripe
       end
 
       class VerifyWithMicrodeposits < ::Stripe::StripeObject
-        # The timestamp when the microdeposits are expected to land.
+        # The timestamp when the microdeposits are expected to land. Null for instant microdeposits.
         attr_reader :arrival_date
         # The URL for the hosted verification page, which allows customers to verify their bank account.
         attr_reader :hosted_verification_url
@@ -845,6 +845,21 @@ module Stripe
       end
     end
 
+    class RadarOptions < ::Stripe::StripeObject
+      # The value you provided for whether this transaction starts a free trial. This is null if you haven't explicitly set it.
+      attr_reader :is_free_trial_transaction
+      # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+      attr_reader :session
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Redaction < ::Stripe::StripeObject
       # Indicates whether this object and its related objects have been redacted or not.
       attr_reader :status
@@ -960,6 +975,8 @@ module Stripe
     attr_reader :payment_method_options
     # The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     attr_reader :payment_method_types
+    # Options to configure Radar.
+    attr_reader :radar_options
     # Redaction status of this SetupIntent. If the SetupIntent isn't redacted, this field is null.
     attr_reader :redaction
     # Attribute for field setup_details
@@ -1094,6 +1111,7 @@ module Stripe
         next_action: NextAction,
         payment_method_configuration_details: PaymentMethodConfigurationDetails,
         payment_method_options: PaymentMethodOptions,
+        radar_options: RadarOptions,
         redaction: Redaction,
         setup_details: SetupDetails,
       }

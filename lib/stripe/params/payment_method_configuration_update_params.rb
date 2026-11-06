@@ -870,6 +870,23 @@ module Stripe
       end
     end
 
+    class RakutenPay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
     class RevolutPay < ::Stripe::RequestParams
       class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
@@ -1249,6 +1266,8 @@ module Stripe
     attr_accessor :promptpay
     # QRIS is a [real-time](https://docs.stripe.com/payments/real-time) payment method popular in Indonesia. When paying with QRIS, customers authenticate and approve payments by scanning a QR code in their preferred digital wallet app.
     attr_accessor :qris
+    # Rakuten Pay is a single-use payment method that requires customers to authenticate their payment. Customers pay by being redirected from your website or app, authorizing the payment with Rakuten Pay, then returning to your website or app. You get immediate notification of whether the payment succeeded or failed.
+    attr_accessor :rakuten_pay
     # Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer’s stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
     attr_accessor :revolut_pay
     # Samsung Pay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage local wallet available in South Korea.
@@ -1337,6 +1356,7 @@ module Stripe
       pix: nil,
       promptpay: nil,
       qris: nil,
+      rakuten_pay: nil,
       revolut_pay: nil,
       samsung_pay: nil,
       satispay: nil,
@@ -1408,6 +1428,7 @@ module Stripe
       @pix = pix
       @promptpay = promptpay
       @qris = qris
+      @rakuten_pay = rakuten_pay
       @revolut_pay = revolut_pay
       @samsung_pay = samsung_pay
       @satispay = satispay

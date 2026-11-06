@@ -899,7 +899,7 @@ module Stripe
           @field_encodings = { unit_amount_decimal: :decimal_string }
         end
       end
-      # The discounts applied to this line item.
+      # The discounts applied to this line item. Repeating coupons are only supported for recurring prices.
       attr_accessor :discounts
       # The ID of an existing line item on the quote.
       attr_accessor :id

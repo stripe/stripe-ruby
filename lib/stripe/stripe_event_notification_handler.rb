@@ -1746,6 +1746,14 @@ module Stripe
       register("v2.extend.extension_run.failed", &callback)
     end
 
+    def on_v2_extend_object_definition_created(&callback)
+      register("v2.extend.object_definition.created", &callback)
+    end
+
+    def on_v2_extend_object_definition_version_created(&callback)
+      register("v2.extend.object_definition_version.created", &callback)
+    end
+
     def on_v2_extend_workflow_run_failed(&callback)
       register("v2.extend.workflow_run.failed", &callback)
     end

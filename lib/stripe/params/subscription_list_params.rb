@@ -67,8 +67,10 @@ module Stripe
     end
     # Filter subscriptions by their automatic tax settings.
     attr_accessor :automatic_tax
-    # Filter for subscriptions that have the specified billing cadence.
+    # The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
     attr_accessor :billing_cadence
+    # Filter for subscriptions that have the specified billing group.
+    attr_accessor :billing_group
     # The collection method of the subscriptions to retrieve. Either `charge_automatically` or `send_invoice`.
     attr_accessor :collection_method
     # Only return subscriptions that were created during the given date interval.
@@ -101,6 +103,7 @@ module Stripe
     def initialize(
       automatic_tax: nil,
       billing_cadence: nil,
+      billing_group: nil,
       collection_method: nil,
       created: nil,
       current_period_end: nil,
@@ -118,6 +121,7 @@ module Stripe
     )
       @automatic_tax = automatic_tax
       @billing_cadence = billing_cadence
+      @billing_group = billing_group
       @collection_method = collection_method
       @created = created
       @current_period_end = current_period_end

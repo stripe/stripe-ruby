@@ -502,7 +502,15 @@ module Stripe
            }
           def initialize(amount_includes_iof: nil, expires_after_seconds: nil); end
         end
-        class SepaDebit < ::Stripe::RequestParams; end
+        class SepaDebit < ::Stripe::RequestParams
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(T.nilable(String)) }
+          def target_date; end
+          sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
+          def target_date=(_target_date); end
+          sig { params(target_date: T.nilable(String)).void }
+          def initialize(target_date: nil); end
+        end
         class Upi < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Amount to be charged for future payments.

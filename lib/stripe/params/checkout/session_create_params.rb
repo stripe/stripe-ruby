@@ -362,6 +362,15 @@ module Stripe
         end
       end
 
+      class CustomPaymentMethodOptions < ::Stripe::RequestParams
+        # Use `off_session` to set up this custom payment method for future payments when the customer is absent. Use `none` to disable setup for future usage.
+        attr_accessor :setup_future_usage
+
+        def initialize(setup_future_usage: nil)
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
       class CustomText < ::Stripe::RequestParams
         class AfterSubmit < ::Stripe::RequestParams
           # Text can be up to 1200 characters in length.
@@ -2452,10 +2461,19 @@ module Stripe
         end
 
         class Paypay < ::Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_accessor :setup_future_usage
           # The merchant's subscription identifier for this off-session charge.
           attr_accessor :subscription_reference
 
-          def initialize(subscription_reference: nil)
+          def initialize(setup_future_usage: nil, subscription_reference: nil)
+            @setup_future_usage = setup_future_usage
             @subscription_reference = subscription_reference
           end
         end
@@ -2672,6 +2690,21 @@ module Stripe
         end
 
         class Sofort < ::Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
+        class StripeBalance < ::Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2911,6 +2944,8 @@ module Stripe
         attr_accessor :sequra
         # contains details about the Sofort payment method options.
         attr_accessor :sofort
+        # contains details about the Stripe Balance payment method options.
+        attr_accessor :stripe_balance
         # contains details about the Sunbit payment method options.
         attr_accessor :sunbit
         # contains details about the Swish payment method options.
@@ -2972,6 +3007,7 @@ module Stripe
           sepa_debit: nil,
           sequra: nil,
           sofort: nil,
+          stripe_balance: nil,
           sunbit: nil,
           swish: nil,
           twint: nil,
@@ -3026,6 +3062,7 @@ module Stripe
           @sepa_debit = sepa_debit
           @sequra = sequra
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @sunbit = sunbit
           @swish = swish
           @twint = twint
@@ -3651,6 +3688,8 @@ module Stripe
       attr_accessor :currency
       # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
       attr_accessor :custom_fields
+      # Options keyed by custom payment method type IDs (e.g., `cpmt_123`). Each ID must belong to your account and be included in `custom_payment_method_types`. Only available in `payment` mode.
+      attr_accessor :custom_payment_method_options
       # A list of custom payment methods (e.g., `cpmt_123`) this Checkout Session can accept.
       #
       # You can add custom payment methods to your account through the dashboard under Settings > Custom Payment Methods.
@@ -3820,6 +3859,7 @@ module Stripe
         consent_collection: nil,
         currency: nil,
         custom_fields: nil,
+        custom_payment_method_options: nil,
         custom_payment_method_types: nil,
         custom_text: nil,
         customer: nil,
@@ -3881,6 +3921,7 @@ module Stripe
         @consent_collection = consent_collection
         @currency = currency
         @custom_fields = custom_fields
+        @custom_payment_method_options = custom_payment_method_options
         @custom_payment_method_types = custom_payment_method_types
         @custom_text = custom_text
         @customer = customer

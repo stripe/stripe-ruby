@@ -131,6 +131,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class AeonPay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Affirm < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -181,6 +189,14 @@ module Stripe
         # Last four digits of the bank account number.
         sig { returns(T.nilable(String)) }
         def last4; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class AuPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -338,6 +354,34 @@ module Stripe
         class GeneratedFrom < ::Stripe::StripeObject
           class PaymentMethodDetails < ::Stripe::StripeObject
             class CardPresent < ::Stripe::StripeObject
+              class Fleet < ::Stripe::StripeObject
+                class TransactionDatum < ::Stripe::StripeObject
+                  # The prompt that the Terminal SDK displays to collect this Fleet value.
+                  sig { returns(String) }
+                  def prompt; end
+                  # Whether the collected value is printed on the receipt.
+                  sig { returns(String) }
+                  def receipt_behavior; end
+                  # The value collected for this Fleet prompt.
+                  sig { returns(String) }
+                  def value; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Fleet prompts and values collected for this transaction.
+                sig { returns(T::Array[TransactionDatum]) }
+                def transaction_data; end
+                def self.inner_class_types
+                  @inner_class_types = {transaction_data: TransactionDatum}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               class Multicapture < ::Stripe::StripeObject
                 # Indicates whether or not multiple captures are supported.
                 sig { returns(String) }
@@ -455,6 +499,9 @@ module Stripe
               # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
               sig { returns(T.nilable(String)) }
               def fingerprint; end
+              # Attribute for field fleet
+              sig { returns(T.nilable(Fleet)) }
+              def fleet; end
               # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
               sig { returns(T.nilable(String)) }
               def funding; end
@@ -517,6 +564,7 @@ module Stripe
               def wallet; end
               def self.inner_class_types
                 @inner_class_types = {
+                  fleet: Fleet,
                   multicapture: Multicapture,
                   offline: Offline,
                   reauthorization: Reauthorization,
@@ -1023,6 +1071,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Dbarai < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Eps < ::Stripe::StripeObject
         # The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
         sig { returns(T.nilable(String)) }
@@ -1276,6 +1332,14 @@ module Stripe
         end
       end
       class MbWay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Merpay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1774,6 +1838,9 @@ module Stripe
       # Attribute for field acss_debit
       sig { returns(T.nilable(AcssDebit)) }
       def acss_debit; end
+      # Attribute for field aeon_pay
+      sig { returns(T.nilable(AeonPay)) }
+      def aeon_pay; end
       # Attribute for field affirm
       sig { returns(T.nilable(Affirm)) }
       def affirm; end
@@ -1795,6 +1862,9 @@ module Stripe
       # Attribute for field au_becs_debit
       sig { returns(T.nilable(AuBecsDebit)) }
       def au_becs_debit; end
+      # Attribute for field au_pay
+      sig { returns(T.nilable(AuPay)) }
+      def au_pay; end
       # Attribute for field bacs_debit
       sig { returns(T.nilable(BacsDebit)) }
       def bacs_debit; end
@@ -1840,6 +1910,9 @@ module Stripe
       # Attribute for field customer_balance
       sig { returns(T.nilable(CustomerBalance)) }
       def customer_balance; end
+      # Attribute for field dbarai
+      sig { returns(T.nilable(Dbarai)) }
+      def dbarai; end
       # Attribute for field eps
       sig { returns(T.nilable(Eps)) }
       def eps; end
@@ -1888,6 +1961,9 @@ module Stripe
       # Attribute for field mb_way
       sig { returns(T.nilable(MbWay)) }
       def mb_way; end
+      # Attribute for field merpay
+      sig { returns(T.nilable(Merpay)) }
+      def merpay; end
       # Attribute for field mobilepay
       sig { returns(T.nilable(Mobilepay)) }
       def mobilepay; end
@@ -2005,12 +2081,14 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           acss_debit: AcssDebit,
+          aeon_pay: AeonPay,
           affirm: Affirm,
           afterpay_clearpay: AfterpayClearpay,
           alipay: Alipay,
           alma: Alma,
           amazon_pay: AmazonPay,
           au_becs_debit: AuBecsDebit,
+          au_pay: AuPay,
           bacs_debit: BacsDebit,
           bancontact: Bancontact,
           billie: Billie,
@@ -2024,6 +2102,7 @@ module Stripe
           cashapp: Cashapp,
           crypto: Crypto,
           customer_balance: CustomerBalance,
+          dbarai: Dbarai,
           eps: Eps,
           fpx: Fpx,
           getflex: Getflex,
@@ -2040,6 +2119,7 @@ module Stripe
           kr_card: KrCard,
           link: Link,
           mb_way: MbWay,
+          merpay: Merpay,
           mobilepay: Mobilepay,
           multibanco: Multibanco,
           naver_pay: NaverPay,

@@ -303,6 +303,19 @@ module Stripe
             end
           end
 
+          class SepaDebit < ::Stripe::StripeObject
+            # Creditor identifier used for the intended debit.
+            attr_reader :creditor_id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class UsBankAccount < ::Stripe::StripeObject
             # Describes the presence of the customer during the payment.
             attr_reader :customer_presence
@@ -321,11 +334,13 @@ module Stripe
           attr_reader :card
           # Describes the type of money movement.
           attr_reader :money_movement_type
+          # Describes SEPA debit money movement details.
+          attr_reader :sepa_debit
           # Describes US bank account money movement details.
           attr_reader :us_bank_account
 
           def self.inner_class_types
-            @inner_class_types = { card: Card, us_bank_account: UsBankAccount }
+            @inner_class_types = { card: Card, sepa_debit: SepaDebit, us_bank_account: UsBankAccount }
           end
 
           def self.field_remappings
@@ -508,6 +523,23 @@ module Stripe
           end
         end
 
+        class CardTesting < ::Stripe::StripeObject
+          # The time when this signal was evaluated.
+          attr_reader :evaluated_at
+          # Risk level of this signal, based on the score.
+          attr_reader :risk_level
+          # Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
+          attr_reader :score
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class EarlyFraudWarning < ::Stripe::StripeObject
           # The time when this signal was evaluated.
           attr_reader :evaluated_at
@@ -560,6 +592,8 @@ module Stripe
         end
         # A payment evaluation signal with evaluated_at, risk_level, and score fields.
         attr_reader :bank_initiated_return
+        # The likelihood that this `PaymentEvaluation` is part of a card testing attack.
+        attr_reader :card_testing
         # The likelihood that this `PaymentEvaluation` results in an early fraud warning.
         attr_reader :early_fraud_warning
         # The likelihood that this `PaymentEvaluation` results in a dispute with reason code `fraudulent`.
@@ -570,6 +604,7 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             bank_initiated_return: BankInitiatedReturn,
+            card_testing: CardTesting,
             early_fraud_warning: EarlyFraudWarning,
             fraudulent_dispute: FraudulentDispute,
             fraudulent_payment: FraudulentPayment,
@@ -600,7 +635,7 @@ module Stripe
       attr_reader :outcome
       # Payment details attached to this payment evaluation.
       attr_reader :payment_details
-      # Recommended action based on the score of the `fraudulent_payment` signal. Possible values are `block`, `continue` and `request_three_d_secure`.
+      # Recommended action for this payment based on its evaluated signals and rules.
       attr_reader :recommended_action
       # Details about Radar Rules associated with the payment evaluation.
       attr_reader :rules

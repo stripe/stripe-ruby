@@ -5,6 +5,7 @@
 module Stripe
   module V2
     class ExtendService < StripeService
+      attr_reader :object_definitions
       attr_reader :workflows
       attr_reader :workflow_runs
     end

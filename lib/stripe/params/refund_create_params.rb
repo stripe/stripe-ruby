@@ -59,6 +59,8 @@ module Stripe
     attr_accessor :payment_attempt_record
     # The identifier of the PaymentIntent to refund.
     attr_accessor :payment_intent
+    # The ID of a PaymentMethod that will receive the refund.
+    attr_accessor :payment_method
     # Used to create the PaymentMethod that will receive the refund.
     attr_accessor :payment_method_data
     # Payment method-specific options for the refund.
@@ -83,6 +85,7 @@ module Stripe
       origin: nil,
       payment_attempt_record: nil,
       payment_intent: nil,
+      payment_method: nil,
       payment_method_data: nil,
       payment_method_options: nil,
       payment_record: nil,
@@ -100,6 +103,7 @@ module Stripe
       @origin = origin
       @payment_attempt_record = payment_attempt_record
       @payment_intent = payment_intent
+      @payment_method = payment_method
       @payment_method_data = payment_method_data
       @payment_method_options = payment_method_options
       @payment_record = payment_record

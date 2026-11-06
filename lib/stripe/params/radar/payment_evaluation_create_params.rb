@@ -77,6 +77,15 @@ module Stripe
             end
           end
 
+          class SepaDebit < ::Stripe::RequestParams
+            # Supply the SEPA Creditor Identifier configured for the intended debit with your selected processor. Obtain it from your processor's SEPA configuration API or onboarding/support information. Do not supply a statement descriptor, IBAN, processor merchant-account ID, or mandate reference. If the creditor identifier is unknown, omit it.
+            attr_accessor :creditor_id
+
+            def initialize(creditor_id: nil)
+              @creditor_id = creditor_id
+            end
+          end
+
           class UsBankAccount < ::Stripe::RequestParams
             # Describes the presence of the customer during the payment.
             attr_accessor :customer_presence
@@ -92,12 +101,15 @@ module Stripe
           attr_accessor :card
           # Describes the type of money movement.
           attr_accessor :money_movement_type
+          # Describes SEPA debit money movement details.
+          attr_accessor :sepa_debit
           # Describes US bank account money movement details.
           attr_accessor :us_bank_account
 
-          def initialize(card: nil, money_movement_type: nil, us_bank_account: nil)
+          def initialize(card: nil, money_movement_type: nil, sepa_debit: nil, us_bank_account: nil)
             @card = card
             @money_movement_type = money_movement_type
+            @sepa_debit = sepa_debit
             @us_bank_account = us_bank_account
           end
         end

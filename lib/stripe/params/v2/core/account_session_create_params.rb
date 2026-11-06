@@ -78,6 +78,15 @@ module Stripe
             end
           end
 
+          class BusinessProfileManagement < ::Stripe::RequestParams
+            # Whether this embedded component is enabled.
+            attr_accessor :enabled
+
+            def initialize(enabled: nil)
+              @enabled = enabled
+            end
+          end
+
           class CapitalFinancing < ::Stripe::RequestParams
             # Whether this embedded component is enabled.
             attr_accessor :enabled
@@ -372,6 +381,8 @@ module Stripe
           attr_accessor :balances
           # Settings for the Bills embedded component.
           attr_accessor :bills
+          # Settings for the Business Profile Management embedded component.
+          attr_accessor :business_profile_management
           # Settings for the Capital Financing embedded component.
           attr_accessor :capital_financing
           # Settings for the Capital Financing Application embedded component.
@@ -444,6 +455,7 @@ module Stripe
             balance_report: nil,
             balances: nil,
             bills: nil,
+            business_profile_management: nil,
             capital_financing: nil,
             capital_financing_application: nil,
             capital_financing_promotion: nil,
@@ -484,6 +496,7 @@ module Stripe
             @balance_report = balance_report
             @balances = balances
             @bills = bills
+            @business_profile_management = business_profile_management
             @capital_financing = capital_financing
             @capital_financing_application = capital_financing_application
             @capital_financing_promotion = capital_financing_promotion

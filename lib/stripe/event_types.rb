@@ -618,6 +618,10 @@ module Stripe
         Events::V2DataReportingQueryRunUpdatedEvent.lookup_type =>
         Events::V2DataReportingQueryRunUpdatedEvent,
         Events::V2ExtendExtensionRunFailedEvent.lookup_type => Events::V2ExtendExtensionRunFailedEvent,
+        Events::V2ExtendObjectDefinitionCreatedEvent.lookup_type =>
+        Events::V2ExtendObjectDefinitionCreatedEvent,
+        Events::V2ExtendObjectDefinitionVersionCreatedEvent.lookup_type =>
+        Events::V2ExtendObjectDefinitionVersionCreatedEvent,
         Events::V2ExtendWorkflowRunFailedEvent.lookup_type => Events::V2ExtendWorkflowRunFailedEvent,
         Events::V2ExtendWorkflowRunStartedEvent.lookup_type => Events::V2ExtendWorkflowRunStartedEvent,
         Events::V2ExtendWorkflowRunSucceededEvent.lookup_type => Events::V2ExtendWorkflowRunSucceededEvent,
@@ -1653,6 +1657,10 @@ module Stripe
         Events::V2DataReportingQueryRunUpdatedEventNotification,
         Events::V2ExtendExtensionRunFailedEventNotification.lookup_type =>
         Events::V2ExtendExtensionRunFailedEventNotification,
+        Events::V2ExtendObjectDefinitionCreatedEventNotification.lookup_type =>
+        Events::V2ExtendObjectDefinitionCreatedEventNotification,
+        Events::V2ExtendObjectDefinitionVersionCreatedEventNotification.lookup_type =>
+        Events::V2ExtendObjectDefinitionVersionCreatedEventNotification,
         Events::V2ExtendWorkflowRunFailedEventNotification.lookup_type =>
         Events::V2ExtendWorkflowRunFailedEventNotification,
         Events::V2ExtendWorkflowRunStartedEventNotification.lookup_type =>

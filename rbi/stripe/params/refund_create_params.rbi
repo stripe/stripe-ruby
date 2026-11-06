@@ -107,6 +107,11 @@ module Stripe
     def payment_intent; end
     sig { params(_payment_intent: T.nilable(String)).returns(T.nilable(String)) }
     def payment_intent=(_payment_intent); end
+    # The ID of a PaymentMethod that will receive the refund.
+    sig { returns(T.nilable(String)) }
+    def payment_method; end
+    sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
+    def payment_method=(_payment_method); end
     # Used to create the PaymentMethod that will receive the refund.
     sig { returns(T.nilable(::Stripe::RefundCreateParams::PaymentMethodData)) }
     def payment_method_data; end
@@ -142,7 +147,7 @@ module Stripe
     sig { params(_reverse_transfer: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def reverse_transfer=(_reverse_transfer); end
     sig {
-      params(amount: T.nilable(Integer), charge: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), expand: T.nilable(T::Array[String]), instructions_email: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), origin: T.nilable(String), payment_attempt_record: T.nilable(String), payment_intent: T.nilable(String), payment_method_data: T.nilable(::Stripe::RefundCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::RefundCreateParams::PaymentMethodOptions), payment_record: T.nilable(String), reason: T.nilable(String), refund_application_fee: T.nilable(T::Boolean), reverse_transfer: T.nilable(T::Boolean)).void
+      params(amount: T.nilable(Integer), charge: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), expand: T.nilable(T::Array[String]), instructions_email: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), origin: T.nilable(String), payment_attempt_record: T.nilable(String), payment_intent: T.nilable(String), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::RefundCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::RefundCreateParams::PaymentMethodOptions), payment_record: T.nilable(String), reason: T.nilable(String), refund_application_fee: T.nilable(T::Boolean), reverse_transfer: T.nilable(T::Boolean)).void
      }
     def initialize(
       amount: nil,
@@ -155,6 +160,7 @@ module Stripe
       origin: nil,
       payment_attempt_record: nil,
       payment_intent: nil,
+      payment_method: nil,
       payment_method_data: nil,
       payment_method_options: nil,
       payment_record: nil,

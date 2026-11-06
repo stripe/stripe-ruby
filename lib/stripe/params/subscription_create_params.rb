@@ -1166,6 +1166,8 @@ module Stripe
     attr_accessor :billing_cycle_anchor
     # Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurrence of the day_of_month at the hour, minute, and second UTC.
     attr_accessor :billing_cycle_anchor_config
+    # The Billing Group which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+    attr_accessor :billing_group
     # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
     attr_accessor :billing_mode
     # An array of billing schedules, which allow you to bill customers in advance for multiple service periods. Requires flexible billing mode and API version 2026-05-27.dahlia or later. Learn more about [prebilling](https://docs.stripe.com/billing/subscriptions/prebilling).
@@ -1237,6 +1239,7 @@ module Stripe
       billing_cadence: nil,
       billing_cycle_anchor: nil,
       billing_cycle_anchor_config: nil,
+      billing_group: nil,
       billing_mode: nil,
       billing_schedules: nil,
       billing_thresholds: nil,
@@ -1276,6 +1279,7 @@ module Stripe
       @billing_cadence = billing_cadence
       @billing_cycle_anchor = billing_cycle_anchor
       @billing_cycle_anchor_config = billing_cycle_anchor_config
+      @billing_group = billing_group
       @billing_mode = billing_mode
       @billing_schedules = billing_schedules
       @billing_thresholds = billing_thresholds

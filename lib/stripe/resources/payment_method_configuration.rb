@@ -1545,6 +1545,37 @@ module Stripe
       end
     end
 
+    class RakutenPay < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class RevolutPay < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -2154,6 +2185,8 @@ module Stripe
     attr_reader :promptpay
     # Attribute for field qris
     attr_reader :qris
+    # Attribute for field rakuten_pay
+    attr_reader :rakuten_pay
     # Attribute for field revolut_pay
     attr_reader :revolut_pay
     # Attribute for field samsung_pay
@@ -2268,6 +2301,7 @@ module Stripe
         pix: Pix,
         promptpay: Promptpay,
         qris: Qris,
+        rakuten_pay: RakutenPay,
         revolut_pay: RevolutPay,
         samsung_pay: SamsungPay,
         satispay: Satispay,

@@ -154,6 +154,49 @@ module Stripe
         end
       end
 
+      class Bills < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
+          # Whether to allow bill management features.
+          attr_accessor :bill_management
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+          attr_accessor :disable_stripe_user_authentication
+          # Whether to allow sending money.
+          attr_accessor :send_money
+
+          def initialize(
+            bill_management: nil,
+            disable_stripe_user_authentication: nil,
+            send_money: nil
+          )
+            @bill_management = bill_management
+            @disable_stripe_user_authentication = disable_stripe_user_authentication
+            @send_money = send_money
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # The list of features enabled in the embedded component.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class BusinessProfileManagement < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
       class CapitalFinancing < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
@@ -337,6 +380,19 @@ module Stripe
         end
       end
 
+      class FinancialAccountRewards < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
       class FinancialAccountTransactions < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams
           # Whether to allow card spend dispute management features.
@@ -344,6 +400,86 @@ module Stripe
 
           def initialize(card_spend_dispute_management: nil)
             @card_spend_dispute_management = card_spend_dispute_management
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # The list of features enabled in the embedded component.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class FinancialAccounts < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
+          # Whether to allow bill management features.
+          attr_accessor :bill_management
+          # Whether to allow card management features.
+          attr_accessor :card_management
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+          attr_accessor :disable_stripe_user_authentication
+          # Whether to allow payout schedule to be changed. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+          attr_accessor :edit_payout_schedule
+          # Whether to allow sending money.
+          attr_accessor :send_money
+
+          def initialize(
+            bill_management: nil,
+            card_management: nil,
+            disable_stripe_user_authentication: nil,
+            edit_payout_schedule: nil,
+            send_money: nil
+          )
+            @bill_management = bill_management
+            @card_management = card_management
+            @disable_stripe_user_authentication = disable_stripe_user_authentication
+            @edit_payout_schedule = edit_payout_schedule
+            @send_money = send_money
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # The list of features enabled in the embedded component.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class FinancialAccountsTransactions < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
+          # Whether to allow capturing and cancelling payment intents. This is `true` by default.
+          attr_accessor :capture_payments
+          # Whether to allow card management features.
+          attr_accessor :card_management
+          # Whether to allow card spend dispute management features.
+          attr_accessor :card_spend_dispute_management
+          # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
+          attr_accessor :destination_on_behalf_of_charge_management
+          # Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
+          attr_accessor :dispute_management
+          # Whether sending refunds is enabled. This is `true` by default.
+          attr_accessor :refund_management
+
+          def initialize(
+            capture_payments: nil,
+            card_management: nil,
+            card_spend_dispute_management: nil,
+            destination_on_behalf_of_charge_management: nil,
+            dispute_management: nil,
+            refund_management: nil
+          )
+            @capture_payments = capture_payments
+            @card_management = card_management
+            @card_spend_dispute_management = card_spend_dispute_management
+            @destination_on_behalf_of_charge_management = destination_on_behalf_of_charge_management
+            @dispute_management = dispute_management
+            @refund_management = refund_management
           end
         end
         # Whether the embedded component is enabled.
@@ -451,6 +587,19 @@ module Stripe
         # Whether the embedded component is enabled.
         attr_accessor :enabled
         # The list of features enabled in the embedded component.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class NetworkCostPassthroughReport < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
         attr_accessor :features
 
         def initialize(enabled: nil, features: nil)
@@ -722,6 +871,29 @@ module Stripe
         end
       end
 
+      class RecipientsList < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+          attr_accessor :disable_stripe_user_authentication
+          # Whether to allow sending money.
+          attr_accessor :send_money
+
+          def initialize(disable_stripe_user_authentication: nil, send_money: nil)
+            @disable_stripe_user_authentication = disable_stripe_user_authentication
+            @send_money = send_money
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # The list of features enabled in the embedded component.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
       class ReportingChart < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
@@ -813,6 +985,10 @@ module Stripe
       attr_accessor :balance_report
       # Configuration for the [balances](/connect/supported-embedded-components/balances/) embedded component.
       attr_accessor :balances
+      # Configuration for the [Bills](/connect/supported-embedded-components/bills/) embedded component.
+      attr_accessor :bills
+      # Configuration for the [Business profile management](/connect/supported-embedded-components/business-profile-management/) embedded component.
+      attr_accessor :business_profile_management
       # Configuration for the [Capital financing](/connect/supported-embedded-components/capital-financing/) embedded component.
       attr_accessor :capital_financing
       # Configuration for the [Capital financing application](/connect/supported-embedded-components/capital-financing-application/) embedded component.
@@ -833,14 +1009,22 @@ module Stripe
       attr_accessor :export_tax_transactions
       # Configuration for the [financial account](/connect/supported-embedded-components/financial-account/) embedded component.
       attr_accessor :financial_account
+      # Configuration for the [financial account rewards](/connect/supported-embedded-components/financial-account-rewards/) embedded component.
+      attr_accessor :financial_account_rewards
       # Configuration for the [financial account transactions](/connect/supported-embedded-components/financial-account-transactions/) embedded component.
       attr_accessor :financial_account_transactions
+      # Configuration for the [financial accounts](/connect/supported-embedded-components/financial-accounts/) embedded component.
+      attr_accessor :financial_accounts
+      # Configuration for the [financial accounts transactions](/connect/supported-embedded-components/financial-accounts-transactions/) embedded component.
+      attr_accessor :financial_accounts_transactions
       # Configuration for the [instant payouts promotion](/connect/supported-embedded-components/instant-payouts-promotion/) embedded component.
       attr_accessor :instant_payouts_promotion
       # Configuration for the [issuing card](/connect/supported-embedded-components/issuing-card/) embedded component.
       attr_accessor :issuing_card
       # Configuration for the [issuing cards list](/connect/supported-embedded-components/issuing-cards-list/) embedded component.
       attr_accessor :issuing_cards_list
+      # Configuration for the [network cost passthrough report](/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
+      attr_accessor :network_cost_passthrough_report
       # Configuration for the [notification banner](/connect/supported-embedded-components/notification-banner/) embedded component.
       attr_accessor :notification_banner
       # Configuration for the [payment details](/connect/supported-embedded-components/payment-details/) embedded component.
@@ -863,6 +1047,8 @@ module Stripe
       attr_accessor :product_tax_code_selector
       # Configuration for the [recipients](/connect/supported-embedded-components/recipients/) embedded component.
       attr_accessor :recipients
+      # Configuration for the [recipients list](/connect/supported-embedded-components/recipients-list/) embedded component.
+      attr_accessor :recipients_list
       # Configuration for the [reporting chart](/connect/supported-embedded-components/reporting-chart/) embedded component.
       attr_accessor :reporting_chart
       # Configuration for the [tax registrations](/connect/supported-embedded-components/tax-registrations/) embedded component.
@@ -884,6 +1070,8 @@ module Stripe
         app_viewport: nil,
         balance_report: nil,
         balances: nil,
+        bills: nil,
+        business_profile_management: nil,
         capital_financing: nil,
         capital_financing_application: nil,
         capital_financing_manual_payment: nil,
@@ -894,10 +1082,14 @@ module Stripe
         documents: nil,
         export_tax_transactions: nil,
         financial_account: nil,
+        financial_account_rewards: nil,
         financial_account_transactions: nil,
+        financial_accounts: nil,
+        financial_accounts_transactions: nil,
         instant_payouts_promotion: nil,
         issuing_card: nil,
         issuing_cards_list: nil,
+        network_cost_passthrough_report: nil,
         notification_banner: nil,
         payment_details: nil,
         payment_disputes: nil,
@@ -909,6 +1101,7 @@ module Stripe
         payouts_list: nil,
         product_tax_code_selector: nil,
         recipients: nil,
+        recipients_list: nil,
         reporting_chart: nil,
         tax_registrations: nil,
         tax_settings: nil,
@@ -923,6 +1116,8 @@ module Stripe
         @app_viewport = app_viewport
         @balance_report = balance_report
         @balances = balances
+        @bills = bills
+        @business_profile_management = business_profile_management
         @capital_financing = capital_financing
         @capital_financing_application = capital_financing_application
         @capital_financing_manual_payment = capital_financing_manual_payment
@@ -933,10 +1128,14 @@ module Stripe
         @documents = documents
         @export_tax_transactions = export_tax_transactions
         @financial_account = financial_account
+        @financial_account_rewards = financial_account_rewards
         @financial_account_transactions = financial_account_transactions
+        @financial_accounts = financial_accounts
+        @financial_accounts_transactions = financial_accounts_transactions
         @instant_payouts_promotion = instant_payouts_promotion
         @issuing_card = issuing_card
         @issuing_cards_list = issuing_cards_list
+        @network_cost_passthrough_report = network_cost_passthrough_report
         @notification_banner = notification_banner
         @payment_details = payment_details
         @payment_disputes = payment_disputes
@@ -948,6 +1147,7 @@ module Stripe
         @payouts_list = payouts_list
         @product_tax_code_selector = product_tax_code_selector
         @recipients = recipients
+        @recipients_list = recipients_list
         @reporting_chart = reporting_chart
         @tax_registrations = tax_registrations
         @tax_settings = tax_settings

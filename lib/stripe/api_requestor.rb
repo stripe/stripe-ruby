@@ -490,6 +490,7 @@ module Stripe
 
       api_key ||= opts[:api_key]
 
+      RequestOptions.assert_api_key_attached!(api_key)
       check_api_key!(api_key)
 
       body_params = nil

@@ -113,6 +113,15 @@ module Stripe
              }
             def initialize(customer_presence: nil, payment_type: nil); end
           end
+          class SepaDebit < ::Stripe::RequestParams
+            # Supply the SEPA Creditor Identifier configured for the intended debit with your selected processor. Obtain it from your processor's SEPA configuration API or onboarding/support information. Do not supply a statement descriptor, IBAN, processor merchant-account ID, or mandate reference. If the creditor identifier is unknown, omit it.
+            sig { returns(T.nilable(String)) }
+            def creditor_id; end
+            sig { params(_creditor_id: T.nilable(String)).returns(T.nilable(String)) }
+            def creditor_id=(_creditor_id); end
+            sig { params(creditor_id: T.nilable(String)).void }
+            def initialize(creditor_id: nil); end
+          end
           class UsBankAccount < ::Stripe::RequestParams
             # Describes the presence of the customer during the payment.
             sig { returns(T.nilable(String)) }
@@ -143,6 +152,15 @@ module Stripe
           def money_movement_type; end
           sig { params(_money_movement_type: String).returns(String) }
           def money_movement_type=(_money_movement_type); end
+          # Describes SEPA debit money movement details.
+          sig {
+            returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::SepaDebit))
+           }
+          def sepa_debit; end
+          sig {
+            params(_sepa_debit: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::SepaDebit)).returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::SepaDebit))
+           }
+          def sepa_debit=(_sepa_debit); end
           # Describes US bank account money movement details.
           sig {
             returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::UsBankAccount))
@@ -153,9 +171,14 @@ module Stripe
            }
           def us_bank_account=(_us_bank_account); end
           sig {
-            params(card: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card), money_movement_type: String, us_bank_account: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::UsBankAccount)).void
+            params(card: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card), money_movement_type: String, sepa_debit: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::SepaDebit), us_bank_account: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::UsBankAccount)).void
            }
-          def initialize(card: nil, money_movement_type: nil, us_bank_account: nil); end
+          def initialize(
+            card: nil,
+            money_movement_type: nil,
+            sepa_debit: nil,
+            us_bank_account: nil
+          ); end
         end
         class PaymentMethodDetails < ::Stripe::RequestParams
           class BillingDetails < ::Stripe::RequestParams

@@ -762,6 +762,12 @@ module Stripe
       # Attribute for field us_1099_nec
       sig { returns(T.nilable(Us1099Nec)) }
       def us_1099_nec; end
+      # Creates a correction for a filed tax form. Supply either payee details or numerical values for the tax form type. Created correction forms are not filed automatically.
+      sig {
+        params(id: String, params: T.any(::Stripe::Tax::FormCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Tax::FormCorrection)
+       }
+      def self.create(id, params = {}, opts = {}); end
+
       # Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
       sig {
         params(params: T.any(::Stripe::Tax::FormListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)

@@ -226,6 +226,28 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class BusinessProfileManagement < ::Stripe::StripeObject
+            class Scopes < ::Stripe::StripeObject
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Whether this embedded component is enabled.
+            sig { returns(T::Boolean) }
+            def enabled; end
+            # The scopes available to this embedded component.
+            sig { returns(Scopes) }
+            def scopes; end
+            def self.inner_class_types
+              @inner_class_types = {scopes: Scopes}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class CapitalFinancing < ::Stripe::StripeObject
             class Scopes < ::Stripe::StripeObject
               def self.inner_class_types
@@ -1088,6 +1110,9 @@ module Stripe
           # Settings for the Bills embedded component.
           sig { returns(Bills) }
           def bills; end
+          # Settings for the Business Profile Management embedded component.
+          sig { returns(BusinessProfileManagement) }
+          def business_profile_management; end
           # Settings for the Capital Financing embedded component.
           sig { returns(CapitalFinancing) }
           def capital_financing; end
@@ -1191,6 +1216,7 @@ module Stripe
               balance_report: BalanceReport,
               balances: Balances,
               bills: Bills,
+              business_profile_management: BusinessProfileManagement,
               capital_financing: CapitalFinancing,
               capital_financing_application: CapitalFinancingApplication,
               capital_financing_promotion: CapitalFinancingPromotion,

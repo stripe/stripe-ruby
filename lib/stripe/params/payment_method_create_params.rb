@@ -18,6 +18,7 @@ module Stripe
       end
     end
 
+    class AeonPay < ::Stripe::RequestParams; end
     class Affirm < ::Stripe::RequestParams; end
     class AfterpayClearpay < ::Stripe::RequestParams; end
     class Alipay < ::Stripe::RequestParams; end
@@ -35,6 +36,8 @@ module Stripe
         @bsb_number = bsb_number
       end
     end
+
+    class AuPay < ::Stripe::RequestParams; end
 
     class BacsDebit < ::Stripe::RequestParams
       # Account number of the bank account that the funds will be debited from.
@@ -167,6 +170,7 @@ module Stripe
     end
 
     class CustomerBalance < ::Stripe::RequestParams; end
+    class Dbarai < ::Stripe::RequestParams; end
 
     class Eps < ::Stripe::RequestParams
       # The customer's bank.
@@ -252,6 +256,7 @@ module Stripe
     class KrCard < ::Stripe::RequestParams; end
     class Link < ::Stripe::RequestParams; end
     class MbWay < ::Stripe::RequestParams; end
+    class Merpay < ::Stripe::RequestParams; end
     class Mobilepay < ::Stripe::RequestParams; end
     class Multibanco < ::Stripe::RequestParams; end
 
@@ -480,6 +485,8 @@ module Stripe
     class Zip < ::Stripe::RequestParams; end
     # If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
     attr_accessor :acss_debit
+    # If this is a `aeon_pay` PaymentMethod, this hash contains details about the AEON Pay payment method.
+    attr_accessor :aeon_pay
     # If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
     attr_accessor :affirm
     # If this is an `AfterpayClearpay` PaymentMethod, this hash contains details about the AfterpayClearpay payment method.
@@ -494,6 +501,8 @@ module Stripe
     attr_accessor :amazon_pay
     # If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
     attr_accessor :au_becs_debit
+    # If this is a `au_pay` PaymentMethod, this hash contains details about the au PAY payment method.
+    attr_accessor :au_pay
     # If this is a `bacs_debit` PaymentMethod, this hash contains details about the Bacs Direct Debit bank account.
     attr_accessor :bacs_debit
     # If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
@@ -522,6 +531,8 @@ module Stripe
     attr_accessor :customer
     # If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
     attr_accessor :customer_balance
+    # If this is a `dbarai` PaymentMethod, this hash contains details about the d-Barai payment method.
+    attr_accessor :dbarai
     # If this is an `eps` PaymentMethod, this hash contains details about the EPS payment method.
     attr_accessor :eps
     # Specifies which fields in the response should be expanded.
@@ -556,6 +567,8 @@ module Stripe
     attr_accessor :link
     # If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
     attr_accessor :mb_way
+    # If this is a `merpay` PaymentMethod, this hash contains details about the Merpay payment method.
+    attr_accessor :merpay
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
@@ -641,6 +654,7 @@ module Stripe
 
     def initialize(
       acss_debit: nil,
+      aeon_pay: nil,
       affirm: nil,
       afterpay_clearpay: nil,
       alipay: nil,
@@ -648,6 +662,7 @@ module Stripe
       alma: nil,
       amazon_pay: nil,
       au_becs_debit: nil,
+      au_pay: nil,
       bacs_debit: nil,
       bancontact: nil,
       billie: nil,
@@ -662,6 +677,7 @@ module Stripe
       custom: nil,
       customer: nil,
       customer_balance: nil,
+      dbarai: nil,
       eps: nil,
       expand: nil,
       fpx: nil,
@@ -679,6 +695,7 @@ module Stripe
       kr_card: nil,
       link: nil,
       mb_way: nil,
+      merpay: nil,
       metadata: nil,
       mobilepay: nil,
       multibanco: nil,
@@ -722,6 +739,7 @@ module Stripe
       zip: nil
     )
       @acss_debit = acss_debit
+      @aeon_pay = aeon_pay
       @affirm = affirm
       @afterpay_clearpay = afterpay_clearpay
       @alipay = alipay
@@ -729,6 +747,7 @@ module Stripe
       @alma = alma
       @amazon_pay = amazon_pay
       @au_becs_debit = au_becs_debit
+      @au_pay = au_pay
       @bacs_debit = bacs_debit
       @bancontact = bancontact
       @billie = billie
@@ -743,6 +762,7 @@ module Stripe
       @custom = custom
       @customer = customer
       @customer_balance = customer_balance
+      @dbarai = dbarai
       @eps = eps
       @expand = expand
       @fpx = fpx
@@ -760,6 +780,7 @@ module Stripe
       @kr_card = kr_card
       @link = link
       @mb_way = mb_way
+      @merpay = merpay
       @metadata = metadata
       @mobilepay = mobilepay
       @multibanco = multibanco

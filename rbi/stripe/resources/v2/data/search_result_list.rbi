@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Data
       # A ranked set of public analytical resources matching a natural-language query.
-      class SearchResultList < APIResource
+      class SearchResultList < StripeObject
         class Context < ::Stripe::StripeObject
           class BusinessConcept < ::Stripe::StripeObject
             # What the term means in the context of this domain.

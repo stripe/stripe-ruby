@@ -30,10 +30,35 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class ReasonDetails < ::Stripe::StripeObject
+      class Other < ::Stripe::StripeObject
+        # A free-text description of the exemption reason.
+        sig { returns(T.nilable(String)) }
+        def reason_text; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field other
+      sig { returns(T.nilable(Other)) }
+      def other; end
+      def self.inner_class_types
+        @inner_class_types = {other: Other}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Us < ::Stripe::StripeObject
       # Two-letter US state code (ISO 3166-2).
       sig { returns(String) }
       def state; end
+      # The group of tax codes this exemption applies to. Exemptions created without one have `all`.
+      sig { returns(T.nilable(String)) }
+      def tax_code_group; end
       def self.inner_class_types
         @inner_class_types = {}
       end
@@ -74,6 +99,12 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
+    # The reason the customer is exempt.
+    sig { returns(T.nilable(String)) }
+    def reason; end
+    # Additional details about the exemption reason.
+    sig { returns(T.nilable(ReasonDetails)) }
+    def reason_details; end
     # Attribute for field us
     sig { returns(T.nilable(Us)) }
     def us; end

@@ -4,6 +4,17 @@
 module Stripe
   module Tax
     class FormService < StripeService
+      # Creates a correction for a filed tax form. Supply either payee details or numerical values for the tax form type. Created correction forms are not filed automatically.
+      def create(id, params = {}, opts = {})
+        request(
+          method: :post,
+          path: format("/v1/tax/forms/%<id>s/corrections", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts,
+          base_address: :api
+        )
+      end
+
       # Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
       def list(params = {}, opts = {})
         request(method: :get, path: "/v1/tax/forms", params: params, opts: opts, base_address: :api)

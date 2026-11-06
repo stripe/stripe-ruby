@@ -733,6 +733,11 @@ module Stripe
     autoload :CalculationLineItemListParams, "stripe/params/tax/calculation_line_item_list_params"
     autoload :CalculationListLineItemsParams, "stripe/params/tax/calculation_list_line_items_params"
     autoload :CalculationRetrieveParams, "stripe/params/tax/calculation_retrieve_params"
+    autoload :CertificateCreateParams, "stripe/params/tax/certificate_create_params"
+    autoload :CertificateDeleteParams, "stripe/params/tax/certificate_delete_params"
+    autoload :CertificateListParams, "stripe/params/tax/certificate_list_params"
+    autoload :CertificateRetrieveParams, "stripe/params/tax/certificate_retrieve_params"
+    autoload :FormCreateParams, "stripe/params/tax/form_create_params"
     autoload :FormListParams, "stripe/params/tax/form_list_params"
     autoload :FormPdfParams, "stripe/params/tax/form_pdf_params"
     autoload :FormRetrieveParams, "stripe/params/tax/form_retrieve_params"
@@ -1207,11 +1212,18 @@ module Stripe
     end
 
     module Extend
+      autoload :ObjectDefinitionListParams, "stripe/params/v2/extend/object_definition_list_params"
+      autoload :ObjectDefinitionRetrieveParams, "stripe/params/v2/extend/object_definition_retrieve_params"
       autoload :WorkflowInvokeParams, "stripe/params/v2/extend/workflow_invoke_params"
       autoload :WorkflowListParams, "stripe/params/v2/extend/workflow_list_params"
       autoload :WorkflowRetrieveParams, "stripe/params/v2/extend/workflow_retrieve_params"
       autoload :WorkflowRunListParams, "stripe/params/v2/extend/workflow_run_list_params"
       autoload :WorkflowRunRetrieveParams, "stripe/params/v2/extend/workflow_run_retrieve_params"
+
+      module ObjectDefinitions
+        autoload :VersionListParams, "stripe/params/v2/extend/object_definitions/version_list_params"
+        autoload :VersionRetrieveParams, "stripe/params/v2/extend/object_definitions/version_retrieve_params"
+      end
     end
 
     module Iam
@@ -2098,6 +2110,11 @@ module Stripe
     stripe/params/tax/calculation_line_item_list_params
     stripe/params/tax/calculation_list_line_items_params
     stripe/params/tax/calculation_retrieve_params
+    stripe/params/tax/certificate_create_params
+    stripe/params/tax/certificate_delete_params
+    stripe/params/tax/certificate_list_params
+    stripe/params/tax/certificate_retrieve_params
+    stripe/params/tax/form_create_params
     stripe/params/tax/form_list_params
     stripe/params/tax/form_pdf_params
     stripe/params/tax/form_retrieve_params
@@ -2467,6 +2484,10 @@ module Stripe
     stripe/params/v2/data/reporting/query_run_retrieve_params
     stripe/params/v2/data/schema_list_params
     stripe/params/v2/data/schema_retrieve_params
+    stripe/params/v2/extend/object_definition_list_params
+    stripe/params/v2/extend/object_definition_retrieve_params
+    stripe/params/v2/extend/object_definitions/version_list_params
+    stripe/params/v2/extend/object_definitions/version_retrieve_params
     stripe/params/v2/extend/workflow_invoke_params
     stripe/params/v2/extend/workflow_list_params
     stripe/params/v2/extend/workflow_retrieve_params

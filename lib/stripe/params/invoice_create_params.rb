@@ -355,7 +355,14 @@ module Stripe
           end
         end
 
-        class SepaDebit < ::Stripe::RequestParams; end
+        class SepaDebit < ::Stripe::RequestParams
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
+
+          def initialize(target_date: nil)
+            @target_date = target_date
+          end
+        end
 
         class Upi < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams

@@ -260,7 +260,7 @@ module Stripe
         end
       end
       class VerifyWithMicrodeposits < ::Stripe::StripeObject
-        # The timestamp when the microdeposits are expected to land.
+        # The timestamp when the microdeposits are expected to land. Null for instant microdeposits.
         sig { returns(Integer) }
         def arrival_date; end
         # The URL for the hosted verification page, which allows customers to verify their bank account.
@@ -867,6 +867,20 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class RadarOptions < ::Stripe::StripeObject
+      # The value you provided for whether this transaction starts a free trial. This is null if you haven't explicitly set it.
+      sig { returns(T.nilable(T::Boolean)) }
+      def is_free_trial_transaction; end
+      # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+      sig { returns(T.nilable(String)) }
+      def session; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Redaction < ::Stripe::StripeObject
       # Indicates whether this object and its related objects have been redacted or not.
       sig { returns(String) }
@@ -1005,6 +1019,9 @@ module Stripe
     # The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     sig { returns(T::Array[String]) }
     def payment_method_types; end
+    # Options to configure Radar.
+    sig { returns(T.nilable(RadarOptions)) }
+    def radar_options; end
     # Redaction status of this SetupIntent. If the SetupIntent isn't redacted, this field is null.
     sig { returns(T.nilable(Redaction)) }
     def redaction; end

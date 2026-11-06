@@ -279,6 +279,7 @@ module Stripe
     autoload :AssociationService, "stripe/services/tax/association_service"
     autoload :CalculationLineItemService, "stripe/services/tax/calculation_line_item_service"
     autoload :CalculationService, "stripe/services/tax/calculation_service"
+    autoload :CertificateService, "stripe/services/tax/certificate_service"
     autoload :FormService, "stripe/services/tax/form_service"
     autoload :LocationService, "stripe/services/tax/location_service"
     autoload :RegistrationService, "stripe/services/tax/registration_service"
@@ -505,8 +506,13 @@ module Stripe
     end
 
     module Extend
+      autoload :ObjectDefinitionService, "stripe/services/v2/extend/object_definition_service"
       autoload :WorkflowRunService, "stripe/services/v2/extend/workflow_run_service"
       autoload :WorkflowService, "stripe/services/v2/extend/workflow_service"
+
+      module ObjectDefinitions
+        autoload :VersionService, "stripe/services/v2/extend/object_definitions/version_service"
+      end
     end
 
     module Iam
@@ -813,6 +819,7 @@ module Stripe
     stripe/services/tax/association_service
     stripe/services/tax/calculation_line_item_service
     stripe/services/tax/calculation_service
+    stripe/services/tax/certificate_service
     stripe/services/tax/form_service
     stripe/services/tax/location_service
     stripe/services/tax/registration_service
@@ -945,6 +952,8 @@ module Stripe
     stripe/services/v2/data/reporting_service
     stripe/services/v2/data/schema_service
     stripe/services/v2/data_service
+    stripe/services/v2/extend/object_definition_service
+    stripe/services/v2/extend/object_definitions/version_service
     stripe/services/v2/extend/workflow_run_service
     stripe/services/v2/extend/workflow_service
     stripe/services/v2/extend_service

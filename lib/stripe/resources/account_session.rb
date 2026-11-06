@@ -393,6 +393,30 @@ module Stripe
         end
       end
 
+      class ExportTaxTransactions < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class FinancialAccount < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -938,6 +962,30 @@ module Stripe
         end
       end
 
+      class ProductTaxCodeSelector < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class RecipientsList < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
@@ -1039,6 +1087,30 @@ module Stripe
         end
       end
 
+      class TaxThresholdMonitoring < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class TerminalHardwareOrders < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -1114,6 +1186,8 @@ module Stripe
       attr_reader :disputes_list
       # Attribute for field documents
       attr_reader :documents
+      # Attribute for field export_tax_transactions
+      attr_reader :export_tax_transactions
       # Attribute for field financial_account
       attr_reader :financial_account
       # Configuration for the [financial account rewards](/connect/supported-embedded-components/financial-account-rewards/) embedded component.
@@ -1150,6 +1224,8 @@ module Stripe
       attr_reader :payouts
       # Attribute for field payouts_list
       attr_reader :payouts_list
+      # Attribute for field product_tax_code_selector
+      attr_reader :product_tax_code_selector
       # Configuration for the [recipients list](/connect/supported-embedded-components/recipients-list/) embedded component.
       attr_reader :recipients_list
       # Attribute for field reporting_chart
@@ -1158,6 +1234,8 @@ module Stripe
       attr_reader :tax_registrations
       # Attribute for field tax_settings
       attr_reader :tax_settings
+      # Attribute for field tax_threshold_monitoring
+      attr_reader :tax_threshold_monitoring
       # Attribute for field terminal_hardware_orders
       attr_reader :terminal_hardware_orders
       # Attribute for field terminal_hardware_shop
@@ -1179,6 +1257,7 @@ module Stripe
           check_scanning: CheckScanning,
           disputes_list: DisputesList,
           documents: Documents,
+          export_tax_transactions: ExportTaxTransactions,
           financial_account: FinancialAccount,
           financial_account_rewards: FinancialAccountRewards,
           financial_account_transactions: FinancialAccountTransactions,
@@ -1197,10 +1276,12 @@ module Stripe
           payout_reconciliation_report: PayoutReconciliationReport,
           payouts: Payouts,
           payouts_list: PayoutsList,
+          product_tax_code_selector: ProductTaxCodeSelector,
           recipients_list: RecipientsList,
           reporting_chart: ReportingChart,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
+          tax_threshold_monitoring: TaxThresholdMonitoring,
           terminal_hardware_orders: TerminalHardwareOrders,
           terminal_hardware_shop: TerminalHardwareShop,
         }

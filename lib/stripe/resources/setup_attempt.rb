@@ -385,6 +385,9 @@ module Stripe
       end
 
       class Paypay < ::Stripe::StripeObject
+        # Uniquely identifies this particular PayPay account. You can use this attribute to check whether two PayPay accounts are the same.
+        attr_reader :fingerprint
+
         def self.inner_class_types
           @inner_class_types = {}
         end

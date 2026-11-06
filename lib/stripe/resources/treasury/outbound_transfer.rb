@@ -150,13 +150,41 @@ module Stripe
       end
 
       class ReturnedDetails < ::Stripe::StripeObject
+        class NetworkDetails < ::Stripe::StripeObject
+          class Ach < ::Stripe::StripeObject
+            # NACHA ACH return code.
+            attr_reader :return_code
+            # NACHA ACH return reason.
+            attr_reader :return_reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # ACH return details.
+          attr_reader :ach
+
+          def self.inner_class_types
+            @inner_class_types = { ach: Ach }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Reason for the return.
         attr_reader :code
+        # Money movement network-specific details regarding the failure.
+        attr_reader :network_details
         # The Transaction associated with this object.
         attr_reader :transaction
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { network_details: NetworkDetails }
         end
 
         def self.field_remappings

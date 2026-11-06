@@ -1,0 +1,17 @@
+name: Build
+description: Lint and build the gem. Shared by CI and Canary CI; expects the repository to be checked out.
+
+runs:
+  using: composite
+  steps:
+  - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4.0.0
+  - name: Set up Ruby
+    uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+    with:
+      ruby-version:  3.1
+  - name: Lint
+    shell: bash
+    run: just lint-check
+  - name: Build
+    shell: bash
+    run: gem build stripe.gemspec

@@ -1521,7 +1521,7 @@ module Stripe
       end
 
       class VerifyWithMicrodeposits < ::Stripe::StripeObject
-        # The timestamp when the microdeposits are expected to land.
+        # The timestamp when the microdeposits are expected to land. Null for instant microdeposits.
         attr_reader :arrival_date
         # The URL for the hosted verification page, which allows customers to verify their bank account.
         attr_reader :hosted_verification_url
@@ -3337,6 +3337,19 @@ module Stripe
       end
 
       class BacsDebit < ::Stripe::StripeObject
+        class FinancialConnections < ::Stripe::StripeObject
+          # Attribute for field return_url
+          attr_reader :return_url
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class MandateOptions < ::Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
           attr_reader :reference_prefix
@@ -3349,6 +3362,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field financial_connections
+        attr_reader :financial_connections
         # Attribute for field mandate_options
         attr_reader :mandate_options
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3365,7 +3380,10 @@ module Stripe
         attr_reader :verification_method
 
         def self.inner_class_types
-          @inner_class_types = { mandate_options: MandateOptions }
+          @inner_class_types = {
+            financial_connections: FinancialConnections,
+            mandate_options: MandateOptions,
+          }
         end
 
         def self.field_remappings
@@ -3620,6 +3638,43 @@ module Stripe
           end
         end
 
+        class PaymentDetails < ::Stripe::StripeObject
+          class MoneyServices < ::Stripe::StripeObject
+            class AccountFunding < ::Stripe::StripeObject
+              # The category of digital asset being acquired through this account funding transaction.
+              attr_reader :digital_asset_category
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field account_funding
+            attr_reader :account_funding
+
+            def self.inner_class_types
+              @inner_class_types = { account_funding: AccountFunding }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field money_services
+          attr_reader :money_services
+
+          def self.inner_class_types
+            @inner_class_types = { money_services: MoneyServices }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class StatementDetails < ::Stripe::StripeObject
           class Address < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
@@ -3672,6 +3727,8 @@ module Stripe
         attr_reader :mandate_options
         # Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
         attr_reader :network
+        # Attribute for field payment_details
+        attr_reader :payment_details
         # Indicates whether Stripe may synchronously request a real-time card account update for this confirmation. `if_available` allows the update; `never` opts out. Defaults to `if_available` and is omitted from the response unless explicitly set on this confirmation. This does not affect batch Card Account Updater.
         attr_reader :request_card_account_update
         # Request ability to [decrement the authorization](https://docs.stripe.com/payments/decremental-authorization) for this PaymentIntent.
@@ -3716,6 +3773,7 @@ module Stripe
             capture_delay: CaptureDelay,
             installments: Installments,
             mandate_options: MandateOptions,
+            payment_details: PaymentDetails,
             statement_details: StatementDetails,
           }
         end
@@ -3795,6 +3853,43 @@ module Stripe
           end
         end
 
+        class PaymentDetails < ::Stripe::StripeObject
+          class MoneyServices < ::Stripe::StripeObject
+            class AccountFunding < ::Stripe::StripeObject
+              # The category of digital asset being acquired through this account funding transaction.
+              attr_reader :digital_asset_category
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field account_funding
+            attr_reader :account_funding
+
+            def self.inner_class_types
+              @inner_class_types = { account_funding: AccountFunding }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field money_services
+          attr_reader :money_services
+
+          def self.inner_class_types
+            @inner_class_types = { money_services: MoneyServices }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Routing < ::Stripe::StripeObject
           # Requested routing priority
           attr_reader :requested_priority
@@ -3819,6 +3914,8 @@ module Stripe
         attr_reader :capture_method
         # Fleet prompting data for this payment.
         attr_reader :fleet
+        # Attribute for field payment_details
+        attr_reader :payment_details
         # Request ability to capture this payment beyond the standard [authorization validity window](https://docs.stripe.com/terminal/features/extended-authorizations#authorization-validity)
         attr_reader :request_extended_authorization
         # Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
@@ -3835,6 +3932,7 @@ module Stripe
             aade_data: AadeData,
             capture_delay: CaptureDelay,
             fleet: Fleet,
+            payment_details: PaymentDetails,
             routing: Routing,
           }
         end

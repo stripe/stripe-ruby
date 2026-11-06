@@ -2500,6 +2500,18 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2ExtendObjectDefinitionCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_extend_object_definition_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2ExtendObjectDefinitionVersionCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_extend_object_definition_version_created(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2ExtendWorkflowRunFailedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_extend_workflow_run_failed(&blk);

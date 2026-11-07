@@ -32,10 +32,8 @@ module Stripe
         end
 
         # `requestor` is only ever passed by the instance-level `execute_resource_request`
-        # methods below, which prefer a retained `@requestor` over the global active one.
-        # Class-level callers (e.g. a generated `Resource.list` static method) have no bound
-        # instance to retain a requestor from, so they correctly leave it nil and fall back to
-        # the global here, same as before this parameter existed.
+        # methods below; these calls use a retained `@requestor`, whereas class-level callers
+        # pass nil to use the global requestor.
         private def execute_resource_request_internal(client_request_method_sym,
                                                       method, url, base_address,
                                                       params, opts, usage, requestor = nil,

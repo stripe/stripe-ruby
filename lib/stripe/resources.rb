@@ -1109,6 +1109,7 @@ module Stripe
       autoload :AccountPersonToken, "stripe/resources/v2/core/account_person_token"
       autoload :AccountToken, "stripe/resources/v2/core/account_token"
       autoload :Event, "stripe/resources/v2/core/event"
+      autoload :EventBase, "stripe/resources/v2/core/event_base"
       autoload :EventDestination, "stripe/resources/v2/core/event_destination"
       autoload :EventNotification, "stripe/resources/v2/core/event_notification"
       autoload :EventReason, "stripe/resources/v2/core/event_notification"
@@ -1145,6 +1146,7 @@ end
 module Stripe
   # rubocop:disable Metrics/CollectionLiteralLength
   RESOURCE_FILES = %w[
+    stripe/resources/v2/core/event_base
     stripe/resources/v2/core/event_notification
     stripe/resources/account
     stripe/resources/account_link

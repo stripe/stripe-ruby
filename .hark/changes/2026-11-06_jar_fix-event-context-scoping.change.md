@@ -6,4 +6,4 @@ jira_tickets_closed:
 - RUN_DEVSDK-3694
 ---
 
-When fetching a related object, directly-retrieved `Event` objects used the retaining client's own `stripe_account` rather than the event's `stripe_context`. `fetch_related_object` now routes through a requestor scoped to the event's context.  This mirrors how `EventNotification` scopes its client.
+When fetching a related object, directly-retrieved `Event` objects used the retaining client's own `stripe_context` rather than the event's `stripe_context`. `fetch_related_object` now routes through a requestor scoped to the event's context.  This mirrors how `EventNotification` scopes its client.

@@ -222,6 +222,26 @@ module Stripe
       assert_equal Stripe::ListObject.empty_list, next_list
     end
 
+    should "use the retained requestor, not the global one, for #next_page" do
+      bound_requestor = Stripe::APIRequestor.new(
+        api_key: "sk_test_bound_requestor", api_base: Stripe.api_base
+      )
+      list = TestListObject.construct_from({
+        data: [{ id: 1 }],
+        has_more: true,
+        url: "/things",
+        object: "list",
+      }, {}, nil, :v1, bound_requestor)
+
+      stub_request(:get, "#{Stripe.api_base}/things")
+        .with(headers: { "Authorization" => "Bearer sk_test_bound_requestor" },
+              query: { starting_after: "1" })
+        .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false, object: "list"))
+
+      next_list = list.next_page
+      refute next_list.empty?
+    end
+
     #
     # previous_page
     #

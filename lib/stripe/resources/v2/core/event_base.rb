@@ -19,11 +19,15 @@ module Stripe
         end
 
         # Overridden so that every generated `fetch_related_object` (which calls
-        # this method) routes through #scoped_requestor instead of combining
-        # this event's retained @opts, which may carry a stale Stripe-Account
-        # left over from how this Event itself was retrieved.
+        # this method) routes through #scoped_requestor. Still combines with this
+        # event's retained @opts so a retained api_key/stripe_version override
+        # survives, but with @opts's own stripe_account/stripe_context forced to
+        # the safe values first, since those are exactly what may be stale left
+        # over from how this Event itself was retrieved.
         protected def _request(method:, path:, base_address:, params: {}, opts: {})
           req_opts = RequestOptions.extract_opts_from_hash(opts)
+          safe_opts = @opts.merge(stripe_account: nil, stripe_context: context)
+          req_opts = RequestOptions.combine_opts(safe_opts, req_opts)
           scoped_requestor.execute_request(method, path, base_address, params: params, opts: req_opts)
         end
       end

@@ -292,6 +292,38 @@ module Stripe
           )
         end
 
+        should "retain a retained api_key override on a directly-retrieved event's related objects" do
+          client = StripeClient.new("test_123")
+          stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_123")
+            .to_return(body: {
+              "id" => "evt_123",
+              "object" => "v2.core.event",
+              "type" => "v1.product.updated",
+              "created" => "2022-02-15T00:27:45.330Z",
+              "related_object" => {
+                "id" => "prod_shared",
+                "type" => "product",
+                "url" => "/v1/products/prod_shared",
+              },
+            }.to_json)
+          stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared")
+            .to_return(body: JSON.generate({ "id" => "prod_shared", "object" => "product" }))
+
+          event = client.v2.core.events.retrieve("evt_123", {}, { api_key: "rk_restricted" })
+          event.fetch_related_object
+
+          assert_requested(
+            :get,
+            "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared",
+            headers: { "Authorization" => "Bearer rk_restricted" }
+          )
+          assert_not_requested(
+            :get,
+            "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared",
+            headers: { "Authorization" => "Bearer test_123" }
+          )
+        end
+
         should "correctly retrieve events" do
           event_notif = parse_signed_event(@v2_push_payload)
           stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_234")

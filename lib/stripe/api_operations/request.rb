@@ -93,10 +93,8 @@ module Stripe
         )
       end
 
-      # Prefers the requestor this instance was deserialized with over the global active one,
-      # the same way ApiResource#request_stripe_object already does. Without this, e.g. a
-      # ListObject's #next_page would always use the global requestor instead of the client
-      # that retrieved it, even if that client was explicitly scoped to a different account.
+      # Prefers the requestor this instance was deserialized with so eg. ListObject's #next_page
+      # uses the correct requestor.
       private def retained_requestor
         instance_variable_defined?(:@requestor) && @requestor ? @requestor : nil
       end

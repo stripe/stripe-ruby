@@ -869,6 +869,8 @@ module Stripe
         attr_accessor :network
         # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         attr_accessor :request_three_d_secure
+        # Set to indicate the future transaction type usage for the card being set up.
+        attr_accessor :setup_credential_usage
         # If 3D Secure authentication was performed with a third-party provider,
         # the authentication details to use for this setup.
         attr_accessor :three_d_secure
@@ -878,12 +880,14 @@ module Stripe
           moto: nil,
           network: nil,
           request_three_d_secure: nil,
+          setup_credential_usage: nil,
           three_d_secure: nil
         )
           @mandate_options = mandate_options
           @moto = moto
           @network = network
           @request_three_d_secure = request_three_d_secure
+          @setup_credential_usage = setup_credential_usage
           @three_d_secure = three_d_secure
         end
       end
@@ -1306,7 +1310,7 @@ module Stripe
     attr_accessor :metadata
     # The Stripe account ID created for this SetupIntent.
     attr_accessor :on_behalf_of
-    # ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+    # The ID of a PaymentMethod to attach to this SetupIntent.
     attr_accessor :payment_method
     # The ID of the [payment method configuration](https://docs.stripe.com/api/payment_method_configurations) to use with this SetupIntent.
     attr_accessor :payment_method_configuration

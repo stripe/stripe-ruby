@@ -1,0 +1,153 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+# typed: true
+module Stripe
+  module V2
+    module MoneyManagement
+      # A FinancialAddress contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
+      class FinancialAddress < APIResource
+        class BankAccount < ::Stripe::StripeObject
+          class Aba < ::Stripe::StripeObject
+            class Address < ::Stripe::StripeObject
+              # City.
+              sig { returns(String) }
+              def city; end
+              # Country.
+              sig { returns(String) }
+              def country; end
+              # Address line 1.
+              sig { returns(String) }
+              def line1; end
+              # Address line 2.
+              sig { returns(String) }
+              def line2; end
+              # Postal code.
+              sig { returns(String) }
+              def postal_code; end
+              # State or province.
+              sig { returns(String) }
+              def state; end
+              # Town or suburb.
+              sig { returns(String) }
+              def town; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The name of the account holder.
+            sig { returns(T.nilable(String)) }
+            def account_holder_name; end
+            # The full account number. Empty while the bank account is pending allocation.
+            sig { returns(String) }
+            def account_number; end
+            # The address of the account holder.
+            sig { returns(T.nilable(Address)) }
+            def address; end
+            # The name of the bank.
+            sig { returns(T.nilable(String)) }
+            def bank_name; end
+            # The ABA routing number.
+            sig { returns(String) }
+            def routing_number; end
+            def self.inner_class_types
+              @inner_class_types = {address: Address}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Iban < ::Stripe::StripeObject
+            # The name of the account holder.
+            sig { returns(String) }
+            def account_holder_name; end
+            # The name of the bank.
+            sig { returns(String) }
+            def bank_name; end
+            # The full IBAN. Empty while the bank account is pending allocation.
+            sig { returns(String) }
+            def iban; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class SortCode < ::Stripe::StripeObject
+            # The name of the account holder.
+            sig { returns(String) }
+            def account_holder_name; end
+            # The full account number. Empty while the bank account is pending allocation.
+            sig { returns(String) }
+            def account_number; end
+            # The sort code.
+            sig { returns(String) }
+            def sort_code; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # ABA bank account details (US).
+          sig { returns(T.nilable(Aba)) }
+          def aba; end
+          # The country of the bank account. Always included in the response, but null while the bank
+          # account is pending and its country is not yet known.
+          sig { returns(T.nilable(String)) }
+          def country; end
+          # Open Enum. The currency of the bank account.
+          sig { returns(String) }
+          def currency; end
+          # IBAN bank account details.
+          sig { returns(T.nilable(Iban)) }
+          def iban; end
+          # Sort code bank account details (UK).
+          sig { returns(T.nilable(SortCode)) }
+          def sort_code; end
+          # Open Enum. The type of bank account details.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {aba: Aba, iban: Iban, sort_code: SortCode}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Bank account details for this FinancialAddress.
+        sig { returns(T.nilable(BankAccount)) }
+        def bank_account; end
+        # The creation timestamp of the FinancialAddress.
+        sig { returns(String) }
+        def created; end
+        # The ID of the FinancialAccount this FinancialAddress corresponds to.
+        sig { returns(String) }
+        def financial_account; end
+        # The ID of the FinancialAddress.
+        sig { returns(String) }
+        def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        sig { returns(String) }
+        def object; end
+        # Attribute for field settlement_currency
+        sig { returns(String) }
+        def settlement_currency; end
+        # Closed Enum. The status of the FinancialAddress.
+        sig { returns(String) }
+        def status; end
+        # Open Enum. The type of FinancialAddress.
+        sig { returns(String) }
+        def type; end
+      end
+    end
+  end
+end

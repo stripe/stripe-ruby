@@ -5,6 +5,35 @@
 module Stripe
   module BillingPortal
     class SessionCreateParams < ::Stripe::RequestParams
+      class AfterExpiration < ::Stripe::RequestParams
+        class CustomerLogin < ::Stripe::RequestParams
+          # The Unix timestamp after which the customer can no longer recover this session. Leave unset to allow recovery without a deadline.
+          sig { returns(T.nilable(Integer)) }
+          def expires_at; end
+          sig { params(_expires_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def expires_at=(_expires_at); end
+          sig { params(expires_at: T.nilable(Integer)).void }
+          def initialize(expires_at: nil); end
+        end
+        # Configuration for authenticating the customer after the session expires.
+        sig {
+          returns(T.nilable(::Stripe::BillingPortal::SessionCreateParams::AfterExpiration::CustomerLogin))
+         }
+        def customer_login; end
+        sig {
+          params(_customer_login: T.nilable(::Stripe::BillingPortal::SessionCreateParams::AfterExpiration::CustomerLogin)).returns(T.nilable(::Stripe::BillingPortal::SessionCreateParams::AfterExpiration::CustomerLogin))
+         }
+        def customer_login=(_customer_login); end
+        # The behavior to apply when the session expires.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig {
+          params(customer_login: T.nilable(::Stripe::BillingPortal::SessionCreateParams::AfterExpiration::CustomerLogin), type: String).void
+         }
+        def initialize(customer_login: nil, type: nil); end
+      end
       class FlowData < ::Stripe::RequestParams
         class AfterCompletion < ::Stripe::RequestParams
           class HostedConfirmation < ::Stripe::RequestParams
@@ -102,6 +131,15 @@ module Stripe
            }
           def initialize(retention: nil, subscription: nil); end
         end
+        class SubscriptionPause < ::Stripe::RequestParams
+          # The ID of the subscription to be paused.
+          sig { returns(String) }
+          def subscription; end
+          sig { params(_subscription: String).returns(String) }
+          def subscription=(_subscription); end
+          sig { params(subscription: String).void }
+          def initialize(subscription: nil); end
+        end
         class SubscriptionUpdate < ::Stripe::RequestParams
           # The ID of the subscription to be updated.
           sig { returns(String) }
@@ -191,6 +229,15 @@ module Stripe
           params(_subscription_cancel: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionCancel)).returns(T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionCancel))
          }
         def subscription_cancel=(_subscription_cancel); end
+        # Configuration when `flow_data.type=subscription_pause`.
+        sig {
+          returns(T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionPause))
+         }
+        def subscription_pause; end
+        sig {
+          params(_subscription_pause: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionPause)).returns(T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionPause))
+         }
+        def subscription_pause=(_subscription_pause); end
         # Configuration when `flow_data.type=subscription_update`.
         sig {
           returns(T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionUpdate))
@@ -215,16 +262,24 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(after_completion: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::AfterCompletion), subscription_cancel: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionCancel), subscription_update: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionUpdate), subscription_update_confirm: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionUpdateConfirm), type: String).void
+          params(after_completion: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::AfterCompletion), subscription_cancel: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionCancel), subscription_pause: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionPause), subscription_update: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionUpdate), subscription_update_confirm: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionUpdateConfirm), type: String).void
          }
         def initialize(
           after_completion: nil,
           subscription_cancel: nil,
+          subscription_pause: nil,
           subscription_update: nil,
           subscription_update_confirm: nil,
           type: nil
         ); end
       end
+      # Behavior after the portal session expires.
+      sig { returns(T.nilable(::Stripe::BillingPortal::SessionCreateParams::AfterExpiration)) }
+      def after_expiration; end
+      sig {
+        params(_after_expiration: T.nilable(::Stripe::BillingPortal::SessionCreateParams::AfterExpiration)).returns(T.nilable(::Stripe::BillingPortal::SessionCreateParams::AfterExpiration))
+       }
+      def after_expiration=(_after_expiration); end
       # The ID of an existing [configuration](https://docs.stripe.com/api/customer_portal/configurations) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.
       sig { returns(T.nilable(String)) }
       def configuration; end
@@ -268,9 +323,10 @@ module Stripe
       sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
       def return_url=(_return_url); end
       sig {
-        params(configuration: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), expand: T.nilable(T::Array[String]), flow_data: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData), locale: T.nilable(String), on_behalf_of: T.nilable(String), return_url: T.nilable(String)).void
+        params(after_expiration: T.nilable(::Stripe::BillingPortal::SessionCreateParams::AfterExpiration), configuration: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), expand: T.nilable(T::Array[String]), flow_data: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData), locale: T.nilable(String), on_behalf_of: T.nilable(String), return_url: T.nilable(String)).void
        }
       def initialize(
+        after_expiration: nil,
         configuration: nil,
         customer: nil,
         customer_account: nil,

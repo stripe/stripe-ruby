@@ -85,6 +85,40 @@ module Stripe
           end
         end
 
+        class SubscriptionPause < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            class IntervalOption < ::Stripe::RequestParams
+              # Specifies the pause duration unit. Either `day`, `week`, `month`, or `year`.
+              attr_accessor :interval
+              # The number of intervals in the pause duration. Defaults to 1. The maximum duration is three years.
+              attr_accessor :interval_count
+
+              def initialize(interval: nil, interval_count: nil)
+                @interval = interval
+                @interval_count = interval_count
+              end
+            end
+            # The preset pause durations customers can choose from. Required when `type` is `interval_options`.
+            attr_accessor :interval_options
+            # Whether subscriptions can be paused indefinitely or for a preset duration.
+            attr_accessor :type
+
+            def initialize(interval_options: nil, type: nil)
+              @interval_options = interval_options
+              @type = type
+            end
+          end
+          # Controls how long a subscription can be paused. Defaults to `interval_options` with a single one-month option.
+          attr_accessor :duration
+          # Whether the feature is enabled. Customers can only pause subscriptions in the [redesigned customer portal](/customer-management).
+          attr_accessor :enabled
+
+          def initialize(duration: nil, enabled: nil)
+            @duration = duration
+            @enabled = enabled
+          end
+        end
+
         class SubscriptionUpdate < ::Stripe::RequestParams
           class Product < ::Stripe::RequestParams
             class AdjustableQuantity < ::Stripe::RequestParams
@@ -172,6 +206,8 @@ module Stripe
         attr_accessor :payment_method_update
         # Information about canceling subscriptions in the portal.
         attr_accessor :subscription_cancel
+        # Information about pausing subscriptions in the portal.
+        attr_accessor :subscription_pause
         # Information about updating subscriptions in the portal.
         attr_accessor :subscription_update
 
@@ -180,12 +216,14 @@ module Stripe
           invoice_history: nil,
           payment_method_update: nil,
           subscription_cancel: nil,
+          subscription_pause: nil,
           subscription_update: nil
         )
           @customer_update = customer_update
           @invoice_history = invoice_history
           @payment_method_update = payment_method_update
           @subscription_cancel = subscription_cancel
+          @subscription_pause = subscription_pause
           @subscription_update = subscription_update
         end
       end

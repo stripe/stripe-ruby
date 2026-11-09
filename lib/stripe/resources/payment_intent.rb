@@ -1768,6 +1768,8 @@ module Stripe
         attr_reader :request_three_d_secure
         # When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
         attr_reader :require_cvc_recollection
+        # Set to indicate the future transaction type usage for the card being set up.
+        attr_reader :setup_credential_usage
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1780,6 +1782,8 @@ module Stripe
         attr_reader :statement_descriptor_suffix_kana
         # Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
         attr_reader :statement_descriptor_suffix_kanji
+        # Selected usage to indicate the transaction type of the off-session payment.
+        attr_reader :stored_credential_usage
 
         def self.inner_class_types
           @inner_class_types = { installments: Installments, mandate_options: MandateOptions }
@@ -2432,9 +2436,9 @@ module Stripe
         end
         # Determines if the amount includes the IOF tax.
         attr_reader :amount_includes_iof
-        # The number of seconds (between 10 and 1209600) after which Pix payment will expire.
+        # The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If neither expiration option is supplied, defaults to 14400 seconds (4 hours). Mutually exclusive with `expires_at`.
         attr_reader :expires_after_seconds
-        # The timestamp at which the Pix expires.
+        # The absolute Unix timestamp at which the Pix expires. When supplied as an input, it must be between 60 and 1209600 seconds from the current time at validation, inclusive. If neither expiration option is supplied, the Pix expires 14400 seconds (4 hours) after PaymentIntent confirmation. Mutually exclusive with `expires_after_seconds`.
         attr_reader :expires_at
         # Attribute for field mandate_options
         attr_reader :mandate_options

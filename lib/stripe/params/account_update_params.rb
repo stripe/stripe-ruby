@@ -767,6 +767,15 @@ module Stripe
         end
       end
 
+      class WeroPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
       class ZipPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
@@ -911,6 +920,8 @@ module Stripe
       attr_accessor :us_bank_account_ach_payments
       # The us_bank_transfer_payments capability.
       attr_accessor :us_bank_transfer_payments
+      # The wero_payments capability.
+      attr_accessor :wero_payments
       # The zip_payments capability.
       attr_accessor :zip_payments
 
@@ -983,6 +994,7 @@ module Stripe
         upi_payments: nil,
         us_bank_account_ach_payments: nil,
         us_bank_transfer_payments: nil,
+        wero_payments: nil,
         zip_payments: nil
       )
         @acss_debit_payments = acss_debit_payments
@@ -1053,6 +1065,7 @@ module Stripe
         @upi_payments = upi_payments
         @us_bank_account_ach_payments = us_bank_account_ach_payments
         @us_bank_transfer_payments = us_bank_transfer_payments
+        @wero_payments = wero_payments
         @zip_payments = zip_payments
       end
     end
@@ -1302,6 +1315,37 @@ module Stripe
         end
       end
 
+      class PhysicalAddress < ::Stripe::RequestParams
+        # City, district, suburb, town, or village.
+        attr_accessor :city
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        attr_accessor :country
+        # Address line 1, such as the street, PO Box, or company name.
+        attr_accessor :line1
+        # Address line 2, such as the apartment, suite, unit, or building.
+        attr_accessor :line2
+        # ZIP or postal code.
+        attr_accessor :postal_code
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        attr_accessor :state
+
+        def initialize(
+          city: nil,
+          country: nil,
+          line1: nil,
+          line2: nil,
+          postal_code: nil,
+          state: nil
+        )
+          @city = city
+          @country = country
+          @line1 = line1
+          @line2 = line2
+          @postal_code = postal_code
+          @state = state
+        end
+      end
+
       class PrincipalPlaceOfBusiness < ::Stripe::RequestParams
         # City, district, suburb, town, or village.
         attr_accessor :city
@@ -1414,6 +1458,8 @@ module Stripe
       attr_accessor :ownership_exemption_reason
       # The company's phone number (used for verification).
       attr_accessor :phone
+      # A location where the business has a meaningful physical operating presence.
+      attr_accessor :physical_address
       # The primary location where the business conducts operations.
       attr_accessor :principal_place_of_business
       # Attribute for param field registration_date
@@ -1452,6 +1498,7 @@ module Stripe
         ownership_declaration: nil,
         ownership_exemption_reason: nil,
         phone: nil,
+        physical_address: nil,
         principal_place_of_business: nil,
         registration_date: nil,
         registration_number: nil,
@@ -1478,6 +1525,7 @@ module Stripe
         @ownership_declaration = ownership_declaration
         @ownership_exemption_reason = ownership_exemption_reason
         @phone = phone
+        @physical_address = physical_address
         @principal_place_of_business = principal_place_of_business
         @registration_date = registration_date
         @registration_number = registration_number
@@ -1554,6 +1602,15 @@ module Stripe
         end
       end
 
+      class ProofOfBusinessPresence < ::Stripe::RequestParams
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
+        attr_accessor :files
+
+        def initialize(files: nil)
+          @files = files
+        end
+      end
+
       class ProofOfRegistration < ::Stripe::RequestParams
         class Signer < ::Stripe::RequestParams
           # The token of the person signing the document, if applicable.
@@ -1607,6 +1664,8 @@ module Stripe
       attr_accessor :company_tax_id_verification
       # One or more documents that demonstrate proof of address.
       attr_accessor :proof_of_address
+      # One or more documents that demonstrate proof of business presence.
+      attr_accessor :proof_of_business_presence
       # One or more documents showing the company’s proof of registration with the national business registry.
       attr_accessor :proof_of_registration
       # One or more documents that demonstrate proof of ultimate beneficial ownership.
@@ -1620,6 +1679,7 @@ module Stripe
         company_registration_verification: nil,
         company_tax_id_verification: nil,
         proof_of_address: nil,
+        proof_of_business_presence: nil,
         proof_of_registration: nil,
         proof_of_ultimate_beneficial_ownership: nil
       )
@@ -1630,6 +1690,7 @@ module Stripe
         @company_registration_verification = company_registration_verification
         @company_tax_id_verification = company_tax_id_verification
         @proof_of_address = proof_of_address
+        @proof_of_business_presence = proof_of_business_presence
         @proof_of_registration = proof_of_registration
         @proof_of_ultimate_beneficial_ownership = proof_of_ultimate_beneficial_ownership
       end

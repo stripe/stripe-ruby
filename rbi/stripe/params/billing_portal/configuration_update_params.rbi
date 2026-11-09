@@ -130,6 +130,60 @@ module Stripe
             proration_behavior: nil
           ); end
         end
+        class SubscriptionPause < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            class IntervalOption < ::Stripe::RequestParams
+              # Specifies the pause duration unit. Either `day`, `week`, `month`, or `year`.
+              sig { returns(String) }
+              def interval; end
+              sig { params(_interval: String).returns(String) }
+              def interval=(_interval); end
+              # The number of intervals in the pause duration. Defaults to 1. The maximum duration is three years.
+              sig { returns(T.nilable(Integer)) }
+              def interval_count; end
+              sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def interval_count=(_interval_count); end
+              sig { params(interval: String, interval_count: T.nilable(Integer)).void }
+              def initialize(interval: nil, interval_count: nil); end
+            end
+            # The preset pause durations customers can choose from. Required when `type` is `interval_options`.
+            sig {
+              returns(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionPause::Duration::IntervalOption])))
+             }
+            def interval_options; end
+            sig {
+              params(_interval_options: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionPause::Duration::IntervalOption]))).returns(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionPause::Duration::IntervalOption])))
+             }
+            def interval_options=(_interval_options); end
+            # Whether subscriptions can be paused indefinitely or for a preset duration.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig {
+              params(interval_options: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionPause::Duration::IntervalOption])), type: String).void
+             }
+            def initialize(interval_options: nil, type: nil); end
+          end
+          # Controls how long a subscription can be paused. Defaults to `interval_options` with a single one-month option.
+          sig {
+            returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionPause::Duration))
+           }
+          def duration; end
+          sig {
+            params(_duration: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionPause::Duration)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionPause::Duration))
+           }
+          def duration=(_duration); end
+          # Whether the feature is enabled. Customers can only pause subscriptions in the [redesigned customer portal](/customer-management).
+          sig { returns(T.nilable(T::Boolean)) }
+          def enabled; end
+          sig { params(_enabled: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+          def enabled=(_enabled); end
+          sig {
+            params(duration: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionPause::Duration), enabled: T.nilable(T::Boolean)).void
+           }
+          def initialize(duration: nil, enabled: nil); end
+        end
         class SubscriptionUpdate < ::Stripe::RequestParams
           class Product < ::Stripe::RequestParams
             class AdjustableQuantity < ::Stripe::RequestParams
@@ -295,6 +349,15 @@ module Stripe
           params(_subscription_cancel: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel))
          }
         def subscription_cancel=(_subscription_cancel); end
+        # Information about pausing subscriptions in the portal.
+        sig {
+          returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionPause))
+         }
+        def subscription_pause; end
+        sig {
+          params(_subscription_pause: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionPause)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionPause))
+         }
+        def subscription_pause=(_subscription_pause); end
         # Information about updating subscriptions in the portal.
         sig {
           returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate))
@@ -305,13 +368,14 @@ module Stripe
          }
         def subscription_update=(_subscription_update); end
         sig {
-          params(customer_update: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::CustomerUpdate), invoice_history: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::InvoiceHistory), payment_method_update: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::PaymentMethodUpdate), subscription_cancel: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel), subscription_update: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate)).void
+          params(customer_update: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::CustomerUpdate), invoice_history: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::InvoiceHistory), payment_method_update: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::PaymentMethodUpdate), subscription_cancel: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionCancel), subscription_pause: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionPause), subscription_update: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::Features::SubscriptionUpdate)).void
          }
         def initialize(
           customer_update: nil,
           invoice_history: nil,
           payment_method_update: nil,
           subscription_cancel: nil,
+          subscription_pause: nil,
           subscription_update: nil
         ); end
       end

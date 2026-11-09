@@ -68,6 +68,19 @@ module Stripe
         end
       end
 
+      class ReaderSecurity < ::Stripe::StripeObject
+        # Passcode used to access a reader's admin menu.
+        attr_reader :admin_menu_passcode
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class RebootWindow < ::Stripe::StripeObject
         # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
         attr_reader :end_hour
@@ -97,6 +110,19 @@ module Stripe
       end
 
       class StripeS710 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        attr_reader :splashscreen
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class StripeT600 < ::Stripe::StripeObject
         # A File ID representing an image to display on the reader
         attr_reader :splashscreen
 
@@ -701,12 +727,16 @@ module Stripe
       attr_reader :object
       # Attribute for field offline
       attr_reader :offline
+      # Attribute for field reader_security
+      attr_reader :reader_security
       # Attribute for field reboot_window
       attr_reader :reboot_window
       # Attribute for field stripe_s700
       attr_reader :stripe_s700
       # Attribute for field stripe_s710
       attr_reader :stripe_s710
+      # Attribute for field stripe_t600
+      attr_reader :stripe_t600
       # Attribute for field tipping
       attr_reader :tipping
       # Attribute for field verifone_m425
@@ -778,9 +808,11 @@ module Stripe
           bbpos_wisepos_e: BbposWiseposE,
           cellular: Cellular,
           offline: Offline,
+          reader_security: ReaderSecurity,
           reboot_window: RebootWindow,
           stripe_s700: StripeS700,
           stripe_s710: StripeS710,
+          stripe_t600: StripeT600,
           tipping: Tipping,
           verifone_m425: VerifoneM425,
           verifone_p400: VerifoneP400,

@@ -56,7 +56,7 @@ module Stripe
     attr_reader :destination
     # If the payout fails or cancels, this is the ID of the balance transaction that reverses the initial balance transaction and returns the funds from the failed payout back in your balance.
     attr_reader :failure_balance_transaction
-    # Error code that provides a reason for a payout failure, if available. View our [list of failure codes](https://docs.stripe.com/api#payout_failures).
+    # Error code that provides a reason for a payout failure, if available.
     attr_reader :failure_code
     # Message that provides the reason for a payout failure, if available.
     attr_reader :failure_message

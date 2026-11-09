@@ -268,6 +268,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Bw < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class By < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
@@ -335,6 +346,17 @@ module Stripe
           def type; end
           def self.inner_class_types
             @inner_class_types = {standard: Standard}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Ci < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -654,6 +676,17 @@ module Stripe
           end
         end
         class Ge < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Gh < ::Stripe::StripeObject
           # Type of registration in `country`.
           sig { returns(String) }
           def type; end
@@ -1085,6 +1118,17 @@ module Stripe
           def type; end
           def self.inner_class_types
             @inner_class_types = {standard: Standard}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Mu < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -1707,6 +1751,17 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class UtilityUsersTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=utility_users_tax#registration-types) representing the local jurisdiction.
+            sig { returns(String) }
+            def jurisdiction; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Attribute for field admissions_tax
           sig { returns(T.nilable(AdmissionsTax)) }
           def admissions_tax; end
@@ -1752,6 +1807,9 @@ module Stripe
           # Type of registration in the US.
           sig { returns(String) }
           def type; end
+          # Attribute for field utility_users_tax
+          sig { returns(T.nilable(UtilityUsersTax)) }
+          def utility_users_tax; end
           def self.inner_class_types
             @inner_class_types = {
               admissions_tax: AdmissionsTax,
@@ -1767,6 +1825,7 @@ module Stripe
               resort_tax: ResortTax,
               state_sales_tax: StateSalesTax,
               tourism_tax: TourismTax,
+              utility_users_tax: UtilityUsersTax,
             }
           end
           def self.field_remappings
@@ -1890,6 +1949,9 @@ module Stripe
         # Attribute for field bs
         sig { returns(T.nilable(Bs)) }
         def bs; end
+        # Attribute for field bw
+        sig { returns(T.nilable(Bw)) }
+        def bw; end
         # Attribute for field by
         sig { returns(T.nilable(By)) }
         def by; end
@@ -1902,6 +1964,9 @@ module Stripe
         # Attribute for field ch
         sig { returns(T.nilable(Ch)) }
         def ch; end
+        # Attribute for field ci
+        sig { returns(T.nilable(Ci)) }
+        def ci; end
         # Attribute for field cl
         sig { returns(T.nilable(Cl)) }
         def cl; end
@@ -1956,6 +2021,9 @@ module Stripe
         # Attribute for field ge
         sig { returns(T.nilable(Ge)) }
         def ge; end
+        # Attribute for field gh
+        sig { returns(T.nilable(Gh)) }
+        def gh; end
         # Attribute for field gn
         sig { returns(T.nilable(Gn)) }
         def gn; end
@@ -2034,6 +2102,9 @@ module Stripe
         # Attribute for field mt
         sig { returns(T.nilable(Mt)) }
         def mt; end
+        # Attribute for field mu
+        sig { returns(T.nilable(Mu)) }
+        def mu; end
         # Attribute for field mx
         sig { returns(T.nilable(Mx)) }
         def mx; end
@@ -2161,10 +2232,12 @@ module Stripe
             bh: Bh,
             bj: Bj,
             bs: Bs,
+            bw: Bw,
             by: By,
             ca: Ca,
             cd: Cd,
             ch: Ch,
+            ci: Ci,
             cl: Cl,
             cm: Cm,
             co: Co,
@@ -2183,6 +2256,7 @@ module Stripe
             fr: Fr,
             gb: Gb,
             ge: Ge,
+            gh: Gh,
             gn: Gn,
             gr: Gr,
             hr: Hr,
@@ -2209,6 +2283,7 @@ module Stripe
             mk: Mk,
             mr: Mr,
             mt: Mt,
+            mu: Mu,
             mx: Mx,
             my: My,
             ng: Ng,

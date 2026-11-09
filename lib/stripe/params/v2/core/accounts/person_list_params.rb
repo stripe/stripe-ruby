@@ -6,7 +6,7 @@ module Stripe
     module Core
       module Accounts
         class PersonListParams < ::Stripe::RequestParams
-          # The upper limit on the number of accounts returned by the List Account request.
+          # The maximum number of items returned by the list request.
           attr_accessor :limit
 
           def initialize(limit: nil)

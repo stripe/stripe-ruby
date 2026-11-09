@@ -4,6 +4,8 @@
 # typed: true
 module Stripe
   module Treasury
+    # Legacy ReceivedDebits are part of the v1 version of Treasury for platforms and do not support many of the features introduced in [Treasury for platforms v2](https://docs.stripe.com/treasury/connect). Use [Received Debits](https://docs.stripe.com/api/v2/money-management/received-debits?api-version=preview) instead of building a new v1 integration.
+    #
     # ReceivedDebits represent funds pulled from a [FinancialAccount](https://docs.stripe.com/api#financial_accounts). These are not initiated from the FinancialAccount.
     class ReceivedDebit < APIResource
       class InitiatingPaymentMethodDetails < ::Stripe::StripeObject

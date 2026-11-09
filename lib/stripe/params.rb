@@ -747,6 +747,89 @@ module Stripe
         autoload :PersonTokenRetrieveParams, "stripe/params/v2/core/accounts/person_token_retrieve_params"
         autoload :PersonUpdateParams, "stripe/params/v2/core/accounts/person_update_params"
       end
+
+      module Vault
+        autoload :GbBankAccountArchiveParams, "stripe/params/v2/core/vault/gb_bank_account_archive_params"
+        autoload :GbBankAccountCreateParams, "stripe/params/v2/core/vault/gb_bank_account_create_params"
+        autoload :GbBankAccountListParams, "stripe/params/v2/core/vault/gb_bank_account_list_params"
+        autoload :GbBankAccountRetrieveParams, "stripe/params/v2/core/vault/gb_bank_account_retrieve_params"
+        autoload :GbBankAccountUnarchiveParams, "stripe/params/v2/core/vault/gb_bank_account_unarchive_params"
+        autoload :UsBankAccountArchiveParams, "stripe/params/v2/core/vault/us_bank_account_archive_params"
+        autoload :UsBankAccountConfirmMicrodepositsParams,
+                 "stripe/params/v2/core/vault/us_bank_account_confirm_microdeposits_params"
+        autoload :UsBankAccountCreateParams, "stripe/params/v2/core/vault/us_bank_account_create_params"
+        autoload :UsBankAccountListParams, "stripe/params/v2/core/vault/us_bank_account_list_params"
+        autoload :UsBankAccountRetrieveParams, "stripe/params/v2/core/vault/us_bank_account_retrieve_params"
+        autoload :UsBankAccountSendMicrodepositsParams,
+                 "stripe/params/v2/core/vault/us_bank_account_send_microdeposits_params"
+        autoload :UsBankAccountUnarchiveParams, "stripe/params/v2/core/vault/us_bank_account_unarchive_params"
+        autoload :UsBankAccountUpdateParams, "stripe/params/v2/core/vault/us_bank_account_update_params"
+      end
+    end
+
+    module MoneyManagement
+      autoload :AdjustmentListParams, "stripe/params/v2/money_management/adjustment_list_params"
+      autoload :AdjustmentRetrieveParams, "stripe/params/v2/money_management/adjustment_retrieve_params"
+      autoload :FinancialAccountListParams, "stripe/params/v2/money_management/financial_account_list_params"
+      autoload :FinancialAccountRetrieveParams, "stripe/params/v2/money_management/financial_account_retrieve_params"
+      autoload :FinancialAccountUpdateParams, "stripe/params/v2/money_management/financial_account_update_params"
+      autoload :FinancialAddressCreateParams, "stripe/params/v2/money_management/financial_address_create_params"
+      autoload :FinancialAddressListParams, "stripe/params/v2/money_management/financial_address_list_params"
+      autoload :FinancialAddressRetrieveParams, "stripe/params/v2/money_management/financial_address_retrieve_params"
+      autoload :InboundTransferCreateParams, "stripe/params/v2/money_management/inbound_transfer_create_params"
+      autoload :InboundTransferListParams, "stripe/params/v2/money_management/inbound_transfer_list_params"
+      autoload :InboundTransferRetrieveParams, "stripe/params/v2/money_management/inbound_transfer_retrieve_params"
+      autoload :OutboundPaymentCancelParams, "stripe/params/v2/money_management/outbound_payment_cancel_params"
+      autoload :OutboundPaymentCreateParams, "stripe/params/v2/money_management/outbound_payment_create_params"
+      autoload :OutboundPaymentListParams, "stripe/params/v2/money_management/outbound_payment_list_params"
+      autoload :OutboundPaymentRetrieveParams, "stripe/params/v2/money_management/outbound_payment_retrieve_params"
+      autoload :OutboundSetupIntentCancelParams, "stripe/params/v2/money_management/outbound_setup_intent_cancel_params"
+      autoload :OutboundSetupIntentCreateParams, "stripe/params/v2/money_management/outbound_setup_intent_create_params"
+      autoload :OutboundSetupIntentListParams, "stripe/params/v2/money_management/outbound_setup_intent_list_params"
+      autoload :OutboundSetupIntentRetrieveParams,
+               "stripe/params/v2/money_management/outbound_setup_intent_retrieve_params"
+      autoload :OutboundSetupIntentUpdateParams, "stripe/params/v2/money_management/outbound_setup_intent_update_params"
+      autoload :PayoutIntentCancelParams, "stripe/params/v2/money_management/payout_intent_cancel_params"
+      autoload :PayoutIntentConfirmParams, "stripe/params/v2/money_management/payout_intent_confirm_params"
+      autoload :PayoutIntentCreateParams, "stripe/params/v2/money_management/payout_intent_create_params"
+      autoload :PayoutIntentListParams, "stripe/params/v2/money_management/payout_intent_list_params"
+      autoload :PayoutIntentRefreshFxQuoteParams,
+               "stripe/params/v2/money_management/payout_intent_refresh_fx_quote_params"
+      autoload :PayoutIntentRefreshRecipientVerificationParams,
+               "stripe/params/v2/money_management/payout_intent_refresh_recipient_verification_params"
+      autoload :PayoutIntentRetrieveParams, "stripe/params/v2/money_management/payout_intent_retrieve_params"
+      autoload :PayoutIntentUpdateParams, "stripe/params/v2/money_management/payout_intent_update_params"
+      autoload :PayoutMethodArchiveParams, "stripe/params/v2/money_management/payout_method_archive_params"
+      autoload :PayoutMethodListParams, "stripe/params/v2/money_management/payout_method_list_params"
+      autoload :PayoutMethodRetrieveParams, "stripe/params/v2/money_management/payout_method_retrieve_params"
+      autoload :PayoutMethodsBankAccountSpecRetrieveParams,
+               "stripe/params/v2/money_management/payout_methods_bank_account_spec_retrieve_params"
+      autoload :PayoutMethodUnarchiveParams, "stripe/params/v2/money_management/payout_method_unarchive_params"
+      autoload :ReceivedCreditListParams, "stripe/params/v2/money_management/received_credit_list_params"
+      autoload :ReceivedCreditRetrieveParams, "stripe/params/v2/money_management/received_credit_retrieve_params"
+      autoload :RecipientVerificationAcknowledgeParams,
+               "stripe/params/v2/money_management/recipient_verification_acknowledge_params"
+      autoload :RecipientVerificationCreateParams,
+               "stripe/params/v2/money_management/recipient_verification_create_params"
+      autoload :RecipientVerificationRetrieveParams,
+               "stripe/params/v2/money_management/recipient_verification_retrieve_params"
+      autoload :TransactionEntryListParams, "stripe/params/v2/money_management/transaction_entry_list_params"
+      autoload :TransactionEntryRetrieveParams, "stripe/params/v2/money_management/transaction_entry_retrieve_params"
+      autoload :TransactionListParams, "stripe/params/v2/money_management/transaction_list_params"
+      autoload :TransactionRefreshRegulatoryReceiptParams,
+               "stripe/params/v2/money_management/transaction_refresh_regulatory_receipt_params"
+      autoload :TransactionRetrieveParams, "stripe/params/v2/money_management/transaction_retrieve_params"
+      autoload :TransactionUpdateParams, "stripe/params/v2/money_management/transaction_update_params"
+
+      module TestHelpers
+        autoload :FinancialAddressCreditParams,
+                 "stripe/params/v2/money_management/test_helpers/financial_address_credit_params"
+      end
+    end
+
+    module TestHelpers
+      autoload :MoneyManagementRecipientVerificationsParams,
+               "stripe/params/v2/test_helpers/money_management_recipient_verifications_params"
     end
   end
 end
@@ -1391,6 +1474,65 @@ module Stripe
     stripe/params/v2/core/event_destination_update_params
     stripe/params/v2/core/event_list_params
     stripe/params/v2/core/event_retrieve_params
+    stripe/params/v2/core/vault/gb_bank_account_archive_params
+    stripe/params/v2/core/vault/gb_bank_account_create_params
+    stripe/params/v2/core/vault/gb_bank_account_list_params
+    stripe/params/v2/core/vault/gb_bank_account_retrieve_params
+    stripe/params/v2/core/vault/gb_bank_account_unarchive_params
+    stripe/params/v2/core/vault/us_bank_account_archive_params
+    stripe/params/v2/core/vault/us_bank_account_confirm_microdeposits_params
+    stripe/params/v2/core/vault/us_bank_account_create_params
+    stripe/params/v2/core/vault/us_bank_account_list_params
+    stripe/params/v2/core/vault/us_bank_account_retrieve_params
+    stripe/params/v2/core/vault/us_bank_account_send_microdeposits_params
+    stripe/params/v2/core/vault/us_bank_account_unarchive_params
+    stripe/params/v2/core/vault/us_bank_account_update_params
+    stripe/params/v2/money_management/adjustment_list_params
+    stripe/params/v2/money_management/adjustment_retrieve_params
+    stripe/params/v2/money_management/financial_account_list_params
+    stripe/params/v2/money_management/financial_account_retrieve_params
+    stripe/params/v2/money_management/financial_account_update_params
+    stripe/params/v2/money_management/financial_address_create_params
+    stripe/params/v2/money_management/financial_address_list_params
+    stripe/params/v2/money_management/financial_address_retrieve_params
+    stripe/params/v2/money_management/inbound_transfer_create_params
+    stripe/params/v2/money_management/inbound_transfer_list_params
+    stripe/params/v2/money_management/inbound_transfer_retrieve_params
+    stripe/params/v2/money_management/outbound_payment_cancel_params
+    stripe/params/v2/money_management/outbound_payment_create_params
+    stripe/params/v2/money_management/outbound_payment_list_params
+    stripe/params/v2/money_management/outbound_payment_retrieve_params
+    stripe/params/v2/money_management/outbound_setup_intent_cancel_params
+    stripe/params/v2/money_management/outbound_setup_intent_create_params
+    stripe/params/v2/money_management/outbound_setup_intent_list_params
+    stripe/params/v2/money_management/outbound_setup_intent_retrieve_params
+    stripe/params/v2/money_management/outbound_setup_intent_update_params
+    stripe/params/v2/money_management/payout_intent_cancel_params
+    stripe/params/v2/money_management/payout_intent_confirm_params
+    stripe/params/v2/money_management/payout_intent_create_params
+    stripe/params/v2/money_management/payout_intent_list_params
+    stripe/params/v2/money_management/payout_intent_refresh_fx_quote_params
+    stripe/params/v2/money_management/payout_intent_refresh_recipient_verification_params
+    stripe/params/v2/money_management/payout_intent_retrieve_params
+    stripe/params/v2/money_management/payout_intent_update_params
+    stripe/params/v2/money_management/payout_method_archive_params
+    stripe/params/v2/money_management/payout_method_list_params
+    stripe/params/v2/money_management/payout_method_retrieve_params
+    stripe/params/v2/money_management/payout_method_unarchive_params
+    stripe/params/v2/money_management/payout_methods_bank_account_spec_retrieve_params
+    stripe/params/v2/money_management/received_credit_list_params
+    stripe/params/v2/money_management/received_credit_retrieve_params
+    stripe/params/v2/money_management/recipient_verification_acknowledge_params
+    stripe/params/v2/money_management/recipient_verification_create_params
+    stripe/params/v2/money_management/recipient_verification_retrieve_params
+    stripe/params/v2/money_management/test_helpers/financial_address_credit_params
+    stripe/params/v2/money_management/transaction_entry_list_params
+    stripe/params/v2/money_management/transaction_entry_retrieve_params
+    stripe/params/v2/money_management/transaction_list_params
+    stripe/params/v2/money_management/transaction_refresh_regulatory_receipt_params
+    stripe/params/v2/money_management/transaction_retrieve_params
+    stripe/params/v2/money_management/transaction_update_params
+    stripe/params/v2/test_helpers/money_management_recipient_verifications_params
     stripe/params/webhook_endpoint_create_params
     stripe/params/webhook_endpoint_delete_params
     stripe/params/webhook_endpoint_list_params

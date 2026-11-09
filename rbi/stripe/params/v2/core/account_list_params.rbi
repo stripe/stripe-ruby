@@ -18,7 +18,7 @@ module Stripe
         def closed; end
         sig { params(_closed: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
         def closed=(_closed); end
-        # The upper limit on the number of accounts returned by the List Account request.
+        # The maximum number of items returned by the list request.
         sig { returns(T.nilable(Integer)) }
         def limit; end
         sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }

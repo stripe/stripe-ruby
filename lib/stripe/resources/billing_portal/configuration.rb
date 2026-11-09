@@ -110,6 +110,49 @@ module Stripe
           end
         end
 
+        class SubscriptionPause < ::Stripe::StripeObject
+          class Duration < ::Stripe::StripeObject
+            class IntervalOption < ::Stripe::StripeObject
+              # Specifies the pause duration unit. Either `day`, `week`, `month`, or `year`.
+              attr_reader :interval
+              # The number of intervals in the pause duration. The maximum duration is three years.
+              attr_reader :interval_count
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The preset pause durations customers can choose from.
+            attr_reader :interval_options
+            # Whether subscriptions can be paused indefinitely or for a preset duration.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { interval_options: IntervalOption }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field duration
+          attr_reader :duration
+          # Whether the feature is enabled. Customers can only pause subscriptions in the [redesigned customer portal](/customer-management).
+          attr_reader :enabled
+
+          def self.inner_class_types
+            @inner_class_types = { duration: Duration }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class SubscriptionUpdate < ::Stripe::StripeObject
           class Product < ::Stripe::StripeObject
             class AdjustableQuantity < ::Stripe::StripeObject
@@ -199,6 +242,8 @@ module Stripe
         attr_reader :payment_method_update
         # Attribute for field subscription_cancel
         attr_reader :subscription_cancel
+        # Attribute for field subscription_pause
+        attr_reader :subscription_pause
         # Attribute for field subscription_update
         attr_reader :subscription_update
 
@@ -208,6 +253,7 @@ module Stripe
             invoice_history: InvoiceHistory,
             payment_method_update: PaymentMethodUpdate,
             subscription_cancel: SubscriptionCancel,
+            subscription_pause: SubscriptionPause,
             subscription_update: SubscriptionUpdate,
           }
         end

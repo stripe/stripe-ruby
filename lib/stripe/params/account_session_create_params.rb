@@ -538,6 +538,19 @@ module Stripe
         end
       end
 
+      class ReportingChart < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
       class TaxRegistrations < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
@@ -552,6 +565,32 @@ module Stripe
       end
 
       class TaxSettings < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class TerminalHardwareOrders < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class TerminalHardwareShop < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         attr_accessor :enabled
@@ -603,10 +642,16 @@ module Stripe
       attr_accessor :payouts
       # Configuration for the [payouts list](/connect/supported-embedded-components/payouts-list/) embedded component.
       attr_accessor :payouts_list
+      # Configuration for the [reporting chart](/connect/supported-embedded-components/reporting-chart/) embedded component.
+      attr_accessor :reporting_chart
       # Configuration for the [tax registrations](/connect/supported-embedded-components/tax-registrations/) embedded component.
       attr_accessor :tax_registrations
       # Configuration for the [tax settings](/connect/supported-embedded-components/tax-settings/) embedded component.
       attr_accessor :tax_settings
+      # Configuration for the [Terminal hardware orders](/connect/supported-embedded-components/terminal-hardware-orders/) embedded component.
+      attr_accessor :terminal_hardware_orders
+      # Configuration for the [Terminal hardware shop](/connect/supported-embedded-components/terminal-hardware-shop/) embedded component.
+      attr_accessor :terminal_hardware_shop
 
       def initialize(
         account_management: nil,
@@ -629,8 +674,11 @@ module Stripe
         payout_reconciliation_report: nil,
         payouts: nil,
         payouts_list: nil,
+        reporting_chart: nil,
         tax_registrations: nil,
-        tax_settings: nil
+        tax_settings: nil,
+        terminal_hardware_orders: nil,
+        terminal_hardware_shop: nil
       )
         @account_management = account_management
         @account_onboarding = account_onboarding
@@ -652,8 +700,11 @@ module Stripe
         @payout_reconciliation_report = payout_reconciliation_report
         @payouts = payouts
         @payouts_list = payouts_list
+        @reporting_chart = reporting_chart
         @tax_registrations = tax_registrations
         @tax_settings = tax_settings
+        @terminal_hardware_orders = terminal_hardware_orders
+        @terminal_hardware_shop = terminal_hardware_shop
       end
     end
     # The identifier of the account to create an Account Session for.

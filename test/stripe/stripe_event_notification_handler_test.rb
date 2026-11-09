@@ -339,6 +339,29 @@ module Stripe
         assert_match(/webhook_secret must be a non-empty string/, e.message)
       end
 
+      should "raise ArgumentError when initialized with an ASCII-whitespace-only webhook_secret" do
+        [" ", "\t", "\r", "\n", "\f", "\v", " \t\r\n\f\v"].each do |webhook_secret|
+          e = assert_raises(ArgumentError) do
+            StripeEventNotificationHandler.new(@client, webhook_secret, &@on_unhandled_handler)
+          end
+          assert_equal "webhook_secret must be a non-empty string", e.message
+        end
+      end
+
+      should "preserve surrounding ASCII whitespace in a nonblank webhook_secret" do
+        webhook_secret = " \t#{Test::WebhookHelpers::SECRET}\r\n"
+        handler = StripeEventNotificationHandler.new(@client, webhook_secret, &@on_unhandled_handler)
+
+        assert_equal webhook_secret, handler.instance_variable_get(:@webhook_secret)
+      end
+
+      should "allow a non-breaking-space-only webhook_secret" do
+        webhook_secret = "\u00A0"
+        handler = StripeEventNotificationHandler.new(@client, webhook_secret, &@on_unhandled_handler)
+
+        assert_equal webhook_secret, handler.instance_variable_get(:@webhook_secret)
+      end
+
       should "handler uses event stripe_context" do
         client_with_context = StripeClient.new(
           "sk_test_123",

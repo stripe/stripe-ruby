@@ -213,7 +213,7 @@ module Stripe
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
-      # The most recent information about the account's owners.
+      # The ID of the [Financial Connections Account Ownership](https://docs.stripe.com/api/financial_connections/ownership) object associated with this account.
       attr_reader :ownership
       # The state of the most recent attempt to refresh the account owners.
       attr_reader :ownership_refresh

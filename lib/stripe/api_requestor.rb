@@ -39,7 +39,9 @@ module Stripe
     def with_authorization_scope(scope)
       dup.tap do |requestor|
         requestor.instance_variable_set(:@config, config.reverse_duplicate_merge(scope))
-        requestor.instance_variable_set(:@original_requestor, @original_requestor || self)
+        # Scoped copies need this key to record responses for the original client's request block.
+        requestor.instance_variable_set(:@original_requestor_response_key,
+                                        @original_requestor_response_key || object_id)
       end
     end
 
@@ -315,7 +317,9 @@ module Stripe
     end
 
     def store_last_response(object_id, resp)
-      object_id = @original_requestor.object_id if !last_response_has_key?(object_id) && @original_requestor
+      if !last_response_has_key?(object_id) && @original_requestor_response_key
+        object_id = @original_requestor_response_key
+      end
       return unless last_response_has_key?(object_id)
 
       self.class.current_thread_context.last_responses[object_id] = resp

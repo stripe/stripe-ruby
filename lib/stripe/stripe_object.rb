@@ -92,9 +92,11 @@ module Stripe
 
     def self.construct_from(values, opts = {}, last_response = nil, api_mode = :v1, requestor = nil)
       values = Stripe::Util.symbolize_names(values)
+      requestor ||= APIRequestor.active_requestor
 
       # work around protected #initialize_from for now
-      new(values[:id]).send(:initialize_from, values, opts, last_response, api_mode: api_mode, requestor: requestor)
+      new(values[:id], opts, api_mode, requestor).send(:initialize_from, values, opts, last_response,
+                                                       api_mode: api_mode, requestor: requestor)
     end
 
     # Determines the equality of two Stripe objects. Stripe objects are
@@ -256,8 +258,7 @@ module Stripe
 
       # TODO: (major) Remove the :client option. This is not explicitly supported as a user-specified option.
       opts.delete(:client)
-      requestor = @requestor || APIRequestor.active_requestor
-      scope = RequestOptions.authorization_scope(requestor.config, opts)
+      scope = RequestOptions.authorization_scope(@requestor.config, opts)
       [@values, opts, scope, @api_mode]
     end
 
@@ -500,11 +501,12 @@ module Stripe
     # * +:opts:+ Options for StripeObject like an API key.
     # * +:partial:+ Indicates that the re-initialization should not attempt to
     #   remove accessors.
-    protected def initialize_from(values, opts, last_response = nil, api_mode:, requestor: nil)
+    protected def initialize_from(values, opts, last_response = nil, api_mode:, requestor:)
+      raise ArgumentError, "requestor must not be nil" if requestor.nil?
+
       @api_mode = api_mode
       @last_response = last_response
       @opts = Util.normalize_opts(opts)
-      requestor ||= APIRequestor.active_requestor
       @requestor = requestor
       if requestor.is_a?(APIRequestor)
         scope = RequestOptions.authorization_scope(requestor.config, @opts)

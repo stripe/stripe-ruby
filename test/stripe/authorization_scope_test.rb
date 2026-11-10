@@ -147,6 +147,17 @@ module Stripe
     end
 
     context "Event construction" do
+      should "reject nil in internal initialization instead of selecting an ambient requestor" do
+        product = @client.with_stripe_context("acct_event_a").deserialize(@product_body)
+        error = assert_raises(ArgumentError) do
+          product.send(:initialize_from, @product_body, {}, api_mode: :v1, requestor: nil)
+        end
+
+        assert_match(/requestor must not be nil/, error.message)
+        product.delete
+        assert_scope(@requests, "acct_event_a", nil)
+      end
+
       [nil, ""].each do |event_context|
         %i[stripe_account stripe_context].each do |client_selector|
           should "clear #{client_selector} for a direct event with context #{event_context.inspect}" do

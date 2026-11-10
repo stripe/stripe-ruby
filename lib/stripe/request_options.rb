@@ -24,12 +24,8 @@ module Stripe
       OPTS_USER_SPECIFIED + Set[:api_base]
     ).freeze
 
-    # Options that should be persisted between API requests. stripe_context
-    # is included because, unlike idempotency_key, it identifies which
-    # account/workspace a resource belongs to -- the same reason
-    # stripe_account persists -- so it needs to survive on the object for
-    # follow-up calls and for Marshal round-trips (@opts is what gets
-    # serialized; there's no other carrier for it after that point).
+    # Account and context identify the resource's authorization scope and
+    # must persist for subsequent operations, unlike an idempotency key.
     OPTS_PERSISTABLE = (
       OPTS_USER_SPECIFIED - Set[:idempotency_key]
     ).freeze
@@ -62,15 +58,16 @@ module Stripe
         headers: req_opts[:headers] || {},
       }
 
-      # Stripe-Account and Stripe-Context are mutually exclusive on the wire
-      # (sending both is a 400); Context is the newer, more general header,
-      # so it wins whenever both would otherwise be sent.
-      merged_opts.delete(:stripe_account) if merged_opts[:stripe_context]
-
       # Remove nil values from headers
       merged_opts.delete_if { |_, v| v.nil? }
 
       merged_opts
+    end
+
+    # Retain absent selectors so restoring a scope can clear ambient defaults.
+    def self.authorization_scope(config, opts)
+      merged_opts = merge_config_and_opts(config, opts)
+      { stripe_account: merged_opts[:stripe_account], stripe_context: merged_opts[:stripe_context] }
     end
 
     # Merges requestor options hash on a StripeObject

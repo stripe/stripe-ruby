@@ -256,15 +256,21 @@ module Stripe
 
       # TODO: (major) Remove the :client option. This is not explicitly supported as a user-specified option.
       opts.delete(:client)
-      [@values, opts]
+      requestor = @requestor || APIRequestor.active_requestor
+      scope = RequestOptions.authorization_scope(requestor.config, opts)
+      [@values, opts, scope, @api_mode]
     end
 
     # Implements custom decoding for Ruby's Marshal. Consumes data that's
     # produced by #marshal_dump.
     def marshal_load(data, api_mode: :v1)
-      values, opts = data
-      initialize(values[:id], api_mode: api_mode)
-      initialize_from(values, opts, api_mode: api_mode, requestor: @requestor)
+      values, opts, scope, stored_api_mode = data
+      api_mode = stored_api_mode || api_mode
+      requestor = APIRequestor.active_requestor
+      # Older cache entries lack scope metadata and retain their legacy binding.
+      requestor = requestor.with_authorization_scope(scope) if scope
+      initialize(values[:id], {}, api_mode, requestor)
+      initialize_from(values, opts, api_mode: api_mode, requestor: requestor)
     end
 
     def serialize_params(options = {})
@@ -497,9 +503,13 @@ module Stripe
     protected def initialize_from(values, opts, last_response = nil, api_mode:, requestor: nil)
       @api_mode = api_mode
       @last_response = last_response
-      @requestor = requestor
-
       @opts = Util.normalize_opts(opts)
+      requestor ||= APIRequestor.active_requestor
+      @requestor = requestor
+      if requestor.is_a?(APIRequestor)
+        scope = RequestOptions.authorization_scope(requestor.config, @opts)
+        @requestor = requestor.with_authorization_scope(scope)
+      end
 
       # the `#send` is here so that we can keep this method private
       @original_values = self.class.send(:deep_copy, values, api_mode: api_mode)

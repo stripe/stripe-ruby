@@ -33,6 +33,7 @@ module Stripe
         private def execute_resource_request_internal(client_request_method_sym,
                                                       method, url, base_address,
                                                       params, opts, usage,
+                                                      requestor: nil,
                                                       &read_body_chunk_block)
           params = params.to_h if params.is_a?(Stripe::RequestParams)
           params ||= {}
@@ -43,7 +44,7 @@ module Stripe
           opts = Util.normalize_opts(opts)
           req_opts = RequestOptions.extract_opts_from_hash(opts)
 
-          APIRequestor.active_requestor.send(
+          (requestor || APIRequestor.active_requestor).send(
             client_request_method_sym,
             method, url,
             base_address,
@@ -74,15 +75,21 @@ module Stripe
       protected def execute_resource_request(method, url, base_address = :api,
                                              params = {}, opts = {}, usage = [])
         opts = @opts.merge(Util.normalize_opts(opts))
-        self.class.execute_resource_request(method, url, base_address, params, opts, usage)
+        self.class.send(
+          :execute_resource_request_internal,
+          :execute_request, method, url, base_address, params, opts, usage,
+          requestor: @requestor
+        )
       end
 
       protected def execute_resource_request_stream(method, url, base_address = :api,
                                                     params = {}, opts = {}, usage = [],
                                                     &read_body_chunk_block)
         opts = @opts.merge(Util.normalize_opts(opts))
-        self.class.execute_resource_request_stream(
-          method, url, base_address, params, opts, usage, &read_body_chunk_block
+        self.class.send(
+          :execute_resource_request_internal,
+          :execute_request_stream, method, url, base_address, params, opts, usage,
+          requestor: @requestor, &read_body_chunk_block
         )
       end
 

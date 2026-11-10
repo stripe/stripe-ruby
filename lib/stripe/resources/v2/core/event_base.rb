@@ -4,19 +4,15 @@ module Stripe
   module V2
     module Core
       class EventBase < APIResource
-        # Overridden so that every generated `fetch_related_object` (which
-        # calls this method) uses this event's own `context`, not whatever
-        # Stripe-Context (if any) was used to retrieve the event itself --
-        # mirrors how EventNotification#initialize scopes @client. Still
-        # combines with @opts so a retained api_key/stripe_version override
-        # survives. Doesn't need to clear a stale Stripe-Account explicitly:
-        # RequestOptions.merge_config_and_opts drops it unconditionally
-        # whenever Stripe-Context ends up present, since the two are mutually
-        # exclusive on the wire.
-        protected def _request(method:, path:, base_address:, params: {}, opts: {})
-          req_opts = RequestOptions.extract_opts_from_hash(opts)
-          req_opts = RequestOptions.combine_opts(@opts.merge(stripe_context: context), req_opts)
-          @requestor.execute_request(method, path, base_address, params: params, opts: req_opts)
+        # An event's payload determines the scope of its related objects, even
+        # when the event was retrieved using a different account or context.
+        protected def initialize_from(values, opts, last_response = nil, api_mode:, requestor: nil)
+          requestor ||= APIRequestor.active_requestor
+          requestor = requestor.with_authorization_scope(
+            stripe_account: nil, stripe_context: values[:context] || values["context"]
+          )
+          opts = Util.normalize_opts(opts).except(:stripe_account, :stripe_context)
+          super
         end
       end
     end

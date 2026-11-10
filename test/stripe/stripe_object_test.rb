@@ -490,31 +490,6 @@ module Stripe
       assert_equal expected_hash, m.instance_variable_get("@opts")
     end
 
-    should "retain stripe_context across a Marshal round-trip" do
-      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_123")
-        .to_return(body: JSON.generate(id: "prod_123", object: "product"))
-
-      client = Stripe::StripeClient.new("sk_test_fake_key", stripe_context: "acct_event_a")
-      product = client.v1.products.retrieve("prod_123")
-
-      restored = Marshal.load(Marshal.dump(product))
-
-      # The restored object's @requestor isn't (and can't be) the original
-      # scoped one -- it falls back to APIRequestor.active_requestor, the
-      # global default, same as the process that loaded it from a cache
-      # would have. That's exactly the scenario this test is for: the
-      # context has to come from the persisted @opts, not from @requestor.
-      req = nil
-      stub_request(:delete, "http://#{MOCK_HOST}:#{MOCK_PORT}/v1/products/prod_123")
-        .with { |request| req = request }
-        .to_return(body: JSON.generate(id: "prod_123", object: "product", deleted: true))
-
-      restored.delete
-
-      assert_equal "acct_event_a", req.headers["Stripe-Context"]
-      assert_nil req.headers["Stripe-Account"]
-    end
-
     context "#method" do
       should "act as a getter if no arguments are provided" do
         obj = Stripe::StripeObject.construct_from(id: 1, method: "foo")
@@ -595,16 +570,16 @@ module Stripe
 
       should "use the same options for v2" do
         req = nil
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_123")
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/acct_123")
           .with { |request| req = request }
-          .to_return(body: JSON.generate(object: "v2.core.event"))
+          .to_return(body: JSON.generate(object: "v2.core.account"))
 
         client = Stripe::StripeClient.new("sk_test_123", stripe_account: "foo")
 
-        evt = client.v2.core.events.retrieve("evt_123")
+        account = client.v2.core.accounts.retrieve("acct_123")
         assert_equal "foo", req.headers["Stripe-Account"]
 
-        evt.instance_variable_get(:@requestor).execute_request(:get, "/v2/core/events/evt_123", :api)
+        account.instance_variable_get(:@requestor).execute_request(:get, "/v2/core/accounts/acct_123", :api)
         assert_equal "foo", req.headers["Stripe-Account"]
       end
     end

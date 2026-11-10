@@ -34,6 +34,15 @@ module Stripe
 
     attr_reader :config, :options
 
+    # Snapshot authorization defaults while retaining the transport's telemetry
+    # and response tracking for requests made inside the original client's block.
+    def with_authorization_scope(scope)
+      dup.tap do |requestor|
+        requestor.instance_variable_set(:@config, config.reverse_duplicate_merge(scope))
+        requestor.instance_variable_set(:@original_requestor, @original_requestor || self)
+      end
+    end
+
     # Gets a currently active `APIRequestor`. Set for the current thread when
     # `APIRequestor#request` is being run so that API operations being executed
     # inside of that block can find the currently active requestor. It's reset to
@@ -306,6 +315,7 @@ module Stripe
     end
 
     def store_last_response(object_id, resp)
+      object_id = @original_requestor.object_id if !last_response_has_key?(object_id) && @original_requestor
       return unless last_response_has_key?(object_id)
 
       self.class.current_thread_context.last_responses[object_id] = resp

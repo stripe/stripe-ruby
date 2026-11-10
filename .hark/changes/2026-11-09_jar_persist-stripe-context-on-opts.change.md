@@ -1,9 +1,10 @@
 ---
-title: "Fix stripe_context being dropped on Marshal round-trips and stale stripe_account leaking through when context is set"
+title: "Preserve resource authorization scope across Marshal round-trips and event-related requests"
 semver_level: patch
 jira_tickets_closed:
 - RUN_DEVSDK-3691
 ---
 
-- `stripe_context` now persists on fetched objects (previously excluded from `OPTS_PERSISTABLE`), so it survives a `Marshal.dump`/`Marshal.load` round-trip (e.g. a Rails cache) and follow-up calls.
-- `stripe_account` is now dropped whenever `stripe_context` is also present, since the two are mutually exclusive on the wire (sending both is rejected). Previously a stale `stripe_account` could ride along with a correct `stripe_context`.
+Resources retain their account and context when restored from a new `Marshal.dump`, including resources fetched from thin event notifications. Restoring an unscoped resource clears the loading process's account and context defaults. Full events bind to their payload's context when constructed, so related-object requests and subsequent mutations use that scope.
+
+Existing Marshal cache entries continue to load using the legacy behavior. Their original scope may already be missing, so clear cached SDK objects and re-fetch them after upgrading to benefit from this fix. Caching resource IDs together with their explicit context and reconstructing them through a scoped client is also supported.

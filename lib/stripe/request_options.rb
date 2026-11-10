@@ -24,9 +24,14 @@ module Stripe
       OPTS_USER_SPECIFIED + Set[:api_base]
     ).freeze
 
-    # Options that should be persisted between API requests.
+    # Options that should be persisted between API requests. stripe_context
+    # is included because, unlike idempotency_key, it identifies which
+    # account/workspace a resource belongs to -- the same reason
+    # stripe_account persists -- so it needs to survive on the object for
+    # follow-up calls and for Marshal round-trips (@opts is what gets
+    # serialized; there's no other carrier for it after that point).
     OPTS_PERSISTABLE = (
-      OPTS_USER_SPECIFIED - Set[:idempotency_key, :stripe_context]
+      OPTS_USER_SPECIFIED - Set[:idempotency_key]
     ).freeze
 
     # helper method to figure out what the true value of the stripe_context header should be

@@ -66,11 +66,10 @@ module Stripe
         # generated a uri for this object with an identifier baked in
         values.delete(:id)
         opts = Util.normalize_opts(opts)
-        requestor = @requestor || APIRequestor.active_requestor
-        requestor.execute_request_initialize_from(:post, save_url, :api, self,
-                                                  params: values,
-                                                  opts: RequestOptions.extract_opts_from_hash(opts),
-                                                  usage: ["save"])
+        @requestor.execute_request_initialize_from(:post, save_url, :api, self,
+                                                   params: values,
+                                                   opts: RequestOptions.extract_opts_from_hash(opts),
+                                                   usage: ["save"])
       end
       extend Gem::Deprecate
       deprecate :save, "the `update` class method (for examples " \

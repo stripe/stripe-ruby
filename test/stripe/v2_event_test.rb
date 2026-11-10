@@ -182,6 +182,25 @@ module Stripe
                            headers: { "Stripe-Request-Trigger" => "event=evt_234" })
         end
 
+        should "not expose the API key when inspected or logged" do
+          event_notif = parse_signed_event(@v2_push_payload)
+          log = StringIO.new
+          ::Logger.new(log).info(event_notif)
+
+          assert_includes event_notif.inspect, 'id="evt_234"'
+          refute_includes event_notif.inspect, "test_123"
+          refute_includes log.string, "test_123"
+        end
+
+        should "omit the client from as_json" do
+          event_notif = parse_signed_event(@v2_push_payload)
+          json = event_notif.as_json
+
+          assert_equal %w[id object type created livemode related_object], json.keys
+          assert_equal "evt_234", json["id"]
+          assert_equal "mtr_123", json["related_object"].id
+        end
+
         should "retain the event context on fetched related objects" do
           client = StripeClient.new(
             "test_123",

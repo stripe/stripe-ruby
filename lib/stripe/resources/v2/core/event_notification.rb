@@ -75,6 +75,22 @@ module Stripe
                                                  usage: ["fetch_event"])
           @client.deserialize(resp.http_body, api_mode: :v2)
         end
+
+        # The default inspect renders every instance variable, which would
+        # include the API key held by @client.
+        def inspect
+          "#<#{self.class}:0x#{object_id.to_s(16)} id=#{id.inspect} type=#{type.inspect}>"
+        end
+
+        # ActiveSupport's default as_json serializes every instance variable,
+        # so exclude @client to keep the API key out of JSON output.
+        def as_json(*opts)
+          values = (instance_variables - [:@client]).to_h do |name|
+            [name.to_s.delete_prefix("@"), instance_variable_get(name)]
+          end
+          # Hash#as_json only exists when ActiveSupport is loaded.
+          values.respond_to?(:as_json) ? values.as_json(*opts) : values
+        end
       end
     end
   end

@@ -39,6 +39,8 @@ module Stripe
         def livemode; end
         sig { returns(T.nilable(::Stripe::V2::Core::EventReason)) }
         def reason; end
+        sig { params(opts: T.untyped).returns(T::Hash[String, T.untyped]) }
+        def as_json(*opts); end
       end
     end
   end

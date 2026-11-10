@@ -22,6 +22,12 @@ module Stripe
       @pre_handle_callback = nil
     end
 
+    # The default inspect renders every instance variable, which would
+    # include the client's API key and the webhook secret.
+    def inspect
+      "#<#{self.class}:0x#{object_id.to_s(16)}>"
+    end
+
     def registered_event_types
       @registered_handlers.keys.sort
     end

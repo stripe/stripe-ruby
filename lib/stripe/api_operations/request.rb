@@ -7,7 +7,8 @@ module Stripe
         def execute_resource_request(method, url, base_address = :api,
                                      params = {}, opts = {}, usage = [])
           execute_resource_request_internal(
-            :execute_request, method, url, base_address, params, opts, usage
+            :execute_request, method, url, base_address, params, opts, usage,
+            requestor: APIRequestor.active_requestor
           )
         end
 
@@ -22,6 +23,7 @@ module Stripe
             params,
             opts,
             usage,
+            requestor: APIRequestor.active_requestor,
             &read_body_chunk_block
           )
         end
@@ -33,7 +35,7 @@ module Stripe
         private def execute_resource_request_internal(client_request_method_sym,
                                                       method, url, base_address,
                                                       params, opts, usage,
-                                                      requestor: nil,
+                                                      requestor:,
                                                       &read_body_chunk_block)
           params = params.to_h if params.is_a?(Stripe::RequestParams)
           params ||= {}
@@ -44,7 +46,7 @@ module Stripe
           opts = Util.normalize_opts(opts)
           req_opts = RequestOptions.extract_opts_from_hash(opts)
 
-          (requestor || APIRequestor.active_requestor).send(
+          requestor.send(
             client_request_method_sym,
             method, url,
             base_address,

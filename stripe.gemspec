@@ -36,7 +36,8 @@ Gem::Specification.new do |s|
     # TODO(helenye): http://go/j/DEVSDK-2769
     %r{\Arbi/stripe/stripe_client.rbi\z},
     %r{\Arbi/stripe/workload_identity_exchange.rbi\z},
-    %r{\Arbi/stripe/resources/v2/core/event_notification.rbi\z}
+    %r{\Arbi/stripe/resources/v2/core/event_notification.rbi\z},
+    %r{\Arbi/stripe/resources/v2/core/event_base.rbi\z}
   )
   s.files = `git ls-files`.split("\n").grep(included)
   s.bindir = "exe"

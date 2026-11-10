@@ -8,7 +8,7 @@ module Stripe
       @original_account = Stripe.stripe_account
       @original_context = Stripe.config.stripe_context
       Stripe.stripe_account = "acct_default_b"
-      Stripe.config.stripe_context = "ctx_default_b"
+      Stripe.config.stripe_context = "acct_default_b"
       @requests = []
       @product_path = "/v1/products/prod_shared"
       @product_body = { id: "prod_shared", object: "product" }
@@ -20,11 +20,14 @@ module Stripe
       @client = StripeClient.new("sk_test_123", api_base: Stripe.api_base, stripe_account: "acct_client_b")
       stub_request(:any, "#{Stripe.api_base}#{@product_path}").to_return do |request|
         @requests << request
-        { body: JSON.generate(@product_body), headers: { "Content-Type" => "application/json" } }
+        body = request.method == :delete ? @product_body.merge(deleted: true) : @product_body
+        { body: JSON.generate(body), headers: { "Content-Type" => "application/json" } }
       end
       stub_request(:get, "#{Stripe.api_base}/v2/core/events/evt_123").to_return do |request|
         @requests << request
-        { body: JSON.generate(@event_body), headers: { "Content-Type" => "application/json" } }
+        # Pull payloads echo the authentication path used to retrieve the event.
+        context = request.headers["Stripe-Context"] || request.headers["Stripe-Account"]
+        { body: JSON.generate(@event_body.merge(context: context)), headers: { "Content-Type" => "application/json" } }
       end
     end
 
@@ -73,7 +76,7 @@ module Stripe
         Stripe.config.stripe_context = nil
         product = Product.retrieve("prod_shared")
         Stripe.stripe_account = "acct_default_b"
-        Stripe.config.stripe_context = "ctx_default_b"
+        Stripe.config.stripe_context = "acct_default_b"
         restored = Marshal.load(Marshal.dump(product))
         product.delete
         restored.delete
@@ -92,7 +95,7 @@ module Stripe
 
       should "preserve scope when loading inside another client's request block" do
         blob = Marshal.dump(notification.fetch_related_object)
-        other = StripeClient.new("sk_test_123", api_base: Stripe.api_base, stripe_context: "ctx_worker_b")
+        other = StripeClient.new("sk_test_123", api_base: Stripe.api_base, stripe_context: "acct_worker_b")
         other.request do
           # The cache entry was produced above from a trusted SDK object.
           restored = Marshal.load(blob) # rubocop:disable Security/MarshalLoad
@@ -131,7 +134,7 @@ module Stripe
         product.marshal_load([@product_body, {}])
         product.delete
 
-        assert_scope(@requests, "ctx_default_b", "acct_default_b")
+        assert_scope(@requests, "acct_default_b", "acct_default_b")
       end
 
       should "preserve the v2 API mode and event context across restoration" do
@@ -158,38 +161,73 @@ module Stripe
         assert_scope(@requests, "acct_event_a", nil)
       end
 
-      [nil, ""].each do |event_context|
+      %i[omitted null].each do |event_context|
         %i[stripe_account stripe_context].each do |client_selector|
-          should "clear #{client_selector} for a direct event with context #{event_context.inspect}" do
-            @event_body[:context] = event_context
-            client = StripeClient.new("sk_test_123", api_base: Stripe.api_base, **{ client_selector => "acct_client_b" })
-            event = client.v2.core.events.retrieve("evt_123")
+          should "clear #{client_selector} for a direct notification with #{event_context} context" do
+            if event_context == :omitted
+              @event_body.delete(:context)
+            else
+              @event_body[:context] = nil
+            end
+            @client = StripeClient.new("sk_test_123", api_base: Stripe.api_base, **{ client_selector => "acct_client_b" })
+            event = notification.fetch_event
             product = event.fetch_related_object
             Marshal.load(Marshal.dump(product)).delete
 
-            assert_scope(@requests.last(2), nil, nil)
+            assert_nil event.context
+            assert_scope(@requests, nil, nil)
             assert_bound_scope(event, nil, nil)
             assert_bound_scope(product, nil, nil)
           end
         end
       end
 
-      should "bind a directly retrieved event to its payload context without changing the client" do
-        client = StripeClient.new("sk_test_123", api_base: Stripe.api_base, stripe_context: "ctx_client_b")
+      %i[stripe_account stripe_context].each do |client_selector|
+        should "use the echoed #{client_selector} scope for a directly retrieved event" do
+          client = StripeClient.new("sk_test_123", api_base: Stripe.api_base, **{ client_selector => "acct_event_a" })
+          event = client.v2.core.events.retrieve("evt_123")
+          product = event.fetch_related_object
+          Marshal.load(Marshal.dump(product)).delete
+
+          assert_equal "acct_event_a", event.context
+          assert_scope(@requests.first(1), client_selector == :stripe_context ? "acct_event_a" : nil,
+                       client_selector == :stripe_account ? "acct_event_a" : nil)
+          assert_scope(@requests.last(2), "acct_event_a", nil)
+          assert_bound_scope(event, "acct_event_a", nil)
+          assert_bound_scope(product, "acct_event_a", nil)
+        end
+      end
+
+      should "return null context for an event retrieved without scope headers" do
+        client = StripeClient.new("sk_test_123", api_base: Stripe.api_base)
         event = client.v2.core.events.retrieve("evt_123")
+        restored = Marshal.load(Marshal.dump(event))
+        product = restored.fetch_related_object
+        Marshal.load(Marshal.dump(product)).delete
+
+        assert_nil event.context
+        assert_scope(@requests, nil, nil)
+        assert_bound_scope(restored, nil, nil)
+        assert_bound_scope(product, nil, nil)
+      end
+
+      should "bind a directly retrieved event to its payload context without changing the client" do
+        client = StripeClient.new("sk_test_123", api_base: Stripe.api_base, stripe_context: "acct_client_b")
+        event = client.v2.core.events.retrieve("evt_123", {}, stripe_context: "acct_event_a")
         product = event.fetch_related_object
         product.delete
         client.v1.products.retrieve("prod_shared")
 
-        assert_scope(@requests.first(1), "ctx_client_b", nil)
+        assert_equal "acct_event_a", event.context
+        assert_scope(@requests.first(1), "acct_event_a", nil)
         assert_scope(@requests[1, 2], "acct_event_a", nil)
-        assert_scope(@requests.last(1), "ctx_client_b", nil)
+        assert_scope(@requests.last(1), "acct_client_b", nil)
         assert_bound_scope(event, "acct_event_a", nil)
         assert_bound_scope(product, "acct_event_a", nil)
       end
 
       should "retain an API key override when constructing a scoped event" do
-        event = @client.v2.core.events.retrieve("evt_123", {}, api_key: "rk_restricted")
+        event = @client.with_stripe_context("acct_event_a").v2.core.events.retrieve("evt_123", {}, api_key: "rk_restricted")
         product = event.fetch_related_object
         Marshal.load(Marshal.dump(product)).delete
 
@@ -198,7 +236,7 @@ module Stripe
       end
 
       should "preserve explicit per-request context overrides on ordinary resources" do
-        client = StripeClient.new("sk_test_123", api_base: Stripe.api_base, stripe_context: "ctx_client_b")
+        client = StripeClient.new("sk_test_123", api_base: Stripe.api_base, stripe_context: "acct_client_b")
         product = client.v1.products.retrieve("prod_shared", {}, stripe_context: StripeContext.parse("acct_event_a"))
         restored = Marshal.load(Marshal.dump(product))
         restored.delete
@@ -219,18 +257,25 @@ module Stripe
         assert_scope(@requests, "acct_event_a", nil)
       end
 
-      should "retain an explicit account instead of silently dropping it for the client context" do
-        client = StripeClient.new("sk_test_123", api_base: Stripe.api_base, stripe_context: "ctx_client_b")
-        client.v1.products.delete("prod_shared", {}, stripe_account: "acct_explicit_a")
+      should "retain an explicit account when merging options with a configured context" do
+        config = StripeConfiguration.new
+        config.stripe_context = "acct_client_b"
+        opts = RequestOptions.merge_config_and_opts(config, stripe_account: "acct_explicit_a")
 
-        assert_scope(@requests, "ctx_client_b", "acct_explicit_a")
+        assert_equal "acct_client_b", opts[:stripe_context]
+        assert_equal "acct_explicit_a", opts[:stripe_account]
       end
 
       should "scope expanded active objects through construction and Marshal" do
         client = @client.with_stripe_context("acct_event_a")
-        parent = client.deserialize({ id: "cus_123", object: "customer", default_source: @product_body })
+        customer_body = { id: "cus_123", object: "customer" }
+        stub_request(:delete, "#{Stripe.api_base}/v1/customers/cus_123").to_return do |request|
+          @requests << request
+          { body: JSON.generate(customer_body.merge(deleted: true)), headers: { "Content-Type" => "application/json" } }
+        end
+        parent = client.deserialize({ id: "in_123", object: "invoice", customer: customer_body })
         restored = Marshal.load(Marshal.dump(parent))
-        restored.default_source.delete
+        restored.customer.delete
 
         assert_scope(@requests, "acct_event_a", nil)
       end
@@ -266,7 +311,7 @@ module Stripe
       when :notification_event
         notification.fetch_event.fetch_related_object
       when :direct_event
-        @client.v2.core.events.retrieve("evt_123").fetch_related_object
+        @client.with_stripe_context("acct_event_a").v2.core.events.retrieve("evt_123").fetch_related_object
       when :deserialize
         @client.with_stripe_context("acct_event_a").deserialize(@product_body)
       when :service

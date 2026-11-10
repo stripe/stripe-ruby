@@ -24,22 +24,45 @@ module Stripe
       config = StripeConfiguration.setup do |c|
         c.api_key = "sk_test_123"
         c.stripe_account = "acct_123"
-        c.stripe_context = "wksp_123"
         c.api_version = "2018-08-02"
       end
       request_opts = {
         api_key: "sk_test_456",
         stripe_account: "acct_456",
-        stripe_context: "wksp_456",
         stripe_version: "2018-08-03",
         idempotency_key: "idemp_123",
       }
       merged_opts = RequestOptions.merge_config_and_opts(config, request_opts)
       assert_equal "sk_test_456", merged_opts[:api_key]
       assert_equal "acct_456", merged_opts[:stripe_account]
-      assert_equal "wksp_456", merged_opts[:stripe_context]
       assert_equal "2018-08-03", merged_opts[:stripe_version]
       assert_equal "idemp_123", merged_opts[:idempotency_key]
+    end
+
+    context "merge_config_and_opts stripe_account/stripe_context exclusivity" do
+      should "drop stripe_account when stripe_context comes from req_opts" do
+        config = StripeConfiguration.setup { |c| c.stripe_account = "acct_123" }
+        merged_opts = RequestOptions.merge_config_and_opts(config, stripe_context: "wksp_456")
+        assert_equal "wksp_456", merged_opts[:stripe_context]
+        refute merged_opts.key?(:stripe_account)
+      end
+
+      should "drop stripe_account when stripe_context comes from config" do
+        config = StripeConfiguration.setup do |c|
+          c.stripe_account = "acct_123"
+          c.stripe_context = "wksp_123"
+        end
+        merged_opts = RequestOptions.merge_config_and_opts(config, {})
+        assert_equal "wksp_123", merged_opts[:stripe_context]
+        refute merged_opts.key?(:stripe_account)
+      end
+
+      should "keep stripe_account when no stripe_context is present" do
+        config = StripeConfiguration.setup { |c| c.stripe_account = "acct_123" }
+        merged_opts = RequestOptions.merge_config_and_opts(config, {})
+        assert_equal "acct_123", merged_opts[:stripe_account]
+        refute merged_opts.key?(:stripe_context)
+      end
     end
 
     context "extract_opts_from_hash" do

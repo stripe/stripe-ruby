@@ -63,7 +63,9 @@ module Stripe
         client.v1.customers.retrieve("cus_123")
 
         assert_equal "Bearer test_123", req.headers["Authorization"]
-        assert_equal "acct_123", req.headers["Stripe-Account"]
+        # Stripe-Account and Stripe-Context are mutually exclusive on the
+        # wire; Context wins when both are configured.
+        assert_nil req.headers["Stripe-Account"]
         assert_equal "wksp_123", req.headers["Stripe-Context"]
         assert_equal "2022-11-15", req.headers["Stripe-Version"]
       end
@@ -221,7 +223,9 @@ module Stripe
 
         assert_equal "2019-12-03", req.headers["Stripe-Version"]
         assert_equal "Bearer sk_test_456", req.headers["Authorization"]
-        assert_equal "acct_123", req.headers["Stripe-Account"]
+        # Stripe-Account and Stripe-Context are mutually exclusive on the
+        # wire; Context wins when both are configured.
+        assert_nil req.headers["Stripe-Account"]
         assert_equal "wksp_123", req.headers["Stripe-Context"]
         assert_equal "idemp_123", req.headers["Idempotency-Key"]
       end

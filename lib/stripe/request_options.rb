@@ -62,6 +62,11 @@ module Stripe
         headers: req_opts[:headers] || {},
       }
 
+      # Stripe-Account and Stripe-Context are mutually exclusive on the wire
+      # (sending both is a 400); Context is the newer, more general header,
+      # so it wins whenever both would otherwise be sent.
+      merged_opts.delete(:stripe_account) if merged_opts[:stripe_context]
+
       # Remove nil values from headers
       merged_opts.delete_if { |_, v| v.nil? }
 

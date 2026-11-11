@@ -384,5 +384,14 @@ module Stripe
         assert_equal obj.id, "evt_123"
       end
     end
+
+    context "#inspect" do
+      should "not expose the API key" do
+        client = StripeClient.new("sk_test_secret")
+
+        refute_includes client.inspect, "sk_test_secret"
+        refute_includes client.with_stripe_context("acct_123").inspect, "sk_test_secret"
+      end
+    end
   end
 end

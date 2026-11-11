@@ -1840,6 +1840,12 @@ module Stripe
         assert(event.request_header)
       end
     end
+
+    context "#inspect" do
+      should "not expose the API key" do
+        refute_includes APIRequestor.new("sk_test_secret").inspect, "sk_test_secret"
+      end
+    end
   end
 
   class SystemProfilerTest < Test::Unit::TestCase

@@ -812,6 +812,16 @@ module Stripe
         Events::V2MoneyManagementRewardProgramRewardEarnedEvent,
         Events::V2MoneyManagementRewardProgramRewardReversedEvent.lookup_type =>
         Events::V2MoneyManagementRewardProgramRewardReversedEvent,
+        Events::V2MoneyManagementSpendingMandateCanceledEvent.lookup_type =>
+        Events::V2MoneyManagementSpendingMandateCanceledEvent,
+        Events::V2MoneyManagementSpendingMandateCreatedEvent.lookup_type =>
+        Events::V2MoneyManagementSpendingMandateCreatedEvent,
+        Events::V2MoneyManagementSpendingMandateExpiredEvent.lookup_type =>
+        Events::V2MoneyManagementSpendingMandateExpiredEvent,
+        Events::V2MoneyManagementSpendingMandatePendingCancellationEvent.lookup_type =>
+        Events::V2MoneyManagementSpendingMandatePendingCancellationEvent,
+        Events::V2MoneyManagementSpendingMandateUpdatedEvent.lookup_type =>
+        Events::V2MoneyManagementSpendingMandateUpdatedEvent,
         Events::V2MoneyManagementTransactionCreatedEvent.lookup_type =>
         Events::V2MoneyManagementTransactionCreatedEvent,
         Events::V2MoneyManagementTransactionUpdatedEvent.lookup_type =>
@@ -1859,6 +1869,16 @@ module Stripe
         Events::V2MoneyManagementRewardProgramRewardEarnedEventNotification,
         Events::V2MoneyManagementRewardProgramRewardReversedEventNotification.lookup_type =>
         Events::V2MoneyManagementRewardProgramRewardReversedEventNotification,
+        Events::V2MoneyManagementSpendingMandateCanceledEventNotification.lookup_type =>
+        Events::V2MoneyManagementSpendingMandateCanceledEventNotification,
+        Events::V2MoneyManagementSpendingMandateCreatedEventNotification.lookup_type =>
+        Events::V2MoneyManagementSpendingMandateCreatedEventNotification,
+        Events::V2MoneyManagementSpendingMandateExpiredEventNotification.lookup_type =>
+        Events::V2MoneyManagementSpendingMandateExpiredEventNotification,
+        Events::V2MoneyManagementSpendingMandatePendingCancellationEventNotification.lookup_type =>
+        Events::V2MoneyManagementSpendingMandatePendingCancellationEventNotification,
+        Events::V2MoneyManagementSpendingMandateUpdatedEventNotification.lookup_type =>
+        Events::V2MoneyManagementSpendingMandateUpdatedEventNotification,
         Events::V2MoneyManagementTransactionCreatedEventNotification.lookup_type =>
         Events::V2MoneyManagementTransactionCreatedEventNotification,
         Events::V2MoneyManagementTransactionUpdatedEventNotification.lookup_type =>

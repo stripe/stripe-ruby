@@ -6,18 +6,21 @@ module Stripe
   module V2
     module MoneyManagement
       class ReceivedDebitMandateService < StripeService
+        # Deprecated: Use CancelSpendingMandate instead.
         # Cancels an active ReceivedDebitMandate.
         sig {
           params(id: String, params: T.any(::Stripe::V2::MoneyManagement::ReceivedDebitMandateCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::ReceivedDebitMandate)
          }
         def cancel(id, params = {}, opts = {}); end
 
+        # Deprecated: Use ListSpendingMandates instead.
         # Returns a list of ReceivedDebitMandates.
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::ReceivedDebitMandateListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
          }
         def list(params = {}, opts = {}); end
 
+        # Deprecated: Use RetrieveSpendingMandate instead.
         # Retrieves the details of an existing ReceivedDebitMandate.
         sig {
           params(id: String, params: T.any(::Stripe::V2::MoneyManagement::ReceivedDebitMandateRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::ReceivedDebitMandate)

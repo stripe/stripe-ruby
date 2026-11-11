@@ -119,8 +119,20 @@ module Stripe
             def creditor_id; end
             sig { params(_creditor_id: T.nilable(String)).returns(T.nilable(String)) }
             def creditor_id=(_creditor_id); end
-            sig { params(creditor_id: T.nilable(String)).void }
-            def initialize(creditor_id: nil); end
+            # Describes the presence of the customer during the payment.
+            sig { returns(T.nilable(String)) }
+            def customer_presence; end
+            sig { params(_customer_presence: T.nilable(String)).returns(T.nilable(String)) }
+            def customer_presence=(_customer_presence); end
+            # Describes whether this payment is one-off or recurring.
+            sig { returns(T.nilable(String)) }
+            def payment_type; end
+            sig { params(_payment_type: T.nilable(String)).returns(T.nilable(String)) }
+            def payment_type=(_payment_type); end
+            sig {
+              params(creditor_id: T.nilable(String), customer_presence: T.nilable(String), payment_type: T.nilable(String)).void
+             }
+            def initialize(creditor_id: nil, customer_presence: nil, payment_type: nil); end
           end
           class UsBankAccount < ::Stripe::RequestParams
             # Describes the presence of the customer during the payment.

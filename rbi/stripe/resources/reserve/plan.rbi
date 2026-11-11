@@ -87,7 +87,7 @@ module Stripe
       # The type of the ReservePlan.
       sig { returns(String) }
       def type; end
-      # Returns a list of ReservePlans previously created. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
+      # Returns a list of ReservePlans on your account or on one of your connected accounts. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
       sig {
         params(params: T.any(::Stripe::Reserve::PlanListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }

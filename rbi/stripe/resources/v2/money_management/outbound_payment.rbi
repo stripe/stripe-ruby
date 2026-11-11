@@ -188,11 +188,34 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            class CheckSend < ::Stripe::StripeObject
+              # The ID of a file to include as an attachment with the check.
+              sig { returns(T.nilable(String)) }
+              def attachment_file; end
+              # Memo printed on the memo field of the check.
+              sig { returns(T.nilable(String)) }
+              def memo; end
+              # Open Enum. Shipping speed of the check. Defaults to standard.
+              sig { returns(T.nilable(String)) }
+              def shipping_speed; end
+              # Signature printed on the check.
+              sig { returns(String) }
+              def signature; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # Options for bank account payout methods.
             sig { returns(T.nilable(BankAccount)) }
             def bank_account; end
+            # Options for check send payout methods.
+            sig { returns(T.nilable(CheckSend)) }
+            def check_send; end
             def self.inner_class_types
-              @inner_class_types = {bank_account: BankAccount}
+              @inner_class_types = {bank_account: BankAccount, check_send: CheckSend}
             end
             def self.field_remappings
               @field_remappings = {}
@@ -252,6 +275,64 @@ module Stripe
             def retrieval_reference; end
             def self.inner_class_types
               @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class CheckSend < ::Stripe::StripeObject
+            class MailingAddress < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(T.nilable(String)) }
+              def country; end
+              # Address line 1 (e.g., street, PO Box, or company name).
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              # State, county, province, or region.
+              sig { returns(T.nilable(String)) }
+              def state; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Open Enum. Carrier of the check.
+            sig { returns(String) }
+            def carrier; end
+            # Check number.
+            sig { returns(String) }
+            def check_number; end
+            # Postal code of the latest tracking update.
+            sig { returns(String) }
+            def current_postal_code; end
+            # The ID of a file containing a preview image of the mailed check.
+            sig { returns(T.nilable(String)) }
+            def mailed_check_preview_file; end
+            # Mailing address of the check.
+            sig { returns(MailingAddress) }
+            def mailing_address; end
+            # Tracking number for the check.
+            sig { returns(String) }
+            def tracking_number; end
+            # Open Enum. Tracking status of the check.
+            sig { returns(String) }
+            def tracking_status; end
+            # When the tracking details were last updated.
+            sig { returns(String) }
+            def updated_at; end
+            def self.inner_class_types
+              @inner_class_types = {mailing_address: MailingAddress}
             end
             def self.field_remappings
               @field_remappings = {}
@@ -329,6 +410,9 @@ module Stripe
           # Card tracking details.
           sig { returns(T.nilable(Card)) }
           def card; end
+          # Check send tracking details.
+          sig { returns(T.nilable(CheckSend)) }
+          def check_send; end
           # Crypto wallet tracking details.
           sig { returns(T.nilable(CryptoWallet)) }
           def crypto_wallet; end
@@ -345,6 +429,7 @@ module Stripe
             @inner_class_types = {
               bank_account: BankAccount,
               card: Card,
+              check_send: CheckSend,
               crypto_wallet: CryptoWallet,
               paper_check: PaperCheck,
             }

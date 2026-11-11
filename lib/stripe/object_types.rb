@@ -347,6 +347,7 @@ module Stripe
         V2::MoneyManagement::RewardProgramEnrollment.object_name =>
         V2::MoneyManagement::RewardProgramEnrollment,
         V2::MoneyManagement::RewardProgramRule.object_name => V2::MoneyManagement::RewardProgramRule,
+        V2::MoneyManagement::SpendingMandate.object_name => V2::MoneyManagement::SpendingMandate,
         V2::MoneyManagement::Transaction.object_name => V2::MoneyManagement::Transaction,
         V2::MoneyManagement::TransactionEntry.object_name => V2::MoneyManagement::TransactionEntry,
         V2::Network::BusinessProfile.object_name => V2::Network::BusinessProfile,

@@ -110,6 +110,69 @@ module Stripe
              }
             def initialize(currency: nil, exp_month: nil, exp_year: nil, number: nil); end
           end
+          class CheckSend < ::Stripe::RequestParams
+            class MailingAddress < ::Stripe::RequestParams
+              # City.
+              sig { returns(String) }
+              def city; end
+              sig { params(_city: String).returns(String) }
+              def city=(_city); end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(String) }
+              def country; end
+              sig { params(_country: String).returns(String) }
+              def country=(_country); end
+              # Address line 1 (e.g., street, PO Box, or company name).
+              sig { returns(String) }
+              def line1; end
+              sig { params(_line1: String).returns(String) }
+              def line1=(_line1); end
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+              def line2=(_line2); end
+              # ZIP or postal code.
+              sig { returns(String) }
+              def postal_code; end
+              sig { params(_postal_code: String).returns(String) }
+              def postal_code=(_postal_code); end
+              # State.
+              sig { returns(String) }
+              def state; end
+              sig { params(_state: String).returns(String) }
+              def state=(_state); end
+              sig {
+                params(city: String, country: String, line1: String, line2: T.nilable(String), postal_code: String, state: String).void
+               }
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              ); end
+            end
+            # The US mailing address the check is sent to.
+            sig {
+              returns(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CheckSend::MailingAddress)
+             }
+            def mailing_address; end
+            sig {
+              params(_mailing_address: ::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CheckSend::MailingAddress).returns(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CheckSend::MailingAddress)
+             }
+            def mailing_address=(_mailing_address); end
+            # The name printed on the check's payee line.
+            sig { returns(String) }
+            def payee_name; end
+            sig { params(_payee_name: String).returns(String) }
+            def payee_name=(_payee_name); end
+            sig {
+              params(mailing_address: ::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CheckSend::MailingAddress, payee_name: String).void
+             }
+            def initialize(mailing_address: nil, payee_name: nil); end
+          end
           class CryptoWallet < ::Stripe::RequestParams
             # Crypto wallet address.
             sig { returns(String) }
@@ -172,6 +235,15 @@ module Stripe
             params(_card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card))
            }
           def card=(_card); end
+          # The type specific details of the check send payout method.
+          sig {
+            returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CheckSend))
+           }
+          def check_send; end
+          sig {
+            params(_check_send: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CheckSend)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CheckSend))
+           }
+          def check_send=(_check_send); end
           # The type specific details of the crypto wallet payout method.
           sig {
             returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CryptoWallet))
@@ -196,12 +268,13 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(apple_pay: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::ApplePay), bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount), card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card), crypto_wallet: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CryptoWallet), pix: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Pix), type: String).void
+            params(apple_pay: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::ApplePay), bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount), card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card), check_send: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CheckSend), crypto_wallet: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CryptoWallet), pix: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Pix), type: String).void
            }
           def initialize(
             apple_pay: nil,
             bank_account: nil,
             card: nil,
+            check_send: nil,
             crypto_wallet: nil,
             pix: nil,
             type: nil

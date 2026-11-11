@@ -39,6 +39,7 @@ module Stripe
             # Open Enum. The bank network the debit was originated on.
             attr_reader :network
             # The ID of the mandate associated with this debit.
+            # Deprecated: use `bank_transfer.spending_mandate` instead.
             attr_reader :received_debit_mandate
             # The sort code of the bank that originated the debit.
             attr_reader :sort_code
@@ -118,6 +119,8 @@ module Stripe
           attr_reader :origin_type
           # Open Enum. The type of the payment method used to originate the debit.
           attr_reader :payment_method_type
+          # The ID of the SpendingMandate associated with this debit.
+          attr_reader :spending_mandate
           # The statement descriptor set by the originator of the debit.
           attr_reader :statement_descriptor
           # Object containing details of the US Bank Account that originated the debit.

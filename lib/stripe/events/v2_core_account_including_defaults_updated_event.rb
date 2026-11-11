@@ -3,7 +3,7 @@
 
 module Stripe
   module Events
-    # This event occurs when account defaults are created or updated.
+    # Occurs when an Account's defaults are created or updated.
     class V2CoreAccountIncludingDefaultsUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v2.core.account[defaults].updated"
@@ -21,7 +21,7 @@ module Stripe
       attr_reader :related_object
     end
 
-    # This event occurs when account defaults are created or updated.
+    # Occurs when an Account's defaults are created or updated.
     class V2CoreAccountIncludingDefaultsUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.core.account[defaults].updated"

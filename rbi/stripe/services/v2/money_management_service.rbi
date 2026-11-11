@@ -29,6 +29,7 @@ module Stripe
       attr_reader :recipient_verifications
       attr_reader :reward_programs
       attr_reader :reward_program_enrollments
+      attr_reader :spending_mandates
       attr_reader :test_helpers
       attr_reader :transactions
       attr_reader :transaction_entries

@@ -65,7 +65,7 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
-    # A list of three letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be [supported currencies](https://stripe.com/docs/currencies).
+    # A list of three letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be [supported currencies](https://stripe.com/docs/currencies). Payout-only currencies are also supported, but only for informational quotes (`lock_duration=none`).
     sig { returns(T::Array[String]) }
     def from_currencies; end
     sig { params(_from_currencies: T::Array[String]).returns(T::Array[String]) }
@@ -75,7 +75,7 @@ module Stripe
     def lock_duration; end
     sig { params(_lock_duration: String).returns(String) }
     def lock_duration=(_lock_duration); end
-    # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Payout-only currencies are also supported, but only for informational quotes (`lock_duration=none`).
     sig { returns(String) }
     def to_currency; end
     sig { params(_to_currency: String).returns(String) }

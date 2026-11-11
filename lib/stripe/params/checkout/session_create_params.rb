@@ -3806,6 +3806,8 @@ module Stripe
       # We recommend that you review your privacy policy and check with your legal contacts
       # before using this feature. Learn more about [collecting phone numbers with Checkout](https://docs.stripe.com/payments/checkout/phone-numbers).
       attr_accessor :phone_number_collection
+      # Token used to resolve the presentment currency for this Checkout Session.
+      attr_accessor :pricing_token
       # This parameter applies to `ui_mode: embedded_page`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
       attr_accessor :redirect_on_completion
       # The URL to redirect your customer back to after they authenticate or cancel their payment on the
@@ -3892,6 +3894,7 @@ module Stripe
         payment_settings: nil,
         permissions: nil,
         phone_number_collection: nil,
+        pricing_token: nil,
         redirect_on_completion: nil,
         return_url: nil,
         saved_payment_method_options: nil,
@@ -3954,6 +3957,7 @@ module Stripe
         @payment_settings = payment_settings
         @permissions = permissions
         @phone_number_collection = phone_number_collection
+        @pricing_token = pricing_token
         @redirect_on_completion = redirect_on_completion
         @return_url = return_url
         @saved_payment_method_options = saved_payment_method_options

@@ -96,10 +96,10 @@ module Stripe
       end
       class Card < ::Stripe::StripeObject
         class Checks < ::Stripe::StripeObject
-          # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+          # If an address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
           sig { returns(T.nilable(String)) }
           def address_line1_check; end
-          # If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+          # If an address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
           sig { returns(T.nilable(String)) }
           def address_postal_code_check; end
           # If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
@@ -467,6 +467,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class TossPay < ::Stripe::StripeObject
+        # The buyer identifier provided by NICE for this Toss Pay account, when available.
+        sig { returns(T.nilable(String)) }
+        def buyer_id; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Twint < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -572,6 +583,9 @@ module Stripe
       # Attribute for field stripe_balance
       sig { returns(T.nilable(StripeBalance)) }
       def stripe_balance; end
+      # Attribute for field toss_pay
+      sig { returns(T.nilable(TossPay)) }
+      def toss_pay; end
       # Attribute for field twint
       sig { returns(T.nilable(Twint)) }
       def twint; end
@@ -613,6 +627,7 @@ module Stripe
           sepa_debit: SepaDebit,
           sofort: Sofort,
           stripe_balance: StripeBalance,
+          toss_pay: TossPay,
           twint: Twint,
           upi: Upi,
           us_bank_account: UsBankAccount,

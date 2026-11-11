@@ -197,11 +197,32 @@ module Stripe
                 @field_remappings = {}
               end
             end
+
+            class CheckSend < ::Stripe::StripeObject
+              # The ID of a file to include as an attachment with the check.
+              attr_reader :attachment_file
+              # Memo printed on the memo field of the check.
+              attr_reader :memo
+              # Open Enum. Shipping speed of the check. Defaults to standard.
+              attr_reader :shipping_speed
+              # Signature printed on the check.
+              attr_reader :signature
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # Options for bank account payout methods.
             attr_reader :bank_account
+            # Options for check send payout methods.
+            attr_reader :check_send
 
             def self.inner_class_types
-              @inner_class_types = { bank_account: BankAccount }
+              @inner_class_types = { bank_account: BankAccount, check_send: CheckSend }
             end
 
             def self.field_remappings
@@ -264,6 +285,55 @@ module Stripe
 
             def self.inner_class_types
               @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class CheckSend < ::Stripe::StripeObject
+            class MailingAddress < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Open Enum. Carrier of the check.
+            attr_reader :carrier
+            # Check number.
+            attr_reader :check_number
+            # Postal code of the latest tracking update.
+            attr_reader :current_postal_code
+            # The ID of a file containing a preview image of the mailed check.
+            attr_reader :mailed_check_preview_file
+            # Mailing address of the check.
+            attr_reader :mailing_address
+            # Tracking number for the check.
+            attr_reader :tracking_number
+            # Open Enum. Tracking status of the check.
+            attr_reader :tracking_status
+            # When the tracking details were last updated.
+            attr_reader :updated_at
+
+            def self.inner_class_types
+              @inner_class_types = { mailing_address: MailingAddress }
             end
 
             def self.field_remappings
@@ -334,6 +404,8 @@ module Stripe
           attr_reader :bank_account
           # Card tracking details.
           attr_reader :card
+          # Check send tracking details.
+          attr_reader :check_send
           # Crypto wallet tracking details.
           attr_reader :crypto_wallet
           # Paper check tracking details.
@@ -347,6 +419,7 @@ module Stripe
             @inner_class_types = {
               bank_account: BankAccount,
               card: Card,
+              check_send: CheckSend,
               crypto_wallet: CryptoWallet,
               paper_check: PaperCheck,
             }

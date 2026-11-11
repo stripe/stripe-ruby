@@ -188,11 +188,45 @@ module Stripe
             @cvc_check = cvc_check
           end
         end
+
+        class ThreeDSecure < ::Stripe::RequestParams
+          # For authenticated transactions: Indicates how the issuing bank authenticated the customer.
+          attr_accessor :authentication_flow
+          # The Electronic Commerce Indicator (ECI). A protocol-level field indicating what degree of authentication was performed.
+          attr_accessor :electronic_commerce_indicator
+          # The exemption requested via 3DS and accepted by the issuer at authentication time.
+          attr_accessor :exemption_indicator
+          # Indicates the outcome of 3D Secure authentication.
+          attr_accessor :result
+          # Additional information about why 3D Secure succeeded or failed, based on the `result`.
+          attr_accessor :result_reason
+          # The version of 3D Secure that was used.
+          attr_accessor :version
+
+          def initialize(
+            authentication_flow: nil,
+            electronic_commerce_indicator: nil,
+            exemption_indicator: nil,
+            result: nil,
+            result_reason: nil,
+            version: nil
+          )
+            @authentication_flow = authentication_flow
+            @electronic_commerce_indicator = electronic_commerce_indicator
+            @exemption_indicator = exemption_indicator
+            @result = result
+            @result_reason = result_reason
+            @version = version
+          end
+        end
         # Verification checks performed on the card.
         attr_accessor :checks
+        # Populated if this transaction used 3D Secure authentication.
+        attr_accessor :three_d_secure
 
-        def initialize(checks: nil)
+        def initialize(checks: nil, three_d_secure: nil)
           @checks = checks
+          @three_d_secure = three_d_secure
         end
       end
 

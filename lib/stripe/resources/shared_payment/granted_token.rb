@@ -80,9 +80,9 @@ module Stripe
 
         class Card < ::Stripe::StripeObject
           class Checks < ::Stripe::StripeObject
-            # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+            # If an address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
             attr_reader :address_line1_check
-            # If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+            # If an address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
             attr_reader :address_postal_code_check
             # If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
             attr_reader :cvc_check
@@ -441,6 +441,33 @@ module Stripe
         end
       end
 
+      class ReferralFeeDetails < ::Stripe::StripeObject
+        class Rate < ::Stripe::StripeObject
+          # The percentage of the payment amount which will be calculated as a fee.
+          attr_reader :percentage
+          # The type of fee rate.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field rate
+        attr_reader :rate
+
+        def self.inner_class_types
+          @inner_class_types = { rate: Rate }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class RiskDetails < ::Stripe::StripeObject
         class Insights < ::Stripe::StripeObject
           class Bot < ::Stripe::StripeObject
@@ -631,6 +658,8 @@ module Stripe
       attr_reader :object
       # Details of the PaymentMethod that was shared via this token.
       attr_reader :payment_method_details
+      # Referral fees may be charged when a SharedPaymentGrantedToken is used. This behavior is controlled by the issuer of the token. This field provides details about the referral fee rate.
+      attr_reader :referral_fee_details
       # Risk details of the SharedPaymentGrantedToken.
       attr_reader :risk_details
       # Metadata about the SharedPaymentGrantedToken.
@@ -685,6 +714,7 @@ module Stripe
         @inner_class_types = {
           agent_details: AgentDetails,
           payment_method_details: PaymentMethodDetails,
+          referral_fee_details: ReferralFeeDetails,
           risk_details: RiskDetails,
           usage_details: UsageDetails,
           usage_limits: UsageLimits,

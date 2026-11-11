@@ -25,6 +25,7 @@ module Stripe
           #
           # ** raises CannotProceedError
           # ** raises BlockedByStripeError
+          # ** raises MerchantNotGatedError
           def create_from_credential(params = {}, opts = {})
             request(
               method: :post,

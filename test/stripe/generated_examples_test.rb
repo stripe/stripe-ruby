@@ -10911,6 +10911,12 @@ module Stripe
               },
               preferred_networks: ["fedwire"],
             },
+            check_send: {
+              attachment_file: "attachment_file",
+              memo: "memo",
+              shipping_speed: "priority",
+              signature: "signature",
+            },
           },
           recipient: "recipient",
         },
@@ -11177,6 +11183,12 @@ module Stripe
               },
               preferred_networks: ["fedwire"],
             },
+            check_send: {
+              attachment_file: "attachment_file",
+              memo: "memo",
+              shipping_speed: "priority",
+              signature: "signature",
+            },
           },
           recipient: "recipient",
         },
@@ -11266,7 +11278,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods"
       ).to_return(
-        body: '{"data":[{"object":"v2.money_management.payout_method","archived":true,"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"apple_pay","usage_status":{"payments":"invalid","transfers":"invalid"}}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.money_management.payout_method","archived":true,"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"check_send","usage_status":{"payments":"invalid","transfers":"invalid"}}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -11279,7 +11291,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123"
       ).to_return(
-        body: '{"object":"v2.money_management.payout_method","archived":true,"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"apple_pay","usage_status":{"payments":"invalid","transfers":"invalid"}}',
+        body: '{"object":"v2.money_management.payout_method","archived":true,"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"check_send","usage_status":{"payments":"invalid","transfers":"invalid"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -11292,7 +11304,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123/archive"
       ).to_return(
-        body: '{"object":"v2.money_management.payout_method","archived":true,"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"apple_pay","usage_status":{"payments":"invalid","transfers":"invalid"}}',
+        body: '{"object":"v2.money_management.payout_method","archived":true,"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"check_send","usage_status":{"payments":"invalid","transfers":"invalid"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -11305,7 +11317,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123/disable"
       ).to_return(
-        body: '{"object":"v2.money_management.payout_method","archived":true,"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"apple_pay","usage_status":{"payments":"invalid","transfers":"invalid"}}',
+        body: '{"object":"v2.money_management.payout_method","archived":true,"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"check_send","usage_status":{"payments":"invalid","transfers":"invalid"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -11318,7 +11330,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123/unarchive"
       ).to_return(
-        body: '{"object":"v2.money_management.payout_method","archived":true,"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"apple_pay","usage_status":{"payments":"invalid","transfers":"invalid"}}',
+        body: '{"object":"v2.money_management.payout_method","archived":true,"available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"check_send","usage_status":{"payments":"invalid","transfers":"invalid"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -11716,6 +11728,45 @@ module Stripe
 
       reward_program_enrollment = client.v2.money_management.reward_program_enrollments.deactivate("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/reward_program_enrollments/id_123/deactivate"
+    end
+    should "Test v2 money management spending mandate get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/spending_mandates"
+      ).to_return(
+        body: '{"data":[{"object":"v2.money_management.spending_mandate","created":"1970-01-12T21:42:34.472Z","currency":"usd","financial_account":"financial_account","id":"obj_123","livemode":true,"status":"expired","type":"bank_transfer"}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      spending_mandates = client.v2.money_management.spending_mandates.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/spending_mandates"
+    end
+    should "Test v2 money management spending mandate get 2 (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/spending_mandates/id_123"
+      ).to_return(
+        body: '{"object":"v2.money_management.spending_mandate","created":"1970-01-12T21:42:34.472Z","currency":"usd","financial_account":"financial_account","id":"obj_123","livemode":true,"status":"expired","type":"bank_transfer"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      spending_mandate = client.v2.money_management.spending_mandates.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/spending_mandates/id_123"
+    end
+    should "Test v2 money management spending mandate post (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/spending_mandates/id_123/cancel"
+      ).to_return(
+        body: '{"object":"v2.money_management.spending_mandate","created":"1970-01-12T21:42:34.472Z","currency":"usd","financial_account":"financial_account","id":"obj_123","livemode":true,"status":"expired","type":"bank_transfer"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      spending_mandate = client.v2.money_management.spending_mandates.cancel("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/spending_mandates/id_123/cancel"
     end
     should "Test v2 money management test helper post (service)" do
       stub_request(

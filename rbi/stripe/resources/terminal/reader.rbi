@@ -734,12 +734,29 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class DeviceHealthDetail < ::Stripe::StripeObject
+        # The type of condition affecting the reader's device health.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # The most recent action performed by the reader.
       sig { returns(T.nilable(Action)) }
       def action; end
       # Always true for a deleted object
       sig { returns(T.nilable(T::Boolean)) }
       def deleted; end
+      # The overall device health of the reader: `healthy` or `unhealthy`. Renamed to `no_issues_detected` and `needs_attention` respectively; see `device_health_details` for the specific conditions.
+      sig { returns(T.nilable(String)) }
+      def device_health; end
+      # The set of conditions affecting the reader's device health. Empty when there are no conditions.
+      sig { returns(T.nilable(T::Array[DeviceHealthDetail])) }
+      def device_health_details; end
       # The current software version of the reader.
       sig { returns(T.nilable(String)) }
       def device_sw_version; end

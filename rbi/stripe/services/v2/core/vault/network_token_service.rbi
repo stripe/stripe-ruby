@@ -21,6 +21,7 @@ module Stripe
           #
           # ** raises CannotProceedError
           # ** raises BlockedByStripeError
+          # ** raises MerchantNotGatedError
           sig {
             params(params: T.any(::Stripe::V2::Core::Vault::NetworkTokenCreateFromCredentialParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::NetworkToken)
            }

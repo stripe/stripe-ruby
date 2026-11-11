@@ -31,6 +31,51 @@ module Stripe
             cvc_check: nil
           ); end
         end
+        class ThreeDSecure < ::Stripe::RequestParams
+          # For authenticated transactions: Indicates how the issuing bank authenticated the customer.
+          sig { returns(T.nilable(String)) }
+          def authentication_flow; end
+          sig { params(_authentication_flow: T.nilable(String)).returns(T.nilable(String)) }
+          def authentication_flow=(_authentication_flow); end
+          # The Electronic Commerce Indicator (ECI). A protocol-level field indicating what degree of authentication was performed.
+          sig { returns(T.nilable(String)) }
+          def electronic_commerce_indicator; end
+          sig {
+            params(_electronic_commerce_indicator: T.nilable(String)).returns(T.nilable(String))
+           }
+          def electronic_commerce_indicator=(_electronic_commerce_indicator); end
+          # The exemption requested via 3DS and accepted by the issuer at authentication time.
+          sig { returns(T.nilable(String)) }
+          def exemption_indicator; end
+          sig { params(_exemption_indicator: T.nilable(String)).returns(T.nilable(String)) }
+          def exemption_indicator=(_exemption_indicator); end
+          # Indicates the outcome of 3D Secure authentication.
+          sig { returns(String) }
+          def result; end
+          sig { params(_result: String).returns(String) }
+          def result=(_result); end
+          # Additional information about why 3D Secure succeeded or failed, based on the `result`.
+          sig { returns(T.nilable(String)) }
+          def result_reason; end
+          sig { params(_result_reason: T.nilable(String)).returns(T.nilable(String)) }
+          def result_reason=(_result_reason); end
+          # The version of 3D Secure that was used.
+          sig { returns(String) }
+          def version; end
+          sig { params(_version: String).returns(String) }
+          def version=(_version); end
+          sig {
+            params(authentication_flow: T.nilable(String), electronic_commerce_indicator: T.nilable(String), exemption_indicator: T.nilable(String), result: String, result_reason: T.nilable(String), version: String).void
+           }
+          def initialize(
+            authentication_flow: nil,
+            electronic_commerce_indicator: nil,
+            exemption_indicator: nil,
+            result: nil,
+            result_reason: nil,
+            version: nil
+          ); end
+        end
         # Verification checks performed on the card.
         sig {
           returns(T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::PaymentMethodDetails::Card::Checks))
@@ -40,10 +85,19 @@ module Stripe
           params(_checks: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::PaymentMethodDetails::Card::Checks)).returns(T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::PaymentMethodDetails::Card::Checks))
          }
         def checks=(_checks); end
+        # Populated if this transaction used 3D Secure authentication.
         sig {
-          params(checks: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::PaymentMethodDetails::Card::Checks)).void
+          returns(T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::PaymentMethodDetails::Card::ThreeDSecure))
          }
-        def initialize(checks: nil); end
+        def three_d_secure; end
+        sig {
+          params(_three_d_secure: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::PaymentMethodDetails::Card::ThreeDSecure)).returns(T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::PaymentMethodDetails::Card::ThreeDSecure))
+         }
+        def three_d_secure=(_three_d_secure); end
+        sig {
+          params(checks: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::PaymentMethodDetails::Card::Checks), three_d_secure: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::PaymentMethodDetails::Card::ThreeDSecure)).void
+         }
+        def initialize(checks: nil, three_d_secure: nil); end
       end
       # Information about the card payment method used to make this payment.
       sig {

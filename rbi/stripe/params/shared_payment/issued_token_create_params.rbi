@@ -5,6 +5,27 @@
 module Stripe
   module SharedPayment
     class IssuedTokenCreateParams < ::Stripe::RequestParams
+      class ReferralFeeDetails < ::Stripe::RequestParams
+        # The Customer to be invoiced for fees assessed.
+        sig { returns(T.nilable(String)) }
+        def customer; end
+        sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
+        def customer=(_customer); end
+        # The account with a Customer configuration to be invoiced for fees assessed.
+        sig { returns(T.nilable(String)) }
+        def customer_account; end
+        sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
+        def customer_account=(_customer_account); end
+        # The percentage of the payment to charge as a referral fee, from 0 through 50 with at most two decimal places.
+        sig { returns(Float) }
+        def referral_fee_percent; end
+        sig { params(_referral_fee_percent: Float).returns(Float) }
+        def referral_fee_percent=(_referral_fee_percent); end
+        sig {
+          params(customer: T.nilable(String), customer_account: T.nilable(String), referral_fee_percent: Float).void
+         }
+        def initialize(customer: nil, customer_account: nil, referral_fee_percent: nil); end
+      end
       class SellerDetails < ::Stripe::RequestParams
         # A unique id within a network that identifies a logical seller, usually this would be the unique merchant id.
         sig { returns(T.nilable(String)) }
@@ -86,6 +107,15 @@ module Stripe
       def payment_method; end
       sig { params(_payment_method: String).returns(String) }
       def payment_method=(_payment_method); end
+      # Referral fee details for this SharedPaymentToken.
+      sig {
+        returns(T.nilable(::Stripe::SharedPayment::IssuedTokenCreateParams::ReferralFeeDetails))
+       }
+      def referral_fee_details; end
+      sig {
+        params(_referral_fee_details: T.nilable(::Stripe::SharedPayment::IssuedTokenCreateParams::ReferralFeeDetails)).returns(T.nilable(::Stripe::SharedPayment::IssuedTokenCreateParams::ReferralFeeDetails))
+       }
+      def referral_fee_details=(_referral_fee_details); end
       # If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
       sig { returns(T.nilable(String)) }
       def return_url; end
@@ -123,11 +153,12 @@ module Stripe
       sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def use_stripe_sdk=(_use_stripe_sdk); end
       sig {
-        params(expand: T.nilable(T::Array[String]), payment_method: String, return_url: T.nilable(String), seller_details: ::Stripe::SharedPayment::IssuedTokenCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String]), usage_limits: ::Stripe::SharedPayment::IssuedTokenCreateParams::UsageLimits, use_stripe_sdk: T.nilable(T::Boolean)).void
+        params(expand: T.nilable(T::Array[String]), payment_method: String, referral_fee_details: T.nilable(::Stripe::SharedPayment::IssuedTokenCreateParams::ReferralFeeDetails), return_url: T.nilable(String), seller_details: ::Stripe::SharedPayment::IssuedTokenCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String]), usage_limits: ::Stripe::SharedPayment::IssuedTokenCreateParams::UsageLimits, use_stripe_sdk: T.nilable(T::Boolean)).void
        }
       def initialize(
         expand: nil,
         payment_method: nil,
+        referral_fee_details: nil,
         return_url: nil,
         seller_details: nil,
         setup_future_usage: nil,

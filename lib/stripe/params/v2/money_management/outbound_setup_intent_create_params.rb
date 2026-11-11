@@ -83,6 +83,48 @@ module Stripe
             end
           end
 
+          class CheckSend < ::Stripe::RequestParams
+            class MailingAddress < ::Stripe::RequestParams
+              # City.
+              attr_accessor :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_accessor :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_accessor :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # State.
+              attr_accessor :state
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @state = state
+              end
+            end
+            # The US mailing address the check is sent to.
+            attr_accessor :mailing_address
+            # The name printed on the check's payee line.
+            attr_accessor :payee_name
+
+            def initialize(mailing_address: nil, payee_name: nil)
+              @mailing_address = mailing_address
+              @payee_name = payee_name
+            end
+          end
+
           class CryptoWallet < ::Stripe::RequestParams
             # Crypto wallet address.
             attr_accessor :address
@@ -117,6 +159,8 @@ module Stripe
           attr_accessor :bank_account
           # The type specific details of the card payout method.
           attr_accessor :card
+          # The type specific details of the check send payout method.
+          attr_accessor :check_send
           # The type specific details of the crypto wallet payout method.
           attr_accessor :crypto_wallet
           # The type specific details of the PIX payout method.
@@ -128,6 +172,7 @@ module Stripe
             apple_pay: nil,
             bank_account: nil,
             card: nil,
+            check_send: nil,
             crypto_wallet: nil,
             pix: nil,
             type: nil
@@ -135,6 +180,7 @@ module Stripe
             @apple_pay = apple_pay
             @bank_account = bank_account
             @card = card
+            @check_send = check_send
             @crypto_wallet = crypto_wallet
             @pix = pix
             @type = type

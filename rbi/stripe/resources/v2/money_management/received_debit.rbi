@@ -39,6 +39,7 @@ module Stripe
             sig { returns(String) }
             def network; end
             # The ID of the mandate associated with this debit.
+            # Deprecated: use `bank_transfer.spending_mandate` instead.
             sig { returns(T.nilable(String)) }
             def received_debit_mandate; end
             # The sort code of the bank that originated the debit.
@@ -127,6 +128,9 @@ module Stripe
           # Open Enum. The type of the payment method used to originate the debit.
           sig { returns(String) }
           def payment_method_type; end
+          # The ID of the SpendingMandate associated with this debit.
+          sig { returns(T.nilable(String)) }
+          def spending_mandate; end
           # The statement descriptor set by the originator of the debit.
           sig { returns(T.nilable(String)) }
           def statement_descriptor; end

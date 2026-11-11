@@ -547,10 +547,10 @@ module Stripe
           end
         end
         class Checks < ::Stripe::StripeObject
-          # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+          # If an address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
           sig { returns(T.nilable(String)) }
           def address_line1_check; end
-          # If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+          # If an address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
           sig { returns(T.nilable(String)) }
           def address_postal_code_check; end
           # If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
@@ -749,10 +749,10 @@ module Stripe
             class FundingSource < ::Stripe::StripeObject
               class Card < ::Stripe::StripeObject
                 class Checks < ::Stripe::StripeObject
-                  # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                  # If an address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
                   sig { returns(T.nilable(String)) }
                   def address_line1_check; end
-                  # If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                  # If an address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
                   sig { returns(T.nilable(String)) }
                   def address_postal_code_check; end
                   # If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
@@ -1321,6 +1321,20 @@ module Stripe
           end
         end
         class Receipt < ::Stripe::StripeObject
+          class CardholderMessage < ::Stripe::StripeObject
+            # Where the message must be printed or displayed. An empty list means the message must not be shown.
+            sig { returns(T::Array[String]) }
+            def destinations; end
+            # The message from the card issuer, such as the remaining balance.
+            sig { returns(String) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The type of account being debited or credited
           sig { returns(T.nilable(String)) }
           def account_type; end
@@ -1336,6 +1350,9 @@ module Stripe
           # EMV tag 8A. A code returned by the card issuer.
           sig { returns(T.nilable(String)) }
           def authorization_response_code; end
+          # A message from the card issuer to show to the cardholder, and where it must be shown.
+          sig { returns(T.nilable(CardholderMessage)) }
+          def cardholder_message; end
           # Describes the method used by the cardholder to verify ownership of the card. One of the following: `approval`, `failure`, `none`, `offline_pin`, `offline_pin_and_signature`, `online_pin`, or `signature`.
           sig { returns(T.nilable(String)) }
           def cardholder_verification_method; end
@@ -1349,7 +1366,7 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def transaction_status_information; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {cardholder_message: CardholderMessage}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -1944,10 +1961,10 @@ module Stripe
         class FundingSource < ::Stripe::StripeObject
           class Card < ::Stripe::StripeObject
             class Checks < ::Stripe::StripeObject
-              # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+              # If an address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
               sig { returns(T.nilable(String)) }
               def address_line1_check; end
-              # If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+              # If an address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
               sig { returns(T.nilable(String)) }
               def address_postal_code_check; end
               # If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.

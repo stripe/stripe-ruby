@@ -1680,6 +1680,32 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class WechatPayRedirectToMiniProgram < ::Stripe::StripeObject
+        # Mini Program ID registered on WeChat Open Platform
+        sig { returns(String) }
+        def app_id; end
+        # Random string
+        sig { returns(String) }
+        def nonce_str; end
+        # Unique trading ID assigned by WeChat Pay
+        sig { returns(String) }
+        def prepay_id; end
+        # Signature
+        sig { returns(String) }
+        def sign; end
+        # Signature type
+        sig { returns(String) }
+        def sign_type; end
+        # Current time in epoch format
+        sig { returns(String) }
+        def timestamp; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Attribute for field alipay_handle_redirect
       sig { returns(T.nilable(AlipayHandleRedirect)) }
       def alipay_handle_redirect; end
@@ -1752,6 +1778,9 @@ module Stripe
       # Attribute for field wechat_pay_redirect_to_ios_app
       sig { returns(T.nilable(WechatPayRedirectToIosApp)) }
       def wechat_pay_redirect_to_ios_app; end
+      # Attribute for field wechat_pay_redirect_to_mini_program
+      sig { returns(T.nilable(WechatPayRedirectToMiniProgram)) }
+      def wechat_pay_redirect_to_mini_program; end
       def self.inner_class_types
         @inner_class_types = {
           alipay_handle_redirect: AlipayHandleRedirect,
@@ -1776,6 +1805,7 @@ module Stripe
           wechat_pay_handle_app_redirect: WechatPayHandleAppRedirect,
           wechat_pay_redirect_to_android_app: WechatPayRedirectToAndroidApp,
           wechat_pay_redirect_to_ios_app: WechatPayRedirectToIosApp,
+          wechat_pay_redirect_to_mini_program: WechatPayRedirectToMiniProgram,
         }
       end
       def self.field_remappings

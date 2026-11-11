@@ -256,6 +256,11 @@ module Stripe
 
       # TODO: (major) Remove the :client option. This is not explicitly supported as a user-specified option.
       opts.delete(:client)
+
+      # Serialized objects often land in caches and queues that aren't
+      # protected like secrets, so never write the API key out. Nested
+      # StripeObjects are dumped through this method too.
+      opts[:api_key] = RequestOptions::API_KEY_SERIALIZATION_CONSTANT
       [@values, opts]
     end
 
@@ -265,6 +270,60 @@ module Stripe
       values, opts = data
       initialize(values[:id], api_mode: api_mode)
       initialize_from(values, opts, api_mode: api_mode, requestor: @requestor)
+    end
+
+    # Implements custom encoding for YAML (Psych). Without it, Psych dumps
+    # every instance variable, including the API key in @opts and the
+    # requestor's configuration.
+    def encode_with(coder)
+      values, opts = marshal_dump
+      coder["values"] = values
+      coder["opts"] = opts
+    end
+
+    # Implements custom decoding for YAML (Psych). Consumes data that's
+    # produced by #encode_with.
+    def init_with(coder)
+      marshal_load([coder["values"], coder["opts"]])
+    end
+
+    # Attaches credentials to an object restored from Marshal or YAML, and to
+    # any nested objects that were restored without credentials. Each object
+    # keeps its saved connected account and API version.
+    def reattach_api_key(api_key)
+      unless @opts[:api_key] == RequestOptions::API_KEY_SERIALIZATION_CONSTANT
+        raise ArgumentError,
+              "API credentials can only be reattached to a deserialized " \
+              "object that has not already been reattached."
+      end
+      if !api_key.is_a?(String) || api_key.strip.empty? ||
+         api_key == RequestOptions::API_KEY_SERIALIZATION_CONSTANT
+        raise ArgumentError, "api_key must be a non-empty, valid API key."
+      end
+
+      reattach_api_key_to(self, api_key, {}.compare_by_identity)
+      self
+    end
+
+    # Identity-based `seen` because StripeObject#hash and #== compare values,
+    # and restored objects can contain cycles.
+    private def reattach_api_key_to(value, api_key, seen)
+      case value
+      when StripeObject
+        return if seen.key?(value)
+
+        seen[value] = true
+        opts = value.instance_variable_get(:@opts)
+        if opts[:api_key] == RequestOptions::API_KEY_SERIALIZATION_CONSTANT
+          value.instance_variable_set(:@opts, opts.merge(api_key: api_key))
+        end
+        value.instance_variable_get(:@values).each_value { |v| reattach_api_key_to(v, api_key, seen) }
+        value.instance_variable_get(:@original_values).each_value { |v| reattach_api_key_to(v, api_key, seen) }
+      when Hash
+        value.each_value { |v| reattach_api_key_to(v, api_key, seen) }
+      when Array
+        value.each { |v| reattach_api_key_to(v, api_key, seen) }
+      end
     end
 
     def serialize_params(options = {})

@@ -964,6 +964,17 @@ module Stripe
             assert_equal(true, e.json_body.is_a?(Hash))
           end
 
+          should "raise AuthenticationError without making a request when given the serialization placeholder" do
+            client = APIRequestor.new(RequestOptions::API_KEY_SERIALIZATION_CONSTANT)
+
+            e = assert_raises Stripe::AuthenticationError do
+              client.send(request_method, :post, "/v1/charges", :api,
+                          &@read_body_chunk_block)
+            end
+            assert_match(/reattach_api_key/, e.message)
+            assert_not_requested(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
+          end
+
           should "raise CardError on 402" do
             stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
               .to_return(body: JSON.generate(make_invalid_exp_year_error), status: 402)

@@ -1623,6 +1623,26 @@ module Stripe
              "stripe/events/v2_money_management_reward_program_reward_reversed_event"
     autoload :V2MoneyManagementRewardProgramRewardReversedEventNotification,
              "stripe/events/v2_money_management_reward_program_reward_reversed_event"
+    autoload :V2MoneyManagementSpendingMandateCanceledEvent,
+             "stripe/events/v2_money_management_spending_mandate_canceled_event"
+    autoload :V2MoneyManagementSpendingMandateCanceledEventNotification,
+             "stripe/events/v2_money_management_spending_mandate_canceled_event"
+    autoload :V2MoneyManagementSpendingMandateCreatedEvent,
+             "stripe/events/v2_money_management_spending_mandate_created_event"
+    autoload :V2MoneyManagementSpendingMandateCreatedEventNotification,
+             "stripe/events/v2_money_management_spending_mandate_created_event"
+    autoload :V2MoneyManagementSpendingMandateExpiredEvent,
+             "stripe/events/v2_money_management_spending_mandate_expired_event"
+    autoload :V2MoneyManagementSpendingMandateExpiredEventNotification,
+             "stripe/events/v2_money_management_spending_mandate_expired_event"
+    autoload :V2MoneyManagementSpendingMandatePendingCancellationEvent,
+             "stripe/events/v2_money_management_spending_mandate_pending_cancellation_event"
+    autoload :V2MoneyManagementSpendingMandatePendingCancellationEventNotification,
+             "stripe/events/v2_money_management_spending_mandate_pending_cancellation_event"
+    autoload :V2MoneyManagementSpendingMandateUpdatedEvent,
+             "stripe/events/v2_money_management_spending_mandate_updated_event"
+    autoload :V2MoneyManagementSpendingMandateUpdatedEventNotification,
+             "stripe/events/v2_money_management_spending_mandate_updated_event"
     autoload :V2MoneyManagementTransactionCreatedEvent, "stripe/events/v2_money_management_transaction_created_event"
     autoload :V2MoneyManagementTransactionCreatedEventNotification,
              "stripe/events/v2_money_management_transaction_created_event"
@@ -2027,6 +2047,7 @@ module Stripe
       autoload :RewardProgram, "stripe/resources/v2/money_management/reward_program"
       autoload :RewardProgramEnrollment, "stripe/resources/v2/money_management/reward_program_enrollment"
       autoload :RewardProgramRule, "stripe/resources/v2/money_management/reward_program_rule"
+      autoload :SpendingMandate, "stripe/resources/v2/money_management/spending_mandate"
       autoload :Transaction, "stripe/resources/v2/money_management/transaction"
       autoload :TransactionEntry, "stripe/resources/v2/money_management/transaction_entry"
     end
@@ -2399,6 +2420,7 @@ module Stripe
     stripe/resources/v2/money_management/reward_program
     stripe/resources/v2/money_management/reward_program_enrollment
     stripe/resources/v2/money_management/reward_program_rule
+    stripe/resources/v2/money_management/spending_mandate
     stripe/resources/v2/money_management/transaction
     stripe/resources/v2/money_management/transaction_entry
     stripe/resources/v2/network/business_profile
@@ -2941,6 +2963,11 @@ module Stripe
     stripe/events/v2_money_management_recipient_verification_updated_event
     stripe/events/v2_money_management_reward_program_reward_earned_event
     stripe/events/v2_money_management_reward_program_reward_reversed_event
+    stripe/events/v2_money_management_spending_mandate_canceled_event
+    stripe/events/v2_money_management_spending_mandate_created_event
+    stripe/events/v2_money_management_spending_mandate_expired_event
+    stripe/events/v2_money_management_spending_mandate_pending_cancellation_event
+    stripe/events/v2_money_management_spending_mandate_updated_event
     stripe/events/v2_money_management_transaction_created_event
     stripe/events/v2_money_management_transaction_updated_event
     stripe/events/v2_orchestrated_commerce_agreement_confirmed_event

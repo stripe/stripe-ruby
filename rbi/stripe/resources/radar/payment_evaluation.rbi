@@ -305,6 +305,12 @@ module Stripe
             # Creditor identifier used for the intended debit.
             sig { returns(T.nilable(String)) }
             def creditor_id; end
+            # Describes the presence of the customer during the payment.
+            sig { returns(T.nilable(String)) }
+            def customer_presence; end
+            # Describes whether this payment is one-off or recurring.
+            sig { returns(T.nilable(String)) }
+            def payment_type; end
             def self.inner_class_types
               @inner_class_types = {}
             end

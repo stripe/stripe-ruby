@@ -2150,6 +2150,26 @@ module Stripe
       register("v2.money_management.reward_program.reward_reversed", &callback)
     end
 
+    def on_v2_money_management_spending_mandate_canceled(&callback)
+      register("v2.money_management.spending_mandate.canceled", &callback)
+    end
+
+    def on_v2_money_management_spending_mandate_created(&callback)
+      register("v2.money_management.spending_mandate.created", &callback)
+    end
+
+    def on_v2_money_management_spending_mandate_expired(&callback)
+      register("v2.money_management.spending_mandate.expired", &callback)
+    end
+
+    def on_v2_money_management_spending_mandate_pending_cancellation(&callback)
+      register("v2.money_management.spending_mandate.pending_cancellation", &callback)
+    end
+
+    def on_v2_money_management_spending_mandate_updated(&callback)
+      register("v2.money_management.spending_mandate.updated", &callback)
+    end
+
     def on_v2_money_management_transaction_created(&callback)
       register("v2.money_management.transaction.created", &callback)
     end

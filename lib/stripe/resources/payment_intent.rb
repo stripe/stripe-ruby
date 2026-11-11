@@ -1608,6 +1608,29 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class WechatPayRedirectToMiniProgram < ::Stripe::StripeObject
+        # Mini Program ID registered on WeChat Open Platform
+        attr_reader :app_id
+        # Random string
+        attr_reader :nonce_str
+        # Unique trading ID assigned by WeChat Pay
+        attr_reader :prepay_id
+        # Signature
+        attr_reader :sign
+        # Signature type
+        attr_reader :sign_type
+        # Current time in epoch format
+        attr_reader :timestamp
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Attribute for field alipay_handle_redirect
       attr_reader :alipay_handle_redirect
       # Attribute for field blik_authorize
@@ -1656,6 +1679,8 @@ module Stripe
       attr_reader :wechat_pay_redirect_to_android_app
       # Attribute for field wechat_pay_redirect_to_ios_app
       attr_reader :wechat_pay_redirect_to_ios_app
+      # Attribute for field wechat_pay_redirect_to_mini_program
+      attr_reader :wechat_pay_redirect_to_mini_program
 
       def self.inner_class_types
         @inner_class_types = {
@@ -1681,6 +1706,7 @@ module Stripe
           wechat_pay_handle_app_redirect: WechatPayHandleAppRedirect,
           wechat_pay_redirect_to_android_app: WechatPayRedirectToAndroidApp,
           wechat_pay_redirect_to_ios_app: WechatPayRedirectToIosApp,
+          wechat_pay_redirect_to_mini_program: WechatPayRedirectToMiniProgram,
         }
       end
 

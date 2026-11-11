@@ -106,6 +106,43 @@ module Stripe
           end
         end
 
+        class CheckSend < ::Stripe::StripeObject
+          class MailingAddress < ::Stripe::StripeObject
+            # City.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State.
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The US mailing address the check is sent to.
+          attr_reader :mailing_address
+          # The name printed on the check's payee line.
+          attr_reader :payee_name
+
+          def self.inner_class_types
+            @inner_class_types = { mailing_address: MailingAddress }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class CryptoWallet < ::Stripe::StripeObject
           # Destination wallet address.
           attr_reader :address
@@ -185,6 +222,8 @@ module Stripe
         attr_reader :bank_account
         # The PayoutMethodCard object details.
         attr_reader :card
+        # The PayoutMethodCheckSend object details.
+        attr_reader :check_send
         # Created timestamp.
         attr_reader :created
         # The PayoutMethodCryptoWallet object details.
@@ -215,6 +254,7 @@ module Stripe
             apple_pay: ApplePay,
             bank_account: BankAccount,
             card: Card,
+            check_send: CheckSend,
             crypto_wallet: CryptoWallet,
             network_business_profile_wallet: NetworkBusinessProfileWallet,
             pix: Pix,

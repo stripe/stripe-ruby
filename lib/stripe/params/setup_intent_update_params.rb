@@ -808,6 +808,15 @@ module Stripe
       class AmazonPay < ::Stripe::RequestParams; end
 
       class BacsDebit < ::Stripe::RequestParams
+        class FinancialConnections < ::Stripe::RequestParams
+          # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+          attr_accessor :return_url
+
+          def initialize(return_url: nil)
+            @return_url = return_url
+          end
+        end
+
         class MandateOptions < ::Stripe::RequestParams
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
           attr_accessor :reference_prefix
@@ -816,12 +825,15 @@ module Stripe
             @reference_prefix = reference_prefix
           end
         end
+        # Additional fields for Financial Connections session creation.
+        attr_accessor :financial_connections
         # Additional fields for Mandate creation
         attr_accessor :mandate_options
         # Attribute for param field verification_method
         attr_accessor :verification_method
 
-        def initialize(mandate_options: nil, verification_method: nil)
+        def initialize(financial_connections: nil, mandate_options: nil, verification_method: nil)
+          @financial_connections = financial_connections
           @mandate_options = mandate_options
           @verification_method = verification_method
         end

@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Reserve
-    # ReserveHolds are used to place a temporary ReserveHold on a merchant's funds.
+    # A ReserveHold holds a portion of an account's funds until it's released. Stripe or the account's platform can create a ReserveHold directly, and a ReservePlan creates ReserveHolds automatically from incoming Charges.
     class Hold < APIResource
       class ReleaseDetail < ::Stripe::StripeObject
         # The amount released by the ReserveRelease from this ReserveHold. A positive integer representing how much is released in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
@@ -85,7 +85,7 @@ module Stripe
       # Which source balance type this ReserveHold reserves funds from. One of `bank_account`, `card`, or `fpx`.
       sig { returns(String) }
       def source_type; end
-      # Returns a list of ReserveHolds previously created. The ReserveHolds are returned in sorted order, with the most recent ReserveHolds appearing first.
+      # Returns a list of ReserveHolds on your account or on one of your connected accounts. The ReserveHolds are returned in sorted order, with the most recent ReserveHolds appearing first.
       sig {
         params(params: T.any(::Stripe::Reserve::HoldListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }

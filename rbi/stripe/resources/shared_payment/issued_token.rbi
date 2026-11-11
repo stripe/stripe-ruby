@@ -48,6 +48,23 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ReferralFeeDetails < ::Stripe::StripeObject
+        # The Customer to be invoiced for fees assessed.
+        sig { returns(String) }
+        def customer; end
+        # The account to be invoiced for fees assessed.
+        sig { returns(T.nilable(String)) }
+        def customer_account; end
+        # The percentage of the payment charged as a referral fee.
+        sig { returns(Float) }
+        def referral_fee_percent; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class RiskDetails < ::Stripe::StripeObject
         class Insights < ::Stripe::StripeObject
           class Bot < ::Stripe::StripeObject
@@ -258,6 +275,9 @@ module Stripe
       # ID of an existing PaymentMethod.
       sig { returns(String) }
       def payment_method; end
+      # Referral fee details of the SharedPaymentIssuedToken.
+      sig { returns(T.nilable(ReferralFeeDetails)) }
+      def referral_fee_details; end
       # If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
       sig { returns(T.nilable(String)) }
       def return_url; end

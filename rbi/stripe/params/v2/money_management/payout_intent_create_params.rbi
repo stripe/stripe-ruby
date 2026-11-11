@@ -99,6 +99,37 @@ module Stripe
                }
               def initialize(preferred_network_options: nil, preferred_networks: nil); end
             end
+            class CheckSend < ::Stripe::RequestParams
+              # The ID of a file to include as an attachment with the check.
+              sig { returns(T.nilable(String)) }
+              def attachment_file; end
+              sig { params(_attachment_file: T.nilable(String)).returns(T.nilable(String)) }
+              def attachment_file=(_attachment_file); end
+              # Memo printed on the memo field of the check.
+              sig { returns(T.nilable(String)) }
+              def memo; end
+              sig { params(_memo: T.nilable(String)).returns(T.nilable(String)) }
+              def memo=(_memo); end
+              # Open Enum. Shipping speed of the check. Defaults to standard.
+              sig { returns(T.nilable(String)) }
+              def shipping_speed; end
+              sig { params(_shipping_speed: T.nilable(String)).returns(T.nilable(String)) }
+              def shipping_speed=(_shipping_speed); end
+              # Signature printed on the check.
+              sig { returns(String) }
+              def signature; end
+              sig { params(_signature: String).returns(String) }
+              def signature=(_signature); end
+              sig {
+                params(attachment_file: T.nilable(String), memo: T.nilable(String), shipping_speed: T.nilable(String), signature: String).void
+               }
+              def initialize(
+                attachment_file: nil,
+                memo: nil,
+                shipping_speed: nil,
+                signature: nil
+              ); end
+            end
             # Options for bank account payout methods.
             sig {
               returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::To::PayoutMethodOptions::BankAccount))
@@ -108,10 +139,19 @@ module Stripe
               params(_bank_account: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::To::PayoutMethodOptions::BankAccount)).returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::To::PayoutMethodOptions::BankAccount))
              }
             def bank_account=(_bank_account); end
+            # Options for check send payout methods.
             sig {
-              params(bank_account: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::To::PayoutMethodOptions::BankAccount)).void
+              returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::To::PayoutMethodOptions::CheckSend))
              }
-            def initialize(bank_account: nil); end
+            def check_send; end
+            sig {
+              params(_check_send: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::To::PayoutMethodOptions::CheckSend)).returns(T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::To::PayoutMethodOptions::CheckSend))
+             }
+            def check_send=(_check_send); end
+            sig {
+              params(bank_account: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::To::PayoutMethodOptions::BankAccount), check_send: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::To::PayoutMethodOptions::CheckSend)).void
+             }
+            def initialize(bank_account: nil, check_send: nil); end
           end
           # The currency to send to the recipient.
           sig { returns(T.nilable(String)) }

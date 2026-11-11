@@ -317,6 +317,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class TossPay < ::Stripe::StripeObject
+        # The buyer identifier provided by NICE for this Toss Pay account, when available.
+        sig { returns(T.nilable(String)) }
+        def buyer_id; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Twint < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -410,6 +421,9 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
+      # Attribute for field toss_pay
+      sig { returns(T.nilable(TossPay)) }
+      def toss_pay; end
       # Attribute for field twint
       sig { returns(T.nilable(Twint)) }
       def twint; end
@@ -442,6 +456,7 @@ module Stripe
           pix: Pix,
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
+          toss_pay: TossPay,
           twint: Twint,
           upi: Upi,
           us_bank_account: UsBankAccount,

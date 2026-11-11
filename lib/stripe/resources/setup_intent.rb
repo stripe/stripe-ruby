@@ -383,6 +383,19 @@ module Stripe
       end
 
       class BacsDebit < ::Stripe::StripeObject
+        class FinancialConnections < ::Stripe::StripeObject
+          # Attribute for field return_url
+          attr_reader :return_url
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class MandateOptions < ::Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
           attr_reader :reference_prefix
@@ -395,13 +408,18 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field financial_connections
+        attr_reader :financial_connections
         # Attribute for field mandate_options
         attr_reader :mandate_options
         # Attribute for field verification_method
         attr_reader :verification_method
 
         def self.inner_class_types
-          @inner_class_types = { mandate_options: MandateOptions }
+          @inner_class_types = {
+            financial_connections: FinancialConnections,
+            mandate_options: MandateOptions,
+          }
         end
 
         def self.field_remappings

@@ -5,6 +5,7 @@ module Stripe
   module V2
     module MoneyManagement
       class ReceivedDebitMandateService < StripeService
+        # Deprecated: Use CancelSpendingMandate instead.
         # Cancels an active ReceivedDebitMandate.
         def cancel(id, params = {}, opts = {})
           request(
@@ -16,6 +17,7 @@ module Stripe
           )
         end
 
+        # Deprecated: Use ListSpendingMandates instead.
         # Returns a list of ReceivedDebitMandates.
         def list(params = {}, opts = {})
           request(
@@ -27,6 +29,7 @@ module Stripe
           )
         end
 
+        # Deprecated: Use RetrieveSpendingMandate instead.
         # Retrieves the details of an existing ReceivedDebitMandate.
         def retrieve(id, params = {}, opts = {})
           request(

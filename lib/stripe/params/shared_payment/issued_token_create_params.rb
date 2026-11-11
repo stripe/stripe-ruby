@@ -4,6 +4,21 @@
 module Stripe
   module SharedPayment
     class IssuedTokenCreateParams < ::Stripe::RequestParams
+      class ReferralFeeDetails < ::Stripe::RequestParams
+        # The Customer to be invoiced for fees assessed.
+        attr_accessor :customer
+        # The account with a Customer configuration to be invoiced for fees assessed.
+        attr_accessor :customer_account
+        # The percentage of the payment to charge as a referral fee, from 0 through 50 with at most two decimal places.
+        attr_accessor :referral_fee_percent
+
+        def initialize(customer: nil, customer_account: nil, referral_fee_percent: nil)
+          @customer = customer
+          @customer_account = customer_account
+          @referral_fee_percent = referral_fee_percent
+        end
+      end
+
       class SellerDetails < ::Stripe::RequestParams
         # A unique id within a network that identifies a logical seller, usually this would be the unique merchant id.
         attr_accessor :external_id
@@ -57,6 +72,8 @@ module Stripe
       attr_accessor :expand
       # The PaymentMethod that is going to be shared by the SharedPaymentIssuedToken.
       attr_accessor :payment_method
+      # Referral fee details for this SharedPaymentToken.
+      attr_accessor :referral_fee_details
       # If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
       attr_accessor :return_url
       # Seller details of the SharedPaymentIssuedToken, including network_id and external_id.
@@ -73,6 +90,7 @@ module Stripe
       def initialize(
         expand: nil,
         payment_method: nil,
+        referral_fee_details: nil,
         return_url: nil,
         seller_details: nil,
         setup_future_usage: nil,
@@ -82,6 +100,7 @@ module Stripe
       )
         @expand = expand
         @payment_method = payment_method
+        @referral_fee_details = referral_fee_details
         @return_url = return_url
         @seller_details = seller_details
         @setup_future_usage = setup_future_usage

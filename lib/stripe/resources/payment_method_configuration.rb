@@ -1886,6 +1886,37 @@ module Stripe
       end
     end
 
+    class TossPay < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Twint < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -2207,6 +2238,8 @@ module Stripe
     attr_reader :sunbit
     # Attribute for field swish
     attr_reader :swish
+    # Attribute for field toss_pay
+    attr_reader :toss_pay
     # Attribute for field twint
     attr_reader :twint
     # Attribute for field upi
@@ -2312,6 +2345,7 @@ module Stripe
         sofort: Sofort,
         sunbit: Sunbit,
         swish: Swish,
+        toss_pay: TossPay,
         twint: Twint,
         upi: Upi,
         us_bank_account: UsBankAccount,

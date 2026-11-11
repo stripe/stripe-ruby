@@ -704,10 +704,27 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class DeviceHealthDetail < ::Stripe::StripeObject
+        # The type of condition affecting the reader's device health.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # The most recent action performed by the reader.
       attr_reader :action
       # Always true for a deleted object
       attr_reader :deleted
+      # The overall device health of the reader: `healthy` or `unhealthy`. Renamed to `no_issues_detected` and `needs_attention` respectively; see `device_health_details` for the specific conditions.
+      attr_reader :device_health
+      # The set of conditions affecting the reader's device health. Empty when there are no conditions.
+      attr_reader :device_health_details
       # The current software version of the reader.
       attr_reader :device_sw_version
       # Device type of the reader.
@@ -1095,7 +1112,7 @@ module Stripe
       end
 
       def self.inner_class_types
-        @inner_class_types = { action: Action }
+        @inner_class_types = { action: Action, device_health_details: DeviceHealthDetail }
       end
 
       def self.field_remappings

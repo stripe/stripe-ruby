@@ -306,6 +306,10 @@ module Stripe
           class SepaDebit < ::Stripe::StripeObject
             # Creditor identifier used for the intended debit.
             attr_reader :creditor_id
+            # Describes the presence of the customer during the payment.
+            attr_reader :customer_presence
+            # Describes whether this payment is one-off or recurring.
+            attr_reader :payment_type
 
             def self.inner_class_types
               @inner_class_types = {}

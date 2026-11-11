@@ -71,11 +71,32 @@ module Stripe
                 @preferred_networks = preferred_networks
               end
             end
+
+            class CheckSend < ::Stripe::RequestParams
+              # The ID of a file to include as an attachment with the check.
+              attr_accessor :attachment_file
+              # Memo printed on the memo field of the check.
+              attr_accessor :memo
+              # Open Enum. Shipping speed of the check. Defaults to standard.
+              attr_accessor :shipping_speed
+              # Signature printed on the check.
+              attr_accessor :signature
+
+              def initialize(attachment_file: nil, memo: nil, shipping_speed: nil, signature: nil)
+                @attachment_file = attachment_file
+                @memo = memo
+                @shipping_speed = shipping_speed
+                @signature = signature
+              end
+            end
             # Options for bank account payout methods.
             attr_accessor :bank_account
+            # Options for check send payout methods.
+            attr_accessor :check_send
 
-            def initialize(bank_account: nil)
+            def initialize(bank_account: nil, check_send: nil)
               @bank_account = bank_account
+              @check_send = check_send
             end
           end
           # The currency to send to the recipient.

@@ -114,6 +114,46 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class CheckSend < ::Stripe::StripeObject
+          class MailingAddress < ::Stripe::StripeObject
+            # City.
+            sig { returns(String) }
+            def city; end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(String) }
+            def country; end
+            # Address line 1 (e.g., street, PO Box, or company name).
+            sig { returns(String) }
+            def line1; end
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            # ZIP or postal code.
+            sig { returns(String) }
+            def postal_code; end
+            # State.
+            sig { returns(String) }
+            def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The US mailing address the check is sent to.
+          sig { returns(MailingAddress) }
+          def mailing_address; end
+          # The name printed on the check's payee line.
+          sig { returns(String) }
+          def payee_name; end
+          def self.inner_class_types
+            @inner_class_types = {mailing_address: MailingAddress}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class CryptoWallet < ::Stripe::StripeObject
           # Destination wallet address.
           sig { returns(String) }
@@ -196,6 +236,9 @@ module Stripe
         # The PayoutMethodCard object details.
         sig { returns(T.nilable(Card)) }
         def card; end
+        # The PayoutMethodCheckSend object details.
+        sig { returns(T.nilable(CheckSend)) }
+        def check_send; end
         # Created timestamp.
         sig { returns(String) }
         def created; end

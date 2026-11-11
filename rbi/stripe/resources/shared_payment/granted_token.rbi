@@ -78,10 +78,10 @@ module Stripe
         end
         class Card < ::Stripe::StripeObject
           class Checks < ::Stripe::StripeObject
-            # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+            # If an address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
             sig { returns(T.nilable(String)) }
             def address_line1_check; end
-            # If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+            # If an address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
             sig { returns(T.nilable(String)) }
             def address_postal_code_check; end
             # If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
@@ -465,6 +465,31 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ReferralFeeDetails < ::Stripe::StripeObject
+        class Rate < ::Stripe::StripeObject
+          # The percentage of the payment amount which will be calculated as a fee.
+          sig { returns(T.nilable(Float)) }
+          def percentage; end
+          # The type of fee rate.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field rate
+        sig { returns(Rate) }
+        def rate; end
+        def self.inner_class_types
+          @inner_class_types = {rate: Rate}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class RiskDetails < ::Stripe::StripeObject
         class Insights < ::Stripe::StripeObject
           class Bot < ::Stripe::StripeObject
@@ -661,6 +686,9 @@ module Stripe
       # Details of the PaymentMethod that was shared via this token.
       sig { returns(T.nilable(PaymentMethodDetails)) }
       def payment_method_details; end
+      # Referral fees may be charged when a SharedPaymentGrantedToken is used. This behavior is controlled by the issuer of the token. This field provides details about the referral fee rate.
+      sig { returns(T.nilable(ReferralFeeDetails)) }
+      def referral_fee_details; end
       # Risk details of the SharedPaymentGrantedToken.
       sig { returns(T.nilable(RiskDetails)) }
       def risk_details; end

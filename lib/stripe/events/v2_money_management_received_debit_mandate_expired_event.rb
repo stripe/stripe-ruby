@@ -3,6 +3,7 @@
 
 module Stripe
   module Events
+    # Deprecated: Use v2.money_management.spending_mandate.expired instead.
     # Occurs when a ReceivedDebitMandate expires.
     class V2MoneyManagementReceivedDebitMandateExpiredEvent < Stripe::V2::Core::Event
       def self.lookup_type
@@ -21,6 +22,7 @@ module Stripe
       attr_reader :related_object
     end
 
+    # Deprecated: Use v2.money_management.spending_mandate.expired instead.
     # Occurs when a ReceivedDebitMandate expires.
     class V2MoneyManagementReceivedDebitMandateExpiredEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type

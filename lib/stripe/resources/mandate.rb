@@ -338,6 +338,19 @@ module Stripe
         end
       end
 
+      class TossPay < ::Stripe::StripeObject
+        # The buyer identifier provided by NICE for this Toss Pay account, when available.
+        attr_reader :buyer_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Twint < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -415,6 +428,8 @@ module Stripe
       attr_reader :revolut_pay
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
+      # Attribute for field toss_pay
+      attr_reader :toss_pay
       # Attribute for field twint
       attr_reader :twint
       # This mandate corresponds with a specific payment method type. The `payment_method_details` includes an additional hash with the same name and contains mandate information that's specific to that payment method.
@@ -444,6 +459,7 @@ module Stripe
           pix: Pix,
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
+          toss_pay: TossPay,
           twint: Twint,
           upi: Upi,
           us_bank_account: UsBankAccount,

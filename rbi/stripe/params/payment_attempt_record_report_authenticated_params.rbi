@@ -95,6 +95,13 @@ module Stripe
       params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
      }
     def metadata=(_metadata); end
+    # Payment evaluations associated with this reported payment.
+    sig { returns(T.nilable(T::Array[String])) }
+    def payment_evaluations; end
+    sig {
+      params(_payment_evaluations: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+     }
+    def payment_evaluations=(_payment_evaluations); end
     # Information about the Payment Method debited for this payment.
     sig {
       returns(T.nilable(::Stripe::PaymentAttemptRecordReportAuthenticatedParams::PaymentMethodDetails))
@@ -105,12 +112,13 @@ module Stripe
      }
     def payment_method_details=(_payment_method_details); end
     sig {
-      params(authenticated_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method_details: T.nilable(::Stripe::PaymentAttemptRecordReportAuthenticatedParams::PaymentMethodDetails)).void
+      params(authenticated_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_evaluations: T.nilable(T::Array[String]), payment_method_details: T.nilable(::Stripe::PaymentAttemptRecordReportAuthenticatedParams::PaymentMethodDetails)).void
      }
     def initialize(
       authenticated_at: nil,
       expand: nil,
       metadata: nil,
+      payment_evaluations: nil,
       payment_method_details: nil
     ); end
   end

@@ -80,9 +80,15 @@ module Stripe
           class SepaDebit < ::Stripe::RequestParams
             # Supply the SEPA Creditor Identifier configured for the intended debit with your selected processor. Obtain it from your processor's SEPA configuration API or onboarding/support information. Do not supply a statement descriptor, IBAN, processor merchant-account ID, or mandate reference. If the creditor identifier is unknown, omit it.
             attr_accessor :creditor_id
+            # Describes the presence of the customer during the payment.
+            attr_accessor :customer_presence
+            # Describes whether this payment is one-off or recurring.
+            attr_accessor :payment_type
 
-            def initialize(creditor_id: nil)
+            def initialize(creditor_id: nil, customer_presence: nil, payment_type: nil)
               @creditor_id = creditor_id
+              @customer_presence = customer_presence
+              @payment_type = payment_type
             end
           end
 

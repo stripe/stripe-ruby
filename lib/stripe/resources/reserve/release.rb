@@ -57,7 +57,7 @@ module Stripe
       # Attribute for field source_transaction
       attr_reader :source_transaction
 
-      # Returns a list of ReserveReleases previously created. The ReserveReleases are returned in sorted order, with the most recent ReserveReleases appearing first.
+      # Returns a list of ReserveReleases on your account or on one of your connected accounts. The ReserveReleases are returned in sorted order, with the most recent ReserveReleases appearing first.
       def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,

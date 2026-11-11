@@ -3,6 +3,7 @@
 
 module Stripe
   module Events
+    # Deprecated: Use v2.money_management.spending_mandate.created instead.
     # Occurs when a ReceivedDebitMandate is created by an external party.
     class V2MoneyManagementReceivedDebitMandateCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
@@ -21,6 +22,7 @@ module Stripe
       attr_reader :related_object
     end
 
+    # Deprecated: Use v2.money_management.spending_mandate.created instead.
     # Occurs when a ReceivedDebitMandate is created by an external party.
     class V2MoneyManagementReceivedDebitMandateCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type

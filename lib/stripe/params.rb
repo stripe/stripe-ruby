@@ -1343,6 +1343,9 @@ module Stripe
       autoload :RewardProgramListParams, "stripe/params/v2/money_management/reward_program_list_params"
       autoload :RewardProgramRetrieveParams, "stripe/params/v2/money_management/reward_program_retrieve_params"
       autoload :RewardProgramUpdateParams, "stripe/params/v2/money_management/reward_program_update_params"
+      autoload :SpendingMandateCancelParams, "stripe/params/v2/money_management/spending_mandate_cancel_params"
+      autoload :SpendingMandateListParams, "stripe/params/v2/money_management/spending_mandate_list_params"
+      autoload :SpendingMandateRetrieveParams, "stripe/params/v2/money_management/spending_mandate_retrieve_params"
       autoload :TestHelperEarnedCreditsParams, "stripe/params/v2/money_management/test_helper_earned_credits_params"
       autoload :TransactionEntryListParams, "stripe/params/v2/money_management/transaction_entry_list_params"
       autoload :TransactionEntryRetrieveParams, "stripe/params/v2/money_management/transaction_entry_retrieve_params"
@@ -2595,6 +2598,9 @@ module Stripe
     stripe/params/v2/money_management/reward_programs/rule_list_params
     stripe/params/v2/money_management/reward_programs/rule_retrieve_params
     stripe/params/v2/money_management/reward_programs/rule_update_params
+    stripe/params/v2/money_management/spending_mandate_cancel_params
+    stripe/params/v2/money_management/spending_mandate_list_params
+    stripe/params/v2/money_management/spending_mandate_retrieve_params
     stripe/params/v2/money_management/test_helper_earned_credits_params
     stripe/params/v2/money_management/test_helpers/financial_address_credit_params
     stripe/params/v2/money_management/test_helpers/financial_address_debit_params

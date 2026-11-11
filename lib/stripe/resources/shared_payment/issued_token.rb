@@ -56,6 +56,23 @@ module Stripe
         end
       end
 
+      class ReferralFeeDetails < ::Stripe::StripeObject
+        # The Customer to be invoiced for fees assessed.
+        attr_reader :customer
+        # The account to be invoiced for fees assessed.
+        attr_reader :customer_account
+        # The percentage of the payment charged as a referral fee.
+        attr_reader :referral_fee_percent
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class RiskDetails < ::Stripe::StripeObject
         class Insights < ::Stripe::StripeObject
           class Bot < ::Stripe::StripeObject
@@ -261,6 +278,8 @@ module Stripe
       attr_reader :object
       # ID of an existing PaymentMethod.
       attr_reader :payment_method
+      # Referral fee details of the SharedPaymentIssuedToken.
+      attr_reader :referral_fee_details
       # If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
       attr_reader :return_url
       # Risk details of the SharedPaymentIssuedToken.
@@ -313,6 +332,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           next_action: NextAction,
+          referral_fee_details: ReferralFeeDetails,
           risk_details: RiskDetails,
           seller_details: SellerDetails,
           usage_details: UsageDetails,

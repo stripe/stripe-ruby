@@ -109,9 +109,9 @@ module Stripe
 
       class Card < ::Stripe::StripeObject
         class Checks < ::Stripe::StripeObject
-          # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+          # If an address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
           attr_reader :address_line1_check
-          # If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+          # If an address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
           attr_reader :address_postal_code_check
           # If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
           attr_reader :cvc_check
@@ -489,6 +489,19 @@ module Stripe
         end
       end
 
+      class TossPay < ::Stripe::StripeObject
+        # The buyer identifier provided by NICE for this Toss Pay account, when available.
+        attr_reader :buyer_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Twint < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -572,6 +585,8 @@ module Stripe
       attr_reader :sofort
       # Attribute for field stripe_balance
       attr_reader :stripe_balance
+      # Attribute for field toss_pay
+      attr_reader :toss_pay
       # Attribute for field twint
       attr_reader :twint
       # The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
@@ -610,6 +625,7 @@ module Stripe
           sepa_debit: SepaDebit,
           sofort: Sofort,
           stripe_balance: StripeBalance,
+          toss_pay: TossPay,
           twint: Twint,
           upi: Upi,
           us_bank_account: UsBankAccount,

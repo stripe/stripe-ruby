@@ -546,6 +546,7 @@ module Stripe
       autoload :RecipientVerificationService, "stripe/services/v2/money_management/recipient_verification_service"
       autoload :RewardProgramEnrollmentService, "stripe/services/v2/money_management/reward_program_enrollment_service"
       autoload :RewardProgramService, "stripe/services/v2/money_management/reward_program_service"
+      autoload :SpendingMandateService, "stripe/services/v2/money_management/spending_mandate_service"
       autoload :TestHelperService, "stripe/services/v2/money_management/test_helper_service"
       autoload :TransactionEntryService, "stripe/services/v2/money_management/transaction_entry_service"
       autoload :TransactionService, "stripe/services/v2/money_management/transaction_service"
@@ -987,6 +988,7 @@ module Stripe
     stripe/services/v2/money_management/reward_program_enrollment_service
     stripe/services/v2/money_management/reward_program_service
     stripe/services/v2/money_management/reward_programs/rule_service
+    stripe/services/v2/money_management/spending_mandate_service
     stripe/services/v2/money_management/test_helper_service
     stripe/services/v2/money_management/test_helpers/financial_address_service
     stripe/services/v2/money_management/transaction_entry_service

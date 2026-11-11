@@ -3106,6 +3106,36 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementSpendingMandateCanceledEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_spending_mandate_canceled(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementSpendingMandateCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_spending_mandate_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementSpendingMandateExpiredEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_spending_mandate_expired(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementSpendingMandatePendingCancellationEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_spending_mandate_pending_cancellation(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementSpendingMandateUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_spending_mandate_updated(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementTransactionCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_transaction_created(&blk);

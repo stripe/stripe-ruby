@@ -316,11 +316,34 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            class CheckSend < ::Stripe::StripeObject
+              # The ID of a file to include as an attachment with the check.
+              sig { returns(T.nilable(String)) }
+              def attachment_file; end
+              # Memo printed on the memo field of the check.
+              sig { returns(T.nilable(String)) }
+              def memo; end
+              # Open Enum. Shipping speed of the check. Defaults to standard.
+              sig { returns(T.nilable(String)) }
+              def shipping_speed; end
+              # Signature printed on the check.
+              sig { returns(String) }
+              def signature; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # Options for bank account payout methods.
             sig { returns(T.nilable(BankAccount)) }
             def bank_account; end
+            # Options for check send payout methods.
+            sig { returns(T.nilable(CheckSend)) }
+            def check_send; end
             def self.inner_class_types
-              @inner_class_types = {bank_account: BankAccount}
+              @inner_class_types = {bank_account: BankAccount, check_send: CheckSend}
             end
             def self.field_remappings
               @field_remappings = {}

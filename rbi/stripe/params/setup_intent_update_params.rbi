@@ -1256,6 +1256,15 @@ module Stripe
       end
       class AmazonPay < ::Stripe::RequestParams; end
       class BacsDebit < ::Stripe::RequestParams
+        class FinancialConnections < ::Stripe::RequestParams
+          # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+          sig { returns(T.nilable(String)) }
+          def return_url; end
+          sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
+          def return_url=(_return_url); end
+          sig { params(return_url: T.nilable(String)).void }
+          def initialize(return_url: nil); end
+        end
         class MandateOptions < ::Stripe::RequestParams
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
           sig { returns(T.nilable(String)) }
@@ -1265,6 +1274,15 @@ module Stripe
           sig { params(reference_prefix: T.nilable(String)).void }
           def initialize(reference_prefix: nil); end
         end
+        # Additional fields for Financial Connections session creation.
+        sig {
+          returns(T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions::BacsDebit::FinancialConnections))
+         }
+        def financial_connections; end
+        sig {
+          params(_financial_connections: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions::BacsDebit::FinancialConnections)).returns(T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions::BacsDebit::FinancialConnections))
+         }
+        def financial_connections=(_financial_connections); end
         # Additional fields for Mandate creation
         sig {
           returns(T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions::BacsDebit::MandateOptions))
@@ -1280,9 +1298,13 @@ module Stripe
         sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
         def verification_method=(_verification_method); end
         sig {
-          params(mandate_options: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions::BacsDebit::MandateOptions), verification_method: T.nilable(String)).void
+          params(financial_connections: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions::BacsDebit::FinancialConnections), mandate_options: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions::BacsDebit::MandateOptions), verification_method: T.nilable(String)).void
          }
-        def initialize(mandate_options: nil, verification_method: nil); end
+        def initialize(
+          financial_connections: nil,
+          mandate_options: nil,
+          verification_method: nil
+        ); end
       end
       class Bizum < ::Stripe::RequestParams; end
       class Blik < ::Stripe::RequestParams

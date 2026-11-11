@@ -393,6 +393,17 @@ module Stripe
         end
       end
       class BacsDebit < ::Stripe::StripeObject
+        class FinancialConnections < ::Stripe::StripeObject
+          # Attribute for field return_url
+          sig { returns(T.nilable(String)) }
+          def return_url; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class MandateOptions < ::Stripe::StripeObject
           # Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
           sig { returns(T.nilable(String)) }
@@ -404,6 +415,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field financial_connections
+        sig { returns(T.nilable(FinancialConnections)) }
+        def financial_connections; end
         # Attribute for field mandate_options
         sig { returns(T.nilable(MandateOptions)) }
         def mandate_options; end
@@ -411,7 +425,10 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def verification_method; end
         def self.inner_class_types
-          @inner_class_types = {mandate_options: MandateOptions}
+          @inner_class_types = {
+            financial_connections: FinancialConnections,
+            mandate_options: MandateOptions,
+          }
         end
         def self.field_remappings
           @field_remappings = {}

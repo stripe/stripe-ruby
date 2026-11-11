@@ -503,6 +503,37 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class FraudulentSelfie < ::Stripe::StripeObject
+          class Indicator < ::Stripe::StripeObject
+            # A brief explanation of how this indicator contributed to the risk level.
+            attr_reader :explanation
+            # The effect this indicator had on the overall risk level.
+            attr_reader :impact
+            # The name of the specific indicator used in the risk assessment.
+            attr_reader :indicator
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Array of objects representing individual factors that contributed to the calculated risk level.
+          attr_reader :indicators
+          # Categorical assessment of the selfie risk.
+          attr_reader :risk_level
+
+          def self.inner_class_types
+            @inner_class_types = { indicators: Indicator }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Attribute for field fraudulent_document
         attr_reader :fraudulent_document
         # Attribute for field fraudulent_email
@@ -511,6 +542,8 @@ module Stripe
         attr_reader :fraudulent_person
         # Attribute for field fraudulent_phone
         attr_reader :fraudulent_phone
+        # Attribute for field fraudulent_selfie
+        attr_reader :fraudulent_selfie
 
         def self.inner_class_types
           @inner_class_types = {
@@ -518,6 +551,7 @@ module Stripe
             fraudulent_email: FraudulentEmail,
             fraudulent_person: FraudulentPerson,
             fraudulent_phone: FraudulentPhone,
+            fraudulent_selfie: FraudulentSelfie,
           }
         end
 

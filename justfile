@@ -28,9 +28,6 @@ lint: (format-check "--autocorrect")
 # offenses and only shows uncorrectable ones.
 format: (format-check "--autocorrect --display-only-fail-level-offenses")
 
-update-certs: install
-    bundle exec rake update_certs
-
 # run the workload identity adapter gem's own, isolated test suite
 test-adapter:
     cd workload-identity && bundle install --quiet && bundle exec rake test

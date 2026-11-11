@@ -1568,15 +1568,152 @@ module Stripe
         thread.join
       end
 
-      should "error if calls to #request are nested on the same thread" do
+      should "record the last response across requestors independently of the block result" do
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/charges/ch_123")
+          .to_return(body: JSON.generate(object: "charge", id: "ch_123"))
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/coupons/cpn_123")
+          .to_return(body: JSON.generate(object: "coupon", id: "cpn_123"))
         client = APIRequestor.new("sk_test_123")
-        client.request do
-          e = assert_raises(RuntimeError) do
-            client.request
-          end
-          assert_equal "calls to APIRequestor#request cannot be nested within a thread",
-                       e.message
+        other = APIRequestor.new("sk_other")
+
+        result, response = client.request do
+          client.execute_request(:get, "/v1/charges/ch_123", :api)
+          other.execute_request(:get, "/v1/coupons/cpn_123", :api)
+          :finished
         end
+
+        assert_equal :finished, result
+        assert_equal "cpn_123", response.data[:id]
+      end
+
+      should "isolate responses at three depths including repeated requestors" do
+        %w[outer middle inner].each do |id|
+          stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_#{id}")
+            .to_return(body: JSON.generate(object: "product", id: "prod_#{id}"))
+        end
+        client = APIRequestor.new("sk_test_123")
+        other = APIRequestor.new("sk_other")
+        original_active = APIRequestor.current_thread_context.active_requestor
+        middle_response = inner_response = nil
+
+        outer_result, outer_response = client.request do
+          client.execute_request(:get, "/v1/products/prod_outer", :api)
+          middle_result, middle_response = other.request do
+            client.execute_request(:get, "/v1/products/prod_middle", :api)
+            inner_result, inner_response = client.request do
+              other.execute_request(:get, "/v1/products/prod_inner", :api)
+              :inner
+            end
+            assert_equal :inner, inner_result
+            assert_equal other, APIRequestor.active_requestor
+            :middle
+          end
+          assert_equal :middle, middle_result
+          assert_equal client, APIRequestor.active_requestor
+          :outer
+        end
+
+        assert_equal :outer, outer_result
+        assert_equal "prod_outer", outer_response.data[:id]
+        assert_equal "prod_middle", middle_response.data[:id]
+        assert_equal "prod_inner", inner_response.data[:id]
+        assert_equal original_active, APIRequestor.current_thread_context.active_requestor
+      end
+
+      should "return nil for an empty nested block without borrowing the outer response" do
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_123")
+          .to_return(body: JSON.generate(object: "product", id: "prod_123"))
+        client = APIRequestor.new("sk_test_123")
+
+        _, response = client.request do
+          client.execute_request(:get, "/v1/products/prod_123", :api)
+          result, inner_response = client.request { :empty }
+          assert_equal :empty, result
+          assert_nil inner_response
+        end
+
+        assert_equal "prod_123", response.data[:id]
+      end
+
+      should "resume tracking the outer block after a rescued inner exception" do
+        %w[before inner after].each do |id|
+          stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_#{id}")
+            .to_return(body: JSON.generate(object: "product", id: "prod_#{id}"))
+        end
+        client = APIRequestor.new("sk_test_123")
+        other = APIRequestor.new("sk_other")
+
+        _, response = client.request do
+          client.execute_request(:get, "/v1/products/prod_before", :api)
+          assert_raises(RuntimeError) do
+            other.request do
+              client.execute_request(:get, "/v1/products/prod_inner", :api)
+              raise "inner failed"
+            end
+          end
+          assert_equal client, APIRequestor.active_requestor
+          other.execute_request(:get, "/v1/products/prod_after", :api)
+        end
+
+        assert_equal "prod_after", response.data[:id]
+      end
+
+      should "discard tracking after an outer exception and ignore requests outside blocks" do
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_123")
+          .to_return(body: JSON.generate(object: "product", id: "prod_123"))
+        client = APIRequestor.new("sk_test_123")
+        original_active = APIRequestor.current_thread_context.active_requestor
+
+        assert_raises(RuntimeError) do
+          client.request do
+            client.execute_request(:get, "/v1/products/prod_123", :api)
+            raise "outer failed"
+          end
+        end
+        assert_equal original_active, APIRequestor.current_thread_context.active_requestor
+        assert_empty APIRequestor.current_thread_context.last_responses
+        assert_empty APIRequestor.current_thread_context.request_block_stack
+
+        client.execute_request(:get, "/v1/products/prod_123", :api)
+        assert_empty APIRequestor.current_thread_context.last_responses
+        assert_empty APIRequestor.current_thread_context.request_block_stack
+        result, response = client.request { :empty }
+        assert_equal :empty, result
+        assert_nil response
+      end
+
+      should "record streamed responses from another requestor in the active block" do
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
+          .to_return(body: "streamed body", headers: { "Request-Id" => "req_stream" })
+        client = APIRequestor.new("sk_test_123")
+        other = APIRequestor.new("sk_other")
+        chunks = []
+
+        result, response = client.request do
+          other.execute_request_stream(:get, "/v1/charges", :api) { |chunk| chunks << chunk }
+          :streamed
+        end
+
+        assert_equal :streamed, result
+        assert_equal ["streamed body"], chunks
+        assert_instance_of StripeHeadersOnlyResponse, response
+        assert_equal "req_stream", response.request_id
+      end
+
+      should "record raw responses from another client in the active block" do
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_123")
+          .to_return(body: JSON.generate(object: "product", id: "prod_123"))
+        client = StripeClient.new("sk_test_123")
+        other = StripeClient.new("sk_other")
+        raw_response = nil
+
+        result, response = client.request do
+          raw_response = other.raw_request(:get, "/v1/products/prod_123")
+          :fetched
+        end
+
+        assert_equal :fetched, result
+        assert_same raw_response, response
       end
     end
 

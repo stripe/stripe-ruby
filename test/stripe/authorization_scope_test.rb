@@ -257,6 +257,22 @@ module Stripe
         assert_scope(@requests, "acct_event_a", nil)
       end
 
+      should "record a bound resource's response in another client's block without changing its scope" do
+        product = @client.with_stripe_context("acct_event_a").v1.products.retrieve("prod_shared")
+        other = StripeClient.new("sk_other", api_base: Stripe.api_base, stripe_context: "acct_worker_b")
+        result, response = other.request do
+          product.delete
+          :deleted
+        end
+
+        assert_equal :deleted, result
+        assert_equal product.last_response, response
+        assert_equal true, response.data[:deleted]
+        assert_scope(@requests, "acct_event_a", nil)
+        @requests.each { |request| assert_equal "Bearer sk_test_123", request.headers["Authorization"] }
+        assert_bound_scope(product, "acct_event_a", nil)
+      end
+
       should "retain an explicit account when merging options with a configured context" do
         config = StripeConfiguration.new
         config.stripe_context = "acct_client_b"

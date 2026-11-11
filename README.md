@@ -423,16 +423,8 @@ just lint
 # or: bundle exec rubocop
 ```
 
-Update bundled CA certificates from the [Mozilla cURL release][curl]:
-
-```sh
-just update-certs
-# or: bundle exec rake update_certs
-```
-
 [api-keys]: https://dashboard.stripe.com/account/apikeys
 [connect]: https://stripe.com/connect
-[curl]: http://curl.haxx.se/docs/caextract.html
 [idempotency-keys]: https://stripe.com/docs/api/idempotent_requests?lang=ruby
 [stripe-mock]: https://github.com/stripe/stripe-mock
 [versioning]: https://stripe.com/docs/api/versioning?lang=ruby

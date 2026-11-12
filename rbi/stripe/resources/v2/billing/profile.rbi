@@ -13,7 +13,7 @@ module Stripe
         # The ID of the customer object.
         sig { returns(T.nilable(String)) }
         def customer; end
-        # The ID of the payment method object.
+        # The ID of the payment method object. If set to nil, the customer payment method is used.
         sig { returns(T.nilable(String)) }
         def default_payment_method; end
         # A customer-facing name for the billing profile.

@@ -10,6 +10,7 @@ module Stripe
       attr_reader :account_tokens
       attr_reader :approval_requests
       attr_reader :batch_jobs
+      attr_reader :claimable_sandboxes
       attr_reader :events
       attr_reader :event_destinations
       attr_reader :vault

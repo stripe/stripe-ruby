@@ -88,6 +88,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls how much address information Checkout collects when automatic tax is enabled.
+        attr_reader :address_collection_precision
         # Indicates whether automatic tax is enabled for the session
         attr_reader :enabled
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.

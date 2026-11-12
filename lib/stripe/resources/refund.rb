@@ -83,6 +83,21 @@ module Stripe
         end
       end
 
+      class Bizum < ::Stripe::StripeObject
+        # The reference assigned to the refund.
+        attr_reader :reference
+        # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+        attr_reader :reference_status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Blik < ::Stripe::StripeObject
         # For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
         attr_reader :network_decline_code
@@ -451,6 +466,21 @@ module Stripe
         end
       end
 
+      class Upi < ::Stripe::StripeObject
+        # The reference assigned to the refund.
+        attr_reader :reference
+        # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+        attr_reader :reference_status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class UsBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
@@ -497,6 +527,8 @@ module Stripe
       attr_reader :amazon_pay
       # Attribute for field au_bank_transfer
       attr_reader :au_bank_transfer
+      # Attribute for field bizum
+      attr_reader :bizum
       # Attribute for field blik
       attr_reader :blik
       # Attribute for field br_bank_transfer
@@ -555,6 +587,8 @@ module Stripe
       attr_reader :twint
       # The type of transaction-specific details of the payment method used in the refund (e.g., `card`). An additional hash is included on `destination_details` with a name matching this value. It contains information specific to the refund transaction.
       attr_reader :type
+      # Attribute for field upi
+      attr_reader :upi
       # Attribute for field us_bank_transfer
       attr_reader :us_bank_transfer
       # Attribute for field wechat_pay
@@ -570,6 +604,7 @@ module Stripe
           alma: Alma,
           amazon_pay: AmazonPay,
           au_bank_transfer: AuBankTransfer,
+          bizum: Bizum,
           blik: Blik,
           br_bank_transfer: BrBankTransfer,
           card: Card,
@@ -598,6 +633,7 @@ module Stripe
           swish: Swish,
           th_bank_transfer: ThBankTransfer,
           twint: Twint,
+          upi: Upi,
           us_bank_transfer: UsBankTransfer,
           wechat_pay: WechatPay,
           zip: Zip,

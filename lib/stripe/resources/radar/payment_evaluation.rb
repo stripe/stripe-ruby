@@ -505,7 +505,7 @@ module Stripe
       attr_reader :outcome
       # Payment details attached to this payment evaluation.
       attr_reader :payment_details
-      # Recommended action based on the score of the `fraudulent_payment` signal. Possible values are `block`, `continue` and `request_three_d_secure`.
+      # Recommended action for this payment based on its evaluated signals and rules.
       attr_reader :recommended_action
       # Collection of signals for this payment evaluation.
       attr_reader :signals

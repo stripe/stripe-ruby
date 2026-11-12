@@ -26,6 +26,30 @@ module Stripe
           end
         end
 
+        class ApplePay < ::Stripe::StripeObject
+          # The last four digits of the device account number (DPAN).
+          attr_reader :dynamic_last4
+          # The month the card expires.
+          attr_reader :exp_month
+          # The year the card expires.
+          attr_reader :exp_year
+          # Uniquely identifies this particular Apple-Pay-registered DPAN (Device PAN). Refer to
+          # https://support.stripe.com/questions/how-do-card-numbers-work-with-apple-pay-and-google-pay-and-what-is-dynamic-last4 for more info on DPANs.
+          attr_reader :fingerprint
+          # The last 4 digits of the card number.
+          attr_reader :last4
+          # The list of currencies supported by this card.
+          attr_reader :supported_currencies
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class BankAccount < ::Stripe::StripeObject
           # The type of bank account (checking or savings).
           attr_reader :bank_account_type
@@ -117,6 +141,8 @@ module Stripe
         end
         # The alternative reference for this payout method, if it's a projected payout method.
         attr_reader :alternative_reference
+        # The PayoutMethodApplePay object details.
+        attr_reader :apple_pay
         # Whether the payout method was archived. Payout methods can be archived through the /archive API,
         # and they will not be automatically archived by Stripe. Archived payout methods cannot be used
         # for outbound money movement.
@@ -150,6 +176,7 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             alternative_reference: AlternativeReference,
+            apple_pay: ApplePay,
             bank_account: BankAccount,
             card: Card,
             crypto_wallet: CryptoWallet,

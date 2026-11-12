@@ -151,6 +151,8 @@ module Stripe
           end
           # Specific configuration for determining billing dates when type=day.
           attr_accessor :day
+          # When the anchor for the cadence should be set. Defaults to `now`.
+          attr_accessor :effective_at
           # The number of intervals (specified in the interval attribute) between
           # cadence billings. For example, type=month and interval_count=3 bills every
           # 3 months. If not provided, this defaults to 1.
@@ -164,8 +166,17 @@ module Stripe
           # Specific configuration for determining billing dates when type=year.
           attr_accessor :year
 
-          def initialize(day: nil, interval_count: nil, month: nil, type: nil, week: nil, year: nil)
+          def initialize(
+            day: nil,
+            effective_at: nil,
+            interval_count: nil,
+            month: nil,
+            type: nil,
+            week: nil,
+            year: nil
+          )
             @day = day
+            @effective_at = effective_at
             @interval_count = interval_count
             @month = month
             @type = type

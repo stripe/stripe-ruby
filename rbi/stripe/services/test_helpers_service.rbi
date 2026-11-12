@@ -4,6 +4,7 @@
 # typed: true
 module Stripe
   class TestHelpersService < StripeService
+    attr_reader :capital
     attr_reader :confirmation_tokens
     attr_reader :customers
     attr_reader :issuing

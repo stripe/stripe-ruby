@@ -160,6 +160,9 @@ module Stripe
           # Specific configuration for determining billing dates when type=day.
           sig { returns(T.nilable(Day)) }
           def day; end
+          # When the anchor for the cadence should be set. Defaults to `now`.
+          sig { returns(String) }
+          def effective_at; end
           # The number of intervals (specified in the interval attribute) between cadence billings. For example, type=month and interval_count=3 bills every 3 months.
           sig { returns(Integer) }
           def interval_count; end
@@ -625,6 +628,20 @@ module Stripe
             }
           end
         end
+        class StatusTransitions < ::Stripe::StripeObject
+          # When the billing cadence status transitioned to activated.
+          sig { returns(T.nilable(String)) }
+          def activated_at; end
+          # When the billing cadence status transitioned to canceled.
+          sig { returns(T.nilable(String)) }
+          def canceled_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The billing cycle is the object that defines future billing cycle dates.
         sig { returns(BillingCycle) }
         def billing_cycle; end
@@ -661,6 +678,9 @@ module Stripe
         # The current status of the cadence.
         sig { returns(String) }
         def status; end
+        # Timestamps for billing cadence status transitions.
+        sig { returns(T.nilable(StatusTransitions)) }
+        def status_transitions; end
         # The ID of the Test Clock.
         sig { returns(T.nilable(String)) }
         def test_clock; end

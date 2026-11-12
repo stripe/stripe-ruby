@@ -7,13 +7,53 @@ module Stripe
     module Treasury
       class InboundTransferFailParams < ::Stripe::RequestParams
         class FailureDetails < ::Stripe::RequestParams
+          class NetworkDetails < ::Stripe::RequestParams
+            class Ach < ::Stripe::RequestParams
+              # NACHA ACH return code.
+              sig { returns(String) }
+              def return_code; end
+              sig { params(_return_code: String).returns(String) }
+              def return_code=(_return_code); end
+              sig { params(return_code: String).void }
+              def initialize(return_code: nil); end
+            end
+            # ACH network failure details.
+            sig {
+              returns(T.nilable(::Stripe::TestHelpers::Treasury::InboundTransferFailParams::FailureDetails::NetworkDetails::Ach))
+             }
+            def ach; end
+            sig {
+              params(_ach: T.nilable(::Stripe::TestHelpers::Treasury::InboundTransferFailParams::FailureDetails::NetworkDetails::Ach)).returns(T.nilable(::Stripe::TestHelpers::Treasury::InboundTransferFailParams::FailureDetails::NetworkDetails::Ach))
+             }
+            def ach=(_ach); end
+            # The network used to transfer funds.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig {
+              params(ach: T.nilable(::Stripe::TestHelpers::Treasury::InboundTransferFailParams::FailureDetails::NetworkDetails::Ach), type: String).void
+             }
+            def initialize(ach: nil, type: nil); end
+          end
           # Reason for the failure.
           sig { returns(T.nilable(String)) }
           def code; end
           sig { params(_code: T.nilable(String)).returns(T.nilable(String)) }
           def code=(_code); end
-          sig { params(code: T.nilable(String)).void }
-          def initialize(code: nil); end
+          # Network specific details for the failure.
+          sig {
+            returns(T.nilable(::Stripe::TestHelpers::Treasury::InboundTransferFailParams::FailureDetails::NetworkDetails))
+           }
+          def network_details; end
+          sig {
+            params(_network_details: T.nilable(::Stripe::TestHelpers::Treasury::InboundTransferFailParams::FailureDetails::NetworkDetails)).returns(T.nilable(::Stripe::TestHelpers::Treasury::InboundTransferFailParams::FailureDetails::NetworkDetails))
+           }
+          def network_details=(_network_details); end
+          sig {
+            params(code: T.nilable(String), network_details: T.nilable(::Stripe::TestHelpers::Treasury::InboundTransferFailParams::FailureDetails::NetworkDetails)).void
+           }
+          def initialize(code: nil, network_details: nil); end
         end
         # Specifies which fields in the response should be expanded.
         sig { returns(T.nilable(T::Array[String])) }

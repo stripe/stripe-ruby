@@ -33,6 +33,19 @@ module Stripe
           )
         end
 
+        # Create an OutboundSetupIntent object.
+        #
+        # ** raises QuotaExceededError
+        def from_financial_connections(params = {}, opts = {})
+          request(
+            method: :post,
+            path: "/v2/money_management/outbound_setup_intents/from_financial_connections",
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
         # List the OutboundSetupIntent objects.
         def list(params = {}, opts = {})
           request(

@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Billing
       class ProfileUpdateParams < ::Stripe::RequestParams
-        # The ID of the payment method object.
+        # The ID of the payment method object. If set to nil, the customer payment method is used.
         sig { returns(T.nilable(String)) }
         def default_payment_method; end
         sig { params(_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }

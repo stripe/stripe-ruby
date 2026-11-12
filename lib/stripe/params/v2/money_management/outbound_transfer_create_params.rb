@@ -74,11 +74,11 @@ module Stripe
             @payout_method_options = payout_method_options
           end
         end
-        # The "presentment amount" for the OutboundPayment.
+        # The "presentment amount" for the OutboundTransfer.
         attr_accessor :amount
         # Delivery options to be used to send the OutboundTransfer.
         attr_accessor :delivery_options
-        # An arbitrary string attached to the OutboundTransfer. Often useful for displaying to users.
+        # An arbitrary string attached to the OutboundTransfer. Often useful for displaying to users. The description can not be longer than 100 characters and can only contain basic Latin characters and spaces. The following special characters are not allowed: <>\'"* .
         attr_accessor :description
         # The FinancialAccount to pull funds from.
         attr_accessor :from

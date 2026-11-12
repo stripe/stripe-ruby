@@ -159,6 +159,23 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class CustomerBalance < ::Stripe::StripeObject
+      # The total amount of customer balance applied to this invoice (automatically + manually).
+      sig { returns(Integer) }
+      def applied_balance; end
+      # The amount of customer balance automatically applied during invoice finalization.
+      sig { returns(Integer) }
+      def automatically_applied_balance; end
+      # The total amount of customer balance manually applied after finalization.
+      sig { returns(Integer) }
+      def manually_applied_balance; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class CustomerShipping < ::Stripe::StripeObject
       class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
@@ -1165,6 +1182,9 @@ module Stripe
     # The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated.
     sig { returns(T.nilable(CustomerAddress)) }
     def customer_address; end
+    # The customer balance amounts applied to this invoice.
+    sig { returns(T.nilable(CustomerBalance)) }
+    def customer_balance; end
     # The customer's email. Until the invoice is finalized, this field will equal `customer.email`. Once the invoice is finalized, this field will no longer be updated.
     sig { returns(T.nilable(String)) }
     def customer_email; end

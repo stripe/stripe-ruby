@@ -4,7 +4,7 @@
 module Stripe
   module Reserve
     class ReleaseService < StripeService
-      # Returns a list of ReserveReleases previously created. The ReserveReleases are returned in sorted order, with the most recent ReserveReleases appearing first.
+      # Returns a list of ReserveReleases on your account or on one of your connected accounts. The ReserveReleases are returned in sorted order, with the most recent ReserveReleases appearing first.
       def list(params = {}, opts = {})
         request(
           method: :get,
@@ -15,7 +15,7 @@ module Stripe
         )
       end
 
-      # Retrieve a ReserveRelease.
+      # Retrieve a ReserveRelease on your account or on one of your connected accounts.
       def retrieve(id, params = {}, opts = {})
         request(
           method: :get,

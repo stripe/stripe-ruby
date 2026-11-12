@@ -15,7 +15,7 @@ module Stripe
         attr_reader :created
         # The ID of the customer object.
         attr_reader :customer
-        # The ID of the payment method object.
+        # The ID of the payment method object. If set to nil, the customer payment method is used.
         attr_reader :default_payment_method
         # A customer-facing name for the billing profile.
         # Maximum length of 250 characters.

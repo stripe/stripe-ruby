@@ -6,6 +6,18 @@ module Stripe
     module MoneyManagement
       class OutboundSetupIntentCreateParams < ::Stripe::RequestParams
         class PayoutMethodData < ::Stripe::RequestParams
+          class ApplePay < ::Stripe::RequestParams
+            # The paymentData property of the Apple-provided PKPaymentToken (or ApplePayPaymentToken, for Apple Pay on the Web) as a UTF-8 encoded serialization of a JSON dictionary.
+            attr_accessor :pk_token
+            # The paymentMethod.displayName property of the Apple-provided PKPaymentToken (or ApplePayPaymentToken, for Apple Pay on the Web), e.g. "Visa 1234".
+            attr_accessor :pk_token_display_name
+
+            def initialize(pk_token: nil, pk_token_display_name: nil)
+              @pk_token = pk_token
+              @pk_token_display_name = pk_token_display_name
+            end
+          end
+
           class BankAccount < ::Stripe::RequestParams
             # The account number or IBAN of the bank account.
             attr_accessor :account_number
@@ -73,6 +85,8 @@ module Stripe
               @network = network
             end
           end
+          # The type specific details of the Apple Pay payout method.
+          attr_accessor :apple_pay
           # The type specific details of the bank account payout method.
           attr_accessor :bank_account
           # The type specific details of the card payout method.
@@ -82,7 +96,14 @@ module Stripe
           # Open Enum. The type of payout method to be created.
           attr_accessor :type
 
-          def initialize(bank_account: nil, card: nil, crypto_wallet: nil, type: nil)
+          def initialize(
+            apple_pay: nil,
+            bank_account: nil,
+            card: nil,
+            crypto_wallet: nil,
+            type: nil
+          )
+            @apple_pay = apple_pay
             @bank_account = bank_account
             @card = card
             @crypto_wallet = crypto_wallet

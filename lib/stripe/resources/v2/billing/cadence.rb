@@ -161,6 +161,8 @@ module Stripe
           end
           # Specific configuration for determining billing dates when type=day.
           attr_reader :day
+          # When the anchor for the cadence should be set. Defaults to `now`.
+          attr_reader :effective_at
           # The number of intervals (specified in the interval attribute) between cadence billings. For example, type=month and interval_count=3 bills every 3 months.
           attr_reader :interval_count
           # Specific configuration for determining billing dates when type=month.
@@ -639,6 +641,21 @@ module Stripe
             }
           end
         end
+
+        class StatusTransitions < ::Stripe::StripeObject
+          # When the billing cadence status transitioned to activated.
+          attr_reader :activated_at
+          # When the billing cadence status transitioned to canceled.
+          attr_reader :canceled_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The billing cycle is the object that defines future billing cycle dates.
         attr_reader :billing_cycle
         # Timestamp of when the object was created.
@@ -663,6 +680,8 @@ module Stripe
         attr_reader :settings_data
         # The current status of the cadence.
         attr_reader :status
+        # Timestamps for billing cadence status transitions.
+        attr_reader :status_transitions
         # The ID of the Test Clock.
         attr_reader :test_clock
 
@@ -672,6 +691,7 @@ module Stripe
             payer: Payer,
             settings: Settings,
             settings_data: SettingsData,
+            status_transitions: StatusTransitions,
           }
         end
 

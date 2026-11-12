@@ -255,6 +255,7 @@ module Stripe
   end
 
   module TestHelpers
+    autoload :CapitalService, "stripe/services/test_helpers/capital_service"
     autoload :ConfirmationTokenService, "stripe/services/test_helpers/confirmation_token_service"
     autoload :CustomerService, "stripe/services/test_helpers/customer_service"
     autoload :IssuingService, "stripe/services/test_helpers/issuing_service"
@@ -263,6 +264,10 @@ module Stripe
     autoload :TerminalService, "stripe/services/test_helpers/terminal_service"
     autoload :TestClockService, "stripe/services/test_helpers/test_clock_service"
     autoload :TreasuryService, "stripe/services/test_helpers/treasury_service"
+
+    module Capital
+      autoload :FinancingOfferService, "stripe/services/test_helpers/capital/financing_offer_service"
+    end
 
     module Issuing
       autoload :AuthorizationService, "stripe/services/test_helpers/issuing/authorization_service"
@@ -316,6 +321,7 @@ module Stripe
     autoload :MoneyManagementService, "stripe/services/v2/money_management_service"
     autoload :NetworkService, "stripe/services/v2/network_service"
     autoload :OrchestratedCommerceService, "stripe/services/v2/orchestrated_commerce_service"
+    autoload :PaymentsService, "stripe/services/v2/payments_service"
     autoload :SignalsService, "stripe/services/v2/signals_service"
     autoload :TestHelperService, "stripe/services/v2/test_helper_service"
 
@@ -352,6 +358,7 @@ module Stripe
       autoload :AccountTokenService, "stripe/services/v2/core/account_token_service"
       autoload :ApprovalRequestService, "stripe/services/v2/core/approval_request_service"
       autoload :BatchJobService, "stripe/services/v2/core/batch_job_service"
+      autoload :ClaimableSandboxService, "stripe/services/v2/core/claimable_sandbox_service"
       autoload :EventDestinationService, "stripe/services/v2/core/event_destination_service"
       autoload :EventService, "stripe/services/v2/core/event_service"
       autoload :VaultService, "stripe/services/v2/core/vault_service"
@@ -419,6 +426,10 @@ module Stripe
 
     module OrchestratedCommerce
       autoload :AgreementService, "stripe/services/v2/orchestrated_commerce/agreement_service"
+    end
+
+    module Payments
+      autoload :OffSessionPaymentService, "stripe/services/v2/payments/off_session_payment_service"
     end
 
     module Signals
@@ -614,6 +625,8 @@ module Stripe
     stripe/services/terminal/reader_collected_data_service
     stripe/services/terminal/reader_service
     stripe/services/terminal_service
+    stripe/services/test_helpers/capital/financing_offer_service
+    stripe/services/test_helpers/capital_service
     stripe/services/test_helpers/confirmation_token_service
     stripe/services/test_helpers/customer_service
     stripe/services/test_helpers/issuing/authorization_service
@@ -674,6 +687,7 @@ module Stripe
     stripe/services/v2/core/accounts/person_token_service
     stripe/services/v2/core/approval_request_service
     stripe/services/v2/core/batch_job_service
+    stripe/services/v2/core/claimable_sandbox_service
     stripe/services/v2/core/event_destination_service
     stripe/services/v2/core/event_service
     stripe/services/v2/core/vault/gb_bank_account_service
@@ -715,6 +729,8 @@ module Stripe
     stripe/services/v2/network_service
     stripe/services/v2/orchestrated_commerce/agreement_service
     stripe/services/v2/orchestrated_commerce_service
+    stripe/services/v2/payments/off_session_payment_service
+    stripe/services/v2/payments_service
     stripe/services/v2/signals/account_activity_service
     stripe/services/v2/signals/account_evaluation_service
     stripe/services/v2/signals/account_signal_service

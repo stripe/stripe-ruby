@@ -35,6 +35,8 @@ module Stripe
         attr_reader :payout
         # Category of balance transactions to be included in the report run.
         attr_reader :reporting_category
+        # The tax invoice month in YYYY-MM format.
+        attr_reader :tax_invoice_month
         # Defaults to `Etc/UTC`. The output timezone for all timestamps in the report. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones). Has no effect on `interval_start` or `interval_end`.
         attr_reader :timezone
 

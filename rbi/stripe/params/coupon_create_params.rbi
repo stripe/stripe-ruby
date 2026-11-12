@@ -22,6 +22,40 @@ module Stripe
       sig { params(amount_off: Integer).void }
       def initialize(amount_off: nil); end
     end
+    class Custom < ::Stripe::RequestParams
+      class Extension < ::Stripe::RequestParams
+        # The Extension Prototype ID.
+        sig { returns(String) }
+        def id; end
+        sig { params(_id: String).returns(String) }
+        def id=(_id); end
+        # The semantic version of the extension.
+        sig { returns(T.nilable(String)) }
+        def version; end
+        sig { params(_version: T.nilable(String)).returns(T.nilable(String)) }
+        def version=(_version); end
+        sig { params(id: String, version: T.nilable(String)).void }
+        def initialize(id: nil, version: nil); end
+      end
+      # The configuration values of the extension. The keys and values are specific to the extension implementation. May be omitted for extensions that have no configuration schema, in which case an empty configuration is used.
+      sig { returns(T.nilable(T::Hash[String, T.untyped])) }
+      def configuration; end
+      sig {
+        params(_configuration: T.nilable(T::Hash[String, T.untyped])).returns(T.nilable(T::Hash[String, T.untyped]))
+       }
+      def configuration=(_configuration); end
+      # The extension used to calculate the coupon.
+      sig { returns(::Stripe::CouponCreateParams::Custom::Extension) }
+      def extension; end
+      sig {
+        params(_extension: ::Stripe::CouponCreateParams::Custom::Extension).returns(::Stripe::CouponCreateParams::Custom::Extension)
+       }
+      def extension=(_extension); end
+      sig {
+        params(configuration: T.nilable(T::Hash[String, T.untyped]), extension: ::Stripe::CouponCreateParams::Custom::Extension).void
+       }
+      def initialize(configuration: nil, extension: nil); end
+    end
     class Script < ::Stripe::RequestParams
       # The configuration values of the script. The keys and values are specific to the script implementation.
       sig { returns(T::Hash[String, T.untyped]) }
@@ -60,6 +94,13 @@ module Stripe
       params(_currency_options: T.nilable(T::Hash[String, ::Stripe::CouponCreateParams::CurrencyOptions])).returns(T.nilable(T::Hash[String, ::Stripe::CouponCreateParams::CurrencyOptions]))
      }
     def currency_options=(_currency_options); end
+    # The custom coupon calculation configuration.
+    sig { returns(T.nilable(::Stripe::CouponCreateParams::Custom)) }
+    def custom; end
+    sig {
+      params(_custom: T.nilable(::Stripe::CouponCreateParams::Custom)).returns(T.nilable(::Stripe::CouponCreateParams::Custom))
+     }
+    def custom=(_custom); end
     # Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
     sig { returns(T.nilable(String)) }
     def duration; end
@@ -114,14 +155,20 @@ module Stripe
       params(_script: T.nilable(::Stripe::CouponCreateParams::Script)).returns(T.nilable(::Stripe::CouponCreateParams::Script))
      }
     def script=(_script); end
+    # The coupon calculation type. Must be `custom` when `custom` is provided.
+    sig { returns(T.nilable(String)) }
+    def type; end
+    sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+    def type=(_type); end
     sig {
-      params(amount_off: T.nilable(Integer), applies_to: T.nilable(::Stripe::CouponCreateParams::AppliesTo), currency: T.nilable(String), currency_options: T.nilable(T::Hash[String, ::Stripe::CouponCreateParams::CurrencyOptions]), duration: T.nilable(String), duration_in_months: T.nilable(Integer), expand: T.nilable(T::Array[String]), id: T.nilable(String), max_redemptions: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), percent_off: T.nilable(Float), redeem_by: T.nilable(Integer), script: T.nilable(::Stripe::CouponCreateParams::Script)).void
+      params(amount_off: T.nilable(Integer), applies_to: T.nilable(::Stripe::CouponCreateParams::AppliesTo), currency: T.nilable(String), currency_options: T.nilable(T::Hash[String, ::Stripe::CouponCreateParams::CurrencyOptions]), custom: T.nilable(::Stripe::CouponCreateParams::Custom), duration: T.nilable(String), duration_in_months: T.nilable(Integer), expand: T.nilable(T::Array[String]), id: T.nilable(String), max_redemptions: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), percent_off: T.nilable(Float), redeem_by: T.nilable(Integer), script: T.nilable(::Stripe::CouponCreateParams::Script), type: T.nilable(String)).void
      }
     def initialize(
       amount_off: nil,
       applies_to: nil,
       currency: nil,
       currency_options: nil,
+      custom: nil,
       duration: nil,
       duration_in_months: nil,
       expand: nil,
@@ -131,7 +178,8 @@ module Stripe
       name: nil,
       percent_off: nil,
       redeem_by: nil,
-      script: nil
+      script: nil,
+      type: nil
     ); end
   end
 end

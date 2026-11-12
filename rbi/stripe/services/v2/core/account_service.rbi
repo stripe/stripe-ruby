@@ -19,6 +19,7 @@ module Stripe
         # Create an Account that represents a company, individual, or other entity that your business interacts with. Accounts contain identifying information about the entity, and configurations that store the features an account has access to. An account can be configured as any or all of the following configurations: Customer, Merchant and/or Recipient.
         #
         # ** raises RateLimitError
+        # ** raises InactiveApiOperationConfirmationRequiredError
         sig {
           params(params: T.any(::Stripe::V2::Core::AccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Account)
          }
@@ -43,6 +44,7 @@ module Stripe
         # Updates the details of an Account.
         #
         # ** raises RateLimitError
+        # ** raises InactiveApiOperationConfirmationRequiredError
         sig {
           params(id: String, params: T.any(::Stripe::V2::Core::AccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Account)
          }

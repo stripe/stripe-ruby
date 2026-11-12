@@ -4,7 +4,9 @@
 module Stripe
   module V2
     module Core
-      # Account tokens are single-use tokens which tokenize an account's contact_email, display_name, contact_phone, and identity.
+      # Account tokens are single-use tokens which tokenize an account's `contact_email`, `display_name`, `contact_phone`, and `identity`.
+      # In live mode, you must create account tokens using a live publishable key.
+      # In a sandbox, you can create account tokens with secret or publishable keys.
       class AccountToken < APIResource
         OBJECT_NAME = "v2.core.account_token"
         def self.object_name

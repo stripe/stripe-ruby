@@ -6,6 +6,7 @@ module Stripe
   module V2
     module Data
       module Reporting
+        # The [Queries and Reports API](https://docs.stripe.com/data/api/query-runs) replaces this API. For new integrations, use `/v2/data/query_runs` instead.
         # The `QueryRun` object represents an ad-hoc SQL execution. Once created, Stripe processes the query. When
         # the query has finished running, the object provides a reference to the results.
         class QueryRun < APIResource
@@ -44,10 +45,16 @@ module Stripe
                 @field_encodings = {size: :int64_string}
               end
             end
+            # The number of columns in the file.
+            sig { returns(T.nilable(Integer)) }
+            def col_count; end
             # Contains metadata about the file produced by the `ReportRun` or `QueryRun`, including
             # its content type, size, and a URL to download its contents.
             sig { returns(T.nilable(File)) }
             def file; end
+            # The number of data rows in the file, excluding the column header row.
+            sig { returns(T.nilable(Integer)) }
+            def row_count; end
             # The type of the `ReportRun` or `QueryRun` result.
             sig { returns(String) }
             def type; end
@@ -58,7 +65,11 @@ module Stripe
               @field_remappings = {}
             end
             def self.field_encodings
-              @field_encodings = {file: {kind: :object, fields: {size: :int64_string}}}
+              @field_encodings = {
+                col_count: :int64_string,
+                file: {kind: :object, fields: {size: :int64_string}},
+                row_count: :int64_string,
+              }
             end
           end
           class ResultOptions < ::Stripe::StripeObject

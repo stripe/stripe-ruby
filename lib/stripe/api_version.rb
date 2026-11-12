@@ -3,7 +3,7 @@
 
 module Stripe
   module ApiVersion
-    CURRENT = "2026-10-28.preview"
+    CURRENT = "development.preview"
     CURRENT_MAJOR = ""
   end
 end

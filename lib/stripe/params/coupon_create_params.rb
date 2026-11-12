@@ -21,6 +21,29 @@ module Stripe
       end
     end
 
+    class Custom < ::Stripe::RequestParams
+      class Extension < ::Stripe::RequestParams
+        # The Extension Prototype ID.
+        attr_accessor :id
+        # The semantic version of the extension.
+        attr_accessor :version
+
+        def initialize(id: nil, version: nil)
+          @id = id
+          @version = version
+        end
+      end
+      # The configuration values of the extension. The keys and values are specific to the extension implementation. May be omitted for extensions that have no configuration schema, in which case an empty configuration is used.
+      attr_accessor :configuration
+      # The extension used to calculate the coupon.
+      attr_accessor :extension
+
+      def initialize(configuration: nil, extension: nil)
+        @configuration = configuration
+        @extension = extension
+      end
+    end
+
     class Script < ::Stripe::RequestParams
       # The configuration values of the script. The keys and values are specific to the script implementation.
       attr_accessor :configuration
@@ -40,6 +63,8 @@ module Stripe
     attr_accessor :currency
     # Coupons defined in each available currency option (only supported if `amount_off` is passed). Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     attr_accessor :currency_options
+    # The custom coupon calculation configuration.
+    attr_accessor :custom
     # Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
     attr_accessor :duration
     # Required only if `duration` is `repeating`, in which case it must be a positive integer that specifies the number of months the discount will be in effect.
@@ -60,12 +85,15 @@ module Stripe
     attr_accessor :redeem_by
     # Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
     attr_accessor :script
+    # The coupon calculation type. Must be `custom` when `custom` is provided.
+    attr_accessor :type
 
     def initialize(
       amount_off: nil,
       applies_to: nil,
       currency: nil,
       currency_options: nil,
+      custom: nil,
       duration: nil,
       duration_in_months: nil,
       expand: nil,
@@ -75,12 +103,14 @@ module Stripe
       name: nil,
       percent_off: nil,
       redeem_by: nil,
-      script: nil
+      script: nil,
+      type: nil
     )
       @amount_off = amount_off
       @applies_to = applies_to
       @currency = currency
       @currency_options = currency_options
+      @custom = custom
       @duration = duration
       @duration_in_months = duration_in_months
       @expand = expand
@@ -91,6 +121,7 @@ module Stripe
       @percent_off = percent_off
       @redeem_by = redeem_by
       @script = script
+      @type = type
     end
   end
 end

@@ -11,7 +11,7 @@ module Stripe
         def customer; end
         sig { params(_customer: String).returns(String) }
         def customer=(_customer); end
-        # The ID of the payment method object.
+        # The ID of the payment method object. If set to nil, the customer payment method is used.
         sig { returns(T.nilable(String)) }
         def default_payment_method; end
         sig { params(_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }

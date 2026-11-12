@@ -212,6 +212,11 @@ module Stripe
             params(_day: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day)).returns(T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day))
            }
           def day=(_day); end
+          # When the anchor for the cadence should be set. Defaults to `now`.
+          sig { returns(T.nilable(String)) }
+          def effective_at; end
+          sig { params(_effective_at: T.nilable(String)).returns(T.nilable(String)) }
+          def effective_at=(_effective_at); end
           # The number of intervals (specified in the interval attribute) between
           # cadence billings. For example, type=month and interval_count=3 bills every
           # 3 months. If not provided, this defaults to 1.
@@ -248,10 +253,11 @@ module Stripe
            }
           def year=(_year); end
           sig {
-            params(day: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day), interval_count: T.nilable(Integer), month: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month), type: String, week: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Week), year: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Year)).void
+            params(day: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Day), effective_at: T.nilable(String), interval_count: T.nilable(Integer), month: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Month), type: String, week: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Week), year: T.nilable(::Stripe::V2::Billing::CadenceCreateParams::BillingCycle::Year)).void
            }
           def initialize(
             day: nil,
+            effective_at: nil,
             interval_count: nil,
             month: nil,
             type: nil,

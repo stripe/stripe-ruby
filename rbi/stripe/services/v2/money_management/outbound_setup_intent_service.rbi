@@ -24,6 +24,14 @@ module Stripe
          }
         def create(params = {}, opts = {}); end
 
+        # Create an OutboundSetupIntent object.
+        #
+        # ** raises QuotaExceededError
+        sig {
+          params(params: T.any(::Stripe::V2::MoneyManagement::OutboundSetupIntentFromFinancialConnectionsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::OutboundSetupIntent)
+         }
+        def from_financial_connections(params = {}, opts = {}); end
+
         # List the OutboundSetupIntent objects.
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::OutboundSetupIntentListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)

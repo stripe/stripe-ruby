@@ -92,6 +92,16 @@ module Stripe
       "#<#{self.class}:0x#{object_id.to_s(16)}>"
     end
 
+    # Implements custom encoding for YAML (Psych). Without it, Psych dumps
+    # every instance variable, including the API key and any proxy
+    # credentials. Clients and requestors reach the key through this object,
+    # so this also keeps it out of their YAML dumps.
+    def encode_with(coder)
+      (instance_variables - %i[@api_key @proxy]).each do |ivar|
+        coder[ivar.to_s.delete_prefix("@")] = instance_variable_get(ivar)
+      end
+    end
+
     def log_level=(val)
       # Backwards compatibility for values that we briefly allowed
       if val == "debug"

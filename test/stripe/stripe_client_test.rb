@@ -393,5 +393,14 @@ module Stripe
         refute_includes client.with_stripe_context("acct_123").inspect, "sk_test_secret"
       end
     end
+
+    context "YAML" do
+      should "not expose the API key" do
+        client = StripeClient.new("sk_test_secret")
+
+        refute_includes YAML.dump(client), "sk_test_secret"
+        refute_includes YAML.dump(client.with_stripe_context("acct_123")), "sk_test_secret"
+      end
+    end
   end
 end

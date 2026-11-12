@@ -150,6 +150,36 @@ module Stripe
     end
 
     context "Event construction" do
+      %i[stripe_account stripe_context].each do |selector|
+        should "reuse connections across #{selector} overrides while retaining resource scope" do
+          APIRequestor.clear_all_connection_managers
+          requests = []
+          %w[first second].each do |name|
+            stub_request(:any, "#{Stripe.api_base}/v1/products/prod_#{name}").to_return do |request|
+              requests << request
+              { body: JSON.generate(id: "prod_#{name}", object: "product", deleted: request.method == :delete) }
+            end
+          end
+          client = StripeClient.new("sk_test_123", api_base: Stripe.api_base)
+          config = client.instance_variable_get(:@requestor).config
+          # Warm the certificate store so its lazy initialization does not change the pool key.
+          config.ca_store
+          first = client.v1.products.retrieve("prod_first", {}, **{ selector => "acct_first" })
+          second = client.v1.products.retrieve("prod_second", {}, **{ selector => "acct_second" })
+          manager = APIRequestor.default_connection_manager(config)
+
+          first.refresh
+          client.request { Marshal.load(Marshal.dump(second)).delete }
+
+          assert_equal 1, APIRequestor.current_thread_context.default_connection_managers.length
+          assert_same manager, APIRequestor.default_connection_manager(first.instance_variable_get(:@requestor).config)
+          header = selector == :stripe_account ? "Stripe-Account" : "Stripe-Context"
+          assert_equal(%w[acct_first acct_second acct_first acct_second], requests.map { |request| request.headers[header] })
+        ensure
+          APIRequestor.clear_all_connection_managers
+        end
+      end
+
       should "reject nil in internal initialization instead of selecting an ambient requestor" do
         product = @client.with_stripe_context("acct_event_a").deserialize(@product_body)
         error = assert_raises(ArgumentError) do

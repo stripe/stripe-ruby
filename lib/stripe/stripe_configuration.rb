@@ -199,10 +199,11 @@ module Stripe
       enable_telemetry
     end
 
-    # Generates a deterministic key to identify configuration objects with
-    # identical configuration values.
+    # Identifies connection configuration, excluding authorization selectors
+    # that are sent in headers on each request.
     def key
       instance_variables
+        .reject { |variable| %i[@stripe_account @stripe_context].include?(variable) }
         .collect { |variable| instance_variable_get(variable) }
         .join
     end

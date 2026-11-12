@@ -227,6 +227,24 @@ module Stripe
         assert_nil thread_context.default_connection_managers[client1.config.key]
         refute_nil thread_context.default_connection_managers[client2.config.key]
       end
+
+      should "clear a shared connection manager through any authorization scope" do
+        APIRequestor.clear_all_connection_managers
+        config = StripeConfiguration.new
+        first = config.reverse_duplicate_merge(stripe_account: "acct_first")
+        second = config.reverse_duplicate_merge(stripe_context: "acct_second")
+        separate = config.reverse_duplicate_merge(read_timeout: 5)
+        shared_manager = APIRequestor.default_connection_manager(first)
+        separate_manager = APIRequestor.default_connection_manager(separate)
+
+        assert_same shared_manager, APIRequestor.default_connection_manager(second)
+        APIRequestor.clear_all_connection_managers(config: second)
+
+        assert_same separate_manager, APIRequestor.default_connection_manager(separate)
+        refute_same shared_manager, APIRequestor.default_connection_manager(first)
+      ensure
+        APIRequestor.clear_all_connection_managers
+      end
     end
 
     context ".default_requestor" do

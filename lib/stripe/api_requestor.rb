@@ -36,6 +36,7 @@ module Stripe
 
     # Snapshot authorization defaults while retaining the transport's telemetry.
     def with_authorization_scope(scope)
+      scope = RequestOptions.snapshot_authorization_selectors(scope)
       dup.tap do |requestor|
         requestor.instance_variable_set(:@config, config.reverse_duplicate_merge(scope))
       end

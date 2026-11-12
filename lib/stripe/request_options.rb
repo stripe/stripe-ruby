@@ -86,6 +86,16 @@ module Stripe
       { stripe_account: merged_opts[:stripe_account], stripe_context: merged_opts[:stripe_context] }
     end
 
+    # Caller-owned selector strings must not change the authorization scope of a live resource.
+    def self.snapshot_authorization_selectors(opts)
+      opts.dup.tap do |snapshot|
+        %i[stripe_account stripe_context].each do |selector|
+          value = snapshot[selector]
+          snapshot[selector] = value.dup.freeze if value.is_a?(String)
+        end
+      end
+    end
+
     # Merges requestor options hash on a StripeObject
     # with a per-request options hash, giving precedence
     # to the per-request options. Returns the merged request options.

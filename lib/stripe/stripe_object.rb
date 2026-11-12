@@ -77,7 +77,7 @@ module Stripe
     def initialize(id = nil, opts = {}, api_mode = :v1, requestor = nil)
       @api_mode = api_mode
       id, @retrieve_params = Util.normalize_id(id)
-      @opts = Util.normalize_opts(opts)
+      @opts = RequestOptions.snapshot_authorization_selectors(Util.normalize_opts(opts))
       @original_values = {}
       @values = {}
       # This really belongs in APIResource, but not putting it there allows us
@@ -566,7 +566,7 @@ module Stripe
 
       @api_mode = api_mode
       @last_response = last_response
-      @opts = Util.normalize_opts(opts)
+      @opts = RequestOptions.snapshot_authorization_selectors(Util.normalize_opts(opts))
       @requestor = requestor
       if requestor.is_a?(APIRequestor)
         scope = RequestOptions.authorization_scope(requestor.config, @opts)

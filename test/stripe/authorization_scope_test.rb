@@ -151,6 +151,50 @@ module Stripe
 
     context "Event construction" do
       %i[stripe_account stripe_context].each do |selector|
+        %i[client request].each do |source|
+          should "snapshot mutable #{selector} supplied through #{source}" do
+            value = +"acct_event_a"
+            client_opts = source == :client ? { selector => value } : {}
+            request_opts = source == :request ? { selector => value } : {}
+            client = StripeClient.new("sk_test_123", api_base: Stripe.api_base, **client_opts)
+            product = client.v1.products.retrieve("prod_shared", {}, request_opts)
+
+            value.replace("acct_worker_b")
+            product.delete
+            restored = Marshal.load(Marshal.dump(product))
+            restored.delete
+            product.refresh
+
+            context = selector == :stripe_context ? "acct_event_a" : nil
+            account = selector == :stripe_account ? "acct_event_a" : nil
+            assert_scope(@requests, context, account)
+            assert_bound_scope(product, context, account)
+            assert_bound_scope(restored, context, account)
+            assert_equal "acct_event_a", product.marshal_dump[2][selector]
+            assert_equal "acct_event_a", product.instance_variable_get(:@opts)[selector]
+            assert_predicate product.instance_variable_get(:@requestor).config.public_send(selector), :frozen?
+            assert_predicate product.instance_variable_get(:@opts)[selector], :frozen?
+            refute_predicate value, :frozen?
+
+            client.v1.products.retrieve("prod_shared", {}, request_opts)
+            assert_scope(@requests.last(1), selector == :stripe_context ? "acct_worker_b" : nil,
+                         selector == :stripe_account ? "acct_worker_b" : nil)
+          end
+        end
+        should "copy mutable #{selector} when cloning a requestor's authorization scope" do
+          value = +"acct_event_a"
+          client = StripeClient.new("sk_test_123", api_base: Stripe.api_base)
+          scoped = client.instance_variable_get(:@requestor).with_authorization_scope(selector => value)
+          value.replace("acct_worker_b")
+          product = scoped.execute_request(:get, @product_path, :api)
+          Marshal.load(Marshal.dump(product)).delete
+
+          assert_scope(@requests, selector == :stripe_context ? "acct_event_a" : nil,
+                       selector == :stripe_account ? "acct_event_a" : nil)
+          assert_equal "acct_event_a", scoped.config.public_send(selector)
+          assert_predicate scoped.config.public_send(selector), :frozen?
+          refute_predicate value, :frozen?
+        end
         should "reuse connections across #{selector} overrides while retaining resource scope" do
           APIRequestor.clear_all_connection_managers
           requests = []

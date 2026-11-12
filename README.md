@@ -249,7 +249,9 @@ a success or error. Receives `RequestEndEvent` with the following properties:
 - `request_id`: HTTP request identifier. (`String`)
 - `response_header`: The response headers. (`Hash`)
 - `response_body` = The response body. (`String`)
-- `request_header` = The request headers. (`Hash`)
+- `request_header` = The request headers. (`Hash`) These include sensitive
+  values such as the `Authorization` header, which contains your API key.
+  Redact them before writing events to logs or telemetry.
 - `request_body` = The request body. (`String`)
 
 #### Example

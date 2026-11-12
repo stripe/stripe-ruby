@@ -48,6 +48,16 @@ module Stripe
       "#<#{self.class}:0x#{object_id.to_s(16)}>"
     end
 
+    # Implements custom encoding for YAML (Psych). Without it, Psych dumps
+    # every instance variable, including the API key and any proxy
+    # credentials in the configuration. Clients reach the configuration
+    # through their requestor, so this also keeps it out of their YAML dumps.
+    def encode_with(coder)
+      (instance_variables - [:@config]).each do |ivar|
+        coder[ivar.to_s.delete_prefix("@")] = instance_variable_get(ivar)
+      end
+    end
+
     # Gets a currently active `APIRequestor`. Set for the current thread when
     # `APIRequestor#request` is being run so that API operations being executed
     # inside of that block can find the currently active requestor. It's reset to

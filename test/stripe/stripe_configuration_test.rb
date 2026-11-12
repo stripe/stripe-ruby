@@ -308,20 +308,5 @@ module Stripe
         refute_includes config.inspect, "proxy_secret"
       end
     end
-
-    context "#encode_with" do
-      should "not expose the API key or proxy credentials in YAML" do
-        config = StripeConfiguration.setup do |c|
-          c.api_key = "sk_test_secret"
-          c.proxy = "http://user:proxy_secret@localhost:8080"
-          c.max_network_retries = 3
-        end
-
-        yaml = YAML.dump(config)
-        refute_includes yaml, "sk_test_secret"
-        refute_includes yaml, "proxy_secret"
-        assert_equal 3, YAML.unsafe_load(yaml).max_network_retries
-      end
-    end
   end
 end

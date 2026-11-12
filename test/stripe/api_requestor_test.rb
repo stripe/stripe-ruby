@@ -2001,6 +2001,16 @@ module Stripe
         refute_includes APIRequestor.new("sk_test_secret").inspect, "sk_test_secret"
       end
     end
+
+    context "#encode_with" do
+      should "not expose the API key or proxy credentials in YAML" do
+        requestor = APIRequestor.new(api_key: "sk_test_secret", proxy: "http://user:proxy_secret@localhost:8080")
+
+        yaml = YAML.dump(requestor)
+        refute_includes yaml, "sk_test_secret"
+        refute_includes yaml, "proxy_secret"
+      end
+    end
   end
 
   class SystemProfilerTest < Test::Unit::TestCase

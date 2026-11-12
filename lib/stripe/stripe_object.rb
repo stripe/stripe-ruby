@@ -260,13 +260,12 @@ module Stripe
       opts.delete(:client)
 
       scope = RequestOptions.authorization_scope(@requestor.config, opts)
-      [@values, opts, scope, @api_mode]
 
       # Serialized objects often land in caches and queues that aren't
       # protected like secrets, so never write the API key out. Nested
       # StripeObjects are dumped through this method too.
       opts[:api_key] = RequestOptions::API_KEY_SERIALIZATION_CONSTANT
-      [@values, opts]
+      [@values, opts, scope, @api_mode]
     end
 
     # Implements custom decoding for Ruby's Marshal. Consumes data that's

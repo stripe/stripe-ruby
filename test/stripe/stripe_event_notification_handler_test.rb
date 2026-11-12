@@ -776,5 +776,14 @@ module Stripe
         assert_equal 0, @on_unhandled_calls.length
       end
     end
+
+    context "#inspect" do
+      should "not expose the API key or webhook secret" do
+        handler = StripeClient.new("sk_test_secret").notification_handler("whsec_secret") { nil }
+
+        refute_includes handler.inspect, "sk_test_secret"
+        refute_includes handler.inspect, "whsec_secret"
+      end
+    end
   end
 end

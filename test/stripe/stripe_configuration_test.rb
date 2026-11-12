@@ -296,5 +296,17 @@ module Stripe
         refute_equal StripeConfiguration.setup.key, custom_config.key
       end
     end
+
+    context "#inspect" do
+      should "not expose the API key or proxy credentials" do
+        config = StripeConfiguration.setup do |c|
+          c.api_key = "sk_test_secret"
+          c.proxy = "http://user:proxy_secret@localhost:8080"
+        end
+
+        refute_includes config.inspect, "sk_test_secret"
+        refute_includes config.inspect, "proxy_secret"
+      end
+    end
   end
 end

@@ -30,6 +30,22 @@ module Stripe
       OPTS_USER_SPECIFIED - Set[:idempotency_key]
     ).freeze
 
+    # Written in place of API keys when a StripeObject is serialized with
+    # Marshal or YAML, so that credentials never end up in caches or queues.
+    API_KEY_SERIALIZATION_CONSTANT = "API_KEY_SERIALIZATION_CONSTANT"
+
+    # Raises if the given API key is the serialization placeholder, meaning the
+    # object was deserialized and credentials haven't been reattached.
+    def self.assert_api_key_attached!(api_key)
+      return unless api_key == API_KEY_SERIALIZATION_CONSTANT
+
+      raise AuthenticationError,
+            "This object was deserialized without API credentials. Call " \
+            "reattach_api_key(api_key) on the object before making requests. " \
+            "Global and per-call API keys do not reattach credentials to a " \
+            "deserialized object."
+    end
+
     # helper method to figure out what the true value of the stripe_context header should be
     # given a pair of StripeContext|string
     # req should take precedence if non-nil
@@ -75,6 +91,8 @@ module Stripe
     # to the per-request options. Returns the merged request options.
     # Expects two hashes, expects extract_opts_from_hash to be called first!!!
     def self.combine_opts(object_opts, req_opts)
+      assert_api_key_attached!(object_opts[:api_key])
+
       merged_opts = {
         api_key: req_opts[:api_key] || object_opts[:api_key],
         idempotency_key: req_opts[:idempotency_key],

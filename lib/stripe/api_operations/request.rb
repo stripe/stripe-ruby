@@ -77,6 +77,7 @@ module Stripe
 
       protected def execute_resource_request(method, url, base_address = :api,
                                              params = {}, opts = {}, usage = [])
+        RequestOptions.assert_api_key_attached!(@opts[:api_key])
         opts = @opts.merge(Util.normalize_opts(opts))
         self.class.execute_resource_request(
           method, url, base_address, params, opts, usage, requestor: retained_requestor
@@ -86,6 +87,7 @@ module Stripe
       protected def execute_resource_request_stream(method, url, base_address = :api,
                                                     params = {}, opts = {}, usage = [],
                                                     &read_body_chunk_block)
+        RequestOptions.assert_api_key_attached!(@opts[:api_key])
         opts = @opts.merge(Util.normalize_opts(opts))
         self.class.execute_resource_request_stream(
           method, url, base_address, params, opts, usage, requestor: retained_requestor,

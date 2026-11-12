@@ -299,6 +299,22 @@ module Stripe
       next_list = list.previous_page
       assert_equal({ ending_before: 2, expand: ["data.source"], limit: 3 }, next_list.filters)
     end
+
+    should "require reattachment before auto-paging a deserialized list, then use the reattached key" do
+      list = TestListObject.construct_from({ data: [{ id: 1 }], has_more: true, url: "/things", object: "list" },
+                                           { api_key: "sk_test_producer", stripe_account: "acct_123" })
+      restored = Marshal.load(Marshal.dump(list))
+
+      assert_raises(Stripe::AuthenticationError) { restored.auto_paging_each.to_a }
+
+      restored.reattach_api_key("sk_test_worker")
+      stub_request(:get, "#{Stripe.api_base}/things")
+        .with(query: { starting_after: "1" },
+              headers: { "Authorization" => "Bearer sk_test_worker", "Stripe-Account" => "acct_123" })
+        .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false, url: "/things", object: "list"))
+
+      assert_equal [1, 2], restored.auto_paging_each.map(&:id)
+    end
   end
 end
 

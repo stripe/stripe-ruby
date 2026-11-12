@@ -5,6 +5,20 @@ Instead, edit a corresponding `.change.md` file and run `hark build`.
 
 # Changelog
 
+## <a id="21-0-0"></a>21.0.0 - 2026-11-11
+* Improve webhook signature verification error messages
+  - When diagnostic metadata is present in the `Stripe-Signature` header, errors help identify an incorrect signing secret or altered request body.
+* [#2011](https://github.com/stripe/stripe-ruby/pull/2011) Accept binary webhook payloads with non-ASCII characters
+  - Parse UTF-8 webhook payloads tagged as binary in `construct_event_without_verification` and `parse_event_notification_without_verification`.
+* ⚠️ Omit API keys from Marshal and YAML dumps of StripeObjects
+
+  Marshal and YAML dumps of StripeObjects no longer preserve API keys. Before making requests through a restored object, call `reattach_api_key(api_key)`. This also reattaches API keys to nested objects.
+
+  See the [v21 migration guide](https://github.com/stripe/stripe-ruby/blob/master/.hark/migration-guides/v21.md#api-keys-are-no-longer-preserved-in-marshal-and-yaml-dumps-of-stripeobjects) for details.
+* [#2022](https://github.com/stripe/stripe-ruby/pull/2022) Fix stripe_account and stripe_context scoping on Event#fetch_related_object
+
+  When fetching a related object, directly-retrieved `Event` objects used the retaining client's own `stripe_context` rather than the event's `stripe_context`. `fetch_related_object` now routes through a requestor scoped to the event's context.  This mirrors how `EventNotification` scopes its client.
+
 ## <a id="20-1-0"></a>20.1.0 - 2026-10-29
 This release changes the pinned API version to `2026-10-28.endive`.
 

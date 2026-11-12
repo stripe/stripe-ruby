@@ -365,7 +365,7 @@ module Stripe
       # The last 4 digits of the card number.
       sig { returns(String) }
       def last4; end
-      # Stripe’s assessment of whether this card’s details have been compromised. If this property isn't null, cancel and reissue the card to prevent fraudulent activity risk.
+      # Stripe’s assessment of whether this card’s details have been compromised. If this property isn’t null, cancel and reissue the card to reduce the risk of fraudulent activity. Stripe may remove a fraud warning if the cardholder confirms that the activity on the card is legitimate.
       sig { returns(T.nilable(LatestFraudWarning)) }
       def latest_fraud_warning; end
       # Rules that control the lifecycle of this card, such as automatic cancellation. Refer to our [documentation](/issuing/controls/lifecycle-controls) for more details.

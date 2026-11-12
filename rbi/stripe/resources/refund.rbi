@@ -40,6 +40,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class AlipayPlus < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Alma < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -463,6 +471,9 @@ module Stripe
       # Attribute for field alipay
       sig { returns(T.nilable(Alipay)) }
       def alipay; end
+      # Attribute for field alipay_plus
+      sig { returns(T.nilable(AlipayPlus)) }
+      def alipay_plus; end
       # Attribute for field alma
       sig { returns(T.nilable(Alma)) }
       def alma; end
@@ -579,6 +590,7 @@ module Stripe
           affirm: Affirm,
           afterpay_clearpay: AfterpayClearpay,
           alipay: Alipay,
+          alipay_plus: AlipayPlus,
           alma: Alma,
           amazon_pay: AmazonPay,
           au_bank_transfer: AuBankTransfer,

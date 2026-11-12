@@ -5,7 +5,7 @@ module Stripe
   module TestHelpers
     module Treasury
       class OutboundTransferService < StripeService
-        # Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+        # Transitions a test OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
         def fail(outbound_transfer, params = {}, opts = {})
           request(
             method: :post,
@@ -16,7 +16,7 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+        # Transitions a test OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
         def post(outbound_transfer, params = {}, opts = {})
           request(
             method: :post,
@@ -27,7 +27,7 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+        # Transitions a test OutboundTransfer to the returned status. The OutboundTransfer must already be in the posted state.
         def return_outbound_transfer(outbound_transfer, params = {}, opts = {})
           request(
             method: :post,
@@ -38,7 +38,7 @@ module Stripe
           )
         end
 
-        # Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
+        # Updates a test OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and can't be in the canceled or failed states.
         def update(outbound_transfer, params = {}, opts = {})
           request(
             method: :post,

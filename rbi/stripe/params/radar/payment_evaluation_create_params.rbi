@@ -500,15 +500,23 @@ module Stripe
         params(_payment_details: ::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails).returns(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails)
        }
       def payment_details=(_payment_details); end
+      # The signals to return in the Payment Evaluation response. Must include `fraudulent_payment`. If omitted, only `fraudulent_payment` is returned.
+      sig { returns(T.nilable(T::Array[String])) }
+      def requested_signals; end
       sig {
-        params(client_device_metadata_details: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails), customer_details: ::Stripe::Radar::PaymentEvaluationCreateParams::CustomerDetails, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_details: ::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails).void
+        params(_requested_signals: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+       }
+      def requested_signals=(_requested_signals); end
+      sig {
+        params(client_device_metadata_details: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::ClientDeviceMetadataDetails), customer_details: ::Stripe::Radar::PaymentEvaluationCreateParams::CustomerDetails, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_details: ::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails, requested_signals: T.nilable(T::Array[String])).void
        }
       def initialize(
         client_device_metadata_details: nil,
         customer_details: nil,
         expand: nil,
         metadata: nil,
-        payment_details: nil
+        payment_details: nil,
+        requested_signals: nil
       ); end
     end
   end

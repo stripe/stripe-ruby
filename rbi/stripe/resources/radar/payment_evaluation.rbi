@@ -670,6 +670,9 @@ module Stripe
       # Recommended action for this payment based on its evaluated signals and rules.
       sig { returns(String) }
       def recommended_action; end
+      # The signals requested for this payment evaluation. Only returned when creating a payment evaluation. Includes the default signal list when `requested_signals` is omitted from the request.
+      sig { returns(T.nilable(T::Array[String])) }
+      def requested_signals; end
       # Details about Radar Rules associated with the payment evaluation.
       sig { returns(T.nilable(Rules)) }
       def rules; end

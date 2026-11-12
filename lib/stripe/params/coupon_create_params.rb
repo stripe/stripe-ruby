@@ -4,7 +4,7 @@
 module Stripe
   class CouponCreateParams < ::Stripe::RequestParams
     class AppliesTo < ::Stripe::RequestParams
-      # An array of Product IDs that this Coupon will apply to.
+      # An array of up to 100 Product IDs that this Coupon will apply to.
       attr_accessor :products
 
       def initialize(products: nil)

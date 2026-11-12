@@ -53,6 +53,16 @@ module Stripe
         end
       end
 
+      class AlipayPlus < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Alma < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -521,6 +531,8 @@ module Stripe
       attr_reader :afterpay_clearpay
       # Attribute for field alipay
       attr_reader :alipay
+      # Attribute for field alipay_plus
+      attr_reader :alipay_plus
       # Attribute for field alma
       attr_reader :alma
       # Attribute for field amazon_pay
@@ -601,6 +613,7 @@ module Stripe
           affirm: Affirm,
           afterpay_clearpay: AfterpayClearpay,
           alipay: Alipay,
+          alipay_plus: AlipayPlus,
           alma: Alma,
           amazon_pay: AmazonPay,
           au_bank_transfer: AuBankTransfer,

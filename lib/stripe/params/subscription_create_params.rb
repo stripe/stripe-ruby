@@ -946,10 +946,13 @@ module Stripe
               @end_date = end_date
             end
           end
+          # Controls when the funds will be captured from the customer's account.
+          attr_accessor :debit_behavior
           # Configuration options for setting up an eMandate
           attr_accessor :mandate_options
 
-          def initialize(mandate_options: nil)
+          def initialize(debit_behavior: nil, mandate_options: nil)
+            @debit_behavior = debit_behavior
             @mandate_options = mandate_options
           end
         end

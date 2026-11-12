@@ -31,6 +31,51 @@ module Stripe
             cvc_check: nil
           ); end
         end
+        class ThreeDSecure < ::Stripe::RequestParams
+          # For authenticated transactions: Indicates how the issuing bank authenticated the customer.
+          sig { returns(T.nilable(String)) }
+          def authentication_flow; end
+          sig { params(_authentication_flow: T.nilable(String)).returns(T.nilable(String)) }
+          def authentication_flow=(_authentication_flow); end
+          # The Electronic Commerce Indicator (ECI). A protocol-level field indicating what degree of authentication was performed.
+          sig { returns(T.nilable(String)) }
+          def electronic_commerce_indicator; end
+          sig {
+            params(_electronic_commerce_indicator: T.nilable(String)).returns(T.nilable(String))
+           }
+          def electronic_commerce_indicator=(_electronic_commerce_indicator); end
+          # The exemption requested via 3DS and accepted by the issuer at authentication time.
+          sig { returns(T.nilable(String)) }
+          def exemption_indicator; end
+          sig { params(_exemption_indicator: T.nilable(String)).returns(T.nilable(String)) }
+          def exemption_indicator=(_exemption_indicator); end
+          # Indicates the outcome of 3D Secure authentication.
+          sig { returns(String) }
+          def result; end
+          sig { params(_result: String).returns(String) }
+          def result=(_result); end
+          # Additional information about why 3D Secure succeeded or failed, based on the `result`.
+          sig { returns(T.nilable(String)) }
+          def result_reason; end
+          sig { params(_result_reason: T.nilable(String)).returns(T.nilable(String)) }
+          def result_reason=(_result_reason); end
+          # The version of 3D Secure that was used.
+          sig { returns(String) }
+          def version; end
+          sig { params(_version: String).returns(String) }
+          def version=(_version); end
+          sig {
+            params(authentication_flow: T.nilable(String), electronic_commerce_indicator: T.nilable(String), exemption_indicator: T.nilable(String), result: String, result_reason: T.nilable(String), version: String).void
+           }
+          def initialize(
+            authentication_flow: nil,
+            electronic_commerce_indicator: nil,
+            exemption_indicator: nil,
+            result: nil,
+            result_reason: nil,
+            version: nil
+          ); end
+        end
         # Verification checks performed on the card.
         sig {
           returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptFailedParams::PaymentMethodDetails::Card::Checks))
@@ -45,10 +90,19 @@ module Stripe
         def network_decline_code; end
         sig { params(_network_decline_code: T.nilable(String)).returns(T.nilable(String)) }
         def network_decline_code=(_network_decline_code); end
+        # Populated if this transaction used 3D Secure authentication.
         sig {
-          params(checks: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptFailedParams::PaymentMethodDetails::Card::Checks), network_decline_code: T.nilable(String)).void
+          returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptFailedParams::PaymentMethodDetails::Card::ThreeDSecure))
          }
-        def initialize(checks: nil, network_decline_code: nil); end
+        def three_d_secure; end
+        sig {
+          params(_three_d_secure: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptFailedParams::PaymentMethodDetails::Card::ThreeDSecure)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptFailedParams::PaymentMethodDetails::Card::ThreeDSecure))
+         }
+        def three_d_secure=(_three_d_secure); end
+        sig {
+          params(checks: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptFailedParams::PaymentMethodDetails::Card::Checks), network_decline_code: T.nilable(String), three_d_secure: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptFailedParams::PaymentMethodDetails::Card::ThreeDSecure)).void
+         }
+        def initialize(checks: nil, network_decline_code: nil, three_d_secure: nil); end
       end
       class UsBankAccount < ::Stripe::RequestParams
         # NACHA ACH return code for a failed US bank account payment.

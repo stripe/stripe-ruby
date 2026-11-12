@@ -1605,6 +1605,25 @@ module Stripe
         end
       end
 
+      class PassThroughFeeCost < ::Stripe::StripeObject
+        # The pass-through fee before tax.
+        attr_reader :amount_subtotal
+        # The tax on the pass-through fee. Pass-through fees aren't taxed, so this is always 0.
+        attr_reader :amount_tax
+        # The pass-through fee after tax.
+        attr_reader :amount_total
+        # The amount the provider calculated the fee on.
+        attr_reader :calculation_basis_amount
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class PaymentMethodConfigurationDetails < ::Stripe::StripeObject
         # ID of the payment method configuration used.
         attr_reader :id
@@ -3447,6 +3466,8 @@ module Stripe
         end
         # This is the sum of all the discounts.
         attr_reader :amount_discount
+        # The pass-through fee added to the Checkout Session, before tax.
+        attr_reader :amount_pass_through_fee
         # This is the sum of all the shipping amounts.
         attr_reader :amount_shipping
         # The surcharge amount that was applied to the Checkout Session.
@@ -3696,6 +3717,8 @@ module Stripe
       attr_reader :optional_items
       # Where the user is coming from. This informs the optimizations that are applied to the session.
       attr_reader :origin_context
+      # Attribute for field pass_through_fee_cost
+      attr_reader :pass_through_fee_cost
       # The ID of the PaymentIntent for Checkout Sessions in `payment` mode. You can't confirm or cancel the PaymentIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://docs.stripe.com/api/checkout/sessions/expire) instead.
       attr_reader :payment_intent
       # The ID of the Payment Link that created this Session.
@@ -3890,6 +3913,7 @@ module Stripe
           marketing_attributions: MarketingAttribution,
           name_collection: NameCollection,
           optional_items: OptionalItem,
+          pass_through_fee_cost: PassThroughFeeCost,
           payment_method_configuration_details: PaymentMethodConfigurationDetails,
           payment_method_options: PaymentMethodOptions,
           payment_settings: PaymentSettings,

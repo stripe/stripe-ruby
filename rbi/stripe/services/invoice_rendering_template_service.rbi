@@ -10,6 +10,12 @@ module Stripe
      }
     def archive(template, params = {}, opts = {}); end
 
+    # Creates an invoice rendering template.
+    sig {
+      params(params: T.any(::Stripe::InvoiceRenderingTemplateCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceRenderingTemplate)
+     }
+    def create(params = {}, opts = {}); end
+
     # List all templates, ordered by creation date, with the most recently created template appearing first.
     sig {
       params(params: T.any(::Stripe::InvoiceRenderingTemplateListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
@@ -39,5 +45,11 @@ module Stripe
       params(template: String, params: T.any(::Stripe::InvoiceRenderingTemplateUnarchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceRenderingTemplate)
      }
     def unarchive(template, params = {}, opts = {}); end
+
+    # Updates an existing invoice rendering template.
+    sig {
+      params(template: String, params: T.any(::Stripe::InvoiceRenderingTemplateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceRenderingTemplate)
+     }
+    def update(template, params = {}, opts = {}); end
   end
 end

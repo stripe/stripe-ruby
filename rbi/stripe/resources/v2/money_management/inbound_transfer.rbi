@@ -10,6 +10,9 @@ module Stripe
       class InboundTransfer < APIResource
         class From < ::Stripe::StripeObject
           class PaymentMethod < ::Stripe::StripeObject
+            # The Australian bank account credential used for AU BECS Direct Debit.
+            sig { returns(T.nilable(String)) }
+            def au_becs_debit; end
             # The Bacs Direct Debit PaymentMethod identifier.
             sig { returns(T.nilable(String)) }
             def bacs_debit; end

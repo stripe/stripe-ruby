@@ -10566,7 +10566,7 @@ module Stripe
     def statement_descriptor; end
     sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
     def statement_descriptor=(_statement_descriptor); end
-    # Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
+    # Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. A suffix longer than 22 characters returns an error. If a valid suffix makes the complete statement descriptor longer than 22 characters, Stripe truncates the descriptor instead of returning an error. Learn how to [fit the suffix in the complete descriptor](https://docs.stripe.com/get-started/account/statement-descriptors#suffix-length).
     sig { returns(T.nilable(String)) }
     def statement_descriptor_suffix; end
     sig { params(_statement_descriptor_suffix: T.nilable(String)).returns(T.nilable(String)) }

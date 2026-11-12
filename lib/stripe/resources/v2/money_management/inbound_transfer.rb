@@ -14,6 +14,8 @@ module Stripe
 
         class From < ::Stripe::StripeObject
           class PaymentMethod < ::Stripe::StripeObject
+            # The Australian bank account credential used for AU BECS Direct Debit.
+            attr_reader :au_becs_debit
             # The Bacs Direct Debit PaymentMethod identifier.
             attr_reader :bacs_debit
             # The type of PaymentMethod used to create the InboundTransfer. Clients should tolerate future values.

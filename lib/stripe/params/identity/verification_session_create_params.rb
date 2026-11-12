@@ -4,6 +4,18 @@
 module Stripe
   module Identity
     class VerificationSessionCreateParams < ::Stripe::RequestParams
+      class LinkSharedData < ::Stripe::RequestParams
+        # The LinkSharedData grant authorizing use of a shared identity document. Requires confirm=true.
+        attr_accessor :granted_token
+        # The identity_data.identity_documents[].key returned for this grant. Required even when the grant contains only one document.
+        attr_accessor :identity_document
+
+        def initialize(granted_token: nil, identity_document: nil)
+          @granted_token = granted_token
+          @identity_document = identity_document
+        end
+      end
+
       class Options < ::Stripe::RequestParams
         class Document < ::Stripe::RequestParams
           # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
@@ -79,6 +91,8 @@ module Stripe
       attr_accessor :confirm
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # An authorized LinkSharedData grant used to populate and submit a document-only session.
+      attr_accessor :link_shared_data
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # A set of options for the session’s verification checks.
@@ -104,6 +118,7 @@ module Stripe
         client_reference_id: nil,
         confirm: nil,
         expand: nil,
+        link_shared_data: nil,
         metadata: nil,
         options: nil,
         provided_details: nil,
@@ -118,6 +133,7 @@ module Stripe
         @client_reference_id = client_reference_id
         @confirm = confirm
         @expand = expand
+        @link_shared_data = link_shared_data
         @metadata = metadata
         @options = options
         @provided_details = provided_details

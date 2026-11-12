@@ -164,6 +164,43 @@ module Stripe
             end
           end
 
+          class CustomPaymentMethodAdapterDegraded < ::Stripe::StripeObject
+            class CustomPaymentMethodTypeDetails < ::Stripe::StripeObject
+              # The time when the custom payment method was automatically disabled. Null when it is enabled.
+              attr_reader :auto_disabled_at
+              # The display name of the custom payment method type.
+              attr_reader :display_name
+              # The URL of the user's self-hosted adapter endpoint.
+              attr_reader :reverse_api_url
+              # The identifier of the custom payment method type (e.g., "cpmt_...").
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Whether the custom payment method was disabled in Checkout as a result of the degradation. True while the alert is open and false when it is resolved.
+            attr_reader :custom_payment_method_disabled_from_checkout
+            # The custom payment method type whose adapter is unhealthy.
+            attr_reader :custom_payment_method_type_details
+            # The reason the adapter's health is degraded.
+            attr_reader :degraded_health_reason
+
+            def self.inner_class_types
+              @inner_class_types = {
+                custom_payment_method_type_details: CustomPaymentMethodTypeDetails,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class DocumentationLink < ::Stripe::StripeObject
             # A human-readable label for the link.
             attr_reader :label
@@ -438,6 +475,8 @@ module Stripe
           attr_reader :authorization_rate_drop
           # Time at which the health alert was created.
           attr_reader :created
+          # Populated when type is custom_payment_method_adapter_degraded.
+          attr_reader :custom_payment_method_adapter_degraded
           # Links to relevant documentation for diagnosing and resolving the alert.
           attr_reader :documentation_links
           # Populated when type is elements_error.
@@ -492,6 +531,7 @@ module Stripe
               api_error: ApiError,
               api_latency: ApiLatency,
               authorization_rate_drop: AuthorizationRateDrop,
+              custom_payment_method_adapter_degraded: CustomPaymentMethodAdapterDegraded,
               documentation_links: DocumentationLink,
               elements_error: ElementsError,
               event_generation_failure: EventGenerationFailure,

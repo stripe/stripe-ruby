@@ -6,12 +6,45 @@ module Stripe
   # Invoice Rendering Templates are used to configure how invoices are rendered on surfaces like the PDF. Invoice Rendering Templates
   # can be created from within the Dashboard, and they can be used over the API when creating invoices.
   class InvoiceRenderingTemplate < APIResource
+    class LineItemPolicy < ::Stripe::StripeObject
+      # A CEL expression that takes in a line item and returns a string indicating whether the line item should be 'hidden_if_zero' or 'visible'.
+      #  If 'hidden_if_zero', the line item will be hidden if the line item's amount is zero on the invoice.
+      #  If 'visible', the line item will be shown regardless of the line item's amount.
+      sig { returns(T.nilable(String)) }
+      def display; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class SummaryItemPolicy < ::Stripe::StripeObject
+      # Either `all` or `none`. For all summary items created from this policy, if `all`, every line item will be shown under the summary item header. If `none`, the line items will be hidden and only the summary item header will be shown.
+      sig { returns(T.nilable(String)) }
+      def display_items; end
+      # A CEL expression that takes in a line item and returns a boolean indicating whether the line item should be considered when grouping.
+      sig { returns(T.nilable(String)) }
+      def filter; end
+      # A CEL expression that takes in a line item and returns a string. Line items with the same string results are put in the same summary items. The string result will become the description of the summary item.
+      sig { returns(T.nilable(String)) }
+      def group_by; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     def created; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
+    # The policy that controls how individual line items are rendered
+    sig { returns(T.nilable(LineItemPolicy)) }
+    def line_item_policy; end
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
@@ -27,6 +60,9 @@ module Stripe
     # The status of the template, one of `active` or `archived`.
     sig { returns(String) }
     def status; end
+    # The policies that control how line items are grouped into summary items
+    sig { returns(T.nilable(T::Array[SummaryItemPolicy])) }
+    def summary_item_policies; end
     # Version of this template; version increases by one when an update on the template changes any field that controls invoice rendering
     sig { returns(Integer) }
     def version; end
@@ -41,6 +77,12 @@ module Stripe
       params(template: String, params: T.any(::Stripe::InvoiceRenderingTemplateArchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceRenderingTemplate)
      }
     def self.archive(template, params = {}, opts = {}); end
+
+    # Creates an invoice rendering template.
+    sig {
+      params(params: T.any(::Stripe::InvoiceRenderingTemplateCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceRenderingTemplate)
+     }
+    def self.create(params = {}, opts = {}); end
 
     # List all templates, ordered by creation date, with the most recently created template appearing first.
     sig {
@@ -59,5 +101,11 @@ module Stripe
       params(template: String, params: T.any(::Stripe::InvoiceRenderingTemplateUnarchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceRenderingTemplate)
      }
     def self.unarchive(template, params = {}, opts = {}); end
+
+    # Updates an existing invoice rendering template.
+    sig {
+      params(template: String, params: T.any(::Stripe::InvoiceRenderingTemplateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceRenderingTemplate)
+     }
+    def self.update(template, params = {}, opts = {}); end
   end
 end

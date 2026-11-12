@@ -641,6 +641,8 @@ module Stripe
       attr_reader :payment_details
       # Recommended action for this payment based on its evaluated signals and rules.
       attr_reader :recommended_action
+      # The signals requested for this payment evaluation. Only returned when creating a payment evaluation. Includes the default signal list when `requested_signals` is omitted from the request.
+      attr_reader :requested_signals
       # Details about Radar Rules associated with the payment evaluation.
       attr_reader :rules
       # Collection of signals for this payment evaluation.

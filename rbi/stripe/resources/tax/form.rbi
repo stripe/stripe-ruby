@@ -762,7 +762,9 @@ module Stripe
       # Attribute for field us_1099_nec
       sig { returns(T.nilable(Us1099Nec)) }
       def us_1099_nec; end
-      # Creates a correction for a filed tax form. Supply either payee details or numerical values for the tax form type. Created correction forms are not filed automatically.
+      # Creates a correction for a filed tax form. Supply either payee details or numerical values for the tax form type.
+      #
+      # Private preview. API access is invite-only. Contact Stripe to request access. Creating a correction doesn't file it; review, attestation, and filing remain in the Dashboard.
       sig {
         params(id: String, params: T.any(::Stripe::Tax::FormCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Tax::FormCorrection)
        }

@@ -4180,6 +4180,11 @@ module Stripe
     def billing_cadence; end
     sig { params(_billing_cadence: T.nilable(String)).returns(T.nilable(String)) }
     def billing_cadence=(_billing_cadence); end
+    # The identifier of the billing group for which you’d like to retrieve the upcoming invoice. Cannot be provided when `subscription`, `schedule`, `subscription_details` or `schedule_details` are provided.
+    sig { returns(T.nilable(String)) }
+    def billing_group; end
+    sig { params(_billing_group: T.nilable(String)).returns(T.nilable(String)) }
+    def billing_group=(_billing_group); end
     # The currency to preview this invoice in. Defaults to that of `customer` if not specified.
     sig { returns(T.nilable(String)) }
     def currency; end
@@ -4270,11 +4275,12 @@ module Stripe
      }
     def subscription_details=(_subscription_details); end
     sig {
-      params(automatic_tax: T.nilable(::Stripe::InvoiceCreatePreviewParams::AutomaticTax), billing_cadence: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), customer_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::CustomerDetails), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::Discount])), expand: T.nilable(T::Array[String]), invoice_items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::InvoiceItem]), issuer: T.nilable(::Stripe::InvoiceCreatePreviewParams::Issuer), on_behalf_of: T.nilable(String), preview_mode: T.nilable(String), pricing_token: T.nilable(String), schedule: T.nilable(String), schedule_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails), subscription: T.nilable(String), subscription_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails)).void
+      params(automatic_tax: T.nilable(::Stripe::InvoiceCreatePreviewParams::AutomaticTax), billing_cadence: T.nilable(String), billing_group: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), customer_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::CustomerDetails), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::Discount])), expand: T.nilable(T::Array[String]), invoice_items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::InvoiceItem]), issuer: T.nilable(::Stripe::InvoiceCreatePreviewParams::Issuer), on_behalf_of: T.nilable(String), preview_mode: T.nilable(String), pricing_token: T.nilable(String), schedule: T.nilable(String), schedule_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails), subscription: T.nilable(String), subscription_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails)).void
      }
     def initialize(
       automatic_tax: nil,
       billing_cadence: nil,
+      billing_group: nil,
       currency: nil,
       customer: nil,
       customer_account: nil,

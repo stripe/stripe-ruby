@@ -349,7 +349,7 @@ module Stripe
           "OutboundTransfer"
         end
 
-        # Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+        # Transitions a test OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
         def self.fail(outbound_transfer, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -359,7 +359,7 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+        # Transitions a test OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
         def fail(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -369,7 +369,7 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+        # Transitions a test OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
         def self.post(outbound_transfer, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -379,7 +379,7 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+        # Transitions a test OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
         def post(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -389,7 +389,7 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+        # Transitions a test OutboundTransfer to the returned status. The OutboundTransfer must already be in the posted state.
         def self.return_outbound_transfer(outbound_transfer, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -399,7 +399,7 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+        # Transitions a test OutboundTransfer to the returned status. The OutboundTransfer must already be in the posted state.
         def return_outbound_transfer(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -409,7 +409,7 @@ module Stripe
           )
         end
 
-        # Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
+        # Updates a test OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and can't be in the canceled or failed states.
         def self.update(outbound_transfer, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -419,7 +419,7 @@ module Stripe
           )
         end
 
-        # Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
+        # Updates a test OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and can't be in the canceled or failed states.
         def update(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,

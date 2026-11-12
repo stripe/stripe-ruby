@@ -1415,6 +1415,11 @@ module Stripe
              }
             def initialize(amount: nil, amount_type: nil, description: nil, end_date: nil); end
           end
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def debit_behavior; end
+          sig { params(_debit_behavior: T.nilable(String)).returns(T.nilable(String)) }
+          def debit_behavior=(_debit_behavior); end
           # Configuration options for setting up an eMandate
           sig {
             returns(T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Upi::MandateOptions))
@@ -1425,9 +1430,9 @@ module Stripe
            }
           def mandate_options=(_mandate_options); end
           sig {
-            params(mandate_options: T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Upi::MandateOptions)).void
+            params(debit_behavior: T.nilable(String), mandate_options: T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Upi::MandateOptions)).void
            }
-          def initialize(mandate_options: nil); end
+          def initialize(debit_behavior: nil, mandate_options: nil); end
         end
         class UsBankAccount < ::Stripe::RequestParams
           class FinancialConnections < ::Stripe::RequestParams

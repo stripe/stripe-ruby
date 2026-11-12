@@ -343,6 +343,23 @@ module Stripe
       end
     end
 
+    class Dbarai < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
     class Eps < ::Stripe::RequestParams
       class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
@@ -1217,6 +1234,8 @@ module Stripe
     attr_accessor :crypto
     # Uses a customer’s [cash balance](https://docs.stripe.com/payments/customer-balance) for the payment. The cash balance can be funded via a bank transfer. Check this [page](https://docs.stripe.com/payments/bank-transfers) for more details.
     attr_accessor :customer_balance
+    # d-Barai is a single-use payment method that requires customers to authenticate their payment. Customers pay by being redirected from your website or app, authorizing the payment with d-Barai, then returning to your website or app. You get immediate notification of whether the payment succeeded or failed.
+    attr_accessor :dbarai
     # EPS is an Austria-based payment method that allows customers to complete transactions online using their bank credentials. EPS is supported by all Austrian banks and is accepted by over 80% of Austrian online retailers. Check this [page](https://docs.stripe.com/payments/eps) for more details.
     attr_accessor :eps
     # Specifies which fields in the response should be expanded.
@@ -1342,6 +1361,7 @@ module Stripe
       cashapp: nil,
       crypto: nil,
       customer_balance: nil,
+      dbarai: nil,
       eps: nil,
       expand: nil,
       fpx: nil,
@@ -1415,6 +1435,7 @@ module Stripe
       @cashapp = cashapp
       @crypto = crypto
       @customer_balance = customer_balance
+      @dbarai = dbarai
       @eps = eps
       @expand = expand
       @fpx = fpx

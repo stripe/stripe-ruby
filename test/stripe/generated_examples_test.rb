@@ -9702,7 +9702,7 @@ module Stripe
     end
     should "Test v2 core health alert get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/health/alerts").to_return(
-        body: '{"data":[{"object":"v2.core.health.alert","created":"1970-01-12T21:42:34.472Z","documentation_links":[{"label":"label","url":"url"}],"grouping_key":"grouping_key","grouping_type":"incident","id":"obj_123","livemode":true,"severity":"non_critical","started_at":"1970-01-19T03:34:50.959Z","status":"open","summary":"summary","type":"api_error"}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.core.health.alert","created":"1970-01-12T21:42:34.472Z","documentation_links":[{"label":"label","url":"url"}],"grouping_key":"grouping_key","grouping_type":"incident","id":"obj_123","livemode":true,"severity":"non_critical","started_at":"1970-01-19T03:34:50.959Z","status":"open","summary":"summary","type":"meter_event_summaries_delayed"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9712,7 +9712,7 @@ module Stripe
     end
     should "Test v2 core health alert get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/health/alerts/id_123").to_return(
-        body: '{"object":"v2.core.health.alert","created":"1970-01-12T21:42:34.472Z","documentation_links":[{"label":"label","url":"url"}],"grouping_key":"grouping_key","grouping_type":"incident","id":"obj_123","livemode":true,"severity":"non_critical","started_at":"1970-01-19T03:34:50.959Z","status":"open","summary":"summary","type":"api_error"}',
+        body: '{"object":"v2.core.health.alert","created":"1970-01-12T21:42:34.472Z","documentation_links":[{"label":"label","url":"url"}],"grouping_key":"grouping_key","grouping_type":"incident","id":"obj_123","livemode":true,"severity":"non_critical","started_at":"1970-01-19T03:34:50.959Z","status":"open","summary":"summary","type":"meter_event_summaries_delayed"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9725,7 +9725,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/health/alerts/id_123/history"
       ).to_return(
-        body: '{"data":[{"object":"v2.core.health.alert_history_entry","at":"1970-01-01T00:00:03.123Z","id":"obj_123","livemode":true,"transition":"impact_updated","type":"api_error"}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.core.health.alert_history_entry","at":"1970-01-01T00:00:03.123Z","id":"obj_123","livemode":true,"transition":"impact_updated","type":"meter_event_summaries_delayed"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")

@@ -409,6 +409,23 @@ module Stripe
         # The billing cadence that generated this invoice
         sig { returns(String) }
         def billing_cadence; end
+        # The billing group that generated this invoice
+        sig { returns(T.nilable(String)) }
+        def billing_group; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class BillingGroupDetails < ::Stripe::StripeObject
+        # The billing cadence that generated this invoice
+        sig { returns(String) }
+        def billing_cadence; end
+        # The billing group that generated this invoice
+        sig { returns(T.nilable(String)) }
+        def billing_group; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -479,6 +496,9 @@ module Stripe
       # Details about the billing cadence that generated this invoice
       sig { returns(T.nilable(BillingCadenceDetails)) }
       def billing_cadence_details; end
+      # Details about the billing group that generated this invoice
+      sig { returns(T.nilable(BillingGroupDetails)) }
+      def billing_group_details; end
       # Details about the quote that generated this invoice
       sig { returns(T.nilable(QuoteDetails)) }
       def quote_details; end
@@ -494,6 +514,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           billing_cadence_details: BillingCadenceDetails,
+          billing_group_details: BillingGroupDetails,
           quote_details: QuoteDetails,
           schedule_details: ScheduleDetails,
           subscription_details: SubscriptionDetails,

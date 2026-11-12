@@ -163,9 +163,11 @@ module Stripe
   autoload :InvoicePayParams, "stripe/params/invoice_pay_params"
   autoload :InvoiceRemoveLinesParams, "stripe/params/invoice_remove_lines_params"
   autoload :InvoiceRenderingTemplateArchiveParams, "stripe/params/invoice_rendering_template_archive_params"
+  autoload :InvoiceRenderingTemplateCreateParams, "stripe/params/invoice_rendering_template_create_params"
   autoload :InvoiceRenderingTemplateListParams, "stripe/params/invoice_rendering_template_list_params"
   autoload :InvoiceRenderingTemplateRetrieveParams, "stripe/params/invoice_rendering_template_retrieve_params"
   autoload :InvoiceRenderingTemplateUnarchiveParams, "stripe/params/invoice_rendering_template_unarchive_params"
+  autoload :InvoiceRenderingTemplateUpdateParams, "stripe/params/invoice_rendering_template_update_params"
   autoload :InvoiceRetrieveParams, "stripe/params/invoice_retrieve_params"
   autoload :InvoiceSearchParams, "stripe/params/invoice_search_params"
   autoload :InvoiceSendInvoiceParams, "stripe/params/invoice_send_invoice_params"
@@ -1794,9 +1796,11 @@ module Stripe
     stripe/params/invoice_payment_retrieve_params
     stripe/params/invoice_remove_lines_params
     stripe/params/invoice_rendering_template_archive_params
+    stripe/params/invoice_rendering_template_create_params
     stripe/params/invoice_rendering_template_list_params
     stripe/params/invoice_rendering_template_retrieve_params
     stripe/params/invoice_rendering_template_unarchive_params
+    stripe/params/invoice_rendering_template_update_params
     stripe/params/invoice_retrieve_params
     stripe/params/invoice_search_params
     stripe/params/invoice_send_invoice_params

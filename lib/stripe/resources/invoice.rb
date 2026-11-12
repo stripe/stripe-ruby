@@ -397,6 +397,23 @@ module Stripe
       class BillingCadenceDetails < ::Stripe::StripeObject
         # The billing cadence that generated this invoice
         attr_reader :billing_cadence
+        # The billing group that generated this invoice
+        attr_reader :billing_group
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class BillingGroupDetails < ::Stripe::StripeObject
+        # The billing cadence that generated this invoice
+        attr_reader :billing_cadence
+        # The billing group that generated this invoice
+        attr_reader :billing_group
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -470,6 +487,8 @@ module Stripe
       end
       # Details about the billing cadence that generated this invoice
       attr_reader :billing_cadence_details
+      # Details about the billing group that generated this invoice
+      attr_reader :billing_group_details
       # Details about the quote that generated this invoice
       attr_reader :quote_details
       # Details about the schedule that generated this invoice
@@ -482,6 +501,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           billing_cadence_details: BillingCadenceDetails,
+          billing_group_details: BillingGroupDetails,
           quote_details: QuoteDetails,
           schedule_details: ScheduleDetails,
           subscription_details: SubscriptionDetails,

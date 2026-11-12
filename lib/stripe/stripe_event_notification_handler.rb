@@ -334,60 +334,12 @@ module Stripe
       register("v1.customer.deleted", &callback)
     end
 
-    def on_v1_customer_discount_source_changed(&callback)
-      register("v1.customer.discount.source_changed", &callback)
-    end
-
-    def on_v1_customer_subscription_active(&callback)
-      register("v1.customer.subscription.active", &callback)
-    end
-
-    def on_v1_customer_subscription_cancel_at_changed(&callback)
-      register("v1.customer.subscription.cancel_at_changed", &callback)
-    end
-
     def on_v1_customer_subscription_created(&callback)
       register("v1.customer.subscription.created", &callback)
     end
 
-    def on_v1_customer_subscription_default_payment_method_changed(&callback)
-      register("v1.customer.subscription.default_payment_method_changed", &callback)
-    end
-
     def on_v1_customer_subscription_deleted(&callback)
       register("v1.customer.subscription.deleted", &callback)
-    end
-
-    def on_v1_customer_subscription_incomplete(&callback)
-      register("v1.customer.subscription.incomplete", &callback)
-    end
-
-    def on_v1_customer_subscription_incomplete_expired(&callback)
-      register("v1.customer.subscription.incomplete_expired", &callback)
-    end
-
-    def on_v1_customer_subscription_item_added(&callback)
-      register("v1.customer.subscription.item_added", &callback)
-    end
-
-    def on_v1_customer_subscription_item_price_changed(&callback)
-      register("v1.customer.subscription.item_price_changed", &callback)
-    end
-
-    def on_v1_customer_subscription_item_quantity_changed(&callback)
-      register("v1.customer.subscription.item_quantity_changed", &callback)
-    end
-
-    def on_v1_customer_subscription_item_removed(&callback)
-      register("v1.customer.subscription.item_removed", &callback)
-    end
-
-    def on_v1_customer_subscription_item_tax_rates_changed(&callback)
-      register("v1.customer.subscription.item_tax_rates_changed", &callback)
-    end
-
-    def on_v1_customer_subscription_past_due(&callback)
-      register("v1.customer.subscription.past_due", &callback)
     end
 
     def on_v1_customer_subscription_paused(&callback)
@@ -408,14 +360,6 @@ module Stripe
 
     def on_v1_customer_subscription_trial_will_end(&callback)
       register("v1.customer.subscription.trial_will_end", &callback)
-    end
-
-    def on_v1_customer_subscription_trialing(&callback)
-      register("v1.customer.subscription.trialing", &callback)
-    end
-
-    def on_v1_customer_subscription_unpaid(&callback)
-      register("v1.customer.subscription.unpaid", &callback)
     end
 
     def on_v1_customer_subscription_updated(&callback)
@@ -442,14 +386,6 @@ module Stripe
       register("v1.customer_cash_balance_transaction.created", &callback)
     end
 
-    def on_v1_entitlements_active_entitlement_summary_entitlement_added(&callback)
-      register("v1.entitlements.active_entitlement_summary.entitlement_added", &callback)
-    end
-
-    def on_v1_entitlements_active_entitlement_summary_entitlement_removed(&callback)
-      register("v1.entitlements.active_entitlement_summary.entitlement_removed", &callback)
-    end
-
     def on_v1_entitlements_active_entitlement_summary_updated(&callback)
       register("v1.entitlements.active_entitlement_summary.updated", &callback)
     end
@@ -460,14 +396,6 @@ module Stripe
 
     def on_v1_financial_connections_account_account_numbers_updated(&callback)
       register("v1.financial_connections.account.account_numbers_updated", &callback)
-    end
-
-    def on_v1_financial_connections_account_balance_refresh_failed(&callback)
-      register("v1.financial_connections.account.balance_refresh_failed", &callback)
-    end
-
-    def on_v1_financial_connections_account_balance_refresh_succeeded(&callback)
-      register("v1.financial_connections.account.balance_refresh_succeeded", &callback)
     end
 
     def on_v1_financial_connections_account_created(&callback)
@@ -486,22 +414,6 @@ module Stripe
       register("v1.financial_connections.account.expected_deactivation_date_updated", &callback)
     end
 
-    def on_v1_financial_connections_account_inferred_balances_refresh_failed(&callback)
-      register("v1.financial_connections.account.inferred_balances_refresh_failed", &callback)
-    end
-
-    def on_v1_financial_connections_account_inferred_balances_refresh_succeeded(&callback)
-      register("v1.financial_connections.account.inferred_balances_refresh_succeeded", &callback)
-    end
-
-    def on_v1_financial_connections_account_ownership_refresh_failed(&callback)
-      register("v1.financial_connections.account.ownership_refresh_failed", &callback)
-    end
-
-    def on_v1_financial_connections_account_ownership_refresh_succeeded(&callback)
-      register("v1.financial_connections.account.ownership_refresh_succeeded", &callback)
-    end
-
     def on_v1_financial_connections_account_reactivated(&callback)
       register("v1.financial_connections.account.reactivated", &callback)
     end
@@ -518,24 +430,8 @@ module Stripe
       register("v1.financial_connections.account.refreshed_transactions", &callback)
     end
 
-    def on_v1_financial_connections_account_risk_intelligence_refresh_failed(&callback)
-      register("v1.financial_connections.account.risk_intelligence_refresh_failed", &callback)
-    end
-
-    def on_v1_financial_connections_account_risk_intelligence_refresh_succeeded(&callback)
-      register("v1.financial_connections.account.risk_intelligence_refresh_succeeded", &callback)
-    end
-
     def on_v1_financial_connections_account_supported_payment_method_types_updated(&callback)
       register("v1.financial_connections.account.supported_payment_method_types_updated", &callback)
-    end
-
-    def on_v1_financial_connections_account_transactions_refresh_failed(&callback)
-      register("v1.financial_connections.account.transactions_refresh_failed", &callback)
-    end
-
-    def on_v1_financial_connections_account_transactions_refresh_succeeded(&callback)
-      register("v1.financial_connections.account.transactions_refresh_succeeded", &callback)
     end
 
     def on_v1_financial_connections_account_upcoming_account_number_expiry(&callback)
@@ -578,36 +474,12 @@ module Stripe
       register("v1.invoice.deleted", &callback)
     end
 
-    def on_v1_invoice_discount_added(&callback)
-      register("v1.invoice.discount_added", &callback)
-    end
-
-    def on_v1_invoice_discount_removed(&callback)
-      register("v1.invoice.discount_removed", &callback)
-    end
-
     def on_v1_invoice_finalization_failed(&callback)
       register("v1.invoice.finalization_failed", &callback)
     end
 
     def on_v1_invoice_finalized(&callback)
       register("v1.invoice.finalized", &callback)
-    end
-
-    def on_v1_invoice_line_item_added(&callback)
-      register("v1.invoice.line_item_added", &callback)
-    end
-
-    def on_v1_invoice_line_item_pricing_changed(&callback)
-      register("v1.invoice.line_item_pricing_changed", &callback)
-    end
-
-    def on_v1_invoice_line_item_quantity_changed(&callback)
-      register("v1.invoice.line_item_quantity_changed", &callback)
-    end
-
-    def on_v1_invoice_line_item_removed(&callback)
-      register("v1.invoice.line_item_removed", &callback)
     end
 
     def on_v1_invoice_marked_uncollectible(&callback)
@@ -662,20 +534,8 @@ module Stripe
       register("v1.invoice.will_be_due", &callback)
     end
 
-    def on_v1_invoice_payment_canceled(&callback)
-      register("v1.invoice_payment.canceled", &callback)
-    end
-
-    def on_v1_invoice_payment_open(&callback)
-      register("v1.invoice_payment.open", &callback)
-    end
-
     def on_v1_invoice_payment_paid(&callback)
       register("v1.invoice_payment.paid", &callback)
-    end
-
-    def on_v1_invoiceitem_amount_changed(&callback)
-      register("v1.invoiceitem.amount_changed", &callback)
     end
 
     def on_v1_invoiceitem_created(&callback)
@@ -684,14 +544,6 @@ module Stripe
 
     def on_v1_invoiceitem_deleted(&callback)
       register("v1.invoiceitem.deleted", &callback)
-    end
-
-    def on_v1_invoiceitem_discount_added(&callback)
-      register("v1.invoiceitem.discount_added", &callback)
-    end
-
-    def on_v1_invoiceitem_discount_removed(&callback)
-      register("v1.invoiceitem.discount_removed", &callback)
     end
 
     def on_v1_issuing_authorization_created(&callback)
@@ -890,56 +742,24 @@ module Stripe
       register("v1.plan.updated", &callback)
     end
 
-    def on_v1_price_activated(&callback)
-      register("v1.price.activated", &callback)
-    end
-
     def on_v1_price_created(&callback)
       register("v1.price.created", &callback)
-    end
-
-    def on_v1_price_deactivated(&callback)
-      register("v1.price.deactivated", &callback)
     end
 
     def on_v1_price_deleted(&callback)
       register("v1.price.deleted", &callback)
     end
 
-    def on_v1_price_lookup_key_changed(&callback)
-      register("v1.price.lookup_key_changed", &callback)
-    end
-
-    def on_v1_price_tax_behavior_changed(&callback)
-      register("v1.price.tax_behavior_changed", &callback)
-    end
-
     def on_v1_price_updated(&callback)
       register("v1.price.updated", &callback)
-    end
-
-    def on_v1_product_activated(&callback)
-      register("v1.product.activated", &callback)
     end
 
     def on_v1_product_created(&callback)
       register("v1.product.created", &callback)
     end
 
-    def on_v1_product_deactivated(&callback)
-      register("v1.product.deactivated", &callback)
-    end
-
-    def on_v1_product_default_price_changed(&callback)
-      register("v1.product.default_price_changed", &callback)
-    end
-
     def on_v1_product_deleted(&callback)
       register("v1.product.deleted", &callback)
-    end
-
-    def on_v1_product_tax_code_changed(&callback)
-      register("v1.product.tax_code_changed", &callback)
     end
 
     def on_v1_product_updated(&callback)
@@ -948,10 +768,6 @@ module Stripe
 
     def on_v1_promotion_code_created(&callback)
       register("v1.promotion_code.created", &callback)
-    end
-
-    def on_v1_promotion_code_fully_redeemed(&callback)
-      register("v1.promotion_code.fully_redeemed", &callback)
     end
 
     def on_v1_promotion_code_updated(&callback)
@@ -1060,26 +876,6 @@ module Stripe
 
     def on_v1_subscription_schedule_expiring(&callback)
       register("v1.subscription_schedule.expiring", &callback)
-    end
-
-    def on_v1_subscription_schedule_phase_added(&callback)
-      register("v1.subscription_schedule.phase_added", &callback)
-    end
-
-    def on_v1_subscription_schedule_phase_default_tax_rates_changed(&callback)
-      register("v1.subscription_schedule.phase_default_tax_rates_changed", &callback)
-    end
-
-    def on_v1_subscription_schedule_phase_end_date_changed(&callback)
-      register("v1.subscription_schedule.phase_end_date_changed", &callback)
-    end
-
-    def on_v1_subscription_schedule_phase_removed(&callback)
-      register("v1.subscription_schedule.phase_removed", &callback)
-    end
-
-    def on_v1_subscription_schedule_phase_trial_end_changed(&callback)
-      register("v1.subscription_schedule.phase_trial_end_changed", &callback)
     end
 
     def on_v1_subscription_schedule_released(&callback)
@@ -1220,6 +1016,30 @@ module Stripe
 
     def on_v2_billing_contract_term_deleted(&callback)
       register("v2.billing.contract_term.deleted", &callback)
+    end
+
+    def on_v2_billing_contract_term_pricing_override_ended(&callback)
+      register("v2.billing.contract_term.pricing_override_ended", &callback)
+    end
+
+    def on_v2_billing_contract_term_pricing_override_started(&callback)
+      register("v2.billing.contract_term.pricing_override_started", &callback)
+    end
+
+    def on_v2_billing_contract_term_recurring_price_ended(&callback)
+      register("v2.billing.contract_term.recurring_price_ended", &callback)
+    end
+
+    def on_v2_billing_contract_term_recurring_price_started(&callback)
+      register("v2.billing.contract_term.recurring_price_started", &callback)
+    end
+
+    def on_v2_billing_contract_term_scheduled_fee_service_period_ended(&callback)
+      register("v2.billing.contract_term.scheduled_fee_service_period_ended", &callback)
+    end
+
+    def on_v2_billing_contract_term_scheduled_fee_service_period_started(&callback)
+      register("v2.billing.contract_term.scheduled_fee_service_period_started", &callback)
     end
 
     def on_v2_billing_contract_term_updated(&callback)
@@ -1584,6 +1404,14 @@ module Stripe
 
     def on_v2_core_health_authorization_rate_drop_resolved(&callback)
       register("v2.core.health.authorization_rate_drop.resolved", &callback)
+    end
+
+    def on_v2_core_health_custom_payment_method_adapter_degraded_firing(&callback)
+      register("v2.core.health.custom_payment_method_adapter_degraded.firing", &callback)
+    end
+
+    def on_v2_core_health_custom_payment_method_adapter_degraded_resolved(&callback)
+      register("v2.core.health.custom_payment_method_adapter_degraded.resolved", &callback)
     end
 
     def on_v2_core_health_elements_error_firing(&callback)

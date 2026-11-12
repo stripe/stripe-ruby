@@ -1246,6 +1246,9 @@ module Stripe
             # Degree of risk associated with the token between `01` and `99`, with higher number indicating higher risk. A `00` value indicates the token was not scored by Visa.
             sig { returns(T.nilable(String)) }
             def token_risk_score; end
+            # The ID of the token service provider, specific to Visa.
+            sig { returns(T.nilable(String)) }
+            def token_service_provider_id; end
             def self.inner_class_types
               @inner_class_types = {}
             end

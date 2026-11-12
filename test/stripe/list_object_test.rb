@@ -78,6 +78,35 @@ module Stripe
       assert_equal expected, list.auto_paging_each.to_a
     end
 
+    should "retain the requestor through #auto_paging_each across three pages" do
+      api_base = "https://bound-requestor.example.com"
+      bound_requestor = Stripe::APIRequestor.new(
+        api_key: "sk_test_bound_requestor", api_base: api_base
+      )
+      list = TestListObject.construct_from({
+        data: [{ id: 1 }],
+        has_more: true,
+        url: "/things",
+        object: "list",
+      }, {}, nil, :v1, bound_requestor)
+      list.filters = { limit: 1 }
+
+      second_page_request = stub_request(:get, "#{api_base}/things")
+                            .with(headers: { "Authorization" => "Bearer sk_test_bound_requestor" },
+                                  query: { starting_after: "1", limit: "1" })
+                            .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: true,
+                                                           url: "/things", object: "list"))
+      third_page_request = stub_request(:get, "#{api_base}/things")
+                           .with(headers: { "Authorization" => "Bearer sk_test_bound_requestor" },
+                                 query: { starting_after: "2", limit: "1" })
+                           .to_return(body: JSON.generate(data: [{ id: 3 }], has_more: false,
+                                                          url: "/things", object: "list"))
+
+      assert_equal [1, 2, 3], list.auto_paging_each.map(&:id)
+      assert_requested second_page_request, times: 1
+      assert_requested third_page_request, times: 1
+    end
+
     should "provide #auto_paging_each that supports backward pagination with `ending_before`" do
       arr = [
         { id: 6 },

@@ -207,6 +207,9 @@ module Stripe
   class FxQuoteNeedsRefreshError < StripeError
   end
 
+  class InactiveApiOperationConfirmationRequiredError < StripeError
+  end
+
   class InsufficientFundsError < StripeError
   end
 

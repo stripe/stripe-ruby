@@ -1136,7 +1136,7 @@ module Stripe
       end
 
       class VerifyWithMicrodeposits < ::Stripe::StripeObject
-        # The timestamp when the microdeposits are expected to land.
+        # The timestamp when the microdeposits are expected to land. Null for instant microdeposits.
         attr_reader :arrival_date
         # The URL for the hosted verification page, which allows customers to verify their bank account.
         attr_reader :hosted_verification_url

@@ -3,10 +3,10 @@
 
 module Stripe
   module Events
-    # Occurs whenever a subscription's scheduled cancellation date changes.
-    class V1CustomerSubscriptionCancelAtChangedEvent < Stripe::V2::Core::Event
+    # Occurs when a claimable sandbox expires.
+    class V2CoreClaimableSandboxExpiredEvent < Stripe::V2::Core::Event
       def self.lookup_type
-        "v1.customer.subscription.cancel_at_changed"
+        "v2.core.claimable_sandbox.expired"
       end
 
       # Retrieves the related object from the API. Makes an API request on every call.
@@ -21,15 +21,15 @@ module Stripe
       attr_reader :related_object
     end
 
-    # Occurs whenever a subscription's scheduled cancellation date changes.
-    class V1CustomerSubscriptionCancelAtChangedEventNotification < Stripe::V2::Core::EventNotification
+    # Occurs when a claimable sandbox expires.
+    class V2CoreClaimableSandboxExpiredEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
-        "v1.customer.subscription.cancel_at_changed"
+        "v2.core.claimable_sandbox.expired"
       end
 
       attr_reader :related_object
 
-      # Retrieves the Subscription related to this EventNotification from the Stripe API. Makes an API request on every call.
+      # Retrieves the ClaimableSandbox related to this EventNotification from the Stripe API. Makes an API request on every call.
       def fetch_related_object
         resp = @client.raw_request(
           :get,

@@ -3,10 +3,10 @@
 
 module Stripe
   module Events
-    # Occurs when a risk-intelligence refresh on a Financial Connections account completes successfully.
-    class V1FinancialConnectionsAccountRiskIntelligenceRefreshSucceededEvent < Stripe::V2::Core::Event
+    # Occurs whenever a user installs a Stripe app. Sent to the app developer, embedding platform, and installing merchant.
+    class V1AppsInstallCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
-        "v1.financial_connections.account.risk_intelligence_refresh_succeeded"
+        "v1.apps.install.created"
       end
 
       # Retrieves the related object from the API. Makes an API request on every call.
@@ -21,15 +21,15 @@ module Stripe
       attr_reader :related_object
     end
 
-    # Occurs when a risk-intelligence refresh on a Financial Connections account completes successfully.
-    class V1FinancialConnectionsAccountRiskIntelligenceRefreshSucceededEventNotification < Stripe::V2::Core::EventNotification
+    # Occurs whenever a user installs a Stripe app. Sent to the app developer, embedding platform, and installing merchant.
+    class V1AppsInstallCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
-        "v1.financial_connections.account.risk_intelligence_refresh_succeeded"
+        "v1.apps.install.created"
       end
 
       attr_reader :related_object
 
-      # Retrieves the Account related to this EventNotification from the Stripe API. Makes an API request on every call.
+      # Retrieves the Install related to this EventNotification from the Stripe API. Makes an API request on every call.
       def fetch_related_object
         resp = @client.raw_request(
           :get,

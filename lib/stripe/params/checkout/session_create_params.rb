@@ -47,6 +47,12 @@ module Stripe
             @type = type
           end
         end
+        # Controls how much address information Checkout collects when [automatic_tax](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-automatic_tax-enabled) is enabled.
+        #
+        # Defaults to `full`, which collects the address fields needed for the most accurate tax calculation. Set to `minimal` to collect only the fields required for tax in the buyer's country, accepting potentially less precise tax calculation in exchange for a streamlined form.
+        #
+        # Only honored when `automatic_tax.enabled` is `true`, `billing_address_collection` is `auto`, the resolved tax address source is the session billing address, and `ui_mode` is `form`.
+        attr_accessor :address_collection_precision
         # Set to `true` to [calculate tax automatically](https://docs.stripe.com/tax) using the customer's location.
         #
         # Enabling this parameter causes Checkout to collect any billing address information necessary for tax calculation.
@@ -54,7 +60,8 @@ module Stripe
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         attr_accessor :liability
 
-        def initialize(enabled: nil, liability: nil)
+        def initialize(address_collection_precision: nil, enabled: nil, liability: nil)
+          @address_collection_precision = address_collection_precision
           @enabled = enabled
           @liability = liability
         end

@@ -82,6 +82,24 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1AppsInstallCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_apps_install_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1AppsInstallDeletedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_apps_install_deleted(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1AppsInstallUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_apps_install_updated(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BalanceAvailableEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_balance_available(&blk);
@@ -388,27 +406,9 @@ module Stripe
     end
     
     sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerDiscountSourceChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_customer_discount_source_changed(&blk);
-    end
-    
-    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerDiscountUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_customer_discount_updated(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerSubscriptionActiveEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_customer_subscription_active(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerSubscriptionCancelAtChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_customer_subscription_cancel_at_changed(&blk);
     end
     
     sig do
@@ -418,63 +418,9 @@ module Stripe
     end
     
     sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerSubscriptionDefaultPaymentMethodChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_customer_subscription_default_payment_method_changed(&blk);
-    end
-    
-    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerSubscriptionDeletedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_customer_subscription_deleted(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerSubscriptionIncompleteEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_customer_subscription_incomplete(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerSubscriptionIncompleteExpiredEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_customer_subscription_incomplete_expired(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerSubscriptionItemAddedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_customer_subscription_item_added(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerSubscriptionItemPriceChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_customer_subscription_item_price_changed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerSubscriptionItemQuantityChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_customer_subscription_item_quantity_changed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerSubscriptionItemRemovedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_customer_subscription_item_removed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerSubscriptionItemTaxRatesChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_customer_subscription_item_tax_rates_changed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerSubscriptionPastDueEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_customer_subscription_past_due(&blk);
     end
     
     sig do
@@ -505,18 +451,6 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerSubscriptionTrialWillEndEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_customer_subscription_trial_will_end(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerSubscriptionTrialingEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_customer_subscription_trialing(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1CustomerSubscriptionUnpaidEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_customer_subscription_unpaid(&blk);
     end
     
     sig do
@@ -556,18 +490,6 @@ module Stripe
     end
     
     sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1EntitlementsActiveEntitlementSummaryEntitlementAddedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_entitlements_active_entitlement_summary_entitlement_added(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1EntitlementsActiveEntitlementSummaryEntitlementRemovedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_entitlements_active_entitlement_summary_entitlement_removed(&blk);
-    end
-    
-    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1EntitlementsActiveEntitlementSummaryUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_entitlements_active_entitlement_summary_updated(&blk);
@@ -583,18 +505,6 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_financial_connections_account_account_numbers_updated(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountBalanceRefreshFailedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_financial_connections_account_balance_refresh_failed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountBalanceRefreshSucceededEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_financial_connections_account_balance_refresh_succeeded(&blk);
     end
     
     sig do
@@ -622,30 +532,6 @@ module Stripe
     end
     
     sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountInferredBalancesRefreshFailedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_financial_connections_account_inferred_balances_refresh_failed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountInferredBalancesRefreshSucceededEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_financial_connections_account_inferred_balances_refresh_succeeded(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountOwnershipRefreshFailedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_financial_connections_account_ownership_refresh_failed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountOwnershipRefreshSucceededEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_financial_connections_account_ownership_refresh_succeeded(&blk);
-    end
-    
-    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountReactivatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_financial_connections_account_reactivated(&blk);
@@ -670,33 +556,9 @@ module Stripe
     end
     
     sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountRiskIntelligenceRefreshFailedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_financial_connections_account_risk_intelligence_refresh_failed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountRiskIntelligenceRefreshSucceededEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_financial_connections_account_risk_intelligence_refresh_succeeded(&blk);
-    end
-    
-    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_financial_connections_account_supported_payment_method_types_updated(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountTransactionsRefreshFailedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_financial_connections_account_transactions_refresh_failed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountTransactionsRefreshSucceededEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_financial_connections_account_transactions_refresh_succeeded(&blk);
     end
     
     sig do
@@ -760,18 +622,6 @@ module Stripe
     end
     
     sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoiceDiscountAddedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_invoice_discount_added(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoiceDiscountRemovedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_invoice_discount_removed(&blk);
-    end
-    
-    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoiceFinalizationFailedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_invoice_finalization_failed(&blk);
@@ -781,30 +631,6 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoiceFinalizedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_invoice_finalized(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoiceLineItemAddedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_invoice_line_item_added(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoiceLineItemPricingChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_invoice_line_item_pricing_changed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoiceLineItemQuantityChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_invoice_line_item_quantity_changed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoiceLineItemRemovedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_invoice_line_item_removed(&blk);
     end
     
     sig do
@@ -886,27 +712,9 @@ module Stripe
     end
     
     sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoicePaymentCanceledEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_invoice_payment_canceled(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoicePaymentOpenEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_invoice_payment_open(&blk);
-    end
-    
-    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoicePaymentPaidEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_invoice_payment_paid(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoiceitemAmountChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_invoiceitem_amount_changed(&blk);
     end
     
     sig do
@@ -922,27 +730,9 @@ module Stripe
     end
     
     sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoiceitemDiscountAddedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_invoiceitem_discount_added(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoiceitemDiscountRemovedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_invoiceitem_discount_removed(&blk);
-    end
-    
-    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1IssuingAuthorizationCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_issuing_authorization_created(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1IssuingAuthorizationRequestEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_issuing_authorization_request(&blk);
     end
     
     sig do
@@ -1228,21 +1018,9 @@ module Stripe
     end
     
     sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1PriceActivatedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_price_activated(&blk);
-    end
-    
-    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1PriceCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_price_created(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1PriceDeactivatedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_price_deactivated(&blk);
     end
     
     sig do
@@ -1252,27 +1030,9 @@ module Stripe
     end
     
     sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1PriceLookupKeyChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_price_lookup_key_changed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1PriceTaxBehaviorChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_price_tax_behavior_changed(&blk);
-    end
-    
-    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1PriceUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_price_updated(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1ProductActivatedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_product_activated(&blk);
     end
     
     sig do
@@ -1282,27 +1042,9 @@ module Stripe
     end
     
     sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1ProductDeactivatedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_product_deactivated(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1ProductDefaultPriceChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_product_default_price_changed(&blk);
-    end
-    
-    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1ProductDeletedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_product_deleted(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1ProductTaxCodeChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_product_tax_code_changed(&blk);
     end
     
     sig do
@@ -1315,12 +1057,6 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1PromotionCodeCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_promotion_code_created(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1PromotionCodeFullyRedeemedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_promotion_code_fully_redeemed(&blk);
     end
     
     sig do
@@ -1483,36 +1219,6 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1SubscriptionScheduleExpiringEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_subscription_schedule_expiring(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1SubscriptionSchedulePhaseAddedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_subscription_schedule_phase_added(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1SubscriptionSchedulePhaseDefaultTaxRatesChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_subscription_schedule_phase_default_tax_rates_changed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1SubscriptionSchedulePhaseEndDateChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_subscription_schedule_phase_end_date_changed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1SubscriptionSchedulePhaseRemovedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_subscription_schedule_phase_removed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1SubscriptionSchedulePhaseTrialEndChangedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_subscription_schedule_phase_trial_end_changed(&blk);
     end
     
     sig do
@@ -1765,6 +1471,36 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountPersonUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_person_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreClaimableSandboxClaimedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_claimable_sandbox_claimed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreClaimableSandboxCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_claimable_sandbox_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreClaimableSandboxExpiredEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_claimable_sandbox_expired(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreClaimableSandboxExpiringEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_claimable_sandbox_expiring(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreClaimableSandboxUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_claimable_sandbox_updated(&blk);
     end
     
     sig do

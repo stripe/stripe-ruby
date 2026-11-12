@@ -3,10 +3,10 @@
 
 module Stripe
   module Events
-    # Occurs whenever a subscription schedule phase's end date changes.
-    class V1SubscriptionSchedulePhaseEndDateChangedEvent < Stripe::V2::Core::Event
+    # Occurs whenever a user uninstalls a Stripe app. Sent to the app developer, embedding platform, and installing merchant.
+    class V1AppsInstallDeletedEvent < Stripe::V2::Core::Event
       def self.lookup_type
-        "v1.subscription_schedule.phase_end_date_changed"
+        "v1.apps.install.deleted"
       end
 
       # Retrieves the related object from the API. Makes an API request on every call.
@@ -21,15 +21,15 @@ module Stripe
       attr_reader :related_object
     end
 
-    # Occurs whenever a subscription schedule phase's end date changes.
-    class V1SubscriptionSchedulePhaseEndDateChangedEventNotification < Stripe::V2::Core::EventNotification
+    # Occurs whenever a user uninstalls a Stripe app. Sent to the app developer, embedding platform, and installing merchant.
+    class V1AppsInstallDeletedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
-        "v1.subscription_schedule.phase_end_date_changed"
+        "v1.apps.install.deleted"
       end
 
       attr_reader :related_object
 
-      # Retrieves the SubscriptionSchedule related to this EventNotification from the Stripe API. Makes an API request on every call.
+      # Retrieves the Install related to this EventNotification from the Stripe API. Makes an API request on every call.
       def fetch_related_object
         resp = @client.raw_request(
           :get,

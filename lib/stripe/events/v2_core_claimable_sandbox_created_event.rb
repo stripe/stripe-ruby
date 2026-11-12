@@ -3,10 +3,10 @@
 
 module Stripe
   module Events
-    # Occurs whenever a subscription's status becomes past_due.
-    class V1CustomerSubscriptionPastDueEvent < Stripe::V2::Core::Event
+    # Occurs when a claimable sandbox is created.
+    class V2CoreClaimableSandboxCreatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
-        "v1.customer.subscription.past_due"
+        "v2.core.claimable_sandbox.created"
       end
 
       # Retrieves the related object from the API. Makes an API request on every call.
@@ -21,15 +21,15 @@ module Stripe
       attr_reader :related_object
     end
 
-    # Occurs whenever a subscription's status becomes past_due.
-    class V1CustomerSubscriptionPastDueEventNotification < Stripe::V2::Core::EventNotification
+    # Occurs when a claimable sandbox is created.
+    class V2CoreClaimableSandboxCreatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
-        "v1.customer.subscription.past_due"
+        "v2.core.claimable_sandbox.created"
       end
 
       attr_reader :related_object
 
-      # Retrieves the Subscription related to this EventNotification from the Stripe API. Makes an API request on every call.
+      # Retrieves the ClaimableSandbox related to this EventNotification from the Stripe API. Makes an API request on every call.
       def fetch_related_object
         resp = @client.raw_request(
           :get,

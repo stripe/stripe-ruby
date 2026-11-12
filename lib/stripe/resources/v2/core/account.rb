@@ -514,6 +514,35 @@ module Stripe
                 end
               end
 
+              class BilliePayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
               class BlikPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1036,6 +1065,35 @@ module Stripe
                 end
               end
 
+              class MbWayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
               class MobilepayPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1124,6 +1182,35 @@ module Stripe
               end
 
               class NaverPayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class NzBankAccountBecsDebitPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
@@ -1269,6 +1356,64 @@ module Stripe
               end
 
               class PaynowPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class PaypayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class PixPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
@@ -1703,6 +1848,8 @@ module Stripe
               attr_reader :bacs_debit_payments
               # Allow the merchant to process Bancontact payments.
               attr_reader :bancontact_payments
+              # Allow the merchant to process Billie payments.
+              attr_reader :billie_payments
               # Allow the merchant to process BLIK payments.
               attr_reader :blik_payments
               # Allow the merchant to process recurring BLIK payments.
@@ -1739,6 +1886,8 @@ module Stripe
               attr_reader :kr_card_payments
               # Allow the merchant to process Link payments.
               attr_reader :link_payments
+              # Allow the merchant to process MB WAY payments.
+              attr_reader :mb_way_payments
               # Allow the merchant to process MobilePay payments.
               attr_reader :mobilepay_payments
               # Allow the merchant to process Multibanco payments.
@@ -1747,6 +1896,8 @@ module Stripe
               attr_reader :mx_bank_transfer_payments
               # Allow the merchant to process Naver Pay payments.
               attr_reader :naver_pay_payments
+              # Allow the merchant to process New Zealand BECS Direct Debit payments.
+              attr_reader :nz_bank_account_becs_debit_payments
               # Allow the merchant to process OXXO payments.
               attr_reader :oxxo_payments
               # Allow the merchant to process Przelewy24 (P24) payments.
@@ -1757,6 +1908,10 @@ module Stripe
               attr_reader :payco_payments
               # Allow the merchant to process PayNow payments.
               attr_reader :paynow_payments
+              # Allow the merchant to process PayPay payments.
+              attr_reader :paypay_payments
+              # Allow the merchant to process Pix payments.
+              attr_reader :pix_payments
               # Allow the merchant to process PromptPay payments.
               attr_reader :promptpay_payments
               # Allow the merchant to process Revolut Pay payments.
@@ -1795,6 +1950,7 @@ module Stripe
                   au_becs_debit_payments: AuBecsDebitPayments,
                   bacs_debit_payments: BacsDebitPayments,
                   bancontact_payments: BancontactPayments,
+                  billie_payments: BilliePayments,
                   blik_payments: BlikPayments,
                   blik_recurring_payments: BlikRecurringPayments,
                   boleto_payments: BoletoPayments,
@@ -1813,15 +1969,19 @@ module Stripe
                   konbini_payments: KonbiniPayments,
                   kr_card_payments: KrCardPayments,
                   link_payments: LinkPayments,
+                  mb_way_payments: MbWayPayments,
                   mobilepay_payments: MobilepayPayments,
                   multibanco_payments: MultibancoPayments,
                   mx_bank_transfer_payments: MxBankTransferPayments,
                   naver_pay_payments: NaverPayPayments,
+                  nz_bank_account_becs_debit_payments: NzBankAccountBecsDebitPayments,
                   oxxo_payments: OxxoPayments,
                   p24_payments: P24Payments,
                   pay_by_bank_payments: PayByBankPayments,
                   payco_payments: PaycoPayments,
                   paynow_payments: PaynowPayments,
+                  paypay_payments: PaypayPayments,
+                  pix_payments: PixPayments,
                   promptpay_payments: PromptpayPayments,
                   revolut_pay_payments: RevolutPayPayments,
                   samsung_pay_payments: SamsungPayPayments,
@@ -1901,11 +2061,91 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              # Information provided to support the onboarding process for Konbini payments.
+              attr_reader :additional_material
               # Support for Konbini payments.
               attr_reader :support
 
               def self.inner_class_types
                 @inner_class_types = { support: Support }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class PaypayPayments < ::Stripe::StripeObject
+              class Site < ::Stripe::StripeObject
+                class Accessible < ::Stripe::StripeObject
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+
+                class InDevelopment < ::Stripe::StripeObject
+                  # Whether a password needed to access the business's website has been provided.
+                  attr_reader :password_provided
+                  # The username needed to access the business's website.
+                  attr_reader :username
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+
+                class Restricted < ::Stripe::StripeObject
+                  # The file explaining the payment flow for the business.
+                  attr_reader :payment_flow_file
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Additional information about the business's website when it's accessible.
+                attr_reader :accessible
+                # Additional information about the business's website when it's in development.
+                attr_reader :in_development
+                # Additional information about the business's website when it has restricted access.
+                attr_reader :restricted
+                # The status of the business's website.
+                attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = {
+                    accessible: Accessible,
+                    in_development: InDevelopment,
+                    restricted: Restricted,
+                  }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Additional files supporting PayPay payments configuration.
+              attr_reader :additional_files
+              # The type of goods sold by the merchant for PayPay payments.
+              attr_reader :goods_type
+              # The business's website for PayPay payments.
+              attr_reader :site
+              # URL to the Specified Commercial Transactions Act page for PayPay payments.
+              attr_reader :specified_commercial_transactions_act_url
+
+              def self.inner_class_types
+                @inner_class_types = { site: Site }
               end
 
               def self.field_remappings
@@ -2041,6 +2281,8 @@ module Stripe
             attr_reader :konbini_payments
             # The Merchant Category Code (MCC) for the merchant. MCCs classify businesses based on the goods or services they provide.
             attr_reader :mcc
+            # Settings for PayPay payments.
+            attr_reader :paypay_payments
             # Settings for the default text that appears on statements for language variations.
             attr_reader :script_statement_descriptor
             # Settings for SEPA Direct Debit payments.
@@ -2057,6 +2299,7 @@ module Stripe
                 capabilities: Capabilities,
                 card_payments: CardPayments,
                 konbini_payments: KonbiniPayments,
+                paypay_payments: PaypayPayments,
                 script_statement_descriptor: ScriptStatementDescriptor,
                 sepa_debit_payments: SepaDebitPayments,
                 statement_descriptor: StatementDescriptor,
@@ -2395,7 +2638,7 @@ module Stripe
                 end
                 # Enables this Account to complete payouts from their Stripe Balance (/v1/balance).
                 attr_reader :payouts
-                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance). Use this capability if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
                 attr_reader :stripe_transfers
 
                 def self.inner_class_types
@@ -2442,7 +2685,7 @@ module Stripe
           attr_reader :customer
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           attr_reader :merchant
-          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
+          # The Recipient Configuration allows the Account to receive funds from you.
           attr_reader :recipient
 
           def self.inner_class_types
@@ -2473,9 +2716,9 @@ module Stripe
           end
 
           class Responsibilities < ::Stripe::StripeObject
-            # Indicates whether the platform or connected account is responsible for paying Stripe fees for pricing-control-eligible products.
+            # Controls who pays Stripe fees for direct charges and other pricing-control-eligible Stripe products. For new integrations, setting `losses_collector=application` requires `fees_collector=application`; legacy Custom and Express accounts can also use `application_custom` or `application_express`. For destination charges and separate charges and transfers, Stripe bills the platform regardless of this setting. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior), including application fees and pricing considerations.
             attr_reader :fees_collector
-            # A value indicating the responsibility for losses on this account.
+            # Controls who is responsible for payment-related negative balances on this account. The platform remains liable for negative balances on its own account. To use Stripe negative balance liability, your integration must meet [Managed Risk requirements](https://docs.stripe.com/connect/risk-management/managed-risk).
             attr_reader :losses_collector
             # A value indicating responsibility for collecting requirements on this account.
             attr_reader :requirements_collector
@@ -4211,7 +4454,7 @@ module Stripe
         attr_reader :contact_phone
         # Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         attr_reader :created
-        # A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
+        # Specifies the account's Stripe-hosted Dashboard access. Available values depend on the configurations enabled for the account. Learn more about [configuring Dashboard access](https://docs.stripe.com/connect/accounts-v2/connected-account-configuration#set-dashboard-access).
         attr_reader :dashboard
         # Default values for settings shared across Account configurations.
         attr_reader :defaults

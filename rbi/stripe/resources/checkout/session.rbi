@@ -78,6 +78,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls how much address information Checkout collects when automatic tax is enabled.
+        sig { returns(T.nilable(String)) }
+        def address_collection_precision; end
         # Indicates whether automatic tax is enabled for the session
         sig { returns(T::Boolean) }
         def enabled; end

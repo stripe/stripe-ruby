@@ -62,6 +62,15 @@ module Stripe
           sig { params(account: T.nilable(String), type: String).void }
           def initialize(account: nil, type: nil); end
         end
+        # Controls how much address information Checkout collects when [automatic_tax](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-automatic_tax-enabled) is enabled.
+        #
+        # Defaults to `full`, which collects the address fields needed for the most accurate tax calculation. Set to `minimal` to collect only the fields required for tax in the buyer's country, accepting potentially less precise tax calculation in exchange for a streamlined form.
+        #
+        # Only honored when `automatic_tax.enabled` is `true`, `billing_address_collection` is `auto`, the resolved tax address source is the session billing address, and `ui_mode` is `form`.
+        sig { returns(T.nilable(String)) }
+        def address_collection_precision; end
+        sig { params(_address_collection_precision: T.nilable(String)).returns(T.nilable(String)) }
+        def address_collection_precision=(_address_collection_precision); end
         # Set to `true` to [calculate tax automatically](https://docs.stripe.com/tax) using the customer's location.
         #
         # Enabling this parameter causes Checkout to collect any billing address information necessary for tax calculation.
@@ -77,9 +86,9 @@ module Stripe
          }
         def liability=(_liability); end
         sig {
-          params(enabled: T::Boolean, liability: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticTax::Liability)).void
+          params(address_collection_precision: T.nilable(String), enabled: T::Boolean, liability: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticTax::Liability)).void
          }
-        def initialize(enabled: nil, liability: nil); end
+        def initialize(address_collection_precision: nil, enabled: nil, liability: nil); end
       end
       class BrandingSettings < ::Stripe::RequestParams
         class Icon < ::Stripe::RequestParams

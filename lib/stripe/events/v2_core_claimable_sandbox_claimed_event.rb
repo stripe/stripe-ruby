@@ -3,10 +3,10 @@
 
 module Stripe
   module Events
-    # Occurs whenever a promotion code is fully redeemed.
-    class V1PromotionCodeFullyRedeemedEvent < Stripe::V2::Core::Event
+    # Occurs when a claimable sandbox is claimed.
+    class V2CoreClaimableSandboxClaimedEvent < Stripe::V2::Core::Event
       def self.lookup_type
-        "v1.promotion_code.fully_redeemed"
+        "v2.core.claimable_sandbox.claimed"
       end
 
       # Retrieves the related object from the API. Makes an API request on every call.
@@ -21,15 +21,15 @@ module Stripe
       attr_reader :related_object
     end
 
-    # Occurs whenever a promotion code is fully redeemed.
-    class V1PromotionCodeFullyRedeemedEventNotification < Stripe::V2::Core::EventNotification
+    # Occurs when a claimable sandbox is claimed.
+    class V2CoreClaimableSandboxClaimedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
-        "v1.promotion_code.fully_redeemed"
+        "v2.core.claimable_sandbox.claimed"
       end
 
       attr_reader :related_object
 
-      # Retrieves the PromotionCode related to this EventNotification from the Stripe API. Makes an API request on every call.
+      # Retrieves the ClaimableSandbox related to this EventNotification from the Stripe API. Makes an API request on every call.
       def fetch_related_object
         resp = @client.raw_request(
           :get,

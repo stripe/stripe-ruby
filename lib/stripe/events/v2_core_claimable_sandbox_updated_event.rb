@@ -3,10 +3,10 @@
 
 module Stripe
   module Events
-    # Occurs when a balance refresh on a Financial Connections account fails.
-    class V1FinancialConnectionsAccountBalanceRefreshFailedEvent < Stripe::V2::Core::Event
+    # Occurs when a claimable sandbox object is updated.
+    class V2CoreClaimableSandboxUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
-        "v1.financial_connections.account.balance_refresh_failed"
+        "v2.core.claimable_sandbox.updated"
       end
 
       # Retrieves the related object from the API. Makes an API request on every call.
@@ -21,15 +21,15 @@ module Stripe
       attr_reader :related_object
     end
 
-    # Occurs when a balance refresh on a Financial Connections account fails.
-    class V1FinancialConnectionsAccountBalanceRefreshFailedEventNotification < Stripe::V2::Core::EventNotification
+    # Occurs when a claimable sandbox object is updated.
+    class V2CoreClaimableSandboxUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
-        "v1.financial_connections.account.balance_refresh_failed"
+        "v2.core.claimable_sandbox.updated"
       end
 
       attr_reader :related_object
 
-      # Retrieves the Account related to this EventNotification from the Stripe API. Makes an API request on every call.
+      # Retrieves the ClaimableSandbox related to this EventNotification from the Stripe API. Makes an API request on every call.
       def fetch_related_object
         resp = @client.raw_request(
           :get,

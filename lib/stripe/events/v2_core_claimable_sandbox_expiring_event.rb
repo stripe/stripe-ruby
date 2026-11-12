@@ -3,10 +3,10 @@
 
 module Stripe
   module Events
-    # Occurs whenever an item is removed from a subscription.
-    class V1CustomerSubscriptionItemRemovedEvent < Stripe::V2::Core::Event
+    # Occurs when a claimable sandbox is expiring in 7 days.
+    class V2CoreClaimableSandboxExpiringEvent < Stripe::V2::Core::Event
       def self.lookup_type
-        "v1.customer.subscription.item_removed"
+        "v2.core.claimable_sandbox.expiring"
       end
 
       # Retrieves the related object from the API. Makes an API request on every call.
@@ -21,15 +21,15 @@ module Stripe
       attr_reader :related_object
     end
 
-    # Occurs whenever an item is removed from a subscription.
-    class V1CustomerSubscriptionItemRemovedEventNotification < Stripe::V2::Core::EventNotification
+    # Occurs when a claimable sandbox is expiring in 7 days.
+    class V2CoreClaimableSandboxExpiringEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
-        "v1.customer.subscription.item_removed"
+        "v2.core.claimable_sandbox.expiring"
       end
 
       attr_reader :related_object
 
-      # Retrieves the Subscription related to this EventNotification from the Stripe API. Makes an API request on every call.
+      # Retrieves the ClaimableSandbox related to this EventNotification from the Stripe API. Makes an API request on every call.
       def fetch_related_object
         resp = @client.raw_request(
           :get,

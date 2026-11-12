@@ -40,7 +40,7 @@ module Stripe
       %i[notification notification_event direct_event deserialize service].each do |source|
         should "preserve context for a #{source} Product without refreshing first" do
           product = fetch_product(source)
-          restored = Marshal.load(Marshal.dump(product))
+          restored = marshal_round_trip(product)
           restored.delete
           restored.refresh
 
@@ -53,7 +53,7 @@ module Stripe
       should "preserve context after the ticket's refresh negative control" do
         product = notification.fetch_related_object
         product.refresh
-        restored = Marshal.load(Marshal.dump(product))
+        restored = marshal_round_trip(product)
         restored.delete
 
         assert_equal %i[get get delete], @requests.map(&:method)
@@ -63,7 +63,7 @@ module Stripe
       should "restore an explicitly unscoped notification resource without ambient selectors" do
         @event_body.delete(:context)
         product = notification.fetch_related_object
-        restored = Marshal.load(Marshal.dump(product))
+        restored = marshal_round_trip(product)
         restored.refresh
         restored.delete
 
@@ -77,7 +77,7 @@ module Stripe
         product = Product.retrieve("prod_shared")
         Stripe.stripe_account = "acct_default_b"
         Stripe.config.stripe_context = "acct_default_b"
-        restored = Marshal.load(Marshal.dump(product))
+        restored = marshal_round_trip(product)
         product.delete
         restored.delete
 
@@ -86,7 +86,7 @@ module Stripe
 
       should "preserve an account-only resource without inheriting the ambient context" do
         product = @client.v1.products.retrieve("prod_shared")
-        restored = Marshal.load(Marshal.dump(product))
+        restored = marshal_round_trip(product)
         restored.delete
 
         assert_scope(@requests, nil, "acct_client_b")
@@ -98,7 +98,7 @@ module Stripe
         other = StripeClient.new("sk_test_123", api_base: Stripe.api_base, stripe_context: "acct_worker_b")
         other.request do
           # The cache entry was produced above from a trusted SDK object.
-          restored = Marshal.load(blob) # rubocop:disable Security/MarshalLoad
+          restored = Marshal.load(blob).reattach_api_key("sk_test_123") # rubocop:disable Security/MarshalLoad
           restored.delete
         end
 
@@ -106,7 +106,7 @@ module Stripe
       end
 
       should "preserve the restored requestor for legacy save and streaming requests" do
-        restored = Marshal.load(Marshal.dump(notification.fetch_related_object))
+        restored = marshal_round_trip(notification.fetch_related_object)
         restored.save(name: "Updated product")
         chunks = []
         restored.send(:request_stream, method: :get, path: @product_path, params: {}) { |chunk| chunks << chunk }
@@ -122,7 +122,7 @@ module Stripe
         values, opts, scope, mode = product.marshal_dump
 
         assert_equal @product_body, values
-        assert_empty opts
+        assert_equal({ api_key: RequestOptions::API_KEY_SERIALIZATION_CONSTANT }, opts)
         assert_equal({ stripe_account: nil, stripe_context: "acct_event_a" }, scope)
         assert_equal :v1, mode
         refute_includes Marshal.dump(product), "sk_private_client_only"
@@ -139,9 +139,9 @@ module Stripe
 
       should "preserve the v2 API mode and event context across restoration" do
         event = notification.fetch_event
-        restored = Marshal.load(Marshal.dump(event))
+        restored = marshal_round_trip(event)
         product = restored.fetch_related_object
-        Marshal.load(Marshal.dump(product)).delete
+        marshal_round_trip(product).delete
 
         assert_equal :v2, restored.instance_variable_get(:@api_mode)
         assert_scope(@requests, "acct_event_a", nil)
@@ -161,7 +161,7 @@ module Stripe
 
             value.replace("acct_worker_b")
             product.delete
-            restored = Marshal.load(Marshal.dump(product))
+            restored = marshal_round_trip(product)
             restored.delete
             product.refresh
 
@@ -187,7 +187,7 @@ module Stripe
           scoped = client.instance_variable_get(:@requestor).with_authorization_scope(selector => value)
           value.replace("acct_worker_b")
           product = scoped.execute_request(:get, @product_path, :api)
-          Marshal.load(Marshal.dump(product)).delete
+          marshal_round_trip(product).delete
 
           assert_scope(@requests, selector == :stripe_context ? "acct_event_a" : nil,
                        selector == :stripe_account ? "acct_event_a" : nil)
@@ -213,7 +213,7 @@ module Stripe
           manager = APIRequestor.default_connection_manager(config)
 
           first.refresh
-          client.request { Marshal.load(Marshal.dump(second)).delete }
+          client.request { marshal_round_trip(second).delete }
 
           assert_equal 1, APIRequestor.current_thread_context.default_connection_managers.length
           assert_same manager, APIRequestor.default_connection_manager(first.instance_variable_get(:@requestor).config)
@@ -246,7 +246,7 @@ module Stripe
             @client = StripeClient.new("sk_test_123", api_base: Stripe.api_base, **{ client_selector => "acct_client_b" })
             event = notification.fetch_event
             product = event.fetch_related_object
-            Marshal.load(Marshal.dump(product)).delete
+            marshal_round_trip(product).delete
 
             assert_nil event.context
             assert_scope(@requests, nil, nil)
@@ -261,7 +261,7 @@ module Stripe
           client = StripeClient.new("sk_test_123", api_base: Stripe.api_base, **{ client_selector => "acct_event_a" })
           event = client.v2.core.events.retrieve("evt_123")
           product = event.fetch_related_object
-          Marshal.load(Marshal.dump(product)).delete
+          marshal_round_trip(product).delete
 
           assert_equal "acct_event_a", event.context
           assert_scope(@requests.first(1), client_selector == :stripe_context ? "acct_event_a" : nil,
@@ -275,9 +275,9 @@ module Stripe
       should "return null context for an event retrieved without scope headers" do
         client = StripeClient.new("sk_test_123", api_base: Stripe.api_base)
         event = client.v2.core.events.retrieve("evt_123")
-        restored = Marshal.load(Marshal.dump(event))
+        restored = marshal_round_trip(event)
         product = restored.fetch_related_object
-        Marshal.load(Marshal.dump(product)).delete
+        marshal_round_trip(product).delete
 
         assert_nil event.context
         assert_scope(@requests, nil, nil)
@@ -303,7 +303,7 @@ module Stripe
       should "retain an API key override when constructing a scoped event" do
         event = @client.with_stripe_context("acct_event_a").v2.core.events.retrieve("evt_123", {}, api_key: "rk_restricted")
         product = event.fetch_related_object
-        Marshal.load(Marshal.dump(product)).delete
+        marshal_round_trip(product, api_key: "rk_restricted").delete
 
         @requests.each { |request| assert_equal "Bearer rk_restricted", request.headers["Authorization"] }
         assert_scope(@requests.last(2), "acct_event_a", nil)
@@ -312,7 +312,7 @@ module Stripe
       should "preserve explicit per-request context overrides on ordinary resources" do
         client = StripeClient.new("sk_test_123", api_base: Stripe.api_base, stripe_context: "acct_client_b")
         product = client.v1.products.retrieve("prod_shared", {}, stripe_context: StripeContext.parse("acct_event_a"))
-        restored = Marshal.load(Marshal.dump(product))
+        restored = marshal_round_trip(product)
         restored.delete
 
         assert_scope(@requests, "acct_event_a", nil)
@@ -364,7 +364,7 @@ module Stripe
           { body: JSON.generate(customer_body.merge(deleted: true)), headers: { "Content-Type" => "application/json" } }
         end
         parent = client.deserialize({ id: "in_123", object: "invoice", customer: customer_body })
-        restored = Marshal.load(Marshal.dump(parent))
+        restored = marshal_round_trip(parent)
         restored.customer.delete
 
         assert_scope(@requests, "acct_event_a", nil)
@@ -379,7 +379,7 @@ module Stripe
             @requests << request
             { body: JSON.generate(object: "list", url: "/v1/products", has_more: false, data: [@product_body]) }
           end
-        restored = Marshal.load(Marshal.dump(list))
+        restored = marshal_round_trip(list)
         products = restored.auto_paging_each.to_a
         products.each(&:delete)
 
@@ -387,6 +387,10 @@ module Stripe
         assert_scope(@requests, "acct_event_a", nil)
         products.each { |product| assert_bound_scope(product, "acct_event_a", nil) }
       end
+    end
+
+    private def marshal_round_trip(resource, api_key: "sk_test_123")
+      Marshal.load(Marshal.dump(resource)).reattach_api_key(api_key)
     end
 
     private def notification

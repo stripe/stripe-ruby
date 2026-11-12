@@ -15,8 +15,8 @@ module Stripe
         refute_includes Stripe::RequestOptions::OPTS_PERSISTABLE, :idempotency_key
       end
 
-      should "not include :stripe_context" do
-        refute_includes Stripe::RequestOptions::OPTS_PERSISTABLE, :stripe_context
+      should "include :stripe_context" do
+        assert_include Stripe::RequestOptions::OPTS_PERSISTABLE, :stripe_context
       end
     end
 

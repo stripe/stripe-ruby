@@ -183,6 +183,9 @@ module Stripe
       # reused Go's default for `DefaultTransport`.
       connection.keep_alive_timeout = 30
 
+      # stripe-ruby owns retries; prevent Net::HTTP from retrying beneath SDK instrumentation.
+      connection.max_retries = 0 if connection.respond_to?(:max_retries=)
+
       connection.open_timeout = config.open_timeout
       connection.read_timeout = config.read_timeout
       connection.write_timeout = config.write_timeout if connection.respond_to?(:write_timeout=)

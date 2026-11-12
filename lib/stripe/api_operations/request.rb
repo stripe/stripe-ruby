@@ -5,15 +5,15 @@ module Stripe
     module Request
       module ClassMethods
         def execute_resource_request(method, url, base_address = :api,
-                                     params = {}, opts = {}, usage = [])
+                                     params = {}, opts = {}, usage = [], requestor: nil)
           execute_resource_request_internal(
             :execute_request, method, url, base_address, params, opts, usage,
-            requestor: APIRequestor.active_requestor
+            requestor: requestor || APIRequestor.active_requestor
           )
         end
 
         def execute_resource_request_stream(method, url, base_address = :api,
-                                            params = {}, opts = {}, usage = [],
+                                            params = {}, opts = {}, usage = [], requestor: nil,
                                             &read_body_chunk_block)
           execute_resource_request_internal(
             :execute_request_stream,
@@ -23,7 +23,7 @@ module Stripe
             params,
             opts,
             usage,
-            requestor: APIRequestor.active_requestor,
+            requestor: requestor || APIRequestor.active_requestor,
             &read_body_chunk_block
           )
         end

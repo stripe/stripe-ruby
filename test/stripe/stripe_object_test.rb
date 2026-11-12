@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require File.expand_path("../test_helper", __dir__)
+require "yaml"
 
 module Stripe
   class StripeObjectTest < Test::Unit::TestCase
@@ -477,17 +478,135 @@ module Stripe
       assert_match(/\(object\).foo = nil/, e.message)
     end
 
-    should "marshal and unmarshal using custom encoder and decoder" do
-      obj = Stripe::StripeObject.construct_from(
-        { id: 1, name: "Stripe" },
-        api_key: "apikey",
-        client: APIRequestor.active_requestor
-      )
-      m = Marshal.load(Marshal.dump(obj))
-      assert_equal 1, m.id
-      assert_equal "Stripe", m.name
-      expected_hash = { api_key: "apikey" }
-      assert_equal expected_hash, m.instance_variable_get("@opts")
+    context "serialization" do
+      setup do
+        @placeholder = RequestOptions::API_KEY_SERIALIZATION_CONSTANT
+        Stripe.api_key = "sk_test_global"
+        @customer = Stripe::Customer.construct_from(
+          { id: "cus_123", object: "customer", description: "example", metadata: { foo: "bar" } },
+          { api_key: "sk_test_producer", stripe_account: "acct_123", stripe_version: "2017-08-15" }
+        )
+        @nested = Stripe::Customer.construct_from(
+          { id: "cus_nested", object: "customer" },
+          { api_key: "sk_test_nested", stripe_account: "acct_nested", stripe_version: "2018-02-28" }
+        )
+        @customer.containers = [{ nested: @nested }]
+        @restored = Marshal.load(Marshal.dump(@customer))
+      end
+
+      teardown do
+        Stripe.api_key = nil
+      end
+
+      {
+        "Marshal" => [->(obj) { Marshal.dump(obj) }, ->(obj) { Marshal.load(Marshal.dump(obj)) }],
+        "YAML" => [->(obj) { YAML.dump(obj) }, ->(obj) { YAML.unsafe_load(YAML.dump(obj)) }],
+      }.each do |format, (dump, round_trip)|
+        should "omit API keys from #{format} output, including nested objects" do
+          dumped = dump.call(@customer)
+          %w[sk_test_producer sk_test_nested sk_test_global].each { |key| refute_includes dumped, key }
+
+          restored = round_trip.call(@customer)
+          assert_equal Stripe::Customer, restored.class
+          assert_equal @customer.to_hash, restored.to_hash
+          [restored, restored.metadata].each do |obj|
+            assert_equal({ api_key: @placeholder, stripe_account: "acct_123", stripe_version: "2017-08-15" },
+                         obj.instance_variable_get(:@opts))
+          end
+          assert_equal({ api_key: @placeholder, stripe_account: "acct_nested", stripe_version: "2018-02-28" },
+                       restored[:containers][0][:nested].instance_variable_get(:@opts))
+
+          assert_equal "sk_test_producer", @customer.instance_variable_get(:@opts)[:api_key]
+          assert_equal "sk_test_nested", @nested.instance_variable_get(:@opts)[:api_key]
+        end
+
+        should "require reattachment before making requests on a #{format}-restored object" do
+          restored = round_trip.call(@customer)
+
+          [
+            -> { restored.refresh },
+            -> { restored.save },
+            -> { restored.delete({}, { api_key: "sk_test_per_call" }) },
+          ].each do |request|
+            e = assert_raises(Stripe::AuthenticationError) { request.call }
+            assert_match(/reattach_api_key/, e.message)
+          end
+        end
+
+        should "reattach API keys to a #{format}-restored object and omit them when dumped again" do
+          restored = round_trip.call(@customer)
+          restored.reattach_api_key("sk_test_worker")
+
+          nested = restored[:containers][0][:nested]
+          [restored, restored.metadata, nested].each do |obj|
+            assert_equal "sk_test_worker", obj.instance_variable_get(:@opts)[:api_key]
+          end
+          assert_equal "acct_nested", nested.instance_variable_get(:@opts)[:stripe_account]
+          assert_equal "2018-02-28", nested.instance_variable_get(:@opts)[:stripe_version]
+          assert_equal "sk_test_global", Stripe.api_key
+
+          refute_includes dump.call(restored), "sk_test_worker"
+        end
+      end
+
+      should "use the reattached key and saved account for refresh, save and delete" do
+        headers = { "Authorization" => "Bearer sk_test_worker", "Stripe-Account" => "acct_123" }
+        body = JSON.generate(id: "cus_123", object: "customer")
+        stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123").with(headers: headers).to_return(body: body)
+        stub_request(:post, "#{Stripe.api_base}/v1/customers/cus_123").with(headers: headers).to_return(body: body)
+        stub_request(:delete, "#{Stripe.api_base}/v1/customers/cus_123").with(headers: headers).to_return(body: body)
+
+        @restored.reattach_api_key("sk_test_worker")
+        @restored.refresh
+        @restored.description = "changed"
+        @restored.save
+        @restored.delete
+      end
+
+      should "reject invalid API keys" do
+        [nil, "", " ", 123, @placeholder].each do |key|
+          e = assert_raises(ArgumentError) { @restored.reattach_api_key(key) }
+          assert_match(/api_key must be/, e.message)
+        end
+        assert_equal @placeholder, @restored.instance_variable_get(:@opts)[:api_key]
+      end
+
+      should "reject reattaching objects that were not deserialized or were already reattached" do
+        e = assert_raises(ArgumentError) { @customer.reattach_api_key("sk_test_worker") }
+        assert_match(/can only be reattached/, e.message)
+
+        @restored.reattach_api_key("sk_test_worker")
+        assert_raises(ArgumentError) { @restored.reattach_api_key("sk_test_other") }
+        assert_equal "sk_test_worker", @restored.instance_variable_get(:@opts)[:api_key]
+      end
+
+      should "handle cycles and leave attached nested objects alone when reattaching" do
+        attached = Stripe::StripeObject.construct_from({ id: "attached" }, { api_key: "sk_test_attached" })
+        @restored.instance_variable_get(:@values)[:cycle] = [@restored, { attached: attached }]
+
+        @restored.reattach_api_key("sk_test_worker")
+
+        assert_equal "sk_test_worker", @restored.instance_variable_get(:@opts)[:api_key]
+        assert_equal "sk_test_attached", attached.instance_variable_get(:@opts)[:api_key]
+      end
+
+      should "keep the API key from a Marshal dump written by an older version" do
+        # Marshal.load allocates the object and passes the dumped [values, opts]
+        # to #marshal_load; older versions wrote the real key into opts.
+        obj = Stripe::Customer.allocate
+        obj.marshal_load([{ id: "cus_123", object: "customer" }, { api_key: "sk_test_old" }])
+
+        assert_equal "sk_test_old", obj.instance_variable_get(:@opts)[:api_key]
+      end
+
+      should "omit the global API key and requestor from YAML output of objects without their own key" do
+        event = Stripe::Event.construct_from(id: "evt_123", object: "event", data: { object: { object: "customer" } })
+
+        dumped = YAML.dump(event)
+
+        refute_includes dumped, "sk_test_global"
+        refute_includes dumped, "requestor"
+      end
     end
 
     context "#method" do

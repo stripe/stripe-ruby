@@ -76,6 +76,12 @@ module Stripe
                                                  usage: ["fetch_event"])
           @client.deserialize(resp.http_body, api_mode: :v2)
         end
+
+        # The default inspect renders every instance variable, which would
+        # include the API key held by @client.
+        def inspect
+          "#<#{self.class}:0x#{object_id.to_s(16)} id=#{id.inspect} type=#{type.inspect}>"
+        end
       end
     end
   end

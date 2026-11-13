@@ -34,6 +34,14 @@ module Stripe
 
     attr_reader :config, :options
 
+    # Snapshot authorization defaults while retaining the transport's telemetry.
+    def with_authorization_scope(scope)
+      scope = RequestOptions.snapshot_authorization_selectors(scope)
+      dup.tap do |requestor|
+        requestor.instance_variable_set(:@config, config.reverse_duplicate_merge(scope))
+      end
+    end
+
     # The default inspect renders every instance variable, which would
     # include the API key held by the configuration.
     def inspect
@@ -179,22 +187,22 @@ module Stripe
     #     charge, resp = client.request { Charge.create }
     #
     def request
-      old_api_requestor = self.class.current_thread_context.active_requestor
-      self.class.current_thread_context.active_requestor = self
-
-      if self.class.current_thread_context.last_responses&.key?(object_id)
-        raise "calls to APIRequestor#request cannot be nested within a thread"
-      end
-
-      self.class.current_thread_context.last_responses ||= {}
-      self.class.current_thread_context.last_responses[object_id] = nil
+      context = self.class.current_thread_context
+      old_api_requestor = context.active_requestor
+      block_id = Object.new
+      context.request_block_stack ||= []
+      context.last_responses ||= {}
+      context.request_block_stack.push(block_id)
+      context.last_responses[block_id] = nil
+      context.active_requestor = self
 
       begin
         res = yield
-        [res, self.class.current_thread_context.last_responses[object_id]]
+        [res, context.last_responses[block_id]]
       ensure
-        self.class.current_thread_context.active_requestor = old_api_requestor
-        self.class.current_thread_context.last_responses.delete(object_id)
+        context.active_requestor = old_api_requestor
+        context.last_responses.delete(block_id)
+        context.request_block_stack.pop
       end
     end
     extend Gem::Deprecate
@@ -212,11 +220,6 @@ module Stripe
       maybe_emit_stripe_notice(notice)
 
       resp = interpret_response(http_resp)
-
-      # If being called from `APIRequestor#request`, put the last response in
-      # thread-local memory so that it can be returned to the user. Don't store
-      # anything otherwise so that we don't leak memory.
-      store_last_response(object_id, resp)
 
       api_mode = Util.get_api_mode(path)
       Util.convert_to_stripe_object_with_params(resp.data, params, RequestOptions.persistable(req_opts), resp,
@@ -256,11 +259,6 @@ module Stripe
 
       resp = interpret_response(http_resp)
 
-      # If being called from `APIRequestor#request`, put the last response in
-      # thread-local memory so that it can be returned to the user. Don't store
-      # anything otherwise so that we don't leak memory.
-      store_last_response(object_id, resp)
-
       if Util.object_name_matches_class?(resp.data[:object], object.class)
         object.send(:initialize_from,
                     resp.data, RequestOptions.persistable(req_opts), resp,
@@ -273,7 +271,9 @@ module Stripe
     end
 
     def interpret_response(http_resp)
-      StripeResponse.from_net_http(http_resp)
+      resp = StripeResponse.from_net_http(http_resp)
+      store_last_response(resp)
+      resp
     rescue JSON::ParserError
       raise general_api_error(http_resp.code.to_i, http_resp.body)
     end
@@ -307,18 +307,18 @@ module Stripe
       # response body at this point and so return a response object containing
       # only the headers. This is because the body was consumed by the block.
       resp = StripeHeadersOnlyResponse.from_net_http(http_resp)
+      store_last_response(resp)
 
       [resp, api_key]
     end
 
-    def store_last_response(object_id, resp)
-      return unless last_response_has_key?(object_id)
+    def store_last_response(resp)
+      context = self.class.current_thread_context
+      # Responses belong to the innermost request block, regardless of which requestor sent the request.
+      block_id = context.request_block_stack&.last
+      return unless block_id
 
-      self.class.current_thread_context.last_responses[object_id] = resp
-    end
-
-    def last_response_has_key?(object_id)
-      self.class.current_thread_context.last_responses&.key?(object_id)
+      context.last_responses[block_id] = resp
     end
 
     #
@@ -397,12 +397,16 @@ module Stripe
       # the user hasn't specified their own.
       attr_accessor :default_requestor
 
-      # A temporary map of object IDs to responses from last executed API
-      # calls. Used to return a responses from calls to `APIRequestor#request`.
+      # A stack of unique block IDs keeps nested request blocks isolated,
+      # including blocks using the same requestor.
+      attr_accessor :request_block_stack
+
+      # A temporary map of block IDs to responses from last executed API
+      # calls. Used to return responses from calls to `APIRequestor#request`.
       #
       # Stored in the thread data to make the use of a single `APIRequestor`
-      # object safe across multiple threads. Stored as a map so that multiple
-      # `APIRequestor` objects can run concurrently on the same thread.
+      # object safe across multiple threads. Each nested block has its own
+      # response entry, independent of the requestors used to make requests.
       #
       # Responses are only left in as long as they're needed, which means
       # they're removed as soon as a call leaves `APIRequestor#request`, and

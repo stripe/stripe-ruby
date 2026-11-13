@@ -247,6 +247,48 @@ module Stripe
     end
 
     context "#key" do
+      %i[stripe_account stripe_context].each do |selector|
+        should "ignore #{selector} when identifying connection configuration" do
+          config = StripeConfiguration.new
+          first = config.reverse_duplicate_merge(selector => "acct_first")
+          second = config.reverse_duplicate_merge(selector => "acct_second")
+          cleared = config.reverse_duplicate_merge(selector => nil)
+
+          assert_equal config.key, first.key
+          assert_equal first.key, second.key
+          assert_equal config.key, cleared.key
+        end
+      end
+
+      should "ignore hierarchical StripeContext values in connection configuration" do
+        config = StripeConfiguration.new
+        scoped = config.reverse_duplicate_merge(stripe_context: StripeContext.parse("acct_platform/acct_connected"))
+
+        assert_equal config.key, scoped.key
+      end
+
+      {
+        open_timeout: 10,
+        read_timeout: 20,
+        write_timeout: 15,
+        proxy: "http://localhost:8080",
+        verify_ssl_certs: false,
+        ca_bundle_path: "/tmp/alternate-ca-bundle.pem",
+      }.each do |setting, value|
+        next if setting == :write_timeout && !WRITE_TIMEOUT_SUPPORTED
+
+        should "keep #{setting} in connection configuration identity" do
+          config = StripeConfiguration.new
+          different_transport = config.reverse_duplicate_merge(setting => value)
+
+          refute_equal config.key, different_transport.key
+          refute_same APIRequestor.default_connection_manager(config),
+                      APIRequestor.default_connection_manager(different_transport)
+        ensure
+          APIRequestor.clear_all_connection_managers
+        end
+      end
+
       should "generate the same key when values are identicial" do
         assert_equal StripeConfiguration.setup.key, StripeConfiguration.setup.key
 

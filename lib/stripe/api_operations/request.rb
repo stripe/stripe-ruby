@@ -7,7 +7,8 @@ module Stripe
         def execute_resource_request(method, url, base_address = :api,
                                      params = {}, opts = {}, usage = [], requestor: nil)
           execute_resource_request_internal(
-            :execute_request, method, url, base_address, params, opts, usage, requestor
+            :execute_request, method, url, base_address, params, opts, usage,
+            requestor: requestor || APIRequestor.active_requestor
           )
         end
 
@@ -22,7 +23,7 @@ module Stripe
             params,
             opts,
             usage,
-            requestor,
+            requestor: requestor || APIRequestor.active_requestor,
             &read_body_chunk_block
           )
         end
@@ -31,12 +32,10 @@ module Stripe
           execute_resource_request(method, path, base_address, params, opts, usage)
         end
 
-        # `requestor` is only ever passed by the instance-level `execute_resource_request`
-        # methods below; these calls use a retained `@requestor`, whereas class-level callers
-        # pass nil to use the global requestor.
         private def execute_resource_request_internal(client_request_method_sym,
                                                       method, url, base_address,
-                                                      params, opts, usage, requestor = nil,
+                                                      params, opts, usage,
+                                                      requestor:,
                                                       &read_body_chunk_block)
           params = params.to_h if params.is_a?(Stripe::RequestParams)
           params ||= {}
@@ -47,7 +46,7 @@ module Stripe
           opts = Util.normalize_opts(opts)
           req_opts = RequestOptions.extract_opts_from_hash(opts)
 
-          (requestor || APIRequestor.active_requestor).send(
+          requestor.send(
             client_request_method_sym,
             method, url,
             base_address,
@@ -79,8 +78,10 @@ module Stripe
                                              params = {}, opts = {}, usage = [])
         RequestOptions.assert_api_key_attached!(@opts[:api_key])
         opts = @opts.merge(Util.normalize_opts(opts))
-        self.class.execute_resource_request(
-          method, url, base_address, params, opts, usage, requestor: retained_requestor
+        self.class.send(
+          :execute_resource_request_internal,
+          :execute_request, method, url, base_address, params, opts, usage,
+          requestor: @requestor
         )
       end
 
@@ -89,16 +90,11 @@ module Stripe
                                                     &read_body_chunk_block)
         RequestOptions.assert_api_key_attached!(@opts[:api_key])
         opts = @opts.merge(Util.normalize_opts(opts))
-        self.class.execute_resource_request_stream(
-          method, url, base_address, params, opts, usage, requestor: retained_requestor,
-          &read_body_chunk_block
+        self.class.send(
+          :execute_resource_request_internal,
+          :execute_request_stream, method, url, base_address, params, opts, usage,
+          requestor: @requestor, &read_body_chunk_block
         )
-      end
-
-      # Prefers the requestor this instance was deserialized with so eg. ListObject's #next_page
-      # uses the correct requestor.
-      private def retained_requestor
-        instance_variable_defined?(:@requestor) && @requestor ? @requestor : nil
       end
 
       private def request_stripe_object(method:, path:, params:, base_address: :api, opts: {}, usage: [])

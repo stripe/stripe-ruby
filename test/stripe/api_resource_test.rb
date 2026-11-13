@@ -767,6 +767,24 @@ module Stripe
           StreamTestAPIResource.new(id: "hi_123").read_stream({ foo: "bar" }, stripe_account: "acct_hi")
         end
       end
+
+      should "use the retained requestor, not the global one, for streaming requests" do
+        bound_requestor = Stripe::APIRequestor.new(
+          api_key: "sk_test_bound_requestor", api_base: Stripe.api_base
+        )
+        resource = StreamTestAPIResource.new("hi_123", {}, :v1, bound_requestor)
+
+        stub_request(:get, "#{Stripe.api_base}/v1/streams/hi_123/read")
+          .with(headers: { "Authorization" => "Bearer sk_test_bound_requestor" })
+          .to_return(body: "response body")
+
+        accumulated_body = +""
+        resource.read_stream do |body_chunk|
+          accumulated_body << body_chunk
+        end
+
+        assert_equal "response body", accumulated_body
+      end
     end
 
     context "custom API resource" do

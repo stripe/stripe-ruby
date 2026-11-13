@@ -139,6 +139,12 @@ module Stripe
       )
     end
 
+    # The default inspect renders every instance variable, which would
+    # include the API key held by the requestor's configuration.
+    def inspect
+      "#<#{self.class}:0x#{object_id.to_s(16)}>"
+    end
+
     def notification_handler(webhook_secret, &fallback_callback)
       ::Stripe::StripeEventNotificationHandler.new(self, webhook_secret, &fallback_callback)
     end

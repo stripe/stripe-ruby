@@ -182,6 +182,16 @@ module Stripe
                            headers: { "Stripe-Request-Trigger" => "event=evt_234" })
         end
 
+        should "not expose the API key when inspected or logged" do
+          event_notif = parse_signed_event(@v2_push_payload)
+          log = StringIO.new
+          ::Logger.new(log).info(event_notif)
+
+          assert_includes event_notif.inspect, 'id="evt_234"'
+          refute_includes event_notif.inspect, "test_123"
+          refute_includes log.string, "test_123"
+        end
+
         should "retain the event context on fetched related objects" do
           client = StripeClient.new(
             "test_123",
@@ -233,6 +243,94 @@ module Stripe
             :delete,
             "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared",
             headers: { "Stripe-Account" => "acct_platform" }
+          )
+        end
+
+        should "retain the event context on a directly-retrieved event's related objects" do
+          client = StripeClient.new(
+            "test_123",
+            stripe_account: "acct_platform",
+            stripe_context: "ctx_platform"
+          )
+          stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_123")
+            .to_return(body: {
+              "id" => "evt_123",
+              "object" => "v2.core.event",
+              "type" => "v1.product.updated",
+              "created" => "2022-02-15T00:27:45.330Z",
+              "context" => "acct_child",
+              "related_object" => {
+                "id" => "prod_shared",
+                "type" => "product",
+                "url" => "/v1/products/prod_shared",
+              },
+            }.to_json)
+          stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared")
+            .to_return(body: JSON.generate({ "id" => "prod_shared", "object" => "product" }))
+          stub_request(:delete, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared")
+            .to_return(body: JSON.generate({ "id" => "prod_shared", "object" => "product", "deleted" => true }))
+
+          event = client.v2.core.events.retrieve("evt_123")
+          product = event.fetch_related_object
+          product.delete
+
+          assert_requested(
+            :get,
+            "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared",
+            headers: {
+              "Authorization" => "Bearer test_123",
+              "Stripe-Context" => "acct_child",
+            }
+          )
+          assert_requested(
+            :delete,
+            "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared",
+            headers: {
+              "Authorization" => "Bearer test_123",
+              "Stripe-Context" => "acct_child",
+            }
+          )
+          assert_not_requested(
+            :get,
+            "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared",
+            headers: { "Stripe-Account" => "acct_platform" }
+          )
+          assert_not_requested(
+            :delete,
+            "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared",
+            headers: { "Stripe-Account" => "acct_platform" }
+          )
+        end
+
+        should "retain a retained api_key override on a directly-retrieved event's related objects" do
+          client = StripeClient.new("test_123")
+          stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_123")
+            .to_return(body: {
+              "id" => "evt_123",
+              "object" => "v2.core.event",
+              "type" => "v1.product.updated",
+              "created" => "2022-02-15T00:27:45.330Z",
+              "related_object" => {
+                "id" => "prod_shared",
+                "type" => "product",
+                "url" => "/v1/products/prod_shared",
+              },
+            }.to_json)
+          stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared")
+            .to_return(body: JSON.generate({ "id" => "prod_shared", "object" => "product" }))
+
+          event = client.v2.core.events.retrieve("evt_123", {}, { api_key: "rk_restricted" })
+          event.fetch_related_object
+
+          assert_requested(
+            :get,
+            "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared",
+            headers: { "Authorization" => "Bearer rk_restricted" }
+          )
+          assert_not_requested(
+            :get,
+            "#{Stripe::DEFAULT_API_BASE}/v1/products/prod_shared",
+            headers: { "Authorization" => "Bearer test_123" }
           )
         end
 

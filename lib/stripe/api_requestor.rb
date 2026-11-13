@@ -34,6 +34,12 @@ module Stripe
 
     attr_reader :config, :options
 
+    # The default inspect renders every instance variable, which would
+    # include the API key held by the configuration.
+    def inspect
+      "#<#{self.class}:0x#{object_id.to_s(16)}>"
+    end
+
     # Gets a currently active `APIRequestor`. Set for the current thread when
     # `APIRequestor#request` is being run so that API operations being executed
     # inside of that block can find the currently active requestor. It's reset to
@@ -490,6 +496,7 @@ module Stripe
 
       api_key ||= opts[:api_key]
 
+      RequestOptions.assert_api_key_attached!(api_key)
       check_api_key!(api_key)
 
       body_params = nil

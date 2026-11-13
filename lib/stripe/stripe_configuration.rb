@@ -88,6 +88,12 @@ module Stripe
                           meter_events: @meter_events_base, }
     end
 
+    # The default inspect renders every instance variable, which would
+    # include the API key and any proxy credentials.
+    def inspect
+      "#<#{self.class}:0x#{object_id.to_s(16)}>"
+    end
+
     def log_level=(val)
       # Backwards compatibility for values that we briefly allowed
       if val == "debug"

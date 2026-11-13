@@ -689,16 +689,16 @@ module Stripe
 
       should "use the same options for v2" do
         req = nil
-        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_123")
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/acct_123")
           .with { |request| req = request }
-          .to_return(body: JSON.generate(object: "v2.core.event"))
+          .to_return(body: JSON.generate(object: "v2.core.account"))
 
         client = Stripe::StripeClient.new("sk_test_123", stripe_account: "foo")
 
-        evt = client.v2.core.events.retrieve("evt_123")
+        account = client.v2.core.accounts.retrieve("acct_123")
         assert_equal "foo", req.headers["Stripe-Account"]
 
-        evt.instance_variable_get(:@requestor).execute_request(:get, "/v2/core/events/evt_123", :api)
+        account.instance_variable_get(:@requestor).execute_request(:get, "/v2/core/accounts/acct_123", :api)
         assert_equal "foo", req.headers["Stripe-Account"]
       end
     end

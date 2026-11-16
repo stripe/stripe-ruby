@@ -81,6 +81,32 @@ module Stripe
         def inspect
           "#<#{self.class}:0x#{object_id.to_s(16)} id=#{id.inspect} type=#{type.inspect}>"
         end
+
+        # Implements custom encoding for YAML (Psych). Without it, Psych dumps
+        # every instance variable, including the API key held by @client.
+        def encode_with(coder)
+          (instance_variables - [:@client]).each do |ivar|
+            coder[ivar.to_s.delete_prefix("@")] = instance_variable_get(ivar)
+          end
+        end
+
+        # Implements custom decoding for YAML (Psych). A restored notification
+        # has no client, so it can't make requests.
+        def init_with(coder)
+          coder.map.each { |name, value| instance_variable_set("@#{name}", value) }
+          @client = DetachedClient.new
+        end
+
+        # Stands in for the client on a notification restored from YAML, so
+        # requests fail with an actionable error instead of a NoMethodError.
+        class DetachedClient
+          def raw_request(*)
+            raise AuthenticationError,
+                  "This EventNotification was restored from a serialized copy and has no client. " \
+                  "Parse the original payload with StripeClient#parse_event_notification to make requests."
+          end
+        end
+        private_constant :DetachedClient
       end
     end
   end

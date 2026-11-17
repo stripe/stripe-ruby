@@ -67,6 +67,8 @@ module Stripe
           assert_equal 456, conn.read_timeout
           assert_equal 789, conn.write_timeout if WRITE_TIMEOUT_SUPPORTED
 
+          assert_equal 0, conn.max_retries if conn.respond_to?(:max_retries=)
+
           assert_equal true, conn.use_ssl?
           assert_equal OpenSSL::SSL::VERIFY_PEER, conn.verify_mode
           # TODO: What should this be?

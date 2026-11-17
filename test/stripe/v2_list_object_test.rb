@@ -267,6 +267,21 @@ module Stripe
 
         assert_equal expected, list.auto_paging_each.to_a
       end
+
+      should "require reattachment before auto-paging a deserialized list, then use the reattached key" do
+        list = TestV2ListObject.construct_from({ data: [{ id: 1 }], next_page_url: "/v2/things?page=page_2" },
+                                               { api_key: "sk_test_producer" }, nil, :v2)
+        restored = Marshal.load(Marshal.dump(list))
+
+        assert_raises(Stripe::AuthenticationError) { restored.auto_paging_each.to_a }
+
+        restored.reattach_api_key("sk_test_worker")
+        stub_request(:get, "#{Stripe.api_base}/v2/things?page=page_2")
+          .with(headers: { "Authorization" => "Bearer sk_test_worker" })
+          .to_return(body: JSON.generate(data: [{ id: 2 }], next_page_url: nil))
+
+        assert_equal [1, 2], restored.auto_paging_each.map(&:id)
+      end
     end
   end
 end

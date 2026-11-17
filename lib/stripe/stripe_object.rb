@@ -77,7 +77,7 @@ module Stripe
     def initialize(id = nil, opts = {}, api_mode = :v1, requestor = nil)
       @api_mode = api_mode
       id, @retrieve_params = Util.normalize_id(id)
-      @opts = Util.normalize_opts(opts)
+      @opts = RequestOptions.snapshot_authorization_selectors(Util.normalize_opts(opts))
       @original_values = {}
       @values = {}
       # This really belongs in APIResource, but not putting it there allows us
@@ -92,9 +92,11 @@ module Stripe
 
     def self.construct_from(values, opts = {}, last_response = nil, api_mode = :v1, requestor = nil)
       values = Stripe::Util.symbolize_names(values)
+      requestor ||= APIRequestor.active_requestor
 
       # work around protected #initialize_from for now
-      new(values[:id]).send(:initialize_from, values, opts, last_response, api_mode: api_mode, requestor: requestor)
+      new(values[:id], opts, api_mode, requestor).send(:initialize_from, values, opts, last_response,
+                                                       api_mode: api_mode, requestor: requestor)
     end
 
     # Determines the equality of two Stripe objects. Stripe objects are
@@ -256,15 +258,80 @@ module Stripe
 
       # TODO: (major) Remove the :client option. This is not explicitly supported as a user-specified option.
       opts.delete(:client)
-      [@values, opts]
+
+      scope = RequestOptions.authorization_scope(@requestor.config, opts)
+
+      # Serialized objects often land in caches and queues that aren't
+      # protected like secrets, so never write the API key out. Nested
+      # StripeObjects are dumped through this method too.
+      opts[:api_key] = RequestOptions::API_KEY_SERIALIZATION_CONSTANT
+      [@values, opts, scope, @api_mode]
     end
 
     # Implements custom decoding for Ruby's Marshal. Consumes data that's
     # produced by #marshal_dump.
     def marshal_load(data, api_mode: :v1)
-      values, opts = data
-      initialize(values[:id], api_mode: api_mode)
-      initialize_from(values, opts, api_mode: api_mode, requestor: @requestor)
+      values, opts, scope, stored_api_mode = data
+      api_mode = stored_api_mode || api_mode
+      requestor = APIRequestor.active_requestor
+      # Older cache entries lack scope metadata and retain their legacy binding.
+      requestor = requestor.with_authorization_scope(scope) if scope
+      initialize(values[:id], {}, api_mode, requestor)
+      initialize_from(values, opts, api_mode: api_mode, requestor: requestor)
+    end
+
+    # Implements custom encoding for YAML (Psych). Without it, Psych dumps
+    # every instance variable, including the API key in @opts and the
+    # requestor's configuration.
+    def encode_with(coder)
+      values, opts = marshal_dump
+      coder["values"] = values
+      coder["opts"] = opts
+    end
+
+    # Implements custom decoding for YAML (Psych). Consumes data that's
+    # produced by #encode_with.
+    def init_with(coder)
+      marshal_load([coder["values"], coder["opts"]])
+    end
+
+    # Attaches credentials to an object restored from Marshal or YAML, and to
+    # any nested objects that were restored without credentials. Each object
+    # keeps its saved connected account and API version.
+    def reattach_api_key(api_key)
+      unless @opts[:api_key] == RequestOptions::API_KEY_SERIALIZATION_CONSTANT
+        raise ArgumentError,
+              "API credentials can only be reattached to a deserialized " \
+              "object that has not already been reattached."
+      end
+      if !api_key.is_a?(String) || api_key.strip.empty? ||
+         api_key == RequestOptions::API_KEY_SERIALIZATION_CONSTANT
+        raise ArgumentError, "api_key must be a non-empty, valid API key."
+      end
+
+      reattach_api_key_to(self, api_key, {}.compare_by_identity)
+      self
+    end
+
+    # Identity-based `seen` because StripeObject#hash and #== compare values,
+    # and restored objects can contain cycles.
+    private def reattach_api_key_to(value, api_key, seen)
+      case value
+      when StripeObject
+        return if seen.key?(value)
+
+        seen[value] = true
+        opts = value.instance_variable_get(:@opts)
+        if opts[:api_key] == RequestOptions::API_KEY_SERIALIZATION_CONSTANT
+          value.instance_variable_set(:@opts, opts.merge(api_key: api_key))
+        end
+        value.instance_variable_get(:@values).each_value { |v| reattach_api_key_to(v, api_key, seen) }
+        value.instance_variable_get(:@original_values).each_value { |v| reattach_api_key_to(v, api_key, seen) }
+      when Hash
+        value.each_value { |v| reattach_api_key_to(v, api_key, seen) }
+      when Array
+        value.each { |v| reattach_api_key_to(v, api_key, seen) }
+      end
     end
 
     def serialize_params(options = {})
@@ -494,12 +561,17 @@ module Stripe
     # * +:opts:+ Options for StripeObject like an API key.
     # * +:partial:+ Indicates that the re-initialization should not attempt to
     #   remove accessors.
-    protected def initialize_from(values, opts, last_response = nil, api_mode:, requestor: nil)
+    protected def initialize_from(values, opts, last_response = nil, api_mode:, requestor:)
+      raise ArgumentError, "requestor must not be nil" if requestor.nil?
+
       @api_mode = api_mode
       @last_response = last_response
+      @opts = RequestOptions.snapshot_authorization_selectors(Util.normalize_opts(opts))
       @requestor = requestor
-
-      @opts = Util.normalize_opts(opts)
+      if requestor.is_a?(APIRequestor)
+        scope = RequestOptions.authorization_scope(requestor.config, @opts)
+        @requestor = requestor.with_authorization_scope(scope)
+      end
 
       # the `#send` is here so that we can keep this method private
       @original_values = self.class.send(:deep_copy, values, api_mode: api_mode)

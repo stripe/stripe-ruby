@@ -24,10 +24,27 @@ module Stripe
       OPTS_USER_SPECIFIED + Set[:api_base]
     ).freeze
 
-    # Options that should be persisted between API requests.
+    # Account and context identify the resource's authorization scope and
+    # must persist for subsequent operations, unlike an idempotency key.
     OPTS_PERSISTABLE = (
-      OPTS_USER_SPECIFIED - Set[:idempotency_key, :stripe_context]
+      OPTS_USER_SPECIFIED - Set[:idempotency_key]
     ).freeze
+
+    # Written in place of API keys when a StripeObject is serialized with
+    # Marshal or YAML, so that credentials never end up in caches or queues.
+    API_KEY_SERIALIZATION_CONSTANT = "API_KEY_SERIALIZATION_CONSTANT"
+
+    # Raises if the given API key is the serialization placeholder, meaning the
+    # object was deserialized and credentials haven't been reattached.
+    def self.assert_api_key_attached!(api_key)
+      return unless api_key == API_KEY_SERIALIZATION_CONSTANT
+
+      raise AuthenticationError,
+            "This object was deserialized without API credentials. Call " \
+            "reattach_api_key(api_key) on the object before making requests. " \
+            "Global and per-call API keys do not reattach credentials to a " \
+            "deserialized object."
+    end
 
     # helper method to figure out what the true value of the stripe_context header should be
     # given a pair of StripeContext|string
@@ -63,11 +80,29 @@ module Stripe
       merged_opts
     end
 
+    # Retain absent selectors so restoring a scope can clear ambient defaults.
+    def self.authorization_scope(config, opts)
+      merged_opts = merge_config_and_opts(config, opts)
+      { stripe_account: merged_opts[:stripe_account], stripe_context: merged_opts[:stripe_context] }
+    end
+
+    # Caller-owned selector strings must not change the authorization scope of a live resource.
+    def self.snapshot_authorization_selectors(opts)
+      opts.dup.tap do |snapshot|
+        %i[stripe_account stripe_context].each do |selector|
+          value = snapshot[selector]
+          snapshot[selector] = value.dup.freeze if value.is_a?(String)
+        end
+      end
+    end
+
     # Merges requestor options hash on a StripeObject
     # with a per-request options hash, giving precedence
     # to the per-request options. Returns the merged request options.
     # Expects two hashes, expects extract_opts_from_hash to be called first!!!
     def self.combine_opts(object_opts, req_opts)
+      assert_api_key_attached!(object_opts[:api_key])
+
       merged_opts = {
         api_key: req_opts[:api_key] || object_opts[:api_key],
         idempotency_key: req_opts[:idempotency_key],

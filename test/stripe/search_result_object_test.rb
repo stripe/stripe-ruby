@@ -148,6 +148,43 @@ module Stripe
       next_list = list.next_search_result_page
       assert_equal Stripe::SearchResultObject.empty_search_result, next_list
     end
+
+    should "use the retained requestor, not the global one, for #next_page" do
+      bound_requestor = Stripe::APIRequestor.new(
+        api_key: "sk_test_bound_requestor", api_base: Stripe.api_base
+      )
+      list = TestSearchResultObject.construct_from({
+        data: [{ id: 1 }],
+        has_more: true,
+        next_page: "next_page_token_1",
+        url: "/things",
+      }, {}, nil, :v1, bound_requestor)
+
+      stub_request(:get, "#{Stripe.api_base}/things")
+        .with(headers: { "Authorization" => "Bearer sk_test_bound_requestor" },
+              query: { page: "next_page_token_1" })
+        .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false, object: "search_result"))
+
+      next_list = list.next_search_result_page
+      refute next_list.empty?
+    end
+
+    should "require reattachment before auto-paging a deserialized search result, then use the reattached key" do
+      list = TestSearchResultObject.construct_from({ data: [{ id: 1 }], has_more: true, next_page: "next_page_token_1",
+                                                     url: "/things", object: "search_result", },
+                                                   { api_key: "sk_test_producer", stripe_account: "acct_123" })
+      restored = Marshal.load(Marshal.dump(list))
+
+      assert_raises(Stripe::AuthenticationError) { restored.auto_paging_each.to_a }
+
+      restored.reattach_api_key("sk_test_worker")
+      stub_request(:get, "#{Stripe.api_base}/things")
+        .with(query: { page: "next_page_token_1" },
+              headers: { "Authorization" => "Bearer sk_test_worker", "Stripe-Account" => "acct_123" })
+        .to_return(body: JSON.generate(data: [{ id: 2 }], has_more: false, object: "search_result"))
+
+      assert_equal [1, 2], restored.auto_paging_each.map(&:id)
+    end
   end
 end
 

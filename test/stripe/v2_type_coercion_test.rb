@@ -45,8 +45,15 @@ module Stripe
           assert_equal "0.00001", V2TypeCoercion.coerce_value(0.00001, :decimal_string, direction: :encode)
           assert_equal "-0.00000025", V2TypeCoercion.coerce_value(-2.5e-7, :decimal_string, direction: :encode)
           assert_equal "1000000000000000.0", V2TypeCoercion.coerce_value(1e15, :decimal_string, direction: :encode)
-          assert_equal "12345678901234567000.0",
-                       V2TypeCoercion.coerce_value(1.2345678901234567e19, :decimal_string, direction: :encode)
+          assert_equal "10000000000000000.0", V2TypeCoercion.coerce_value(1e16, :decimal_string, direction: :encode)
+          assert_equal "15000000000000000000.0", V2TypeCoercion.coerce_value(1.5e19, :decimal_string, direction: :encode)
+        end
+
+        should "convert negative zero and non-finite Floats to String" do
+          assert_equal "-0.0", V2TypeCoercion.coerce_value(-0.0, :decimal_string, direction: :encode)
+          assert_equal "NaN", V2TypeCoercion.coerce_value(Float::NAN, :decimal_string, direction: :encode)
+          assert_equal "Infinity", V2TypeCoercion.coerce_value(Float::INFINITY, :decimal_string, direction: :encode)
+          assert_equal "-Infinity", V2TypeCoercion.coerce_value(-Float::INFINITY, :decimal_string, direction: :encode)
         end
 
         should "convert Array of Floats without exponent notation" do
@@ -89,6 +96,12 @@ module Stripe
               V2TypeCoercion.coerce_value(value, :int64_string, direction: :decode)
             end
           end
+        end
+
+        should "accept a decimal prefix, underscores and surrounding whitespace" do
+          assert_equal 10, V2TypeCoercion.coerce_value("0d10", :int64_string, direction: :decode)
+          assert_equal 1000, V2TypeCoercion.coerce_value("1_000", :int64_string, direction: :decode)
+          assert_equal 10, V2TypeCoercion.coerce_value(" 10 ", :int64_string, direction: :decode)
         end
 
         should "pass through Integer" do

@@ -4,7 +4,7 @@ module Stripe
   # StripeError is the base error from which all other more specific Stripe
   # errors derive.
   class StripeError < StandardError
-    attr_reader :message, :code, :error, :http_body, :http_headers, :http_status, :json_body, :request_id
+    attr_reader :code, :error, :http_body, :http_headers, :http_status, :json_body, :request_id
 
     # Response contains a StripeResponse object that has some basic information
     # about the response that conveyed the error.
@@ -31,10 +31,16 @@ module Stripe
       ErrorObject.construct_from(@json_body[:error], {}, nil, :v1)
     end
 
+    # Returns the message prefixed with the request ID (if any), e.g.
+    # "[req_123] No such customer". `Exception#message` delegates to this.
     def to_s
-      status_string = @http_status.nil? ? "" : "(Status #{@http_status}) "
       id_string = @request_id.nil? ? "" : "[#{@request_id}] "
-      "#{status_string}#{id_string}#{@message}"
+      "#{id_string}#{@message}"
+    end
+
+    # Returns the message as sent by Stripe, without the request ID prefix.
+    def user_message
+      @message
     end
   end
 

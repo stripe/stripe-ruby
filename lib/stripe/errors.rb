@@ -31,11 +31,12 @@ module Stripe
       ErrorObject.construct_from(@json_body[:error], {}, nil, :v1)
     end
 
-    # Returns the message prefixed with the request ID (if any), e.g.
-    # "[req_123] No such customer". `Exception#message` delegates to this.
+    # Returns the message prefixed with the status and request ID (if any), e.g.
+    # "(Status 404) [req_123] No such customer". `Exception#message` delegates to this.
     def to_s
+      status_string = @http_status.nil? ? "" : "(Status #{@http_status}) "
       id_string = @request_id.nil? ? "" : "[#{@request_id}] "
-      "#{id_string}#{@message}"
+      "#{status_string}#{id_string}#{@message}"
     end
 
     # Returns the message as sent by Stripe, without the request ID prefix.

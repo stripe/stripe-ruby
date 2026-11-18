@@ -38,6 +38,20 @@ module Stripe
 
         should "convert Float to String" do
           assert_equal "3.14", V2TypeCoercion.coerce_value(3.14, :decimal_string, direction: :encode)
+          assert_equal "0.1", V2TypeCoercion.coerce_value(0.1, :decimal_string, direction: :encode)
+        end
+
+        should "convert Float to String without exponent notation" do
+          assert_equal "0.00001", V2TypeCoercion.coerce_value(0.00001, :decimal_string, direction: :encode)
+          assert_equal "-0.00000025", V2TypeCoercion.coerce_value(-2.5e-7, :decimal_string, direction: :encode)
+          assert_equal "1000000000000000.0", V2TypeCoercion.coerce_value(1e15, :decimal_string, direction: :encode)
+          assert_equal "12345678901234567000.0",
+                       V2TypeCoercion.coerce_value(1.2345678901234567e19, :decimal_string, direction: :encode)
+        end
+
+        should "convert Array of Floats without exponent notation" do
+          assert_equal %w[0.00001 1000000000000000.0],
+                       V2TypeCoercion.coerce_value([0.00001, 1e15], :decimal_string, direction: :encode)
         end
 
         should "pass through String" do
@@ -61,6 +75,20 @@ module Stripe
           assert_equal 42, V2TypeCoercion.coerce_value("42", :int64_string, direction: :decode)
           assert_equal 0, V2TypeCoercion.coerce_value("0", :int64_string, direction: :decode)
           assert_equal(-7, V2TypeCoercion.coerce_value("-7", :int64_string, direction: :decode))
+        end
+
+        should "read leading zeros as base 10" do
+          assert_equal 10, V2TypeCoercion.coerce_value("010", :int64_string, direction: :decode)
+          assert_equal(-8, V2TypeCoercion.coerce_value("-08", :int64_string, direction: :decode))
+          assert_equal [10, 7], V2TypeCoercion.coerce_value(%w[010 007], :int64_string, direction: :decode)
+        end
+
+        should "reject radix prefixes" do
+          %w[0x1A 0X1A -0x1A 0b11 0o17].each do |value|
+            assert_raises(ArgumentError, "expected #{value.inspect} to be rejected") do
+              V2TypeCoercion.coerce_value(value, :int64_string, direction: :decode)
+            end
+          end
         end
 
         should "pass through Integer" do

@@ -18,11 +18,39 @@ module Stripe
       end
 
       class FailureDetails < ::Stripe::StripeObject
+        class NetworkDetails < ::Stripe::StripeObject
+          class Ach < ::Stripe::StripeObject
+            # NACHA ACH return code.
+            attr_reader :return_code
+            # NACHA ACH return reason.
+            attr_reader :return_reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # ACH return details.
+          attr_reader :ach
+
+          def self.inner_class_types
+            @inner_class_types = { ach: Ach }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Reason for the failure.
         attr_reader :code
+        # Money movement network-specific details regarding the failure.
+        attr_reader :network_details
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { network_details: NetworkDetails }
         end
 
         def self.field_remappings
@@ -232,7 +260,7 @@ module Stripe
           "InboundTransfer"
         end
 
-        # Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+        # Transitions a test InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
         def self.fail(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -242,7 +270,7 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+        # Transitions a test InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
         def fail(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -252,7 +280,7 @@ module Stripe
           )
         end
 
-        # Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+        # Marks the test InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
         def self.return_inbound_transfer(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -262,7 +290,7 @@ module Stripe
           )
         end
 
-        # Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+        # Marks the test InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
         def return_inbound_transfer(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -272,7 +300,7 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+        # Transitions a test InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
         def self.succeed(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -282,7 +310,7 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+        # Transitions a test InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
         def succeed(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,

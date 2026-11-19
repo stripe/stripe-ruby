@@ -281,7 +281,7 @@ module Stripe
             params(_products: T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationCreateParams::Features::SubscriptionUpdate::Product]))).returns(T.nilable(T.any(String, T::Array[::Stripe::BillingPortal::ConfigurationCreateParams::Features::SubscriptionUpdate::Product])))
            }
           def products=(_products); end
-          # Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
+          # Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`. Defaults to `none`.
           sig { returns(T.nilable(String)) }
           def proration_behavior; end
           sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }

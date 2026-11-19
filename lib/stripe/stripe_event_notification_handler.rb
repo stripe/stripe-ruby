@@ -1249,6 +1249,26 @@ module Stripe
       register("v2.core.account_person.updated", &callback)
     end
 
+    def on_v2_core_claimable_sandbox_claimed(&callback)
+      register("v2.core.claimable_sandbox.claimed", &callback)
+    end
+
+    def on_v2_core_claimable_sandbox_created(&callback)
+      register("v2.core.claimable_sandbox.created", &callback)
+    end
+
+    def on_v2_core_claimable_sandbox_expired(&callback)
+      register("v2.core.claimable_sandbox.expired", &callback)
+    end
+
+    def on_v2_core_claimable_sandbox_expiring(&callback)
+      register("v2.core.claimable_sandbox.expiring", &callback)
+    end
+
+    def on_v2_core_claimable_sandbox_updated(&callback)
+      register("v2.core.claimable_sandbox.updated", &callback)
+    end
+
     def on_v2_core_event_destination_ping(&callback)
       register("v2.core.event_destination.ping", &callback)
     end

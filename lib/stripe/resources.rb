@@ -858,6 +858,16 @@ module Stripe
     autoload :V2CoreAccountPersonUpdatedEventNotification, "stripe/events/v2_core_account_person_updated_event"
     autoload :V2CoreAccountUpdatedEvent, "stripe/events/v2_core_account_updated_event"
     autoload :V2CoreAccountUpdatedEventNotification, "stripe/events/v2_core_account_updated_event"
+    autoload :V2CoreClaimableSandboxClaimedEvent, "stripe/events/v2_core_claimable_sandbox_claimed_event"
+    autoload :V2CoreClaimableSandboxClaimedEventNotification, "stripe/events/v2_core_claimable_sandbox_claimed_event"
+    autoload :V2CoreClaimableSandboxCreatedEvent, "stripe/events/v2_core_claimable_sandbox_created_event"
+    autoload :V2CoreClaimableSandboxCreatedEventNotification, "stripe/events/v2_core_claimable_sandbox_created_event"
+    autoload :V2CoreClaimableSandboxExpiredEvent, "stripe/events/v2_core_claimable_sandbox_expired_event"
+    autoload :V2CoreClaimableSandboxExpiredEventNotification, "stripe/events/v2_core_claimable_sandbox_expired_event"
+    autoload :V2CoreClaimableSandboxExpiringEvent, "stripe/events/v2_core_claimable_sandbox_expiring_event"
+    autoload :V2CoreClaimableSandboxExpiringEventNotification, "stripe/events/v2_core_claimable_sandbox_expiring_event"
+    autoload :V2CoreClaimableSandboxUpdatedEvent, "stripe/events/v2_core_claimable_sandbox_updated_event"
+    autoload :V2CoreClaimableSandboxUpdatedEventNotification, "stripe/events/v2_core_claimable_sandbox_updated_event"
     autoload :V2CoreEventDestinationPingEvent, "stripe/events/v2_core_event_destination_ping_event"
     autoload :V2CoreEventDestinationPingEventNotification, "stripe/events/v2_core_event_destination_ping_event"
     autoload :V2MoneyManagementAdjustmentCreatedEvent, "stripe/events/v2_money_management_adjustment_created_event"
@@ -1108,6 +1118,7 @@ module Stripe
       autoload :AccountPerson, "stripe/resources/v2/core/account_person"
       autoload :AccountPersonToken, "stripe/resources/v2/core/account_person_token"
       autoload :AccountToken, "stripe/resources/v2/core/account_token"
+      autoload :ClaimableSandbox, "stripe/resources/v2/core/claimable_sandbox"
       autoload :Event, "stripe/resources/v2/core/event"
       autoload :EventBase, "stripe/resources/v2/core/event_base"
       autoload :EventDestination, "stripe/resources/v2/core/event_destination"
@@ -1309,6 +1320,7 @@ module Stripe
     stripe/resources/v2/core/account_person
     stripe/resources/v2/core/account_person_token
     stripe/resources/v2/core/account_token
+    stripe/resources/v2/core/claimable_sandbox
     stripe/resources/v2/core/event
     stripe/resources/v2/core/event_destination
     stripe/resources/v2/core/vault/gb_bank_account
@@ -1619,6 +1631,11 @@ module Stripe
     stripe/events/v2_core_account_person_deleted_event
     stripe/events/v2_core_account_person_updated_event
     stripe/events/v2_core_account_updated_event
+    stripe/events/v2_core_claimable_sandbox_claimed_event
+    stripe/events/v2_core_claimable_sandbox_created_event
+    stripe/events/v2_core_claimable_sandbox_expired_event
+    stripe/events/v2_core_claimable_sandbox_expiring_event
+    stripe/events/v2_core_claimable_sandbox_updated_event
     stripe/events/v2_core_event_destination_ping_event
     stripe/events/v2_money_management_adjustment_created_event
     stripe/events/v2_money_management_financial_account_created_event

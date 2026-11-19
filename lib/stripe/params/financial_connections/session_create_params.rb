@@ -25,7 +25,7 @@ module Stripe
       class Filters < ::Stripe::RequestParams
         # Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
         attr_accessor :account_subcategories
-        # Country from which to collect accounts.
+        # Country from which to collect accounts. Supported values are `US` and `CA`.
         attr_accessor :country
         # Whether the session should require payment method support and successful account number retrieval before completion.
         attr_accessor :require_payment_method_support

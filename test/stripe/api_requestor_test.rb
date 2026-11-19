@@ -892,7 +892,7 @@ module Stripe
               client.send(request_method, :post, "/v1/charges", :api,
                           &@read_body_chunk_block)
             end
-            assert_equal 'Invalid response object from API: "" (HTTP response code was 500)', e.message
+            assert_equal 'Invalid response object from API: "" (HTTP response code was 500)', e.user_message
           end
 
           should "feed a request ID through to the error object" do
@@ -934,7 +934,7 @@ module Stripe
               client.send(request_method, :post, "/v1/charges", :api,
                           &@read_body_chunk_block)
             end
-            assert_equal 'Invalid response object from API: "{\"bar\":\"foo\"}" (HTTP response code was 500)', e.message
+            assert_equal 'Invalid response object from API: "{\"bar\":\"foo\"}" (HTTP response code was 500)', e.user_message
           end
 
           should "raise IdempotencyError on 400 of type idempotency_error" do
@@ -1064,7 +1064,7 @@ module Stripe
             end
 
             assert_equal(400, e.http_status)
-            assert_equal("No grant type specified", e.message)
+            assert_equal("No grant type specified", e.user_message)
           end
 
           should "raise OAuth::InvalidGrantError when error is a string with value 'invalid_grant'" do
@@ -1081,7 +1081,7 @@ module Stripe
 
             assert_equal(400, e.http_status)
             assert_equal("invalid_grant", e.code)
-            assert_equal("This authorization code has already been used. All tokens issued with this code have been revoked.", e.message)
+            assert_equal("This authorization code has already been used. All tokens issued with this code have been revoked.", e.user_message)
           end
 
           should "raise OAuth::InvalidClientError when error is a string with value 'invalid_client'" do
@@ -1098,7 +1098,7 @@ module Stripe
 
             assert_equal(401, e.http_status)
             assert_equal("invalid_client", e.code)
-            assert_equal("This application is not connected to stripe account acct_19tLK7DSlTMT26Mk, or that account does not exist.", e.message)
+            assert_equal("This application is not connected to stripe account acct_19tLK7DSlTMT26Mk, or that account does not exist.", e.user_message)
           end
 
           should "raise Stripe::OAuthError on indeterminate OAuth error" do
@@ -1115,7 +1115,7 @@ module Stripe
 
             assert_equal(401, e.http_status)
             assert_equal("new_code_not_recognized", e.code)
-            assert_equal("Something.", e.message)
+            assert_equal("Something.", e.user_message)
           end
         end
 
@@ -1422,7 +1422,7 @@ module Stripe
         e = assert_raises Stripe::APIError do
           requestor.execute_request(:post, "/v1/charges", :api)
         end
-        assert_equal 'Invalid response object from API: "" (HTTP response code was 200)', e.message
+        assert_equal 'Invalid response object from API: "" (HTTP response code was 200)', e.user_message
       end
 
       should "send JSON content body on post requests for v2 endpoints" do

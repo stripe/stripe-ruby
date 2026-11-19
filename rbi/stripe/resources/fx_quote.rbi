@@ -86,8 +86,6 @@ module Stripe
       sig { returns(T.nilable(Transfer)) }
       def transfer; end
       # The transaction type for which the FX Quote will be used.
-      #
-      # Can be 'payment' or 'transfer'.
       sig { returns(String) }
       def type; end
       def self.inner_class_types

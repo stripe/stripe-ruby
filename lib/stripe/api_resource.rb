@@ -130,8 +130,7 @@ module Stripe
     end
 
     def request_stripe_object(method:, path:, params:, base_address: :api, opts: {})
-      requestor = instance_variable_defined?(:@requestor) && @requestor ? @requestor : APIRequestor.active_requestor
-      requestor.execute_request_initialize_from(method, path, base_address, self, params: params, opts: opts)
+      @requestor.execute_request_initialize_from(method, path, base_address, self, params: params, opts: opts)
     end
 
     protected def request_stream(method:, path:, params:, base_address: :api, opts: {},

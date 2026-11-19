@@ -6,7 +6,6 @@ module Stripe
   module V2
     class BillingService < StripeService
       attr_reader :bill_settings
-      attr_reader :cadences
       attr_reader :collection_settings
       attr_reader :meter_events
       attr_reader :meter_event_adjustments

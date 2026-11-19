@@ -8,6 +8,37 @@ module Stripe
       # Use ReceivedDebits API to retrieve information on when, where, and how funds are debited from your FinancialAccount.
       class ReceivedDebit < APIResource
         class BankTransfer < ::Stripe::StripeObject
+          class OriginatingBankAccount < ::Stripe::StripeObject
+            class Aba < ::Stripe::StripeObject
+              # The name of the account holder that originated the debit, as provided by the ACH network.
+              sig { returns(T.nilable(String)) }
+              def account_holder_name; end
+              # The name of the bank the debit originated from.
+              sig { returns(T.nilable(String)) }
+              def bank_name; end
+              # The routing number of the bank that originated the debit.
+              sig { returns(T.nilable(String)) }
+              def routing_number; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Details of the originating account. Present when type is `aba`.
+            sig { returns(T.nilable(Aba)) }
+            def aba; end
+            # The credential type identifying the originating bank account.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {aba: Aba}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class UsBankAccount < ::Stripe::StripeObject
             # The name of the bank the debit originated from.
             sig { returns(T.nilable(String)) }
@@ -28,18 +59,29 @@ module Stripe
           # The Financial Address that was debited.
           sig { returns(String) }
           def financial_address; end
+          # The bank network the debit was originated on.
+          sig { returns(String) }
+          def network; end
+          # The originating bank account's credential details.
+          sig { returns(OriginatingBankAccount) }
+          def originating_bank_account; end
+          # Deprecated: Use `bank_transfer.originating_bank_account.type` instead.
           # Open Enum. The type of the payment method used to originate the debit.
           sig { returns(String) }
           def payment_method_type; end
           # The statement descriptor set by the originator of the debit.
           sig { returns(T.nilable(String)) }
           def statement_descriptor; end
+          # Deprecated: Use `bank_transfer.originating_bank_account.aba` instead.
           # Object containing details of the US Bank Account that originated the debit.
           # Present when the debit was originated via ACH.
           sig { returns(T.nilable(UsBankAccount)) }
           def us_bank_account; end
           def self.inner_class_types
-            @inner_class_types = {us_bank_account: UsBankAccount}
+            @inner_class_types = {
+              originating_bank_account: OriginatingBankAccount,
+              us_bank_account: UsBankAccount,
+            }
           end
           def self.field_remappings
             @field_remappings = {}

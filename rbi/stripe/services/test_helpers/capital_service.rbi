@@ -3,9 +3,9 @@
 
 # typed: true
 module Stripe
-  module V2
-    module Billing
-      class CadenceCancelParams < ::Stripe::RequestParams; end
+  module TestHelpers
+    class CapitalService < StripeService
+      attr_reader :financing_offers
     end
   end
 end

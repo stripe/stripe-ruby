@@ -444,6 +444,16 @@ module Stripe
         Events::V2CoreBatchJobValidatingEvent.lookup_type => Events::V2CoreBatchJobValidatingEvent,
         Events::V2CoreBatchJobValidationFailedEvent.lookup_type =>
         Events::V2CoreBatchJobValidationFailedEvent,
+        Events::V2CoreClaimableSandboxClaimedEvent.lookup_type =>
+        Events::V2CoreClaimableSandboxClaimedEvent,
+        Events::V2CoreClaimableSandboxCreatedEvent.lookup_type =>
+        Events::V2CoreClaimableSandboxCreatedEvent,
+        Events::V2CoreClaimableSandboxExpiredEvent.lookup_type =>
+        Events::V2CoreClaimableSandboxExpiredEvent,
+        Events::V2CoreClaimableSandboxExpiringEvent.lookup_type =>
+        Events::V2CoreClaimableSandboxExpiringEvent,
+        Events::V2CoreClaimableSandboxUpdatedEvent.lookup_type =>
+        Events::V2CoreClaimableSandboxUpdatedEvent,
         Events::V2CoreEventDestinationPingEvent.lookup_type => Events::V2CoreEventDestinationPingEvent,
         Events::V2CoreHealthEventGenerationFailureResolvedEvent.lookup_type =>
         Events::V2CoreHealthEventGenerationFailureResolvedEvent,
@@ -1144,6 +1154,16 @@ module Stripe
         Events::V2CoreBatchJobValidatingEventNotification,
         Events::V2CoreBatchJobValidationFailedEventNotification.lookup_type =>
         Events::V2CoreBatchJobValidationFailedEventNotification,
+        Events::V2CoreClaimableSandboxClaimedEventNotification.lookup_type =>
+        Events::V2CoreClaimableSandboxClaimedEventNotification,
+        Events::V2CoreClaimableSandboxCreatedEventNotification.lookup_type =>
+        Events::V2CoreClaimableSandboxCreatedEventNotification,
+        Events::V2CoreClaimableSandboxExpiredEventNotification.lookup_type =>
+        Events::V2CoreClaimableSandboxExpiredEventNotification,
+        Events::V2CoreClaimableSandboxExpiringEventNotification.lookup_type =>
+        Events::V2CoreClaimableSandboxExpiringEventNotification,
+        Events::V2CoreClaimableSandboxUpdatedEventNotification.lookup_type =>
+        Events::V2CoreClaimableSandboxUpdatedEventNotification,
         Events::V2CoreEventDestinationPingEventNotification.lookup_type =>
         Events::V2CoreEventDestinationPingEventNotification,
         Events::V2CoreHealthEventGenerationFailureResolvedEventNotification.lookup_type =>

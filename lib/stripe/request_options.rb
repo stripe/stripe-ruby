@@ -24,9 +24,10 @@ module Stripe
       OPTS_USER_SPECIFIED + Set[:api_base]
     ).freeze
 
-    # Options that should be persisted between API requests.
+    # Account and context identify the resource's authorization scope and
+    # must persist for subsequent operations, unlike an idempotency key.
     OPTS_PERSISTABLE = (
-      OPTS_USER_SPECIFIED - Set[:idempotency_key, :stripe_context]
+      OPTS_USER_SPECIFIED - Set[:idempotency_key]
     ).freeze
 
     # Written in place of API keys when a StripeObject is serialized with
@@ -77,6 +78,22 @@ module Stripe
       merged_opts.delete_if { |_, v| v.nil? }
 
       merged_opts
+    end
+
+    # Retain absent selectors so restoring a scope can clear ambient defaults.
+    def self.authorization_scope(config, opts)
+      merged_opts = merge_config_and_opts(config, opts)
+      { stripe_account: merged_opts[:stripe_account], stripe_context: merged_opts[:stripe_context] }
+    end
+
+    # Caller-owned selector strings must not change the authorization scope of a live resource.
+    def self.snapshot_authorization_selectors(opts)
+      opts.dup.tap do |snapshot|
+        %i[stripe_account stripe_context].each do |selector|
+          value = snapshot[selector]
+          snapshot[selector] = value.dup.freeze if value.is_a?(String)
+        end
+      end
     end
 
     # Merges requestor options hash on a StripeObject

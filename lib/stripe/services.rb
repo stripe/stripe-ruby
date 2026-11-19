@@ -255,6 +255,7 @@ module Stripe
   end
 
   module TestHelpers
+    autoload :CapitalService, "stripe/services/test_helpers/capital_service"
     autoload :ConfirmationTokenService, "stripe/services/test_helpers/confirmation_token_service"
     autoload :CustomerService, "stripe/services/test_helpers/customer_service"
     autoload :IssuingService, "stripe/services/test_helpers/issuing_service"
@@ -263,6 +264,10 @@ module Stripe
     autoload :TerminalService, "stripe/services/test_helpers/terminal_service"
     autoload :TestClockService, "stripe/services/test_helpers/test_clock_service"
     autoload :TreasuryService, "stripe/services/test_helpers/treasury_service"
+
+    module Capital
+      autoload :FinancingOfferService, "stripe/services/test_helpers/capital/financing_offer_service"
+    end
 
     module Issuing
       autoload :AuthorizationService, "stripe/services/test_helpers/issuing/authorization_service"
@@ -321,7 +326,6 @@ module Stripe
 
     module Billing
       autoload :BillSettingService, "stripe/services/v2/billing/bill_setting_service"
-      autoload :CadenceService, "stripe/services/v2/billing/cadence_service"
       autoload :CollectionSettingService, "stripe/services/v2/billing/collection_setting_service"
       autoload :MeterEventAdjustmentService, "stripe/services/v2/billing/meter_event_adjustment_service"
       autoload :MeterEventService, "stripe/services/v2/billing/meter_event_service"
@@ -352,6 +356,7 @@ module Stripe
       autoload :AccountTokenService, "stripe/services/v2/core/account_token_service"
       autoload :ApprovalRequestService, "stripe/services/v2/core/approval_request_service"
       autoload :BatchJobService, "stripe/services/v2/core/batch_job_service"
+      autoload :ClaimableSandboxService, "stripe/services/v2/core/claimable_sandbox_service"
       autoload :EventDestinationService, "stripe/services/v2/core/event_destination_service"
       autoload :EventService, "stripe/services/v2/core/event_service"
       autoload :VaultService, "stripe/services/v2/core/vault_service"
@@ -614,6 +619,8 @@ module Stripe
     stripe/services/terminal/reader_collected_data_service
     stripe/services/terminal/reader_service
     stripe/services/terminal_service
+    stripe/services/test_helpers/capital/financing_offer_service
+    stripe/services/test_helpers/capital_service
     stripe/services/test_helpers/confirmation_token_service
     stripe/services/test_helpers/customer_service
     stripe/services/test_helpers/issuing/authorization_service
@@ -655,7 +662,6 @@ module Stripe
     stripe/services/v1_services
     stripe/services/v2/billing/bill_setting_service
     stripe/services/v2/billing/bill_settings/version_service
-    stripe/services/v2/billing/cadence_service
     stripe/services/v2/billing/collection_setting_service
     stripe/services/v2/billing/collection_settings/version_service
     stripe/services/v2/billing/meter_event_adjustment_service
@@ -674,6 +680,7 @@ module Stripe
     stripe/services/v2/core/accounts/person_token_service
     stripe/services/v2/core/approval_request_service
     stripe/services/v2/core/batch_job_service
+    stripe/services/v2/core/claimable_sandbox_service
     stripe/services/v2/core/event_destination_service
     stripe/services/v2/core/event_service
     stripe/services/v2/core/vault/gb_bank_account_service

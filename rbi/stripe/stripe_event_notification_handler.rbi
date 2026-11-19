@@ -1882,6 +1882,36 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreClaimableSandboxClaimedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_claimable_sandbox_claimed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreClaimableSandboxCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_claimable_sandbox_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreClaimableSandboxExpiredEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_claimable_sandbox_expired(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreClaimableSandboxExpiringEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_claimable_sandbox_expiring(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreClaimableSandboxUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_claimable_sandbox_updated(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreEventDestinationPingEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_event_destination_ping(&blk);

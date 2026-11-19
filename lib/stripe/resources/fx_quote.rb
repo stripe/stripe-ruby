@@ -91,8 +91,6 @@ module Stripe
       # The details required to use an FX Quote for a transfer
       attr_reader :transfer
       # The transaction type for which the FX Quote will be used.
-      #
-      # Can be 'payment' or 'transfer'.
       attr_reader :type
 
       def self.inner_class_types

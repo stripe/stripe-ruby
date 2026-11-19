@@ -3,9 +3,9 @@
 
 module Stripe
   module V2
-    module Billing
-      class CadenceRetrieveParams < ::Stripe::RequestParams
-        # Additional resource to include in the response.
+    module Core
+      class ClaimableSandboxRetrieveParams < ::Stripe::RequestParams
+        # Additional fields to include in the response.
         attr_accessor :include
 
         def initialize(include: nil)

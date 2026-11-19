@@ -11,11 +11,14 @@ module Stripe
         attr_accessor :actions
         # Maximum number of results to return per page.
         attr_accessor :limit
+        # Controls which activity logs an organization-level request returns. Specify `@self` to return logs recorded in the organization context and `@organization_members` to return logs recorded in accounts that belong to the organization. Specify both values to return logs from both sources. Defaults to `["@self"]` when omitted. Cannot be empty.
+        attr_accessor :logs_from
 
-        def initialize(action_groups: nil, actions: nil, limit: nil)
+        def initialize(action_groups: nil, actions: nil, limit: nil, logs_from: nil)
           @action_groups = action_groups
           @actions = actions
           @limit = limit
+          @logs_from = logs_from
         end
       end
     end

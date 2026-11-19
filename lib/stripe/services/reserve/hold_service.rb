@@ -4,7 +4,7 @@
 module Stripe
   module Reserve
     class HoldService < StripeService
-      # Returns a list of ReserveHolds previously created. The ReserveHolds are returned in sorted order, with the most recent ReserveHolds appearing first.
+      # Returns a list of ReserveHolds on your account or on one of your connected accounts. The ReserveHolds are returned in sorted order, with the most recent ReserveHolds appearing first.
       def list(params = {}, opts = {})
         request(
           method: :get,
@@ -15,7 +15,7 @@ module Stripe
         )
       end
 
-      # Retrieve a ReserveHold.
+      # Retrieve a ReserveHold on your account or on one of your connected accounts.
       def retrieve(id, params = {}, opts = {})
         request(
           method: :get,

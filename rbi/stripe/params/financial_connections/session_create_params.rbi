@@ -39,7 +39,7 @@ module Stripe
           params(_account_subcategories: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
          }
         def account_subcategories=(_account_subcategories); end
-        # Country from which to collect accounts.
+        # Country from which to collect accounts. Supported values are `US` and `CA`.
         sig { returns(T.nilable(String)) }
         def country; end
         sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }

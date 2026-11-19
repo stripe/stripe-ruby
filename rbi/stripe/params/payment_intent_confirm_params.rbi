@@ -5946,39 +5946,39 @@ module Stripe
       end
       class CardPresent < ::Stripe::RequestParams
         class AadeData < ::Stripe::RequestParams
-          # The canonical string that was signed by the e-invoicing provider to produce `signed_mark`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
-          sig { returns(T.nilable(String)) }
-          def mark_data; end
-          sig { params(_mark_data: T.nilable(String)).returns(T.nilable(String)) }
-          def mark_data=(_mark_data); end
-          # The e-invoicing mode under which the mark was generated.
+          # The e-invoicing mode under which the provider signature was generated.
           sig { returns(String) }
           def mode; end
           sig { params(_mode: String).returns(String) }
           def mode=(_mode); end
-          # The AADE-assigned approval number of the e-invoicing provider that generated the mark. Required when `mode` is `standard`.
+          # The AADE-assigned approval number of the e-invoicing provider that generated the provider signature. Required when `mode` is `standard`.
           sig { returns(T.nilable(Integer)) }
           def provider_id; end
           sig { params(_provider_id: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def provider_id=(_provider_id); end
           # The cryptographic signature returned by the e-invoicing provider for this transaction, hex-encoded. Required when `mode` is `standard`.
           sig { returns(T.nilable(String)) }
-          def signed_mark; end
-          sig { params(_signed_mark: T.nilable(String)).returns(T.nilable(String)) }
-          def signed_mark=(_signed_mark); end
+          def provider_signature; end
+          sig { params(_provider_signature: T.nilable(String)).returns(T.nilable(String)) }
+          def provider_signature=(_provider_signature); end
+          # The canonical string that was signed by the e-invoicing provider to produce `provider_signature`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
+          sig { returns(T.nilable(String)) }
+          def provider_signature_data; end
+          sig { params(_provider_signature_data: T.nilable(String)).returns(T.nilable(String)) }
+          def provider_signature_data=(_provider_signature_data); end
           # The reason for entering autonomous mode. Required when `mode` is `autonomous`.
           sig { returns(T.nilable(String)) }
           def unbound_pos; end
           sig { params(_unbound_pos: T.nilable(String)).returns(T.nilable(String)) }
           def unbound_pos=(_unbound_pos); end
           sig {
-            params(mark_data: T.nilable(String), mode: String, provider_id: T.nilable(Integer), signed_mark: T.nilable(String), unbound_pos: T.nilable(String)).void
+            params(mode: String, provider_id: T.nilable(Integer), provider_signature: T.nilable(String), provider_signature_data: T.nilable(String), unbound_pos: T.nilable(String)).void
            }
           def initialize(
-            mark_data: nil,
             mode: nil,
             provider_id: nil,
-            signed_mark: nil,
+            provider_signature: nil,
+            provider_signature_data: nil,
             unbound_pos: nil
           ); end
         end
@@ -9531,6 +9531,11 @@ module Stripe
           params(_payment_details: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Vipps::PaymentDetails)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Vipps::PaymentDetails))
          }
         def payment_details=(_payment_details); end
+        # Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
+        sig { returns(T.nilable(String)) }
+        def request_multicapture; end
+        sig { params(_request_multicapture: T.nilable(String)).returns(T.nilable(String)) }
+        def request_multicapture=(_request_multicapture); end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -9545,9 +9550,14 @@ module Stripe
         sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(capture_method: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Vipps::PaymentDetails), setup_future_usage: T.nilable(String)).void
+          params(capture_method: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Vipps::PaymentDetails), request_multicapture: T.nilable(String), setup_future_usage: T.nilable(String)).void
          }
-        def initialize(capture_method: nil, payment_details: nil, setup_future_usage: nil); end
+        def initialize(
+          capture_method: nil,
+          payment_details: nil,
+          request_multicapture: nil,
+          setup_future_usage: nil
+        ); end
       end
       class WechatPay < ::Stripe::RequestParams
         # The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
@@ -10307,6 +10317,13 @@ module Stripe
       ); end
     end
     class RadarOptions < ::Stripe::RequestParams
+      # Whether this transaction starts a free trial. Set to `true` for a free trial or `false` otherwise. If omitted, retains the previously set value. If never set, Stripe uses Billing or metadata to determine trial status.
+      sig { returns(T.nilable(T::Boolean)) }
+      def is_free_trial_transaction; end
+      sig {
+        params(_is_free_trial_transaction: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+       }
+      def is_free_trial_transaction=(_is_free_trial_transaction); end
       # The referrer URL of the current checkout session. You can use this to supply session-level referrer data when a Radar Session isn't available or doesn't contain a referrer.
       sig { returns(T.nilable(String)) }
       def referrer; end
@@ -10317,8 +10334,10 @@ module Stripe
       def session; end
       sig { params(_session: T.nilable(String)).returns(T.nilable(String)) }
       def session=(_session); end
-      sig { params(referrer: T.nilable(String), session: T.nilable(String)).void }
-      def initialize(referrer: nil, session: nil); end
+      sig {
+        params(is_free_trial_transaction: T.nilable(T::Boolean), referrer: T.nilable(String), session: T.nilable(String)).void
+       }
+      def initialize(is_free_trial_transaction: nil, referrer: nil, session: nil); end
     end
     class Shipping < ::Stripe::RequestParams
       class Address < ::Stripe::RequestParams

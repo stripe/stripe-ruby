@@ -2064,7 +2064,7 @@ module Stripe
       end
 
       class NzBankAccount < ::Stripe::StripeObject
-        # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
+        # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
         attr_reader :account_holder_name
         # The numeric code for the bank account's bank.
         attr_reader :bank_code

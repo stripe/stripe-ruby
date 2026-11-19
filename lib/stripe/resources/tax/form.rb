@@ -751,7 +751,9 @@ module Stripe
       # Attribute for field us_1099_nec
       attr_reader :us_1099_nec
 
-      # Creates a correction for a filed tax form. Supply either payee details or numerical values for the tax form type. Created correction forms are not filed automatically.
+      # Creates a correction for a filed tax form. Supply either payee details or numerical values for the tax form type.
+      #
+      # Private preview. API access is invite-only. Contact Stripe to request access. Creating a correction doesn't file it; review, attestation, and filing remain in the Dashboard.
       def self.create(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,

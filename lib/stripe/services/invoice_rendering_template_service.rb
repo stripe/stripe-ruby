@@ -14,6 +14,17 @@ module Stripe
       )
     end
 
+    # Creates an invoice rendering template.
+    def create(params = {}, opts = {})
+      request(
+        method: :post,
+        path: "/v1/invoice_rendering_templates",
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
     # List all templates, ordered by creation date, with the most recently created template appearing first.
     def list(params = {}, opts = {})
       request(
@@ -71,6 +82,17 @@ module Stripe
       request(
         method: :post,
         path: format("/v1/invoice_rendering_templates/%<template>s/unarchive", { template: CGI.escape(template) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
+    # Updates an existing invoice rendering template.
+    def update(template, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/invoice_rendering_templates/%<template>s", { template: CGI.escape(template) }),
         params: params,
         opts: opts,
         base_address: :api

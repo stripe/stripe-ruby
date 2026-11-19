@@ -261,7 +261,7 @@ module Stripe
       end
       class VerifyWithMicrodeposits < ::Stripe::StripeObject
         # The timestamp when the microdeposits are expected to land. Null for instant microdeposits.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def arrival_date; end
         # The URL for the hosted verification page, which allows customers to verify their bank account.
         sig { returns(String) }

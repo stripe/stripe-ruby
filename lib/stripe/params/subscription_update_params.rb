@@ -809,6 +809,8 @@ module Stripe
               @description = description
             end
           end
+          # Controls early collection for eligible recurring payments on India-issued cards. Target-date billing aims to debit on the billing-cycle date but does not guarantee that date.
+          attr_accessor :debit_behavior
           # Configuration options for setting up an eMandate for cards issued in India.
           attr_accessor :mandate_options
           # Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
@@ -816,7 +818,13 @@ module Stripe
           # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
           attr_accessor :request_three_d_secure
 
-          def initialize(mandate_options: nil, network: nil, request_three_d_secure: nil)
+          def initialize(
+            debit_behavior: nil,
+            mandate_options: nil,
+            network: nil,
+            request_three_d_secure: nil
+          )
+            @debit_behavior = debit_behavior
             @mandate_options = mandate_options
             @network = network
             @request_three_d_secure = request_three_d_secure
@@ -902,12 +910,15 @@ module Stripe
               @payment_schedule = payment_schedule
             end
           end
+          # Timing configuration for collecting funds from the customer's account.
+          attr_accessor :debit_behavior
           # The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If unspecified, defaults to 14400 seconds (4 hours).
           attr_accessor :expires_after_seconds
           # Configuration options for setting up a mandate
           attr_accessor :mandate_options
 
-          def initialize(expires_after_seconds: nil, mandate_options: nil)
+          def initialize(debit_behavior: nil, expires_after_seconds: nil, mandate_options: nil)
+            @debit_behavior = debit_behavior
             @expires_after_seconds = expires_after_seconds
             @mandate_options = mandate_options
           end
@@ -940,10 +951,13 @@ module Stripe
               @end_date = end_date
             end
           end
+          # Controls when the funds will be captured from the customer's account. Defaults to `not_specified`. Omit this parameter on an update to preserve the saved value; pass `not_specified` to clear it. Early collection is best effort and doesn't guarantee an exact debit date.
+          attr_accessor :debit_behavior
           # Configuration options for setting up an eMandate
           attr_accessor :mandate_options
 
-          def initialize(mandate_options: nil)
+          def initialize(debit_behavior: nil, mandate_options: nil)
+            @debit_behavior = debit_behavior
             @mandate_options = mandate_options
           end
         end
@@ -1152,8 +1166,6 @@ module Stripe
     attr_accessor :application_fee_percent
     # Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
     attr_accessor :automatic_tax
-    # The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
-    attr_accessor :billing_cadence
     # Controls how the subscription's billing cycle anchor changes. Set `type` to `now` to reset the billing cycle anchor to the current time (in UTC), or `unchanged` to preserve it. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     attr_accessor :billing_cycle_anchor
     # The Billing Group which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
@@ -1223,7 +1235,6 @@ module Stripe
       add_invoice_items: nil,
       application_fee_percent: nil,
       automatic_tax: nil,
-      billing_cadence: nil,
       billing_cycle_anchor: nil,
       billing_group: nil,
       billing_schedules: nil,
@@ -1260,7 +1271,6 @@ module Stripe
       @add_invoice_items = add_invoice_items
       @application_fee_percent = application_fee_percent
       @automatic_tax = automatic_tax
-      @billing_cadence = billing_cadence
       @billing_cycle_anchor = billing_cycle_anchor
       @billing_group = billing_group
       @billing_schedules = billing_schedules

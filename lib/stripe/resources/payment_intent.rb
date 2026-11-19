@@ -3811,14 +3811,14 @@ module Stripe
 
       class CardPresent < ::Stripe::StripeObject
         class AadeData < ::Stripe::StripeObject
-          # The canonical string that was signed by the e-invoicing provider to produce `signed_mark`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
-          attr_reader :mark_data
-          # The e-invoicing mode under which the mark was generated.
+          # The e-invoicing mode under which the provider signature was generated.
           attr_reader :mode
-          # The AADE-assigned approval number of the e-invoicing provider that generated the mark. Required when `mode` is `standard`.
+          # The AADE-assigned approval number of the e-invoicing provider that generated the provider signature. Required when `mode` is `standard`.
           attr_reader :provider_id
           # The cryptographic signature returned by the e-invoicing provider for this transaction, hex-encoded. Required when `mode` is `standard`.
-          attr_reader :signed_mark
+          attr_reader :provider_signature
+          # The canonical string that was signed by the e-invoicing provider to produce `provider_signature`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
+          attr_reader :provider_signature_data
           # The reason for entering autonomous mode. Required when `mode` is `autonomous`.
           attr_reader :unbound_pos
 
@@ -5321,6 +5321,8 @@ module Stripe
         attr_reader :capture_method
         # Attribute for field payment_details
         attr_reader :payment_details
+        # Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
+        attr_reader :request_multicapture
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -5672,6 +5674,19 @@ module Stripe
       end
     end
 
+    class RadarOptions < ::Stripe::StripeObject
+      # The value you provided for whether this transaction starts a free trial. This is null if you haven't explicitly set it.
+      attr_reader :is_free_trial_transaction
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Redaction < ::Stripe::StripeObject
       # Indicates whether this object and its related objects have been redacted or not.
       attr_reader :status
@@ -5865,6 +5880,8 @@ module Stripe
     attr_reader :presentment_details
     # If present, this property tells you about the processing state of the payment.
     attr_reader :processing
+    # Options to configure Radar.
+    attr_reader :radar_options
     # Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
     attr_reader :receipt_email
     # Redaction status of this PaymentIntent. If the PaymentIntent isn't redacted, this field is null.
@@ -6363,6 +6380,7 @@ module Stripe
         payments_orchestration: PaymentsOrchestration,
         presentment_details: PresentmentDetails,
         processing: Processing,
+        radar_options: RadarOptions,
         redaction: Redaction,
         shipping: Shipping,
         transfer_data: TransferData,

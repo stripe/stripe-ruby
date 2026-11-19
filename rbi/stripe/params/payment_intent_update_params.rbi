@@ -5913,39 +5913,39 @@ module Stripe
       end
       class CardPresent < ::Stripe::RequestParams
         class AadeData < ::Stripe::RequestParams
-          # The canonical string that was signed by the e-invoicing provider to produce `signed_mark`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
-          sig { returns(T.nilable(String)) }
-          def mark_data; end
-          sig { params(_mark_data: T.nilable(String)).returns(T.nilable(String)) }
-          def mark_data=(_mark_data); end
-          # The e-invoicing mode under which the mark was generated.
+          # The e-invoicing mode under which the provider signature was generated.
           sig { returns(String) }
           def mode; end
           sig { params(_mode: String).returns(String) }
           def mode=(_mode); end
-          # The AADE-assigned approval number of the e-invoicing provider that generated the mark. Required when `mode` is `standard`.
+          # The AADE-assigned approval number of the e-invoicing provider that generated the provider signature. Required when `mode` is `standard`.
           sig { returns(T.nilable(Integer)) }
           def provider_id; end
           sig { params(_provider_id: T.nilable(Integer)).returns(T.nilable(Integer)) }
           def provider_id=(_provider_id); end
           # The cryptographic signature returned by the e-invoicing provider for this transaction, hex-encoded. Required when `mode` is `standard`.
           sig { returns(T.nilable(String)) }
-          def signed_mark; end
-          sig { params(_signed_mark: T.nilable(String)).returns(T.nilable(String)) }
-          def signed_mark=(_signed_mark); end
+          def provider_signature; end
+          sig { params(_provider_signature: T.nilable(String)).returns(T.nilable(String)) }
+          def provider_signature=(_provider_signature); end
+          # The canonical string that was signed by the e-invoicing provider to produce `provider_signature`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
+          sig { returns(T.nilable(String)) }
+          def provider_signature_data; end
+          sig { params(_provider_signature_data: T.nilable(String)).returns(T.nilable(String)) }
+          def provider_signature_data=(_provider_signature_data); end
           # The reason for entering autonomous mode. Required when `mode` is `autonomous`.
           sig { returns(T.nilable(String)) }
           def unbound_pos; end
           sig { params(_unbound_pos: T.nilable(String)).returns(T.nilable(String)) }
           def unbound_pos=(_unbound_pos); end
           sig {
-            params(mark_data: T.nilable(String), mode: String, provider_id: T.nilable(Integer), signed_mark: T.nilable(String), unbound_pos: T.nilable(String)).void
+            params(mode: String, provider_id: T.nilable(Integer), provider_signature: T.nilable(String), provider_signature_data: T.nilable(String), unbound_pos: T.nilable(String)).void
            }
           def initialize(
-            mark_data: nil,
             mode: nil,
             provider_id: nil,
-            signed_mark: nil,
+            provider_signature: nil,
+            provider_signature_data: nil,
             unbound_pos: nil
           ); end
         end
@@ -9498,6 +9498,11 @@ module Stripe
           params(_payment_details: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Vipps::PaymentDetails)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Vipps::PaymentDetails))
          }
         def payment_details=(_payment_details); end
+        # Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
+        sig { returns(T.nilable(String)) }
+        def request_multicapture; end
+        sig { params(_request_multicapture: T.nilable(String)).returns(T.nilable(String)) }
+        def request_multicapture=(_request_multicapture); end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -9512,9 +9517,14 @@ module Stripe
         sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(capture_method: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Vipps::PaymentDetails), setup_future_usage: T.nilable(String)).void
+          params(capture_method: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Vipps::PaymentDetails), request_multicapture: T.nilable(String), setup_future_usage: T.nilable(String)).void
          }
-        def initialize(capture_method: nil, payment_details: nil, setup_future_usage: nil); end
+        def initialize(
+          capture_method: nil,
+          payment_details: nil,
+          request_multicapture: nil,
+          setup_future_usage: nil
+        ); end
       end
       class WechatPay < ::Stripe::RequestParams
         # The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
@@ -10566,7 +10576,7 @@ module Stripe
     def statement_descriptor; end
     sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
     def statement_descriptor=(_statement_descriptor); end
-    # Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
+    # Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. A suffix longer than 22 characters returns an error. If a valid suffix makes the complete statement descriptor longer than 22 characters, Stripe truncates the descriptor instead of returning an error. Learn how to [fit the suffix in the complete descriptor](https://docs.stripe.com/get-started/account/statement-descriptors#suffix-length).
     sig { returns(T.nilable(String)) }
     def statement_descriptor_suffix; end
     sig { params(_statement_descriptor_suffix: T.nilable(String)).returns(T.nilable(String)) }

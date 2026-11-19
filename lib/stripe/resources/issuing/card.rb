@@ -340,7 +340,7 @@ module Stripe
       attr_reader :id
       # The last 4 digits of the card number.
       attr_reader :last4
-      # Stripe’s assessment of whether this card’s details have been compromised. If this property isn't null, cancel and reissue the card to prevent fraudulent activity risk.
+      # Stripe’s assessment of whether this card’s details have been compromised. If this property isn’t null, cancel and reissue the card to reduce the risk of fraudulent activity. Stripe may remove a fraud warning if the cardholder confirms that the activity on the card is legitimate.
       attr_reader :latest_fraud_warning
       # Rules that control the lifecycle of this card, such as automatic cancellation. Refer to our [documentation](/issuing/controls/lifecycle-controls) for more details.
       attr_reader :lifecycle_controls

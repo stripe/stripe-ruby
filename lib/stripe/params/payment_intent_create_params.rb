@@ -3882,28 +3882,28 @@ module Stripe
 
       class CardPresent < ::Stripe::RequestParams
         class AadeData < ::Stripe::RequestParams
-          # The canonical string that was signed by the e-invoicing provider to produce `signed_mark`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
-          attr_accessor :mark_data
-          # The e-invoicing mode under which the mark was generated.
+          # The e-invoicing mode under which the provider signature was generated.
           attr_accessor :mode
-          # The AADE-assigned approval number of the e-invoicing provider that generated the mark. Required when `mode` is `standard`.
+          # The AADE-assigned approval number of the e-invoicing provider that generated the provider signature. Required when `mode` is `standard`.
           attr_accessor :provider_id
           # The cryptographic signature returned by the e-invoicing provider for this transaction, hex-encoded. Required when `mode` is `standard`.
-          attr_accessor :signed_mark
+          attr_accessor :provider_signature
+          # The canonical string that was signed by the e-invoicing provider to produce `provider_signature`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
+          attr_accessor :provider_signature_data
           # The reason for entering autonomous mode. Required when `mode` is `autonomous`.
           attr_accessor :unbound_pos
 
           def initialize(
-            mark_data: nil,
             mode: nil,
             provider_id: nil,
-            signed_mark: nil,
+            provider_signature: nil,
+            provider_signature_data: nil,
             unbound_pos: nil
           )
-            @mark_data = mark_data
             @mode = mode
             @provider_id = provider_id
-            @signed_mark = signed_mark
+            @provider_signature = provider_signature
+            @provider_signature_data = provider_signature_data
             @unbound_pos = unbound_pos
           end
         end
@@ -6424,6 +6424,8 @@ module Stripe
         attr_accessor :capture_method
         # Payment details for payment method specific funding transaction fields.
         attr_accessor :payment_details
+        # Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
+        attr_accessor :request_multicapture
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -6435,9 +6437,15 @@ module Stripe
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         attr_accessor :setup_future_usage
 
-        def initialize(capture_method: nil, payment_details: nil, setup_future_usage: nil)
+        def initialize(
+          capture_method: nil,
+          payment_details: nil,
+          request_multicapture: nil,
+          setup_future_usage: nil
+        )
           @capture_method = capture_method
           @payment_details = payment_details
+          @request_multicapture = request_multicapture
           @setup_future_usage = setup_future_usage
         end
       end
@@ -6783,12 +6791,15 @@ module Stripe
     end
 
     class RadarOptions < ::Stripe::RequestParams
+      # Whether this transaction starts a free trial. Set to `true` for a free trial or `false` otherwise. If omitted, retains the previously set value. If never set, Stripe uses Billing or metadata to determine trial status.
+      attr_accessor :is_free_trial_transaction
       # The referrer URL of the current checkout session. You can use this to supply session-level referrer data when a Radar Session isn't available or doesn't contain a referrer.
       attr_accessor :referrer
       # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       attr_accessor :session
 
-      def initialize(referrer: nil, session: nil)
+      def initialize(is_free_trial_transaction: nil, referrer: nil, session: nil)
+        @is_free_trial_transaction = is_free_trial_transaction
         @referrer = referrer
         @session = session
       end
@@ -6989,7 +7000,7 @@ module Stripe
     #
     # Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
     attr_accessor :statement_descriptor
-    # Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
+    # Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. A suffix longer than 22 characters returns an error. If a valid suffix makes the complete statement descriptor longer than 22 characters, Stripe truncates the descriptor instead of returning an error. Learn how to [fit the suffix in the complete descriptor](https://docs.stripe.com/get-started/account/statement-descriptors#suffix-length).
     attr_accessor :statement_descriptor_suffix
     # The parameters that you can use to automatically create a Transfer.
     # Learn more about the [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).

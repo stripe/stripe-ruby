@@ -300,19 +300,23 @@ module Stripe
       attr_accessor :metadata
       # Details about the payment.
       attr_accessor :payment_details
+      # The signals to return in the Payment Evaluation response. Must include `fraudulent_payment`. If omitted, only `fraudulent_payment` is returned.
+      attr_accessor :requested_signals
 
       def initialize(
         client_device_metadata_details: nil,
         customer_details: nil,
         expand: nil,
         metadata: nil,
-        payment_details: nil
+        payment_details: nil,
+        requested_signals: nil
       )
         @client_device_metadata_details = client_device_metadata_details
         @customer_details = customer_details
         @expand = expand
         @metadata = metadata
         @payment_details = payment_details
+        @requested_signals = requested_signals
       end
     end
   end

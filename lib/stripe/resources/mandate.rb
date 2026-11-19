@@ -152,8 +152,26 @@ module Stripe
 
       class Card < ::Stripe::StripeObject
         class India < ::Stripe::StripeObject
+          # The registered amount in the smallest currency unit. For a maximum amount mandate, this is the authorized ceiling.
+          attr_reader :amount
+          # Whether the registered amount is fixed or a maximum.
+          attr_reader :amount_type
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          attr_reader :currency
+          # The stored mandate description, before SIHub registration removes non-alphanumeric characters.
+          attr_reader :description
+          # The registered end date, represented as midnight in India Standard Time, if specified.
+          attr_reader :end_date
           # The reason why the mandate has an `inactive` status. This field is only populated if the mandate is inactive.
           attr_reader :inactive_reason
+          # The registered payment interval. This can differ from the interval originally requested.
+          attr_reader :interval
+          # The number of intervals between registered payments. Null for sporadic mandates.
+          attr_reader :interval_count
+          # The reference registered for this mandate.
+          attr_reader :reference
+          # The registered start date, represented as midnight in India Standard Time.
+          attr_reader :start_date
 
           def self.inner_class_types
             @inner_class_types = {}

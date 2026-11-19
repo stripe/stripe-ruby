@@ -5,8 +5,8 @@ module Stripe
   module V2
     module Billing
       class RateCardSubscriptionCreateParams < ::Stripe::RequestParams
-        # The ID of the Billing Cadence.
-        attr_accessor :billing_cadence
+        # The ID of the Billing Group.
+        attr_accessor :billing_group
         # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_accessor :metadata
         # The ID of the Rate Card.
@@ -14,8 +14,8 @@ module Stripe
         # The ID of the Rate Card Version. If not specified, defaults to the "live_version" of the Rate Card at the time of creation.
         attr_accessor :rate_card_version
 
-        def initialize(billing_cadence: nil, metadata: nil, rate_card: nil, rate_card_version: nil)
-          @billing_cadence = billing_cadence
+        def initialize(billing_group: nil, metadata: nil, rate_card: nil, rate_card_version: nil)
+          @billing_group = billing_group
           @metadata = metadata
           @rate_card = rate_card
           @rate_card_version = rate_card_version

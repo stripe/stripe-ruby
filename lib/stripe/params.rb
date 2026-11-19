@@ -163,9 +163,11 @@ module Stripe
   autoload :InvoicePayParams, "stripe/params/invoice_pay_params"
   autoload :InvoiceRemoveLinesParams, "stripe/params/invoice_remove_lines_params"
   autoload :InvoiceRenderingTemplateArchiveParams, "stripe/params/invoice_rendering_template_archive_params"
+  autoload :InvoiceRenderingTemplateCreateParams, "stripe/params/invoice_rendering_template_create_params"
   autoload :InvoiceRenderingTemplateListParams, "stripe/params/invoice_rendering_template_list_params"
   autoload :InvoiceRenderingTemplateRetrieveParams, "stripe/params/invoice_rendering_template_retrieve_params"
   autoload :InvoiceRenderingTemplateUnarchiveParams, "stripe/params/invoice_rendering_template_unarchive_params"
+  autoload :InvoiceRenderingTemplateUpdateParams, "stripe/params/invoice_rendering_template_update_params"
   autoload :InvoiceRetrieveParams, "stripe/params/invoice_retrieve_params"
   autoload :InvoiceSearchParams, "stripe/params/invoice_search_params"
   autoload :InvoiceSendInvoiceParams, "stripe/params/invoice_send_invoice_params"
@@ -950,11 +952,6 @@ module Stripe
       autoload :BillSettingListParams, "stripe/params/v2/billing/bill_setting_list_params"
       autoload :BillSettingRetrieveParams, "stripe/params/v2/billing/bill_setting_retrieve_params"
       autoload :BillSettingUpdateParams, "stripe/params/v2/billing/bill_setting_update_params"
-      autoload :CadenceCancelParams, "stripe/params/v2/billing/cadence_cancel_params"
-      autoload :CadenceCreateParams, "stripe/params/v2/billing/cadence_create_params"
-      autoload :CadenceListParams, "stripe/params/v2/billing/cadence_list_params"
-      autoload :CadenceRetrieveParams, "stripe/params/v2/billing/cadence_retrieve_params"
-      autoload :CadenceUpdateParams, "stripe/params/v2/billing/cadence_update_params"
       autoload :CollectionSettingCreateParams, "stripe/params/v2/billing/collection_setting_create_params"
       autoload :CollectionSettingListParams, "stripe/params/v2/billing/collection_setting_list_params"
       autoload :CollectionSettingRetrieveParams, "stripe/params/v2/billing/collection_setting_retrieve_params"
@@ -970,6 +967,11 @@ module Stripe
       autoload :CustomPricingUnitListParams, "stripe/params/v2/billing/custom_pricing_unit_list_params"
       autoload :CustomPricingUnitRetrieveParams, "stripe/params/v2/billing/custom_pricing_unit_retrieve_params"
       autoload :CustomPricingUnitUpdateParams, "stripe/params/v2/billing/custom_pricing_unit_update_params"
+      autoload :GroupCancelParams, "stripe/params/v2/billing/group_cancel_params"
+      autoload :GroupCreateParams, "stripe/params/v2/billing/group_create_params"
+      autoload :GroupListParams, "stripe/params/v2/billing/group_list_params"
+      autoload :GroupRetrieveParams, "stripe/params/v2/billing/group_retrieve_params"
+      autoload :GroupUpdateParams, "stripe/params/v2/billing/group_update_params"
       autoload :IntentCancelParams, "stripe/params/v2/billing/intent_cancel_params"
       autoload :IntentCommitParams, "stripe/params/v2/billing/intent_commit_params"
       autoload :IntentCreateParams, "stripe/params/v2/billing/intent_create_params"
@@ -1030,12 +1032,6 @@ module Stripe
         autoload :VersionRetrieveParams, "stripe/params/v2/billing/bill_settings/version_retrieve_params"
       end
 
-      module Cadences
-        autoload :SpendModifierRuleListParams, "stripe/params/v2/billing/cadences/spend_modifier_rule_list_params"
-        autoload :SpendModifierRuleRetrieveParams,
-                 "stripe/params/v2/billing/cadences/spend_modifier_rule_retrieve_params"
-      end
-
       module CollectionSettings
         autoload :VersionListParams, "stripe/params/v2/billing/collection_settings/version_list_params"
         autoload :VersionRetrieveParams, "stripe/params/v2/billing/collection_settings/version_retrieve_params"
@@ -1046,17 +1042,17 @@ module Stripe
         autoload :TermRetrieveContractTermParams,
                  "stripe/params/v2/billing/contracts/term_retrieve_contract_term_params"
 
-        module PricingLines
-          # rubocop:disable Layout/LineLength
-          autoload :QuantityChangeListContractPricingLineQuantityChangesParams, "stripe/params/v2/billing/contracts/pricing_lines/quantity_change_list_contract_pricing_line_quantity_changes_params"
-          # rubocop:enable Layout/LineLength
-        end
-
         module Terms
           # rubocop:disable Layout/LineLength
           autoload :QuantityChangeListContractTermQuantityChangesParams, "stripe/params/v2/billing/contracts/terms/quantity_change_list_contract_term_quantity_changes_params"
           # rubocop:enable Layout/LineLength
         end
+      end
+
+      module Groups
+        autoload :InvoiceCreateParams, "stripe/params/v2/billing/groups/invoice_create_params"
+        autoload :SpendModifierRuleListParams, "stripe/params/v2/billing/groups/spend_modifier_rule_list_params"
+        autoload :SpendModifierRuleRetrieveParams, "stripe/params/v2/billing/groups/spend_modifier_rule_retrieve_params"
       end
 
       module Intents
@@ -1794,9 +1790,11 @@ module Stripe
     stripe/params/invoice_payment_retrieve_params
     stripe/params/invoice_remove_lines_params
     stripe/params/invoice_rendering_template_archive_params
+    stripe/params/invoice_rendering_template_create_params
     stripe/params/invoice_rendering_template_list_params
     stripe/params/invoice_rendering_template_retrieve_params
     stripe/params/invoice_rendering_template_unarchive_params
+    stripe/params/invoice_rendering_template_update_params
     stripe/params/invoice_retrieve_params
     stripe/params/invoice_search_params
     stripe/params/invoice_send_invoice_params
@@ -2306,13 +2304,6 @@ module Stripe
     stripe/params/v2/billing/bill_setting_update_params
     stripe/params/v2/billing/bill_settings/version_list_params
     stripe/params/v2/billing/bill_settings/version_retrieve_params
-    stripe/params/v2/billing/cadence_cancel_params
-    stripe/params/v2/billing/cadence_create_params
-    stripe/params/v2/billing/cadence_list_params
-    stripe/params/v2/billing/cadence_retrieve_params
-    stripe/params/v2/billing/cadence_update_params
-    stripe/params/v2/billing/cadences/spend_modifier_rule_list_params
-    stripe/params/v2/billing/cadences/spend_modifier_rule_retrieve_params
     stripe/params/v2/billing/collection_setting_create_params
     stripe/params/v2/billing/collection_setting_list_params
     stripe/params/v2/billing/collection_setting_retrieve_params
@@ -2326,7 +2317,6 @@ module Stripe
     stripe/params/v2/billing/contract_list_params
     stripe/params/v2/billing/contract_retrieve_params
     stripe/params/v2/billing/contract_update_params
-    stripe/params/v2/billing/contracts/pricing_lines/quantity_change_list_contract_pricing_line_quantity_changes_params
     stripe/params/v2/billing/contracts/term_list_contract_terms_params
     stripe/params/v2/billing/contracts/term_retrieve_contract_term_params
     stripe/params/v2/billing/contracts/terms/quantity_change_list_contract_term_quantity_changes_params
@@ -2334,6 +2324,14 @@ module Stripe
     stripe/params/v2/billing/custom_pricing_unit_list_params
     stripe/params/v2/billing/custom_pricing_unit_retrieve_params
     stripe/params/v2/billing/custom_pricing_unit_update_params
+    stripe/params/v2/billing/group_cancel_params
+    stripe/params/v2/billing/group_create_params
+    stripe/params/v2/billing/group_list_params
+    stripe/params/v2/billing/group_retrieve_params
+    stripe/params/v2/billing/group_update_params
+    stripe/params/v2/billing/groups/invoice_create_params
+    stripe/params/v2/billing/groups/spend_modifier_rule_list_params
+    stripe/params/v2/billing/groups/spend_modifier_rule_retrieve_params
     stripe/params/v2/billing/intent_cancel_params
     stripe/params/v2/billing/intent_commit_params
     stripe/params/v2/billing/intent_create_params

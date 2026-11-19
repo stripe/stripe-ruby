@@ -516,6 +516,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Controls early collection for eligible recurring payments on India-issued cards. Target-date billing aims to debit on the billing-cycle date but does not guarantee that date.
+          attr_reader :debit_behavior
           # Attribute for field mandate_options
           attr_reader :mandate_options
           # Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
@@ -651,6 +653,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Timing configuration for collecting funds from the customer's account.
+          attr_reader :debit_behavior
           # The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If unspecified, defaults to 14400 seconds (4 hours).
           attr_reader :expires_after_seconds
           # Attribute for field mandate_options
@@ -697,6 +701,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Controls when the funds will be captured from the customer's account. Defaults to `not_specified`. Omitting this parameter on an update preserves the saved value; passing `not_specified` clears it. Early collection is best effort and doesn't guarantee an exact debit date.
+          attr_reader :debit_behavior
           # Attribute for field mandate_options
           attr_reader :mandate_options
 
@@ -863,6 +869,18 @@ module Stripe
     end
 
     class PendingUpdate < ::Stripe::StripeObject
+      class PresentmentDetails < ::Stripe::StripeObject
+        # Currency used for customer payments.
+        attr_reader :presentment_currency
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
       attr_reader :billing_cycle_anchor
       # Indicates whether this subscription should cancel at the end of the current period if the update is applied.
@@ -877,6 +895,8 @@ module Stripe
       attr_reader :metadata
       # The number of iterations of prebilling to apply.
       attr_reader :prebilling_iterations
+      # Attribute for field presentment_details
+      attr_reader :presentment_details
       # List of subscription items, each with an attached plan, that will be set if the update is applied.
       attr_reader :subscription_items
       # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time, if the update is applied.
@@ -885,7 +905,7 @@ module Stripe
       attr_reader :trial_from_plan
 
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = { presentment_details: PresentmentDetails }
       end
 
       def self.field_remappings
@@ -1013,8 +1033,6 @@ module Stripe
     attr_reader :application_fee_percent
     # Attribute for field automatic_tax
     attr_reader :automatic_tax
-    # The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
-    attr_reader :billing_cadence
     # The reference point that aligns future [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
     attr_reader :billing_cycle_anchor
     # The fixed values used to calculate the `billing_cycle_anchor`.

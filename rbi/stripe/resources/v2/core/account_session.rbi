@@ -670,7 +670,7 @@ module Stripe
           end
           class NotificationBanner < ::Stripe::StripeObject
             class Scopes < ::Stripe::StripeObject
-              # Whether to disable Stripe user authentication in the enabled components.
+              # Whether to disable Stripe user authentication in this component.
               sig { returns(String) }
               def disable_stripe_user_authentication; end
               # Whether to allow managing payout methods.

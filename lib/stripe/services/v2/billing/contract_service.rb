@@ -5,11 +5,10 @@ module Stripe
   module V2
     module Billing
       class ContractService < StripeService
-        attr_reader :pricing_lines, :terms
+        attr_reader :terms
 
         def initialize(requestor)
           super
-          @pricing_lines = Stripe::V2::Billing::Contracts::PricingLinesService.new(@requestor)
           @terms = Stripe::V2::Billing::Contracts::TermService.new(@requestor)
         end
 

@@ -134,9 +134,6 @@ module Stripe
       end
       class SpendThreshold < ::Stripe::StripeObject
         class Filters < ::Stripe::StripeObject
-          # Filter by billing cadence ID.
-          sig { returns(T.nilable(String)) }
-          def billing_cadence; end
           # Filter by billing group ID.
           sig { returns(T.nilable(String)) }
           def billing_group; end

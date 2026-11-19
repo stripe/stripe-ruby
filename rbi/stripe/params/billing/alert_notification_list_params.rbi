@@ -41,11 +41,6 @@ module Stripe
       def billing_group; end
       sig { params(_billing_group: T.nilable(String)).returns(T.nilable(String)) }
       def billing_group=(_billing_group); end
-      # Filter results to only include notifications for the given cadence.
-      sig { returns(T.nilable(String)) }
-      def cadence; end
-      sig { params(_cadence: T.nilable(String)).returns(T.nilable(String)) }
-      def cadence=(_cadence); end
       # The customer to list notifications for.
       sig { returns(String) }
       def customer; end
@@ -91,12 +86,11 @@ module Stripe
       sig { params(_subscription: T.nilable(String)).returns(T.nilable(String)) }
       def subscription=(_subscription); end
       sig {
-        params(action: T.nilable(String), billing_group: T.nilable(String), cadence: T.nilable(String), customer: String, ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), meter: T.nilable(String), notified_at: T.nilable(T.any(::Stripe::Billing::AlertNotificationListParams::NotifiedAt, Integer)), starting_after: T.nilable(String), subscription: T.nilable(String)).void
+        params(action: T.nilable(String), billing_group: T.nilable(String), customer: String, ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), meter: T.nilable(String), notified_at: T.nilable(T.any(::Stripe::Billing::AlertNotificationListParams::NotifiedAt, Integer)), starting_after: T.nilable(String), subscription: T.nilable(String)).void
        }
       def initialize(
         action: nil,
         billing_group: nil,
-        cadence: nil,
         customer: nil,
         ending_before: nil,
         expand: nil,

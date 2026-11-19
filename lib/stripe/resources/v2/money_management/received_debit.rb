@@ -92,6 +92,58 @@ module Stripe
             end
           end
 
+          class OriginatingBankAccount < ::Stripe::StripeObject
+            class Aba < ::Stripe::StripeObject
+              # The name of the account holder that originated the debit, as provided by the ACH network.
+              attr_reader :account_holder_name
+              # The name of the bank the debit originated from.
+              attr_reader :bank_name
+              # The routing number of the bank that originated the debit.
+              attr_reader :routing_number
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class SortCode < ::Stripe::StripeObject
+              # The name of the account holder that originated the debit.
+              attr_reader :account_holder_name
+              # The name of the bank the debit originated from.
+              attr_reader :bank_name
+              # Last 4 digits of the bank account number.
+              attr_reader :last4
+              # The sort code of the bank that originated the debit.
+              attr_reader :sort_code
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Details of the originating account. Present when type is `aba`.
+            attr_reader :aba
+            # Details of the originating account. Present when type is `sort_code`.
+            attr_reader :sort_code
+            # The credential type identifying the originating bank account.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { aba: Aba, sort_code: SortCode }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class UsBankAccount < ::Stripe::StripeObject
             # The name of the bank the debit originated from.
             attr_reader :bank_name
@@ -110,19 +162,27 @@ module Stripe
           end
           # The Financial Address that was debited.
           attr_reader :financial_address
+          # Deprecated: Use `bank_transfer.originating_bank_account.sort_code` instead.
           # Object containing details of the GB Bank Account that originated the debit.
           # Present when the debit was originated via BACS.
           attr_reader :gb_bank_account
+          # The bank network the debit was originated on.
+          attr_reader :network
           # Network-specific details about the bank transfer.
           attr_reader :network_details
+          # Deprecated: Use `bank_transfer.originating_bank_account.type` instead.
           # Open Enum. Indicates the origin type through which this debit was initiated.
           attr_reader :origin_type
+          # The originating bank account's credential details.
+          attr_reader :originating_bank_account
+          # Deprecated: Use `bank_transfer.originating_bank_account.type` instead.
           # Open Enum. The type of the payment method used to originate the debit.
           attr_reader :payment_method_type
           # The ID of the SpendingMandate associated with this debit.
           attr_reader :spending_mandate
           # The statement descriptor set by the originator of the debit.
           attr_reader :statement_descriptor
+          # Deprecated: Use `bank_transfer.originating_bank_account.aba` instead.
           # Object containing details of the US Bank Account that originated the debit.
           # Present when the debit was originated via ACH.
           attr_reader :us_bank_account
@@ -131,6 +191,7 @@ module Stripe
             @inner_class_types = {
               gb_bank_account: GbBankAccount,
               network_details: NetworkDetails,
+              originating_bank_account: OriginatingBankAccount,
               us_bank_account: UsBankAccount,
             }
           end

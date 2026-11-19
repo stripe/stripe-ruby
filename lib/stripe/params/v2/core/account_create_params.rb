@@ -1072,6 +1072,34 @@ module Stripe
                 end
               end
 
+              class BilliePayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
               class BlikPayments < ::Stripe::RequestParams
                 class Protections < ::Stripe::RequestParams
                   class PspMigration < ::Stripe::RequestParams
@@ -1576,6 +1604,34 @@ module Stripe
                 end
               end
 
+              class MbWayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
               class MobilepayPayments < ::Stripe::RequestParams
                 class Protections < ::Stripe::RequestParams
                   class PspMigration < ::Stripe::RequestParams
@@ -1661,6 +1717,34 @@ module Stripe
               end
 
               class NaverPayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class NzBankAccountBecsDebitPayments < ::Stripe::RequestParams
                 class Protections < ::Stripe::RequestParams
                   class PspMigration < ::Stripe::RequestParams
                     # To request a protection, pass true.
@@ -1801,6 +1885,62 @@ module Stripe
               end
 
               class PaynowPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class PaypayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class PixPayments < ::Stripe::RequestParams
                 class Protections < ::Stripe::RequestParams
                   class PspMigration < ::Stripe::RequestParams
                     # To request a protection, pass true.
@@ -2108,6 +2248,62 @@ module Stripe
                 end
               end
 
+              class TouchNGoPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class TruemoneyPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
               class TwintPayments < ::Stripe::RequestParams
                 class Protections < ::Stripe::RequestParams
                   class PspMigration < ::Stripe::RequestParams
@@ -2220,6 +2416,90 @@ module Stripe
                 end
               end
 
+              class WechatPayMobileWebPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class WechatPayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class WeroPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
               class ZipPayments < ::Stripe::RequestParams
                 class Protections < ::Stripe::RequestParams
                   class PspMigration < ::Stripe::RequestParams
@@ -2267,6 +2547,8 @@ module Stripe
               attr_accessor :bacs_debit_payments
               # Allow the merchant to process Bancontact payments.
               attr_accessor :bancontact_payments
+              # Allow the merchant to process Billie payments.
+              attr_accessor :billie_payments
               # Allow the merchant to process BLIK payments.
               attr_accessor :blik_payments
               # Allow the merchant to process recurring BLIK payments.
@@ -2303,6 +2585,8 @@ module Stripe
               attr_accessor :kr_card_payments
               # Allow the merchant to process Link payments.
               attr_accessor :link_payments
+              # Allow the merchant to process MB WAY payments.
+              attr_accessor :mb_way_payments
               # Allow the merchant to process MobilePay payments.
               attr_accessor :mobilepay_payments
               # Allow the merchant to process Multibanco payments.
@@ -2311,6 +2595,8 @@ module Stripe
               attr_accessor :mx_bank_transfer_payments
               # Allow the merchant to process Naver Pay payments.
               attr_accessor :naver_pay_payments
+              # Allow the merchant to process New Zealand BECS Direct Debit payments.
+              attr_accessor :nz_bank_account_becs_debit_payments
               # Allow the merchant to process OXXO payments.
               attr_accessor :oxxo_payments
               # Allow the merchant to process Przelewy24 (P24) payments.
@@ -2321,6 +2607,10 @@ module Stripe
               attr_accessor :payco_payments
               # Allow the merchant to process PayNow payments.
               attr_accessor :paynow_payments
+              # Allow the merchant to process PayPay payments.
+              attr_accessor :paypay_payments
+              # Allow the merchant to process Pix payments.
+              attr_accessor :pix_payments
               # Allow the merchant to process PromptPay payments.
               attr_accessor :promptpay_payments
               # Allow the merchant to process Revolut Pay payments.
@@ -2341,6 +2631,10 @@ module Stripe
               attr_accessor :sunbit_payments
               # Allow the merchant to process Swish payments.
               attr_accessor :swish_payments
+              # Allow the merchant to process Touch 'n Go payments.
+              attr_accessor :touch_n_go_payments
+              # Allow the merchant to process TrueMoney payments.
+              attr_accessor :truemoney_payments
               # Allow the merchant to process TWINT payments.
               attr_accessor :twint_payments
               # Allow the merchant to process UPI payments.
@@ -2349,6 +2643,12 @@ module Stripe
               attr_accessor :us_bank_transfer_payments
               # Allow the merchant to process Vipps payments.
               attr_accessor :vipps_payments
+              # Allow the merchant to process WeChat Pay mobile web payments. Requires the wechat_pay_payments capability.
+              attr_accessor :wechat_pay_mobile_web_payments
+              # Allow the merchant to process WeChat Pay payments.
+              attr_accessor :wechat_pay_payments
+              # Allow the merchant to process Wero payments.
+              attr_accessor :wero_payments
               # Allow the merchant to process Zip payments.
               attr_accessor :zip_payments
 
@@ -2363,6 +2663,7 @@ module Stripe
                 au_becs_debit_payments: nil,
                 bacs_debit_payments: nil,
                 bancontact_payments: nil,
+                billie_payments: nil,
                 blik_payments: nil,
                 blik_recurring_payments: nil,
                 boleto_payments: nil,
@@ -2381,15 +2682,19 @@ module Stripe
                 konbini_payments: nil,
                 kr_card_payments: nil,
                 link_payments: nil,
+                mb_way_payments: nil,
                 mobilepay_payments: nil,
                 multibanco_payments: nil,
                 mx_bank_transfer_payments: nil,
                 naver_pay_payments: nil,
+                nz_bank_account_becs_debit_payments: nil,
                 oxxo_payments: nil,
                 p24_payments: nil,
                 pay_by_bank_payments: nil,
                 payco_payments: nil,
                 paynow_payments: nil,
+                paypay_payments: nil,
+                pix_payments: nil,
                 promptpay_payments: nil,
                 revolut_pay_payments: nil,
                 samsung_pay_payments: nil,
@@ -2400,10 +2705,15 @@ module Stripe
                 sequra_payments: nil,
                 sunbit_payments: nil,
                 swish_payments: nil,
+                touch_n_go_payments: nil,
+                truemoney_payments: nil,
                 twint_payments: nil,
                 upi_payments: nil,
                 us_bank_transfer_payments: nil,
                 vipps_payments: nil,
+                wechat_pay_mobile_web_payments: nil,
+                wechat_pay_payments: nil,
+                wero_payments: nil,
                 zip_payments: nil
               )
                 @ach_debit_payments = ach_debit_payments
@@ -2416,6 +2726,7 @@ module Stripe
                 @au_becs_debit_payments = au_becs_debit_payments
                 @bacs_debit_payments = bacs_debit_payments
                 @bancontact_payments = bancontact_payments
+                @billie_payments = billie_payments
                 @blik_payments = blik_payments
                 @blik_recurring_payments = blik_recurring_payments
                 @boleto_payments = boleto_payments
@@ -2434,15 +2745,19 @@ module Stripe
                 @konbini_payments = konbini_payments
                 @kr_card_payments = kr_card_payments
                 @link_payments = link_payments
+                @mb_way_payments = mb_way_payments
                 @mobilepay_payments = mobilepay_payments
                 @multibanco_payments = multibanco_payments
                 @mx_bank_transfer_payments = mx_bank_transfer_payments
                 @naver_pay_payments = naver_pay_payments
+                @nz_bank_account_becs_debit_payments = nz_bank_account_becs_debit_payments
                 @oxxo_payments = oxxo_payments
                 @p24_payments = p24_payments
                 @pay_by_bank_payments = pay_by_bank_payments
                 @payco_payments = payco_payments
                 @paynow_payments = paynow_payments
+                @paypay_payments = paypay_payments
+                @pix_payments = pix_payments
                 @promptpay_payments = promptpay_payments
                 @revolut_pay_payments = revolut_pay_payments
                 @samsung_pay_payments = samsung_pay_payments
@@ -2453,10 +2768,15 @@ module Stripe
                 @sequra_payments = sequra_payments
                 @sunbit_payments = sunbit_payments
                 @swish_payments = swish_payments
+                @touch_n_go_payments = touch_n_go_payments
+                @truemoney_payments = truemoney_payments
                 @twint_payments = twint_payments
                 @upi_payments = upi_payments
                 @us_bank_transfer_payments = us_bank_transfer_payments
                 @vipps_payments = vipps_payments
+                @wechat_pay_mobile_web_payments = wechat_pay_mobile_web_payments
+                @wechat_pay_payments = wechat_pay_payments
+                @wero_payments = wero_payments
                 @zip_payments = zip_payments
               end
             end
@@ -2516,11 +2836,76 @@ module Stripe
                   @phone = phone
                 end
               end
+              # Information provided to support the onboarding process for Konbini payments.
+              attr_accessor :additional_material
               # Support for Konbini payments.
               attr_accessor :support
 
-              def initialize(support: nil)
+              def initialize(additional_material: nil, support: nil)
+                @additional_material = additional_material
                 @support = support
+              end
+            end
+
+            class PaypayPayments < ::Stripe::RequestParams
+              class Site < ::Stripe::RequestParams
+                class Accessible < ::Stripe::RequestParams; end
+
+                class InDevelopment < ::Stripe::RequestParams
+                  # The password needed to access the business's website.
+                  attr_accessor :password
+                  # The username needed to access the business's website.
+                  attr_accessor :username
+
+                  def initialize(password: nil, username: nil)
+                    @password = password
+                    @username = username
+                  end
+                end
+
+                class Restricted < ::Stripe::RequestParams
+                  # The file explaining the payment flow for the business.
+                  attr_accessor :payment_flow_file
+
+                  def initialize(payment_flow_file: nil)
+                    @payment_flow_file = payment_flow_file
+                  end
+                end
+                # Additional information about the business's website when it's accessible.
+                attr_accessor :accessible
+                # Additional information about the business's website when it's in development.
+                attr_accessor :in_development
+                # Additional information about the business's website when it has restricted access.
+                attr_accessor :restricted
+                # The status of the business's website.
+                attr_accessor :type
+
+                def initialize(accessible: nil, in_development: nil, restricted: nil, type: nil)
+                  @accessible = accessible
+                  @in_development = in_development
+                  @restricted = restricted
+                  @type = type
+                end
+              end
+              # Additional files supporting PayPay payments configuration.
+              attr_accessor :additional_files
+              # The type of goods sold by the merchant for PayPay payments.
+              attr_accessor :goods_type
+              # The business's website for PayPay payments.
+              attr_accessor :site
+              # URL to the Specified Commercial Transactions Act page for PayPay payments.
+              attr_accessor :specified_commercial_transactions_act_url
+
+              def initialize(
+                additional_files: nil,
+                goods_type: nil,
+                site: nil,
+                specified_commercial_transactions_act_url: nil
+              )
+                @additional_files = additional_files
+                @goods_type = goods_type
+                @site = site
+                @specified_commercial_transactions_act_url = specified_commercial_transactions_act_url
               end
             end
 
@@ -2662,6 +3047,8 @@ module Stripe
             attr_accessor :konbini_payments
             # The Merchant Category Code (MCC) for the Merchant Configuration. MCCs classify businesses based on the goods or services they provide.
             attr_accessor :mcc
+            # Settings for PayPay payments.
+            attr_accessor :paypay_payments
             # Settings for the default text that appears on statements for language variations.
             attr_accessor :script_statement_descriptor
             # Settings used for SEPA Direct Debit payments.
@@ -2681,6 +3068,7 @@ module Stripe
               gross_settlement: nil,
               konbini_payments: nil,
               mcc: nil,
+              paypay_payments: nil,
               script_statement_descriptor: nil,
               sepa_debit_payments: nil,
               smart_disputes: nil,
@@ -2694,6 +3082,7 @@ module Stripe
               @gross_settlement = gross_settlement
               @konbini_payments = konbini_payments
               @mcc = mcc
+              @paypay_payments = paypay_payments
               @script_statement_descriptor = script_statement_descriptor
               @sepa_debit_payments = sepa_debit_payments
               @smart_disputes = smart_disputes
@@ -2841,6 +3230,89 @@ module Stripe
                 # Can receive business custodial storage-type funds on Stripe.
                 attr_accessor :inbound
                 # Can send business custodial storage-type funds on Stripe.
+                attr_accessor :outbound
+
+                def initialize(inbound: nil, outbound: nil)
+                  @inbound = inbound
+                  @outbound = outbound
+                end
+              end
+
+              class BusinessDemandDepositAccountFifthThirdStorage < ::Stripe::RequestParams
+                class Inbound < ::Stripe::RequestParams
+                  class Usd < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+                  # Can receive funds in business storage FinancialAccounts backed by Fifth Third demand deposit accounts in USD.
+                  attr_accessor :usd
+
+                  def initialize(usd: nil)
+                    @usd = usd
+                  end
+                end
+
+                class Outbound < ::Stripe::RequestParams
+                  class Usd < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+                  # Can send funds from business storage FinancialAccounts backed by Fifth Third demand deposit accounts in USD.
+                  attr_accessor :usd
+
+                  def initialize(usd: nil)
+                    @usd = usd
+                  end
+                end
+                # Can receive funds in business storage FinancialAccounts backed by Fifth Third demand deposit accounts.
+                attr_accessor :inbound
+                # Can send funds from business storage FinancialAccounts backed by Fifth Third demand deposit accounts.
                 attr_accessor :outbound
 
                 def initialize(inbound: nil, outbound: nil)
@@ -5381,6 +5853,8 @@ module Stripe
               end
               # Can send or receive business custodial storage-type funds on Stripe.
               attr_accessor :business_custodial_storage
+              # Capabilities related to business storage FinancialAccounts backed by Fifth Third demand deposit accounts.
+              attr_accessor :business_demand_deposit_account_fifth_third_storage
               # Can send or receive business storage-type funds on Stripe.
               attr_accessor :business_storage
               # Can send or receive consumer storage-type funds on Stripe.
@@ -5400,6 +5874,7 @@ module Stripe
 
               def initialize(
                 business_custodial_storage: nil,
+                business_demand_deposit_account_fifth_third_storage: nil,
                 business_storage: nil,
                 consumer_storage: nil,
                 inbound_fundings: nil,
@@ -5410,6 +5885,7 @@ module Stripe
                 received_debits: nil
               )
                 @business_custodial_storage = business_custodial_storage
+                @business_demand_deposit_account_fifth_third_storage = business_demand_deposit_account_fifth_third_storage
                 @business_storage = business_storage
                 @consumer_storage = consumer_storage
                 @inbound_fundings = inbound_fundings
@@ -5803,6 +6279,34 @@ module Stripe
                     @requested = requested
                   end
                 end
+
+                class Tips < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
                 # Enables this Account to receive OutboundPayments to linked bank accounts over ACH rails.
                 attr_accessor :ach
                 # Enables this Account to receive OutboundPayments to linked bank accounts over BECS rails.
@@ -5825,6 +6329,8 @@ module Stripe
                 attr_accessor :sepa_instant
                 # Enables this Account to receive OutboundPayments to linked bank accounts over SWIFT.
                 attr_accessor :swift
+                # Enables this Account to receive OutboundPayments to linked bank accounts over TIPS rails.
+                attr_accessor :tips
 
                 def initialize(
                   ach: nil,
@@ -5837,7 +6343,8 @@ module Stripe
                   rtp: nil,
                   sepa: nil,
                   sepa_instant: nil,
-                  swift: nil
+                  swift: nil,
+                  tips: nil
                 )
                   @ach = ach
                   @becs = becs
@@ -5850,6 +6357,7 @@ module Stripe
                   @sepa = sepa
                   @sepa_instant = sepa_instant
                   @swift = swift
+                  @tips = tips
                 end
               end
 
@@ -6114,9 +6622,9 @@ module Stripe
           end
 
           class Responsibilities < ::Stripe::RequestParams
-            # A value indicating the party responsible for collecting fees from this account.
+            # Controls who pays Stripe fees for direct charges and other pricing-control-eligible Stripe products. For new integrations, setting `losses_collector=application` requires `fees_collector=application`; legacy Custom and Express accounts can also use `application_custom` or `application_express`. For destination charges and separate charges and transfers, Stripe bills the platform regardless of this setting. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior), including application fees and pricing considerations.
             attr_accessor :fees_collector
-            # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
+            # Controls who is responsible for payment-related negative balances on this account. The platform remains liable for negative balances on its own account. To use Stripe negative balance liability, your integration must meet [Managed Risk requirements](https://docs.stripe.com/connect/risk-management/managed-risk).
             attr_accessor :losses_collector
             # A value indicating the party responsible for collecting requirements on this account.
             attr_accessor :requirements_collector
@@ -6225,6 +6733,21 @@ module Stripe
 
             class TermsOfService < ::Stripe::RequestParams
               class Account < ::Stripe::RequestParams
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                attr_accessor :date
+                # The IP address from which the Account's representative accepted the terms of service.
+                attr_accessor :ip
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                attr_accessor :user_agent
+
+                def initialize(date: nil, ip: nil, user_agent: nil)
+                  @date = date
+                  @ip = ip
+                  @user_agent = user_agent
+                end
+              end
+
+              class BusinessDemandDepositAccountFifthThird < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_accessor :date
                 # The IP address from which the Account's representative accepted the terms of service.
@@ -7167,6 +7690,8 @@ module Stripe
               end
               # Details on the Account's acceptance of the Stripe Services Agreement.
               attr_accessor :account
+              # Terms of service acceptances for financial accounts backed by Fifth Third demand deposit accounts.
+              attr_accessor :business_demand_deposit_account_fifth_third
               # Details on the Account's acceptance of Issuing-specific terms of service.
               attr_accessor :card_creator
               # Details on the Account's acceptance of Consumer-specific terms of service.
@@ -7180,6 +7705,7 @@ module Stripe
 
               def initialize(
                 account: nil,
+                business_demand_deposit_account_fifth_third: nil,
                 card_creator: nil,
                 consumer_money_manager: nil,
                 consumer_privacy_disclosures: nil,
@@ -7187,6 +7713,7 @@ module Stripe
                 money_manager: nil
               )
                 @account = account
+                @business_demand_deposit_account_fifth_third = business_demand_deposit_account_fifth_third
                 @card_creator = card_creator
                 @consumer_money_manager = consumer_money_manager
                 @consumer_privacy_disclosures = consumer_privacy_disclosures
@@ -8229,7 +8756,7 @@ module Stripe
         attr_accessor :contact_email
         # The default contact phone for the Account.
         attr_accessor :contact_phone
-        # A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
+        # Specifies the account's Stripe-hosted Dashboard access. Available values depend on the configurations enabled for the account. Learn more about [configuring Dashboard access](https://docs.stripe.com/connect/accounts-v2/connected-account-configuration#set-dashboard-access).
         attr_accessor :dashboard
         # Default values to be used on Account Configurations.
         attr_accessor :defaults

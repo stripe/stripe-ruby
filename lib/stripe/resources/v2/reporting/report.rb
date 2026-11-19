@@ -4,6 +4,7 @@
 module Stripe
   module V2
     module Reporting
+      # The [Queries and Reports API](https://docs.stripe.com/data/api/reports) replaces this API. For new integrations, use `/v2/data/reports` instead.
       # The Report resource represents a customizable report template that provides insights into various aspects of your Stripe integration.
       class Report < APIResource
         OBJECT_NAME = "v2.reporting.report"

@@ -7,89 +7,6 @@ module Stripe
       class ContractUpdateParams < ::Stripe::RequestParams
         class Action < ::Stripe::RequestParams
           class AddTerm < ::Stripe::RequestParams
-            class AdHocProduct < ::Stripe::RequestParams
-              class BillSchedule < ::Stripe::RequestParams
-                class Custom < ::Stripe::RequestParams
-                  class BillAt < ::Stripe::RequestParams
-                    # The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
-                    attr_accessor :timestamp
-                    # The type of the bill_at.
-                    attr_accessor :type
-
-                    def initialize(timestamp: nil, type: nil)
-                      @timestamp = timestamp
-                      @type = type
-                    end
-                  end
-                  # Non-negative amount with an explicit currency that must match the contract's currency.
-                  attr_accessor :amount
-                  # A finite bill date. Resolved once per request, including on idempotent retries.
-                  attr_accessor :bill_at
-
-                  def initialize(amount: nil, bill_at: nil)
-                    @amount = amount
-                    @bill_at = bill_at
-                  end
-                end
-                # Between one and ten installments. Empty schedules are allowed only on update.
-                attr_accessor :custom
-                # The type of schedule.
-                attr_accessor :type
-
-                def initialize(custom: nil, type: nil)
-                  @custom = custom
-                  @type = type
-                end
-              end
-
-              class ServicePeriod < ::Stripe::RequestParams
-                class EndsAt < ::Stripe::RequestParams
-                  # The timestamp when the item starts. Required if `type` is `timestamp`.
-                  attr_accessor :timestamp
-                  # The type of the starts_at.
-                  attr_accessor :type
-
-                  def initialize(timestamp: nil, type: nil)
-                    @timestamp = timestamp
-                    @type = type
-                  end
-                end
-
-                class StartsAt < ::Stripe::RequestParams
-                  # The timestamp when the item starts. Required if `type` is `timestamp`.
-                  attr_accessor :timestamp
-                  # The type of the starts_at.
-                  attr_accessor :type
-
-                  def initialize(timestamp: nil, type: nil)
-                    @timestamp = timestamp
-                    @type = type
-                  end
-                end
-                # The finite exclusive end; must be after starts_at. Never is not supported.
-                attr_accessor :ends_at
-                # The finite inclusive start of the service period.
-                attr_accessor :starts_at
-
-                def initialize(ends_at: nil, starts_at: nil)
-                  @ends_at = ends_at
-                  @starts_at = starts_at
-                end
-              end
-              # Explicit bill dates and amounts.
-              attr_accessor :bill_schedule
-              # The V1 Product being billed.
-              attr_accessor :product
-              # Informational service period, independent of bill dates.
-              attr_accessor :service_period
-
-              def initialize(bill_schedule: nil, product: nil, service_period: nil)
-                @bill_schedule = bill_schedule
-                @product = product
-                @service_period = service_period
-              end
-            end
-
             class PricingOverride < ::Stripe::RequestParams
               class Criterion < ::Stripe::RequestParams
                 class Term < ::Stripe::RequestParams
@@ -109,7 +26,7 @@ module Stripe
                 # Term selectors. Each ID or lookup key resolves to one fixed term ID.
                 # Omitted or empty selects all charge-bearing terms. Override terms cannot be targets.
                 attr_accessor :terms
-                # Whether to include or exclude the selected recurring or ad_hoc_product terms.
+                # Whether to include or exclude the selected recurring or scheduled_fee terms.
                 attr_accessor :type
 
                 def initialize(terms: nil, type: nil)
@@ -167,7 +84,7 @@ module Stripe
                   @type = type
                 end
               end
-              # Optional criteria selecting recurring or ad_hoc_product terms. If omitted, the override applies to all recurring and ad_hoc_product terms.
+              # Optional criteria selecting recurring or scheduled_fee terms. If omitted, the override applies to all recurring and scheduled_fee terms.
               attr_accessor :criteria
               # The exclusive end. Omitted means open-ended.
               attr_accessor :ends_at
@@ -252,8 +169,89 @@ module Stripe
                 @field_encodings = { quantity: :decimal_string }
               end
             end
-            # Required when type is ad_hoc_product.
-            attr_accessor :ad_hoc_product
+
+            class ScheduledFee < ::Stripe::RequestParams
+              class BillSchedule < ::Stripe::RequestParams
+                class Custom < ::Stripe::RequestParams
+                  class BillAt < ::Stripe::RequestParams
+                    # The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
+                    attr_accessor :timestamp
+                    # The type of the bill_at.
+                    attr_accessor :type
+
+                    def initialize(timestamp: nil, type: nil)
+                      @timestamp = timestamp
+                      @type = type
+                    end
+                  end
+                  # Non-negative amount with an explicit currency that must match the contract's currency.
+                  attr_accessor :amount
+                  # A finite bill date. Resolved once per request, including on idempotent retries.
+                  attr_accessor :bill_at
+
+                  def initialize(amount: nil, bill_at: nil)
+                    @amount = amount
+                    @bill_at = bill_at
+                  end
+                end
+                # Between one and ten installments. Empty schedules are allowed only on update.
+                attr_accessor :custom
+                # The type of schedule.
+                attr_accessor :type
+
+                def initialize(custom: nil, type: nil)
+                  @custom = custom
+                  @type = type
+                end
+              end
+
+              class ServicePeriod < ::Stripe::RequestParams
+                class EndsAt < ::Stripe::RequestParams
+                  # The timestamp when the item starts. Required if `type` is `timestamp`.
+                  attr_accessor :timestamp
+                  # The type of the starts_at.
+                  attr_accessor :type
+
+                  def initialize(timestamp: nil, type: nil)
+                    @timestamp = timestamp
+                    @type = type
+                  end
+                end
+
+                class StartsAt < ::Stripe::RequestParams
+                  # The timestamp when the item starts. Required if `type` is `timestamp`.
+                  attr_accessor :timestamp
+                  # The type of the starts_at.
+                  attr_accessor :type
+
+                  def initialize(timestamp: nil, type: nil)
+                    @timestamp = timestamp
+                    @type = type
+                  end
+                end
+                # The finite exclusive end; must be after starts_at. Never is not supported.
+                attr_accessor :ends_at
+                # The finite inclusive start of the service period.
+                attr_accessor :starts_at
+
+                def initialize(ends_at: nil, starts_at: nil)
+                  @ends_at = ends_at
+                  @starts_at = starts_at
+                end
+              end
+              # Explicit bill dates and amounts.
+              attr_accessor :bill_schedule
+              # The V1 Product being billed.
+              attr_accessor :product
+              # Informational service period, independent of bill dates.
+              attr_accessor :service_period
+
+              def initialize(bill_schedule: nil, product: nil, service_period: nil)
+                @bill_schedule = bill_schedule
+                @product = product
+                @service_period = service_period
+              end
+            end
             # Lookup key unique across all term types on the contract.
             attr_accessor :lookup_key
             # Set of key-value pairs attached to the term.
@@ -262,22 +260,24 @@ module Stripe
             attr_accessor :pricing_override
             # Required when type is recurring_price.
             attr_accessor :recurring_price
+            # Required when type is scheduled_fee.
+            attr_accessor :scheduled_fee
             # The term type. Production types require exactly one matching payload.
             attr_accessor :type
 
             def initialize(
-              ad_hoc_product: nil,
               lookup_key: nil,
               metadata: nil,
               pricing_override: nil,
               recurring_price: nil,
+              scheduled_fee: nil,
               type: nil
             )
-              @ad_hoc_product = ad_hoc_product
               @lookup_key = lookup_key
               @metadata = metadata
               @pricing_override = pricing_override
               @recurring_price = recurring_price
+              @scheduled_fee = scheduled_fee
               @type = type
             end
 
@@ -319,7 +319,85 @@ module Stripe
           end
 
           class UpdateTerm < ::Stripe::RequestParams
-            class AdHocProduct < ::Stripe::RequestParams
+            class PricingOverride < ::Stripe::RequestParams
+              class EndsAt < ::Stripe::RequestParams
+                # The timestamp when the item ends. Required if `type` is `timestamp`.
+                attr_accessor :timestamp
+                # The type of the ends_at.
+                attr_accessor :type
+
+                def initialize(timestamp: nil, type: nil)
+                  @timestamp = timestamp
+                  @type = type
+                end
+              end
+
+              class StartsAt < ::Stripe::RequestParams
+                # The timestamp when the item starts. Required if `type` is `timestamp`.
+                attr_accessor :timestamp
+                # The type of the starts_at.
+                attr_accessor :type
+
+                def initialize(timestamp: nil, type: nil)
+                  @timestamp = timestamp
+                  @type = type
+                end
+              end
+              # Omission leaves the end unchanged; never requests an open end.
+              attr_accessor :ends_at
+              # Can change only before the override starts. Accepts timestamp or now.
+              attr_accessor :starts_at
+
+              def initialize(ends_at: nil, starts_at: nil)
+                @ends_at = ends_at
+                @starts_at = starts_at
+              end
+            end
+
+            class RecurringPrice < ::Stripe::RequestParams
+              class EndsAt < ::Stripe::RequestParams
+                # The timestamp when the item ends. Required if `type` is `timestamp`.
+                attr_accessor :timestamp
+                # The type of the ends_at.
+                attr_accessor :type
+
+                def initialize(timestamp: nil, type: nil)
+                  @timestamp = timestamp
+                  @type = type
+                end
+              end
+
+              class StartsAt < ::Stripe::RequestParams
+                # The timestamp when the item starts. Required if `type` is `timestamp`.
+                attr_accessor :timestamp
+                # The type of the starts_at.
+                attr_accessor :type
+
+                def initialize(timestamp: nil, type: nil)
+                  @timestamp = timestamp
+                  @type = type
+                end
+              end
+              # Omission leaves the end unchanged; never requests an open end.
+              attr_accessor :ends_at
+              # Update an active term's licensed quantity at the contract's current clock time,
+              # or an unstarted term's initial quantity, preserving its ID. Ended terms cannot change quantity.
+              attr_accessor :quantity
+              # Reschedule an unstarted term in place.
+              attr_accessor :starts_at
+
+              def initialize(ends_at: nil, quantity: nil, starts_at: nil)
+                @ends_at = ends_at
+                @quantity = quantity
+                @starts_at = starts_at
+              end
+
+              def self.field_encodings
+                @field_encodings = { quantity: :decimal_string }
+              end
+            end
+
+            class ScheduledFee < ::Stripe::RequestParams
               class BillSchedule < ::Stripe::RequestParams
                 class Custom < ::Stripe::RequestParams
                   class BillAt < ::Stripe::RequestParams
@@ -399,84 +477,6 @@ module Stripe
               end
             end
 
-            class PricingOverride < ::Stripe::RequestParams
-              class EndsAt < ::Stripe::RequestParams
-                # The timestamp when the item ends. Required if `type` is `timestamp`.
-                attr_accessor :timestamp
-                # The type of the ends_at.
-                attr_accessor :type
-
-                def initialize(timestamp: nil, type: nil)
-                  @timestamp = timestamp
-                  @type = type
-                end
-              end
-
-              class StartsAt < ::Stripe::RequestParams
-                # The timestamp when the item starts. Required if `type` is `timestamp`.
-                attr_accessor :timestamp
-                # The type of the starts_at.
-                attr_accessor :type
-
-                def initialize(timestamp: nil, type: nil)
-                  @timestamp = timestamp
-                  @type = type
-                end
-              end
-              # Omission leaves the end unchanged; never requests an open end.
-              attr_accessor :ends_at
-              # Can change only before the override starts. Accepts timestamp or now.
-              attr_accessor :starts_at
-
-              def initialize(ends_at: nil, starts_at: nil)
-                @ends_at = ends_at
-                @starts_at = starts_at
-              end
-            end
-
-            class RecurringPrice < ::Stripe::RequestParams
-              class EndsAt < ::Stripe::RequestParams
-                # The timestamp when the item ends. Required if `type` is `timestamp`.
-                attr_accessor :timestamp
-                # The type of the ends_at.
-                attr_accessor :type
-
-                def initialize(timestamp: nil, type: nil)
-                  @timestamp = timestamp
-                  @type = type
-                end
-              end
-
-              class StartsAt < ::Stripe::RequestParams
-                # The timestamp when the item starts. Required if `type` is `timestamp`.
-                attr_accessor :timestamp
-                # The type of the starts_at.
-                attr_accessor :type
-
-                def initialize(timestamp: nil, type: nil)
-                  @timestamp = timestamp
-                  @type = type
-                end
-              end
-              # Omission leaves the end unchanged; never requests an open end.
-              attr_accessor :ends_at
-              # Update an active term's licensed quantity at the contract's current clock time,
-              # or an unstarted term's initial quantity, preserving its ID. Ended terms cannot change quantity.
-              attr_accessor :quantity
-              # Reschedule an unstarted term in place.
-              attr_accessor :starts_at
-
-              def initialize(ends_at: nil, quantity: nil, starts_at: nil)
-                @ends_at = ends_at
-                @quantity = quantity
-                @starts_at = starts_at
-              end
-
-              def self.field_encodings
-                @field_encodings = { quantity: :decimal_string }
-              end
-            end
-
             class Term < ::Stripe::RequestParams
               # Select this term by its stable ID.
               attr_accessor :id
@@ -491,28 +491,28 @@ module Stripe
                 @type = type
               end
             end
-            # Must match the existing term's type.
-            attr_accessor :ad_hoc_product
             # Metadata changes to apply immediately.
             attr_accessor :metadata
             # Only validity dates can change; pricing, criteria, and priority are immutable.
             attr_accessor :pricing_override
             # Must match the existing term's type.
             attr_accessor :recurring_price
+            # Must match the existing term's type.
+            attr_accessor :scheduled_fee
             # Select a term by ID or its unique lookup key.
             attr_accessor :term
 
             def initialize(
-              ad_hoc_product: nil,
               metadata: nil,
               pricing_override: nil,
               recurring_price: nil,
+              scheduled_fee: nil,
               term: nil
             )
-              @ad_hoc_product = ad_hoc_product
               @metadata = metadata
               @pricing_override = pricing_override
               @recurring_price = recurring_price
+              @scheduled_fee = scheduled_fee
               @term = term
             end
 
@@ -648,997 +648,29 @@ module Stripe
             @collection_settings_details = collection_settings_details
           end
         end
-
-        class OneTimeFeeAction < ::Stripe::RequestParams
-          class Add < ::Stripe::RequestParams
-            class BillAt < ::Stripe::RequestParams
-              # The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
-              attr_accessor :timestamp
-              # The type of the bill_at.
-              attr_accessor :type
-
-              def initialize(timestamp: nil, type: nil)
-                @timestamp = timestamp
-                @type = type
-              end
-            end
-            # The amount to bill.
-            attr_accessor :amount
-            # When this fee should be billed.
-            attr_accessor :bill_at
-            # A user-provided lookup key.
-            attr_accessor :lookup_key
-            # Metadata for the one-time fee.
-            attr_accessor :metadata
-            # The id of the product for this fee.
-            attr_accessor :product
-
-            def initialize(amount: nil, bill_at: nil, lookup_key: nil, metadata: nil, product: nil)
-              @amount = amount
-              @bill_at = bill_at
-              @lookup_key = lookup_key
-              @metadata = metadata
-              @product = product
-            end
-          end
-
-          class Remove < ::Stripe::RequestParams
-            # The id of the one-time fee to remove.
-            attr_accessor :id
-            # The lookup key of the one-time fee to remove.
-            attr_accessor :lookup_key
-
-            def initialize(id: nil, lookup_key: nil)
-              @id = id
-              @lookup_key = lookup_key
-            end
-          end
-
-          class Update < ::Stripe::RequestParams
-            class BillAt < ::Stripe::RequestParams
-              # The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
-              attr_accessor :timestamp
-              # The type of the bill_at.
-              attr_accessor :type
-
-              def initialize(timestamp: nil, type: nil)
-                @timestamp = timestamp
-                @type = type
-              end
-            end
-            # The updated amount to bill.
-            attr_accessor :amount
-            # The updated bill_at schedule.
-            attr_accessor :bill_at
-            # The id of the one-time fee to update.
-            attr_accessor :id
-            # The lookup key of the one-time fee to update.
-            attr_accessor :lookup_key
-            # Metadata mutations to apply to the one-time fee.
-            attr_accessor :metadata
-
-            def initialize(amount: nil, bill_at: nil, id: nil, lookup_key: nil, metadata: nil)
-              @amount = amount
-              @bill_at = bill_at
-              @id = id
-              @lookup_key = lookup_key
-              @metadata = metadata
-            end
-          end
-          # Parameters for adding a one-time fee.
-          attr_accessor :add
-          # Parameters for removing a one-time fee.
-          attr_accessor :remove
-          # The type of one-time fee action.
-          attr_accessor :type
-          # Parameters for updating a one-time fee.
-          attr_accessor :update
-
-          def initialize(add: nil, remove: nil, type: nil, update: nil)
-            @add = add
-            @remove = remove
-            @type = type
-            @update = update
-          end
-        end
-
-        class PricingLineAction < ::Stripe::RequestParams
-          class Add < ::Stripe::RequestParams
-            class EndsAt < ::Stripe::RequestParams
-              # The timestamp when the pricing ends.
-              attr_accessor :timestamp
-              # The type of end time to apply.
-              attr_accessor :type
-
-              def initialize(timestamp: nil, type: nil)
-                @timestamp = timestamp
-                @type = type
-              end
-            end
-
-            class Pricing < ::Stripe::RequestParams
-              class PriceDetails < ::Stripe::RequestParams
-                class PricingOverride < ::Stripe::RequestParams
-                  class EndsAt < ::Stripe::RequestParams
-                    # The timestamp when the item ends. Required if `type` is `timestamp`.
-                    attr_accessor :timestamp
-                    # The type of the ends_at.
-                    attr_accessor :type
-
-                    def initialize(timestamp: nil, type: nil)
-                      @timestamp = timestamp
-                      @type = type
-                    end
-                  end
-
-                  class OverwritePrice < ::Stripe::RequestParams
-                    # The per-unit amount to be charged in minor currency units.
-                    attr_accessor :unit_amount
-
-                    def initialize(unit_amount: nil)
-                      @unit_amount = unit_amount
-                    end
-
-                    def self.field_encodings
-                      @field_encodings = { unit_amount: :decimal_string }
-                    end
-                  end
-
-                  class StartsAt < ::Stripe::RequestParams
-                    # The timestamp when the item starts. Required if `type` is `timestamp`.
-                    attr_accessor :timestamp
-                    # The type of the starts_at.
-                    attr_accessor :type
-
-                    def initialize(timestamp: nil, type: nil)
-                      @timestamp = timestamp
-                      @type = type
-                    end
-                  end
-                  # When the override ends. Defaults to the pricing line's end if not specified.
-                  attr_accessor :ends_at
-                  # A user-provided lookup key to reference this override.
-                  attr_accessor :lookup_key
-                  # Set of key-value pairs that you can attach to an object.
-                  attr_accessor :metadata
-                  # Parameters for the overwrite_price override. Required if `type` is `overwrite_price`.
-                  attr_accessor :overwrite_price
-                  # The priority of this override relative to others. 0 is highest, 100 is lowest. Defaults to 50.
-                  attr_accessor :priority
-                  # When the override starts. Defaults to the pricing line's start if not specified.
-                  attr_accessor :starts_at
-                  # The type of override.
-                  attr_accessor :type
-
-                  def initialize(
-                    ends_at: nil,
-                    lookup_key: nil,
-                    metadata: nil,
-                    overwrite_price: nil,
-                    priority: nil,
-                    starts_at: nil,
-                    type: nil
-                  )
-                    @ends_at = ends_at
-                    @lookup_key = lookup_key
-                    @metadata = metadata
-                    @overwrite_price = overwrite_price
-                    @priority = priority
-                    @starts_at = starts_at
-                    @type = type
-                  end
-
-                  def self.field_encodings
-                    @field_encodings = {
-                      overwrite_price: { kind: :object, fields: { unit_amount: :decimal_string } },
-                    }
-                  end
-                end
-
-                class QuantityChange < ::Stripe::RequestParams
-                  class EffectiveAt < ::Stripe::RequestParams
-                    # The timestamp for the effective at.
-                    attr_accessor :timestamp
-                    # The type of the effective at.
-                    attr_accessor :type
-
-                    def initialize(timestamp: nil, type: nil)
-                      @timestamp = timestamp
-                      @type = type
-                    end
-                  end
-                  # When this quantity change takes effect.
-                  attr_accessor :effective_at
-                  # The quantity to set.
-                  attr_accessor :set
-
-                  def initialize(effective_at: nil, set: nil)
-                    @effective_at = effective_at
-                    @set = set
-                  end
-
-                  def self.field_encodings
-                    @field_encodings = { set: :decimal_string }
-                  end
-                end
-                # The id of the price.
-                attr_accessor :price
-                # Pricing overrides embedded directly on this pricing line.
-                attr_accessor :pricing_overrides
-                # Quantity changes for the pricing line. For now, at most one entry is allowed.
-                # A quantity change clears all future quantity changes on this pricing line. Defaults to 1.
-                attr_accessor :quantity_changes
-
-                def initialize(price: nil, pricing_overrides: nil, quantity_changes: nil)
-                  @price = price
-                  @pricing_overrides = pricing_overrides
-                  @quantity_changes = quantity_changes
-                end
-
-                def self.field_encodings
-                  @field_encodings = {
-                    pricing_overrides: {
-                      kind: :array,
-                      element: {
-                        kind: :object,
-                        fields: {
-                          overwrite_price: { kind: :object, fields: { unit_amount: :decimal_string } },
-                        },
-                      },
-                    },
-                    quantity_changes: {
-                      kind: :array,
-                      element: { kind: :object, fields: { set: :decimal_string } },
-                    },
-                  }
-                end
-              end
-              # V1 price details. Required if `type` is `price`.
-              attr_accessor :price_details
-              # The type of pricing.
-              attr_accessor :type
-
-              def initialize(price_details: nil, type: nil)
-                @price_details = price_details
-                @type = type
-              end
-
-              def self.field_encodings
-                @field_encodings = {
-                  price_details: {
-                    kind: :object,
-                    fields: {
-                      pricing_overrides: {
-                        kind: :array,
-                        element: {
-                          kind: :object,
-                          fields: {
-                            overwrite_price: {
-                              kind: :object,
-                              fields: { unit_amount: :decimal_string },
-                            },
-                          },
-                        },
-                      },
-                      quantity_changes: {
-                        kind: :array,
-                        element: { kind: :object, fields: { set: :decimal_string } },
-                      },
-                    },
-                  },
-                }
-              end
-            end
-
-            class StartsAt < ::Stripe::RequestParams
-              # The timestamp when the pricing starts.
-              attr_accessor :timestamp
-              # The type of start time to apply.
-              attr_accessor :type
-
-              def initialize(timestamp: nil, type: nil)
-                @timestamp = timestamp
-                @type = type
-              end
-            end
-            # The end time for the pricing line.
-            attr_accessor :ends_at
-            # A lookup key for the pricing line.
-            attr_accessor :lookup_key
-            # Metadata for the pricing line.
-            attr_accessor :metadata
-            # The pricing configuration for the pricing line.
-            attr_accessor :pricing
-            # The start time for the pricing line.
-            attr_accessor :starts_at
-
-            def initialize(
-              ends_at: nil,
-              lookup_key: nil,
-              metadata: nil,
-              pricing: nil,
-              starts_at: nil
-            )
-              @ends_at = ends_at
-              @lookup_key = lookup_key
-              @metadata = metadata
-              @pricing = pricing
-              @starts_at = starts_at
-            end
-
-            def self.field_encodings
-              @field_encodings = {
-                pricing: {
-                  kind: :object,
-                  fields: {
-                    price_details: {
-                      kind: :object,
-                      fields: {
-                        pricing_overrides: {
-                          kind: :array,
-                          element: {
-                            kind: :object,
-                            fields: {
-                              overwrite_price: {
-                                kind: :object,
-                                fields: { unit_amount: :decimal_string },
-                              },
-                            },
-                          },
-                        },
-                        quantity_changes: {
-                          kind: :array,
-                          element: { kind: :object, fields: { set: :decimal_string } },
-                        },
-                      },
-                    },
-                  },
-                },
-              }
-            end
-          end
-
-          class Remove < ::Stripe::RequestParams
-            # The id of the pricing line to remove.
-            attr_accessor :id
-
-            def initialize(id: nil)
-              @id = id
-            end
-          end
-
-          class Update < ::Stripe::RequestParams
-            class EndsAt < ::Stripe::RequestParams
-              # The timestamp when the pricing ends.
-              attr_accessor :timestamp
-              # The type of end time to apply.
-              attr_accessor :type
-
-              def initialize(timestamp: nil, type: nil)
-                @timestamp = timestamp
-                @type = type
-              end
-            end
-
-            class Pricing < ::Stripe::RequestParams
-              class PriceDetails < ::Stripe::RequestParams
-                class PricingOverrideAction < ::Stripe::RequestParams
-                  class Add < ::Stripe::RequestParams
-                    class EndsAt < ::Stripe::RequestParams
-                      # The timestamp when the pricing ends.
-                      attr_accessor :timestamp
-                      # The type of end time to apply.
-                      attr_accessor :type
-
-                      def initialize(timestamp: nil, type: nil)
-                        @timestamp = timestamp
-                        @type = type
-                      end
-                    end
-
-                    class OverwritePrice < ::Stripe::RequestParams
-                      # The per-unit amount to be charged in minor currency units.
-                      attr_accessor :unit_amount
-
-                      def initialize(unit_amount: nil)
-                        @unit_amount = unit_amount
-                      end
-
-                      def self.field_encodings
-                        @field_encodings = { unit_amount: :decimal_string }
-                      end
-                    end
-
-                    class StartsAt < ::Stripe::RequestParams
-                      # The timestamp when the pricing starts.
-                      attr_accessor :timestamp
-                      # The type of start time to apply.
-                      attr_accessor :type
-
-                      def initialize(timestamp: nil, type: nil)
-                        @timestamp = timestamp
-                        @type = type
-                      end
-                    end
-                    # The end time for the override.
-                    attr_accessor :ends_at
-                    # A lookup key for the override.
-                    attr_accessor :lookup_key
-                    # Metadata for the pricing override.
-                    attr_accessor :metadata
-                    # Parameters for an overwrite_price override. Required if `type` is `overwrite_price`.
-                    attr_accessor :overwrite_price
-                    # The priority of this override relative to others. 0 is highest, 100 is lowest. Defaults to 50.
-                    attr_accessor :priority
-                    # The start time for the override.
-                    attr_accessor :starts_at
-                    # The type of override to add.
-                    attr_accessor :type
-
-                    def initialize(
-                      ends_at: nil,
-                      lookup_key: nil,
-                      metadata: nil,
-                      overwrite_price: nil,
-                      priority: nil,
-                      starts_at: nil,
-                      type: nil
-                    )
-                      @ends_at = ends_at
-                      @lookup_key = lookup_key
-                      @metadata = metadata
-                      @overwrite_price = overwrite_price
-                      @priority = priority
-                      @starts_at = starts_at
-                      @type = type
-                    end
-
-                    def self.field_encodings
-                      @field_encodings = {
-                        overwrite_price: { kind: :object, fields: { unit_amount: :decimal_string } },
-                      }
-                    end
-                  end
-
-                  class Remove < ::Stripe::RequestParams
-                    # The id of the pricing override to remove.
-                    attr_accessor :id
-                    # Lookup key of the override to remove.
-                    attr_accessor :lookup_key
-
-                    def initialize(id: nil, lookup_key: nil)
-                      @id = id
-                      @lookup_key = lookup_key
-                    end
-                  end
-
-                  class Update < ::Stripe::RequestParams
-                    class EndsAt < ::Stripe::RequestParams
-                      # The timestamp when the pricing ends.
-                      attr_accessor :timestamp
-                      # The type of end time to apply.
-                      attr_accessor :type
-
-                      def initialize(timestamp: nil, type: nil)
-                        @timestamp = timestamp
-                        @type = type
-                      end
-                    end
-
-                    class StartsAt < ::Stripe::RequestParams
-                      # The timestamp when the pricing starts.
-                      attr_accessor :timestamp
-                      # The type of start time to apply.
-                      attr_accessor :type
-
-                      def initialize(timestamp: nil, type: nil)
-                        @timestamp = timestamp
-                        @type = type
-                      end
-                    end
-                    # Updated end time.
-                    attr_accessor :ends_at
-                    # The id of the pricing override to update.
-                    attr_accessor :id
-                    # Updated lookup key.
-                    attr_accessor :lookup_key
-                    # Metadata mutations to apply to the pricing override.
-                    attr_accessor :metadata
-                    # Updated start time.
-                    attr_accessor :starts_at
-
-                    def initialize(
-                      ends_at: nil,
-                      id: nil,
-                      lookup_key: nil,
-                      metadata: nil,
-                      starts_at: nil
-                    )
-                      @ends_at = ends_at
-                      @id = id
-                      @lookup_key = lookup_key
-                      @metadata = metadata
-                      @starts_at = starts_at
-                    end
-                  end
-                  # Add a pricing line override.
-                  attr_accessor :add
-                  # Remove a pricing line override.
-                  attr_accessor :remove
-                  # The type of pricing line override action.
-                  attr_accessor :type
-                  # Update a pricing line override.
-                  attr_accessor :update
-
-                  def initialize(add: nil, remove: nil, type: nil, update: nil)
-                    @add = add
-                    @remove = remove
-                    @type = type
-                    @update = update
-                  end
-
-                  def self.field_encodings
-                    @field_encodings = {
-                      add: {
-                        kind: :object,
-                        fields: {
-                          overwrite_price: { kind: :object, fields: { unit_amount: :decimal_string } },
-                        },
-                      },
-                    }
-                  end
-                end
-
-                class QuantityChange < ::Stripe::RequestParams
-                  class EffectiveAt < ::Stripe::RequestParams
-                    # The timestamp for the effective at.
-                    attr_accessor :timestamp
-                    # The type of the effective at.
-                    attr_accessor :type
-
-                    def initialize(timestamp: nil, type: nil)
-                      @timestamp = timestamp
-                      @type = type
-                    end
-                  end
-                  # When this quantity change takes effect.
-                  attr_accessor :effective_at
-                  # The quantity to set.
-                  attr_accessor :set
-
-                  def initialize(effective_at: nil, set: nil)
-                    @effective_at = effective_at
-                    @set = set
-                  end
-
-                  def self.field_encodings
-                    @field_encodings = { set: :decimal_string }
-                  end
-                end
-                # Pricing override actions to apply to the overrides embedded on this pricing line.
-                attr_accessor :pricing_override_actions
-                # Quantity changes for the pricing line. Setting this clears all future quantity changes.
-                attr_accessor :quantity_changes
-
-                def initialize(pricing_override_actions: nil, quantity_changes: nil)
-                  @pricing_override_actions = pricing_override_actions
-                  @quantity_changes = quantity_changes
-                end
-
-                def self.field_encodings
-                  @field_encodings = {
-                    pricing_override_actions: {
-                      kind: :array,
-                      element: {
-                        kind: :object,
-                        fields: {
-                          add: {
-                            kind: :object,
-                            fields: {
-                              overwrite_price: {
-                                kind: :object,
-                                fields: { unit_amount: :decimal_string },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
-                    quantity_changes: {
-                      kind: :array,
-                      element: { kind: :object, fields: { set: :decimal_string } },
-                    },
-                  }
-                end
-              end
-              # V1 price details. Present when the pricing line type is `price`.
-              attr_accessor :price_details
-
-              def initialize(price_details: nil)
-                @price_details = price_details
-              end
-
-              def self.field_encodings
-                @field_encodings = {
-                  price_details: {
-                    kind: :object,
-                    fields: {
-                      pricing_override_actions: {
-                        kind: :array,
-                        element: {
-                          kind: :object,
-                          fields: {
-                            add: {
-                              kind: :object,
-                              fields: {
-                                overwrite_price: {
-                                  kind: :object,
-                                  fields: { unit_amount: :decimal_string },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                      quantity_changes: {
-                        kind: :array,
-                        element: { kind: :object, fields: { set: :decimal_string } },
-                      },
-                    },
-                  },
-                }
-              end
-            end
-
-            class StartsAt < ::Stripe::RequestParams
-              # The timestamp when the pricing starts.
-              attr_accessor :timestamp
-              # The type of start time to apply.
-              attr_accessor :type
-
-              def initialize(timestamp: nil, type: nil)
-                @timestamp = timestamp
-                @type = type
-              end
-            end
-            # Updated end time.
-            attr_accessor :ends_at
-            # The id of the pricing line.
-            attr_accessor :id
-            # Metadata mutations to apply to the pricing line.
-            attr_accessor :metadata
-            # Updated pricing configuration.
-            attr_accessor :pricing
-            # Updated start time.
-            attr_accessor :starts_at
-
-            def initialize(ends_at: nil, id: nil, metadata: nil, pricing: nil, starts_at: nil)
-              @ends_at = ends_at
-              @id = id
-              @metadata = metadata
-              @pricing = pricing
-              @starts_at = starts_at
-            end
-
-            def self.field_encodings
-              @field_encodings = {
-                pricing: {
-                  kind: :object,
-                  fields: {
-                    price_details: {
-                      kind: :object,
-                      fields: {
-                        pricing_override_actions: {
-                          kind: :array,
-                          element: {
-                            kind: :object,
-                            fields: {
-                              add: {
-                                kind: :object,
-                                fields: {
-                                  overwrite_price: {
-                                    kind: :object,
-                                    fields: { unit_amount: :decimal_string },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                        quantity_changes: {
-                          kind: :array,
-                          element: { kind: :object, fields: { set: :decimal_string } },
-                        },
-                      },
-                    },
-                  },
-                },
-              }
-            end
-          end
-          # Add a pricing line.
-          attr_accessor :add
-          # Remove a pricing line.
-          attr_accessor :remove
-          # The type of pricing line action.
-          attr_accessor :type
-          # Update a pricing line.
-          attr_accessor :update
-
-          def initialize(add: nil, remove: nil, type: nil, update: nil)
-            @add = add
-            @remove = remove
-            @type = type
-            @update = update
-          end
-
-          def self.field_encodings
-            @field_encodings = {
-              add: {
-                kind: :object,
-                fields: {
-                  pricing: {
-                    kind: :object,
-                    fields: {
-                      price_details: {
-                        kind: :object,
-                        fields: {
-                          pricing_overrides: {
-                            kind: :array,
-                            element: {
-                              kind: :object,
-                              fields: {
-                                overwrite_price: {
-                                  kind: :object,
-                                  fields: { unit_amount: :decimal_string },
-                                },
-                              },
-                            },
-                          },
-                          quantity_changes: {
-                            kind: :array,
-                            element: { kind: :object, fields: { set: :decimal_string } },
-                          },
-                        },
-                      },
-                    },
-                  },
-                },
-              },
-              update: {
-                kind: :object,
-                fields: {
-                  pricing: {
-                    kind: :object,
-                    fields: {
-                      price_details: {
-                        kind: :object,
-                        fields: {
-                          pricing_override_actions: {
-                            kind: :array,
-                            element: {
-                              kind: :object,
-                              fields: {
-                                add: {
-                                  kind: :object,
-                                  fields: {
-                                    overwrite_price: {
-                                      kind: :object,
-                                      fields: { unit_amount: :decimal_string },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                          quantity_changes: {
-                            kind: :array,
-                            element: { kind: :object, fields: { set: :decimal_string } },
-                          },
-                        },
-                      },
-                    },
-                  },
-                },
-              },
-            }
-          end
-        end
-
-        class PricingOverrideAction < ::Stripe::RequestParams
-          class Add < ::Stripe::RequestParams
-            class EndsAt < ::Stripe::RequestParams
-              # The timestamp when the pricing ends.
-              attr_accessor :timestamp
-              # The type of end time to apply.
-              attr_accessor :type
-
-              def initialize(timestamp: nil, type: nil)
-                @timestamp = timestamp
-                @type = type
-              end
-            end
-
-            class MultiplyPricing < ::Stripe::RequestParams
-              class Criterion < ::Stripe::RequestParams
-                # Filter by pricing line IDs.
-                attr_accessor :pricing_line_ids
-                # Filter by pricing line lookup keys.
-                attr_accessor :pricing_line_lookup_keys
-                # Whether to include or exclude items matching these criteria.
-                attr_accessor :type
-
-                def initialize(pricing_line_ids: nil, pricing_line_lookup_keys: nil, type: nil)
-                  @pricing_line_ids = pricing_line_ids
-                  @pricing_line_lookup_keys = pricing_line_lookup_keys
-                  @type = type
-                end
-              end
-              # Criteria determining which rates the multiply_pricing override applies to.
-              attr_accessor :criteria
-              # The multiply_pricing factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
-              attr_accessor :factor
-
-              def initialize(criteria: nil, factor: nil)
-                @criteria = criteria
-                @factor = factor
-              end
-            end
-
-            class OverwritePrice < ::Stripe::RequestParams
-              # The per-unit amount to be charged, represented as a decimal string in minor currency units.
-              attr_accessor :unit_amount
-
-              def initialize(unit_amount: nil)
-                @unit_amount = unit_amount
-              end
-            end
-
-            class StartsAt < ::Stripe::RequestParams
-              # The timestamp when the pricing starts.
-              attr_accessor :timestamp
-              # The type of start time to apply.
-              attr_accessor :type
-
-              def initialize(timestamp: nil, type: nil)
-                @timestamp = timestamp
-                @type = type
-              end
-            end
-            # The end time for the pricing override.
-            attr_accessor :ends_at
-            # A lookup key for the pricing override.
-            attr_accessor :lookup_key
-            # Metadata for the pricing override.
-            attr_accessor :metadata
-            # A multiply_pricing override to add.
-            attr_accessor :multiply_pricing
-            # An overwrite price override to add.
-            attr_accessor :overwrite_price
-            # The priority for the pricing override. The highest priority is 0 and the lowest is 100.
-            attr_accessor :priority
-            # The start time for the pricing override.
-            attr_accessor :starts_at
-            # The type of pricing override to add.
-            attr_accessor :type
-
-            def initialize(
-              ends_at: nil,
-              lookup_key: nil,
-              metadata: nil,
-              multiply_pricing: nil,
-              overwrite_price: nil,
-              priority: nil,
-              starts_at: nil,
-              type: nil
-            )
-              @ends_at = ends_at
-              @lookup_key = lookup_key
-              @metadata = metadata
-              @multiply_pricing = multiply_pricing
-              @overwrite_price = overwrite_price
-              @priority = priority
-              @starts_at = starts_at
-              @type = type
-            end
-          end
-
-          class Remove < ::Stripe::RequestParams
-            # The id of the pricing override to remove.
-            attr_accessor :id
-
-            def initialize(id: nil)
-              @id = id
-            end
-          end
-
-          class Update < ::Stripe::RequestParams
-            class EndsAt < ::Stripe::RequestParams
-              # The timestamp when the pricing ends.
-              attr_accessor :timestamp
-              # The type of end time to apply.
-              attr_accessor :type
-
-              def initialize(timestamp: nil, type: nil)
-                @timestamp = timestamp
-                @type = type
-              end
-            end
-
-            class StartsAt < ::Stripe::RequestParams
-              # The timestamp when the pricing starts.
-              attr_accessor :timestamp
-              # The type of start time to apply.
-              attr_accessor :type
-
-              def initialize(timestamp: nil, type: nil)
-                @timestamp = timestamp
-                @type = type
-              end
-            end
-            # The updated end time for the pricing override.
-            attr_accessor :ends_at
-            # The ID of the pricing override.
-            attr_accessor :id
-            # Metadata mutations to apply to the pricing override.
-            attr_accessor :metadata
-            # The updated start time for the pricing override.
-            attr_accessor :starts_at
-
-            def initialize(ends_at: nil, id: nil, metadata: nil, starts_at: nil)
-              @ends_at = ends_at
-              @id = id
-              @metadata = metadata
-              @starts_at = starts_at
-            end
-          end
-          # Add a pricing override.
-          attr_accessor :add
-          # Remove a pricing override.
-          attr_accessor :remove
-          # The type of pricing override action.
-          attr_accessor :type
-          # Update a pricing override.
-          attr_accessor :update
-
-          def initialize(add: nil, remove: nil, type: nil, update: nil)
-            @add = add
-            @remove = remove
-            @type = type
-            @update = update
-          end
-        end
-        # Apply all actions atomically. Cannot be combined with the legacy child action arrays.
+        # Apply all term actions atomically.
         attr_accessor :actions
         # The billing settings to update on the contract.
         attr_accessor :billing_settings
+        # The unique user-provided contract number. This can only be changed while the contract is in draft.
+        attr_accessor :contract_number
         # Additional fields to include in the response.
         attr_accessor :include
         # Set of key-value pairs.
         attr_accessor :metadata
-        # One-time fee actions to apply.
-        attr_accessor :one_time_fee_actions
-        # Pricing line actions to apply.
-        attr_accessor :pricing_line_actions
-        # Pricing override actions to apply.
-        attr_accessor :pricing_override_actions
 
         def initialize(
           actions: nil,
           billing_settings: nil,
+          contract_number: nil,
           include: nil,
-          metadata: nil,
-          one_time_fee_actions: nil,
-          pricing_line_actions: nil,
-          pricing_override_actions: nil
+          metadata: nil
         )
           @actions = actions
           @billing_settings = billing_settings
+          @contract_number = contract_number
           @include = include
           @metadata = metadata
-          @one_time_fee_actions = one_time_fee_actions
-          @pricing_line_actions = pricing_line_actions
-          @pricing_override_actions = pricing_override_actions
         end
 
         def self.field_encodings
@@ -1667,81 +699,6 @@ module Stripe
                   update_term: {
                     kind: :object,
                     fields: { recurring_price: { kind: :object, fields: { quantity: :decimal_string } } },
-                  },
-                },
-              },
-            },
-            pricing_line_actions: {
-              kind: :array,
-              element: {
-                kind: :object,
-                fields: {
-                  add: {
-                    kind: :object,
-                    fields: {
-                      pricing: {
-                        kind: :object,
-                        fields: {
-                          price_details: {
-                            kind: :object,
-                            fields: {
-                              pricing_overrides: {
-                                kind: :array,
-                                element: {
-                                  kind: :object,
-                                  fields: {
-                                    overwrite_price: {
-                                      kind: :object,
-                                      fields: { unit_amount: :decimal_string },
-                                    },
-                                  },
-                                },
-                              },
-                              quantity_changes: {
-                                kind: :array,
-                                element: { kind: :object, fields: { set: :decimal_string } },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
-                  },
-                  update: {
-                    kind: :object,
-                    fields: {
-                      pricing: {
-                        kind: :object,
-                        fields: {
-                          price_details: {
-                            kind: :object,
-                            fields: {
-                              pricing_override_actions: {
-                                kind: :array,
-                                element: {
-                                  kind: :object,
-                                  fields: {
-                                    add: {
-                                      kind: :object,
-                                      fields: {
-                                        overwrite_price: {
-                                          kind: :object,
-                                          fields: { unit_amount: :decimal_string },
-                                        },
-                                      },
-                                    },
-                                  },
-                                },
-                              },
-                              quantity_changes: {
-                                kind: :array,
-                                element: { kind: :object, fields: { set: :decimal_string } },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
                   },
                 },
               },

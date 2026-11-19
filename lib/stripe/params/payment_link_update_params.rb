@@ -419,6 +419,8 @@ module Stripe
     end
 
     class PaymentIntentData < ::Stripe::RequestParams
+      # Controls when the funds will be captured from the customer's account.
+      attr_accessor :capture_method
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_accessor :description
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will declaratively set metadata on [Payment Intents](https://docs.stripe.com/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
@@ -445,6 +447,7 @@ module Stripe
       attr_accessor :transfer_group
 
       def initialize(
+        capture_method: nil,
         description: nil,
         metadata: nil,
         setup_future_usage: nil,
@@ -452,6 +455,7 @@ module Stripe
         statement_descriptor_suffix: nil,
         transfer_group: nil
       )
+        @capture_method = capture_method
         @description = description
         @metadata = metadata
         @setup_future_usage = setup_future_usage

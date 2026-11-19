@@ -192,6 +192,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class GiftCard < ::Stripe::StripeObject
+        # ID of the reload or activation GiftCardOperation created for this refund.
+        sig { returns(T.nilable(String)) }
+        def gift_card_operation; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Giropay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -502,6 +513,9 @@ module Stripe
       # Attribute for field gb_bank_transfer
       sig { returns(T.nilable(GbBankTransfer)) }
       def gb_bank_transfer; end
+      # Attribute for field gift_card
+      sig { returns(T.nilable(GiftCard)) }
+      def gift_card; end
       # Attribute for field giropay
       sig { returns(T.nilable(Giropay)) }
       def giropay; end
@@ -592,6 +606,7 @@ module Stripe
           eps: Eps,
           eu_bank_transfer: EuBankTransfer,
           gb_bank_transfer: GbBankTransfer,
+          gift_card: GiftCard,
           giropay: Giropay,
           grabpay: Grabpay,
           id_bank_transfer: IdBankTransfer,
@@ -680,6 +695,9 @@ module Stripe
     # Amount, in cents (or local equivalent).
     sig { returns(Integer) }
     def amount; end
+    # ID of the Connect application that created the refund. This can differ from the application on the associated Charge or PaymentIntent. A null value does not necessarily mean the refund was created without a Connect application.
+    sig { returns(T.nilable(T.any(String, ::Stripe::Application))) }
+    def application; end
     # Balance transaction that describes the impact on your account balance.
     sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
     def balance_transaction; end

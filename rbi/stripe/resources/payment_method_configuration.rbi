@@ -49,6 +49,37 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class AeonPay < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        sig { returns(T.nilable(T::Boolean)) }
+        def overridable; end
+        # The account's display preference.
+        sig { returns(String) }
+        def preference; end
+        # The effective display preference value.
+        sig { returns(String) }
+        def value; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      sig { returns(T::Boolean) }
+      def available; end
+      # Attribute for field display_preference
+      sig { returns(DisplayPreference) }
+      def display_preference; end
+      def self.inner_class_types
+        @inner_class_types = {display_preference: DisplayPreference}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Affirm < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -236,6 +267,37 @@ module Stripe
       end
     end
     class AuBecsDebit < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        sig { returns(T.nilable(T::Boolean)) }
+        def overridable; end
+        # The account's display preference.
+        sig { returns(String) }
+        def preference; end
+        # The effective display preference value.
+        sig { returns(String) }
+        def value; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      sig { returns(T::Boolean) }
+      def available; end
+      # Attribute for field display_preference
+      sig { returns(DisplayPreference) }
+      def display_preference; end
+      def self.inner_class_types
+        @inner_class_types = {display_preference: DisplayPreference}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class AuPay < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
@@ -577,6 +639,37 @@ module Stripe
       end
     end
     class CustomerBalance < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        sig { returns(T.nilable(T::Boolean)) }
+        def overridable; end
+        # The account's display preference.
+        sig { returns(String) }
+        def preference; end
+        # The effective display preference value.
+        sig { returns(String) }
+        def value; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      sig { returns(T::Boolean) }
+      def available; end
+      # Attribute for field display_preference
+      sig { returns(DisplayPreference) }
+      def display_preference; end
+      def self.inner_class_types
+        @inner_class_types = {display_preference: DisplayPreference}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class Dbarai < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
@@ -1042,6 +1135,37 @@ module Stripe
       end
     end
     class MbWay < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        sig { returns(T.nilable(T::Boolean)) }
+        def overridable; end
+        # The account's display preference.
+        sig { returns(String) }
+        def preference; end
+        # The effective display preference value.
+        sig { returns(String) }
+        def value; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      sig { returns(T::Boolean) }
+      def available; end
+      # Attribute for field display_preference
+      sig { returns(DisplayPreference) }
+      def display_preference; end
+      def self.inner_class_types
+        @inner_class_types = {display_preference: DisplayPreference}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class Merpay < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         sig { returns(T.nilable(T::Boolean)) }
@@ -2101,6 +2225,9 @@ module Stripe
     # Whether the configuration can be used for new payments.
     sig { returns(T::Boolean) }
     def active; end
+    # Attribute for field aeon_pay
+    sig { returns(T.nilable(AeonPay)) }
+    def aeon_pay; end
     # Attribute for field affirm
     sig { returns(T.nilable(Affirm)) }
     def affirm; end
@@ -2125,6 +2252,9 @@ module Stripe
     # Attribute for field au_becs_debit
     sig { returns(T.nilable(AuBecsDebit)) }
     def au_becs_debit; end
+    # Attribute for field au_pay
+    sig { returns(T.nilable(AuPay)) }
+    def au_pay; end
     # Attribute for field bacs_debit
     sig { returns(T.nilable(BacsDebit)) }
     def bacs_debit; end
@@ -2158,6 +2288,9 @@ module Stripe
     # Attribute for field customer_balance
     sig { returns(T.nilable(CustomerBalance)) }
     def customer_balance; end
+    # Attribute for field dbarai
+    sig { returns(T.nilable(Dbarai)) }
+    def dbarai; end
     # Attribute for field eps
     sig { returns(T.nilable(Eps)) }
     def eps; end
@@ -2212,6 +2345,9 @@ module Stripe
     # Attribute for field mb_way
     sig { returns(T.nilable(MbWay)) }
     def mb_way; end
+    # Attribute for field merpay
+    sig { returns(T.nilable(Merpay)) }
+    def merpay; end
     # Attribute for field mobilepay
     sig { returns(T.nilable(Mobilepay)) }
     def mobilepay; end

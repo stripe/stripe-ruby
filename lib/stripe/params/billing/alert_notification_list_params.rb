@@ -25,8 +25,6 @@ module Stripe
       attr_accessor :action
       # Filter results to only include notifications for the given billing group.
       attr_accessor :billing_group
-      # Filter results to only include notifications for the given cadence.
-      attr_accessor :cadence
       # The customer to list notifications for.
       attr_accessor :customer
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -47,7 +45,6 @@ module Stripe
       def initialize(
         action: nil,
         billing_group: nil,
-        cadence: nil,
         customer: nil,
         ending_before: nil,
         expand: nil,
@@ -59,7 +56,6 @@ module Stripe
       )
         @action = action
         @billing_group = billing_group
-        @cadence = cadence
         @customer = customer
         @ending_before = ending_before
         @expand = expand

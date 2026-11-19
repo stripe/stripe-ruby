@@ -57,7 +57,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # The maximum number of times this discount can be applied for this Billing Cadence.
+              # The maximum number of times this discount can be applied for this billing group.
               sig { returns(MaximumApplications) }
               def maximum_applications; end
               # Percent that is taken off the amount. For example, a percent_off of 50.0 reduces a 100 USD amount to 50 USD.
@@ -73,7 +73,7 @@ module Stripe
                 @field_encodings = {percent_off: :decimal_string}
               end
             end
-            # The entity that the discount rule applies to, for example, the Billing Cadence.
+            # The entity that the discount rule applies to, for example, the Billing Group.
             sig { returns(String) }
             def applies_to; end
             # The ID of the created discount rule. This is only present once the Billing Intent is committed and the discount rule is created.

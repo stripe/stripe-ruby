@@ -4,11 +4,8 @@
 module Stripe
   module V2
     module Core
-      # A claimable sandbox represents a Stripe sandbox that is anonymous.
-      # When it is created, it can be prefilled with specific metadata, such as email, name, or country.
-      # Claimable sandboxes can be claimed through a URL. When a user claims a sandbox through this URL,
-      # it will prompt them to create a new Stripe account. Or, it will allow them to claim this sandbox in their
-      # existing Stripe account.
+      # A claimable sandbox is a Stripe sandbox that a user can claim into a new or existing Stripe account
+      # through an onboarding link. You can prefill it with an email address, sandbox name, and country.
       # Claimable sandboxes have 60 days to be claimed. After this expiration time has passed,
       # if the sandbox is not claimed, it will be deleted.
       class ClaimableSandbox < APIResource
@@ -18,13 +15,17 @@ module Stripe
         end
 
         class OnboardingLinkDetails < ::Stripe::StripeObject
-          # The timestamp the onboarding link expires.
+          # Time at which the onboarding link expires. Represented as an RFC 3339 timestamp in UTC
+          # with millisecond precision, for example `2022-09-18T13:22:18.123Z`.
           attr_reader :expires_at
           # The URL the user will be redirected to if the onboarding link is expired or invalid.
           # The URL specified should attempt to generate a new onboarding link,
           # and re-direct the user to this new onboarding link so that they can proceed with the onboarding flow.
           attr_reader :refresh_url
-          # URL that will redirect the user to either claim or onboard the claimable sandbox depending on its status.
+          # The URL offered to the user as a way back to your app after they claim the sandbox.
+          attr_reader :return_url
+          # The URL that lets a user claim the sandbox or continue onboarding their Stripe account,
+          # depending on the sandbox's status.
           attr_reader :url
 
           def self.inner_class_types
@@ -37,10 +38,10 @@ module Stripe
         end
 
         class OwnerDetails < ::Stripe::StripeObject
-          # The ID of the livemode Stripe account that owns the sandbox.
-          # This field is only set when owner_details.app_install_status is `installed`.
+          # The ID of the live mode Stripe account that owns the sandbox.
+          # This field is only set when `owner_details.app_install_status` is `installed`.
           attr_reader :account
-          # Indicates whether the platform app is installed on the sandbox’s livemode owner account.
+          # Indicates whether the platform app is installed on the sandbox’s live mode owner account.
           attr_reader :app_install_status
 
           def self.inner_class_types
@@ -56,8 +57,8 @@ module Stripe
           # Country in which the account holder resides, or in which the business is legally established.
           # Use two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Email that this sandbox is meant to be claimed by. Stripe will
-          # send an email to this email address before the sandbox expires.
+          # Email address of the user who will claim the sandbox.
+          # Stripe sends this address an invitation to claim the sandbox and a reminder before the unclaimed sandbox expires.
           attr_reader :email
           # Name for the sandbox.
           attr_reader :name
@@ -73,16 +74,129 @@ module Stripe
 
         class SandboxDetails < ::Stripe::StripeObject
           class ApiKeys < ::Stripe::StripeObject
-            # Used to communicate with [Stripe's MCP server](https://docs.stripe.com/mcp).
-            # This allows LLM agents to securely operate on a Stripe account.
+            class Mcp < ::Stripe::StripeObject
+              class SecretKey < ::Stripe::StripeObject
+                # The plaintext token for the API key.
+                attr_reader :token
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Time at which the API key was created. Represented as an RFC 3339 timestamp in UTC
+              # with millisecond precision, for example `2022-09-18T13:22:18.123Z`.
+              attr_reader :created
+              # Time at which the API key expires. Represented as an RFC 3339 timestamp in UTC
+              # with millisecond precision, for example `2022-09-18T13:22:18.123Z`.
+              attr_reader :expires_at
+              # Unique identifier of the API key.
+              attr_reader :id
+              # Token for the secret key. Present only in the create response;
+              # null in subsequent retrieve responses.
+              attr_reader :secret_key
+              # Current status of the API key.
+              attr_reader :status
+              # Type of the API key.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = { secret_key: SecretKey }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Publishable < ::Stripe::StripeObject
+              class PublishableKey < ::Stripe::StripeObject
+                # The plaintext token for the API key.
+                attr_reader :token
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Time at which the API key was created. Represented as an RFC 3339 timestamp in UTC
+              # with millisecond precision, for example `2022-09-18T13:22:18.123Z`.
+              attr_reader :created
+              # Time at which the API key expires. Represented as an RFC 3339 timestamp in UTC
+              # with millisecond precision, for example `2022-09-18T13:22:18.123Z`.
+              attr_reader :expires_at
+              # Unique identifier of the API key.
+              attr_reader :id
+              # Token for the publishable key. Present only in the create response;
+              # null in subsequent retrieve responses.
+              attr_reader :publishable_key
+              # Current status of the API key.
+              attr_reader :status
+              # Type of the API key.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = { publishable_key: PublishableKey }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Secret < ::Stripe::StripeObject
+              class SecretKey < ::Stripe::StripeObject
+                # The plaintext token for the API key.
+                attr_reader :token
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Time at which the API key was created. Represented as an RFC 3339 timestamp in UTC
+              # with millisecond precision, for example `2022-09-18T13:22:18.123Z`.
+              attr_reader :created
+              # Time at which the API key expires. Represented as an RFC 3339 timestamp in UTC
+              # with millisecond precision, for example `2022-09-18T13:22:18.123Z`.
+              attr_reader :expires_at
+              # Unique identifier of the API key.
+              attr_reader :id
+              # Token for the secret key. Present only in the create response;
+              # null in subsequent retrieve responses.
+              attr_reader :secret_key
+              # Current status of the API key.
+              attr_reader :status
+              # Type of the API key.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = { secret_key: SecretKey }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Object hash for the sandbox's MCP key.
+            # Null unless `enable_mcp_access: true` was passed in the creation request.
             attr_reader :mcp
-            # Publicly accessible in a web or mobile app client-side code.
+            # Object hash for the sandbox's publishable key.
             attr_reader :publishable
-            # Should be stored securely in server-side code (such as an environment variable).
+            # Object hash for the sandbox's secret key.
             attr_reader :secret
 
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = { mcp: Mcp, publishable: Publishable, secret: Secret }
             end
 
             def self.field_remappings
@@ -91,7 +205,9 @@ module Stripe
           end
           # The sandbox's Stripe account ID.
           attr_reader :account
-          # Keys that can be used to set up an integration for this sandbox and operate on the account. This will be present only in the create response, and will be null in subsequent retrieve responses.
+          # Keys that can be used to set up an integration for this sandbox and operate on the account.
+          # Present in the create response. To fetch this field in the retrieve response,
+          # pass `sandbox_details.api_keys` in the `include` parameter.
           attr_reader :api_keys
 
           def self.inner_class_types
@@ -102,23 +218,30 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The app channel that will be used when pre-installing your app on the claimable sandbox.
-        attr_reader :app_channel
-        # The timestamp the sandbox was claimed. The value will be null if the sandbox status is not `claimed`.
+        # The distribution channel used to pre-install your Stripe App on the claimable sandbox.
+        # Use `testing` to install your app's external test version or `public` to install its published version.
+        attr_reader :channel
+        # Time at which the sandbox was claimed. Set when the status is `claimed` or `live`.
+        # Represented as an RFC 3339 timestamp in UTC with millisecond precision,
+        # for example `2022-09-18T13:22:18.123Z`.
         attr_reader :claimed_at
-        # When the sandbox is created.
+        # Time at which the sandbox was created. Represented as an RFC 3339 timestamp in UTC
+        # with millisecond precision, for example `2022-09-18T13:22:18.123Z`.
         attr_reader :created
-        # The timestamp the sandbox will expire. The value will be null if the sandbox is `claimed`.
+        # Time at which the unclaimed sandbox expires. Null when the status is `claimed` or `live`.
+        # Represented as an RFC 3339 timestamp in UTC with millisecond precision,
+        # for example `2022-09-18T13:22:18.123Z`.
         attr_reader :expires_at
-        # Unique identifier for the Claimable sandbox.
+        # Unique identifier for the claimable sandbox.
         attr_reader :id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # Details about the onboarding link.
+        # Null when the sandbox status is `live` or `expired`.
         attr_reader :onboarding_link_details
-        # Details about the livemode owner account of the sandbox.
+        # Details about the live mode owner account of the sandbox.
         # This will be null until the sandbox is claimed.
         attr_reader :owner_details
         # Values prefilled during the creation of the sandbox. When a user claims the sandbox, they will be able to update these values.

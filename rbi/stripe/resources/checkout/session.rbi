@@ -1645,6 +1645,26 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class PassThroughFeeCost < ::Stripe::StripeObject
+        # The pass-through fee before tax.
+        sig { returns(Integer) }
+        def amount_subtotal; end
+        # The tax on the pass-through fee. Pass-through fees aren't taxed, so this is always 0.
+        sig { returns(Integer) }
+        def amount_tax; end
+        # The pass-through fee after tax.
+        sig { returns(Integer) }
+        def amount_total; end
+        # The amount the provider calculated the fee on.
+        sig { returns(Integer) }
+        def calculation_basis_amount; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class PaymentMethodConfigurationDetails < ::Stripe::StripeObject
         # ID of the payment method configuration used.
         sig { returns(String) }
@@ -3508,6 +3528,9 @@ module Stripe
         # This is the sum of all the discounts.
         sig { returns(Integer) }
         def amount_discount; end
+        # The pass-through fee added to the Checkout Session, before tax.
+        sig { returns(T.nilable(Integer)) }
+        def amount_pass_through_fee; end
         # This is the sum of all the shipping amounts.
         sig { returns(T.nilable(Integer)) }
         def amount_shipping; end
@@ -3812,6 +3835,9 @@ module Stripe
       # Where the user is coming from. This informs the optimizations that are applied to the session.
       sig { returns(T.nilable(String)) }
       def origin_context; end
+      # Attribute for field pass_through_fee_cost
+      sig { returns(T.nilable(PassThroughFeeCost)) }
+      def pass_through_fee_cost; end
       # The ID of the PaymentIntent for Checkout Sessions in `payment` mode. You can't confirm or cancel the PaymentIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://docs.stripe.com/api/checkout/sessions/expire) instead.
       sig { returns(T.nilable(T.any(String, ::Stripe::PaymentIntent))) }
       def payment_intent; end

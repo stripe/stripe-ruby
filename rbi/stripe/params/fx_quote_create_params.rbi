@@ -49,8 +49,6 @@ module Stripe
        }
       def transfer=(_transfer); end
       # Which transaction the FX Quote will be used for
-      #
-      # Can be “payment” | “transfer”
       sig { returns(String) }
       def type; end
       sig { params(_type: String).returns(String) }

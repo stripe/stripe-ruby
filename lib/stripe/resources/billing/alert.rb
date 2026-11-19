@@ -144,8 +144,6 @@ module Stripe
 
       class SpendThreshold < ::Stripe::StripeObject
         class Filters < ::Stripe::StripeObject
-          # Filter by billing cadence ID.
-          attr_reader :billing_cadence
           # Filter by billing group ID.
           attr_reader :billing_group
           # Filter by pricing plan ID.

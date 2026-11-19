@@ -323,6 +323,9 @@ module Stripe
           # Array of eligibility objects, segmented by bank name and deposit insurance scheme.
           sig { returns(T.nilable(T::Array[DepositInsuranceEligibility])) }
           def deposit_insurance_eligibility; end
+          # How funds in this FinancialAccount are held. Defaults to `for_benefit_of` if not specified.
+          sig { returns(T.nilable(String)) }
+          def funds_holding_structure; end
           # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
           sig { returns(T.nilable(String)) }
           def funds_usage_type; end

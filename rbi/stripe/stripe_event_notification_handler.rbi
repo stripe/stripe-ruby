@@ -1630,24 +1630,6 @@ module Stripe
     end
     
     sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingCadenceBilledEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v2_billing_cadence_billed(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingCadenceCanceledEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v2_billing_cadence_canceled(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingCadenceCreatedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v2_billing_cadence_created(&blk);
-    end
-    
-    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractActivatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_billing_contract_activated(&blk);
@@ -1711,6 +1693,42 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractTermDeletedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_billing_contract_term_deleted(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractTermPricingOverrideEndedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_billing_contract_term_pricing_override_ended(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractTermPricingOverrideStartedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_billing_contract_term_pricing_override_started(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractTermRecurringPriceEndedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_billing_contract_term_recurring_price_ended(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractTermRecurringPriceStartedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_billing_contract_term_recurring_price_started(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractTermScheduledFeeServicePeriodEndedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_billing_contract_term_scheduled_fee_service_period_ended(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractTermScheduledFeeServicePeriodStartedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_billing_contract_term_scheduled_fee_service_period_started(&blk);
     end
     
     sig do
@@ -2257,6 +2275,18 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreHealthAuthorizationRateDropResolvedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_health_authorization_rate_drop_resolved(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_health_custom_payment_method_adapter_degraded_firing(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_health_custom_payment_method_adapter_degraded_resolved(&blk);
     end
     
     sig do
@@ -3343,6 +3373,36 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_signals_account_signal_payment_delinquency_exposure_ready(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2SignalsPaymentRetryEvaluationCanceledEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_signals_payment_retry_evaluation_canceled(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2SignalsPaymentRetryEvaluationCompletedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_signals_payment_retry_evaluation_completed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2SignalsPaymentRetryEvaluationCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_signals_payment_retry_evaluation_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2SignalsPaymentRetryEvaluationExpiredEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_signals_payment_retry_evaluation_expired(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2SignalsPaymentRetryEvaluationUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_signals_payment_retry_evaluation_updated(&blk);
     end
     
     sig do

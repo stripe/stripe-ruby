@@ -57,6 +57,37 @@ module Stripe
       end
     end
 
+    class AeonPay < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Affirm < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -244,6 +275,37 @@ module Stripe
     end
 
     class AuBecsDebit < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class AuPay < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         attr_reader :overridable
@@ -585,6 +647,37 @@ module Stripe
     end
 
     class CustomerBalance < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Dbarai < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         attr_reader :overridable
@@ -1050,6 +1143,37 @@ module Stripe
     end
 
     class MbWay < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Merpay < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         attr_reader :overridable
@@ -2106,6 +2230,8 @@ module Stripe
     attr_reader :acss_debit
     # Whether the configuration can be used for new payments.
     attr_reader :active
+    # Attribute for field aeon_pay
+    attr_reader :aeon_pay
     # Attribute for field affirm
     attr_reader :affirm
     # Attribute for field afterpay_clearpay
@@ -2122,6 +2248,8 @@ module Stripe
     attr_reader :application
     # Attribute for field au_becs_debit
     attr_reader :au_becs_debit
+    # Attribute for field au_pay
+    attr_reader :au_pay
     # Attribute for field bacs_debit
     attr_reader :bacs_debit
     # Attribute for field bancontact
@@ -2144,6 +2272,8 @@ module Stripe
     attr_reader :crypto
     # Attribute for field customer_balance
     attr_reader :customer_balance
+    # Attribute for field dbarai
+    attr_reader :dbarai
     # Attribute for field eps
     attr_reader :eps
     # Attribute for field fpx
@@ -2180,6 +2310,8 @@ module Stripe
     attr_reader :livemode
     # Attribute for field mb_way
     attr_reader :mb_way
+    # Attribute for field merpay
+    attr_reader :merpay
     # Attribute for field mobilepay
     attr_reader :mobilepay
     # Attribute for field multibanco
@@ -2286,6 +2418,7 @@ module Stripe
     def self.inner_class_types
       @inner_class_types = {
         acss_debit: AcssDebit,
+        aeon_pay: AeonPay,
         affirm: Affirm,
         afterpay_clearpay: AfterpayClearpay,
         alipay: Alipay,
@@ -2293,6 +2426,7 @@ module Stripe
         amazon_pay: AmazonPay,
         apple_pay: ApplePay,
         au_becs_debit: AuBecsDebit,
+        au_pay: AuPay,
         bacs_debit: BacsDebit,
         bancontact: Bancontact,
         billie: Billie,
@@ -2304,6 +2438,7 @@ module Stripe
         cashapp: Cashapp,
         crypto: Crypto,
         customer_balance: CustomerBalance,
+        dbarai: Dbarai,
         eps: Eps,
         fpx: Fpx,
         giropay: Giropay,
@@ -2319,6 +2454,7 @@ module Stripe
         kr_card: KrCard,
         link: Link,
         mb_way: MbWay,
+        merpay: Merpay,
         mobilepay: Mobilepay,
         multibanco: Multibanco,
         naver_pay: NaverPay,

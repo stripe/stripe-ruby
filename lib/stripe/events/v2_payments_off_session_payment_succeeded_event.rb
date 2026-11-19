@@ -9,6 +9,26 @@ module Stripe
         "v2.payments.off_session_payment.succeeded"
       end
 
+      class V2PaymentsOffSessionPaymentSucceededEventData < ::Stripe::StripeObject
+        # The ID of the Charge associated with this attempt.
+        attr_reader :charge
+        # The ID of the payment attempt record associated with this successful attempt.
+        attr_reader :payment_attempt_record
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { data: V2PaymentsOffSessionPaymentSucceededEventData }
+      end
+      attr_reader :data, :related_object
+
       # Retrieves the related object from the API. Makes an API request on every call.
       def fetch_related_object
         _request(
@@ -18,7 +38,6 @@ module Stripe
           opts: { stripe_context: context, "Stripe-Request-Trigger": "event=#{id}" }
         )
       end
-      attr_reader :related_object
     end
 
     # Sent immediately after a successful authorization.

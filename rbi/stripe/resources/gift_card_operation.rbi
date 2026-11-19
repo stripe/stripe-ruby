@@ -22,7 +22,7 @@ module Stripe
         end
       end
       # The balance amount of a gift card, including currency and amount.
-      sig { returns(Balance) }
+      sig { returns(T.nilable(Balance)) }
       def balance; end
       def self.inner_class_types
         @inner_class_types = {balance: Balance}
@@ -167,7 +167,7 @@ module Stripe
         end
       end
       # The balance amount of a gift card, including currency and amount.
-      sig { returns(Balance) }
+      sig { returns(T.nilable(Balance)) }
       def balance; end
       # The balance before the operation.
       sig { returns(T.nilable(PreviousBalance)) }

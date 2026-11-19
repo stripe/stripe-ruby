@@ -5,6 +5,20 @@
 module Stripe
   module Identity
     class VerificationSessionCreateParams < ::Stripe::RequestParams
+      class LinkSharedData < ::Stripe::RequestParams
+        # The LinkSharedData grant authorizing use of a shared identity document. Requires confirm=true.
+        sig { returns(String) }
+        def granted_token; end
+        sig { params(_granted_token: String).returns(String) }
+        def granted_token=(_granted_token); end
+        # The identity_data.identity_documents[].key returned for this grant. Required even when the grant contains only one document.
+        sig { returns(String) }
+        def identity_document; end
+        sig { params(_identity_document: String).returns(String) }
+        def identity_document=(_identity_document); end
+        sig { params(granted_token: String, identity_document: String).void }
+        def initialize(granted_token: nil, identity_document: nil); end
+      end
       class Options < ::Stripe::RequestParams
         class Document < ::Stripe::RequestParams
           # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
@@ -119,6 +133,15 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
+      # An authorized LinkSharedData grant used to populate and submit a document-only session.
+      sig {
+        returns(T.nilable(::Stripe::Identity::VerificationSessionCreateParams::LinkSharedData))
+       }
+      def link_shared_data; end
+      sig {
+        params(_link_shared_data: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::LinkSharedData)).returns(T.nilable(::Stripe::Identity::VerificationSessionCreateParams::LinkSharedData))
+       }
+      def link_shared_data=(_link_shared_data); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
@@ -182,12 +205,13 @@ module Stripe
       sig { params(_verification_flow: T.nilable(String)).returns(T.nilable(String)) }
       def verification_flow=(_verification_flow); end
       sig {
-        params(client_reference_id: T.nilable(String), confirm: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::ProvidedDetails), related_customer: T.nilable(String), related_customer_account: T.nilable(String), related_person: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::RelatedPerson), return_url: T.nilable(String), type: T.nilable(String), user_consent: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::UserConsent), verification_flow: T.nilable(String)).void
+        params(client_reference_id: T.nilable(String), confirm: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), link_shared_data: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::LinkSharedData), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::ProvidedDetails), related_customer: T.nilable(String), related_customer_account: T.nilable(String), related_person: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::RelatedPerson), return_url: T.nilable(String), type: T.nilable(String), user_consent: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::UserConsent), verification_flow: T.nilable(String)).void
        }
       def initialize(
         client_reference_id: nil,
         confirm: nil,
         expand: nil,
+        link_shared_data: nil,
         metadata: nil,
         options: nil,
         provided_details: nil,

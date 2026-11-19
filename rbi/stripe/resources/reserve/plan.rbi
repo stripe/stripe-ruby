@@ -32,6 +32,9 @@ module Stripe
         # The number of days to reserve funds before releasing.
         sig { returns(Integer) }
         def days_after_charge; end
+        # The number of days after the PaymentIntent's `fulfillment_date` to reserve funds before releasing. Charges without a `fulfillment_date` use `days_after_charge`.
+        sig { returns(T.nilable(Integer)) }
+        def days_after_fulfillment; end
         # The time at which the ReservePlan expires.
         sig { returns(T.nilable(Integer)) }
         def expires_on; end

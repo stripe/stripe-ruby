@@ -12,7 +12,7 @@ module Stripe
          }
         def cancel(id, params = {}, opts = {}); end
 
-        # Create a Rate Card Subscription to bill a Rate Card on a specified Billing Cadence.
+        # Create a Rate Card Subscription to bill a Rate Card on a specified Billing Group.
         sig {
           params(params: T.any(::Stripe::V2::Billing::RateCardSubscriptionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Billing::RateCardSubscription)
          }

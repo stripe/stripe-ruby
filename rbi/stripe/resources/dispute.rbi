@@ -490,7 +490,7 @@ module Stripe
     # The amount you want to contest, in the dispute's currency. Setting this to less than the full dispute amount means accepting the loss on the remaining amount. If not specified, the entire disputed amount is contested.
     sig { returns(T.nilable(Integer)) }
     def amount_to_counter; end
-    # List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute.
+    # List of balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute.
     sig { returns(T::Array[::Stripe::BalanceTransaction]) }
     def balance_transactions; end
     # ID of the charge that's disputed.

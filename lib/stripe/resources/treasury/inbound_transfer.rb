@@ -274,7 +274,7 @@ module Stripe
           "InboundTransfer"
         end
 
-        # Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+        # Transitions a test InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
         def self.fail(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -284,7 +284,7 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+        # Transitions a test InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
         def fail(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -294,7 +294,7 @@ module Stripe
           )
         end
 
-        # Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+        # Marks the test InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
         def self.return_inbound_transfer(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -304,7 +304,7 @@ module Stripe
           )
         end
 
-        # Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+        # Marks the test InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
         def return_inbound_transfer(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
@@ -314,7 +314,7 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+        # Transitions a test InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
         def self.succeed(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
@@ -324,7 +324,7 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+        # Transitions a test InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
         def succeed(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,

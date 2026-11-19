@@ -20,6 +20,15 @@ module Stripe
           sig { params(back_image: T.nilable(String), front_image: T.nilable(String)).void }
           def initialize(back_image: nil, front_image: nil); end
         end
+        class SettlementTiming < ::Stripe::RequestParams
+          # The number of days to delay the availability of funds after processing completes.
+          sig { returns(T.nilable(Integer)) }
+          def delay_days_override; end
+          sig { params(_delay_days_override: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def delay_days_override=(_delay_days_override); end
+          sig { params(delay_days_override: T.nilable(Integer)).void }
+          def initialize(delay_days_override: nil); end
+        end
         # The updated amount to add to the destination.
         sig { returns(T.nilable(::Stripe::V2::Amount)) }
         def amount; end
@@ -51,15 +60,25 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, T.nilable(String)])).returns(T.nilable(T::Hash[String, T.nilable(String)]))
          }
         def metadata=(_metadata); end
+        # The updated settlement timing. Omit to retain the existing timing.
         sig {
-          params(amount: T.nilable(::Stripe::V2::Amount), check: T.nilable(::Stripe::V2::MoneyManagement::FundingIntentUpdateParams::Check), confirmation_method: T.nilable(String), description: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)])).void
+          returns(T.nilable(::Stripe::V2::MoneyManagement::FundingIntentUpdateParams::SettlementTiming))
+         }
+        def settlement_timing; end
+        sig {
+          params(_settlement_timing: T.nilable(::Stripe::V2::MoneyManagement::FundingIntentUpdateParams::SettlementTiming)).returns(T.nilable(::Stripe::V2::MoneyManagement::FundingIntentUpdateParams::SettlementTiming))
+         }
+        def settlement_timing=(_settlement_timing); end
+        sig {
+          params(amount: T.nilable(::Stripe::V2::Amount), check: T.nilable(::Stripe::V2::MoneyManagement::FundingIntentUpdateParams::Check), confirmation_method: T.nilable(String), description: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)]), settlement_timing: T.nilable(::Stripe::V2::MoneyManagement::FundingIntentUpdateParams::SettlementTiming)).void
          }
         def initialize(
           amount: nil,
           check: nil,
           confirmation_method: nil,
           description: nil,
-          metadata: nil
+          metadata: nil,
+          settlement_timing: nil
         ); end
       end
     end

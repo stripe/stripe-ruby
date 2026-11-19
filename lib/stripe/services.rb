@@ -376,10 +376,10 @@ module Stripe
 
     module Billing
       autoload :BillSettingService, "stripe/services/v2/billing/bill_setting_service"
-      autoload :CadenceService, "stripe/services/v2/billing/cadence_service"
       autoload :CollectionSettingService, "stripe/services/v2/billing/collection_setting_service"
       autoload :ContractService, "stripe/services/v2/billing/contract_service"
       autoload :CustomPricingUnitService, "stripe/services/v2/billing/custom_pricing_unit_service"
+      autoload :GroupService, "stripe/services/v2/billing/group_service"
       autoload :IntentService, "stripe/services/v2/billing/intent_service"
       autoload :LicensedItemService, "stripe/services/v2/billing/licensed_item_service"
       autoload :LicenseFeeService, "stripe/services/v2/billing/license_fee_service"
@@ -400,25 +400,21 @@ module Stripe
         autoload :VersionService, "stripe/services/v2/billing/bill_settings/version_service"
       end
 
-      module Cadences
-        autoload :SpendModifierRuleService, "stripe/services/v2/billing/cadences/spend_modifier_rule_service"
-      end
-
       module CollectionSettings
         autoload :VersionService, "stripe/services/v2/billing/collection_settings/version_service"
       end
 
       module Contracts
-        autoload :PricingLinesService, "stripe/services/v2/billing/contracts/pricing_lines_service"
         autoload :TermService, "stripe/services/v2/billing/contracts/term_service"
-
-        module PricingLines
-          autoload :QuantityChangeService, "stripe/services/v2/billing/contracts/pricing_lines/quantity_change_service"
-        end
 
         module Terms
           autoload :QuantityChangeService, "stripe/services/v2/billing/contracts/terms/quantity_change_service"
         end
+      end
+
+      module Groups
+        autoload :InvoiceService, "stripe/services/v2/billing/groups/invoice_service"
+        autoload :SpendModifierRuleService, "stripe/services/v2/billing/groups/spend_modifier_rule_service"
       end
 
       module Intents
@@ -884,16 +880,15 @@ module Stripe
     stripe/services/v1_services
     stripe/services/v2/billing/bill_setting_service
     stripe/services/v2/billing/bill_settings/version_service
-    stripe/services/v2/billing/cadence_service
-    stripe/services/v2/billing/cadences/spend_modifier_rule_service
     stripe/services/v2/billing/collection_setting_service
     stripe/services/v2/billing/collection_settings/version_service
     stripe/services/v2/billing/contract_service
-    stripe/services/v2/billing/contracts/pricing_lines/quantity_change_service
-    stripe/services/v2/billing/contracts/pricing_lines_service
     stripe/services/v2/billing/contracts/term_service
     stripe/services/v2/billing/contracts/terms/quantity_change_service
     stripe/services/v2/billing/custom_pricing_unit_service
+    stripe/services/v2/billing/group_service
+    stripe/services/v2/billing/groups/invoice_service
+    stripe/services/v2/billing/groups/spend_modifier_rule_service
     stripe/services/v2/billing/intent_service
     stripe/services/v2/billing/intents/action_service
     stripe/services/v2/billing/license_fee_service

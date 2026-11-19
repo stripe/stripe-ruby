@@ -22,8 +22,6 @@ module Stripe
       attr_reader :alert_type
       # The billing group associated with this notification. Only present for spend threshold alerts grouped by billing group.
       attr_reader :billing_group
-      # The cadence associated with this notification. Only present for spend threshold alerts grouped by cadence.
-      attr_reader :cadence
       # Three-letter ISO currency code for the value, in lowercase. Only present for spend and credit balance threshold alerts.
       attr_reader :currency
       # Custom pricing unit for the threshold value

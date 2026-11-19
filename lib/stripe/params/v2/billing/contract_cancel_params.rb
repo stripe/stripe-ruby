@@ -5,22 +5,6 @@ module Stripe
   module V2
     module Billing
       class ContractCancelParams < ::Stripe::RequestParams
-        class CancelPricingLine < ::Stripe::RequestParams
-          # The id of the pricing line.
-          attr_accessor :id
-          # The lookup key of the pricing line.
-          attr_accessor :lookup_key
-          # Proration behavior scoped to this pricing line. If not provided, falls back to the
-          # top-level `proration_behavior` on the cancel request. Defaults to `prorated`.
-          attr_accessor :proration_behavior
-
-          def initialize(id: nil, lookup_key: nil, proration_behavior: nil)
-            @id = id
-            @lookup_key = lookup_key
-            @proration_behavior = proration_behavior
-          end
-        end
-
         class Term < ::Stripe::RequestParams
           class Term < ::Stripe::RequestParams
             # Select this term by its stable ID.
@@ -46,18 +30,14 @@ module Stripe
             @term = term
           end
         end
-        # Per-pricing-line proration behavior overrides. Falls back to `proration_behavior` if
-        # not specified for a given line.
-        attr_accessor :cancel_pricing_lines
         # Additional fields to include in the response.
         attr_accessor :include
         # Top-level proration behavior for the cancellation. Defaults to `prorated` if not set.
         attr_accessor :proration_behavior
-        # Per-term proration overrides. Cannot be combined with cancel_pricing_lines.
+        # Per-term proration overrides.
         attr_accessor :terms
 
-        def initialize(cancel_pricing_lines: nil, include: nil, proration_behavior: nil, terms: nil)
-          @cancel_pricing_lines = cancel_pricing_lines
+        def initialize(include: nil, proration_behavior: nil, terms: nil)
           @include = include
           @proration_behavior = proration_behavior
           @terms = terms

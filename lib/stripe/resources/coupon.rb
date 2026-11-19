@@ -45,6 +45,35 @@ module Stripe
       end
     end
 
+    class Custom < ::Stripe::StripeObject
+      class Extension < ::Stripe::StripeObject
+        # The Extension Prototype ID.
+        attr_reader :id
+        # The semantic version of the extension.
+        attr_reader :version
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # The configuration supplied to the extension.
+      attr_reader :configuration
+      # Attribute for field extension
+      attr_reader :extension
+
+      def self.inner_class_types
+        @inner_class_types = { extension: Extension }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Script < ::Stripe::StripeObject
       # The configuration values of the script. The keys and values are specific to the script implementation.
       attr_reader :configuration
@@ -102,6 +131,8 @@ module Stripe
     attr_reader :currency
     # Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency_options
+    # Attribute for field custom
+    attr_reader :custom
     # Always true for a deleted object
     attr_reader :deleted
     # One of `forever`, `once`, or `repeating`. Describes how long a customer who applies this coupon will get the discount.
@@ -181,6 +212,7 @@ module Stripe
       @inner_class_types = {
         applies_to: AppliesTo,
         currency_options: CurrencyOptions,
+        custom: Custom,
         script: Script,
         service_period: ServicePeriod,
       }

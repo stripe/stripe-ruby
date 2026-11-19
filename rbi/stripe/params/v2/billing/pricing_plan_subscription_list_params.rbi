@@ -7,7 +7,7 @@ module Stripe
     module Billing
       class PricingPlanSubscriptionListParams < ::Stripe::RequestParams
         class Payer < ::Stripe::RequestParams
-          # The ID of the Customer object. If provided, only Pricing Plan Subscriptions that are subscribed on the cadences with the specified payer will be returned.
+          # The ID of the Customer object. If provided, only Pricing Plan Subscriptions that are subscribed on the Billing Groups with the specified payer will be returned.
           sig { returns(T.nilable(String)) }
           def customer; end
           sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
@@ -20,12 +20,12 @@ module Stripe
           sig { params(customer: T.nilable(String), type: String).void }
           def initialize(customer: nil, type: nil); end
         end
-        # Filter by Billing Cadence ID. Mutually exclusive with `payer`, `pricing_plan`, and `pricing_plan_version`.
+        # Filter by Billing Group ID. Mutually exclusive with `payer`, `pricing_plan`, and `pricing_plan_version`.
         sig { returns(T.nilable(String)) }
-        def billing_cadence; end
-        sig { params(_billing_cadence: T.nilable(String)).returns(T.nilable(String)) }
-        def billing_cadence=(_billing_cadence); end
-        # Expand to include additional data such as discount_details, billing_cadence_details, or pricing_plan_component_details.
+        def billing_group; end
+        sig { params(_billing_group: T.nilable(String)).returns(T.nilable(String)) }
+        def billing_group=(_billing_group); end
+        # Expand to include additional data such as discount_details or pricing_plan_component_details.
         sig { returns(T.nilable(T::Array[String])) }
         def include; end
         sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -35,19 +35,19 @@ module Stripe
         def limit; end
         sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def limit=(_limit); end
-        # Filter by payer. Mutually exclusive with `billing_cadence`, `pricing_plan`, and `pricing_plan_version`.
+        # Filter by payer. Mutually exclusive with `billing_group`, `pricing_plan`, and `pricing_plan_version`.
         sig { returns(T.nilable(::Stripe::V2::Billing::PricingPlanSubscriptionListParams::Payer)) }
         def payer; end
         sig {
           params(_payer: T.nilable(::Stripe::V2::Billing::PricingPlanSubscriptionListParams::Payer)).returns(T.nilable(::Stripe::V2::Billing::PricingPlanSubscriptionListParams::Payer))
          }
         def payer=(_payer); end
-        # Filter by PricingPlan ID. Mutually exclusive with `billing_cadence`, `payer`, and `pricing_plan_version`.
+        # Filter by PricingPlan ID. Mutually exclusive with `billing_group`, `payer`, and `pricing_plan_version`.
         sig { returns(T.nilable(String)) }
         def pricing_plan; end
         sig { params(_pricing_plan: T.nilable(String)).returns(T.nilable(String)) }
         def pricing_plan=(_pricing_plan); end
-        # Filter by Pricing Plan Version ID. Mutually exclusive with `billing_cadence`, `payer`, and `pricing_plan`.
+        # Filter by Pricing Plan Version ID. Mutually exclusive with `billing_group`, `payer`, and `pricing_plan`.
         sig { returns(T.nilable(String)) }
         def pricing_plan_version; end
         sig { params(_pricing_plan_version: T.nilable(String)).returns(T.nilable(String)) }
@@ -58,10 +58,10 @@ module Stripe
         sig { params(_servicing_status: T.nilable(String)).returns(T.nilable(String)) }
         def servicing_status=(_servicing_status); end
         sig {
-          params(billing_cadence: T.nilable(String), include: T.nilable(T::Array[String]), limit: T.nilable(Integer), payer: T.nilable(::Stripe::V2::Billing::PricingPlanSubscriptionListParams::Payer), pricing_plan: T.nilable(String), pricing_plan_version: T.nilable(String), servicing_status: T.nilable(String)).void
+          params(billing_group: T.nilable(String), include: T.nilable(T::Array[String]), limit: T.nilable(Integer), payer: T.nilable(::Stripe::V2::Billing::PricingPlanSubscriptionListParams::Payer), pricing_plan: T.nilable(String), pricing_plan_version: T.nilable(String), servicing_status: T.nilable(String)).void
          }
         def initialize(
-          billing_cadence: nil,
+          billing_group: nil,
           include: nil,
           limit: nil,
           payer: nil,

@@ -71,6 +71,8 @@ module Stripe
           attr_reader :token_requestor_id
           # Degree of risk associated with the token between `01` and `99`, with higher number indicating higher risk. A `00` value indicates the token was not scored by Visa.
           attr_reader :token_risk_score
+          # The ID of the token service provider, specific to Visa.
+          attr_reader :token_service_provider_id
 
           def self.inner_class_types
             @inner_class_types = {}

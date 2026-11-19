@@ -6,11 +6,11 @@ module Stripe
   module V2
     module Billing
       class RateCardSubscriptionCreateParams < ::Stripe::RequestParams
-        # The ID of the Billing Cadence.
+        # The ID of the Billing Group.
         sig { returns(String) }
-        def billing_cadence; end
-        sig { params(_billing_cadence: String).returns(String) }
-        def billing_cadence=(_billing_cadence); end
+        def billing_group; end
+        sig { params(_billing_group: String).returns(String) }
+        def billing_group=(_billing_group); end
         # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -29,10 +29,10 @@ module Stripe
         sig { params(_rate_card_version: T.nilable(String)).returns(T.nilable(String)) }
         def rate_card_version=(_rate_card_version); end
         sig {
-          params(billing_cadence: String, metadata: T.nilable(T::Hash[String, String]), rate_card: String, rate_card_version: T.nilable(String)).void
+          params(billing_group: String, metadata: T.nilable(T::Hash[String, String]), rate_card: String, rate_card_version: T.nilable(String)).void
          }
         def initialize(
-          billing_cadence: nil,
+          billing_group: nil,
           metadata: nil,
           rate_card: nil,
           rate_card_version: nil

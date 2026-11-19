@@ -1172,18 +1172,6 @@ module Stripe
       register("v1.transfer.updated", &callback)
     end
 
-    def on_v2_billing_cadence_billed(&callback)
-      register("v2.billing.cadence.billed", &callback)
-    end
-
-    def on_v2_billing_cadence_canceled(&callback)
-      register("v2.billing.cadence.canceled", &callback)
-    end
-
-    def on_v2_billing_cadence_created(&callback)
-      register("v2.billing.cadence.created", &callback)
-    end
-
     def on_v2_billing_contract_activated(&callback)
       register("v2.billing.contract.activated", &callback)
     end
@@ -1226,6 +1214,30 @@ module Stripe
 
     def on_v2_billing_contract_term_deleted(&callback)
       register("v2.billing.contract_term.deleted", &callback)
+    end
+
+    def on_v2_billing_contract_term_pricing_override_ended(&callback)
+      register("v2.billing.contract_term.pricing_override_ended", &callback)
+    end
+
+    def on_v2_billing_contract_term_pricing_override_started(&callback)
+      register("v2.billing.contract_term.pricing_override_started", &callback)
+    end
+
+    def on_v2_billing_contract_term_recurring_price_ended(&callback)
+      register("v2.billing.contract_term.recurring_price_ended", &callback)
+    end
+
+    def on_v2_billing_contract_term_recurring_price_started(&callback)
+      register("v2.billing.contract_term.recurring_price_started", &callback)
+    end
+
+    def on_v2_billing_contract_term_scheduled_fee_service_period_ended(&callback)
+      register("v2.billing.contract_term.scheduled_fee_service_period_ended", &callback)
+    end
+
+    def on_v2_billing_contract_term_scheduled_fee_service_period_started(&callback)
+      register("v2.billing.contract_term.scheduled_fee_service_period_started", &callback)
     end
 
     def on_v2_billing_contract_term_updated(&callback)
@@ -1590,6 +1602,14 @@ module Stripe
 
     def on_v2_core_health_authorization_rate_drop_resolved(&callback)
       register("v2.core.health.authorization_rate_drop.resolved", &callback)
+    end
+
+    def on_v2_core_health_custom_payment_method_adapter_degraded_firing(&callback)
+      register("v2.core.health.custom_payment_method_adapter_degraded.firing", &callback)
+    end
+
+    def on_v2_core_health_custom_payment_method_adapter_degraded_resolved(&callback)
+      register("v2.core.health.custom_payment_method_adapter_degraded.resolved", &callback)
     end
 
     def on_v2_core_health_elements_error_firing(&callback)
@@ -2314,6 +2334,26 @@ module Stripe
 
     def on_v2_signals_account_signal_payment_delinquency_exposure_ready(&callback)
       register("v2.signals.account_signal.payment_delinquency_exposure_ready", &callback)
+    end
+
+    def on_v2_signals_payment_retry_evaluation_canceled(&callback)
+      register("v2.signals.payment_retry_evaluation.canceled", &callback)
+    end
+
+    def on_v2_signals_payment_retry_evaluation_completed(&callback)
+      register("v2.signals.payment_retry_evaluation.completed", &callback)
+    end
+
+    def on_v2_signals_payment_retry_evaluation_created(&callback)
+      register("v2.signals.payment_retry_evaluation.created", &callback)
+    end
+
+    def on_v2_signals_payment_retry_evaluation_expired(&callback)
+      register("v2.signals.payment_retry_evaluation.expired", &callback)
+    end
+
+    def on_v2_signals_payment_retry_evaluation_updated(&callback)
+      register("v2.signals.payment_retry_evaluation.updated", &callback)
     end
 
     def on_v2_signals_payment_retry_evaluations_retry_recommended(&callback)

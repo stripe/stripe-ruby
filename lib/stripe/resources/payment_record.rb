@@ -501,7 +501,7 @@ module Stripe
         class Checks < ::Stripe::StripeObject
           # If you provide a value for `address.line1`, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
           attr_reader :address_line1_check
-          # If you provide a address postal code, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
+          # If you provide an address postal code, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
           attr_reader :address_postal_code_check
           # If you provide a CVC, the check results is one of `pass`, `fail`, `unavailable`, or `unchecked`.
           attr_reader :cvc_check
@@ -1396,6 +1396,9 @@ module Stripe
       end
 
       class Paypay < ::Stripe::StripeObject
+        # Uniquely identifies this particular PayPay account. You can use this attribute to check whether two PayPay accounts are the same.
+        attr_reader :fingerprint
+
         def self.inner_class_types
           @inner_class_types = {}
         end

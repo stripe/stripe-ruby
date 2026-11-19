@@ -473,7 +473,7 @@ module Stripe
     # Disputed amount. Usually the amount of the charge, but it can differ (usually because of currency fluctuation or because only part of the order is disputed).
     sig { returns(Integer) }
     def amount; end
-    # List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute.
+    # List of balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute.
     sig { returns(T::Array[::Stripe::BalanceTransaction]) }
     def balance_transactions; end
     # ID of the charge that's disputed.

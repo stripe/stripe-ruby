@@ -3,4 +3,5 @@ title: "Fixes ListObject#next_page/#previous_page and SearchResultObject#next_se
 semver_level: patch
 jira_tickets_closed:
 - RUN_DEVSDK-3689
+released_in_version: 21.1.0
 ---

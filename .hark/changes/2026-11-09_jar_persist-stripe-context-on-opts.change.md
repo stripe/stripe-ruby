@@ -1,8 +1,9 @@
 ---
-title: "Preserve resource authorization scope across Marshal round-trips and event-related requests"
+title: Preserve resource authorization scope across Marshal round-trips and event-related requests
 semver_level: patch
 jira_tickets_closed:
 - RUN_DEVSDK-3691
+released_in_version: 21.1.0
 ---
 
 Resources retain their account and context when restored from a new `Marshal.dump`, including resources fetched from thin event notifications. Restoring an unscoped resource clears the loading process's account and context defaults. Full events bind to their payload's context when constructed, so related-object requests and subsequent mutations use that scope.

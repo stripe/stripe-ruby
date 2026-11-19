@@ -5,7 +5,7 @@ module Stripe
   module TestHelpers
     module Treasury
       class InboundTransferService < StripeService
-        # Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+        # Transitions a test InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
         def fail(id, params = {}, opts = {})
           request(
             method: :post,
@@ -16,7 +16,7 @@ module Stripe
           )
         end
 
-        # Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+        # Marks the test InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
         def return_inbound_transfer(id, params = {}, opts = {})
           request(
             method: :post,
@@ -27,7 +27,7 @@ module Stripe
           )
         end
 
-        # Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+        # Transitions a test InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
         def succeed(id, params = {}, opts = {})
           request(
             method: :post,

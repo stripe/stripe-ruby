@@ -1211,7 +1211,7 @@ module Stripe
         end
       end
       class VerifyWithMicrodeposits < ::Stripe::StripeObject
-        # The timestamp when the microdeposits are expected to land.
+        # The timestamp when the microdeposits are expected to land. Null for instant microdeposits.
         sig { returns(Integer) }
         def arrival_date; end
         # The URL for the hosted verification page, which allows customers to verify their bank account.
@@ -1385,18 +1385,648 @@ module Stripe
       end
     end
     class PaymentDetails < ::Stripe::StripeObject
+      class CarRentalDatum < ::Stripe::StripeObject
+        class Affiliate < ::Stripe::StripeObject
+          # Affiliate code.
+          sig { returns(T.nilable(String)) }
+          def code; end
+          # Affiliate name.
+          sig { returns(T.nilable(String)) }
+          def name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Distance < ::Stripe::StripeObject
+          # Distance amount.
+          sig { returns(T.nilable(Integer)) }
+          def amount; end
+          # Unit for the distance.
+          sig { returns(T.nilable(String)) }
+          def unit; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Driver < ::Stripe::StripeObject
+          class DateOfBirth < ::Stripe::StripeObject
+            # Day of birth.
+            sig { returns(T.nilable(Integer)) }
+            def day; end
+            # Month of birth.
+            sig { returns(T.nilable(Integer)) }
+            def month; end
+            # Year of birth.
+            sig { returns(T.nilable(Integer)) }
+            def year; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field date_of_birth
+          sig { returns(T.nilable(DateOfBirth)) }
+          def date_of_birth; end
+          # Driver's identification number.
+          sig { returns(T.nilable(String)) }
+          def driver_identification_number; end
+          # Driver's tax number.
+          sig { returns(T.nilable(String)) }
+          def driver_tax_number; end
+          # Full name of the driver.
+          sig { returns(T.nilable(String)) }
+          def name; end
+          def self.inner_class_types
+            @inner_class_types = {date_of_birth: DateOfBirth}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class DropOff < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            sig { returns(T.nilable(String)) }
+            def city; end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(T.nilable(String)) }
+            def country; end
+            # Address line 1, such as the street, PO Box, or company name.
+            sig { returns(T.nilable(String)) }
+            def line1; end
+            # Address line 2, such as the apartment, suite, unit, or building.
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            # ZIP or postal code.
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            sig { returns(T.nilable(String)) }
+            def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          sig { returns(T.nilable(Address)) }
+          def address; end
+          # Name of the location.
+          sig { returns(T.nilable(String)) }
+          def location_name; end
+          # Time associated with the location.
+          sig { returns(T.nilable(Integer)) }
+          def time; end
+          def self.inner_class_types
+            @inner_class_types = {address: Address}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Insurance < ::Stripe::StripeObject
+          # Amount of the insurance.
+          sig { returns(T.nilable(Integer)) }
+          def amount; end
+          # Currency for the insurance price.
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          # Name of the insurance company.
+          sig { returns(T.nilable(String)) }
+          def insurance_company_name; end
+          # Type of insurance.
+          sig { returns(T.nilable(String)) }
+          def insurance_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Pickup < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            sig { returns(T.nilable(String)) }
+            def city; end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(T.nilable(String)) }
+            def country; end
+            # Address line 1, such as the street, PO Box, or company name.
+            sig { returns(T.nilable(String)) }
+            def line1; end
+            # Address line 2, such as the apartment, suite, unit, or building.
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            # ZIP or postal code.
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            sig { returns(T.nilable(String)) }
+            def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          sig { returns(T.nilable(Address)) }
+          def address; end
+          # Name of the location.
+          sig { returns(T.nilable(String)) }
+          def location_name; end
+          # Time associated with the location.
+          sig { returns(T.nilable(Integer)) }
+          def time; end
+          def self.inner_class_types
+            @inner_class_types = {address: Address}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Total < ::Stripe::StripeObject
+          class Discounts < ::Stripe::StripeObject
+            # Corporate client discount code.
+            sig { returns(T.nilable(String)) }
+            def corporate_client_code; end
+            # Coupon code applied.
+            sig { returns(T.nilable(String)) }
+            def coupon; end
+            # Maximum free miles or kilometers included.
+            sig { returns(T.nilable(Integer)) }
+            def maximum_free_miles_or_kilometers; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class ExtraCharge < ::Stripe::StripeObject
+            # Amount of the extra charge.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # Type of extra charge.
+            sig { returns(T.nilable(String)) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Tax < ::Stripe::StripeObject
+            class TaxItem < ::Stripe::StripeObject
+              # Tax amount.
+              sig { returns(T.nilable(Integer)) }
+              def amount; end
+              # Tax rate.
+              sig { returns(T.nilable(Integer)) }
+              def rate; end
+              # Type of tax.
+              sig { returns(T.nilable(String)) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Indicates whether the rental is tax-exempt.
+            sig { returns(T.nilable(T::Boolean)) }
+            def tax_exempt_indicator; end
+            # Tax details.
+            sig { returns(T.nilable(T::Array[TaxItem])) }
+            def tax_items; end
+            def self.inner_class_types
+              @inner_class_types = {tax_items: TaxItem}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Total amount.
+          sig { returns(T.nilable(Integer)) }
+          def amount; end
+          # Currency for the total amount.
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          # Attribute for field discounts
+          sig { returns(T.nilable(Discounts)) }
+          def discounts; end
+          # Additional charges for the rental.
+          sig { returns(T.nilable(T::Array[ExtraCharge])) }
+          def extra_charges; end
+          # Rate per unit.
+          sig { returns(T.nilable(Integer)) }
+          def rate_per_unit; end
+          # Unit for the rate.
+          sig { returns(T.nilable(String)) }
+          def rate_unit; end
+          # Attribute for field tax
+          sig { returns(T.nilable(Tax)) }
+          def tax; end
+          def self.inner_class_types
+            @inner_class_types = {discounts: Discounts, extra_charges: ExtraCharge, tax: Tax}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Vehicle < ::Stripe::StripeObject
+          # Make of the vehicle.
+          sig { returns(T.nilable(String)) }
+          def make; end
+          # Model of the vehicle.
+          sig { returns(T.nilable(String)) }
+          def model; end
+          # Odometer reading.
+          sig { returns(T.nilable(Integer)) }
+          def odometer; end
+          # Type of the vehicle.
+          sig { returns(T.nilable(String)) }
+          def type; end
+          # Class of the vehicle.
+          sig { returns(T.nilable(String)) }
+          def vehicle_class; end
+          # Vehicle identification number.
+          sig { returns(T.nilable(String)) }
+          def vehicle_identification_number; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field affiliate
+        sig { returns(T.nilable(Affiliate)) }
+        def affiliate; end
+        # The booking number associated with the car rental.
+        sig { returns(T.nilable(String)) }
+        def booking_number; end
+        # The name of the car rental company.
+        sig { returns(T.nilable(String)) }
+        def carrier_name; end
+        # The customer service phone number of the car rental company.
+        sig { returns(T.nilable(String)) }
+        def customer_service_phone_number; end
+        # Number of days the car is being rented.
+        sig { returns(T.nilable(Integer)) }
+        def days_rented; end
+        # Attribute for field distance
+        sig { returns(T.nilable(Distance)) }
+        def distance; end
+        # The details of the drivers associated with the rental.
+        sig { returns(T.nilable(T::Array[Driver])) }
+        def drivers; end
+        # Attribute for field drop_off
+        sig { returns(T.nilable(DropOff)) }
+        def drop_off; end
+        # Insurance details for the car rental.
+        sig { returns(T.nilable(T::Array[Insurance])) }
+        def insurances; end
+        # Indicates if the customer did not keep nor cancel their booking.
+        sig { returns(T.nilable(T::Boolean)) }
+        def no_show_indicator; end
+        # Attribute for field pickup
+        sig { returns(T.nilable(Pickup)) }
+        def pickup; end
+        # Name of the person renting the vehicle.
+        sig { returns(T.nilable(String)) }
+        def renter_name; end
+        # Attribute for field total
+        sig { returns(T.nilable(Total)) }
+        def total; end
+        # Attribute for field vehicle
+        sig { returns(T.nilable(Vehicle)) }
+        def vehicle; end
+        def self.inner_class_types
+          @inner_class_types = {
+            affiliate: Affiliate,
+            distance: Distance,
+            drivers: Driver,
+            drop_off: DropOff,
+            insurances: Insurance,
+            pickup: Pickup,
+            total: Total,
+            vehicle: Vehicle,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class LodgingDatum < ::Stripe::StripeObject
+        class Accommodation < ::Stripe::StripeObject
+          # Type of accommodation.
+          sig { returns(T.nilable(String)) }
+          def accommodation_type; end
+          # Bed type.
+          sig { returns(T.nilable(String)) }
+          def bed_type; end
+          # Daily accommodation rate in cents.
+          sig { returns(T.nilable(Integer)) }
+          def daily_rate_amount; end
+          # Number of nights.
+          sig { returns(T.nilable(Integer)) }
+          def nights; end
+          # Number of rooms, cabanas, apartments, and so on.
+          sig { returns(T.nilable(Integer)) }
+          def number_of_rooms; end
+          # Rate type.
+          sig { returns(T.nilable(String)) }
+          def rate_type; end
+          # Whether smoking is allowed.
+          sig { returns(T.nilable(T::Boolean)) }
+          def smoking_indicator; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Affiliate < ::Stripe::StripeObject
+          # Affiliate partner code.
+          sig { returns(T.nilable(String)) }
+          def code; end
+          # Affiliate partner name.
+          sig { returns(T.nilable(String)) }
+          def name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Guest < ::Stripe::StripeObject
+          # Guest's full name.
+          sig { returns(T.nilable(String)) }
+          def name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Host < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            sig { returns(T.nilable(String)) }
+            def city; end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(T.nilable(String)) }
+            def country; end
+            # Address line 1, such as the street, PO Box, or company name.
+            sig { returns(T.nilable(String)) }
+            def line1; end
+            # Address line 2, such as the apartment, suite, unit, or building.
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            # ZIP or postal code.
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            sig { returns(T.nilable(String)) }
+            def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          sig { returns(T.nilable(Address)) }
+          def address; end
+          # Host's country of domicile.
+          sig { returns(T.nilable(String)) }
+          def country_of_domicile; end
+          # Reference number for the host.
+          sig { returns(T.nilable(String)) }
+          def host_reference; end
+          # Type of host.
+          sig { returns(T.nilable(String)) }
+          def host_type; end
+          # Name of the lodging property or host.
+          sig { returns(T.nilable(String)) }
+          def name; end
+          # Total number of reservations for the host.
+          sig { returns(T.nilable(Integer)) }
+          def number_of_reservations; end
+          # Property phone number.
+          sig { returns(T.nilable(String)) }
+          def property_phone_number; end
+          # Host's registration date.
+          sig { returns(T.nilable(Integer)) }
+          def registered_at; end
+          def self.inner_class_types
+            @inner_class_types = {address: Address}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Insurance < ::Stripe::StripeObject
+          # Price of the insurance coverage in cents.
+          sig { returns(T.nilable(Integer)) }
+          def amount; end
+          # Currency of the insurance amount.
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          # Name of the insurance company.
+          sig { returns(T.nilable(String)) }
+          def insurance_company_name; end
+          # Type of insurance coverage.
+          sig { returns(T.nilable(String)) }
+          def insurance_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Total < ::Stripe::StripeObject
+          class Discounts < ::Stripe::StripeObject
+            # Corporate client discount code.
+            sig { returns(T.nilable(String)) }
+            def corporate_client_code; end
+            # Coupon code.
+            sig { returns(T.nilable(String)) }
+            def coupon; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class ExtraCharge < ::Stripe::StripeObject
+            # Amount of the extra charge in cents.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # Type of extra charge.
+            sig { returns(T.nilable(String)) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Tax < ::Stripe::StripeObject
+            class TaxItem < ::Stripe::StripeObject
+              # Tax amount in cents.
+              sig { returns(T.nilable(Integer)) }
+              def amount; end
+              # Tax rate.
+              sig { returns(T.nilable(Integer)) }
+              def rate; end
+              # Type of tax applied.
+              sig { returns(T.nilable(String)) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Indicates whether the transaction is tax exempt.
+            sig { returns(T.nilable(T::Boolean)) }
+            def tax_exempt_indicator; end
+            # Tax details.
+            sig { returns(T.nilable(T::Array[TaxItem])) }
+            def tax_items; end
+            def self.inner_class_types
+              @inner_class_types = {tax_items: TaxItem}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Total price of the lodging reservation in cents.
+          sig { returns(T.nilable(Integer)) }
+          def amount; end
+          # Cash advances in cents.
+          sig { returns(T.nilable(Integer)) }
+          def cash_advances; end
+          # Currency of the total amount.
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          # Attribute for field discounts
+          sig { returns(T.nilable(Discounts)) }
+          def discounts; end
+          # Additional charges for the lodging.
+          sig { returns(T.nilable(T::Array[ExtraCharge])) }
+          def extra_charges; end
+          # Prepaid amount in cents.
+          sig { returns(T.nilable(Integer)) }
+          def prepaid_amount; end
+          # Attribute for field tax
+          sig { returns(T.nilable(Tax)) }
+          def tax; end
+          def self.inner_class_types
+            @inner_class_types = {discounts: Discounts, extra_charges: ExtraCharge, tax: Tax}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field accommodation
+        sig { returns(T.nilable(Accommodation)) }
+        def accommodation; end
+        # Attribute for field affiliate
+        sig { returns(T.nilable(Affiliate)) }
+        def affiliate; end
+        # Booking confirmation number for the lodging.
+        sig { returns(T.nilable(String)) }
+        def booking_number; end
+        # Check-in date.
+        sig { returns(T.nilable(Integer)) }
+        def checkin_at; end
+        # Check-out date.
+        sig { returns(T.nilable(Integer)) }
+        def checkout_at; end
+        # Customer service phone number for the lodging company.
+        sig { returns(T.nilable(String)) }
+        def customer_service_phone_number; end
+        # Whether the lodging is compliant with any hotel fire safety regulations.
+        sig { returns(T.nilable(T::Boolean)) }
+        def fire_safety_act_compliance_indicator; end
+        # List of guests for the lodging.
+        sig { returns(T.nilable(T::Array[Guest])) }
+        def guests; end
+        # Attribute for field host
+        sig { returns(T.nilable(Host)) }
+        def host; end
+        # List of insurances for the lodging.
+        sig { returns(T.nilable(T::Array[Insurance])) }
+        def insurances; end
+        # Whether the renter is a no-show.
+        sig { returns(T.nilable(T::Boolean)) }
+        def no_show_indicator; end
+        # Renter ID number for the lodging.
+        sig { returns(T.nilable(String)) }
+        def renter_id_number; end
+        # Renter name for the lodging.
+        sig { returns(T.nilable(String)) }
+        def renter_name; end
+        # Attribute for field total
+        sig { returns(T.nilable(Total)) }
+        def total; end
+        def self.inner_class_types
+          @inner_class_types = {
+            accommodation: Accommodation,
+            affiliate: Affiliate,
+            guests: Guest,
+            host: Host,
+            insurances: Insurance,
+            total: Total,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field car_rental_data
+      sig { returns(T.nilable(T::Array[CarRentalDatum])) }
+      def car_rental_data; end
       # A unique value to identify the customer. This field is available only for card payments.
       #
       # This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
       sig { returns(T.nilable(String)) }
       def customer_reference; end
+      # Attribute for field lodging_data
+      sig { returns(T.nilable(T::Array[LodgingDatum])) }
+      def lodging_data; end
       # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
       #
       # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
       sig { returns(T.nilable(String)) }
       def order_reference; end
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = {car_rental_data: CarRentalDatum, lodging_data: LodgingDatum}
       end
       def self.field_remappings
         @field_remappings = {}

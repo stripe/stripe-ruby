@@ -6,7 +6,7 @@ module Stripe
     module Billing
       class PricingPlanSubscriptionListParams < ::Stripe::RequestParams
         class Payer < ::Stripe::RequestParams
-          # The ID of the Customer object. If provided, only Pricing Plan Subscriptions that are subscribed on the cadences with the specified payer will be returned.
+          # The ID of the Customer object. If provided, only Pricing Plan Subscriptions that are subscribed on the Billing Groups with the specified payer will be returned.
           attr_accessor :customer
           # A string identifying the type of the payer. Currently the only supported value is `customer`.
           attr_accessor :type
@@ -16,23 +16,23 @@ module Stripe
             @type = type
           end
         end
-        # Filter by Billing Cadence ID. Mutually exclusive with `payer`, `pricing_plan`, and `pricing_plan_version`.
-        attr_accessor :billing_cadence
-        # Expand to include additional data such as discount_details, billing_cadence_details, or pricing_plan_component_details.
+        # Filter by Billing Group ID. Mutually exclusive with `payer`, `pricing_plan`, and `pricing_plan_version`.
+        attr_accessor :billing_group
+        # Expand to include additional data such as discount_details or pricing_plan_component_details.
         attr_accessor :include
         # Optionally set the maximum number of results per page. Defaults to 20.
         attr_accessor :limit
-        # Filter by payer. Mutually exclusive with `billing_cadence`, `pricing_plan`, and `pricing_plan_version`.
+        # Filter by payer. Mutually exclusive with `billing_group`, `pricing_plan`, and `pricing_plan_version`.
         attr_accessor :payer
-        # Filter by PricingPlan ID. Mutually exclusive with `billing_cadence`, `payer`, and `pricing_plan_version`.
+        # Filter by PricingPlan ID. Mutually exclusive with `billing_group`, `payer`, and `pricing_plan_version`.
         attr_accessor :pricing_plan
-        # Filter by Pricing Plan Version ID. Mutually exclusive with `billing_cadence`, `payer`, and `pricing_plan`.
+        # Filter by Pricing Plan Version ID. Mutually exclusive with `billing_group`, `payer`, and `pricing_plan`.
         attr_accessor :pricing_plan_version
         # Filter by servicing status.
         attr_accessor :servicing_status
 
         def initialize(
-          billing_cadence: nil,
+          billing_group: nil,
           include: nil,
           limit: nil,
           payer: nil,
@@ -40,7 +40,7 @@ module Stripe
           pricing_plan_version: nil,
           servicing_status: nil
         )
-          @billing_cadence = billing_cadence
+          @billing_group = billing_group
           @include = include
           @limit = limit
           @payer = payer

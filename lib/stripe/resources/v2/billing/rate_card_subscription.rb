@@ -6,7 +6,7 @@ module Stripe
     module Billing
       # A Rate Card Subscription represents a customer's subscription to a Rate Card's usage-based pricing. It tracks the
       # servicing status (whether usage is being measured) and collection status (whether payments are current). Subscriptions
-      # bill according to the service interval defined in the Rate Card and are collected on the associated Billing Cadence.
+      # bill according to the service interval defined in the Rate Card and are collected on the associated Billing Group.
       class RateCardSubscription < APIResource
         OBJECT_NAME = "v2.billing.rate_card_subscription"
         def self.object_name
@@ -54,8 +54,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The ID of the Billing Cadence.
-        attr_reader :billing_cadence
+        # The ID of the Billing Group.
+        attr_reader :billing_group
         # The payment status of a Rate Card Subscription.
         attr_reader :collection_status
         # The collection status transitions of the Rate Card Subscription.

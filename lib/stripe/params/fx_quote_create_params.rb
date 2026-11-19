@@ -35,8 +35,6 @@ module Stripe
       # The transfer transaction details that are intended for the FX Quote.
       attr_accessor :transfer
       # Which transaction the FX Quote will be used for
-      #
-      # Can be “payment” | “transfer”
       attr_accessor :type
 
       def initialize(payment: nil, transfer: nil, type: nil)

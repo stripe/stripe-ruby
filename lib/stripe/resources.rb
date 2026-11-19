@@ -834,12 +834,6 @@ module Stripe
     autoload :V1TransferReversedEventNotification, "stripe/events/v1_transfer_reversed_event"
     autoload :V1TransferUpdatedEvent, "stripe/events/v1_transfer_updated_event"
     autoload :V1TransferUpdatedEventNotification, "stripe/events/v1_transfer_updated_event"
-    autoload :V2BillingCadenceBilledEvent, "stripe/events/v2_billing_cadence_billed_event"
-    autoload :V2BillingCadenceBilledEventNotification, "stripe/events/v2_billing_cadence_billed_event"
-    autoload :V2BillingCadenceCanceledEvent, "stripe/events/v2_billing_cadence_canceled_event"
-    autoload :V2BillingCadenceCanceledEventNotification, "stripe/events/v2_billing_cadence_canceled_event"
-    autoload :V2BillingCadenceCreatedEvent, "stripe/events/v2_billing_cadence_created_event"
-    autoload :V2BillingCadenceCreatedEventNotification, "stripe/events/v2_billing_cadence_created_event"
     autoload :V2BillingContractActivatedEvent, "stripe/events/v2_billing_contract_activated_event"
     autoload :V2BillingContractActivatedEventNotification, "stripe/events/v2_billing_contract_activated_event"
     autoload :V2BillingContractCanceledEvent, "stripe/events/v2_billing_contract_canceled_event"
@@ -864,6 +858,30 @@ module Stripe
     autoload :V2BillingContractTermCreatedEventNotification, "stripe/events/v2_billing_contract_term_created_event"
     autoload :V2BillingContractTermDeletedEvent, "stripe/events/v2_billing_contract_term_deleted_event"
     autoload :V2BillingContractTermDeletedEventNotification, "stripe/events/v2_billing_contract_term_deleted_event"
+    autoload :V2BillingContractTermPricingOverrideEndedEvent,
+             "stripe/events/v2_billing_contract_term_pricing_override_ended_event"
+    autoload :V2BillingContractTermPricingOverrideEndedEventNotification,
+             "stripe/events/v2_billing_contract_term_pricing_override_ended_event"
+    autoload :V2BillingContractTermPricingOverrideStartedEvent,
+             "stripe/events/v2_billing_contract_term_pricing_override_started_event"
+    autoload :V2BillingContractTermPricingOverrideStartedEventNotification,
+             "stripe/events/v2_billing_contract_term_pricing_override_started_event"
+    autoload :V2BillingContractTermRecurringPriceEndedEvent,
+             "stripe/events/v2_billing_contract_term_recurring_price_ended_event"
+    autoload :V2BillingContractTermRecurringPriceEndedEventNotification,
+             "stripe/events/v2_billing_contract_term_recurring_price_ended_event"
+    autoload :V2BillingContractTermRecurringPriceStartedEvent,
+             "stripe/events/v2_billing_contract_term_recurring_price_started_event"
+    autoload :V2BillingContractTermRecurringPriceStartedEventNotification,
+             "stripe/events/v2_billing_contract_term_recurring_price_started_event"
+    autoload :V2BillingContractTermScheduledFeeServicePeriodEndedEvent,
+             "stripe/events/v2_billing_contract_term_scheduled_fee_service_period_ended_event"
+    autoload :V2BillingContractTermScheduledFeeServicePeriodEndedEventNotification,
+             "stripe/events/v2_billing_contract_term_scheduled_fee_service_period_ended_event"
+    autoload :V2BillingContractTermScheduledFeeServicePeriodStartedEvent,
+             "stripe/events/v2_billing_contract_term_scheduled_fee_service_period_started_event"
+    autoload :V2BillingContractTermScheduledFeeServicePeriodStartedEventNotification,
+             "stripe/events/v2_billing_contract_term_scheduled_fee_service_period_started_event"
     autoload :V2BillingContractTermUpdatedEvent, "stripe/events/v2_billing_contract_term_updated_event"
     autoload :V2BillingContractTermUpdatedEventNotification, "stripe/events/v2_billing_contract_term_updated_event"
     autoload :V2BillingContractUpdatedEvent, "stripe/events/v2_billing_contract_updated_event"
@@ -1133,6 +1151,14 @@ module Stripe
              "stripe/events/v2_core_health_authorization_rate_drop_resolved_event"
     autoload :V2CoreHealthAuthorizationRateDropResolvedEventNotification,
              "stripe/events/v2_core_health_authorization_rate_drop_resolved_event"
+    autoload :V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEvent,
+             "stripe/events/v2_core_health_custom_payment_method_adapter_degraded_firing_event"
+    autoload :V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEventNotification,
+             "stripe/events/v2_core_health_custom_payment_method_adapter_degraded_firing_event"
+    autoload :V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEvent,
+             "stripe/events/v2_core_health_custom_payment_method_adapter_degraded_resolved_event"
+    autoload :V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEventNotification,
+             "stripe/events/v2_core_health_custom_payment_method_adapter_degraded_resolved_event"
     autoload :V2CoreHealthElementsErrorFiringEvent, "stripe/events/v2_core_health_elements_error_firing_event"
     autoload :V2CoreHealthElementsErrorFiringEventNotification,
              "stripe/events/v2_core_health_elements_error_firing_event"
@@ -1766,10 +1792,30 @@ module Stripe
              "stripe/events/v2_signals_account_signal_payment_delinquency_exposure_ready_event"
     autoload :V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification,
              "stripe/events/v2_signals_account_signal_payment_delinquency_exposure_ready_event"
+    autoload :V2SignalsPaymentRetryEvaluationCanceledEvent,
+             "stripe/events/v2_signals_payment_retry_evaluation_canceled_event"
+    autoload :V2SignalsPaymentRetryEvaluationCanceledEventNotification,
+             "stripe/events/v2_signals_payment_retry_evaluation_canceled_event"
+    autoload :V2SignalsPaymentRetryEvaluationCompletedEvent,
+             "stripe/events/v2_signals_payment_retry_evaluation_completed_event"
+    autoload :V2SignalsPaymentRetryEvaluationCompletedEventNotification,
+             "stripe/events/v2_signals_payment_retry_evaluation_completed_event"
+    autoload :V2SignalsPaymentRetryEvaluationCreatedEvent,
+             "stripe/events/v2_signals_payment_retry_evaluation_created_event"
+    autoload :V2SignalsPaymentRetryEvaluationCreatedEventNotification,
+             "stripe/events/v2_signals_payment_retry_evaluation_created_event"
+    autoload :V2SignalsPaymentRetryEvaluationExpiredEvent,
+             "stripe/events/v2_signals_payment_retry_evaluation_expired_event"
+    autoload :V2SignalsPaymentRetryEvaluationExpiredEventNotification,
+             "stripe/events/v2_signals_payment_retry_evaluation_expired_event"
     autoload :V2SignalsPaymentRetryEvaluationsRetryRecommendedEvent,
              "stripe/events/v2_signals_payment_retry_evaluations_retry_recommended_event"
     autoload :V2SignalsPaymentRetryEvaluationsRetryRecommendedEventNotification,
              "stripe/events/v2_signals_payment_retry_evaluations_retry_recommended_event"
+    autoload :V2SignalsPaymentRetryEvaluationUpdatedEvent,
+             "stripe/events/v2_signals_payment_retry_evaluation_updated_event"
+    autoload :V2SignalsPaymentRetryEvaluationUpdatedEventNotification,
+             "stripe/events/v2_signals_payment_retry_evaluation_updated_event"
   end
 
   module FinancialConnections
@@ -1910,15 +1956,15 @@ module Stripe
     module Billing
       autoload :BillSetting, "stripe/resources/v2/billing/bill_setting"
       autoload :BillSettingVersion, "stripe/resources/v2/billing/bill_setting_version"
-      autoload :Cadence, "stripe/resources/v2/billing/cadence"
-      autoload :CadenceSpendModifier, "stripe/resources/v2/billing/cadence_spend_modifier"
       autoload :CollectionSetting, "stripe/resources/v2/billing/collection_setting"
       autoload :CollectionSettingVersion, "stripe/resources/v2/billing/collection_setting_version"
       autoload :Contract, "stripe/resources/v2/billing/contract"
-      autoload :ContractPricingLineQuantityChange, "stripe/resources/v2/billing/contract_pricing_line_quantity_change"
       autoload :ContractTerm, "stripe/resources/v2/billing/contract_term"
       autoload :ContractTermQuantityChange, "stripe/resources/v2/billing/contract_term_quantity_change"
       autoload :CustomPricingUnit, "stripe/resources/v2/billing/custom_pricing_unit"
+      autoload :Group, "stripe/resources/v2/billing/group"
+      autoload :GroupInvoice, "stripe/resources/v2/billing/group_invoice"
+      autoload :GroupSpendModifier, "stripe/resources/v2/billing/group_spend_modifier"
       autoload :Intent, "stripe/resources/v2/billing/intent"
       autoload :IntentAction, "stripe/resources/v2/billing/intent_action"
       autoload :LicensedItem, "stripe/resources/v2/billing/licensed_item"
@@ -2323,15 +2369,15 @@ module Stripe
     stripe/resources/treasury/transaction_entry
     stripe/resources/v2/billing/bill_setting
     stripe/resources/v2/billing/bill_setting_version
-    stripe/resources/v2/billing/cadence
-    stripe/resources/v2/billing/cadence_spend_modifier
     stripe/resources/v2/billing/collection_setting
     stripe/resources/v2/billing/collection_setting_version
     stripe/resources/v2/billing/contract
-    stripe/resources/v2/billing/contract_pricing_line_quantity_change
     stripe/resources/v2/billing/contract_term
     stripe/resources/v2/billing/contract_term_quantity_change
     stripe/resources/v2/billing/custom_pricing_unit
+    stripe/resources/v2/billing/group
+    stripe/resources/v2/billing/group_invoice
+    stripe/resources/v2/billing/group_spend_modifier
     stripe/resources/v2/billing/intent
     stripe/resources/v2/billing/intent_action
     stripe/resources/v2/billing/license_fee
@@ -2717,9 +2763,6 @@ module Stripe
     stripe/events/v1_transfer_created_event
     stripe/events/v1_transfer_reversed_event
     stripe/events/v1_transfer_updated_event
-    stripe/events/v2_billing_cadence_billed_event
-    stripe/events/v2_billing_cadence_canceled_event
-    stripe/events/v2_billing_cadence_created_event
     stripe/events/v2_billing_contract_activated_event
     stripe/events/v2_billing_contract_canceled_event
     stripe/events/v2_billing_contract_collection_blocked_event
@@ -2730,6 +2773,12 @@ module Stripe
     stripe/events/v2_billing_contract_ended_event
     stripe/events/v2_billing_contract_term_created_event
     stripe/events/v2_billing_contract_term_deleted_event
+    stripe/events/v2_billing_contract_term_pricing_override_ended_event
+    stripe/events/v2_billing_contract_term_pricing_override_started_event
+    stripe/events/v2_billing_contract_term_recurring_price_ended_event
+    stripe/events/v2_billing_contract_term_recurring_price_started_event
+    stripe/events/v2_billing_contract_term_scheduled_fee_service_period_ended_event
+    stripe/events/v2_billing_contract_term_scheduled_fee_service_period_started_event
     stripe/events/v2_billing_contract_term_updated_event
     stripe/events/v2_billing_contract_updated_event
     stripe/events/v2_billing_license_fee_created_event
@@ -2822,6 +2871,8 @@ module Stripe
     stripe/events/v2_core_health_api_latency_resolved_event
     stripe/events/v2_core_health_authorization_rate_drop_firing_event
     stripe/events/v2_core_health_authorization_rate_drop_resolved_event
+    stripe/events/v2_core_health_custom_payment_method_adapter_degraded_firing_event
+    stripe/events/v2_core_health_custom_payment_method_adapter_degraded_resolved_event
     stripe/events/v2_core_health_elements_error_firing_event
     stripe/events/v2_core_health_elements_error_resolved_event
     stripe/events/v2_core_health_event_generation_failure_resolved_event
@@ -3003,6 +3054,11 @@ module Stripe
     stripe/events/v2_signals_account_signal_fraudulent_website_ready_event
     stripe/events/v2_signals_account_signal_merchant_delinquency_ready_event
     stripe/events/v2_signals_account_signal_payment_delinquency_exposure_ready_event
+    stripe/events/v2_signals_payment_retry_evaluation_canceled_event
+    stripe/events/v2_signals_payment_retry_evaluation_completed_event
+    stripe/events/v2_signals_payment_retry_evaluation_created_event
+    stripe/events/v2_signals_payment_retry_evaluation_expired_event
+    stripe/events/v2_signals_payment_retry_evaluation_updated_event
     stripe/events/v2_signals_payment_retry_evaluations_retry_recommended_event
   ].freeze
   # rubocop:enable Metrics/CollectionLiteralLength

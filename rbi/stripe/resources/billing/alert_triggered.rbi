@@ -20,9 +20,6 @@ module Stripe
         end
       end
       class GroupBy < ::Stripe::StripeObject
-        # The billing cadence ID, populated when type is `billing_cadence`
-        sig { returns(T.nilable(String)) }
-        def billing_cadence; end
         # The billing group ID, populated when type is `billing_group`
         sig { returns(T.nilable(String)) }
         def billing_group; end

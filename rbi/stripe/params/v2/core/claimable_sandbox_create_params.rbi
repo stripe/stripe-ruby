@@ -14,8 +14,13 @@ module Stripe
           def refresh_url; end
           sig { params(_refresh_url: String).returns(String) }
           def refresh_url=(_refresh_url); end
-          sig { params(refresh_url: String).void }
-          def initialize(refresh_url: nil); end
+          # The URL offered to the user as a way back to your app after they claim the sandbox.
+          sig { returns(T.nilable(String)) }
+          def return_url; end
+          sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
+          def return_url=(_return_url); end
+          sig { params(refresh_url: String, return_url: T.nilable(String)).void }
+          def initialize(refresh_url: nil, return_url: nil); end
         end
         class Prefill < ::Stripe::RequestParams
           # Country in which the account holder resides, or in which the business is legally established.
@@ -24,8 +29,8 @@ module Stripe
           def country; end
           sig { params(_country: String).returns(String) }
           def country=(_country); end
-          # Email that this sandbox is meant to be claimed by. Stripe will
-          # notify this email address before the sandbox expires.
+          # Email address of the user who will claim the sandbox.
+          # Stripe sends this address an invitation to claim the sandbox and a reminder before the unclaimed sandbox expires.
           sig { returns(String) }
           def email; end
           sig { params(_email: String).returns(String) }
@@ -38,12 +43,13 @@ module Stripe
           sig { params(country: String, email: String, name: T.nilable(String)).void }
           def initialize(country: nil, email: nil, name: nil); end
         end
-        # The app channel that will be used when pre-installing your app on the claimable sandbox.
+        # The distribution channel used to pre-install your Stripe App on the claimable sandbox.
+        # Use `testing` to install your app's external test version or `public` to install its published version.
         # This field defaults to `public` if omitted.
         sig { returns(T.nilable(String)) }
-        def app_channel; end
-        sig { params(_app_channel: T.nilable(String)).returns(T.nilable(String)) }
-        def app_channel=(_app_channel); end
+        def channel; end
+        sig { params(_channel: T.nilable(String)).returns(T.nilable(String)) }
+        def channel=(_channel); end
         # If true, returns a key that can be used with [Stripe's MCP server](https://docs.stripe.com/mcp).
         sig { returns(T::Boolean) }
         def enable_mcp_access; end
@@ -64,10 +70,10 @@ module Stripe
          }
         def prefill=(_prefill); end
         sig {
-          params(app_channel: T.nilable(String), enable_mcp_access: T::Boolean, onboarding_link_details: ::Stripe::V2::Core::ClaimableSandboxCreateParams::OnboardingLinkDetails, prefill: ::Stripe::V2::Core::ClaimableSandboxCreateParams::Prefill).void
+          params(channel: T.nilable(String), enable_mcp_access: T::Boolean, onboarding_link_details: ::Stripe::V2::Core::ClaimableSandboxCreateParams::OnboardingLinkDetails, prefill: ::Stripe::V2::Core::ClaimableSandboxCreateParams::Prefill).void
          }
         def initialize(
-          app_channel: nil,
+          channel: nil,
           enable_mcp_access: nil,
           onboarding_link_details: nil,
           prefill: nil

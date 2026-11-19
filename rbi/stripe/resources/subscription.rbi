@@ -502,6 +502,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Controls early collection for eligible recurring payments on India-issued cards. Target-date billing aims to debit on the billing-cycle date but does not guarantee that date.
+          sig { returns(T.nilable(String)) }
+          def debit_behavior; end
           # Attribute for field mandate_options
           sig { returns(T.nilable(MandateOptions)) }
           def mandate_options; end
@@ -630,6 +633,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Timing configuration for collecting funds from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def debit_behavior; end
           # The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If unspecified, defaults to 14400 seconds (4 hours).
           sig { returns(T.nilable(Integer)) }
           def expires_after_seconds; end
@@ -675,6 +681,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Controls when the funds will be captured from the customer's account. Defaults to `not_specified`. Omitting this parameter on an update preserves the saved value; passing `not_specified` clears it. Early collection is best effort and doesn't guarantee an exact debit date.
+          sig { returns(T.nilable(String)) }
+          def debit_behavior; end
           # Attribute for field mandate_options
           sig { returns(T.nilable(MandateOptions)) }
           def mandate_options; end
@@ -854,6 +863,17 @@ module Stripe
       end
     end
     class PendingUpdate < ::Stripe::StripeObject
+      class PresentmentDetails < ::Stripe::StripeObject
+        # Currency used for customer payments.
+        sig { returns(String) }
+        def presentment_currency; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
       sig { returns(T.nilable(Integer)) }
       def billing_cycle_anchor; end
@@ -875,6 +895,9 @@ module Stripe
       # The number of iterations of prebilling to apply.
       sig { returns(T.nilable(Integer)) }
       def prebilling_iterations; end
+      # Attribute for field presentment_details
+      sig { returns(T.nilable(PresentmentDetails)) }
+      def presentment_details; end
       # List of subscription items, each with an attached plan, that will be set if the update is applied.
       sig { returns(T.nilable(T::Array[::Stripe::SubscriptionItem])) }
       def subscription_items; end
@@ -885,7 +908,7 @@ module Stripe
       sig { returns(T.nilable(T::Boolean)) }
       def trial_from_plan; end
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = {presentment_details: PresentmentDetails}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -1009,9 +1032,6 @@ module Stripe
     # Attribute for field automatic_tax
     sig { returns(AutomaticTax) }
     def automatic_tax; end
-    # The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
-    sig { returns(T.nilable(String)) }
-    def billing_cadence; end
     # The reference point that aligns future [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
     sig { returns(Integer) }
     def billing_cycle_anchor; end

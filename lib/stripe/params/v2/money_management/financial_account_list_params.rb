@@ -7,7 +7,7 @@ module Stripe
       class FinancialAccountListParams < ::Stripe::RequestParams
         # Additional fields to include in the response.
         attr_accessor :include
-        # The page limit.
+        # Maximum number of results to return. Default: 10. Valid range: 1-20.
         attr_accessor :limit
         # Return FinancialAccounts whose `status` matches any of the provided values.
         # If omitted, closed FinancialAccounts are not returned.

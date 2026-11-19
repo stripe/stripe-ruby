@@ -10,6 +10,10 @@ module Stripe
       end
 
       class V2PaymentsOffSessionPaymentFailedEventData < ::Stripe::StripeObject
+        # The ID of the Charge associated with this attempt.
+        attr_reader :charge
+        # The payment error from the failed attempt.
+        attr_reader :last_attempt_error
         # The ID of the payment attempt record associated with this terminal failure. Equal to the `latest_payment_attempt_record` on the Off-Session Payment object.
         attr_reader :payment_attempt_record
 

@@ -337,6 +337,8 @@ module Stripe
           attr_reader :crypto
           # Array of eligibility objects, segmented by bank name and deposit insurance scheme.
           attr_reader :deposit_insurance_eligibility
+          # How funds in this FinancialAccount are held. Defaults to `for_benefit_of` if not specified.
+          attr_reader :funds_holding_structure
           # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
           attr_reader :funds_usage_type
           # The currencies that this FinancialAccount can hold.

@@ -382,9 +382,6 @@ module Stripe
         Events::V1TransferCreatedEvent.lookup_type => Events::V1TransferCreatedEvent,
         Events::V1TransferReversedEvent.lookup_type => Events::V1TransferReversedEvent,
         Events::V1TransferUpdatedEvent.lookup_type => Events::V1TransferUpdatedEvent,
-        Events::V2BillingCadenceBilledEvent.lookup_type => Events::V2BillingCadenceBilledEvent,
-        Events::V2BillingCadenceCanceledEvent.lookup_type => Events::V2BillingCadenceCanceledEvent,
-        Events::V2BillingCadenceCreatedEvent.lookup_type => Events::V2BillingCadenceCreatedEvent,
         Events::V2BillingContractActivatedEvent.lookup_type => Events::V2BillingContractActivatedEvent,
         Events::V2BillingContractCanceledEvent.lookup_type => Events::V2BillingContractCanceledEvent,
         Events::V2BillingContractCollectionBlockedEvent.lookup_type =>
@@ -399,6 +396,18 @@ module Stripe
         Events::V2BillingContractEndedEvent.lookup_type => Events::V2BillingContractEndedEvent,
         Events::V2BillingContractTermCreatedEvent.lookup_type => Events::V2BillingContractTermCreatedEvent,
         Events::V2BillingContractTermDeletedEvent.lookup_type => Events::V2BillingContractTermDeletedEvent,
+        Events::V2BillingContractTermPricingOverrideEndedEvent.lookup_type =>
+        Events::V2BillingContractTermPricingOverrideEndedEvent,
+        Events::V2BillingContractTermPricingOverrideStartedEvent.lookup_type =>
+        Events::V2BillingContractTermPricingOverrideStartedEvent,
+        Events::V2BillingContractTermRecurringPriceEndedEvent.lookup_type =>
+        Events::V2BillingContractTermRecurringPriceEndedEvent,
+        Events::V2BillingContractTermRecurringPriceStartedEvent.lookup_type =>
+        Events::V2BillingContractTermRecurringPriceStartedEvent,
+        Events::V2BillingContractTermScheduledFeeServicePeriodEndedEvent.lookup_type =>
+        Events::V2BillingContractTermScheduledFeeServicePeriodEndedEvent,
+        Events::V2BillingContractTermScheduledFeeServicePeriodStartedEvent.lookup_type =>
+        Events::V2BillingContractTermScheduledFeeServicePeriodStartedEvent,
         Events::V2BillingContractTermUpdatedEvent.lookup_type => Events::V2BillingContractTermUpdatedEvent,
         Events::V2BillingContractUpdatedEvent.lookup_type => Events::V2BillingContractUpdatedEvent,
         Events::V2BillingLicenseFeeCreatedEvent.lookup_type => Events::V2BillingLicenseFeeCreatedEvent,
@@ -547,6 +556,10 @@ module Stripe
         Events::V2CoreHealthAuthorizationRateDropFiringEvent,
         Events::V2CoreHealthAuthorizationRateDropResolvedEvent.lookup_type =>
         Events::V2CoreHealthAuthorizationRateDropResolvedEvent,
+        Events::V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEvent.lookup_type =>
+        Events::V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEvent,
+        Events::V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEvent.lookup_type =>
+        Events::V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEvent,
         Events::V2CoreHealthElementsErrorFiringEvent.lookup_type =>
         Events::V2CoreHealthElementsErrorFiringEvent,
         Events::V2CoreHealthElementsErrorResolvedEvent.lookup_type =>
@@ -889,6 +902,16 @@ module Stripe
         Events::V2SignalsAccountSignalMerchantDelinquencyReadyEvent,
         Events::V2SignalsAccountSignalPaymentDelinquencyExposureReadyEvent.lookup_type =>
         Events::V2SignalsAccountSignalPaymentDelinquencyExposureReadyEvent,
+        Events::V2SignalsPaymentRetryEvaluationCanceledEvent.lookup_type =>
+        Events::V2SignalsPaymentRetryEvaluationCanceledEvent,
+        Events::V2SignalsPaymentRetryEvaluationCompletedEvent.lookup_type =>
+        Events::V2SignalsPaymentRetryEvaluationCompletedEvent,
+        Events::V2SignalsPaymentRetryEvaluationCreatedEvent.lookup_type =>
+        Events::V2SignalsPaymentRetryEvaluationCreatedEvent,
+        Events::V2SignalsPaymentRetryEvaluationExpiredEvent.lookup_type =>
+        Events::V2SignalsPaymentRetryEvaluationExpiredEvent,
+        Events::V2SignalsPaymentRetryEvaluationUpdatedEvent.lookup_type =>
+        Events::V2SignalsPaymentRetryEvaluationUpdatedEvent,
         Events::V2SignalsPaymentRetryEvaluationsRetryRecommendedEvent.lookup_type =>
         Events::V2SignalsPaymentRetryEvaluationsRetryRecommendedEvent,
         # v2 event types: The end of the section generated from our OpenAPI spec
@@ -1377,12 +1400,6 @@ module Stripe
         Events::V1TransferReversedEventNotification,
         Events::V1TransferUpdatedEventNotification.lookup_type =>
         Events::V1TransferUpdatedEventNotification,
-        Events::V2BillingCadenceBilledEventNotification.lookup_type =>
-        Events::V2BillingCadenceBilledEventNotification,
-        Events::V2BillingCadenceCanceledEventNotification.lookup_type =>
-        Events::V2BillingCadenceCanceledEventNotification,
-        Events::V2BillingCadenceCreatedEventNotification.lookup_type =>
-        Events::V2BillingCadenceCreatedEventNotification,
         Events::V2BillingContractActivatedEventNotification.lookup_type =>
         Events::V2BillingContractActivatedEventNotification,
         Events::V2BillingContractCanceledEventNotification.lookup_type =>
@@ -1403,6 +1420,18 @@ module Stripe
         Events::V2BillingContractTermCreatedEventNotification,
         Events::V2BillingContractTermDeletedEventNotification.lookup_type =>
         Events::V2BillingContractTermDeletedEventNotification,
+        Events::V2BillingContractTermPricingOverrideEndedEventNotification.lookup_type =>
+        Events::V2BillingContractTermPricingOverrideEndedEventNotification,
+        Events::V2BillingContractTermPricingOverrideStartedEventNotification.lookup_type =>
+        Events::V2BillingContractTermPricingOverrideStartedEventNotification,
+        Events::V2BillingContractTermRecurringPriceEndedEventNotification.lookup_type =>
+        Events::V2BillingContractTermRecurringPriceEndedEventNotification,
+        Events::V2BillingContractTermRecurringPriceStartedEventNotification.lookup_type =>
+        Events::V2BillingContractTermRecurringPriceStartedEventNotification,
+        Events::V2BillingContractTermScheduledFeeServicePeriodEndedEventNotification.lookup_type =>
+        Events::V2BillingContractTermScheduledFeeServicePeriodEndedEventNotification,
+        Events::V2BillingContractTermScheduledFeeServicePeriodStartedEventNotification.lookup_type =>
+        Events::V2BillingContractTermScheduledFeeServicePeriodStartedEventNotification,
         Events::V2BillingContractTermUpdatedEventNotification.lookup_type =>
         Events::V2BillingContractTermUpdatedEventNotification,
         Events::V2BillingContractUpdatedEventNotification.lookup_type =>
@@ -1587,6 +1616,10 @@ module Stripe
         Events::V2CoreHealthAuthorizationRateDropFiringEventNotification,
         Events::V2CoreHealthAuthorizationRateDropResolvedEventNotification.lookup_type =>
         Events::V2CoreHealthAuthorizationRateDropResolvedEventNotification,
+        Events::V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEventNotification.lookup_type =>
+        Events::V2CoreHealthCustomPaymentMethodAdapterDegradedFiringEventNotification,
+        Events::V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEventNotification.lookup_type =>
+        Events::V2CoreHealthCustomPaymentMethodAdapterDegradedResolvedEventNotification,
         Events::V2CoreHealthElementsErrorFiringEventNotification.lookup_type =>
         Events::V2CoreHealthElementsErrorFiringEventNotification,
         Events::V2CoreHealthElementsErrorResolvedEventNotification.lookup_type =>
@@ -1949,6 +1982,16 @@ module Stripe
         Events::V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification,
         Events::V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification.lookup_type =>
         Events::V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification,
+        Events::V2SignalsPaymentRetryEvaluationCanceledEventNotification.lookup_type =>
+        Events::V2SignalsPaymentRetryEvaluationCanceledEventNotification,
+        Events::V2SignalsPaymentRetryEvaluationCompletedEventNotification.lookup_type =>
+        Events::V2SignalsPaymentRetryEvaluationCompletedEventNotification,
+        Events::V2SignalsPaymentRetryEvaluationCreatedEventNotification.lookup_type =>
+        Events::V2SignalsPaymentRetryEvaluationCreatedEventNotification,
+        Events::V2SignalsPaymentRetryEvaluationExpiredEventNotification.lookup_type =>
+        Events::V2SignalsPaymentRetryEvaluationExpiredEventNotification,
+        Events::V2SignalsPaymentRetryEvaluationUpdatedEventNotification.lookup_type =>
+        Events::V2SignalsPaymentRetryEvaluationUpdatedEventNotification,
         Events::V2SignalsPaymentRetryEvaluationsRetryRecommendedEventNotification.lookup_type =>
         Events::V2SignalsPaymentRetryEvaluationsRetryRecommendedEventNotification,
         # event notification types: The end of the section generated from our OpenAPI spec

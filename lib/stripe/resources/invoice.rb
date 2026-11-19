@@ -76,6 +76,33 @@ module Stripe
       end
     end
 
+    class AppliedCreditMemos < ::Stripe::StripeObject
+      class Data < ::Stripe::StripeObject
+        # The credit currently applied to this invoice from the Credit Memo, in cents (or local equivalent). Applying credit reduces `amount_due` and `amount_remaining` without changing `amount_paid`.
+        attr_reader :applied_amount
+        # The ID of the Credit Memo whose credit is applied to this invoice.
+        attr_reader :credit_memo
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # The Credit Memos with credit currently applied to this invoice, with one entry per Credit Memo. An invoice can have credit applied from at most 10 Credit Memos, so the list is returned in full.
+      attr_reader :data
+
+      def self.inner_class_types
+        @inner_class_types = { data: Data }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class AutomaticTax < ::Stripe::StripeObject
       class EnablementDetails < ::Stripe::StripeObject
         class IntegrationConfigurationDisabledReason < ::Stripe::StripeObject
@@ -394,9 +421,9 @@ module Stripe
     end
 
     class Parent < ::Stripe::StripeObject
-      class BillingCadenceDetails < ::Stripe::StripeObject
-        # The billing cadence that generated this invoice
-        attr_reader :billing_cadence
+      class BillingGroupDetails < ::Stripe::StripeObject
+        # The billing group that generated this invoice
+        attr_reader :billing_group
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -468,8 +495,8 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Details about the billing cadence that generated this invoice
-      attr_reader :billing_cadence_details
+      # Details about the billing group that generated this invoice
+      attr_reader :billing_group_details
       # Details about the quote that generated this invoice
       attr_reader :quote_details
       # Details about the schedule that generated this invoice
@@ -481,7 +508,7 @@ module Stripe
 
       def self.inner_class_types
         @inner_class_types = {
-          billing_cadence_details: BillingCadenceDetails,
+          billing_group_details: BillingGroupDetails,
           quote_details: QuoteDetails,
           schedule_details: ScheduleDetails,
           subscription_details: SubscriptionDetails,
@@ -1244,6 +1271,8 @@ module Stripe
     attr_reader :amounts_due
     # ID of the Connect Application that created the invoice.
     attr_reader :application
+    # Attribute for field applied_credit_memos
+    attr_reader :applied_credit_memos
     # Number of payment attempts made for this invoice, from the perspective of the payment retry schedule. Any payment attempt counts as the first attempt, and subsequently only automatic retries increment the attempt count. In other words, manual payment attempts after the first attempt do not affect the retry schedule. If a failure is returned with a non-retryable return code, the invoice can no longer be retried unless a new payment method is obtained. Retries will continue to be scheduled, and attempt_count will continue to increment, but retries will only be executed if a new payment method is obtained.
     attr_reader :attempt_count
     # Whether an attempt has been made to pay the invoice. An invoice is not attempted until 1 hour after the `invoice.created` webhook, for example, so you might not want to display that invoice as unpaid to your users.
@@ -1704,6 +1733,7 @@ module Stripe
     def self.inner_class_types
       @inner_class_types = {
         amounts_due: AmountsDue,
+        applied_credit_memos: AppliedCreditMemos,
         automatic_tax: AutomaticTax,
         confirmation_secret: ConfirmationSecret,
         custom_fields: CustomField,

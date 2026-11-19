@@ -7,7 +7,7 @@ module Stripe
     module Billing
       class RateCardSubscriptionListParams < ::Stripe::RequestParams
         class Payer < ::Stripe::RequestParams
-          # The ID of the Customer object. If provided, only the Rate Card Subscriptions that are subscribed on the Billing Cadences with the specified payer will be returned.
+          # The ID of the Customer object. If provided, only the Rate Card Subscriptions that are subscribed on the Billing Groups with the specified payer will be returned.
           sig { returns(T.nilable(String)) }
           def customer; end
           sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
@@ -20,30 +20,30 @@ module Stripe
           sig { params(customer: T.nilable(String), type: String).void }
           def initialize(customer: nil, type: nil); end
         end
-        # Optionally filter by a BillingCadence. Mutually exclusive with `payers`, `rate_card`, and `rate_card_version`.
+        # Optionally filter by a BillingGroup. Mutually exclusive with `payers`, `rate_card`, and `rate_card_version`.
         sig { returns(T.nilable(String)) }
-        def billing_cadence; end
-        sig { params(_billing_cadence: T.nilable(String)).returns(T.nilable(String)) }
-        def billing_cadence=(_billing_cadence); end
+        def billing_group; end
+        sig { params(_billing_group: T.nilable(String)).returns(T.nilable(String)) }
+        def billing_group=(_billing_group); end
         # The page size limit. Defaults to 20.
         sig { returns(T.nilable(Integer)) }
         def limit; end
         sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def limit=(_limit); end
-        # Optionally filter by the payer associated with Billing Cadences which the Rate Card Subscriptions are subscribed to.
-        # Mutually exclusive with `billing_cadence`, `rate_card`, and `rate_card_version`.
+        # Optionally filter by the payer associated with Billing Groups which the Rate Card Subscriptions are subscribed to.
+        # Mutually exclusive with `billing_group`, `rate_card`, and `rate_card_version`.
         sig { returns(T.nilable(::Stripe::V2::Billing::RateCardSubscriptionListParams::Payer)) }
         def payer; end
         sig {
           params(_payer: T.nilable(::Stripe::V2::Billing::RateCardSubscriptionListParams::Payer)).returns(T.nilable(::Stripe::V2::Billing::RateCardSubscriptionListParams::Payer))
          }
         def payer=(_payer); end
-        # Optionally filter by a RateCard. Mutually exclusive with `billing_cadence`, `payers`, and `rate_card_version`.
+        # Optionally filter by a RateCard. Mutually exclusive with `billing_group`, `payers`, and `rate_card_version`.
         sig { returns(T.nilable(String)) }
         def rate_card; end
         sig { params(_rate_card: T.nilable(String)).returns(T.nilable(String)) }
         def rate_card=(_rate_card); end
-        # Optionally filter by a RateCard version. Mutually exclusive with `billing_cadence`, `payers`, and `rate_card`.
+        # Optionally filter by a RateCard version. Mutually exclusive with `billing_group`, `payers`, and `rate_card`.
         sig { returns(T.nilable(String)) }
         def rate_card_version; end
         sig { params(_rate_card_version: T.nilable(String)).returns(T.nilable(String)) }
@@ -54,10 +54,10 @@ module Stripe
         sig { params(_servicing_status: T.nilable(String)).returns(T.nilable(String)) }
         def servicing_status=(_servicing_status); end
         sig {
-          params(billing_cadence: T.nilable(String), limit: T.nilable(Integer), payer: T.nilable(::Stripe::V2::Billing::RateCardSubscriptionListParams::Payer), rate_card: T.nilable(String), rate_card_version: T.nilable(String), servicing_status: T.nilable(String)).void
+          params(billing_group: T.nilable(String), limit: T.nilable(Integer), payer: T.nilable(::Stripe::V2::Billing::RateCardSubscriptionListParams::Payer), rate_card: T.nilable(String), rate_card_version: T.nilable(String), servicing_status: T.nilable(String)).void
          }
         def initialize(
-          billing_cadence: nil,
+          billing_group: nil,
           limit: nil,
           payer: nil,
           rate_card: nil,

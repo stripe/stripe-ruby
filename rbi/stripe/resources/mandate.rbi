@@ -143,9 +143,36 @@ module Stripe
       end
       class Card < ::Stripe::StripeObject
         class India < ::Stripe::StripeObject
+          # The registered amount in the smallest currency unit. For a maximum amount mandate, this is the authorized ceiling.
+          sig { returns(T.nilable(Integer)) }
+          def amount; end
+          # Whether the registered amount is fixed or a maximum.
+          sig { returns(T.nilable(String)) }
+          def amount_type; end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          # The stored mandate description, before SIHub registration removes non-alphanumeric characters.
+          sig { returns(T.nilable(String)) }
+          def description; end
+          # The registered end date, represented as midnight in India Standard Time, if specified.
+          sig { returns(T.nilable(Integer)) }
+          def end_date; end
           # The reason why the mandate has an `inactive` status. This field is only populated if the mandate is inactive.
           sig { returns(T.nilable(String)) }
           def inactive_reason; end
+          # The registered payment interval. This can differ from the interval originally requested.
+          sig { returns(T.nilable(String)) }
+          def interval; end
+          # The number of intervals between registered payments. Null for sporadic mandates.
+          sig { returns(T.nilable(Integer)) }
+          def interval_count; end
+          # The reference registered for this mandate.
+          sig { returns(T.nilable(String)) }
+          def reference; end
+          # The registered start date, represented as midnight in India Standard Time.
+          sig { returns(T.nilable(Integer)) }
+          def start_date; end
           def self.inner_class_types
             @inner_class_types = {}
           end

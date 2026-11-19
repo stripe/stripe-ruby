@@ -68,6 +68,31 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class AppliedCreditMemos < ::Stripe::StripeObject
+      class Data < ::Stripe::StripeObject
+        # The credit currently applied to this invoice from the Credit Memo, in cents (or local equivalent). Applying credit reduces `amount_due` and `amount_remaining` without changing `amount_paid`.
+        sig { returns(Integer) }
+        def applied_amount; end
+        # The ID of the Credit Memo whose credit is applied to this invoice.
+        sig { returns(String) }
+        def credit_memo; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # The Credit Memos with credit currently applied to this invoice, with one entry per Credit Memo. An invoice can have credit applied from at most 10 Credit Memos, so the list is returned in full.
+      sig { returns(T::Array[Data]) }
+      def data; end
+      def self.inner_class_types
+        @inner_class_types = {data: Data}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class AutomaticTax < ::Stripe::StripeObject
       class EnablementDetails < ::Stripe::StripeObject
         class IntegrationConfigurationDisabledReason < ::Stripe::StripeObject
@@ -405,10 +430,10 @@ module Stripe
       end
     end
     class Parent < ::Stripe::StripeObject
-      class BillingCadenceDetails < ::Stripe::StripeObject
-        # The billing cadence that generated this invoice
+      class BillingGroupDetails < ::Stripe::StripeObject
+        # The billing group that generated this invoice
         sig { returns(String) }
-        def billing_cadence; end
+        def billing_group; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -476,9 +501,9 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Details about the billing cadence that generated this invoice
-      sig { returns(T.nilable(BillingCadenceDetails)) }
-      def billing_cadence_details; end
+      # Details about the billing group that generated this invoice
+      sig { returns(T.nilable(BillingGroupDetails)) }
+      def billing_group_details; end
       # Details about the quote that generated this invoice
       sig { returns(T.nilable(QuoteDetails)) }
       def quote_details; end
@@ -493,7 +518,7 @@ module Stripe
       def type; end
       def self.inner_class_types
         @inner_class_types = {
-          billing_cadence_details: BillingCadenceDetails,
+          billing_group_details: BillingGroupDetails,
           quote_details: QuoteDetails,
           schedule_details: ScheduleDetails,
           subscription_details: SubscriptionDetails,
@@ -1273,6 +1298,9 @@ module Stripe
     # ID of the Connect Application that created the invoice.
     sig { returns(T.nilable(T.any(String, ::Stripe::Application))) }
     def application; end
+    # Attribute for field applied_credit_memos
+    sig { returns(T.nilable(AppliedCreditMemos)) }
+    def applied_credit_memos; end
     # Number of payment attempts made for this invoice, from the perspective of the payment retry schedule. Any payment attempt counts as the first attempt, and subsequently only automatic retries increment the attempt count. In other words, manual payment attempts after the first attempt do not affect the retry schedule. If a failure is returned with a non-retryable return code, the invoice can no longer be retried unless a new payment method is obtained. Retries will continue to be scheduled, and attempt_count will continue to increment, but retries will only be executed if a new payment method is obtained.
     sig { returns(Integer) }
     def attempt_count; end

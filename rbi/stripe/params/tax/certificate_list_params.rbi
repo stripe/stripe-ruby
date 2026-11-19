@@ -25,7 +25,7 @@ module Stripe
       def starting_after; end
       sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
       def starting_after=(_starting_after); end
-      # The ID of an existing tax exemption.
+      # The ID of the [customer tax exemption](/api/tax/exemptions/object) whose certificates to list. The tax exemption must not be deleted.
       sig { returns(String) }
       def tax_exemption; end
       sig { params(_tax_exemption: String).returns(String) }

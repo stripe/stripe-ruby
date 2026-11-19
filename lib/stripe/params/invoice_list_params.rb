@@ -38,8 +38,8 @@ module Stripe
         @lte = lte
       end
     end
-    # Only return invoices for the cadence specified by this billing cadence ID.
-    attr_accessor :billing_cadence
+    # Only return invoices for the billing group specified by this billing group ID.
+    attr_accessor :billing_group
     # The collection method of the invoice to retrieve. Either `charge_automatically` or `send_invoice`.
     attr_accessor :collection_method
     # Only return invoices that were created during the given date interval.
@@ -64,7 +64,7 @@ module Stripe
     attr_accessor :subscription
 
     def initialize(
-      billing_cadence: nil,
+      billing_group: nil,
       collection_method: nil,
       created: nil,
       customer: nil,
@@ -77,7 +77,7 @@ module Stripe
       status: nil,
       subscription: nil
     )
-      @billing_cadence = billing_cadence
+      @billing_group = billing_group
       @collection_method = collection_method
       @created = created
       @customer = customer

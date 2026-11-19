@@ -24,9 +24,6 @@ module Stripe
       # The billing group associated with this notification. Only present for spend threshold alerts grouped by billing group.
       sig { returns(T.nilable(String)) }
       def billing_group; end
-      # The cadence associated with this notification. Only present for spend threshold alerts grouped by cadence.
-      sig { returns(T.nilable(String)) }
-      def cadence; end
       # Three-letter ISO currency code for the value, in lowercase. Only present for spend and credit balance threshold alerts.
       sig { returns(T.nilable(String)) }
       def currency; end

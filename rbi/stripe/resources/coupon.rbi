@@ -32,6 +32,34 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Custom < ::Stripe::StripeObject
+      class Extension < ::Stripe::StripeObject
+        # The Extension Prototype ID.
+        sig { returns(String) }
+        def id; end
+        # The semantic version of the extension.
+        sig { returns(String) }
+        def version; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # The configuration supplied to the extension.
+      sig { returns(T::Hash[String, T.untyped]) }
+      def configuration; end
+      # Attribute for field extension
+      sig { returns(Extension) }
+      def extension; end
+      def self.inner_class_types
+        @inner_class_types = {extension: Extension}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Script < ::Stripe::StripeObject
       # The configuration values of the script. The keys and values are specific to the script implementation.
       sig { returns(T::Hash[String, T.untyped]) }
@@ -95,6 +123,9 @@ module Stripe
     # Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(T.nilable(T::Hash[String, CurrencyOptions])) }
     def currency_options; end
+    # Attribute for field custom
+    sig { returns(T.nilable(Custom)) }
+    def custom; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end

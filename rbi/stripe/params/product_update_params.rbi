@@ -46,13 +46,18 @@ module Stripe
       def initialize(ean: nil, gtin: nil, isbn: nil, jan: nil, mpn: nil, nsn: nil, upc: nil); end
     end
     class MarketingFeature < ::Stripe::RequestParams
+      # Optional text that describes what a customer loses by canceling, shown for this marketing feature in the Customer Portal cancellation flow. Up to 80 characters long. If you omit it when you update `marketing_features`, Stripe keeps the message stored for the feature with the same name. Duplicate names are matched in order. Set it to an empty string to remove the override. When no override is stored, eligible cancellation flows use the marketing feature name. A renamed feature is treated as a new feature, so send the message again to keep it.
+      sig { returns(T.nilable(String)) }
+      def loss_message; end
+      sig { params(_loss_message: T.nilable(String)).returns(T.nilable(String)) }
+      def loss_message=(_loss_message); end
       # The marketing feature name. Up to 80 characters long.
       sig { returns(String) }
       def name; end
       sig { params(_name: String).returns(String) }
       def name=(_name); end
-      sig { params(name: String).void }
-      def initialize(name: nil); end
+      sig { params(loss_message: T.nilable(String), name: String).void }
+      def initialize(loss_message: nil, name: nil); end
     end
     class PackageDimensions < ::Stripe::RequestParams
       # Height, in inches. Maximum precision is 2 decimal places.

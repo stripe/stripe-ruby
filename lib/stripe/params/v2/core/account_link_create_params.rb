@@ -6,6 +6,16 @@ module Stripe
     module Core
       class AccountLinkCreateParams < ::Stripe::RequestParams
         class UseCase < ::Stripe::RequestParams
+          class AccountDashboard < ::Stripe::RequestParams
+            # The URL to redirect to if the Account Link has expired or has already
+            # been used. Authenticate the user before generating a replacement link.
+            attr_accessor :refresh_url
+
+            def initialize(refresh_url: nil)
+              @refresh_url = refresh_url
+            end
+          end
+
           class AccountOnboarding < ::Stripe::RequestParams
             class CollectionOptions < ::Stripe::RequestParams
               # Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don’t specify collection_options, the default value is currently_due.
@@ -109,6 +119,8 @@ module Stripe
               @return_url = return_url
             end
           end
+          # Hash containing configuration options for an Account Link that provides access to the account's Stripe-hosted Dashboard.
+          attr_accessor :account_dashboard
           # Hash containing configuration options for an Account Link object that onboards a new account.
           attr_accessor :account_onboarding
           # Hash containing configuration options for an Account Link that updates an existing account.
@@ -121,12 +133,14 @@ module Stripe
           attr_accessor :type
 
           def initialize(
+            account_dashboard: nil,
             account_onboarding: nil,
             account_update: nil,
             recipient_onboarding: nil,
             recipient_update: nil,
             type: nil
           )
+            @account_dashboard = account_dashboard
             @account_onboarding = account_onboarding
             @account_update = account_update
             @recipient_onboarding = recipient_onboarding

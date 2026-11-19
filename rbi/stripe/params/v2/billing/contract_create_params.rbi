@@ -214,678 +214,7 @@ module Stripe
             collection_settings_details: nil
           ); end
         end
-        class OneTimeFee < ::Stripe::RequestParams
-          class BillAt < ::Stripe::RequestParams
-            # The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
-            sig { returns(T.nilable(String)) }
-            def timestamp; end
-            sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
-            def timestamp=(_timestamp); end
-            # The type of the bill_at.
-            sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
-            sig { params(timestamp: T.nilable(String), type: String).void }
-            def initialize(timestamp: nil, type: nil); end
-          end
-          # The amount to bill.
-          sig { returns(::Stripe::V2::Amount) }
-          def amount; end
-          sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
-          def amount=(_amount); end
-          # When this fee should be billed.
-          sig { returns(::Stripe::V2::Billing::ContractCreateParams::OneTimeFee::BillAt) }
-          def bill_at; end
-          sig {
-            params(_bill_at: ::Stripe::V2::Billing::ContractCreateParams::OneTimeFee::BillAt).returns(::Stripe::V2::Billing::ContractCreateParams::OneTimeFee::BillAt)
-           }
-          def bill_at=(_bill_at); end
-          # A user-provided lookup key.
-          sig { returns(T.nilable(String)) }
-          def lookup_key; end
-          sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
-          def lookup_key=(_lookup_key); end
-          # Set of key-value pairs that you can attach to an object.
-          sig { returns(T.nilable(T::Hash[String, String])) }
-          def metadata; end
-          sig {
-            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
-           }
-          def metadata=(_metadata); end
-          # The id of the product for this fee.
-          sig { returns(String) }
-          def product; end
-          sig { params(_product: String).returns(String) }
-          def product=(_product); end
-          sig {
-            params(amount: ::Stripe::V2::Amount, bill_at: ::Stripe::V2::Billing::ContractCreateParams::OneTimeFee::BillAt, lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), product: String).void
-           }
-          def initialize(
-            amount: nil,
-            bill_at: nil,
-            lookup_key: nil,
-            metadata: nil,
-            product: nil
-          ); end
-        end
-        class PricingLine < ::Stripe::RequestParams
-          class EndsAt < ::Stripe::RequestParams
-            # The timestamp when the item ends. Required if `type` is `timestamp`.
-            sig { returns(T.nilable(String)) }
-            def timestamp; end
-            sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
-            def timestamp=(_timestamp); end
-            # The type of the ends_at.
-            sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
-            sig { params(timestamp: T.nilable(String), type: String).void }
-            def initialize(timestamp: nil, type: nil); end
-          end
-          class Pricing < ::Stripe::RequestParams
-            class PriceDetails < ::Stripe::RequestParams
-              class PricingOverride < ::Stripe::RequestParams
-                class EndsAt < ::Stripe::RequestParams
-                  # The timestamp when the item ends. Required if `type` is `timestamp`.
-                  sig { returns(T.nilable(String)) }
-                  def timestamp; end
-                  sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
-                  def timestamp=(_timestamp); end
-                  # The type of the ends_at.
-                  sig { returns(String) }
-                  def type; end
-                  sig { params(_type: String).returns(String) }
-                  def type=(_type); end
-                  sig { params(timestamp: T.nilable(String), type: String).void }
-                  def initialize(timestamp: nil, type: nil); end
-                end
-                class OverwritePrice < ::Stripe::RequestParams
-                  # The per-unit amount to be charged in minor currency units.
-                  sig { returns(T.nilable(BigDecimal)) }
-                  def unit_amount; end
-                  sig { params(_unit_amount: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
-                  def unit_amount=(_unit_amount); end
-                  sig { params(unit_amount: T.nilable(BigDecimal)).void }
-                  def initialize(unit_amount: nil); end
-                  def self.field_encodings
-                    @field_encodings = {unit_amount: :decimal_string}
-                  end
-                end
-                class StartsAt < ::Stripe::RequestParams
-                  # The timestamp when the item starts. Required if `type` is `timestamp`.
-                  sig { returns(T.nilable(String)) }
-                  def timestamp; end
-                  sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
-                  def timestamp=(_timestamp); end
-                  # The type of the starts_at.
-                  sig { returns(String) }
-                  def type; end
-                  sig { params(_type: String).returns(String) }
-                  def type=(_type); end
-                  sig { params(timestamp: T.nilable(String), type: String).void }
-                  def initialize(timestamp: nil, type: nil); end
-                end
-                # When the override ends. Defaults to the pricing line's end if not specified.
-                sig {
-                  returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride::EndsAt))
-                 }
-                def ends_at; end
-                sig {
-                  params(_ends_at: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride::EndsAt)).returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride::EndsAt))
-                 }
-                def ends_at=(_ends_at); end
-                # A user-provided lookup key to reference this override.
-                sig { returns(T.nilable(String)) }
-                def lookup_key; end
-                sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
-                def lookup_key=(_lookup_key); end
-                # Set of key-value pairs that you can attach to an object.
-                sig { returns(T.nilable(T::Hash[String, String])) }
-                def metadata; end
-                sig {
-                  params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
-                 }
-                def metadata=(_metadata); end
-                # Parameters for the overwrite_price override. Required if `type` is `overwrite_price`.
-                sig {
-                  returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride::OverwritePrice))
-                 }
-                def overwrite_price; end
-                sig {
-                  params(_overwrite_price: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride::OverwritePrice)).returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride::OverwritePrice))
-                 }
-                def overwrite_price=(_overwrite_price); end
-                # The priority of this override relative to others. 0 is highest, 100 is lowest. Defaults to 50.
-                sig { returns(T.nilable(Integer)) }
-                def priority; end
-                sig { params(_priority: T.nilable(Integer)).returns(T.nilable(Integer)) }
-                def priority=(_priority); end
-                # When the override starts. Defaults to the pricing line's start if not specified.
-                sig {
-                  returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride::StartsAt))
-                 }
-                def starts_at; end
-                sig {
-                  params(_starts_at: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride::StartsAt)).returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride::StartsAt))
-                 }
-                def starts_at=(_starts_at); end
-                # The type of override.
-                sig { returns(String) }
-                def type; end
-                sig { params(_type: String).returns(String) }
-                def type=(_type); end
-                sig {
-                  params(ends_at: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride::EndsAt), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), overwrite_price: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride::OverwritePrice), priority: T.nilable(Integer), starts_at: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride::StartsAt), type: String).void
-                 }
-                def initialize(
-                  ends_at: nil,
-                  lookup_key: nil,
-                  metadata: nil,
-                  overwrite_price: nil,
-                  priority: nil,
-                  starts_at: nil,
-                  type: nil
-                ); end
-                def self.field_encodings
-                  @field_encodings = {
-                    overwrite_price: {kind: :object, fields: {unit_amount: :decimal_string}},
-                  }
-                end
-              end
-              class QuantityChange < ::Stripe::RequestParams
-                class EffectiveAt < ::Stripe::RequestParams
-                  # The timestamp for the effective at.
-                  sig { returns(T.nilable(String)) }
-                  def timestamp; end
-                  sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
-                  def timestamp=(_timestamp); end
-                  # The type of the effective at.
-                  sig { returns(String) }
-                  def type; end
-                  sig { params(_type: String).returns(String) }
-                  def type=(_type); end
-                  sig { params(timestamp: T.nilable(String), type: String).void }
-                  def initialize(timestamp: nil, type: nil); end
-                end
-                # When this quantity change takes effect.
-                sig {
-                  returns(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::QuantityChange::EffectiveAt)
-                 }
-                def effective_at; end
-                sig {
-                  params(_effective_at: ::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::QuantityChange::EffectiveAt).returns(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::QuantityChange::EffectiveAt)
-                 }
-                def effective_at=(_effective_at); end
-                # The quantity to set.
-                sig { returns(BigDecimal) }
-                def set; end
-                sig { params(_set: BigDecimal).returns(BigDecimal) }
-                def set=(_set); end
-                sig {
-                  params(effective_at: ::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::QuantityChange::EffectiveAt, set: BigDecimal).void
-                 }
-                def initialize(effective_at: nil, set: nil); end
-                def self.field_encodings
-                  @field_encodings = {set: :decimal_string}
-                end
-              end
-              # The id of the price.
-              sig { returns(String) }
-              def price; end
-              sig { params(_price: String).returns(String) }
-              def price=(_price); end
-              # Pricing overrides embedded directly on this pricing line.
-              sig {
-                returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride]))
-               }
-              def pricing_overrides; end
-              sig {
-                params(_pricing_overrides: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride]))
-               }
-              def pricing_overrides=(_pricing_overrides); end
-              # Quantity changes for the pricing line. For now, at most one entry is allowed.
-              # A quantity change clears all future quantity changes on this pricing line. Defaults to 1.
-              sig {
-                returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::QuantityChange]))
-               }
-              def quantity_changes; end
-              sig {
-                params(_quantity_changes: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::QuantityChange])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::QuantityChange]))
-               }
-              def quantity_changes=(_quantity_changes); end
-              sig {
-                params(price: String, pricing_overrides: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::PricingOverride]), quantity_changes: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails::QuantityChange])).void
-               }
-              def initialize(price: nil, pricing_overrides: nil, quantity_changes: nil); end
-              def self.field_encodings
-                @field_encodings = {
-                  pricing_overrides: {
-                    kind: :array,
-                    element: {
-                      kind: :object,
-                      fields: {
-                        overwrite_price: {kind: :object, fields: {unit_amount: :decimal_string}},
-                      },
-                    },
-                  },
-                  quantity_changes: {
-                    kind: :array,
-                    element: {kind: :object, fields: {set: :decimal_string}},
-                  },
-                }
-              end
-            end
-            # V1 price details. Required if `type` is `price`.
-            sig {
-              returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails))
-             }
-            def price_details; end
-            sig {
-              params(_price_details: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails)).returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails))
-             }
-            def price_details=(_price_details); end
-            # The type of pricing.
-            sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
-            sig {
-              params(price_details: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing::PriceDetails), type: String).void
-             }
-            def initialize(price_details: nil, type: nil); end
-            def self.field_encodings
-              @field_encodings = {
-                price_details: {
-                  kind: :object,
-                  fields: {
-                    pricing_overrides: {
-                      kind: :array,
-                      element: {
-                        kind: :object,
-                        fields: {
-                          overwrite_price: {kind: :object, fields: {unit_amount: :decimal_string}},
-                        },
-                      },
-                    },
-                    quantity_changes: {
-                      kind: :array,
-                      element: {kind: :object, fields: {set: :decimal_string}},
-                    },
-                  },
-                },
-              }
-            end
-          end
-          class StartsAt < ::Stripe::RequestParams
-            # The timestamp when the item starts. Required if `type` is `timestamp`.
-            sig { returns(T.nilable(String)) }
-            def timestamp; end
-            sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
-            def timestamp=(_timestamp); end
-            # The type of the starts_at.
-            sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
-            sig { params(timestamp: T.nilable(String), type: String).void }
-            def initialize(timestamp: nil, type: nil); end
-          end
-          # When the pricing line ends.
-          sig {
-            returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::EndsAt))
-           }
-          def ends_at; end
-          sig {
-            params(_ends_at: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::EndsAt)).returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::EndsAt))
-           }
-          def ends_at=(_ends_at); end
-          # A user-provided lookup key to reference this pricing line.
-          sig { returns(T.nilable(String)) }
-          def lookup_key; end
-          sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
-          def lookup_key=(_lookup_key); end
-          # Set of key-value pairs that you can attach to an object.
-          sig { returns(T.nilable(T::Hash[String, String])) }
-          def metadata; end
-          sig {
-            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
-           }
-          def metadata=(_metadata); end
-          # The pricing configuration for the pricing line.
-          sig { returns(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing) }
-          def pricing; end
-          sig {
-            params(_pricing: ::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing).returns(::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing)
-           }
-          def pricing=(_pricing); end
-          # When the pricing line starts.
-          sig { returns(::Stripe::V2::Billing::ContractCreateParams::PricingLine::StartsAt) }
-          def starts_at; end
-          sig {
-            params(_starts_at: ::Stripe::V2::Billing::ContractCreateParams::PricingLine::StartsAt).returns(::Stripe::V2::Billing::ContractCreateParams::PricingLine::StartsAt)
-           }
-          def starts_at=(_starts_at); end
-          sig {
-            params(ends_at: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::EndsAt), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), pricing: ::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing, starts_at: ::Stripe::V2::Billing::ContractCreateParams::PricingLine::StartsAt).void
-           }
-          def initialize(
-            ends_at: nil,
-            lookup_key: nil,
-            metadata: nil,
-            pricing: nil,
-            starts_at: nil
-          ); end
-          def self.field_encodings
-            @field_encodings = {
-              pricing: {
-                kind: :object,
-                fields: {
-                  price_details: {
-                    kind: :object,
-                    fields: {
-                      pricing_overrides: {
-                        kind: :array,
-                        element: {
-                          kind: :object,
-                          fields: {
-                            overwrite_price: {
-                              kind: :object,
-                              fields: {unit_amount: :decimal_string},
-                            },
-                          },
-                        },
-                      },
-                      quantity_changes: {
-                        kind: :array,
-                        element: {kind: :object, fields: {set: :decimal_string}},
-                      },
-                    },
-                  },
-                },
-              },
-            }
-          end
-        end
-        class PricingOverride < ::Stripe::RequestParams
-          class EndsAt < ::Stripe::RequestParams
-            # The timestamp when the item ends. Required if `type` is `timestamp`.
-            sig { returns(T.nilable(String)) }
-            def timestamp; end
-            sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
-            def timestamp=(_timestamp); end
-            # The type of the ends_at.
-            sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
-            sig { params(timestamp: T.nilable(String), type: String).void }
-            def initialize(timestamp: nil, type: nil); end
-          end
-          class MultiplyPricing < ::Stripe::RequestParams
-            class Criterion < ::Stripe::RequestParams
-              # Filter by pricing line IDs.
-              sig { returns(T.nilable(T::Array[String])) }
-              def pricing_line_ids; end
-              sig {
-                params(_pricing_line_ids: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-               }
-              def pricing_line_ids=(_pricing_line_ids); end
-              # Filter by pricing line lookup keys.
-              sig { returns(T.nilable(T::Array[String])) }
-              def pricing_line_lookup_keys; end
-              sig {
-                params(_pricing_line_lookup_keys: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-               }
-              def pricing_line_lookup_keys=(_pricing_line_lookup_keys); end
-              # Whether to include or exclude items matching these criteria.
-              sig { returns(String) }
-              def type; end
-              sig { params(_type: String).returns(String) }
-              def type=(_type); end
-              sig {
-                params(pricing_line_ids: T.nilable(T::Array[String]), pricing_line_lookup_keys: T.nilable(T::Array[String]), type: String).void
-               }
-              def initialize(pricing_line_ids: nil, pricing_line_lookup_keys: nil, type: nil); end
-            end
-            # Criteria determining which rates the multiply_pricing override applies to.
-            sig {
-              returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing::Criterion]))
-             }
-            def criteria; end
-            sig {
-              params(_criteria: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing::Criterion])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing::Criterion]))
-             }
-            def criteria=(_criteria); end
-            # The multiply_pricing factor. e.g. "0.8" for a 20% reduction.
-            sig { returns(BigDecimal) }
-            def factor; end
-            sig { params(_factor: BigDecimal).returns(BigDecimal) }
-            def factor=(_factor); end
-            sig {
-              params(criteria: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing::Criterion]), factor: BigDecimal).void
-             }
-            def initialize(criteria: nil, factor: nil); end
-            def self.field_encodings
-              @field_encodings = {factor: :decimal_string}
-            end
-          end
-          class StartsAt < ::Stripe::RequestParams
-            # The timestamp when the item starts. Required if `type` is `timestamp`.
-            sig { returns(T.nilable(String)) }
-            def timestamp; end
-            sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
-            def timestamp=(_timestamp); end
-            # The type of the starts_at.
-            sig { returns(String) }
-            def type; end
-            sig { params(_type: String).returns(String) }
-            def type=(_type); end
-            sig { params(timestamp: T.nilable(String), type: String).void }
-            def initialize(timestamp: nil, type: nil); end
-          end
-          # When the pricing override ends.
-          sig {
-            returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::EndsAt))
-           }
-          def ends_at; end
-          sig {
-            params(_ends_at: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::EndsAt)).returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::EndsAt))
-           }
-          def ends_at=(_ends_at); end
-          # A user-provided lookup key to reference this pricing override.
-          sig { returns(T.nilable(String)) }
-          def lookup_key; end
-          sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
-          def lookup_key=(_lookup_key); end
-          # Set of key-value pairs.
-          sig { returns(T.nilable(T::Hash[String, String])) }
-          def metadata; end
-          sig {
-            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
-           }
-          def metadata=(_metadata); end
-          # Parameters for a multiply_pricing override. Required if `type` is `multiply_pricing`.
-          sig {
-            returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing))
-           }
-          def multiply_pricing; end
-          sig {
-            params(_multiply_pricing: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing)).returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing))
-           }
-          def multiply_pricing=(_multiply_pricing); end
-          # The priority of this override relative to others. The highest priority is 0 and the lowest is 100.
-          sig { returns(T.nilable(Integer)) }
-          def priority; end
-          sig { params(_priority: T.nilable(Integer)).returns(T.nilable(Integer)) }
-          def priority=(_priority); end
-          # When the pricing override starts.
-          sig { returns(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::StartsAt) }
-          def starts_at; end
-          sig {
-            params(_starts_at: ::Stripe::V2::Billing::ContractCreateParams::PricingOverride::StartsAt).returns(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::StartsAt)
-           }
-          def starts_at=(_starts_at); end
-          # The type of pricing override.
-          sig { returns(String) }
-          def type; end
-          sig { params(_type: String).returns(String) }
-          def type=(_type); end
-          sig {
-            params(ends_at: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::EndsAt), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), multiply_pricing: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing), priority: T.nilable(Integer), starts_at: ::Stripe::V2::Billing::ContractCreateParams::PricingOverride::StartsAt, type: String).void
-           }
-          def initialize(
-            ends_at: nil,
-            lookup_key: nil,
-            metadata: nil,
-            multiply_pricing: nil,
-            priority: nil,
-            starts_at: nil,
-            type: nil
-          ); end
-          def self.field_encodings
-            @field_encodings = {
-              multiply_pricing: {kind: :object, fields: {factor: :decimal_string}},
-            }
-          end
-        end
         class Term < ::Stripe::RequestParams
-          class AdHocProduct < ::Stripe::RequestParams
-            class BillSchedule < ::Stripe::RequestParams
-              class Custom < ::Stripe::RequestParams
-                class BillAt < ::Stripe::RequestParams
-                  # The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
-                  sig { returns(T.nilable(String)) }
-                  def timestamp; end
-                  sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
-                  def timestamp=(_timestamp); end
-                  # The type of the bill_at.
-                  sig { returns(String) }
-                  def type; end
-                  sig { params(_type: String).returns(String) }
-                  def type=(_type); end
-                  sig { params(timestamp: T.nilable(String), type: String).void }
-                  def initialize(timestamp: nil, type: nil); end
-                end
-                # Non-negative amount with an explicit currency that must match the contract's currency.
-                sig { returns(::Stripe::V2::Amount) }
-                def amount; end
-                sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
-                def amount=(_amount); end
-                # A finite bill date. Resolved once per request, including on idempotent retries.
-                sig {
-                  returns(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::BillSchedule::Custom::BillAt)
-                 }
-                def bill_at; end
-                sig {
-                  params(_bill_at: ::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::BillSchedule::Custom::BillAt).returns(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::BillSchedule::Custom::BillAt)
-                 }
-                def bill_at=(_bill_at); end
-                sig {
-                  params(amount: ::Stripe::V2::Amount, bill_at: ::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::BillSchedule::Custom::BillAt).void
-                 }
-                def initialize(amount: nil, bill_at: nil); end
-              end
-              # Between one and ten installments. Empty schedules are allowed only on update.
-              sig {
-                returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::BillSchedule::Custom]))
-               }
-              def custom; end
-              sig {
-                params(_custom: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::BillSchedule::Custom])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::BillSchedule::Custom]))
-               }
-              def custom=(_custom); end
-              # The type of schedule.
-              sig { returns(String) }
-              def type; end
-              sig { params(_type: String).returns(String) }
-              def type=(_type); end
-              sig {
-                params(custom: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::BillSchedule::Custom]), type: String).void
-               }
-              def initialize(custom: nil, type: nil); end
-            end
-            class ServicePeriod < ::Stripe::RequestParams
-              class EndsAt < ::Stripe::RequestParams
-                # The timestamp when the item starts. Required if `type` is `timestamp`.
-                sig { returns(T.nilable(String)) }
-                def timestamp; end
-                sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
-                def timestamp=(_timestamp); end
-                # The type of the starts_at.
-                sig { returns(String) }
-                def type; end
-                sig { params(_type: String).returns(String) }
-                def type=(_type); end
-                sig { params(timestamp: T.nilable(String), type: String).void }
-                def initialize(timestamp: nil, type: nil); end
-              end
-              class StartsAt < ::Stripe::RequestParams
-                # The timestamp when the item starts. Required if `type` is `timestamp`.
-                sig { returns(T.nilable(String)) }
-                def timestamp; end
-                sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
-                def timestamp=(_timestamp); end
-                # The type of the starts_at.
-                sig { returns(String) }
-                def type; end
-                sig { params(_type: String).returns(String) }
-                def type=(_type); end
-                sig { params(timestamp: T.nilable(String), type: String).void }
-                def initialize(timestamp: nil, type: nil); end
-              end
-              # The finite exclusive end; must be after starts_at. Never is not supported.
-              sig {
-                returns(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::ServicePeriod::EndsAt)
-               }
-              def ends_at; end
-              sig {
-                params(_ends_at: ::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::ServicePeriod::EndsAt).returns(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::ServicePeriod::EndsAt)
-               }
-              def ends_at=(_ends_at); end
-              # The finite inclusive start of the service period.
-              sig {
-                returns(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::ServicePeriod::StartsAt)
-               }
-              def starts_at; end
-              sig {
-                params(_starts_at: ::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::ServicePeriod::StartsAt).returns(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::ServicePeriod::StartsAt)
-               }
-              def starts_at=(_starts_at); end
-              sig {
-                params(ends_at: ::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::ServicePeriod::EndsAt, starts_at: ::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::ServicePeriod::StartsAt).void
-               }
-              def initialize(ends_at: nil, starts_at: nil); end
-            end
-            # Explicit bill dates and amounts.
-            sig {
-              returns(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::BillSchedule)
-             }
-            def bill_schedule; end
-            sig {
-              params(_bill_schedule: ::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::BillSchedule).returns(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::BillSchedule)
-             }
-            def bill_schedule=(_bill_schedule); end
-            # The V1 Product being billed.
-            sig { returns(String) }
-            def product; end
-            sig { params(_product: String).returns(String) }
-            def product=(_product); end
-            # Informational service period, independent of bill dates.
-            sig {
-              returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::ServicePeriod))
-             }
-            def service_period; end
-            sig {
-              params(_service_period: T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::ServicePeriod)).returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::ServicePeriod))
-             }
-            def service_period=(_service_period); end
-            sig {
-              params(bill_schedule: ::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::BillSchedule, product: String, service_period: T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct::ServicePeriod)).void
-             }
-            def initialize(bill_schedule: nil, product: nil, service_period: nil); end
-          end
           class PricingOverride < ::Stripe::RequestParams
             class Criterion < ::Stripe::RequestParams
               class Term < ::Stripe::RequestParams
@@ -919,7 +248,7 @@ module Stripe
                 params(_terms: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::PricingOverride::Criterion::Term])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::PricingOverride::Criterion::Term]))
                }
               def terms=(_terms); end
-              # Whether to include or exclude the selected recurring or ad_hoc_product terms.
+              # Whether to include or exclude the selected recurring or scheduled_fee terms.
               sig { returns(String) }
               def type; end
               sig { params(_type: String).returns(String) }
@@ -983,7 +312,7 @@ module Stripe
               sig { params(timestamp: T.nilable(String), type: String).void }
               def initialize(timestamp: nil, type: nil); end
             end
-            # Optional criteria selecting recurring or ad_hoc_product terms. If omitted, the override applies to all recurring and ad_hoc_product terms.
+            # Optional criteria selecting recurring or scheduled_fee terms. If omitted, the override applies to all recurring and scheduled_fee terms.
             sig {
               returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::PricingOverride::Criterion]))
              }
@@ -1122,15 +451,141 @@ module Stripe
               @field_encodings = {quantity: :decimal_string}
             end
           end
-          # Required when type is ad_hoc_product.
-          sig {
-            returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct))
-           }
-          def ad_hoc_product; end
-          sig {
-            params(_ad_hoc_product: T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct)).returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct))
-           }
-          def ad_hoc_product=(_ad_hoc_product); end
+          class ScheduledFee < ::Stripe::RequestParams
+            class BillSchedule < ::Stripe::RequestParams
+              class Custom < ::Stripe::RequestParams
+                class BillAt < ::Stripe::RequestParams
+                  # The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
+                  sig { returns(T.nilable(String)) }
+                  def timestamp; end
+                  sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                  def timestamp=(_timestamp); end
+                  # The type of the bill_at.
+                  sig { returns(String) }
+                  def type; end
+                  sig { params(_type: String).returns(String) }
+                  def type=(_type); end
+                  sig { params(timestamp: T.nilable(String), type: String).void }
+                  def initialize(timestamp: nil, type: nil); end
+                end
+                # Non-negative amount with an explicit currency that must match the contract's currency.
+                sig { returns(::Stripe::V2::Amount) }
+                def amount; end
+                sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
+                def amount=(_amount); end
+                # A finite bill date. Resolved once per request, including on idempotent retries.
+                sig {
+                  returns(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule::Custom::BillAt)
+                 }
+                def bill_at; end
+                sig {
+                  params(_bill_at: ::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule::Custom::BillAt).returns(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule::Custom::BillAt)
+                 }
+                def bill_at=(_bill_at); end
+                sig {
+                  params(amount: ::Stripe::V2::Amount, bill_at: ::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule::Custom::BillAt).void
+                 }
+                def initialize(amount: nil, bill_at: nil); end
+              end
+              # Between one and ten installments. Empty schedules are allowed only on update.
+              sig {
+                returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule::Custom]))
+               }
+              def custom; end
+              sig {
+                params(_custom: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule::Custom])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule::Custom]))
+               }
+              def custom=(_custom); end
+              # The type of schedule.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              sig {
+                params(custom: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule::Custom]), type: String).void
+               }
+              def initialize(custom: nil, type: nil); end
+            end
+            class ServicePeriod < ::Stripe::RequestParams
+              class EndsAt < ::Stripe::RequestParams
+                # The timestamp when the item starts. Required if `type` is `timestamp`.
+                sig { returns(T.nilable(String)) }
+                def timestamp; end
+                sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                def timestamp=(_timestamp); end
+                # The type of the starts_at.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig { params(timestamp: T.nilable(String), type: String).void }
+                def initialize(timestamp: nil, type: nil); end
+              end
+              class StartsAt < ::Stripe::RequestParams
+                # The timestamp when the item starts. Required if `type` is `timestamp`.
+                sig { returns(T.nilable(String)) }
+                def timestamp; end
+                sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+                def timestamp=(_timestamp); end
+                # The type of the starts_at.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig { params(timestamp: T.nilable(String), type: String).void }
+                def initialize(timestamp: nil, type: nil); end
+              end
+              # The finite exclusive end; must be after starts_at. Never is not supported.
+              sig {
+                returns(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::ServicePeriod::EndsAt)
+               }
+              def ends_at; end
+              sig {
+                params(_ends_at: ::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::ServicePeriod::EndsAt).returns(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::ServicePeriod::EndsAt)
+               }
+              def ends_at=(_ends_at); end
+              # The finite inclusive start of the service period.
+              sig {
+                returns(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::ServicePeriod::StartsAt)
+               }
+              def starts_at; end
+              sig {
+                params(_starts_at: ::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::ServicePeriod::StartsAt).returns(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::ServicePeriod::StartsAt)
+               }
+              def starts_at=(_starts_at); end
+              sig {
+                params(ends_at: ::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::ServicePeriod::EndsAt, starts_at: ::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::ServicePeriod::StartsAt).void
+               }
+              def initialize(ends_at: nil, starts_at: nil); end
+            end
+            # Explicit bill dates and amounts.
+            sig {
+              returns(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule)
+             }
+            def bill_schedule; end
+            sig {
+              params(_bill_schedule: ::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule).returns(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule)
+             }
+            def bill_schedule=(_bill_schedule); end
+            # The V1 Product being billed.
+            sig { returns(String) }
+            def product; end
+            sig { params(_product: String).returns(String) }
+            def product=(_product); end
+            # Informational service period, independent of bill dates.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::ServicePeriod))
+             }
+            def service_period; end
+            sig {
+              params(_service_period: T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::ServicePeriod)).returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::ServicePeriod))
+             }
+            def service_period=(_service_period); end
+            sig {
+              params(bill_schedule: ::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule, product: String, service_period: T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::ServicePeriod)).void
+             }
+            def initialize(bill_schedule: nil, product: nil, service_period: nil); end
+          end
           # Lookup key unique across all term types on the contract.
           sig { returns(T.nilable(String)) }
           def lookup_key; end
@@ -1161,20 +616,29 @@ module Stripe
             params(_recurring_price: T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::RecurringPrice)).returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::RecurringPrice))
            }
           def recurring_price=(_recurring_price); end
+          # Required when type is scheduled_fee.
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee))
+           }
+          def scheduled_fee; end
+          sig {
+            params(_scheduled_fee: T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee)).returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee))
+           }
+          def scheduled_fee=(_scheduled_fee); end
           # The term type. Production types require exactly one matching payload.
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(ad_hoc_product: T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::AdHocProduct), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), pricing_override: T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::PricingOverride), recurring_price: T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::RecurringPrice), type: String).void
+            params(lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), pricing_override: T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::PricingOverride), recurring_price: T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::RecurringPrice), scheduled_fee: T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee), type: String).void
            }
           def initialize(
-            ad_hoc_product: nil,
             lookup_key: nil,
             metadata: nil,
             pricing_override: nil,
             recurring_price: nil,
+            scheduled_fee: nil,
             type: nil
           ); end
           def self.field_encodings
@@ -1228,34 +692,7 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
-        # A list of one-time fees to create with the contract. Each fee is billed as individual invoice items per its bill_schedule.
-        sig {
-          returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::OneTimeFee]))
-         }
-        def one_time_fees; end
-        sig {
-          params(_one_time_fees: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::OneTimeFee])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::OneTimeFee]))
-         }
-        def one_time_fees=(_one_time_fees); end
-        # A list of pricing lines to create with the contract.
-        sig {
-          returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]))
-         }
-        def pricing_lines; end
-        sig {
-          params(_pricing_lines: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]))
-         }
-        def pricing_lines=(_pricing_lines); end
-        # A list of pricing overrides to create with the contract.
-        sig {
-          returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride]))
-         }
-        def pricing_overrides; end
-        sig {
-          params(_pricing_overrides: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride]))
-         }
-        def pricing_overrides=(_pricing_overrides); end
-        # Terms to create. Cannot be combined with pricing_lines, pricing_overrides, or one_time_fees.
+        # Terms to create with the contract.
         sig { returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term])) }
         def terms; end
         sig {
@@ -1263,7 +700,7 @@ module Stripe
          }
         def terms=(_terms); end
         sig {
-          params(billing_cycle_anchor: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingCycleAnchor), billing_settings: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingSettings), contract_number: String, currency: String, include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), one_time_fees: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::OneTimeFee]), pricing_lines: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]), pricing_overrides: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride]), terms: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term])).void
+          params(billing_cycle_anchor: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingCycleAnchor), billing_settings: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingSettings), contract_number: String, currency: String, include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), terms: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term])).void
          }
         def initialize(
           billing_cycle_anchor: nil,
@@ -1272,54 +709,10 @@ module Stripe
           currency: nil,
           include: nil,
           metadata: nil,
-          one_time_fees: nil,
-          pricing_lines: nil,
-          pricing_overrides: nil,
           terms: nil
         ); end
         def self.field_encodings
           @field_encodings = {
-            pricing_lines: {
-              kind: :array,
-              element: {
-                kind: :object,
-                fields: {
-                  pricing: {
-                    kind: :object,
-                    fields: {
-                      price_details: {
-                        kind: :object,
-                        fields: {
-                          pricing_overrides: {
-                            kind: :array,
-                            element: {
-                              kind: :object,
-                              fields: {
-                                overwrite_price: {
-                                  kind: :object,
-                                  fields: {unit_amount: :decimal_string},
-                                },
-                              },
-                            },
-                          },
-                          quantity_changes: {
-                            kind: :array,
-                            element: {kind: :object, fields: {set: :decimal_string}},
-                          },
-                        },
-                      },
-                    },
-                  },
-                },
-              },
-            },
-            pricing_overrides: {
-              kind: :array,
-              element: {
-                kind: :object,
-                fields: {multiply_pricing: {kind: :object, fields: {factor: :decimal_string}}},
-              },
-            },
             terms: {
               kind: :array,
               element: {

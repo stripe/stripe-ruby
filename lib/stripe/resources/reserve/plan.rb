@@ -40,6 +40,8 @@ module Stripe
       class RollingRelease < ::Stripe::StripeObject
         # The number of days to reserve funds before releasing.
         attr_reader :days_after_charge
+        # The number of days after the PaymentIntent's `fulfillment_date` to reserve funds before releasing. Charges without a `fulfillment_date` use `days_after_charge`.
+        attr_reader :days_after_fulfillment
         # The time at which the ReservePlan expires.
         attr_reader :expires_on
 

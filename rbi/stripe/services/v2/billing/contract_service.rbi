@@ -6,7 +6,6 @@ module Stripe
   module V2
     module Billing
       class ContractService < StripeService
-        attr_reader :pricing_lines
         attr_reader :terms
         # Activate a draft contract.
         #

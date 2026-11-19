@@ -6,14 +6,16 @@ module Stripe
   module V2
     module Core
       class ClaimableSandboxService < StripeService
-        # Create an anonymous, claimable sandbox. This sandbox can be prefilled with data. The response will include
-        # a claim URL that allow a user to claim the account.
+        # Create a claimable sandbox with prefilled data. The response includes an onboarding link that lets
+        # a user claim the sandbox into a new or existing Stripe account.
+        #
+        # ** raises RateLimitError
         sig {
           params(params: T.any(::Stripe::V2::Core::ClaimableSandboxCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::ClaimableSandbox)
          }
         def create(params = {}, opts = {}); end
 
-        # Renew the claimable sandbox onboarding link. This will invalidate any existing onboarding links.
+        # Renew the claimable sandbox onboarding link. This invalidates the existing onboarding link.
         # The endpoint only works on a claimable sandbox with status `unclaimed` or `claimed`.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Core::ClaimableSandboxRenewOnboardingLinkParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::ClaimableSandbox)

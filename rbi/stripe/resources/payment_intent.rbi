@@ -1591,7 +1591,7 @@ module Stripe
       end
       class VerifyWithMicrodeposits < ::Stripe::StripeObject
         # The timestamp when the microdeposits are expected to land. Null for instant microdeposits.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def arrival_date; end
         # The URL for the hosted verification page, which allows customers to verify their bank account.
         sig { returns(String) }
@@ -4070,18 +4070,18 @@ module Stripe
       end
       class CardPresent < ::Stripe::StripeObject
         class AadeData < ::Stripe::StripeObject
-          # The canonical string that was signed by the e-invoicing provider to produce `signed_mark`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
-          sig { returns(T.nilable(String)) }
-          def mark_data; end
-          # The e-invoicing mode under which the mark was generated.
+          # The e-invoicing mode under which the provider signature was generated.
           sig { returns(String) }
           def mode; end
-          # The AADE-assigned approval number of the e-invoicing provider that generated the mark. Required when `mode` is `standard`.
+          # The AADE-assigned approval number of the e-invoicing provider that generated the provider signature. Required when `mode` is `standard`.
           sig { returns(T.nilable(Integer)) }
           def provider_id; end
           # The cryptographic signature returned by the e-invoicing provider for this transaction, hex-encoded. Required when `mode` is `standard`.
           sig { returns(T.nilable(String)) }
-          def signed_mark; end
+          def provider_signature; end
+          # The canonical string that was signed by the e-invoicing provider to produce `provider_signature`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
+          sig { returns(T.nilable(String)) }
+          def provider_signature_data; end
           # The reason for entering autonomous mode. Required when `mode` is `autonomous`.
           sig { returns(T.nilable(String)) }
           def unbound_pos; end
@@ -5544,6 +5544,9 @@ module Stripe
         # Attribute for field payment_details
         sig { returns(T.nilable(PaymentDetails)) }
         def payment_details; end
+        # Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
+        sig { returns(T.nilable(String)) }
+        def request_multicapture; end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -5955,6 +5958,17 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class RadarOptions < ::Stripe::StripeObject
+      # The value you provided for whether this transaction starts a free trial. This is null if you haven't explicitly set it.
+      sig { returns(T.nilable(T::Boolean)) }
+      def is_free_trial_transaction; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Redaction < ::Stripe::StripeObject
       # Indicates whether this object and its related objects have been redacted or not.
       sig { returns(String) }
@@ -6199,6 +6213,9 @@ module Stripe
     # If present, this property tells you about the processing state of the payment.
     sig { returns(T.nilable(Processing)) }
     def processing; end
+    # Options to configure Radar.
+    sig { returns(T.nilable(RadarOptions)) }
+    def radar_options; end
     # Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
     sig { returns(T.nilable(String)) }
     def receipt_email; end

@@ -7,7 +7,157 @@ module Stripe
     module Billing
       # A commercial term. Display order is independent of billing evaluation order.
       class ContractTerm < APIResource
-        class AdHocProduct < ::Stripe::StripeObject
+        class PricingOverride < ::Stripe::StripeObject
+          class Criterion < ::Stripe::StripeObject
+            # Resolved IDs of recurring or scheduled_fee terms. Override terms are not valid targets.
+            sig { returns(T.nilable(T::Array[String])) }
+            def terms; end
+            # Whether to include or exclude the selected recurring or scheduled_fee terms.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class EndsAt < ::Stripe::StripeObject
+            # The timestamp when the item ends.
+            sig { returns(String) }
+            def timestamp; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Multiply < ::Stripe::StripeObject
+            # The multiplier, for example 0.85 for a 15% discount.
+            sig { returns(BigDecimal) }
+            def factor; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {factor: :decimal_string}
+            end
+          end
+          class Overwrite < ::Stripe::StripeObject
+            # The replacement per-unit amount in minor currency units.
+            sig { returns(T.nilable(BigDecimal)) }
+            def unit_amount_decimal; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {unit_amount_decimal: :decimal_string}
+            end
+          end
+          class StartsAt < ::Stripe::StripeObject
+            # The timestamp when the item starts.
+            sig { returns(String) }
+            def timestamp; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Recurring or scheduled_fee terms selected by this override. An override without criteria applies to all recurring and scheduled_fee terms.
+          sig { returns(T::Array[Criterion]) }
+          def criteria; end
+          # The exclusive end of the validity window. Null for an open end.
+          sig { returns(T.nilable(EndsAt)) }
+          def ends_at; end
+          # Present when type is multiply.
+          sig { returns(T.nilable(Multiply)) }
+          def multiply; end
+          # Present when type is overwrite.
+          sig { returns(T.nilable(Overwrite)) }
+          def overwrite; end
+          # Lower numbers win. Equal priorities resolve by display order; overrides do not stack.
+          sig { returns(Integer) }
+          def priority; end
+          # The inclusive start of the override's validity window.
+          sig { returns(StartsAt) }
+          def starts_at; end
+          # The pricing operation.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {
+              criteria: Criterion,
+              ends_at: EndsAt,
+              multiply: Multiply,
+              overwrite: Overwrite,
+              starts_at: StartsAt,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              multiply: {kind: :object, fields: {factor: :decimal_string}},
+              overwrite: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+            }
+          end
+        end
+        class RecurringPrice < ::Stripe::StripeObject
+          class EndsAt < ::Stripe::StripeObject
+            # The timestamp when the item ends.
+            sig { returns(String) }
+            def timestamp; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class StartsAt < ::Stripe::StripeObject
+            # The timestamp when the item starts.
+            sig { returns(String) }
+            def timestamp; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The exclusive end of the term. Null for an open end.
+          sig { returns(T.nilable(EndsAt)) }
+          def ends_at; end
+          # The V1 recurring Price.
+          sig { returns(String) }
+          def price; end
+          # Current licensed quantity. Null for metered Prices; history is available separately.
+          sig { returns(T.nilable(BigDecimal)) }
+          def quantity; end
+          # The inclusive start of the term.
+          sig { returns(StartsAt) }
+          def starts_at; end
+          def self.inner_class_types
+            @inner_class_types = {ends_at: EndsAt, starts_at: StartsAt}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {quantity: :decimal_string}
+          end
+        end
+        class ScheduledFee < ::Stripe::StripeObject
           class BillSchedule < ::Stripe::StripeObject
             class Custom < ::Stripe::StripeObject
               class BillAt < ::Stripe::StripeObject
@@ -99,159 +249,6 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class PricingOverride < ::Stripe::StripeObject
-          class Criterion < ::Stripe::StripeObject
-            # Resolved IDs of recurring or ad_hoc_product terms. Override terms are not valid targets.
-            sig { returns(T.nilable(T::Array[String])) }
-            def terms; end
-            # Whether to include or exclude the selected recurring or ad_hoc_product terms.
-            sig { returns(String) }
-            def type; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class EndsAt < ::Stripe::StripeObject
-            # The timestamp when the item ends.
-            sig { returns(String) }
-            def timestamp; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class Multiply < ::Stripe::StripeObject
-            # The multiplier, for example 0.85 for a 15% discount.
-            sig { returns(BigDecimal) }
-            def factor; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-            def self.field_encodings
-              @field_encodings = {factor: :decimal_string}
-            end
-          end
-          class Overwrite < ::Stripe::StripeObject
-            # The replacement per-unit amount in minor currency units.
-            sig { returns(T.nilable(BigDecimal)) }
-            def unit_amount_decimal; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-            def self.field_encodings
-              @field_encodings = {unit_amount_decimal: :decimal_string}
-            end
-          end
-          class StartsAt < ::Stripe::StripeObject
-            # The timestamp when the item starts.
-            sig { returns(String) }
-            def timestamp; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Recurring or ad_hoc_product terms selected by this override. An override without criteria applies to all recurring and ad_hoc_product terms.
-          sig { returns(T::Array[Criterion]) }
-          def criteria; end
-          # The exclusive end of the validity window. Null for an open end.
-          sig { returns(T.nilable(EndsAt)) }
-          def ends_at; end
-          # Present when type is multiply.
-          sig { returns(T.nilable(Multiply)) }
-          def multiply; end
-          # Present when type is overwrite.
-          sig { returns(T.nilable(Overwrite)) }
-          def overwrite; end
-          # Lower numbers win. Equal priorities resolve by display order; overrides do not stack.
-          sig { returns(Integer) }
-          def priority; end
-          # The inclusive start of the override's validity window.
-          sig { returns(StartsAt) }
-          def starts_at; end
-          # The pricing operation.
-          sig { returns(String) }
-          def type; end
-          def self.inner_class_types
-            @inner_class_types = {
-              criteria: Criterion,
-              ends_at: EndsAt,
-              multiply: Multiply,
-              overwrite: Overwrite,
-              starts_at: StartsAt,
-            }
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-          def self.field_encodings
-            @field_encodings = {
-              multiply: {kind: :object, fields: {factor: :decimal_string}},
-              overwrite: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
-            }
-          end
-        end
-        class RecurringPrice < ::Stripe::StripeObject
-          class EndsAt < ::Stripe::StripeObject
-            # The timestamp when the item ends.
-            sig { returns(String) }
-            def timestamp; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class StartsAt < ::Stripe::StripeObject
-            # The timestamp when the item starts.
-            sig { returns(String) }
-            def timestamp; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # The exclusive end of the term. Null for an open end.
-          sig { returns(T.nilable(EndsAt)) }
-          def ends_at; end
-          # The V1 recurring Price.
-          sig { returns(String) }
-          def price; end
-          # Current licensed quantity. Null for metered Prices; history is available separately.
-          sig { returns(T.nilable(BigDecimal)) }
-          def quantity; end
-          # The inclusive start of the term.
-          sig { returns(StartsAt) }
-          def starts_at; end
-          def self.inner_class_types
-            @inner_class_types = {ends_at: EndsAt, starts_at: StartsAt}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-          def self.field_encodings
-            @field_encodings = {quantity: :decimal_string}
-          end
-        end
-        # Present when type is ad_hoc_product.
-        sig { returns(T.nilable(AdHocProduct)) }
-        def ad_hoc_product; end
         # The stable ID of the term.
         sig { returns(String) }
         def id; end
@@ -273,6 +270,9 @@ module Stripe
         # Present when type is recurring_price.
         sig { returns(T.nilable(RecurringPrice)) }
         def recurring_price; end
+        # Present when type is scheduled_fee.
+        sig { returns(T.nilable(ScheduledFee)) }
+        def scheduled_fee; end
         # The type of this term.
         sig { returns(String) }
         def type; end

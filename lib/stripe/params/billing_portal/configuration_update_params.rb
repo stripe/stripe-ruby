@@ -173,7 +173,7 @@ module Stripe
           attr_accessor :enabled
           # The list of up to 10 products that support subscription updates.
           attr_accessor :products
-          # Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
+          # Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`. If omitted, the proration behavior is unchanged.
           attr_accessor :proration_behavior
           # Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
           attr_accessor :schedule_at_period_end

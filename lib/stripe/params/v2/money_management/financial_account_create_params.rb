@@ -28,14 +28,22 @@ module Stripe
           end
           # Crypto-specific storage configuration. Fiat currencies remain configured only through `holds_currencies`.
           attr_accessor :crypto
+          # How funds in this FinancialAccount are held. Defaults to `for_benefit_of` if not specified.
+          attr_accessor :funds_holding_structure
           # The usage type for funds in this FinancialAccount. Defaults to BUSINESS if not specified.
           attr_accessor :funds_usage_type
           # The currencies that the storage FinancialAccount can hold a balance in. Three-letter ISO currency code, in lowercase.
           # Must be a subset of the currencies requested in `configuration.storer.features.holds_currencies` of the v2/accounts API.
           attr_accessor :holds_currencies
 
-          def initialize(crypto: nil, funds_usage_type: nil, holds_currencies: nil)
+          def initialize(
+            crypto: nil,
+            funds_holding_structure: nil,
+            funds_usage_type: nil,
+            holds_currencies: nil
+          )
             @crypto = crypto
+            @funds_holding_structure = funds_holding_structure
             @funds_usage_type = funds_usage_type
             @holds_currencies = holds_currencies
           end

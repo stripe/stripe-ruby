@@ -41,6 +41,11 @@ module Stripe
             params(_crypto: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::Crypto)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::Crypto))
            }
           def crypto=(_crypto); end
+          # How funds in this FinancialAccount are held. Defaults to `for_benefit_of` if not specified.
+          sig { returns(T.nilable(String)) }
+          def funds_holding_structure; end
+          sig { params(_funds_holding_structure: T.nilable(String)).returns(T.nilable(String)) }
+          def funds_holding_structure=(_funds_holding_structure); end
           # The usage type for funds in this FinancialAccount. Defaults to BUSINESS if not specified.
           sig { returns(T.nilable(String)) }
           def funds_usage_type; end
@@ -53,9 +58,14 @@ module Stripe
           sig { params(_holds_currencies: T::Array[String]).returns(T::Array[String]) }
           def holds_currencies=(_holds_currencies); end
           sig {
-            params(crypto: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::Crypto), funds_usage_type: T.nilable(String), holds_currencies: T::Array[String]).void
+            params(crypto: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::Crypto), funds_holding_structure: T.nilable(String), funds_usage_type: T.nilable(String), holds_currencies: T::Array[String]).void
            }
-          def initialize(crypto: nil, funds_usage_type: nil, holds_currencies: nil); end
+          def initialize(
+            crypto: nil,
+            funds_holding_structure: nil,
+            funds_usage_type: nil,
+            holds_currencies: nil
+          ); end
         end
         # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
         sig { returns(T.nilable(String)) }

@@ -134,7 +134,7 @@ module Stripe
     attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-    # Number of webhooks that haven't been successfully delivered (for example, to return a 20x response) to the URLs you specify.
+    # Number of webhooks that haven't been successfully delivered (for example, to return a 20x response). This count can include deliveries to endpoints that belong to Connect platforms or apps with access to your account. These endpoints don't appear when you list your account's webhook endpoints or event destinations. To see the delivery status for each endpoint, view the event in [Workbench](https://docs.stripe.com/workbench/overview#events).
     attr_reader :pending_webhooks
     # Information about the action that causes the event. Only present when the event is triggered by an API request or an [Automation](https://docs.stripe.com/billing/automations) action.
     attr_reader :reason
@@ -143,7 +143,7 @@ module Stripe
     # Description of the event (for example, `invoice.created` or `charge.refunded`).
     attr_reader :type
 
-    # List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
+    # List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object api_version attribute (not according to your current Stripe API version or Stripe-Version header). The list includes only events for the account that makes the request. A platform's list doesn't include events from its connected accounts. To list a connected account's events, make the request <a href="https://docs.stripe.com/connect/authentication">as the connected account](https://docs.stripe.com/api/events/object) using the Stripe-Account header.
     def self.list(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/events", params: params, opts: opts)
     end

@@ -19,6 +19,8 @@ module Stripe
         attr_accessor :payout
         # Category of balance transactions to be included in the report run.
         attr_accessor :reporting_category
+        # The tax invoice month in YYYY-MM format.
+        attr_accessor :tax_invoice_month
         # Defaults to `Etc/UTC`. The output timezone for all timestamps in the report. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones). Has no effect on `interval_start` or `interval_end`.
         attr_accessor :timezone
 
@@ -30,6 +32,7 @@ module Stripe
           interval_start: nil,
           payout: nil,
           reporting_category: nil,
+          tax_invoice_month: nil,
           timezone: nil
         )
           @columns = columns
@@ -39,6 +42,7 @@ module Stripe
           @interval_start = interval_start
           @payout = payout
           @reporting_category = reporting_category
+          @tax_invoice_month = tax_invoice_month
           @timezone = timezone
         end
       end

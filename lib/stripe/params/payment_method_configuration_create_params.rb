@@ -20,6 +20,23 @@ module Stripe
       end
     end
 
+    class AeonPay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
     class Affirm < ::Stripe::RequestParams
       class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
@@ -140,6 +157,23 @@ module Stripe
     end
 
     class AuBecsDebit < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
+    class AuPay < ::Stripe::RequestParams
       class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         attr_accessor :preference
@@ -327,6 +361,23 @@ module Stripe
     end
 
     class CustomerBalance < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
+    class Dbarai < ::Stripe::RequestParams
       class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         attr_accessor :preference
@@ -599,6 +650,23 @@ module Stripe
     end
 
     class MbWay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
+    class Merpay < ::Stripe::RequestParams
       class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         attr_accessor :preference
@@ -1177,6 +1245,8 @@ module Stripe
     end
     # Canadian pre-authorized debit payments, check this [page](https://docs.stripe.com/payments/acss-debit) for more details like country availability.
     attr_accessor :acss_debit
+    # AEON Pay is a single-use payment method that requires customers to authenticate their payment. Customers pay by being redirected from your website or app, authorizing the payment with AEON Pay, then returning to your website or app. You get immediate notification of whether the payment succeeded or failed.
+    attr_accessor :aeon_pay
     # [Affirm](https://www.affirm.com/) gives your customers a way to split purchases over a series of payments. Depending on the purchase, they can pay with four interest-free payments (Split Pay) or pay over a longer term (Installments), which might include interest. Check this [page](https://docs.stripe.com/payments/affirm) for more details like country availability.
     attr_accessor :affirm
     # Afterpay gives your customers a way to pay for purchases in installments, check this [page](https://docs.stripe.com/payments/afterpay-clearpay) for more details like country availability. Afterpay is particularly popular among businesses selling fashion, beauty, and sports products.
@@ -1193,6 +1263,8 @@ module Stripe
     attr_accessor :apple_pay_later
     # Stripe users in Australia can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with an Australian bank account. Check this [page](https://docs.stripe.com/payments/au-becs-debit) for more details.
     attr_accessor :au_becs_debit
+    # au PAY is a single-use payment method that requires customers to authenticate their payment. Customers pay by being redirected from your website or app, authorizing the payment with au PAY, then returning to your website or app. You get immediate notification of whether the payment succeeded or failed.
+    attr_accessor :au_pay
     # Stripe users in the UK can accept Bacs Direct Debit payments from customers with a UK bank account, check this [page](https://docs.stripe.com/payments/payment-methods/bacs-debit) for more details.
     attr_accessor :bacs_debit
     # Bancontact is the most popular online payment method in Belgium, with over 15 million cards in circulation. [Customers](https://docs.stripe.com/api/customers) use a Bancontact card or mobile app linked to a Belgian bank account to make online payments that are secure, guaranteed, and confirmed immediately. Check this [page](https://docs.stripe.com/payments/bancontact) for more details.
@@ -1215,6 +1287,8 @@ module Stripe
     attr_accessor :crypto
     # Uses a customer’s [cash balance](https://docs.stripe.com/payments/customer-balance) for the payment. The cash balance can be funded via a bank transfer. Check this [page](https://docs.stripe.com/payments/bank-transfers) for more details.
     attr_accessor :customer_balance
+    # d-Barai is a single-use payment method that requires customers to authenticate their payment. Customers pay by being redirected from your website or app, authorizing the payment with d-Barai, then returning to your website or app. You get immediate notification of whether the payment succeeded or failed.
+    attr_accessor :dbarai
     # EPS is an Austria-based payment method that allows customers to complete transactions online using their bank credentials. EPS is supported by all Austrian banks and is accepted by over 80% of Austrian online retailers. Check this [page](https://docs.stripe.com/payments/eps) for more details.
     attr_accessor :eps
     # Specifies which fields in the response should be expanded.
@@ -1249,6 +1323,8 @@ module Stripe
     attr_accessor :link
     # MB WAY is the most popular wallet in Portugal. After entering their phone number in your checkout, customers approve the payment directly in their MB WAY app. Check this [page](https://docs.stripe.com/payments/mb-way) for more details.
     attr_accessor :mb_way
+    # Merpay is a single-use payment method that requires customers to authenticate their payment. Customers pay by being redirected from your website or app, authorizing the payment with Merpay, then returning to your website or app. You get immediate notification of whether the payment succeeded or failed.
+    attr_accessor :merpay
     # MobilePay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://docs.stripe.com/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://docs.stripe.com/payments/mobilepay) for more details.
     attr_accessor :mobilepay
     # Stripe users in Europe and the United States can accept Multibanco payments from customers in Portugal using [Sources](https://stripe.com/docs/sources)—a single integration path for creating payments using any supported method.
@@ -1322,6 +1398,7 @@ module Stripe
 
     def initialize(
       acss_debit: nil,
+      aeon_pay: nil,
       affirm: nil,
       afterpay_clearpay: nil,
       alipay: nil,
@@ -1330,6 +1407,7 @@ module Stripe
       apple_pay: nil,
       apple_pay_later: nil,
       au_becs_debit: nil,
+      au_pay: nil,
       bacs_debit: nil,
       bancontact: nil,
       billie: nil,
@@ -1341,6 +1419,7 @@ module Stripe
       cashapp: nil,
       crypto: nil,
       customer_balance: nil,
+      dbarai: nil,
       eps: nil,
       expand: nil,
       fpx: nil,
@@ -1358,6 +1437,7 @@ module Stripe
       kr_card: nil,
       link: nil,
       mb_way: nil,
+      merpay: nil,
       mobilepay: nil,
       multibanco: nil,
       name: nil,
@@ -1395,6 +1475,7 @@ module Stripe
       zip: nil
     )
       @acss_debit = acss_debit
+      @aeon_pay = aeon_pay
       @affirm = affirm
       @afterpay_clearpay = afterpay_clearpay
       @alipay = alipay
@@ -1403,6 +1484,7 @@ module Stripe
       @apple_pay = apple_pay
       @apple_pay_later = apple_pay_later
       @au_becs_debit = au_becs_debit
+      @au_pay = au_pay
       @bacs_debit = bacs_debit
       @bancontact = bancontact
       @billie = billie
@@ -1414,6 +1496,7 @@ module Stripe
       @cashapp = cashapp
       @crypto = crypto
       @customer_balance = customer_balance
+      @dbarai = dbarai
       @eps = eps
       @expand = expand
       @fpx = fpx
@@ -1431,6 +1514,7 @@ module Stripe
       @kr_card = kr_card
       @link = link
       @mb_way = mb_way
+      @merpay = merpay
       @mobilepay = mobilepay
       @multibanco = multibanco
       @name = name

@@ -16,6 +16,15 @@ module Stripe
             @front_image = front_image
           end
         end
+
+        class SettlementTiming < ::Stripe::RequestParams
+          # The number of days to delay the availability of funds after processing completes.
+          attr_accessor :delay_days_override
+
+          def initialize(delay_days_override: nil)
+            @delay_days_override = delay_days_override
+          end
+        end
         # The updated amount to add to the destination.
         attr_accessor :amount
         # Updated details for a check FundingIntent.
@@ -26,19 +35,23 @@ module Stripe
         attr_accessor :description
         # Updates to the key-value pairs attached to the FundingIntent.
         attr_accessor :metadata
+        # The updated settlement timing. Omit to retain the existing timing.
+        attr_accessor :settlement_timing
 
         def initialize(
           amount: nil,
           check: nil,
           confirmation_method: nil,
           description: nil,
-          metadata: nil
+          metadata: nil,
+          settlement_timing: nil
         )
           @amount = amount
           @check = check
           @confirmation_method = confirmation_method
           @description = description
           @metadata = metadata
+          @settlement_timing = settlement_timing
         end
       end
     end

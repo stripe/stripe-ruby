@@ -167,6 +167,45 @@ module Stripe
               }
             end
           end
+          class CustomPaymentMethodAdapterDegraded < ::Stripe::StripeObject
+            class CustomPaymentMethodTypeDetails < ::Stripe::StripeObject
+              # The time when the custom payment method was automatically disabled. Null when it is enabled.
+              sig { returns(T.nilable(String)) }
+              def auto_disabled_at; end
+              # The display name of the custom payment method type.
+              sig { returns(String) }
+              def display_name; end
+              # The URL of the user's self-hosted adapter endpoint.
+              sig { returns(String) }
+              def reverse_api_url; end
+              # The identifier of the custom payment method type (e.g., "cpmt_...").
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Whether the custom payment method was disabled in Checkout as a result of the degradation. True while the alert is open and false when it is resolved.
+            sig { returns(T::Boolean) }
+            def custom_payment_method_disabled_from_checkout; end
+            # The custom payment method type whose adapter is unhealthy.
+            sig { returns(CustomPaymentMethodTypeDetails) }
+            def custom_payment_method_type_details; end
+            # The reason the adapter's health is degraded.
+            sig { returns(String) }
+            def degraded_health_reason; end
+            def self.inner_class_types
+              @inner_class_types = {
+                custom_payment_method_type_details: CustomPaymentMethodTypeDetails,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class ElementsError < ::Stripe::StripeObject
             # The type of the element.
             sig { returns(T.nilable(String)) }
@@ -426,6 +465,9 @@ module Stripe
           # Populated when type is authorization_rate_drop.
           sig { returns(T.nilable(AuthorizationRateDrop)) }
           def authorization_rate_drop; end
+          # Populated when type is custom_payment_method_adapter_degraded.
+          sig { returns(T.nilable(CustomPaymentMethodAdapterDegraded)) }
+          def custom_payment_method_adapter_degraded; end
           # Populated when type is elements_error.
           sig { returns(T.nilable(ElementsError)) }
           def elements_error; end

@@ -222,6 +222,19 @@ module Stripe
         end
       end
 
+      class GiftCard < ::Stripe::StripeObject
+        # ID of the reload or activation GiftCardOperation created for this refund.
+        attr_reader :gift_card_operation
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Giropay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -547,6 +560,8 @@ module Stripe
       attr_reader :eu_bank_transfer
       # Attribute for field gb_bank_transfer
       attr_reader :gb_bank_transfer
+      # Attribute for field gift_card
+      attr_reader :gift_card
       # Attribute for field giropay
       attr_reader :giropay
       # Attribute for field grabpay
@@ -614,6 +629,7 @@ module Stripe
           eps: Eps,
           eu_bank_transfer: EuBankTransfer,
           gb_bank_transfer: GbBankTransfer,
+          gift_card: GiftCard,
           giropay: Giropay,
           grabpay: Grabpay,
           id_bank_transfer: IdBankTransfer,
@@ -704,6 +720,8 @@ module Stripe
     end
     # Amount, in cents (or local equivalent).
     attr_reader :amount
+    # ID of the Connect application that created the refund. This can differ from the application on the associated Charge or PaymentIntent. A null value does not necessarily mean the refund was created without a Connect application.
+    attr_reader :application
     # Balance transaction that describes the impact on your account balance.
     attr_reader :balance_transaction
     # ID of the charge that's refunded.

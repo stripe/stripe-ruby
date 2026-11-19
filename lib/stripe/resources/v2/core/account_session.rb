@@ -691,7 +691,7 @@ module Stripe
 
           class NotificationBanner < ::Stripe::StripeObject
             class Scopes < ::Stripe::StripeObject
-              # Whether to disable Stripe user authentication in the enabled components.
+              # Whether to disable Stripe user authentication in this component.
               attr_reader :disable_stripe_user_authentication
               # Whether to allow managing payout methods.
               attr_reader :manage_payout_methods

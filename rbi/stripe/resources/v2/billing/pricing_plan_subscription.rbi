@@ -7,7 +7,7 @@ module Stripe
     module Billing
       # A Pricing Plan Subscription represents a customer's active subscription to a Pricing Plan. It tracks both the servicing
       # status (whether the customer is receiving service) and collection status (whether payments are current). Subscriptions
-      # are created through Billing Intents and bill according to the associated Billing Cadence.
+      # are created through Billing Intents and bill according to the associated Billing Group.
       class PricingPlanSubscription < APIResource
         class CancellationDetails < ::Stripe::StripeObject
           # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
@@ -615,9 +615,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The ID of the Billing Cadence this subscription is billed on.
+        # The ID of the Billing Group this subscription is billed on.
         sig { returns(String) }
-        def billing_cadence; end
+        def billing_group; end
         # Details about why the subscription was canceled, if applicable. Includes system-generated reason.
         sig { returns(T.nilable(CancellationDetails)) }
         def cancellation_details; end
@@ -660,7 +660,7 @@ module Stripe
         # Timestamps for servicing status transitions.
         sig { returns(ServicingStatusTransitions) }
         def servicing_status_transitions; end
-        # The ID of the Test Clock of the associated Billing Cadence, if any.
+        # The ID of the Test Clock of the associated Billing Group, if any.
         sig { returns(T.nilable(String)) }
         def test_clock; end
       end

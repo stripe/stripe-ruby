@@ -95,6 +95,60 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class OriginatingBankAccount < ::Stripe::StripeObject
+            class Aba < ::Stripe::StripeObject
+              # The name of the account holder that originated the debit, as provided by the ACH network.
+              sig { returns(T.nilable(String)) }
+              def account_holder_name; end
+              # The name of the bank the debit originated from.
+              sig { returns(T.nilable(String)) }
+              def bank_name; end
+              # The routing number of the bank that originated the debit.
+              sig { returns(T.nilable(String)) }
+              def routing_number; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class SortCode < ::Stripe::StripeObject
+              # The name of the account holder that originated the debit.
+              sig { returns(T.nilable(String)) }
+              def account_holder_name; end
+              # The name of the bank the debit originated from.
+              sig { returns(T.nilable(String)) }
+              def bank_name; end
+              # Last 4 digits of the bank account number.
+              sig { returns(T.nilable(String)) }
+              def last4; end
+              # The sort code of the bank that originated the debit.
+              sig { returns(T.nilable(String)) }
+              def sort_code; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Details of the originating account. Present when type is `aba`.
+            sig { returns(T.nilable(Aba)) }
+            def aba; end
+            # Details of the originating account. Present when type is `sort_code`.
+            sig { returns(T.nilable(SortCode)) }
+            def sort_code; end
+            # The credential type identifying the originating bank account.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {aba: Aba, sort_code: SortCode}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class UsBankAccount < ::Stripe::StripeObject
             # The name of the bank the debit originated from.
             sig { returns(T.nilable(String)) }
@@ -115,16 +169,25 @@ module Stripe
           # The Financial Address that was debited.
           sig { returns(String) }
           def financial_address; end
+          # Deprecated: Use `bank_transfer.originating_bank_account.sort_code` instead.
           # Object containing details of the GB Bank Account that originated the debit.
           # Present when the debit was originated via BACS.
           sig { returns(T.nilable(GbBankAccount)) }
           def gb_bank_account; end
+          # The bank network the debit was originated on.
+          sig { returns(String) }
+          def network; end
           # Network-specific details about the bank transfer.
           sig { returns(T.nilable(NetworkDetails)) }
           def network_details; end
+          # Deprecated: Use `bank_transfer.originating_bank_account.type` instead.
           # Open Enum. Indicates the origin type through which this debit was initiated.
           sig { returns(String) }
           def origin_type; end
+          # The originating bank account's credential details.
+          sig { returns(OriginatingBankAccount) }
+          def originating_bank_account; end
+          # Deprecated: Use `bank_transfer.originating_bank_account.type` instead.
           # Open Enum. The type of the payment method used to originate the debit.
           sig { returns(String) }
           def payment_method_type; end
@@ -134,6 +197,7 @@ module Stripe
           # The statement descriptor set by the originator of the debit.
           sig { returns(T.nilable(String)) }
           def statement_descriptor; end
+          # Deprecated: Use `bank_transfer.originating_bank_account.aba` instead.
           # Object containing details of the US Bank Account that originated the debit.
           # Present when the debit was originated via ACH.
           sig { returns(T.nilable(UsBankAccount)) }
@@ -142,6 +206,7 @@ module Stripe
             @inner_class_types = {
               gb_bank_account: GbBankAccount,
               network_details: NetworkDetails,
+              originating_bank_account: OriginatingBankAccount,
               us_bank_account: UsBankAccount,
             }
           end

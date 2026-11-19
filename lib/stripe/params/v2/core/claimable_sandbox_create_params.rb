@@ -10,9 +10,12 @@ module Stripe
           # The URL specified should attempt to generate a new onboarding link,
           # and re-direct the user to this new onboarding link so that they can proceed with the onboarding flow.
           attr_accessor :refresh_url
+          # The URL offered to the user as a way back to your app after they claim the sandbox.
+          attr_accessor :return_url
 
-          def initialize(refresh_url: nil)
+          def initialize(refresh_url: nil, return_url: nil)
             @refresh_url = refresh_url
+            @return_url = return_url
           end
         end
 
@@ -20,8 +23,8 @@ module Stripe
           # Country in which the account holder resides, or in which the business is legally established.
           # Use two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_accessor :country
-          # Email that this sandbox is meant to be claimed by. Stripe will
-          # notify this email address before the sandbox expires.
+          # Email address of the user who will claim the sandbox.
+          # Stripe sends this address an invitation to claim the sandbox and a reminder before the unclaimed sandbox expires.
           attr_accessor :email
           # Name for the sandbox.
           attr_accessor :name
@@ -32,9 +35,10 @@ module Stripe
             @name = name
           end
         end
-        # The app channel that will be used when pre-installing your app on the claimable sandbox.
+        # The distribution channel used to pre-install your Stripe App on the claimable sandbox.
+        # Use `testing` to install your app's external test version or `public` to install its published version.
         # This field defaults to `public` if omitted.
-        attr_accessor :app_channel
+        attr_accessor :channel
         # If true, returns a key that can be used with [Stripe's MCP server](https://docs.stripe.com/mcp).
         attr_accessor :enable_mcp_access
         # Details about the onboarding link.
@@ -43,12 +47,12 @@ module Stripe
         attr_accessor :prefill
 
         def initialize(
-          app_channel: nil,
+          channel: nil,
           enable_mcp_access: nil,
           onboarding_link_details: nil,
           prefill: nil
         )
-          @app_channel = app_channel
+          @channel = channel
           @enable_mcp_access = enable_mcp_access
           @onboarding_link_details = onboarding_link_details
           @prefill = prefill

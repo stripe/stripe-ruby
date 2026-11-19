@@ -192,6 +192,27 @@ module Stripe
           refute_includes log.string, "test_123"
         end
 
+        should "not expose the API key when dumped to YAML" do
+          event_notif = parse_signed_event(@v2_push_payload)
+
+          refute_includes YAML.dump(event_notif), "test_123"
+        end
+
+        should "keep its fields but refuse to make requests after a YAML round trip" do
+          payload = JSON.parse(@v2_push_payload).merge("context" => "acct_123").to_json
+          restored = YAML.unsafe_load(YAML.dump(parse_signed_event(payload)))
+
+          assert restored.is_a?(Stripe::Events::V1BillingMeterErrorReportTriggeredEventNotification)
+          assert_equal "evt_234", restored.id
+          assert_equal "v1.billing.meter.error_report_triggered", restored.type
+          assert_equal "acct_123", restored.context.to_s
+          assert_equal "/v1/billing/meters/mtr_123", restored.related_object.url
+
+          assert_raises(Stripe::AuthenticationError) { restored.fetch_event }
+          error = assert_raises(Stripe::AuthenticationError) { restored.fetch_related_object }
+          assert_match(/parse_event_notification/, error.message)
+        end
+
         should "retain the event context on fetched related objects" do
           client = StripeClient.new(
             "test_123",

@@ -50,6 +50,8 @@ module Stripe
         attr_reader :impact
         # The time when the user experience has returned to expected levels.
         attr_reader :resolved_at
+        # The severity of the alert.
+        attr_reader :severity
         # A short description of the alert.
         attr_reader :summary
 

@@ -3,9 +3,12 @@
 
 # typed: true
 module Stripe
-  # A coupon contains information about a percent-off or amount-off discount you
-  # might want to apply to a customer. Coupons may be applied to [subscriptions](https://docs.stripe.com/api#subscriptions), [invoices](https://docs.stripe.com/api#invoices),
-  # [checkout sessions](https://docs.stripe.com/api/checkout/sessions), [quotes](https://docs.stripe.com/api#quotes), and more. Coupons do not work with conventional one-off [charges](https://docs.stripe.com/api/charges/create) or [payment intents](https://docs.stripe.com/api/payment_intents).
+  # A coupon defines a fixed or custom discount. Fixed discounts take a percentage or amount off, while
+  # [custom coupons](https://docs.stripe.com/billing/subscriptions/script-coupons) use scripts to calculate discounts dynamically for subscriptions and invoices.
+  # You can apply coupons to customers' [subscriptions](https://docs.stripe.com/api#subscriptions), [invoices](https://docs.stripe.com/api#invoices),
+  # [Checkout Sessions](https://docs.stripe.com/api/checkout/sessions), [quotes](https://docs.stripe.com/api#quotes), and other supported billing objects.
+  # The optional [applies_to.products](https://docs.stripe.com/api/coupons/object#coupon_object-applies_to-products) property limits which product line items are eligible for the discount, independently of where you apply the coupon.
+  # Coupons don't work with conventional one-off [charges](https://docs.stripe.com/api/charges/create) or [payment intents](https://docs.stripe.com/api/payment_intents).
   class Coupon < APIResource
     class AppliesTo < ::Stripe::StripeObject
       # A list of product IDs this coupon applies to
@@ -24,6 +27,34 @@ module Stripe
       def amount_off; end
       def self.inner_class_types
         @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class Custom < ::Stripe::StripeObject
+      class Extension < ::Stripe::StripeObject
+        # The Extension Prototype ID.
+        sig { returns(String) }
+        def id; end
+        # The semantic version of the extension.
+        sig { returns(String) }
+        def version; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # The configuration supplied to the extension.
+      sig { returns(T::Hash[String, T.untyped]) }
+      def configuration; end
+      # Attribute for field extension
+      sig { returns(Extension) }
+      def extension; end
+      def self.inner_class_types
+        @inner_class_types = {extension: Extension}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -61,6 +92,9 @@ module Stripe
     # Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(T.nilable(T::Hash[String, CurrencyOptions])) }
     def currency_options; end
+    # Attribute for field custom
+    sig { returns(T.nilable(Custom)) }
+    def custom; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end

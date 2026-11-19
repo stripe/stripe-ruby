@@ -4,7 +4,7 @@
 module Stripe
   module Reserve
     class PlanService < StripeService
-      # Returns a list of ReservePlans previously created. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
+      # Returns a list of ReservePlans on your account or on one of your connected accounts. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
       def list(params = {}, opts = {})
         request(
           method: :get,
@@ -15,7 +15,7 @@ module Stripe
         )
       end
 
-      # Retrieve a ReservePlan.
+      # Retrieve a ReservePlan on your account or on one of your connected accounts.
       def retrieve(id, params = {}, opts = {})
         request(
           method: :get,

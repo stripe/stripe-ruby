@@ -5,13 +5,13 @@
 module Stripe
   module Reserve
     class PlanService < StripeService
-      # Returns a list of ReservePlans previously created. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
+      # Returns a list of ReservePlans on your account or on one of your connected accounts. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
       sig {
         params(params: T.any(::Stripe::Reserve::PlanListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def list(params = {}, opts = {}); end
 
-      # Retrieve a ReservePlan.
+      # Retrieve a ReservePlan on your account or on one of your connected accounts.
       sig {
         params(id: String, params: T.any(::Stripe::Reserve::PlanRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reserve::Plan)
        }

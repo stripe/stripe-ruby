@@ -204,7 +204,6 @@ module Stripe
         # v2 object classes: The beginning of the section generated from our OpenAPI spec
         V2::Billing::BillSetting.object_name => V2::Billing::BillSetting,
         V2::Billing::BillSettingVersion.object_name => V2::Billing::BillSettingVersion,
-        V2::Billing::Cadence.object_name => V2::Billing::Cadence,
         V2::Billing::CollectionSetting.object_name => V2::Billing::CollectionSetting,
         V2::Billing::CollectionSettingVersion.object_name => V2::Billing::CollectionSettingVersion,
         V2::Billing::MeterEvent.object_name => V2::Billing::MeterEvent,
@@ -219,6 +218,7 @@ module Stripe
         V2::Core::AccountToken.object_name => V2::Core::AccountToken,
         V2::Core::ApprovalRequest.object_name => V2::Core::ApprovalRequest,
         V2::Core::BatchJob.object_name => V2::Core::BatchJob,
+        V2::Core::ClaimableSandbox.object_name => V2::Core::ClaimableSandbox,
         V2::Core::Event.object_name => V2::Core::Event,
         V2::Core::EventDestination.object_name => V2::Core::EventDestination,
         V2::Core::Vault::GbBankAccount.object_name => V2::Core::Vault::GbBankAccount,

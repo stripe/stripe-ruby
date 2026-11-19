@@ -35,8 +35,6 @@ module Stripe
       # The transfer transaction details that are intended for the FX Quote.
       attr_accessor :transfer
       # Which transaction the FX Quote will be used for
-      #
-      # Can be “payment” | “transfer”
       attr_accessor :type
 
       def initialize(payment: nil, transfer: nil, type: nil)
@@ -47,11 +45,11 @@ module Stripe
     end
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
-    # A list of three letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be [supported currencies](https://stripe.com/docs/currencies).
+    # A list of three letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be [supported currencies](https://stripe.com/docs/currencies). Payout-only currencies are also supported, but only for informational quotes (`lock_duration=none`).
     attr_accessor :from_currencies
     # The duration that you wish the quote to be locked for. The quote will be usable for the duration specified. The default is `none`. The maximum is 1 day.
     attr_accessor :lock_duration
-    # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Payout-only currencies are also supported, but only for informational quotes (`lock_duration=none`).
     attr_accessor :to_currency
     # The usage specific information for the quote.
     attr_accessor :usage

@@ -12,6 +12,37 @@ module Stripe
         end
 
         class BankTransfer < ::Stripe::StripeObject
+          class OriginatingBankAccount < ::Stripe::StripeObject
+            class Aba < ::Stripe::StripeObject
+              # The name of the account holder that originated the debit, as provided by the ACH network.
+              attr_reader :account_holder_name
+              # The name of the bank the debit originated from.
+              attr_reader :bank_name
+              # The routing number of the bank that originated the debit.
+              attr_reader :routing_number
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Details of the originating account. Present when type is `aba`.
+            attr_reader :aba
+            # The credential type identifying the originating bank account.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { aba: Aba }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class UsBankAccount < ::Stripe::StripeObject
             # The name of the bank the debit originated from.
             attr_reader :bank_name
@@ -30,16 +61,25 @@ module Stripe
           end
           # The Financial Address that was debited.
           attr_reader :financial_address
+          # The bank network the debit was originated on.
+          attr_reader :network
+          # The originating bank account's credential details.
+          attr_reader :originating_bank_account
+          # Deprecated: Use `bank_transfer.originating_bank_account.type` instead.
           # Open Enum. The type of the payment method used to originate the debit.
           attr_reader :payment_method_type
           # The statement descriptor set by the originator of the debit.
           attr_reader :statement_descriptor
+          # Deprecated: Use `bank_transfer.originating_bank_account.aba` instead.
           # Object containing details of the US Bank Account that originated the debit.
           # Present when the debit was originated via ACH.
           attr_reader :us_bank_account
 
           def self.inner_class_types
-            @inner_class_types = { us_bank_account: UsBankAccount }
+            @inner_class_types = {
+              originating_bank_account: OriginatingBankAccount,
+              us_bank_account: UsBankAccount,
+            }
           end
 
           def self.field_remappings

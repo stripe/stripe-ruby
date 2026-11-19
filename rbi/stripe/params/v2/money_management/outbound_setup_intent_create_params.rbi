@@ -7,6 +7,20 @@ module Stripe
     module MoneyManagement
       class OutboundSetupIntentCreateParams < ::Stripe::RequestParams
         class PayoutMethodData < ::Stripe::RequestParams
+          class ApplePay < ::Stripe::RequestParams
+            # The paymentData property of the Apple-provided PKPaymentToken (or ApplePayPaymentToken, for Apple Pay on the Web) as a UTF-8 encoded serialization of a JSON dictionary.
+            sig { returns(T.nilable(String)) }
+            def pk_token; end
+            sig { params(_pk_token: T.nilable(String)).returns(T.nilable(String)) }
+            def pk_token=(_pk_token); end
+            # The paymentMethod.displayName property of the Apple-provided PKPaymentToken (or ApplePayPaymentToken, for Apple Pay on the Web), e.g. "Visa 1234".
+            sig { returns(String) }
+            def pk_token_display_name; end
+            sig { params(_pk_token_display_name: String).returns(String) }
+            def pk_token_display_name=(_pk_token_display_name); end
+            sig { params(pk_token: T.nilable(String), pk_token_display_name: String).void }
+            def initialize(pk_token: nil, pk_token_display_name: nil); end
+          end
           class BankAccount < ::Stripe::RequestParams
             # The account number or IBAN of the bank account.
             sig { returns(String) }
@@ -101,6 +115,15 @@ module Stripe
             sig { params(address: String, memo: T.nilable(String), network: String).void }
             def initialize(address: nil, memo: nil, network: nil); end
           end
+          # The type specific details of the Apple Pay payout method.
+          sig {
+            returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::ApplePay))
+           }
+          def apple_pay; end
+          sig {
+            params(_apple_pay: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::ApplePay)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::ApplePay))
+           }
+          def apple_pay=(_apple_pay); end
           # The type specific details of the bank account payout method.
           sig {
             returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount))
@@ -134,9 +157,15 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount), card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card), crypto_wallet: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CryptoWallet), type: String).void
+            params(apple_pay: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::ApplePay), bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::BankAccount), card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::Card), crypto_wallet: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CryptoWallet), type: String).void
            }
-          def initialize(bank_account: nil, card: nil, crypto_wallet: nil, type: nil); end
+          def initialize(
+            apple_pay: nil,
+            bank_account: nil,
+            card: nil,
+            crypto_wallet: nil,
+            type: nil
+          ); end
         end
         # If provided, the existing payout method resource to link to this setup intent.
         # Any payout_method_data provided is used to update information on this linked payout method resource.

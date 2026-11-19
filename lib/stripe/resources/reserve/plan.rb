@@ -82,7 +82,7 @@ module Stripe
       # The type of the ReservePlan.
       attr_reader :type
 
-      # Returns a list of ReservePlans previously created. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
+      # Returns a list of ReservePlans on your account or on one of your connected accounts. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
       def self.list(params = {}, opts = {})
         request_stripe_object(method: :get, path: "/v1/reserve/plans", params: params, opts: opts)
       end

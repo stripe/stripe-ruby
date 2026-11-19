@@ -5,6 +5,8 @@ module Stripe
   module V2
     module Core
       # Person Tokens are single-use tokens which tokenize person information, and are used for creating or updating a Person.
+      # In live mode, you must create person tokens using a live publishable key.
+      # In a sandbox, you can create person tokens with secret or publishable keys.
       class AccountPersonToken < APIResource
         OBJECT_NAME = "v2.core.account_person_token"
         def self.object_name

@@ -919,6 +919,16 @@ module Stripe
     autoload :V2CoreBatchJobValidatingEventNotification, "stripe/events/v2_core_batch_job_validating_event"
     autoload :V2CoreBatchJobValidationFailedEvent, "stripe/events/v2_core_batch_job_validation_failed_event"
     autoload :V2CoreBatchJobValidationFailedEventNotification, "stripe/events/v2_core_batch_job_validation_failed_event"
+    autoload :V2CoreClaimableSandboxClaimedEvent, "stripe/events/v2_core_claimable_sandbox_claimed_event"
+    autoload :V2CoreClaimableSandboxClaimedEventNotification, "stripe/events/v2_core_claimable_sandbox_claimed_event"
+    autoload :V2CoreClaimableSandboxCreatedEvent, "stripe/events/v2_core_claimable_sandbox_created_event"
+    autoload :V2CoreClaimableSandboxCreatedEventNotification, "stripe/events/v2_core_claimable_sandbox_created_event"
+    autoload :V2CoreClaimableSandboxExpiredEvent, "stripe/events/v2_core_claimable_sandbox_expired_event"
+    autoload :V2CoreClaimableSandboxExpiredEventNotification, "stripe/events/v2_core_claimable_sandbox_expired_event"
+    autoload :V2CoreClaimableSandboxExpiringEvent, "stripe/events/v2_core_claimable_sandbox_expiring_event"
+    autoload :V2CoreClaimableSandboxExpiringEventNotification, "stripe/events/v2_core_claimable_sandbox_expiring_event"
+    autoload :V2CoreClaimableSandboxUpdatedEvent, "stripe/events/v2_core_claimable_sandbox_updated_event"
+    autoload :V2CoreClaimableSandboxUpdatedEventNotification, "stripe/events/v2_core_claimable_sandbox_updated_event"
     autoload :V2CoreEventDestinationPingEvent, "stripe/events/v2_core_event_destination_ping_event"
     autoload :V2CoreEventDestinationPingEventNotification, "stripe/events/v2_core_event_destination_ping_event"
     autoload :V2CoreHealthEventGenerationFailureResolvedEvent,
@@ -1284,7 +1294,6 @@ module Stripe
     module Billing
       autoload :BillSetting, "stripe/resources/v2/billing/bill_setting"
       autoload :BillSettingVersion, "stripe/resources/v2/billing/bill_setting_version"
-      autoload :Cadence, "stripe/resources/v2/billing/cadence"
       autoload :CollectionSetting, "stripe/resources/v2/billing/collection_setting"
       autoload :CollectionSettingVersion, "stripe/resources/v2/billing/collection_setting_version"
       autoload :MeterEvent, "stripe/resources/v2/billing/meter_event"
@@ -1305,6 +1314,7 @@ module Stripe
       autoload :AccountToken, "stripe/resources/v2/core/account_token"
       autoload :ApprovalRequest, "stripe/resources/v2/core/approval_request"
       autoload :BatchJob, "stripe/resources/v2/core/batch_job"
+      autoload :ClaimableSandbox, "stripe/resources/v2/core/claimable_sandbox"
       autoload :Event, "stripe/resources/v2/core/event"
       autoload :EventBase, "stripe/resources/v2/core/event_base"
       autoload :EventDestination, "stripe/resources/v2/core/event_destination"
@@ -1564,7 +1574,6 @@ module Stripe
     stripe/resources/treasury/transaction_entry
     stripe/resources/v2/billing/bill_setting
     stripe/resources/v2/billing/bill_setting_version
-    stripe/resources/v2/billing/cadence
     stripe/resources/v2/billing/collection_setting
     stripe/resources/v2/billing/collection_setting_version
     stripe/resources/v2/billing/meter_event
@@ -1579,6 +1588,7 @@ module Stripe
     stripe/resources/v2/core/account_token
     stripe/resources/v2/core/approval_request
     stripe/resources/v2/core/batch_job
+    stripe/resources/v2/core/claimable_sandbox
     stripe/resources/v2/core/event
     stripe/resources/v2/core/event_destination
     stripe/resources/v2/core/vault/gb_bank_account
@@ -1925,6 +1935,11 @@ module Stripe
     stripe/events/v2_core_batch_job_upload_timeout_event
     stripe/events/v2_core_batch_job_validating_event
     stripe/events/v2_core_batch_job_validation_failed_event
+    stripe/events/v2_core_claimable_sandbox_claimed_event
+    stripe/events/v2_core_claimable_sandbox_created_event
+    stripe/events/v2_core_claimable_sandbox_expired_event
+    stripe/events/v2_core_claimable_sandbox_expiring_event
+    stripe/events/v2_core_claimable_sandbox_updated_event
     stripe/events/v2_core_event_destination_ping_event
     stripe/events/v2_core_health_event_generation_failure_resolved_event
     stripe/events/v2_data_query_run_created_event

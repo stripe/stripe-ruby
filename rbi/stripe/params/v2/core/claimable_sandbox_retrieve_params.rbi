@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   module V2
-    module Billing
-      class CadenceRetrieveParams < ::Stripe::RequestParams
-        # Additional resource to include in the response.
+    module Core
+      class ClaimableSandboxRetrieveParams < ::Stripe::RequestParams
+        # Additional fields to include in the response.
         sig { returns(T.nilable(T::Array[String])) }
         def include; end
         sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }

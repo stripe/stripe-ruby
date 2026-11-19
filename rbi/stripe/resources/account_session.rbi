@@ -252,6 +252,28 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ExportTaxTransactions < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class FinancialAccount < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -677,6 +699,28 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ProductTaxCodeSelector < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class ReportingChart < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -722,6 +766,28 @@ module Stripe
         end
       end
       class TaxSettings < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class TaxThresholdMonitoring < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
@@ -814,6 +880,9 @@ module Stripe
       # Attribute for field documents
       sig { returns(Documents) }
       def documents; end
+      # Attribute for field export_tax_transactions
+      sig { returns(T.nilable(ExportTaxTransactions)) }
+      def export_tax_transactions; end
       # Attribute for field financial_account
       sig { returns(FinancialAccount) }
       def financial_account; end
@@ -856,6 +925,9 @@ module Stripe
       # Attribute for field payouts_list
       sig { returns(PayoutsList) }
       def payouts_list; end
+      # Attribute for field product_tax_code_selector
+      sig { returns(T.nilable(ProductTaxCodeSelector)) }
+      def product_tax_code_selector; end
       # Attribute for field reporting_chart
       sig { returns(ReportingChart) }
       def reporting_chart; end
@@ -865,6 +937,9 @@ module Stripe
       # Attribute for field tax_settings
       sig { returns(TaxSettings) }
       def tax_settings; end
+      # Attribute for field tax_threshold_monitoring
+      sig { returns(T.nilable(TaxThresholdMonitoring)) }
+      def tax_threshold_monitoring; end
       # Attribute for field terminal_hardware_orders
       sig { returns(TerminalHardwareOrders) }
       def terminal_hardware_orders; end
@@ -882,6 +957,7 @@ module Stripe
           capital_financing_promotion: CapitalFinancingPromotion,
           disputes_list: DisputesList,
           documents: Documents,
+          export_tax_transactions: ExportTaxTransactions,
           financial_account: FinancialAccount,
           financial_account_transactions: FinancialAccountTransactions,
           instant_payouts_promotion: InstantPayoutsPromotion,
@@ -896,9 +972,11 @@ module Stripe
           payout_reconciliation_report: PayoutReconciliationReport,
           payouts: Payouts,
           payouts_list: PayoutsList,
+          product_tax_code_selector: ProductTaxCodeSelector,
           reporting_chart: ReportingChart,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
+          tax_threshold_monitoring: TaxThresholdMonitoring,
           terminal_hardware_orders: TerminalHardwareOrders,
           terminal_hardware_shop: TerminalHardwareShop,
         }

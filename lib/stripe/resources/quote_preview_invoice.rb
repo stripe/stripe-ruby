@@ -142,6 +142,23 @@ module Stripe
       end
     end
 
+    class CustomerBalance < ::Stripe::StripeObject
+      # The total amount of customer balance applied to this invoice (automatically + manually).
+      attr_reader :applied_balance
+      # The amount of customer balance automatically applied during invoice finalization.
+      attr_reader :automatically_applied_balance
+      # The total amount of customer balance manually applied after finalization.
+      attr_reader :manually_applied_balance
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class CustomerShipping < ::Stripe::StripeObject
       class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
@@ -1093,6 +1110,8 @@ module Stripe
     attr_reader :customer_account
     # The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated.
     attr_reader :customer_address
+    # The customer balance amounts applied to this invoice.
+    attr_reader :customer_balance
     # The customer's email. Until the invoice is finalized, this field will equal `customer.email`. Once the invoice is finalized, this field will no longer be updated.
     attr_reader :customer_email
     # The customer's name. Until the invoice is finalized, this field will equal `customer.name`. Once the invoice is finalized, this field will no longer be updated.
@@ -1214,6 +1233,7 @@ module Stripe
         confirmation_secret: ConfirmationSecret,
         custom_fields: CustomField,
         customer_address: CustomerAddress,
+        customer_balance: CustomerBalance,
         customer_shipping: CustomerShipping,
         customer_tax_ids: CustomerTaxId,
         from_invoice: FromInvoice,

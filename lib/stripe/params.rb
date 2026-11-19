@@ -411,8 +411,10 @@ module Stripe
   end
 
   module Capital
+    autoload :FinancingOfferCreateParams, "stripe/params/capital/financing_offer_create_params"
     autoload :FinancingOfferListParams, "stripe/params/capital/financing_offer_list_params"
     autoload :FinancingOfferMarkDeliveredParams, "stripe/params/capital/financing_offer_mark_delivered_params"
+    autoload :FinancingOfferRefillParams, "stripe/params/capital/financing_offer_refill_params"
     autoload :FinancingOfferRetrieveParams, "stripe/params/capital/financing_offer_retrieve_params"
     autoload :FinancingSummaryRetrieveParams, "stripe/params/capital/financing_summary_retrieve_params"
     autoload :FinancingTransactionListParams, "stripe/params/capital/financing_transaction_list_params"
@@ -684,6 +686,11 @@ module Stripe
     autoload :TestClockListParams, "stripe/params/test_helpers/test_clock_list_params"
     autoload :TestClockRetrieveParams, "stripe/params/test_helpers/test_clock_retrieve_params"
 
+    module Capital
+      autoload :FinancingOfferCreateParams, "stripe/params/test_helpers/capital/financing_offer_create_params"
+      autoload :FinancingOfferRefillParams, "stripe/params/test_helpers/capital/financing_offer_refill_params"
+    end
+
     module Issuing
       autoload :AuthorizationCaptureParams, "stripe/params/test_helpers/issuing/authorization_capture_params"
       autoload :AuthorizationCreateParams, "stripe/params/test_helpers/issuing/authorization_create_params"
@@ -815,11 +822,6 @@ module Stripe
       autoload :BillSettingListParams, "stripe/params/v2/billing/bill_setting_list_params"
       autoload :BillSettingRetrieveParams, "stripe/params/v2/billing/bill_setting_retrieve_params"
       autoload :BillSettingUpdateParams, "stripe/params/v2/billing/bill_setting_update_params"
-      autoload :CadenceCancelParams, "stripe/params/v2/billing/cadence_cancel_params"
-      autoload :CadenceCreateParams, "stripe/params/v2/billing/cadence_create_params"
-      autoload :CadenceListParams, "stripe/params/v2/billing/cadence_list_params"
-      autoload :CadenceRetrieveParams, "stripe/params/v2/billing/cadence_retrieve_params"
-      autoload :CadenceUpdateParams, "stripe/params/v2/billing/cadence_update_params"
       autoload :CollectionSettingCreateParams, "stripe/params/v2/billing/collection_setting_create_params"
       autoload :CollectionSettingListParams, "stripe/params/v2/billing/collection_setting_list_params"
       autoload :CollectionSettingRetrieveParams, "stripe/params/v2/billing/collection_setting_retrieve_params"
@@ -868,6 +870,10 @@ module Stripe
       autoload :BatchJobCancelParams, "stripe/params/v2/core/batch_job_cancel_params"
       autoload :BatchJobCreateParams, "stripe/params/v2/core/batch_job_create_params"
       autoload :BatchJobRetrieveParams, "stripe/params/v2/core/batch_job_retrieve_params"
+      autoload :ClaimableSandboxCreateParams, "stripe/params/v2/core/claimable_sandbox_create_params"
+      autoload :ClaimableSandboxRenewOnboardingLinkParams,
+               "stripe/params/v2/core/claimable_sandbox_renew_onboarding_link_params"
+      autoload :ClaimableSandboxRetrieveParams, "stripe/params/v2/core/claimable_sandbox_retrieve_params"
       autoload :EventDestinationCreateParams, "stripe/params/v2/core/event_destination_create_params"
       autoload :EventDestinationDeleteParams, "stripe/params/v2/core/event_destination_delete_params"
       autoload :EventDestinationDisableParams, "stripe/params/v2/core/event_destination_disable_params"
@@ -1132,8 +1138,10 @@ module Stripe
     stripe/params/billing_portal/configuration_retrieve_params
     stripe/params/billing_portal/configuration_update_params
     stripe/params/billing_portal/session_create_params
+    stripe/params/capital/financing_offer_create_params
     stripe/params/capital/financing_offer_list_params
     stripe/params/capital/financing_offer_mark_delivered_params
+    stripe/params/capital/financing_offer_refill_params
     stripe/params/capital/financing_offer_retrieve_params
     stripe/params/capital/financing_summary_retrieve_params
     stripe/params/capital/financing_transaction_list_params
@@ -1623,6 +1631,8 @@ module Stripe
     stripe/params/terminal/reader_succeed_input_collection_params
     stripe/params/terminal/reader_timeout_input_collection_params
     stripe/params/terminal/reader_update_params
+    stripe/params/test_helpers/capital/financing_offer_create_params
+    stripe/params/test_helpers/capital/financing_offer_refill_params
     stripe/params/test_helpers/confirmation_token_create_params
     stripe/params/test_helpers/customer_fund_cash_balance_params
     stripe/params/test_helpers/issuing/authorization_capture_params
@@ -1741,11 +1751,6 @@ module Stripe
     stripe/params/v2/billing/bill_setting_update_params
     stripe/params/v2/billing/bill_settings/version_list_params
     stripe/params/v2/billing/bill_settings/version_retrieve_params
-    stripe/params/v2/billing/cadence_cancel_params
-    stripe/params/v2/billing/cadence_create_params
-    stripe/params/v2/billing/cadence_list_params
-    stripe/params/v2/billing/cadence_retrieve_params
-    stripe/params/v2/billing/cadence_update_params
     stripe/params/v2/billing/collection_setting_create_params
     stripe/params/v2/billing/collection_setting_list_params
     stripe/params/v2/billing/collection_setting_retrieve_params
@@ -1785,6 +1790,9 @@ module Stripe
     stripe/params/v2/core/batch_job_cancel_params
     stripe/params/v2/core/batch_job_create_params
     stripe/params/v2/core/batch_job_retrieve_params
+    stripe/params/v2/core/claimable_sandbox_create_params
+    stripe/params/v2/core/claimable_sandbox_renew_onboarding_link_params
+    stripe/params/v2/core/claimable_sandbox_retrieve_params
     stripe/params/v2/core/event_destination_create_params
     stripe/params/v2/core/event_destination_delete_params
     stripe/params/v2/core/event_destination_disable_params

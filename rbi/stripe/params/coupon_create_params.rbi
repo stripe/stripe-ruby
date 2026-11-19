@@ -5,7 +5,7 @@
 module Stripe
   class CouponCreateParams < ::Stripe::RequestParams
     class AppliesTo < ::Stripe::RequestParams
-      # An array of Product IDs that this Coupon will apply to.
+      # An array of up to 100 Product IDs that this Coupon will apply to.
       sig { returns(T.nilable(T::Array[String])) }
       def products; end
       sig { params(_products: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }

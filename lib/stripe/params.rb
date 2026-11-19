@@ -727,6 +727,10 @@ module Stripe
       autoload :AccountTokenCreateParams, "stripe/params/v2/core/account_token_create_params"
       autoload :AccountTokenRetrieveParams, "stripe/params/v2/core/account_token_retrieve_params"
       autoload :AccountUpdateParams, "stripe/params/v2/core/account_update_params"
+      autoload :ClaimableSandboxCreateParams, "stripe/params/v2/core/claimable_sandbox_create_params"
+      autoload :ClaimableSandboxRenewOnboardingLinkParams,
+               "stripe/params/v2/core/claimable_sandbox_renew_onboarding_link_params"
+      autoload :ClaimableSandboxRetrieveParams, "stripe/params/v2/core/claimable_sandbox_retrieve_params"
       autoload :EventDestinationCreateParams, "stripe/params/v2/core/event_destination_create_params"
       autoload :EventDestinationDeleteParams, "stripe/params/v2/core/event_destination_delete_params"
       autoload :EventDestinationDisableParams, "stripe/params/v2/core/event_destination_disable_params"
@@ -1464,6 +1468,9 @@ module Stripe
     stripe/params/v2/core/accounts/person_token_create_params
     stripe/params/v2/core/accounts/person_token_retrieve_params
     stripe/params/v2/core/accounts/person_update_params
+    stripe/params/v2/core/claimable_sandbox_create_params
+    stripe/params/v2/core/claimable_sandbox_renew_onboarding_link_params
+    stripe/params/v2/core/claimable_sandbox_retrieve_params
     stripe/params/v2/core/event_destination_create_params
     stripe/params/v2/core/event_destination_delete_params
     stripe/params/v2/core/event_destination_disable_params

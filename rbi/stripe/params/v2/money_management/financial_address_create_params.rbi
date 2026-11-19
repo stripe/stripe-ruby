@@ -7,12 +7,12 @@ module Stripe
     module MoneyManagement
       class FinancialAddressCreateParams < ::Stripe::RequestParams
         class BankAccount < ::Stripe::RequestParams
-          # The country for the bank account. Used to select the appropriate rails (e.g. for SEPA).
+          # The country where Stripe provisions the bank account. Each currency supports the country listed in its description. If omitted, Stripe selects that country.
           sig { returns(T.nilable(String)) }
           def country; end
           sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
           def country=(_country); end
-          # The currency of the bank account to provision. Available currencies depend on your account's enabled features and rollout access; `eur` requires the Financial Address Global Payouts EU preview.
+          # The currency of the bank account to provision. Some currencies require preview or rollout access, as configured for your account.
           sig { returns(String) }
           def currency; end
           sig { params(_currency: String).returns(String) }

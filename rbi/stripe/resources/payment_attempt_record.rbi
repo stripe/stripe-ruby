@@ -505,7 +505,7 @@ module Stripe
           # If you provide a value for `address.line1`, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
           sig { returns(T.nilable(String)) }
           def address_line1_check; end
-          # If you provide a address postal code, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
+          # If you provide an address postal code, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
           sig { returns(T.nilable(String)) }
           def address_postal_code_check; end
           # If you provide a CVC, the check results is one of `pass`, `fail`, `unavailable`, or `unchecked`.
@@ -1464,6 +1464,9 @@ module Stripe
         end
       end
       class Paypay < ::Stripe::StripeObject
+        # Uniquely identifies this particular PayPay account. You can use this attribute to check whether two PayPay accounts are the same.
+        sig { returns(T.nilable(String)) }
+        def fingerprint; end
         def self.inner_class_types
           @inner_class_types = {}
         end

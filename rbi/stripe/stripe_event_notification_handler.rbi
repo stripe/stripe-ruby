@@ -82,6 +82,24 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1AppsInstallCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_apps_install_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1AppsInstallDeletedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_apps_install_deleted(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1AppsInstallUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_apps_install_updated(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BalanceAvailableEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_balance_available(&blk);
@@ -937,12 +955,6 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1IssuingAuthorizationCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_issuing_authorization_created(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1IssuingAuthorizationRequestEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v1_issuing_authorization_request(&blk);
     end
     
     sig do
@@ -2317,6 +2329,54 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2OrchestratedCommerceAgreementTerminatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_orchestrated_commerce_agreement_terminated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2PaymentsOffSessionPaymentAttemptFailedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_payments_off_session_payment_attempt_failed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2PaymentsOffSessionPaymentAttemptStartedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_payments_off_session_payment_attempt_started(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2PaymentsOffSessionPaymentCanceledEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_payments_off_session_payment_canceled(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2PaymentsOffSessionPaymentCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_payments_off_session_payment_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2PaymentsOffSessionPaymentFailedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_payments_off_session_payment_failed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2PaymentsOffSessionPaymentPausedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_payments_off_session_payment_paused(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2PaymentsOffSessionPaymentResumedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_payments_off_session_payment_resumed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2PaymentsOffSessionPaymentSucceededEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_payments_off_session_payment_succeeded(&blk);
     end
     
     sig do

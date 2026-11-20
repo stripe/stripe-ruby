@@ -202,14 +202,9 @@ module Stripe
         V2::SearchResultObject.object_name => V2::SearchResultObject,
 
         # v2 object classes: The beginning of the section generated from our OpenAPI spec
-        V2::Billing::BillSetting.object_name => V2::Billing::BillSetting,
-        V2::Billing::BillSettingVersion.object_name => V2::Billing::BillSettingVersion,
-        V2::Billing::CollectionSetting.object_name => V2::Billing::CollectionSetting,
-        V2::Billing::CollectionSettingVersion.object_name => V2::Billing::CollectionSettingVersion,
         V2::Billing::MeterEvent.object_name => V2::Billing::MeterEvent,
         V2::Billing::MeterEventAdjustment.object_name => V2::Billing::MeterEventAdjustment,
         V2::Billing::MeterEventSession.object_name => V2::Billing::MeterEventSession,
-        V2::Billing::Profile.object_name => V2::Billing::Profile,
         V2::Commerce::ProductCatalogImport.object_name => V2::Commerce::ProductCatalogImport,
         V2::Core::Account.object_name => V2::Core::Account,
         V2::Core::AccountLink.object_name => V2::Core::AccountLink,
@@ -255,6 +250,7 @@ module Stripe
         V2::MoneyManagement::TransactionEntry.object_name => V2::MoneyManagement::TransactionEntry,
         V2::Network::BusinessProfile.object_name => V2::Network::BusinessProfile,
         V2::OrchestratedCommerce::Agreement.object_name => V2::OrchestratedCommerce::Agreement,
+        V2::Payments::OffSessionPayment.object_name => V2::Payments::OffSessionPayment,
         V2::Signals::AccountActivity.object_name => V2::Signals::AccountActivity,
         V2::Signals::AccountEvaluation.object_name => V2::Signals::AccountEvaluation,
         V2::Signals::AccountSignal.object_name => V2::Signals::AccountSignal,

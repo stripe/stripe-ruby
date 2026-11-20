@@ -20,6 +20,9 @@ module Stripe
         Events::V1ApplicationFeeRefundUpdatedEvent.lookup_type =>
         Events::V1ApplicationFeeRefundUpdatedEvent,
         Events::V1ApplicationFeeRefundedEvent.lookup_type => Events::V1ApplicationFeeRefundedEvent,
+        Events::V1AppsInstallCreatedEvent.lookup_type => Events::V1AppsInstallCreatedEvent,
+        Events::V1AppsInstallDeletedEvent.lookup_type => Events::V1AppsInstallDeletedEvent,
+        Events::V1AppsInstallUpdatedEvent.lookup_type => Events::V1AppsInstallUpdatedEvent,
         Events::V1BalanceAvailableEvent.lookup_type => Events::V1BalanceAvailableEvent,
         Events::V1BalanceSettingsUpdatedEvent.lookup_type => Events::V1BalanceSettingsUpdatedEvent,
         Events::V1BillingAlertTriggeredEvent.lookup_type => Events::V1BillingAlertTriggeredEvent,
@@ -230,8 +233,6 @@ module Stripe
         Events::V1InvoiceitemDiscountRemovedEvent.lookup_type => Events::V1InvoiceitemDiscountRemovedEvent,
         Events::V1IssuingAuthorizationCreatedEvent.lookup_type =>
         Events::V1IssuingAuthorizationCreatedEvent,
-        Events::V1IssuingAuthorizationRequestEvent.lookup_type =>
-        Events::V1IssuingAuthorizationRequestEvent,
         Events::V1IssuingAuthorizationUpdatedEvent.lookup_type =>
         Events::V1IssuingAuthorizationUpdatedEvent,
         Events::V1IssuingCardCreatedEvent.lookup_type => Events::V1IssuingCardCreatedEvent,
@@ -578,6 +579,22 @@ module Stripe
         Events::V2OrchestratedCommerceAgreementPartiallyConfirmedEvent,
         Events::V2OrchestratedCommerceAgreementTerminatedEvent.lookup_type =>
         Events::V2OrchestratedCommerceAgreementTerminatedEvent,
+        Events::V2PaymentsOffSessionPaymentAttemptFailedEvent.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentAttemptFailedEvent,
+        Events::V2PaymentsOffSessionPaymentAttemptStartedEvent.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentAttemptStartedEvent,
+        Events::V2PaymentsOffSessionPaymentCanceledEvent.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentCanceledEvent,
+        Events::V2PaymentsOffSessionPaymentCreatedEvent.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentCreatedEvent,
+        Events::V2PaymentsOffSessionPaymentFailedEvent.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentFailedEvent,
+        Events::V2PaymentsOffSessionPaymentPausedEvent.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentPausedEvent,
+        Events::V2PaymentsOffSessionPaymentResumedEvent.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentResumedEvent,
+        Events::V2PaymentsOffSessionPaymentSucceededEvent.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentSucceededEvent,
         Events::V2SignalsAccountEvaluationCompleteEvent.lookup_type =>
         Events::V2SignalsAccountEvaluationCompleteEvent,
         Events::V2SignalsAccountSignalFraudulentMerchantReadyEvent.lookup_type =>
@@ -608,6 +625,12 @@ module Stripe
         Events::V1ApplicationFeeRefundUpdatedEventNotification,
         Events::V1ApplicationFeeRefundedEventNotification.lookup_type =>
         Events::V1ApplicationFeeRefundedEventNotification,
+        Events::V1AppsInstallCreatedEventNotification.lookup_type =>
+        Events::V1AppsInstallCreatedEventNotification,
+        Events::V1AppsInstallDeletedEventNotification.lookup_type =>
+        Events::V1AppsInstallDeletedEventNotification,
+        Events::V1AppsInstallUpdatedEventNotification.lookup_type =>
+        Events::V1AppsInstallUpdatedEventNotification,
         Events::V1BalanceAvailableEventNotification.lookup_type =>
         Events::V1BalanceAvailableEventNotification,
         Events::V1BalanceSettingsUpdatedEventNotification.lookup_type =>
@@ -877,8 +900,6 @@ module Stripe
         Events::V1InvoiceitemDiscountRemovedEventNotification,
         Events::V1IssuingAuthorizationCreatedEventNotification.lookup_type =>
         Events::V1IssuingAuthorizationCreatedEventNotification,
-        Events::V1IssuingAuthorizationRequestEventNotification.lookup_type =>
-        Events::V1IssuingAuthorizationRequestEventNotification,
         Events::V1IssuingAuthorizationUpdatedEventNotification.lookup_type =>
         Events::V1IssuingAuthorizationUpdatedEventNotification,
         Events::V1IssuingCardCreatedEventNotification.lookup_type =>
@@ -1300,6 +1321,22 @@ module Stripe
         Events::V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification,
         Events::V2OrchestratedCommerceAgreementTerminatedEventNotification.lookup_type =>
         Events::V2OrchestratedCommerceAgreementTerminatedEventNotification,
+        Events::V2PaymentsOffSessionPaymentAttemptFailedEventNotification.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentAttemptFailedEventNotification,
+        Events::V2PaymentsOffSessionPaymentAttemptStartedEventNotification.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentAttemptStartedEventNotification,
+        Events::V2PaymentsOffSessionPaymentCanceledEventNotification.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentCanceledEventNotification,
+        Events::V2PaymentsOffSessionPaymentCreatedEventNotification.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentCreatedEventNotification,
+        Events::V2PaymentsOffSessionPaymentFailedEventNotification.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentFailedEventNotification,
+        Events::V2PaymentsOffSessionPaymentPausedEventNotification.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentPausedEventNotification,
+        Events::V2PaymentsOffSessionPaymentResumedEventNotification.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentResumedEventNotification,
+        Events::V2PaymentsOffSessionPaymentSucceededEventNotification.lookup_type =>
+        Events::V2PaymentsOffSessionPaymentSucceededEventNotification,
         Events::V2SignalsAccountEvaluationCompleteEventNotification.lookup_type =>
         Events::V2SignalsAccountEvaluationCompleteEventNotification,
         Events::V2SignalsAccountSignalFraudulentMerchantReadyEventNotification.lookup_type =>

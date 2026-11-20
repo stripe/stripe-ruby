@@ -264,6 +264,9 @@ module Stripe
           # The ID number type of an individual.
           sig { returns(String) }
           def type; end
+          # The value of the ID number. Returned only when the API key is authorized to read it; otherwise null.
+          sig { returns(T.nilable(String)) }
+          def value; end
           def self.inner_class_types
             @inner_class_types = {}
           end

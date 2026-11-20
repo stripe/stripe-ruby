@@ -125,6 +125,18 @@ module Stripe
       register("v1.application_fee.refunded", &callback)
     end
 
+    def on_v1_apps_install_created(&callback)
+      register("v1.apps.install.created", &callback)
+    end
+
+    def on_v1_apps_install_deleted(&callback)
+      register("v1.apps.install.deleted", &callback)
+    end
+
+    def on_v1_apps_install_updated(&callback)
+      register("v1.apps.install.updated", &callback)
+    end
+
     def on_v1_balance_available(&callback)
       register("v1.balance.available", &callback)
     end
@@ -695,10 +707,6 @@ module Stripe
 
     def on_v1_issuing_authorization_created(&callback)
       register("v1.issuing_authorization.created", &callback)
-    end
-
-    def on_v1_issuing_authorization_request(&callback)
-      register("v1.issuing_authorization.request", &callback)
     end
 
     def on_v1_issuing_authorization_updated(&callback)
@@ -1615,6 +1623,38 @@ module Stripe
 
     def on_v2_orchestrated_commerce_agreement_terminated(&callback)
       register("v2.orchestrated_commerce.agreement.terminated", &callback)
+    end
+
+    def on_v2_payments_off_session_payment_attempt_failed(&callback)
+      register("v2.payments.off_session_payment.attempt_failed", &callback)
+    end
+
+    def on_v2_payments_off_session_payment_attempt_started(&callback)
+      register("v2.payments.off_session_payment.attempt_started", &callback)
+    end
+
+    def on_v2_payments_off_session_payment_canceled(&callback)
+      register("v2.payments.off_session_payment.canceled", &callback)
+    end
+
+    def on_v2_payments_off_session_payment_created(&callback)
+      register("v2.payments.off_session_payment.created", &callback)
+    end
+
+    def on_v2_payments_off_session_payment_failed(&callback)
+      register("v2.payments.off_session_payment.failed", &callback)
+    end
+
+    def on_v2_payments_off_session_payment_paused(&callback)
+      register("v2.payments.off_session_payment.paused", &callback)
+    end
+
+    def on_v2_payments_off_session_payment_resumed(&callback)
+      register("v2.payments.off_session_payment.resumed", &callback)
+    end
+
+    def on_v2_payments_off_session_payment_succeeded(&callback)
+      register("v2.payments.off_session_payment.succeeded", &callback)
     end
 
     def on_v2_signals_account_evaluation_complete(&callback)

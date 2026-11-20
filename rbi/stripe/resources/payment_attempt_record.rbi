@@ -2309,16 +2309,30 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Stripe < ::Stripe::StripeObject
+        # Stripe balance transactions associated with this attempt, in no guaranteed order. References can appear at submission or after success. On a PaymentRecord, these references follow the latest attempt.
+        sig { returns(T.nilable(T::Array[String])) }
+        def derived_balance_transactions; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Custom processors represent payment processors not modeled directly in
       # the Stripe API. This resource consists of details about the custom processor
       # used for this payment attempt.
       sig { returns(T.nilable(Custom)) }
       def custom; end
+      # Represents the Stripe processor. This resource consists of details specific to Stripe.
+      sig { returns(T.nilable(Stripe)) }
+      def stripe; end
       # The processor used for this payment attempt.
       sig { returns(String) }
       def type; end
       def self.inner_class_types
-        @inner_class_types = {custom: Custom}
+        @inner_class_types = {custom: Custom, stripe: Stripe}
       end
       def self.field_remappings
         @field_remappings = {}

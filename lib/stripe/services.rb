@@ -321,25 +321,15 @@ module Stripe
     autoload :MoneyManagementService, "stripe/services/v2/money_management_service"
     autoload :NetworkService, "stripe/services/v2/network_service"
     autoload :OrchestratedCommerceService, "stripe/services/v2/orchestrated_commerce_service"
+    autoload :PaymentsService, "stripe/services/v2/payments_service"
     autoload :SignalsService, "stripe/services/v2/signals_service"
     autoload :TestHelperService, "stripe/services/v2/test_helper_service"
 
     module Billing
-      autoload :BillSettingService, "stripe/services/v2/billing/bill_setting_service"
-      autoload :CollectionSettingService, "stripe/services/v2/billing/collection_setting_service"
       autoload :MeterEventAdjustmentService, "stripe/services/v2/billing/meter_event_adjustment_service"
       autoload :MeterEventService, "stripe/services/v2/billing/meter_event_service"
       autoload :MeterEventSessionService, "stripe/services/v2/billing/meter_event_session_service"
       autoload :MeterEventStreamService, "stripe/services/v2/billing/meter_event_stream_service"
-      autoload :ProfileService, "stripe/services/v2/billing/profile_service"
-
-      module BillSettings
-        autoload :VersionService, "stripe/services/v2/billing/bill_settings/version_service"
-      end
-
-      module CollectionSettings
-        autoload :VersionService, "stripe/services/v2/billing/collection_settings/version_service"
-      end
     end
 
     module Commerce
@@ -424,6 +414,10 @@ module Stripe
 
     module OrchestratedCommerce
       autoload :AgreementService, "stripe/services/v2/orchestrated_commerce/agreement_service"
+    end
+
+    module Payments
+      autoload :OffSessionPaymentService, "stripe/services/v2/payments/off_session_payment_service"
     end
 
     module Signals
@@ -660,15 +654,10 @@ module Stripe
     stripe/services/treasury/transaction_service
     stripe/services/treasury_service
     stripe/services/v1_services
-    stripe/services/v2/billing/bill_setting_service
-    stripe/services/v2/billing/bill_settings/version_service
-    stripe/services/v2/billing/collection_setting_service
-    stripe/services/v2/billing/collection_settings/version_service
     stripe/services/v2/billing/meter_event_adjustment_service
     stripe/services/v2/billing/meter_event_service
     stripe/services/v2/billing/meter_event_session_service
     stripe/services/v2/billing/meter_event_stream_service
-    stripe/services/v2/billing/profile_service
     stripe/services/v2/billing_service
     stripe/services/v2/commerce/product_catalog/import_service
     stripe/services/v2/commerce/product_catalog_service
@@ -722,6 +711,8 @@ module Stripe
     stripe/services/v2/network_service
     stripe/services/v2/orchestrated_commerce/agreement_service
     stripe/services/v2/orchestrated_commerce_service
+    stripe/services/v2/payments/off_session_payment_service
+    stripe/services/v2/payments_service
     stripe/services/v2/signals/account_activity_service
     stripe/services/v2/signals/account_evaluation_service
     stripe/services/v2/signals/account_signal_service

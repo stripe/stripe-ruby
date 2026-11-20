@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Signals
-      # Account Activity resource for the Signals API.
+      # Account Activity resource for the Signals API. Account activities are available through the API for 180 days after creation.
       class AccountActivity < APIResource
         OBJECT_NAME = "v2.signals.account_activity"
         def self.object_name

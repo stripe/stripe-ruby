@@ -456,6 +456,35 @@ module Stripe
                 end
               end
 
+              class AutomaticIndirectTax < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
               class BacsDebitPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1844,6 +1873,8 @@ module Stripe
               attr_reader :amazon_pay_payments
               # Allow the merchant to process Australian BECS Direct Debit payments.
               attr_reader :au_becs_debit_payments
+              # Allow the merchant to be a "tax-only" merchant, enabling a reduced set of KYC requirements strictly focused on enabling Stripe Tax.
+              attr_reader :automatic_indirect_tax
               # Allow the merchant to process BACS Direct Debit payments.
               attr_reader :bacs_debit_payments
               # Allow the merchant to process Bancontact payments.
@@ -1948,6 +1979,7 @@ module Stripe
                   alma_payments: AlmaPayments,
                   amazon_pay_payments: AmazonPayPayments,
                   au_becs_debit_payments: AuBecsDebitPayments,
+                  automatic_indirect_tax: AutomaticIndirectTax,
                   bacs_debit_payments: BacsDebitPayments,
                   bancontact_payments: BancontactPayments,
                   billie_payments: BilliePayments,
@@ -2404,6 +2436,35 @@ module Stripe
                     end
                   end
 
+                  class Dkk < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+
                   class Eur < ::Stripe::StripeObject
                     class StatusDetail < ::Stripe::StripeObject
                       # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2494,6 +2555,8 @@ module Stripe
                   attr_reader :aud
                   # Can receive business storage-type funds on Stripe in CAD.
                   attr_reader :cad
+                  # Can receive business storage-type funds on Stripe in DKK.
+                  attr_reader :dkk
                   # Can receive business storage-type funds on Stripe in EUR.
                   attr_reader :eur
                   # Can receive business storage-type funds on Stripe in GBP.
@@ -2502,7 +2565,14 @@ module Stripe
                   attr_reader :usd
 
                   def self.inner_class_types
-                    @inner_class_types = { aud: Aud, cad: Cad, eur: Eur, gbp: Gbp, usd: Usd }
+                    @inner_class_types = {
+                      aud: Aud,
+                      cad: Cad,
+                      dkk: Dkk,
+                      eur: Eur,
+                      gbp: Gbp,
+                      usd: Usd,
+                    }
                   end
 
                   def self.field_remappings
@@ -2541,6 +2611,35 @@ module Stripe
                   end
 
                   class Cad < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+
+                  class Dkk < ::Stripe::StripeObject
                     class StatusDetail < ::Stripe::StripeObject
                       # Machine-readable code explaining the reason for the Capability to be in its current status.
                       attr_reader :code
@@ -2659,6 +2758,8 @@ module Stripe
                   attr_reader :aud
                   # Can send business storage-type funds on Stripe in CAD.
                   attr_reader :cad
+                  # Can send business storage-type funds on Stripe in DKK.
+                  attr_reader :dkk
                   # Can send business storage-type funds on Stripe in EUR.
                   attr_reader :eur
                   # Can send business storage-type funds on Stripe in GBP.
@@ -2667,7 +2768,14 @@ module Stripe
                   attr_reader :usd
 
                   def self.inner_class_types
-                    @inner_class_types = { aud: Aud, cad: Cad, eur: Eur, gbp: Gbp, usd: Usd }
+                    @inner_class_types = {
+                      aud: Aud,
+                      cad: Cad,
+                      dkk: Dkk,
+                      eur: Eur,
+                      gbp: Gbp,
+                      usd: Usd,
+                    }
                   end
 
                   def self.field_remappings
@@ -3389,7 +3497,7 @@ module Stripe
                 end
                 # Enables this Account to complete payouts from their Stripe Balance (/v1/balance).
                 attr_reader :payouts
-                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance). Use this capability if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
                 attr_reader :stripe_transfers
 
                 def self.inner_class_types
@@ -3441,7 +3549,7 @@ module Stripe
           attr_reader :merchant
           # The Money Manager Configuration allows the Account to store and move funds using FinancialAccounts.
           attr_reader :money_manager
-          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
+          # The Recipient Configuration allows the Account to receive funds from you.
           attr_reader :recipient
 
           def self.inner_class_types
@@ -4267,6 +4375,8 @@ module Stripe
               attr_reader :registrar
               # Open Enum. The ID number type of a business entity.
               attr_reader :type
+              # The value of the ID number. Returned only when the API key is authorized to read it; otherwise null.
+              attr_reader :value
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -4706,6 +4816,8 @@ module Stripe
             class IdNumber < ::Stripe::StripeObject
               # The ID number type of an individual.
               attr_reader :type
+              # The value of the ID number. Returned only when the API key is authorized to read it; otherwise null.
+              attr_reader :value
 
               def self.inner_class_types
                 @inner_class_types = {}

@@ -57,12 +57,12 @@ module Stripe
     def limit; end
     sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def limit=(_limit); end
-    # For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID.
+    # For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID. You can't combine this parameter with `source`.
     sig { returns(T.nilable(String)) }
     def payout; end
     sig { params(_payout: T.nilable(String)).returns(T.nilable(String)) }
     def payout=(_payout); end
-    # Only returns transactions associated with the given object.
+    # Only returns transactions associated with the given object. You can't combine this parameter with `payout`.
     sig { returns(T.nilable(String)) }
     def source; end
     sig { params(_source: T.nilable(String)).returns(T.nilable(String)) }

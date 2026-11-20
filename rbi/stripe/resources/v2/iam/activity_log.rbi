@@ -19,6 +19,17 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class StripeAction < ::Stripe::StripeObject
+            # Public display name captured when the action occurs.
+            sig { returns(String) }
+            def display_name; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class User < ::Stripe::StripeObject
             # Email address of the user.
             sig { returns(String) }
@@ -33,6 +44,9 @@ module Stripe
           # Set when the actor is an API key.
           sig { returns(T.nilable(ApiKey)) }
           def api_key; end
+          # Set when a display name is available for an action performed by Stripe.
+          sig { returns(T.nilable(StripeAction)) }
+          def stripe_action; end
           # The type of actor.
           sig { returns(String) }
           def type; end
@@ -40,7 +54,7 @@ module Stripe
           sig { returns(T.nilable(User)) }
           def user; end
           def self.inner_class_types
-            @inner_class_types = {api_key: ApiKey, user: User}
+            @inner_class_types = {api_key: ApiKey, stripe_action: StripeAction, user: User}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -654,6 +668,83 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class StripeAccess < ::Stripe::StripeObject
+            class Reason < ::Stripe::StripeObject
+              class AccessRequest < ::Stripe::StripeObject
+                # Identifier of the access request.
+                sig { returns(String) }
+                def id; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class SupportRelationship < ::Stripe::StripeObject
+                # Identifier of the support relationship.
+                sig { returns(String) }
+                def id; end
+                # Name of the support contact, when available.
+                sig { returns(T.nilable(String)) }
+                def name; end
+                # Role of the support contact, when available.
+                sig { returns(T.nilable(String)) }
+                def role; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class SupportTicket < ::Stripe::StripeObject
+                # Identifier of the support ticket.
+                sig { returns(String) }
+                def id; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Set when access is granted through an access request.
+              sig { returns(T.nilable(AccessRequest)) }
+              def access_request; end
+              # Set when access is granted through a support relationship.
+              sig { returns(T.nilable(SupportRelationship)) }
+              def support_relationship; end
+              # Set when access is granted through a support ticket.
+              sig { returns(T.nilable(SupportTicket)) }
+              def support_ticket; end
+              # The type of reason for granting access.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {
+                  access_request: AccessRequest,
+                  support_relationship: SupportRelationship,
+                  support_ticket: SupportTicket,
+                }
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The level of Dashboard access granted.
+            sig { returns(String) }
+            def access_type; end
+            # The reason for granting Stripe access.
+            sig { returns(Reason) }
+            def reason; end
+            def self.inner_class_types
+              @inner_class_types = {reason: Reason}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class UserAccess < ::Stripe::StripeObject
             class DashboardClient < ::Stripe::StripeObject
               # User-Agent header for the user access action.
@@ -825,6 +916,9 @@ module Stripe
           # Details of an SSO action.
           sig { returns(T.nilable(Sso)) }
           def sso; end
+          # Details of a Stripe access action.
+          sig { returns(T.nilable(StripeAccess)) }
+          def stripe_access; end
           # The action group type of the activity log entry.
           sig { returns(String) }
           def type; end
@@ -851,6 +945,7 @@ module Stripe
               radar: Radar,
               scim: Scim,
               sso: Sso,
+              stripe_access: StripeAccess,
               user_access: UserAccess,
               user_invite: UserInvite,
               user_profile: UserProfile,

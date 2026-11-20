@@ -35,13 +35,16 @@ module Stripe
         attr_accessor :description
         # The verified bank account credential to debit for this InboundTransfer.
         attr_accessor :from
+        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        attr_accessor :metadata
         # The FinancialAccount and currency to credit with the transferred funds.
         attr_accessor :to
 
-        def initialize(amount: nil, description: nil, from: nil, to: nil)
+        def initialize(amount: nil, description: nil, from: nil, metadata: nil, to: nil)
           @amount = amount
           @description = description
           @from = from
+          @metadata = metadata
           @to = to
         end
       end

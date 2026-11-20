@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Signals
-      # Account Evaluation resource for the Signals API.
+      # Account Evaluation resource for the Signals API. Account evaluations are available through the API for 180 days after creation.
       class AccountEvaluation < APIResource
         OBJECT_NAME = "v2.signals.account_evaluation"
         def self.object_name
@@ -112,8 +112,20 @@ module Stripe
 
         class EvaluatedSignals < ::Stripe::StripeObject
           class FraudulentWebsite < ::Stripe::StripeObject
-            # Human-readable details about the fraudulent website evaluation, when available.
-            attr_reader :details
+            class AdditionalDetails < ::Stripe::StripeObject
+              # Human-readable explanation of the fraudulent website evaluation.
+              attr_reader :explanation
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Additional information about the fraudulent website evaluation, when available.
+            attr_reader :additional_details
             # Timestamp at which the signal was evaluated.
             attr_reader :evaluated_at
             # Categorical assessment of the fraudulent website risk.
@@ -122,7 +134,7 @@ module Stripe
             attr_reader :signal
 
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = { additional_details: AdditionalDetails }
             end
 
             def self.field_remappings

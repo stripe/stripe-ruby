@@ -162,6 +162,12 @@ module Stripe
     autoload :V1ApplicationFeeRefundedEventNotification, "stripe/events/v1_application_fee_refunded_event"
     autoload :V1ApplicationFeeRefundUpdatedEvent, "stripe/events/v1_application_fee_refund_updated_event"
     autoload :V1ApplicationFeeRefundUpdatedEventNotification, "stripe/events/v1_application_fee_refund_updated_event"
+    autoload :V1AppsInstallCreatedEvent, "stripe/events/v1_apps_install_created_event"
+    autoload :V1AppsInstallCreatedEventNotification, "stripe/events/v1_apps_install_created_event"
+    autoload :V1AppsInstallDeletedEvent, "stripe/events/v1_apps_install_deleted_event"
+    autoload :V1AppsInstallDeletedEventNotification, "stripe/events/v1_apps_install_deleted_event"
+    autoload :V1AppsInstallUpdatedEvent, "stripe/events/v1_apps_install_updated_event"
+    autoload :V1AppsInstallUpdatedEventNotification, "stripe/events/v1_apps_install_updated_event"
     autoload :V1BalanceAvailableEvent, "stripe/events/v1_balance_available_event"
     autoload :V1BalanceAvailableEventNotification, "stripe/events/v1_balance_available_event"
     autoload :V1BalanceSettingsUpdatedEvent, "stripe/events/v1_balance_settings_updated_event"
@@ -543,8 +549,6 @@ module Stripe
     autoload :V1InvoiceWillBeDueEventNotification, "stripe/events/v1_invoice_will_be_due_event"
     autoload :V1IssuingAuthorizationCreatedEvent, "stripe/events/v1_issuing_authorization_created_event"
     autoload :V1IssuingAuthorizationCreatedEventNotification, "stripe/events/v1_issuing_authorization_created_event"
-    autoload :V1IssuingAuthorizationRequestEvent, "stripe/events/v1_issuing_authorization_request_event"
-    autoload :V1IssuingAuthorizationRequestEventNotification, "stripe/events/v1_issuing_authorization_request_event"
     autoload :V1IssuingAuthorizationUpdatedEvent, "stripe/events/v1_issuing_authorization_updated_event"
     autoload :V1IssuingAuthorizationUpdatedEventNotification, "stripe/events/v1_issuing_authorization_updated_event"
     autoload :V1IssuingCardCreatedEvent, "stripe/events/v1_issuing_card_created_event"
@@ -1160,6 +1164,32 @@ module Stripe
              "stripe/events/v2_orchestrated_commerce_agreement_terminated_event"
     autoload :V2OrchestratedCommerceAgreementTerminatedEventNotification,
              "stripe/events/v2_orchestrated_commerce_agreement_terminated_event"
+    autoload :V2PaymentsOffSessionPaymentAttemptFailedEvent,
+             "stripe/events/v2_payments_off_session_payment_attempt_failed_event"
+    autoload :V2PaymentsOffSessionPaymentAttemptFailedEventNotification,
+             "stripe/events/v2_payments_off_session_payment_attempt_failed_event"
+    autoload :V2PaymentsOffSessionPaymentAttemptStartedEvent,
+             "stripe/events/v2_payments_off_session_payment_attempt_started_event"
+    autoload :V2PaymentsOffSessionPaymentAttemptStartedEventNotification,
+             "stripe/events/v2_payments_off_session_payment_attempt_started_event"
+    autoload :V2PaymentsOffSessionPaymentCanceledEvent, "stripe/events/v2_payments_off_session_payment_canceled_event"
+    autoload :V2PaymentsOffSessionPaymentCanceledEventNotification,
+             "stripe/events/v2_payments_off_session_payment_canceled_event"
+    autoload :V2PaymentsOffSessionPaymentCreatedEvent, "stripe/events/v2_payments_off_session_payment_created_event"
+    autoload :V2PaymentsOffSessionPaymentCreatedEventNotification,
+             "stripe/events/v2_payments_off_session_payment_created_event"
+    autoload :V2PaymentsOffSessionPaymentFailedEvent, "stripe/events/v2_payments_off_session_payment_failed_event"
+    autoload :V2PaymentsOffSessionPaymentFailedEventNotification,
+             "stripe/events/v2_payments_off_session_payment_failed_event"
+    autoload :V2PaymentsOffSessionPaymentPausedEvent, "stripe/events/v2_payments_off_session_payment_paused_event"
+    autoload :V2PaymentsOffSessionPaymentPausedEventNotification,
+             "stripe/events/v2_payments_off_session_payment_paused_event"
+    autoload :V2PaymentsOffSessionPaymentResumedEvent, "stripe/events/v2_payments_off_session_payment_resumed_event"
+    autoload :V2PaymentsOffSessionPaymentResumedEventNotification,
+             "stripe/events/v2_payments_off_session_payment_resumed_event"
+    autoload :V2PaymentsOffSessionPaymentSucceededEvent, "stripe/events/v2_payments_off_session_payment_succeeded_event"
+    autoload :V2PaymentsOffSessionPaymentSucceededEventNotification,
+             "stripe/events/v2_payments_off_session_payment_succeeded_event"
     autoload :V2SignalsAccountEvaluationCompleteEvent, "stripe/events/v2_signals_account_evaluation_complete_event"
     autoload :V2SignalsAccountEvaluationCompleteEventNotification,
              "stripe/events/v2_signals_account_evaluation_complete_event"
@@ -1292,14 +1322,9 @@ module Stripe
     autoload :DeletedObject, "stripe/resources/v2/deleted_object"
 
     module Billing
-      autoload :BillSetting, "stripe/resources/v2/billing/bill_setting"
-      autoload :BillSettingVersion, "stripe/resources/v2/billing/bill_setting_version"
-      autoload :CollectionSetting, "stripe/resources/v2/billing/collection_setting"
-      autoload :CollectionSettingVersion, "stripe/resources/v2/billing/collection_setting_version"
       autoload :MeterEvent, "stripe/resources/v2/billing/meter_event"
       autoload :MeterEventAdjustment, "stripe/resources/v2/billing/meter_event_adjustment"
       autoload :MeterEventSession, "stripe/resources/v2/billing/meter_event_session"
-      autoload :Profile, "stripe/resources/v2/billing/profile"
     end
 
     module Commerce
@@ -1379,6 +1404,10 @@ module Stripe
 
     module OrchestratedCommerce
       autoload :Agreement, "stripe/resources/v2/orchestrated_commerce/agreement"
+    end
+
+    module Payments
+      autoload :OffSessionPayment, "stripe/resources/v2/payments/off_session_payment"
     end
 
     module Signals
@@ -1572,14 +1601,9 @@ module Stripe
     stripe/resources/treasury/received_debit
     stripe/resources/treasury/transaction
     stripe/resources/treasury/transaction_entry
-    stripe/resources/v2/billing/bill_setting
-    stripe/resources/v2/billing/bill_setting_version
-    stripe/resources/v2/billing/collection_setting
-    stripe/resources/v2/billing/collection_setting_version
     stripe/resources/v2/billing/meter_event
     stripe/resources/v2/billing/meter_event_adjustment
     stripe/resources/v2/billing/meter_event_session
-    stripe/resources/v2/billing/profile
     stripe/resources/v2/commerce/product_catalog_import
     stripe/resources/v2/core/account
     stripe/resources/v2/core/account_link
@@ -1622,6 +1646,7 @@ module Stripe
     stripe/resources/v2/money_management/transaction_entry
     stripe/resources/v2/network/business_profile
     stripe/resources/v2/orchestrated_commerce/agreement
+    stripe/resources/v2/payments/off_session_payment
     stripe/resources/v2/signals/account_activity
     stripe/resources/v2/signals/account_evaluation
     stripe/resources/v2/signals/account_signal
@@ -1635,6 +1660,9 @@ module Stripe
     stripe/events/v1_application_fee_created_event
     stripe/events/v1_application_fee_refund_updated_event
     stripe/events/v1_application_fee_refunded_event
+    stripe/events/v1_apps_install_created_event
+    stripe/events/v1_apps_install_deleted_event
+    stripe/events/v1_apps_install_updated_event
     stripe/events/v1_balance_available_event
     stripe/events/v1_balance_settings_updated_event
     stripe/events/v1_billing_alert_triggered_event
@@ -1778,7 +1806,6 @@ module Stripe
     stripe/events/v1_invoiceitem_discount_added_event
     stripe/events/v1_invoiceitem_discount_removed_event
     stripe/events/v1_issuing_authorization_created_event
-    stripe/events/v1_issuing_authorization_request_event
     stripe/events/v1_issuing_authorization_updated_event
     stripe/events/v1_issuing_card_created_event
     stripe/events/v1_issuing_card_updated_event
@@ -2008,6 +2035,14 @@ module Stripe
     stripe/events/v2_orchestrated_commerce_agreement_created_event
     stripe/events/v2_orchestrated_commerce_agreement_partially_confirmed_event
     stripe/events/v2_orchestrated_commerce_agreement_terminated_event
+    stripe/events/v2_payments_off_session_payment_attempt_failed_event
+    stripe/events/v2_payments_off_session_payment_attempt_started_event
+    stripe/events/v2_payments_off_session_payment_canceled_event
+    stripe/events/v2_payments_off_session_payment_created_event
+    stripe/events/v2_payments_off_session_payment_failed_event
+    stripe/events/v2_payments_off_session_payment_paused_event
+    stripe/events/v2_payments_off_session_payment_resumed_event
+    stripe/events/v2_payments_off_session_payment_succeeded_event
     stripe/events/v2_signals_account_evaluation_complete_event
     stripe/events/v2_signals_account_signal_fraudulent_merchant_ready_event
     stripe/events/v2_signals_account_signal_fraudulent_website_ready_event

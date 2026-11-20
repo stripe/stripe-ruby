@@ -25,6 +25,19 @@ module Stripe
             end
           end
 
+          class StripeAction < ::Stripe::StripeObject
+            # Public display name captured when the action occurs.
+            attr_reader :display_name
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class User < ::Stripe::StripeObject
             # Email address of the user.
             attr_reader :email
@@ -39,13 +52,15 @@ module Stripe
           end
           # Set when the actor is an API key.
           attr_reader :api_key
+          # Set when a display name is available for an action performed by Stripe.
+          attr_reader :stripe_action
           # The type of actor.
           attr_reader :type
           # Set when the actor is a user.
           attr_reader :user
 
           def self.inner_class_types
-            @inner_class_types = { api_key: ApiKey, user: User }
+            @inner_class_types = { api_key: ApiKey, stripe_action: StripeAction, user: User }
           end
 
           def self.field_remappings
@@ -625,6 +640,85 @@ module Stripe
             end
           end
 
+          class StripeAccess < ::Stripe::StripeObject
+            class Reason < ::Stripe::StripeObject
+              class AccessRequest < ::Stripe::StripeObject
+                # Identifier of the access request.
+                attr_reader :id
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class SupportRelationship < ::Stripe::StripeObject
+                # Identifier of the support relationship.
+                attr_reader :id
+                # Name of the support contact, when available.
+                attr_reader :name
+                # Role of the support contact, when available.
+                attr_reader :role
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class SupportTicket < ::Stripe::StripeObject
+                # Identifier of the support ticket.
+                attr_reader :id
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Set when access is granted through an access request.
+              attr_reader :access_request
+              # Set when access is granted through a support relationship.
+              attr_reader :support_relationship
+              # Set when access is granted through a support ticket.
+              attr_reader :support_ticket
+              # The type of reason for granting access.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {
+                  access_request: AccessRequest,
+                  support_relationship: SupportRelationship,
+                  support_ticket: SupportTicket,
+                }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The level of Dashboard access granted.
+            attr_reader :access_type
+            # The reason for granting Stripe access.
+            attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = { reason: Reason }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class UserAccess < ::Stripe::StripeObject
             class DashboardClient < ::Stripe::StripeObject
               # User-Agent header for the user access action.
@@ -785,6 +879,8 @@ module Stripe
           attr_reader :scim
           # Details of an SSO action.
           attr_reader :sso
+          # Details of a Stripe access action.
+          attr_reader :stripe_access
           # The action group type of the activity log entry.
           attr_reader :type
           # Details of a user access action.
@@ -807,6 +903,7 @@ module Stripe
               radar: Radar,
               scim: Scim,
               sso: Sso,
+              stripe_access: StripeAccess,
               user_access: UserAccess,
               user_invite: UserInvite,
               user_profile: UserProfile,

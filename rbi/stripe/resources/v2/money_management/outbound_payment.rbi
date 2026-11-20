@@ -309,9 +309,6 @@ module Stripe
         # The purpose of the OutboundPayment.
         sig { returns(T.nilable(String)) }
         def purpose; end
-        # A link to the Stripe-hosted receipt for this OutboundPayment. The receipt link remains active for 60 days from the OutboundPayment creation date. After this period, the link will expire and the receipt url value will be null.
-        sig { returns(T.nilable(String)) }
-        def receipt_url; end
         # Details about the OutboundPayment notification settings for recipient.
         sig { returns(RecipientNotification) }
         def recipient_notification; end

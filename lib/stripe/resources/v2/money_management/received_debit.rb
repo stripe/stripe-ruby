@@ -149,8 +149,6 @@ module Stripe
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # A link to the Stripe-hosted receipt for this ReceivedDebit.
-        attr_reader :receipt_url
         # Open Enum. The status of the ReceivedDebit.
         attr_reader :status
         # Detailed information about the status of the ReceivedDebit.

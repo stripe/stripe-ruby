@@ -453,6 +453,34 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              class AutomaticIndirectTax < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               class BacsDebitPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1801,6 +1829,9 @@ module Stripe
               # Allow the merchant to process Australian BECS Direct Debit payments.
               sig { returns(T.nilable(AuBecsDebitPayments)) }
               def au_becs_debit_payments; end
+              # Allow the merchant to be a "tax-only" merchant, enabling a reduced set of KYC requirements strictly focused on enabling Stripe Tax.
+              sig { returns(T.nilable(AutomaticIndirectTax)) }
+              def automatic_indirect_tax; end
               # Allow the merchant to process BACS Direct Debit payments.
               sig { returns(T.nilable(BacsDebitPayments)) }
               def bacs_debit_payments; end
@@ -1951,6 +1982,7 @@ module Stripe
                   alma_payments: AlmaPayments,
                   amazon_pay_payments: AmazonPayPayments,
                   au_becs_debit_payments: AuBecsDebitPayments,
+                  automatic_indirect_tax: AutomaticIndirectTax,
                   bacs_debit_payments: BacsDebitPayments,
                   bancontact_payments: BancontactPayments,
                   billie_payments: BilliePayments,
@@ -2410,6 +2442,34 @@ module Stripe
                       @field_remappings = {}
                     end
                   end
+                  class Dkk < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
                   class Eur < ::Stripe::StripeObject
                     class StatusDetail < ::Stripe::StripeObject
                       # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2500,6 +2560,9 @@ module Stripe
                   # Can receive business storage-type funds on Stripe in CAD.
                   sig { returns(T.nilable(Cad)) }
                   def cad; end
+                  # Can receive business storage-type funds on Stripe in DKK.
+                  sig { returns(T.nilable(Dkk)) }
+                  def dkk; end
                   # Can receive business storage-type funds on Stripe in EUR.
                   sig { returns(T.nilable(Eur)) }
                   def eur; end
@@ -2510,7 +2573,14 @@ module Stripe
                   sig { returns(T.nilable(Usd)) }
                   def usd; end
                   def self.inner_class_types
-                    @inner_class_types = {aud: Aud, cad: Cad, eur: Eur, gbp: Gbp, usd: Usd}
+                    @inner_class_types = {
+                      aud: Aud,
+                      cad: Cad,
+                      dkk: Dkk,
+                      eur: Eur,
+                      gbp: Gbp,
+                      usd: Usd,
+                    }
                   end
                   def self.field_remappings
                     @field_remappings = {}
@@ -2546,6 +2616,34 @@ module Stripe
                     end
                   end
                   class Cad < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  class Dkk < ::Stripe::StripeObject
                     class StatusDetail < ::Stripe::StripeObject
                       # Machine-readable code explaining the reason for the Capability to be in its current status.
                       sig { returns(String) }
@@ -2663,6 +2761,9 @@ module Stripe
                   # Can send business storage-type funds on Stripe in CAD.
                   sig { returns(T.nilable(Cad)) }
                   def cad; end
+                  # Can send business storage-type funds on Stripe in DKK.
+                  sig { returns(T.nilable(Dkk)) }
+                  def dkk; end
                   # Can send business storage-type funds on Stripe in EUR.
                   sig { returns(T.nilable(Eur)) }
                   def eur; end
@@ -2673,7 +2774,14 @@ module Stripe
                   sig { returns(T.nilable(Usd)) }
                   def usd; end
                   def self.inner_class_types
-                    @inner_class_types = {aud: Aud, cad: Cad, eur: Eur, gbp: Gbp, usd: Usd}
+                    @inner_class_types = {
+                      aud: Aud,
+                      cad: Cad,
+                      dkk: Dkk,
+                      eur: Eur,
+                      gbp: Gbp,
+                      usd: Usd,
+                    }
                   end
                   def self.field_remappings
                     @field_remappings = {}
@@ -3383,7 +3491,7 @@ module Stripe
                 # Enables this Account to complete payouts from their Stripe Balance (/v1/balance).
                 sig { returns(T.nilable(Payouts)) }
                 def payouts; end
-                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance). Use this capability if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
                 sig { returns(T.nilable(StripeTransfers)) }
                 def stripe_transfers; end
                 def self.inner_class_types
@@ -3439,7 +3547,7 @@ module Stripe
           # The Money Manager Configuration allows the Account to store and move funds using FinancialAccounts.
           sig { returns(T.nilable(MoneyManager)) }
           def money_manager; end
-          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
+          # The Recipient Configuration allows the Account to receive funds from you.
           sig { returns(T.nilable(Recipient)) }
           def recipient; end
           def self.inner_class_types
@@ -4277,6 +4385,9 @@ module Stripe
               # Open Enum. The ID number type of a business entity.
               sig { returns(String) }
               def type; end
+              # The value of the ID number. Returned only when the API key is authorized to read it; otherwise null.
+              sig { returns(T.nilable(String)) }
+              def value; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -4734,6 +4845,9 @@ module Stripe
               # The ID number type of an individual.
               sig { returns(String) }
               def type; end
+              # The value of the ID number. Returned only when the API key is authorized to read it; otherwise null.
+              sig { returns(T.nilable(String)) }
+              def value; end
               def self.inner_class_types
                 @inner_class_types = {}
               end

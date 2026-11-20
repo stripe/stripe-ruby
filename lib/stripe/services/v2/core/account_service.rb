@@ -29,6 +29,7 @@ module Stripe
         # Create an Account that represents a company, individual, or other entity that your business interacts with. Accounts contain identifying information about the entity, and configurations that store the features an account has access to. An account can be configured as any or all of the following configurations: Customer, Merchant and/or Recipient.
         #
         # ** raises RateLimitError
+        # ** raises InactiveApiOperationConfirmationRequiredError
         def create(params = {}, opts = {})
           unless params.is_a?(Stripe::RequestParams)
             params = ::Stripe::V2::Core::AccountCreateParams.coerce_params(params)
@@ -72,6 +73,7 @@ module Stripe
         # Updates the details of an Account.
         #
         # ** raises RateLimitError
+        # ** raises InactiveApiOperationConfirmationRequiredError
         def update(id, params = {}, opts = {})
           unless params.is_a?(Stripe::RequestParams)
             params = ::Stripe::V2::Core::AccountUpdateParams.coerce_params(params)

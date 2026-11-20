@@ -8,6 +8,8 @@ module Stripe
       attr_reader :adjustments
       attr_reader :currency_conversions
       attr_reader :debit_disputes
+      attr_reader :disputes
+      attr_reader :dispute_adjustments
       attr_reader :earned_credits
       attr_reader :financial_accounts
       attr_reader :financial_addresses

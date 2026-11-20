@@ -85,6 +85,12 @@ module Stripe
         # Whether the customer consented to sending conversion data to an advertising platform.
         sig { returns(T::Boolean) }
         def consent_collected; end
+        # The URL of the web page where the customer converted.
+        sig { returns(T.nilable(String)) }
+        def source_url; end
+        # The user agent of the browser where the customer converted.
+        sig { returns(T.nilable(String)) }
+        def user_agent; end
         def self.inner_class_types
           @inner_class_types = {}
         end

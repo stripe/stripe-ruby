@@ -324,6 +324,25 @@ module Stripe
           end
         end
 
+        class UserBuyerClassification < ::Stripe::StripeObject
+          # Predicted type of buyer behind the user.
+          attr_reader :buyer_type
+          # The score for the predicted buyer type, between 0.00 and 100.00. Absent when buyer_type is unknown.
+          attr_reader :buyer_type_score
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = { buyer_type_score: :decimal_string }
+          end
+        end
+
         class UserMultiAccounting < ::Stripe::StripeObject
           # Categorical assessment of the multi-accounting risk.
           attr_reader :risk_level
@@ -373,6 +392,8 @@ module Stripe
         attr_reader :user_account_sharing
         # Data for the user affinity signal. Present only when type is user_affinity.
         attr_reader :user_affinity
+        # Data for the user buyer classification signal. Present only when type is user_buyer_classification.
+        attr_reader :user_buyer_classification
         # Data for the user multi-accounting signal. Present only when type is user_multi_accounting.
         attr_reader :user_multi_accounting
 
@@ -387,6 +408,7 @@ module Stripe
             payment_delinquency_exposure: PaymentDelinquencyExposure,
             user_account_sharing: UserAccountSharing,
             user_affinity: UserAffinity,
+            user_buyer_classification: UserBuyerClassification,
             user_multi_accounting: UserMultiAccounting,
           }
         end
@@ -411,6 +433,7 @@ module Stripe
             },
             user_account_sharing: { kind: :object, fields: { score: :decimal_string } },
             user_affinity: { kind: :object, fields: { score: :decimal_string } },
+            user_buyer_classification: { kind: :object, fields: { buyer_type_score: :decimal_string } },
             user_multi_accounting: { kind: :object, fields: { score: :decimal_string } },
           }
         end

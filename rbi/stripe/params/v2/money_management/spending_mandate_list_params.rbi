@@ -16,6 +16,11 @@ module Stripe
         def limit; end
         sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def limit=(_limit); end
+        # Filter by bank transfer network. If omitted, returns mandates for all networks.
+        sig { returns(T.nilable(String)) }
+        def network; end
+        sig { params(_network: T.nilable(String)).returns(T.nilable(String)) }
+        def network=(_network); end
         # Filter by mandate status.
         sig { returns(T.nilable(T::Array[String])) }
         def statuses; end
@@ -27,9 +32,15 @@ module Stripe
         sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
         def type=(_type); end
         sig {
-          params(financial_account: T.nilable(String), limit: T.nilable(Integer), statuses: T.nilable(T::Array[String]), type: T.nilable(String)).void
+          params(financial_account: T.nilable(String), limit: T.nilable(Integer), network: T.nilable(String), statuses: T.nilable(T::Array[String]), type: T.nilable(String)).void
          }
-        def initialize(financial_account: nil, limit: nil, statuses: nil, type: nil); end
+        def initialize(
+          financial_account: nil,
+          limit: nil,
+          network: nil,
+          statuses: nil,
+          type: nil
+        ); end
       end
     end
   end

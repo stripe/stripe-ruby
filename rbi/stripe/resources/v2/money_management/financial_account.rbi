@@ -77,6 +77,46 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class FlowSettings < ::Stripe::StripeObject
+          class ReceivedDebits < ::Stripe::StripeObject
+            class Ach < ::Stripe::StripeObject
+              # Whether ACH received debits are enabled. Defaults to true. Other restrictions still apply.
+              sig { returns(T::Boolean) }
+              def enabled; end
+              # Controls whether ACH debits without a matching active SpendingMandate are allowed or rejected
+              # Defaults to `optional`. Other restrictions still apply.
+              sig { returns(String) }
+              def mandate_behavior; end
+              # Account-level per-debit limit. Set to null to clear the limit.
+              sig { returns(T.nilable(::Stripe::V2::Amount)) }
+              def transaction_limit; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Settings for ACH received debits.
+            sig { returns(T.nilable(Ach)) }
+            def ach; end
+            def self.inner_class_types
+              @inner_class_types = {ach: Ach}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Settings for received debit flows.
+          sig { returns(T.nilable(ReceivedDebits)) }
+          def received_debits; end
+          def self.inner_class_types
+            @inner_class_types = {received_debits: ReceivedDebits}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class MultiprocessorSettlement < ::Stripe::StripeObject
           # Settlement currencies enabled for this FinancialAccount.
           sig { returns(T::Array[String]) }
@@ -361,6 +401,9 @@ module Stripe
         # A descriptive name for the FinancialAccount, up to 50 characters long. This name appears in the Stripe Dashboard and embedded components.
         sig { returns(T.nilable(String)) }
         def display_name; end
+        # Settings that control behavior for money movement flows.
+        sig { returns(T.nilable(FlowSettings)) }
+        def flow_settings; end
         # Unique identifier for the object.
         sig { returns(String) }
         def id; end

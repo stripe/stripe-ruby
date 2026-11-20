@@ -8,9 +8,26 @@ module Stripe
       # A SpendingMandate authorizes a counterparty to pull money from a Financial Account.
       class SpendingMandate < APIResource
         class BankTransfer < ::Stripe::StripeObject
+          class Ach < ::Stripe::StripeObject
+            # ACH Company ID used to identify the authorized originator.
+            sig { returns(String) }
+            def originator_company_id; end
+            # Maximum amount authorized for a single debit. If absent, the Financial Account limit applies.
+            sig { returns(T.nilable(::Stripe::V2::Amount)) }
+            def transaction_limit; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The name of the account holder that initiated the debit.
           sig { returns(T.nilable(String)) }
           def account_holder_name; end
+          # ACH-specific authorization details. Present when `network` is `ach`.
+          sig { returns(T.nilable(Ach)) }
+          def ach; end
           # The financial address associated with this mandate.
           sig { returns(String) }
           def financial_address; end
@@ -21,7 +38,7 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def reference; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {ach: Ach}
           end
           def self.field_remappings
             @field_remappings = {}

@@ -282,6 +282,33 @@ module Stripe
       class GeneratedFrom < ::Stripe::StripeObject
         class PaymentMethodDetails < ::Stripe::StripeObject
           class CardPresent < ::Stripe::StripeObject
+            class Benefits < ::Stripe::StripeObject
+              class FrMealVoucher < ::Stripe::StripeObject
+                # The 14-digit SIRET of the meal voucher acceptor used for this charge.
+                attr_reader :siret
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Attribute for field fr_meal_voucher
+              attr_reader :fr_meal_voucher
+              # Issuer of the benefit card utilized on this payment
+              attr_reader :issuer
+
+              def self.inner_class_types
+                @inner_class_types = { fr_meal_voucher: FrMealVoucher }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
             class Fleet < ::Stripe::StripeObject
               class TransactionDatum < ::Stripe::StripeObject
                 # The prompt that the Terminal SDK displays to collect this Fleet value.
@@ -411,6 +438,8 @@ module Stripe
             end
             # The authorized amount
             attr_reader :amount_authorized
+            # Attribute for field benefits
+            attr_reader :benefits
             # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             attr_reader :brand
             # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card.
@@ -478,6 +507,7 @@ module Stripe
 
             def self.inner_class_types
               @inner_class_types = {
+                benefits: Benefits,
                 fleet: Fleet,
                 multicapture: Multicapture,
                 offline: Offline,
@@ -823,6 +853,21 @@ module Stripe
     end
 
     class CardPresent < ::Stripe::StripeObject
+      class Benefits < ::Stripe::StripeObject
+        # Issuer of this benefit card
+        attr_reader :issuer
+        # Available benefit programs for this card
+        attr_reader :programs
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Networks < ::Stripe::StripeObject
         # All networks available for selection via [payment_method_options.card.network](/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
         attr_reader :available
@@ -865,6 +910,8 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Attribute for field benefits
+      attr_reader :benefits
       # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
       attr_reader :brand
       # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card.
@@ -903,7 +950,12 @@ module Stripe
       attr_reader :wallet
 
       def self.inner_class_types
-        @inner_class_types = { networks: Networks, offline: Offline, wallet: Wallet }
+        @inner_class_types = {
+          benefits: Benefits,
+          networks: Networks,
+          offline: Offline,
+          wallet: Wallet,
+        }
       end
 
       def self.field_remappings

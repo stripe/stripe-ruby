@@ -9,14 +9,17 @@ module Stripe
         attr_accessor :financial_account
         # The page limit.
         attr_accessor :limit
+        # Filter by bank transfer network. If omitted, returns mandates for all networks.
+        attr_accessor :network
         # Filter by mandate status.
         attr_accessor :statuses
         # The type of SpendingMandate to filter by.
         attr_accessor :type
 
-        def initialize(financial_account: nil, limit: nil, statuses: nil, type: nil)
+        def initialize(financial_account: nil, limit: nil, network: nil, statuses: nil, type: nil)
           @financial_account = financial_account
           @limit = limit
+          @network = network
           @statuses = statuses
           @type = type
         end

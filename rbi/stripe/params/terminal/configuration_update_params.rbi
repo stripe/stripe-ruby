@@ -838,7 +838,7 @@ module Stripe
       end
       class Wifi < ::Stripe::RequestParams
         class EnterpriseEapPeap < ::Stripe::RequestParams
-          # A File ID representing a PEM file containing the server certificate
+          # A File ID representing a PEM file containing the server certificate. The certificate is not currently used to validate the identity of the server, but will be used in a future device update.
           sig { returns(T.nilable(String)) }
           def ca_certificate_file; end
           sig { params(_ca_certificate_file: T.nilable(String)).returns(T.nilable(String)) }

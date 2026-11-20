@@ -758,8 +758,15 @@ module Stripe
             def template; end
             sig { params(_template: T.nilable(String)).returns(T.nilable(String)) }
             def template=(_template); end
-            sig { params(amount_tax_display: T.nilable(String), template: T.nilable(String)).void }
-            def initialize(amount_tax_display: nil, template: nil); end
+            # The specific version of the invoice rendering template to use for this invoice. If not specified, the latest version of the template will be used. Only available in unified mode.
+            sig { returns(T.nilable(Integer)) }
+            def template_version; end
+            sig { params(_template_version: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def template_version=(_template_version); end
+            sig {
+              params(amount_tax_display: T.nilable(String), template: T.nilable(String), template_version: T.nilable(Integer)).void
+             }
+            def initialize(amount_tax_display: nil, template: nil, template_version: nil); end
           end
           # The account tax IDs associated with the invoice.
           sig { returns(T.nilable(T.any(String, T::Array[String]))) }
@@ -1235,6 +1242,246 @@ module Stripe
             }
           end
         end
+        class OneTimePrice < ::Stripe::RequestParams
+          class Item < ::Stripe::RequestParams
+            class AdjustableQuantity < ::Stripe::RequestParams
+              # Set to true if the quantity can be adjusted to any non-negative integer.
+              sig { returns(T::Boolean) }
+              def enabled; end
+              sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+              def enabled=(_enabled); end
+              # The maximum quantity the customer can purchase for the Checkout Session. By default this value is 99. You can specify a value up to 999999.
+              sig { returns(T.nilable(Integer)) }
+              def maximum; end
+              sig { params(_maximum: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def maximum=(_maximum); end
+              # The minimum quantity the customer must purchase for the Checkout Session. By default this value is 0.
+              sig { returns(T.nilable(Integer)) }
+              def minimum; end
+              sig { params(_minimum: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def minimum=(_minimum); end
+              sig {
+                params(enabled: T::Boolean, maximum: T.nilable(Integer), minimum: T.nilable(Integer)).void
+               }
+              def initialize(enabled: nil, maximum: nil, minimum: nil); end
+            end
+            class PriceData < ::Stripe::RequestParams
+              class ProductData < ::Stripe::RequestParams
+                class TaxDetails < ::Stripe::RequestParams
+                  # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+                  sig { returns(T.nilable(String)) }
+                  def performance_location; end
+                  sig {
+                    params(_performance_location: T.nilable(String)).returns(T.nilable(String))
+                   }
+                  def performance_location=(_performance_location); end
+                  # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+                  sig { returns(T.nilable(String)) }
+                  def tax_code; end
+                  sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
+                  def tax_code=(_tax_code); end
+                  sig {
+                    params(performance_location: T.nilable(String), tax_code: T.nilable(String)).void
+                   }
+                  def initialize(performance_location: nil, tax_code: nil); end
+                end
+                # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+                sig { returns(T.nilable(String)) }
+                def description; end
+                sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+                def description=(_description); end
+                # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+                sig { returns(T.nilable(T::Array[String])) }
+                def images; end
+                sig {
+                  params(_images: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+                 }
+                def images=(_images); end
+                # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+                sig { returns(T.nilable(T::Hash[String, String])) }
+                def metadata; end
+                sig {
+                  params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+                 }
+                def metadata=(_metadata); end
+                # The product's name, meant to be displayable to the customer.
+                sig { returns(String) }
+                def name; end
+                sig { params(_name: String).returns(String) }
+                def name=(_name); end
+                # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+                sig { returns(T.nilable(String)) }
+                def tax_code; end
+                sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
+                def tax_code=(_tax_code); end
+                # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+                sig {
+                  returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::PriceData::ProductData::TaxDetails))
+                 }
+                def tax_details; end
+                sig {
+                  params(_tax_details: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::PriceData::ProductData::TaxDetails)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::PriceData::ProductData::TaxDetails))
+                 }
+                def tax_details=(_tax_details); end
+                # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+                sig { returns(T.nilable(String)) }
+                def unit_label; end
+                sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
+                def unit_label=(_unit_label); end
+                sig {
+                  params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), tax_details: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::PriceData::ProductData::TaxDetails), unit_label: T.nilable(String)).void
+                 }
+                def initialize(
+                  description: nil,
+                  images: nil,
+                  metadata: nil,
+                  name: nil,
+                  tax_code: nil,
+                  tax_details: nil,
+                  unit_label: nil
+                ); end
+              end
+              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+              sig { returns(String) }
+              def currency; end
+              sig { params(_currency: String).returns(String) }
+              def currency=(_currency); end
+              # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
+              sig { returns(T.nilable(String)) }
+              def product; end
+              sig { params(_product: T.nilable(String)).returns(T.nilable(String)) }
+              def product=(_product); end
+              # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
+              sig {
+                returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::PriceData::ProductData))
+               }
+              def product_data; end
+              sig {
+                params(_product_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::PriceData::ProductData)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::PriceData::ProductData))
+               }
+              def product_data=(_product_data); end
+              # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+              sig { returns(T.nilable(String)) }
+              def tax_behavior; end
+              sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
+              def tax_behavior=(_tax_behavior); end
+              # A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
+              sig { returns(T.nilable(Integer)) }
+              def unit_amount; end
+              sig { params(_unit_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def unit_amount=(_unit_amount); end
+              # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+              sig { returns(T.nilable(BigDecimal)) }
+              def unit_amount_decimal; end
+              sig {
+                params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal))
+               }
+              def unit_amount_decimal=(_unit_amount_decimal); end
+              sig {
+                params(currency: String, product: T.nilable(String), product_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::PriceData::ProductData), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(BigDecimal)).void
+               }
+              def initialize(
+                currency: nil,
+                product: nil,
+                product_data: nil,
+                tax_behavior: nil,
+                unit_amount: nil,
+                unit_amount_decimal: nil
+              ); end
+              def self.field_encodings
+                @field_encodings = {unit_amount_decimal: :decimal_string}
+              end
+            end
+            # When set, provides configuration for this item’s quantity to be adjusted by the customer during Checkout.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::AdjustableQuantity))
+             }
+            def adjustable_quantity; end
+            sig {
+              params(_adjustable_quantity: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::AdjustableQuantity)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::AdjustableQuantity))
+             }
+            def adjustable_quantity=(_adjustable_quantity); end
+            # The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required.
+            sig { returns(T.nilable(String)) }
+            def price; end
+            sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
+            def price=(_price); end
+            # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::PriceData))
+             }
+            def price_data; end
+            sig {
+              params(_price_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::PriceData)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::PriceData))
+             }
+            def price_data=(_price_data); end
+            # Quantity for this item.
+            sig { returns(Integer) }
+            def quantity; end
+            sig { params(_quantity: Integer).returns(Integer) }
+            def quantity=(_quantity); end
+            # The [tax rates](https://docs.stripe.com/api/tax_rates) which apply to this line item.
+            sig { returns(T.nilable(T::Array[String])) }
+            def tax_rates; end
+            sig {
+              params(_tax_rates: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def tax_rates=(_tax_rates); end
+            sig {
+              params(adjustable_quantity: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::AdjustableQuantity), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item::PriceData), quantity: Integer, tax_rates: T.nilable(T::Array[String])).void
+             }
+            def initialize(
+              adjustable_quantity: nil,
+              price: nil,
+              price_data: nil,
+              quantity: nil,
+              tax_rates: nil
+            ); end
+            def self.field_encodings
+              @field_encodings = {
+                price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+              }
+            end
+          end
+          # The one-time price's description, meant to be displayable to the customer.
+          sig { returns(T.nilable(String)) }
+          def description; end
+          sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+          def description=(_description); end
+          # The list of items for the one-time price.
+          sig {
+            returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item])
+           }
+          def items; end
+          sig {
+            params(_items: T::Array[::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item]).returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item])
+           }
+          def items=(_items); end
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          sig { returns(T.nilable(T::Hash[String, String])) }
+          def metadata; end
+          sig {
+            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+           }
+          def metadata=(_metadata); end
+          sig {
+            params(description: T.nilable(String), items: T::Array[::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice::Item], metadata: T.nilable(T::Hash[String, String])).void
+           }
+          def initialize(description: nil, items: nil, metadata: nil); end
+          def self.field_encodings
+            @field_encodings = {
+              items: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+                  },
+                },
+              },
+            }
+          end
+        end
         class Subscription < ::Stripe::RequestParams
           class BillingCycleAnchorConfig < ::Stripe::RequestParams
             # The day of the month the anchor should be. Ranges from 1 to 31.
@@ -1690,6 +1937,13 @@ module Stripe
           params(_metronome_commit: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit))
          }
         def metronome_commit=(_metronome_commit); end
+        # Configuration for the one-time price item.
+        sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice)) }
+        def one_time_price; end
+        sig {
+          params(_one_time_price: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice))
+         }
+        def one_time_price=(_one_time_price); end
         # Configuration for the subscription item.
         sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription)) }
         def subscription; end
@@ -1703,9 +1957,14 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(metronome_commit: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit), subscription: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription), type: String).void
+          params(metronome_commit: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::MetronomeCommit), one_time_price: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::OneTimePrice), subscription: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription), type: String).void
          }
-        def initialize(metronome_commit: nil, subscription: nil, type: nil); end
+        def initialize(
+          metronome_commit: nil,
+          one_time_price: nil,
+          subscription: nil,
+          type: nil
+        ); end
         def self.field_encodings
           @field_encodings = {
             metronome_commit: {
@@ -1727,6 +1986,20 @@ module Stripe
                       },
                       priority: :decimal_string,
                       rollover_fraction: :decimal_string,
+                    },
+                  },
+                },
+              },
+            },
+            one_time_price: {
+              kind: :object,
+              fields: {
+                items: {
+                  kind: :array,
+                  element: {
+                    kind: :object,
+                    fields: {
+                      price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
                     },
                   },
                 },
@@ -1989,8 +2262,20 @@ module Stripe
           def consent_collected; end
           sig { params(_consent_collected: T::Boolean).returns(T::Boolean) }
           def consent_collected=(_consent_collected); end
-          sig { params(consent_collected: T::Boolean).void }
-          def initialize(consent_collected: nil); end
+          # The URL of the web page where the customer converted.
+          sig { returns(T.nilable(String)) }
+          def source_url; end
+          sig { params(_source_url: T.nilable(String)).returns(T.nilable(String)) }
+          def source_url=(_source_url); end
+          # The user agent of the browser where the customer converted.
+          sig { returns(T.nilable(String)) }
+          def user_agent; end
+          sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+          def user_agent=(_user_agent); end
+          sig {
+            params(consent_collected: T::Boolean, source_url: T.nilable(String), user_agent: T.nilable(String)).void
+           }
+          def initialize(consent_collected: nil, source_url: nil, user_agent: nil); end
         end
         # Information used when sending conversions to an advertising platform.
         sig {
@@ -2676,7 +2961,13 @@ module Stripe
             params(_mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Blik::MandateOptions)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Blik::MandateOptions))
            }
           def mandate_options=(_mandate_options); end
-          # Attribute for param field setup_future_usage
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           sig { returns(T.nilable(String)) }
           def setup_future_usage; end
           sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
@@ -5944,6 +6235,23 @@ module Stripe
                           },
                           priority: :decimal_string,
                           rollover_fraction: :decimal_string,
+                        },
+                      },
+                    },
+                  },
+                },
+                one_time_price: {
+                  kind: :object,
+                  fields: {
+                    items: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          price_data: {
+                            kind: :object,
+                            fields: {unit_amount_decimal: :decimal_string},
+                          },
                         },
                       },
                     },

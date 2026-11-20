@@ -16,6 +16,19 @@ module Stripe
           )
         end
 
+        # Creates an active SpendingMandate authorizing an ACH originator to debit a Financial Account.
+        #
+        # ** raises AlreadyExistsError
+        def create(params = {}, opts = {})
+          request(
+            method: :post,
+            path: "/v2/money_management/spending_mandates",
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
         # Returns a list of SpendingMandates.
         def list(params = {}, opts = {})
           request(
@@ -31,6 +44,19 @@ module Stripe
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
+            path: format("/v2/money_management/spending_mandates/%<id>s", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
+        # Updates an active ACH SpendingMandate.
+        #
+        # ** raises AlreadyExistsError
+        def update(id, params = {}, opts = {})
+          request(
+            method: :post,
             path: format("/v2/money_management/spending_mandates/%<id>s", { id: CGI.escape(id) }),
             params: params,
             opts: opts,

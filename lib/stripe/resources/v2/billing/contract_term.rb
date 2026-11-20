@@ -58,11 +58,41 @@ module Stripe
           end
 
           class Overwrite < ::Stripe::StripeObject
+            class Tier < ::Stripe::StripeObject
+              # Flat amount in minor currency units.
+              attr_reader :flat_amount_decimal
+              # Per-unit amount in minor currency units.
+              attr_reader :unit_amount_decimal
+              # Inclusive whole-number upper bound. Omitted for an unbounded final tier.
+              attr_reader :up_to
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+
+              def self.field_encodings
+                @field_encodings = {
+                  flat_amount_decimal: :decimal_string,
+                  unit_amount_decimal: :decimal_string,
+                  up_to: :int64_string,
+                }
+              end
+            end
+            # Whether the replacement pricing is per unit or tiered.
+            attr_reader :billing_scheme
+            # Replacement pricing tiers.
+            attr_reader :tiers
+            # How the pricing tiers are applied.
+            attr_reader :tiers_mode
             # The replacement per-unit amount in minor currency units.
             attr_reader :unit_amount_decimal
 
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = { tiers: Tier }
             end
 
             def self.field_remappings
@@ -70,7 +100,20 @@ module Stripe
             end
 
             def self.field_encodings
-              @field_encodings = { unit_amount_decimal: :decimal_string }
+              @field_encodings = {
+                tiers: {
+                  kind: :array,
+                  element: {
+                    kind: :object,
+                    fields: {
+                      flat_amount_decimal: :decimal_string,
+                      unit_amount_decimal: :decimal_string,
+                      up_to: :int64_string,
+                    },
+                  },
+                },
+                unit_amount_decimal: :decimal_string,
+              }
             end
           end
 
@@ -118,7 +161,23 @@ module Stripe
           def self.field_encodings
             @field_encodings = {
               multiply: { kind: :object, fields: { factor: :decimal_string } },
-              overwrite: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+              overwrite: {
+                kind: :object,
+                fields: {
+                  tiers: {
+                    kind: :array,
+                    element: {
+                      kind: :object,
+                      fields: {
+                        flat_amount_decimal: :decimal_string,
+                        unit_amount_decimal: :decimal_string,
+                        up_to: :int64_string,
+                      },
+                    },
+                  },
+                  unit_amount_decimal: :decimal_string,
+                },
+              },
             }
           end
         end
@@ -186,10 +245,12 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Amount in the contract's currency.
-              attr_reader :amount
               # The resolved bill date.
               attr_reader :bill_at
+              # Resolved installment quantity. Always present; defaults to 1 when omitted on input.
+              attr_reader :quantity
+              # Unit price in minor units of the contract's currency, before multiplying by quantity.
+              attr_reader :unit_amount_decimal
 
               def self.inner_class_types
                 @inner_class_types = { bill_at: BillAt }
@@ -197,6 +258,10 @@ module Stripe
 
               def self.field_remappings
                 @field_remappings = {}
+              end
+
+              def self.field_encodings
+                @field_encodings = { quantity: :decimal_string, unit_amount_decimal: :decimal_string }
               end
             end
             # Scheduled installments and billed history.
@@ -210,6 +275,18 @@ module Stripe
 
             def self.field_remappings
               @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                custom: {
+                  kind: :array,
+                  element: {
+                    kind: :object,
+                    fields: { quantity: :decimal_string, unit_amount_decimal: :decimal_string },
+                  },
+                },
+              }
             end
           end
 
@@ -266,6 +343,23 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              bill_schedule: {
+                kind: :object,
+                fields: {
+                  custom: {
+                    kind: :array,
+                    element: {
+                      kind: :object,
+                      fields: { quantity: :decimal_string, unit_amount_decimal: :decimal_string },
+                    },
+                  },
+                },
+              },
+            }
+          end
         end
         # The stable ID of the term.
         attr_reader :id
@@ -304,10 +398,43 @@ module Stripe
               kind: :object,
               fields: {
                 multiply: { kind: :object, fields: { factor: :decimal_string } },
-                overwrite: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+                overwrite: {
+                  kind: :object,
+                  fields: {
+                    tiers: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          flat_amount_decimal: :decimal_string,
+                          unit_amount_decimal: :decimal_string,
+                          up_to: :int64_string,
+                        },
+                      },
+                    },
+                    unit_amount_decimal: :decimal_string,
+                  },
+                },
               },
             },
             recurring_price: { kind: :object, fields: { quantity: :decimal_string } },
+            scheduled_fee: {
+              kind: :object,
+              fields: {
+                bill_schedule: {
+                  kind: :object,
+                  fields: {
+                    custom: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: { quantity: :decimal_string, unit_amount_decimal: :decimal_string },
+                      },
+                    },
+                  },
+                },
+              },
+            },
           }
         end
       end

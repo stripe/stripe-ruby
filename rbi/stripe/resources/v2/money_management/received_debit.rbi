@@ -371,6 +371,10 @@ module Stripe
         # The dispute details.
         sig { returns(T.nilable(DisputeDetails)) }
         def dispute_details; end
+        # Has the value `true` if the object has an associated Dispute otherwise or the value `false`.
+        # Use the Disputes List API with `target` to see details.
+        sig { returns(T::Boolean) }
+        def disputed; end
         # The amount and currency of the original/external debit request.
         sig { returns(T.nilable(::Stripe::V2::Amount)) }
         def external_amount; end

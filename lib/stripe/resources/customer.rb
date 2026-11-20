@@ -98,6 +98,10 @@ module Stripe
       class AdConversion < ::Stripe::StripeObject
         # Whether the customer consented to sending conversion data to an advertising platform.
         attr_reader :consent_collected
+        # The URL of the web page where the customer converted.
+        attr_reader :source_url
+        # The user agent of the browser where the customer converted.
+        attr_reader :user_agent
 
         def self.inner_class_types
           @inner_class_types = {}

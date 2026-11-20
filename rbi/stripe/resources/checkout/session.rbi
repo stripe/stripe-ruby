@@ -993,6 +993,9 @@ module Stripe
             # ID of the invoice rendering template to be used for the generated invoice.
             sig { returns(T.nilable(String)) }
             def template; end
+            # The version of the invoice rendering template to be used for the generated invoice. If null, the latest version of the template will be used. Only available in unified mode.
+            sig { returns(T.nilable(Integer)) }
+            def template_version; end
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -1330,6 +1333,60 @@ module Stripe
             }
           end
         end
+        class OneTimePrice < ::Stripe::StripeObject
+          class Item < ::Stripe::StripeObject
+            class AdjustableQuantity < ::Stripe::StripeObject
+              # Whether the quantity is adjustable.
+              sig { returns(T::Boolean) }
+              def enabled; end
+              # The maximum quantity the customer can purchase.
+              sig { returns(T.nilable(Integer)) }
+              def maximum; end
+              # The minimum quantity the customer can purchase.
+              sig { returns(T.nilable(Integer)) }
+              def minimum; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The adjustable quantity settings for this one-time price item.
+            sig { returns(T.nilable(AdjustableQuantity)) }
+            def adjustable_quantity; end
+            # The price for this one-time price item.
+            sig { returns(T.any(String, ::Stripe::Price)) }
+            def price; end
+            # The quantity for this one-time price item.
+            sig { returns(Integer) }
+            def quantity; end
+            # The [tax rates](https://docs.stripe.com/api/tax_rates) which apply to this line item.
+            sig { returns(T.nilable(T::Array[String])) }
+            def tax_rates; end
+            def self.inner_class_types
+              @inner_class_types = {adjustable_quantity: AdjustableQuantity}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The description for the one-time price.
+          sig { returns(T.nilable(String)) }
+          def description; end
+          # The items in the one-time price configuration.
+          sig { returns(T::Array[Item]) }
+          def items; end
+          # Set of key-value pairs attached to the one-time price.
+          sig { returns(T.nilable(T::Hash[String, String])) }
+          def metadata; end
+          def self.inner_class_types
+            @inner_class_types = {items: Item}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Subscription < ::Stripe::StripeObject
           class Item < ::Stripe::StripeObject
             class AdjustableQuantity < ::Stripe::StripeObject
@@ -1468,6 +1525,9 @@ module Stripe
         # Attribute for field metronome_commit
         sig { returns(T.nilable(MetronomeCommit)) }
         def metronome_commit; end
+        # Attribute for field one_time_price
+        sig { returns(T.nilable(OneTimePrice)) }
+        def one_time_price; end
         # Attribute for field subscription
         sig { returns(T.nilable(Subscription)) }
         def subscription; end
@@ -1475,7 +1535,11 @@ module Stripe
         sig { returns(String) }
         def type; end
         def self.inner_class_types
-          @inner_class_types = {metronome_commit: MetronomeCommit, subscription: Subscription}
+          @inner_class_types = {
+            metronome_commit: MetronomeCommit,
+            one_time_price: OneTimePrice,
+            subscription: Subscription,
+          }
         end
         def self.field_remappings
           @field_remappings = {}
@@ -1528,6 +1592,12 @@ module Stripe
           # Whether the customer consented to sending conversion data to an advertising platform.
           sig { returns(T::Boolean) }
           def consent_collected; end
+          # The URL of the web page where the customer converted.
+          sig { returns(T.nilable(String)) }
+          def source_url; end
+          # The user agent of the browser where the customer converted.
+          sig { returns(T.nilable(String)) }
+          def user_agent; end
           def self.inner_class_types
             @inner_class_types = {}
           end

@@ -133,6 +133,10 @@ module Stripe
           # Timestamp of when the batch transitioned to BILLED, if applicable.
           sig { returns(T.nilable(String)) }
           def billed_at; end
+          # Present only when `status=canceled`;
+          # `billed_at` and `canceled_at` are mutually exclusive.
+          sig { returns(T.nilable(String)) }
+          def canceled_at; end
           def self.inner_class_types
             @inner_class_types = {}
           end

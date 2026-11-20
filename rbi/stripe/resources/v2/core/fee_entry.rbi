@@ -5,7 +5,9 @@
 module Stripe
   module V2
     module Core
-      # A FeeEntry is the atomic, append-only record of an assessed fee.
+      # A FeeEntry is an atomic record of an assessed fee. Its assessment attributes are
+      # immutable, while its FeeBatch association and derived status can change as the fee
+      # progresses through billing.
       class FeeEntry < APIResource
         class Amount < ::Stripe::StripeObject
           # A lowercase alpha3 currency code like "usd".
@@ -128,7 +130,10 @@ module Stripe
         # Timestamp of when this fee entry was created.
         sig { returns(String) }
         def created; end
-        # The ID of the FeeBatch that collected this fee, if any.
+        # The ID of the FeeBatch currently assigned to collect this fee, if any. If Stripe
+        # cancels the assigned FeeBatch before billing, Stripe reassigns the FeeEntry to a
+        # replacement FeeBatch. During reassociation, this field can temporarily continue
+        # to reference the canceled FeeBatch.
         sig { returns(T.nilable(String)) }
         def fee_batch; end
         # Unique identifier for the FeeEntry.
@@ -146,6 +151,12 @@ module Stripe
         # The reason this fee entry was created.
         sig { returns(String) }
         def reason; end
+        # The current billing status of the fee. Every FeeEntry eventually transitions
+        # from `assessed` to `billed` when its associated FeeBatch is billed. While
+        # `assessed`, its FeeBatch association can change if the assigned batch is canceled.
+        # Once `billed`, the status and FeeBatch association are terminal.
+        sig { returns(String) }
+        def status; end
         # The tax portion of the fee, if applicable.
         sig { returns(T.nilable(Tax)) }
         def tax; end

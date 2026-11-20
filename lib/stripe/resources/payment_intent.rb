@@ -5675,7 +5675,7 @@ module Stripe
     end
 
     class RadarOptions < ::Stripe::StripeObject
-      # The value you provided for whether this transaction starts a free trial. This is null if you haven't explicitly set it.
+      # The value you provided for whether this transaction starts a free trial. This field is omitted if you haven't explicitly set it.
       attr_reader :is_free_trial_transaction
 
       def self.inner_class_types

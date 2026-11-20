@@ -19,6 +19,10 @@ module Stripe
         attr_accessor :created_lte
         # Maximum number of results to return per page. Defaults to 20.
         attr_accessor :limit
+        # Filters FeeBatches by status. Multiple values use OR semantics. When omitted or
+        # empty, returns `pending` and `billed` FeeBatches. To return canceled FeeBatches,
+        # include `canceled`.
+        attr_accessor :statuses
 
         def initialize(
           collection_record: nil,
@@ -27,7 +31,8 @@ module Stripe
           created_gte: nil,
           created_lt: nil,
           created_lte: nil,
-          limit: nil
+          limit: nil,
+          statuses: nil
         )
           @collection_record = collection_record
           @created = created
@@ -36,6 +41,7 @@ module Stripe
           @created_lt = created_lt
           @created_lte = created_lte
           @limit = limit
+          @statuses = statuses
         end
       end
     end

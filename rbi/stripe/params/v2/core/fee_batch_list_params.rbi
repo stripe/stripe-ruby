@@ -41,8 +41,15 @@ module Stripe
         def limit; end
         sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def limit=(_limit); end
+        # Filters FeeBatches by status. Multiple values use OR semantics. When omitted or
+        # empty, returns `pending` and `billed` FeeBatches. To return canceled FeeBatches,
+        # include `canceled`.
+        sig { returns(T.nilable(T::Array[String])) }
+        def statuses; end
+        sig { params(_statuses: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def statuses=(_statuses); end
         sig {
-          params(collection_record: T.nilable(String), created: T.nilable(String), created_gt: T.nilable(String), created_gte: T.nilable(String), created_lt: T.nilable(String), created_lte: T.nilable(String), limit: T.nilable(Integer)).void
+          params(collection_record: T.nilable(String), created: T.nilable(String), created_gt: T.nilable(String), created_gte: T.nilable(String), created_lt: T.nilable(String), created_lte: T.nilable(String), limit: T.nilable(Integer), statuses: T.nilable(T::Array[String])).void
          }
         def initialize(
           collection_record: nil,
@@ -51,7 +58,8 @@ module Stripe
           created_gte: nil,
           created_lt: nil,
           created_lte: nil,
-          limit: nil
+          limit: nil,
+          statuses: nil
         ); end
       end
     end

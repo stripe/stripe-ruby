@@ -974,6 +974,8 @@ module Stripe
             attr_reader :amount_tax_display
             # ID of the invoice rendering template to be used for the generated invoice.
             attr_reader :template
+            # The version of the invoice rendering template to be used for the generated invoice. If null, the latest version of the template will be used. Only available in unified mode.
+            attr_reader :template_version
 
             def self.inner_class_types
               @inner_class_types = {}
@@ -1298,6 +1300,57 @@ module Stripe
           end
         end
 
+        class OneTimePrice < ::Stripe::StripeObject
+          class Item < ::Stripe::StripeObject
+            class AdjustableQuantity < ::Stripe::StripeObject
+              # Whether the quantity is adjustable.
+              attr_reader :enabled
+              # The maximum quantity the customer can purchase.
+              attr_reader :maximum
+              # The minimum quantity the customer can purchase.
+              attr_reader :minimum
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The adjustable quantity settings for this one-time price item.
+            attr_reader :adjustable_quantity
+            # The price for this one-time price item.
+            attr_reader :price
+            # The quantity for this one-time price item.
+            attr_reader :quantity
+            # The [tax rates](https://docs.stripe.com/api/tax_rates) which apply to this line item.
+            attr_reader :tax_rates
+
+            def self.inner_class_types
+              @inner_class_types = { adjustable_quantity: AdjustableQuantity }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The description for the one-time price.
+          attr_reader :description
+          # The items in the one-time price configuration.
+          attr_reader :items
+          # Set of key-value pairs attached to the one-time price.
+          attr_reader :metadata
+
+          def self.inner_class_types
+            @inner_class_types = { items: Item }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Subscription < ::Stripe::StripeObject
           class Item < ::Stripe::StripeObject
             class AdjustableQuantity < ::Stripe::StripeObject
@@ -1428,13 +1481,19 @@ module Stripe
         attr_reader :key
         # Attribute for field metronome_commit
         attr_reader :metronome_commit
+        # Attribute for field one_time_price
+        attr_reader :one_time_price
         # Attribute for field subscription
         attr_reader :subscription
         # The type of the item.
         attr_reader :type
 
         def self.inner_class_types
-          @inner_class_types = { metronome_commit: MetronomeCommit, subscription: Subscription }
+          @inner_class_types = {
+            metronome_commit: MetronomeCommit,
+            one_time_price: OneTimePrice,
+            subscription: Subscription,
+          }
         end
 
         def self.field_remappings
@@ -1491,6 +1550,10 @@ module Stripe
         class AdConversion < ::Stripe::StripeObject
           # Whether the customer consented to sending conversion data to an advertising platform.
           attr_reader :consent_collected
+          # The URL of the web page where the customer converted.
+          attr_reader :source_url
+          # The user agent of the browser where the customer converted.
+          attr_reader :user_agent
 
           def self.inner_class_types
             @inner_class_types = {}

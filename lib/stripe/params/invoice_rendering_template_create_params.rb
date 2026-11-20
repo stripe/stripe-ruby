@@ -15,6 +15,15 @@ module Stripe
     class RenderingSettings < ::Stripe::RequestParams
       class InvoicePdf < ::Stripe::RequestParams
         class Block < ::Stripe::RequestParams
+          class CustomPlainText < ::Stripe::RequestParams
+            # Literal text to render, preserving whitespace and newlines. Required, at most 10,000 characters; an empty string renders no text.
+            attr_accessor :plain_text
+
+            def initialize(plain_text: nil)
+              @plain_text = plain_text
+            end
+          end
+
           class CustomPlainTextCel < ::Stripe::RequestParams
             # A CEL expression that returns text using the invoice context.
             attr_accessor :cel_expression
@@ -23,6 +32,8 @@ module Stripe
               @cel_expression = cel_expression
             end
           end
+          # Configuration for a repeatable literal text block. Omit this hash on a keyed update to retain saved text; supply it to replace the text.
+          attr_accessor :custom_plain_text
           # Configuration for a custom CEL text block.
           attr_accessor :custom_plain_text_cel
           # A unique key within this template's blocks. Generated when omitted.
@@ -30,13 +41,14 @@ module Stripe
           # The type of content block.
           attr_accessor :type
 
-          def initialize(custom_plain_text_cel: nil, key: nil, type: nil)
+          def initialize(custom_plain_text: nil, custom_plain_text_cel: nil, key: nil, type: nil)
+            @custom_plain_text = custom_plain_text
             @custom_plain_text_cel = custom_plain_text_cel
             @key = key
             @type = type
           end
         end
-        # Ordered invoice PDF blocks. A maximum of 20 blocks is allowed.
+        # Ordered invoice PDF blocks, at most 20. Include every default type exactly once; custom text blocks may repeat.
         attr_accessor :blocks
 
         def initialize(blocks: nil)

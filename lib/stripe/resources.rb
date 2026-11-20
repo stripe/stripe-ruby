@@ -1336,6 +1336,20 @@ module Stripe
              "stripe/events/v2_money_management_debit_dispute_succeeded_event"
     autoload :V2MoneyManagementDebitDisputeSucceededEventNotification,
              "stripe/events/v2_money_management_debit_dispute_succeeded_event"
+    autoload :V2MoneyManagementDisputeAdjustmentCreatedEvent,
+             "stripe/events/v2_money_management_dispute_adjustment_created_event"
+    autoload :V2MoneyManagementDisputeAdjustmentCreatedEventNotification,
+             "stripe/events/v2_money_management_dispute_adjustment_created_event"
+    autoload :V2MoneyManagementDisputeCreatedEvent, "stripe/events/v2_money_management_dispute_created_event"
+    autoload :V2MoneyManagementDisputeCreatedEventNotification,
+             "stripe/events/v2_money_management_dispute_created_event"
+    autoload :V2MoneyManagementDisputeLostEvent, "stripe/events/v2_money_management_dispute_lost_event"
+    autoload :V2MoneyManagementDisputeLostEventNotification, "stripe/events/v2_money_management_dispute_lost_event"
+    autoload :V2MoneyManagementDisputeUpdatedEvent, "stripe/events/v2_money_management_dispute_updated_event"
+    autoload :V2MoneyManagementDisputeUpdatedEventNotification,
+             "stripe/events/v2_money_management_dispute_updated_event"
+    autoload :V2MoneyManagementDisputeWonEvent, "stripe/events/v2_money_management_dispute_won_event"
+    autoload :V2MoneyManagementDisputeWonEventNotification, "stripe/events/v2_money_management_dispute_won_event"
     autoload :V2MoneyManagementEarnedCreditSucceededEvent,
              "stripe/events/v2_money_management_earned_credit_succeeded_event"
     autoload :V2MoneyManagementEarnedCreditSucceededEventNotification,
@@ -1769,6 +1783,10 @@ module Stripe
     autoload :V2ReportingReportRunSucceededEventNotification, "stripe/events/v2_reporting_report_run_succeeded_event"
     autoload :V2ReportingReportRunUpdatedEvent, "stripe/events/v2_reporting_report_run_updated_event"
     autoload :V2ReportingReportRunUpdatedEventNotification, "stripe/events/v2_reporting_report_run_updated_event"
+    autoload :V2RiskEvaluationOutcomeDelinquencyReadyEvent,
+             "stripe/events/v2_risk_evaluation_outcome_delinquency_ready_event"
+    autoload :V2RiskEvaluationOutcomeDelinquencyReadyEventNotification,
+             "stripe/events/v2_risk_evaluation_outcome_delinquency_ready_event"
     autoload :V2SignalsAccountEvaluationCompleteEvent, "stripe/events/v2_signals_account_evaluation_complete_event"
     autoload :V2SignalsAccountEvaluationCompleteEventNotification,
              "stripe/events/v2_signals_account_evaluation_complete_event"
@@ -2060,6 +2078,8 @@ module Stripe
       autoload :Adjustment, "stripe/resources/v2/money_management/adjustment"
       autoload :CurrencyConversion, "stripe/resources/v2/money_management/currency_conversion"
       autoload :DebitDispute, "stripe/resources/v2/money_management/debit_dispute"
+      autoload :Dispute, "stripe/resources/v2/money_management/dispute"
+      autoload :DisputeAdjustment, "stripe/resources/v2/money_management/dispute_adjustment"
       autoload :EarnedCredit, "stripe/resources/v2/money_management/earned_credit"
       autoload :EarnedCreditSimulation, "stripe/resources/v2/money_management/earned_credit_simulation"
       autoload :FinancialAccount, "stripe/resources/v2/money_management/financial_account"
@@ -2131,6 +2151,7 @@ module Stripe
     end
 
     module Risk
+      autoload :EvaluationOutcome, "stripe/resources/v2/risk/evaluation_outcome"
       autoload :Form, "stripe/resources/v2/risk/form"
     end
 
@@ -2437,6 +2458,8 @@ module Stripe
     stripe/resources/v2/money_management/adjustment
     stripe/resources/v2/money_management/currency_conversion
     stripe/resources/v2/money_management/debit_dispute
+    stripe/resources/v2/money_management/dispute
+    stripe/resources/v2/money_management/dispute_adjustment
     stripe/resources/v2/money_management/earned_credit
     stripe/resources/v2/money_management/earned_credit_simulation
     stripe/resources/v2/money_management/financial_account
@@ -2486,6 +2509,7 @@ module Stripe
     stripe/resources/v2/provisioning/resource_access_configuration
     stripe/resources/v2/reporting/report
     stripe/resources/v2/reporting/report_run
+    stripe/resources/v2/risk/evaluation_outcome
     stripe/resources/v2/risk/form
     stripe/resources/v2/signals/account_activity
     stripe/resources/v2/signals/account_evaluation
@@ -2934,6 +2958,11 @@ module Stripe
     stripe/events/v2_money_management_debit_dispute_failed_event
     stripe/events/v2_money_management_debit_dispute_submitted_event
     stripe/events/v2_money_management_debit_dispute_succeeded_event
+    stripe/events/v2_money_management_dispute_adjustment_created_event
+    stripe/events/v2_money_management_dispute_created_event
+    stripe/events/v2_money_management_dispute_lost_event
+    stripe/events/v2_money_management_dispute_updated_event
+    stripe/events/v2_money_management_dispute_won_event
     stripe/events/v2_money_management_earned_credit_succeeded_event
     stripe/events/v2_money_management_financial_account_created_event
     stripe/events/v2_money_management_financial_account_statement_created_event
@@ -3048,6 +3077,7 @@ module Stripe
     stripe/events/v2_reporting_report_run_failed_event
     stripe/events/v2_reporting_report_run_succeeded_event
     stripe/events/v2_reporting_report_run_updated_event
+    stripe/events/v2_risk_evaluation_outcome_delinquency_ready_event
     stripe/events/v2_signals_account_evaluation_complete_event
     stripe/events/v2_signals_account_signal_customer_risk_ready_event
     stripe/events/v2_signals_account_signal_fraudulent_merchant_ready_event

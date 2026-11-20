@@ -95,9 +95,15 @@ module Stripe
       class AdConversion < ::Stripe::RequestParams
         # Whether the customer consented to sending conversion data to an advertising platform.
         attr_accessor :consent_collected
+        # The URL of the web page where the customer converted.
+        attr_accessor :source_url
+        # The user agent of the browser where the customer converted.
+        attr_accessor :user_agent
 
-        def initialize(consent_collected: nil)
+        def initialize(consent_collected: nil, source_url: nil, user_agent: nil)
           @consent_collected = consent_collected
+          @source_url = source_url
+          @user_agent = user_agent
         end
       end
       # Information used when sending conversions to an advertising platform.

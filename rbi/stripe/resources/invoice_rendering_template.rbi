@@ -22,6 +22,17 @@ module Stripe
     class RenderingSettings < ::Stripe::StripeObject
       class InvoicePdf < ::Stripe::StripeObject
         class Block < ::Stripe::StripeObject
+          class CustomPlainText < ::Stripe::StripeObject
+            # Literal text to render, preserving whitespace and newlines.
+            sig { returns(String) }
+            def plain_text; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class CustomPlainTextCel < ::Stripe::StripeObject
             # A CEL expression that returns text using the invoice context.
             sig { returns(String) }
@@ -33,6 +44,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field custom_plain_text
+          sig { returns(T.nilable(CustomPlainText)) }
+          def custom_plain_text; end
           # Attribute for field custom_plain_text_cel
           sig { returns(T.nilable(CustomPlainTextCel)) }
           def custom_plain_text_cel; end
@@ -43,7 +57,10 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {custom_plain_text_cel: CustomPlainTextCel}
+            @inner_class_types = {
+              custom_plain_text: CustomPlainText,
+              custom_plain_text_cel: CustomPlainTextCel,
+            }
           end
           def self.field_remappings
             @field_remappings = {}

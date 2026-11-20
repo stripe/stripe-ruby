@@ -363,6 +363,9 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # If the dispute was eligible for appeal, whether the appeal was submitted manually, with Smart Disputes, or not submitted.
+      sig { returns(T.nilable(String)) }
+      def appeal_method; end
       # Date by which evidence must be submitted in order to successfully challenge dispute. Will be 0 if the customer's bank or credit card company doesn't allow a response for this particular dispute.
       sig { returns(T.nilable(Integer)) }
       def due_by; end

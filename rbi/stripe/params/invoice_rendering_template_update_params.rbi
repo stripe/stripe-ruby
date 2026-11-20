@@ -16,6 +16,15 @@ module Stripe
     class RenderingSettings < ::Stripe::RequestParams
       class InvoicePdf < ::Stripe::RequestParams
         class Block < ::Stripe::RequestParams
+          class CustomPlainText < ::Stripe::RequestParams
+            # Literal text to render, preserving whitespace and newlines. Required, at most 10,000 characters; an empty string renders no text.
+            sig { returns(String) }
+            def plain_text; end
+            sig { params(_plain_text: String).returns(String) }
+            def plain_text=(_plain_text); end
+            sig { params(plain_text: String).void }
+            def initialize(plain_text: nil); end
+          end
           class CustomPlainTextCel < ::Stripe::RequestParams
             # A CEL expression that returns text using the invoice context.
             sig { returns(String) }
@@ -25,6 +34,15 @@ module Stripe
             sig { params(cel_expression: String).void }
             def initialize(cel_expression: nil); end
           end
+          # Configuration for a repeatable literal text block. Omit this hash on a keyed update to retain saved text; supply it to replace the text.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceRenderingTemplateUpdateParams::RenderingSettings::InvoicePdf::Block::CustomPlainText))
+           }
+          def custom_plain_text; end
+          sig {
+            params(_custom_plain_text: T.nilable(::Stripe::InvoiceRenderingTemplateUpdateParams::RenderingSettings::InvoicePdf::Block::CustomPlainText)).returns(T.nilable(::Stripe::InvoiceRenderingTemplateUpdateParams::RenderingSettings::InvoicePdf::Block::CustomPlainText))
+           }
+          def custom_plain_text=(_custom_plain_text); end
           # Configuration for a custom CEL text block.
           sig {
             returns(T.nilable(::Stripe::InvoiceRenderingTemplateUpdateParams::RenderingSettings::InvoicePdf::Block::CustomPlainTextCel))
@@ -45,11 +63,16 @@ module Stripe
           sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
           def type=(_type); end
           sig {
-            params(custom_plain_text_cel: T.nilable(::Stripe::InvoiceRenderingTemplateUpdateParams::RenderingSettings::InvoicePdf::Block::CustomPlainTextCel), key: T.nilable(String), type: T.nilable(String)).void
+            params(custom_plain_text: T.nilable(::Stripe::InvoiceRenderingTemplateUpdateParams::RenderingSettings::InvoicePdf::Block::CustomPlainText), custom_plain_text_cel: T.nilable(::Stripe::InvoiceRenderingTemplateUpdateParams::RenderingSettings::InvoicePdf::Block::CustomPlainTextCel), key: T.nilable(String), type: T.nilable(String)).void
            }
-          def initialize(custom_plain_text_cel: nil, key: nil, type: nil); end
+          def initialize(
+            custom_plain_text: nil,
+            custom_plain_text_cel: nil,
+            key: nil,
+            type: nil
+          ); end
         end
-        # Ordered invoice PDF blocks. A maximum of 20 blocks is allowed.
+        # The complete replacement order of at most 20 invoice PDF blocks. Keys retain saved configuration when its hash is omitted. Omitted custom blocks are removed; include every default type exactly once. Omit blocks to preserve settings, or supply an empty string to reset to defaults.
         sig {
           returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceRenderingTemplateUpdateParams::RenderingSettings::InvoicePdf::Block])))
          }

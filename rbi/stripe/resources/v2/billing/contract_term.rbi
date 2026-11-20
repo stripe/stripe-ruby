@@ -48,17 +48,63 @@ module Stripe
             end
           end
           class Overwrite < ::Stripe::StripeObject
+            class Tier < ::Stripe::StripeObject
+              # Flat amount in minor currency units.
+              sig { returns(T.nilable(BigDecimal)) }
+              def flat_amount_decimal; end
+              # Per-unit amount in minor currency units.
+              sig { returns(T.nilable(BigDecimal)) }
+              def unit_amount_decimal; end
+              # Inclusive whole-number upper bound. Omitted for an unbounded final tier.
+              sig { returns(T.nilable(Integer)) }
+              def up_to; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+              def self.field_encodings
+                @field_encodings = {
+                  flat_amount_decimal: :decimal_string,
+                  unit_amount_decimal: :decimal_string,
+                  up_to: :int64_string,
+                }
+              end
+            end
+            # Whether the replacement pricing is per unit or tiered.
+            sig { returns(T.nilable(String)) }
+            def billing_scheme; end
+            # Replacement pricing tiers.
+            sig { returns(T.nilable(T::Array[Tier])) }
+            def tiers; end
+            # How the pricing tiers are applied.
+            sig { returns(T.nilable(String)) }
+            def tiers_mode; end
             # The replacement per-unit amount in minor currency units.
             sig { returns(T.nilable(BigDecimal)) }
             def unit_amount_decimal; end
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = {tiers: Tier}
             end
             def self.field_remappings
               @field_remappings = {}
             end
             def self.field_encodings
-              @field_encodings = {unit_amount_decimal: :decimal_string}
+              @field_encodings = {
+                tiers: {
+                  kind: :array,
+                  element: {
+                    kind: :object,
+                    fields: {
+                      flat_amount_decimal: :decimal_string,
+                      unit_amount_decimal: :decimal_string,
+                      up_to: :int64_string,
+                    },
+                  },
+                },
+                unit_amount_decimal: :decimal_string,
+              }
             end
           end
           class StartsAt < ::Stripe::StripeObject
@@ -108,7 +154,23 @@ module Stripe
           def self.field_encodings
             @field_encodings = {
               multiply: {kind: :object, fields: {factor: :decimal_string}},
-              overwrite: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+              overwrite: {
+                kind: :object,
+                fields: {
+                  tiers: {
+                    kind: :array,
+                    element: {
+                      kind: :object,
+                      fields: {
+                        flat_amount_decimal: :decimal_string,
+                        unit_amount_decimal: :decimal_string,
+                        up_to: :int64_string,
+                      },
+                    },
+                  },
+                  unit_amount_decimal: :decimal_string,
+                },
+              },
             }
           end
         end
@@ -171,17 +233,23 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Amount in the contract's currency.
-              sig { returns(::Stripe::V2::Amount) }
-              def amount; end
               # The resolved bill date.
               sig { returns(BillAt) }
               def bill_at; end
+              # Resolved installment quantity. Always present; defaults to 1 when omitted on input.
+              sig { returns(BigDecimal) }
+              def quantity; end
+              # Unit price in minor units of the contract's currency, before multiplying by quantity.
+              sig { returns(BigDecimal) }
+              def unit_amount_decimal; end
               def self.inner_class_types
                 @inner_class_types = {bill_at: BillAt}
               end
               def self.field_remappings
                 @field_remappings = {}
+              end
+              def self.field_encodings
+                @field_encodings = {quantity: :decimal_string, unit_amount_decimal: :decimal_string}
               end
             end
             # Scheduled installments and billed history.
@@ -195,6 +263,17 @@ module Stripe
             end
             def self.field_remappings
               @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {
+                custom: {
+                  kind: :array,
+                  element: {
+                    kind: :object,
+                    fields: {quantity: :decimal_string, unit_amount_decimal: :decimal_string},
+                  },
+                },
+              }
             end
           end
           class ServicePeriod < ::Stripe::StripeObject
@@ -247,6 +326,22 @@ module Stripe
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              bill_schedule: {
+                kind: :object,
+                fields: {
+                  custom: {
+                    kind: :array,
+                    element: {
+                      kind: :object,
+                      fields: {quantity: :decimal_string, unit_amount_decimal: :decimal_string},
+                    },
+                  },
+                },
+              },
+            }
           end
         end
         # The stable ID of the term.

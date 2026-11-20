@@ -5,7 +5,9 @@ module Stripe
   module V2
     module Core
       class FeeEntryService < StripeService
-        # List FeeEntries optionally filtered by incurred_by, fee_batch, or collection_record (at most one filter at a time).
+        # Lists FeeEntries, optionally filtered by `incurred_by`, `fee_batch`, or
+        # `collection_record`. When filtering by `fee_batch`, results reflect current
+        # membership; historical membership is unavailable.
         def list(params = {}, opts = {})
           request(
             method: :get,

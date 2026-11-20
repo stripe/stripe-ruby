@@ -268,6 +268,16 @@ module Stripe
         end
       end
 
+      class Getflex < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class IdBankTransfer < ::Stripe::StripeObject
         # Bank where the account is located.
         attr_reader :bank
@@ -420,6 +430,16 @@ module Stripe
         end
       end
 
+      class RakutenPay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class RevolutPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -551,6 +571,8 @@ module Stripe
       attr_reader :card_present
       # Attribute for field cashapp
       attr_reader :cashapp
+      # Attribute for field getflex
+      attr_reader :getflex
       # Attribute for field id_bank_transfer
       attr_reader :id_bank_transfer
       # Attribute for field ideal
@@ -575,6 +597,8 @@ module Stripe
       attr_reader :payto
       # Attribute for field pix
       attr_reader :pix
+      # Attribute for field rakuten_pay
+      attr_reader :rakuten_pay
       # Attribute for field revolut_pay
       attr_reader :revolut_pay
       # Attribute for field satispay
@@ -608,6 +632,7 @@ module Stripe
           card: Card,
           card_present: CardPresent,
           cashapp: Cashapp,
+          getflex: Getflex,
           id_bank_transfer: IdBankTransfer,
           ideal: Ideal,
           kakao_pay: KakaoPay,
@@ -620,6 +645,7 @@ module Stripe
           paypay: Paypay,
           payto: Payto,
           pix: Pix,
+          rakuten_pay: RakutenPay,
           revolut_pay: RevolutPay,
           satispay: Satispay,
           sepa_debit: SepaDebit,

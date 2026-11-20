@@ -540,11 +540,27 @@ module Stripe
 
         class RefundPayment < ::Stripe::StripeObject
           class RefundPaymentConfig < ::Stripe::StripeObject
+            class GiftCard < ::Stripe::StripeObject
+              # The brand of the destination gift card collected on the reader.
+              attr_reader :brand
+              # The gift card operation to perform with the refund amount.
+              attr_reader :operation_type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # Enable customer-initiated cancellation when refunding this payment.
             attr_reader :enable_customer_cancellation
+            # Represents the destination gift card configuration for a refund
+            attr_reader :gift_card
 
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = { gift_card: GiftCard }
             end
 
             def self.field_remappings

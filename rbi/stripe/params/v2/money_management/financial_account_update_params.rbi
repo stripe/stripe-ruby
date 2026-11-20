@@ -6,6 +6,59 @@ module Stripe
   module V2
     module MoneyManagement
       class FinancialAccountUpdateParams < ::Stripe::RequestParams
+        class FlowSettings < ::Stripe::RequestParams
+          class ReceivedDebits < ::Stripe::RequestParams
+            class Ach < ::Stripe::RequestParams
+              # Whether ACH received debits are enabled. Omit to preserve the current setting, which defaults to true. Other restrictions still apply.
+              sig { returns(T.nilable(T::Boolean)) }
+              def enabled; end
+              sig { params(_enabled: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+              def enabled=(_enabled); end
+              # Controls whether ACH debits without a matching active mandate are allowed or rejected.
+              sig { returns(T.nilable(String)) }
+              def mandate_behavior; end
+              sig { params(_mandate_behavior: T.nilable(String)).returns(T.nilable(String)) }
+              def mandate_behavior=(_mandate_behavior); end
+              # Account-level per-debit limit. Set to null to clear the limit.
+              sig { returns(T.nilable(::Stripe::V2::Amount)) }
+              def transaction_limit; end
+              sig {
+                params(_transaction_limit: T.nilable(::Stripe::V2::Amount)).returns(T.nilable(::Stripe::V2::Amount))
+               }
+              def transaction_limit=(_transaction_limit); end
+              sig {
+                params(enabled: T.nilable(T::Boolean), mandate_behavior: T.nilable(String), transaction_limit: T.nilable(::Stripe::V2::Amount)).void
+               }
+              def initialize(enabled: nil, mandate_behavior: nil, transaction_limit: nil); end
+            end
+            # Settings for ACH received debits.
+            sig {
+              returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::FlowSettings::ReceivedDebits::Ach))
+             }
+            def ach; end
+            sig {
+              params(_ach: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::FlowSettings::ReceivedDebits::Ach)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::FlowSettings::ReceivedDebits::Ach))
+             }
+            def ach=(_ach); end
+            sig {
+              params(ach: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::FlowSettings::ReceivedDebits::Ach)).void
+             }
+            def initialize(ach: nil); end
+          end
+          # Settings for received debit flows.
+          sig {
+            returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::FlowSettings::ReceivedDebits))
+           }
+          def received_debits; end
+          sig {
+            params(_received_debits: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::FlowSettings::ReceivedDebits)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::FlowSettings::ReceivedDebits))
+           }
+          def received_debits=(_received_debits); end
+          sig {
+            params(received_debits: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::FlowSettings::ReceivedDebits)).void
+           }
+          def initialize(received_debits: nil); end
+        end
         class ForwardingSettings < ::Stripe::RequestParams
           # ID of the FinancialAccount that supplies funds to cover negative balances
           # during or after this FinancialAccount's closure.
@@ -80,6 +133,15 @@ module Stripe
         def display_name; end
         sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
         def display_name=(_display_name); end
+        # Sparse flow setting updates. Omitting a field leaves its current value unchanged.
+        sig {
+          returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::FlowSettings))
+         }
+        def flow_settings; end
+        sig {
+          params(_flow_settings: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::FlowSettings)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::FlowSettings))
+         }
+        def flow_settings=(_flow_settings); end
         # Forwarding settings for a closed FinancialAccount. Post-close forwarding updates are not yet implemented.
         sig {
           returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::ForwardingSettings))
@@ -107,10 +169,11 @@ module Stripe
          }
         def storage=(_storage); end
         sig {
-          params(display_name: T.nilable(String), forwarding_settings: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::ForwardingSettings), metadata: T.nilable(T::Hash[String, T.nilable(String)]), storage: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::Storage)).void
+          params(display_name: T.nilable(String), flow_settings: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::FlowSettings), forwarding_settings: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::ForwardingSettings), metadata: T.nilable(T::Hash[String, T.nilable(String)]), storage: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountUpdateParams::Storage)).void
          }
         def initialize(
           display_name: nil,
+          flow_settings: nil,
           forwarding_settings: nil,
           metadata: nil,
           storage: nil

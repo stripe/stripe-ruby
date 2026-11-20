@@ -32,6 +32,19 @@ module Stripe
     class RenderingSettings < ::Stripe::StripeObject
       class InvoicePdf < ::Stripe::StripeObject
         class Block < ::Stripe::StripeObject
+          class CustomPlainText < ::Stripe::StripeObject
+            # Literal text to render, preserving whitespace and newlines.
+            attr_reader :plain_text
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class CustomPlainTextCel < ::Stripe::StripeObject
             # A CEL expression that returns text using the invoice context.
             attr_reader :cel_expression
@@ -44,6 +57,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field custom_plain_text
+          attr_reader :custom_plain_text
           # Attribute for field custom_plain_text_cel
           attr_reader :custom_plain_text_cel
           # The key of this block in the template.
@@ -52,7 +67,10 @@ module Stripe
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { custom_plain_text_cel: CustomPlainTextCel }
+            @inner_class_types = {
+              custom_plain_text: CustomPlainText,
+              custom_plain_text_cel: CustomPlainTextCel,
+            }
           end
 
           def self.field_remappings

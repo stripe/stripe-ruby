@@ -1243,6 +1243,11 @@ module Stripe
       autoload :DebitDisputeCreateParams, "stripe/params/v2/money_management/debit_dispute_create_params"
       autoload :DebitDisputeListParams, "stripe/params/v2/money_management/debit_dispute_list_params"
       autoload :DebitDisputeRetrieveParams, "stripe/params/v2/money_management/debit_dispute_retrieve_params"
+      autoload :DisputeAdjustmentListParams, "stripe/params/v2/money_management/dispute_adjustment_list_params"
+      autoload :DisputeAdjustmentRetrieveParams, "stripe/params/v2/money_management/dispute_adjustment_retrieve_params"
+      autoload :DisputeCreateParams, "stripe/params/v2/money_management/dispute_create_params"
+      autoload :DisputeListParams, "stripe/params/v2/money_management/dispute_list_params"
+      autoload :DisputeRetrieveParams, "stripe/params/v2/money_management/dispute_retrieve_params"
       autoload :EarnedCreditListParams, "stripe/params/v2/money_management/earned_credit_list_params"
       autoload :EarnedCreditRetrieveParams, "stripe/params/v2/money_management/earned_credit_retrieve_params"
       autoload :FinancialAccountCloseParams, "stripe/params/v2/money_management/financial_account_close_params"
@@ -1340,8 +1345,10 @@ module Stripe
       autoload :RewardProgramRetrieveParams, "stripe/params/v2/money_management/reward_program_retrieve_params"
       autoload :RewardProgramUpdateParams, "stripe/params/v2/money_management/reward_program_update_params"
       autoload :SpendingMandateCancelParams, "stripe/params/v2/money_management/spending_mandate_cancel_params"
+      autoload :SpendingMandateCreateParams, "stripe/params/v2/money_management/spending_mandate_create_params"
       autoload :SpendingMandateListParams, "stripe/params/v2/money_management/spending_mandate_list_params"
       autoload :SpendingMandateRetrieveParams, "stripe/params/v2/money_management/spending_mandate_retrieve_params"
+      autoload :SpendingMandateUpdateParams, "stripe/params/v2/money_management/spending_mandate_update_params"
       autoload :TestHelperEarnedCreditsParams, "stripe/params/v2/money_management/test_helper_earned_credits_params"
       autoload :TransactionEntryListParams, "stripe/params/v2/money_management/transaction_entry_list_params"
       autoload :TransactionEntryRetrieveParams, "stripe/params/v2/money_management/transaction_entry_retrieve_params"
@@ -1459,6 +1466,8 @@ module Stripe
     end
 
     module Risk
+      autoload :EvaluationOutcomeListParams, "stripe/params/v2/risk/evaluation_outcome_list_params"
+      autoload :EvaluationOutcomeRetrieveParams, "stripe/params/v2/risk/evaluation_outcome_retrieve_params"
       autoload :FormRetrieveParams, "stripe/params/v2/risk/form_retrieve_params"
       autoload :FormUpdateParams, "stripe/params/v2/risk/form_update_params"
     end
@@ -2510,6 +2519,11 @@ module Stripe
     stripe/params/v2/money_management/debit_dispute_create_params
     stripe/params/v2/money_management/debit_dispute_list_params
     stripe/params/v2/money_management/debit_dispute_retrieve_params
+    stripe/params/v2/money_management/dispute_adjustment_list_params
+    stripe/params/v2/money_management/dispute_adjustment_retrieve_params
+    stripe/params/v2/money_management/dispute_create_params
+    stripe/params/v2/money_management/dispute_list_params
+    stripe/params/v2/money_management/dispute_retrieve_params
     stripe/params/v2/money_management/earned_credit_list_params
     stripe/params/v2/money_management/earned_credit_retrieve_params
     stripe/params/v2/money_management/financial_account_close_params
@@ -2597,8 +2611,10 @@ module Stripe
     stripe/params/v2/money_management/reward_programs/rule_retrieve_params
     stripe/params/v2/money_management/reward_programs/rule_update_params
     stripe/params/v2/money_management/spending_mandate_cancel_params
+    stripe/params/v2/money_management/spending_mandate_create_params
     stripe/params/v2/money_management/spending_mandate_list_params
     stripe/params/v2/money_management/spending_mandate_retrieve_params
+    stripe/params/v2/money_management/spending_mandate_update_params
     stripe/params/v2/money_management/test_helper_earned_credits_params
     stripe/params/v2/money_management/test_helpers/financial_address_credit_params
     stripe/params/v2/money_management/test_helpers/financial_address_debit_params
@@ -2656,6 +2672,8 @@ module Stripe
     stripe/params/v2/reporting/report_retrieve_params
     stripe/params/v2/reporting/report_run_create_params
     stripe/params/v2/reporting/report_run_retrieve_params
+    stripe/params/v2/risk/evaluation_outcome_list_params
+    stripe/params/v2/risk/evaluation_outcome_retrieve_params
     stripe/params/v2/risk/form_retrieve_params
     stripe/params/v2/risk/form_update_params
     stripe/params/v2/signals/account_activity_create_params

@@ -356,6 +356,9 @@ module Stripe
         attr_reader :description
         # The dispute details.
         attr_reader :dispute_details
+        # Has the value `true` if the object has an associated Dispute otherwise or the value `false`.
+        # Use the Disputes List API with `target` to see details.
+        attr_reader :disputed
         # The amount and currency of the original/external debit request.
         attr_reader :external_amount
         # Financial Account on which funds for ReceivedDebit were debited.

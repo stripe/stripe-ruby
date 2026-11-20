@@ -546,11 +546,28 @@ module Stripe
         end
         class RefundPayment < ::Stripe::StripeObject
           class RefundPaymentConfig < ::Stripe::StripeObject
+            class GiftCard < ::Stripe::StripeObject
+              # The brand of the destination gift card collected on the reader.
+              sig { returns(String) }
+              def brand; end
+              # The gift card operation to perform with the refund amount.
+              sig { returns(String) }
+              def operation_type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # Enable customer-initiated cancellation when refunding this payment.
             sig { returns(T.nilable(T::Boolean)) }
             def enable_customer_cancellation; end
+            # Represents the destination gift card configuration for a refund
+            sig { returns(T.nilable(GiftCard)) }
+            def gift_card; end
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = {gift_card: GiftCard}
             end
             def self.field_remappings
               @field_remappings = {}

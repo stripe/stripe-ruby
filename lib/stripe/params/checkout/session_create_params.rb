@@ -522,10 +522,13 @@ module Stripe
             attr_accessor :amount_tax_display
             # ID of the invoice rendering template to use for this invoice.
             attr_accessor :template
+            # The specific version of the invoice rendering template to use for this invoice. If not specified, the latest version of the template will be used. Only available in unified mode.
+            attr_accessor :template_version
 
-            def initialize(amount_tax_display: nil, template: nil)
+            def initialize(amount_tax_display: nil, template: nil, template_version: nil)
               @amount_tax_display = amount_tax_display
               @template = template
+              @template_version = template_version
             end
           end
           # The account tax IDs associated with the invoice.
@@ -837,6 +840,161 @@ module Stripe
           end
         end
 
+        class OneTimePrice < ::Stripe::RequestParams
+          class Item < ::Stripe::RequestParams
+            class AdjustableQuantity < ::Stripe::RequestParams
+              # Set to true if the quantity can be adjusted to any non-negative integer.
+              attr_accessor :enabled
+              # The maximum quantity the customer can purchase for the Checkout Session. By default this value is 99. You can specify a value up to 999999.
+              attr_accessor :maximum
+              # The minimum quantity the customer must purchase for the Checkout Session. By default this value is 0.
+              attr_accessor :minimum
+
+              def initialize(enabled: nil, maximum: nil, minimum: nil)
+                @enabled = enabled
+                @maximum = maximum
+                @minimum = minimum
+              end
+            end
+
+            class PriceData < ::Stripe::RequestParams
+              class ProductData < ::Stripe::RequestParams
+                class TaxDetails < ::Stripe::RequestParams
+                  # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+                  attr_accessor :performance_location
+                  # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+                  attr_accessor :tax_code
+
+                  def initialize(performance_location: nil, tax_code: nil)
+                    @performance_location = performance_location
+                    @tax_code = tax_code
+                  end
+                end
+                # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+                attr_accessor :description
+                # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+                attr_accessor :images
+                # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+                attr_accessor :metadata
+                # The product's name, meant to be displayable to the customer.
+                attr_accessor :name
+                # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+                attr_accessor :tax_code
+                # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+                attr_accessor :tax_details
+                # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+                attr_accessor :unit_label
+
+                def initialize(
+                  description: nil,
+                  images: nil,
+                  metadata: nil,
+                  name: nil,
+                  tax_code: nil,
+                  tax_details: nil,
+                  unit_label: nil
+                )
+                  @description = description
+                  @images = images
+                  @metadata = metadata
+                  @name = name
+                  @tax_code = tax_code
+                  @tax_details = tax_details
+                  @unit_label = unit_label
+                end
+              end
+              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+              attr_accessor :currency
+              # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
+              attr_accessor :product
+              # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
+              attr_accessor :product_data
+              # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+              attr_accessor :tax_behavior
+              # A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
+              attr_accessor :unit_amount
+              # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+              attr_accessor :unit_amount_decimal
+
+              def initialize(
+                currency: nil,
+                product: nil,
+                product_data: nil,
+                tax_behavior: nil,
+                unit_amount: nil,
+                unit_amount_decimal: nil
+              )
+                @currency = currency
+                @product = product
+                @product_data = product_data
+                @tax_behavior = tax_behavior
+                @unit_amount = unit_amount
+                @unit_amount_decimal = unit_amount_decimal
+              end
+
+              def self.field_encodings
+                @field_encodings = { unit_amount_decimal: :decimal_string }
+              end
+            end
+            # When set, provides configuration for this item’s quantity to be adjusted by the customer during Checkout.
+            attr_accessor :adjustable_quantity
+            # The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required.
+            attr_accessor :price
+            # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+            attr_accessor :price_data
+            # Quantity for this item.
+            attr_accessor :quantity
+            # The [tax rates](https://docs.stripe.com/api/tax_rates) which apply to this line item.
+            attr_accessor :tax_rates
+
+            def initialize(
+              adjustable_quantity: nil,
+              price: nil,
+              price_data: nil,
+              quantity: nil,
+              tax_rates: nil
+            )
+              @adjustable_quantity = adjustable_quantity
+              @price = price
+              @price_data = price_data
+              @quantity = quantity
+              @tax_rates = tax_rates
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+              }
+            end
+          end
+          # The one-time price's description, meant to be displayable to the customer.
+          attr_accessor :description
+          # The list of items for the one-time price.
+          attr_accessor :items
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          attr_accessor :metadata
+
+          def initialize(description: nil, items: nil, metadata: nil)
+            @description = description
+            @items = items
+            @metadata = metadata
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              items: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+                  },
+                },
+              },
+            }
+          end
+        end
+
         class Subscription < ::Stripe::RequestParams
           class BillingCycleAnchorConfig < ::Stripe::RequestParams
             # The day of the month the anchor should be. Ranges from 1 to 31.
@@ -1127,13 +1285,16 @@ module Stripe
         end
         # Configuration for the Metronome commit item.
         attr_accessor :metronome_commit
+        # Configuration for the one-time price item.
+        attr_accessor :one_time_price
         # Configuration for the subscription item.
         attr_accessor :subscription
         # The type of item.
         attr_accessor :type
 
-        def initialize(metronome_commit: nil, subscription: nil, type: nil)
+        def initialize(metronome_commit: nil, one_time_price: nil, subscription: nil, type: nil)
           @metronome_commit = metronome_commit
+          @one_time_price = one_time_price
           @subscription = subscription
           @type = type
         end
@@ -1159,6 +1320,20 @@ module Stripe
                       },
                       priority: :decimal_string,
                       rollover_fraction: :decimal_string,
+                    },
+                  },
+                },
+              },
+            },
+            one_time_price: {
+              kind: :object,
+              fields: {
+                items: {
+                  kind: :array,
+                  element: {
+                    kind: :object,
+                    fields: {
+                      price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
                     },
                   },
                 },
@@ -1342,9 +1517,15 @@ module Stripe
         class AdConversion < ::Stripe::RequestParams
           # Whether the customer consented to sending conversion data to an advertising platform.
           attr_accessor :consent_collected
+          # The URL of the web page where the customer converted.
+          attr_accessor :source_url
+          # The user agent of the browser where the customer converted.
+          attr_accessor :user_agent
 
-          def initialize(consent_collected: nil)
+          def initialize(consent_collected: nil, source_url: nil, user_agent: nil)
             @consent_collected = consent_collected
+            @source_url = source_url
+            @user_agent = user_agent
           end
         end
         # Information used when sending conversions to an advertising platform.
@@ -1837,7 +2018,13 @@ module Stripe
           end
           # Additional fields for Mandate creation
           attr_accessor :mandate_options
-          # Attribute for param field setup_future_usage
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_accessor :setup_future_usage
 
           def initialize(mandate_options: nil, setup_future_usage: nil)
@@ -3995,6 +4182,23 @@ module Stripe
                           },
                           priority: :decimal_string,
                           rollover_fraction: :decimal_string,
+                        },
+                      },
+                    },
+                  },
+                },
+                one_time_price: {
+                  kind: :object,
+                  fields: {
+                    items: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          price_data: {
+                            kind: :object,
+                            fields: { unit_amount_decimal: :decimal_string },
+                          },
                         },
                       },
                     },

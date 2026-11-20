@@ -1856,6 +1856,26 @@ module Stripe
       register("v2.money_management.debit_dispute.succeeded", &callback)
     end
 
+    def on_v2_money_management_dispute_created(&callback)
+      register("v2.money_management.dispute.created", &callback)
+    end
+
+    def on_v2_money_management_dispute_lost(&callback)
+      register("v2.money_management.dispute.lost", &callback)
+    end
+
+    def on_v2_money_management_dispute_updated(&callback)
+      register("v2.money_management.dispute.updated", &callback)
+    end
+
+    def on_v2_money_management_dispute_won(&callback)
+      register("v2.money_management.dispute.won", &callback)
+    end
+
+    def on_v2_money_management_dispute_adjustment_created(&callback)
+      register("v2.money_management.dispute_adjustment.created", &callback)
+    end
+
     def on_v2_money_management_earned_credit_succeeded(&callback)
       register("v2.money_management.earned_credit.succeeded", &callback)
     end
@@ -2310,6 +2330,10 @@ module Stripe
 
     def on_v2_reporting_report_run_updated(&callback)
       register("v2.reporting.report_run.updated", &callback)
+    end
+
+    def on_v2_risk_evaluation_outcome_delinquency_ready(&callback)
+      register("v2.risk.evaluation_outcome.delinquency_ready", &callback)
     end
 
     def on_v2_signals_account_evaluation_complete(&callback)

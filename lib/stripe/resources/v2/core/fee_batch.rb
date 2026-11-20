@@ -138,6 +138,9 @@ module Stripe
         class StatusTransitions < ::Stripe::StripeObject
           # Timestamp of when the batch transitioned to BILLED, if applicable.
           attr_reader :billed_at
+          # Present only when `status=canceled`;
+          # `billed_at` and `canceled_at` are mutually exclusive.
+          attr_reader :canceled_at
 
           def self.inner_class_types
             @inner_class_types = {}

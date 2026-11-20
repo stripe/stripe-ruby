@@ -12,6 +12,14 @@ module Stripe
          }
         def cancel(id, params = {}, opts = {}); end
 
+        # Creates an active SpendingMandate authorizing an ACH originator to debit a Financial Account.
+        #
+        # ** raises AlreadyExistsError
+        sig {
+          params(params: T.any(::Stripe::V2::MoneyManagement::SpendingMandateCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::SpendingMandate)
+         }
+        def create(params = {}, opts = {}); end
+
         # Returns a list of SpendingMandates.
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::SpendingMandateListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
@@ -23,6 +31,14 @@ module Stripe
           params(id: String, params: T.any(::Stripe::V2::MoneyManagement::SpendingMandateRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::SpendingMandate)
          }
         def retrieve(id, params = {}, opts = {}); end
+
+        # Updates an active ACH SpendingMandate.
+        #
+        # ** raises AlreadyExistsError
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::SpendingMandateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::SpendingMandate)
+         }
+        def update(id, params = {}, opts = {}); end
       end
     end
   end

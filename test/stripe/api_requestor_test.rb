@@ -2084,6 +2084,14 @@ module Stripe
       # when it precedes the first "/".
       "/v1/customers?email=user%40example.com",
       "/v1/%5Cevil.example",
+      # Dots are fine anywhere other than a whole "." or ".." segment.
+      "/v1/reporting/report_types/balance.summary.1",
+      "/v1/customers/...",
+      "/v1/customers/.cus_123",
+      "/v1/customers/cus_123..",
+      "/v1/customers?email=a..b%40example.com",
+      # A double-encoded dot reaches the API as the literal "%2E".
+      "/v1/customers/%252E",
     ].freeze
 
     HOSTILE_PATHS = [
@@ -2102,6 +2110,21 @@ module Stripe
       "v1/customers",
       nil,
       42,
+    ].freeze
+
+    DOT_SEGMENT_PATHS = [
+      # Proxies and servers may remove these segments, so each request could
+      # reach a different endpoint than the one the path was built for.
+      "/v1/checkout/sessions/.",
+      "/v1/checkout/sessions/..",
+      "/v1/customers/../payment_methods/pm_123",
+      "/v1/customers/./payment_methods/pm_123",
+      "/v1/customers/cus_123/sources/..?expand[]=customer",
+      "/v2/core/accounts/.",
+      # Some decode "%2E" to "." before removing dot segments.
+      "/v1/checkout/sessions/%2E",
+      "/v1/checkout/sessions/%2e%2E",
+      "/v1/checkout/sessions/.%2E",
     ].freeze
 
     context "request path validation" do
@@ -2127,6 +2150,48 @@ module Stripe
             Stripe::StripeClient.new("sk_test_123").raw_request(:get, path)
           end
         end
+      end
+
+      should "reject paths with a dot segment" do
+        DOT_SEGMENT_PATHS.each do |path|
+          e = assert_raises(InvalidRequestError, "expected #{path.inspect} to be rejected") do
+            Util.validate_path!(path)
+          end
+          assert_equal "path may not contain a \".\" or \"..\" segment, got: #{path.inspect}",
+                       e.message
+        end
+      end
+
+      should "reject a dot segment path without issuing a request" do
+        DOT_SEGMENT_PATHS.each do |path|
+          assert_raises(InvalidRequestError, "expected #{path.inspect} to be rejected") do
+            Stripe::StripeClient.new("sk_test_123").raw_request(:get, path)
+          end
+        end
+        assert_not_requested(:any, /.*/)
+      end
+
+      should "reject a dot ID in a service method without issuing a request" do
+        client = Stripe::StripeClient.new("sk_test_123")
+
+        [".", ".."].each do |id|
+          assert_raises(InvalidRequestError, "expected #{id.inspect} to be rejected") do
+            client.v1.checkout.sessions.retrieve(id)
+          end
+        end
+        assert_raises(InvalidRequestError) do
+          client.v1.customers.payment_methods.retrieve("..", "pm_123")
+        end
+        assert_not_requested(:any, /.*/)
+      end
+
+      should "reject a dot ID in a resource method without issuing a request" do
+        [".", ".."].each do |id|
+          assert_raises(InvalidRequestError, "expected #{id.inspect} to be rejected") do
+            Stripe::Checkout::Session.retrieve(id)
+          end
+        end
+        assert_not_requested(:any, /.*/)
       end
 
       should "reject a hostile related_object.url without issuing a request" do

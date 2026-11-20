@@ -395,6 +395,13 @@ module Stripe
     #
     # So, we require that a path starts with a leading slash and that URI.parse
     # finds no scheme or authority in it.
+    #
+    # We also reject "." and ".." path segments, which an ID of "." or ".."
+    # produces because CGI.escape leaves dots alone. Net::HTTP sends them as
+    # written, but proxies and servers may remove them (some after decoding
+    # "%2E"), which changes the endpoint:
+    # /v1/customers/../payment_methods/pm_123 becomes
+    # /v1/payment_methods/pm_123.
     def self.validate_path!(path)
       unless path.is_a?(String) && path.start_with?("/") && !path.start_with?("//")
         raise ArgumentError,
@@ -408,10 +415,23 @@ module Stripe
           raise ArgumentError, "path is not a valid URI: #{path.inspect}"
         end
 
-      return if uri.scheme.nil? && uri.host.nil? && uri.userinfo.nil?
+      unless uri.scheme.nil? && uri.host.nil? && uri.userinfo.nil?
+        raise ArgumentError,
+              "path may not contain a scheme or authority, got: #{path.inspect}"
+      end
 
-      raise ArgumentError,
-            "path may not contain a scheme or authority, got: #{path.inspect}"
+      dot_segment = uri.path.split("/").any? do |segment|
+        %w[. ..].include?(segment.downcase.gsub("%2e", "."))
+      end
+      return unless dot_segment
+
+      # An InvalidRequestError rather than an ArgumentError, like an invalid ID
+      # in APIResource#resource_url, so callers' existing handling of API
+      # errors keeps working.
+      raise InvalidRequestError.new(
+        "path may not contain a \".\" or \"..\" segment, got: #{path.inspect}",
+        nil
+      )
     end
 
     # Returns either v1 or v2 as api_mode based on the given path

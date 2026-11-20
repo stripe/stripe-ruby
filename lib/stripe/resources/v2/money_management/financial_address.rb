@@ -124,7 +124,7 @@ module Stripe
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # Attribute for field settlement_currency
+        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
         attr_reader :settlement_currency
         # Closed Enum. The status of the FinancialAddress.
         attr_reader :status

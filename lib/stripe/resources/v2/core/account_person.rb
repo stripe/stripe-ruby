@@ -260,6 +260,8 @@ module Stripe
         class IdNumber < ::Stripe::StripeObject
           # The ID number type of an individual.
           attr_reader :type
+          # The value of the ID number. Returned only when the API key is authorized to read it; otherwise null.
+          attr_reader :value
 
           def self.inner_class_types
             @inner_class_types = {}

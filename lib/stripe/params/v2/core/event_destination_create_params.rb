@@ -68,6 +68,10 @@ module Stripe
         attr_accessor :name
         # For snapshot events only, the Stripe API version used to render event objects; do not provide this for thin events.
         attr_accessor :snapshot_api_version
+        # The initial status of the destination. Defaults to `enabled`. A destination created as
+        # `disabled` receives no delivery attempts until it is enabled. After creation, use the enable
+        # and disable actions to change the status.
+        attr_accessor :status
         # The delivery transport. Chosen when the destination is created and cannot be changed by update.
         attr_accessor :type
         # Delivery target for the webhook endpoint. Live mode requires HTTPS; sandbox mode also supports HTTP.
@@ -84,6 +88,7 @@ module Stripe
           metadata: nil,
           name: nil,
           snapshot_api_version: nil,
+          status: nil,
           type: nil,
           webhook_endpoint: nil
         )
@@ -97,6 +102,7 @@ module Stripe
           @metadata = metadata
           @name = name
           @snapshot_api_version = snapshot_api_version
+          @status = status
           @type = type
           @webhook_endpoint = webhook_endpoint
         end

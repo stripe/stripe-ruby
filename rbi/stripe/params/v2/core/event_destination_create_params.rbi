@@ -118,6 +118,13 @@ module Stripe
         def snapshot_api_version; end
         sig { params(_snapshot_api_version: T.nilable(String)).returns(T.nilable(String)) }
         def snapshot_api_version=(_snapshot_api_version); end
+        # The initial status of the destination. Defaults to `enabled`. A destination created as
+        # `disabled` receives no delivery attempts until it is enabled. After creation, use the enable
+        # and disable actions to change the status.
+        sig { returns(T.nilable(String)) }
+        def status; end
+        sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
+        def status=(_status); end
         # The delivery transport. Chosen when the destination is created and cannot be changed by update.
         sig { returns(String) }
         def type; end
@@ -133,7 +140,7 @@ module Stripe
          }
         def webhook_endpoint=(_webhook_endpoint); end
         sig {
-          params(amazon_eventbridge: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge), azure_event_grid: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid), description: T.nilable(String), enabled_events: T::Array[String], event_payload: String, events_from: T.nilable(T::Array[String]), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, snapshot_api_version: T.nilable(String), type: String, webhook_endpoint: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::WebhookEndpoint)).void
+          params(amazon_eventbridge: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge), azure_event_grid: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid), description: T.nilable(String), enabled_events: T::Array[String], event_payload: String, events_from: T.nilable(T::Array[String]), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, snapshot_api_version: T.nilable(String), status: T.nilable(String), type: String, webhook_endpoint: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::WebhookEndpoint)).void
          }
         def initialize(
           amazon_eventbridge: nil,
@@ -146,6 +153,7 @@ module Stripe
           metadata: nil,
           name: nil,
           snapshot_api_version: nil,
+          status: nil,
           type: nil,
           webhook_endpoint: nil
         ); end

@@ -52,6 +52,13 @@ module Stripe
           params(_from: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From).returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From)
          }
         def from=(_from); end
+        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        def metadata; end
+        sig {
+          params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+         }
+        def metadata=(_metadata); end
         # The FinancialAccount and currency to credit with the transferred funds.
         sig { returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To) }
         def to; end
@@ -60,9 +67,9 @@ module Stripe
          }
         def to=(_to); end
         sig {
-          params(amount: ::Stripe::V2::Amount, description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From, to: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To).void
+          params(amount: ::Stripe::V2::Amount, description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From, metadata: T.nilable(T::Hash[String, String]), to: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To).void
          }
-        def initialize(amount: nil, description: nil, from: nil, to: nil); end
+        def initialize(amount: nil, description: nil, from: nil, metadata: nil, to: nil); end
       end
     end
   end

@@ -540,7 +540,7 @@ module Stripe
 
       class Wifi < ::Stripe::RequestParams
         class EnterpriseEapPeap < ::Stripe::RequestParams
-          # A File ID representing a PEM file containing the server certificate
+          # A File ID representing a PEM file containing the server certificate. The certificate is not currently used to validate the identity of the server, but will be used in a future device update.
           attr_accessor :ca_certificate_file
           # Password for connecting to the WiFi network
           attr_accessor :password

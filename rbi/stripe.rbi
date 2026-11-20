@@ -51083,7 +51083,7 @@ module Stripe
       end
       class Wifi < ::Stripe::StripeObject
         class EnterpriseEapPeap < ::Stripe::StripeObject
-          # A File ID representing a PEM file containing the server certificate
+          # A File ID representing a PEM file containing the server certificate. The certificate is not currently used to validate the identity of the server, but will be used in a future device update.
           sig { returns(T.nilable(String)) }
           def ca_certificate_file; end
           # Password for connecting to the WiFi network
@@ -58426,7 +58426,7 @@ module Stripe
                 # Enables this Account to complete payouts from their Stripe Balance (/v1/balance).
                 sig { returns(T.nilable(Payouts)) }
                 def payouts; end
-                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance). Use this capability if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
                 sig { returns(T.nilable(StripeTransfers)) }
                 def stripe_transfers; end
                 def self.inner_class_types
@@ -58475,7 +58475,7 @@ module Stripe
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           sig { returns(T.nilable(Merchant)) }
           def merchant; end
-          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
+          # The Recipient Configuration allows the Account to receive funds from you.
           sig { returns(T.nilable(Recipient)) }
           def recipient; end
           def self.inner_class_types
@@ -59267,6 +59267,9 @@ module Stripe
               # Open Enum. The ID number type of a business entity.
               sig { returns(String) }
               def type; end
+              # The value of the ID number. Returned only when the API key is authorized to read it; otherwise null.
+              sig { returns(T.nilable(String)) }
+              def value; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -59724,6 +59727,9 @@ module Stripe
               # The ID number type of an individual.
               sig { returns(String) }
               def type; end
+              # The value of the ID number. Returned only when the API key is authorized to read it; otherwise null.
+              sig { returns(T.nilable(String)) }
+              def value; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -60632,6 +60638,9 @@ module Stripe
           # The ID number type of an individual.
           sig { returns(String) }
           def type; end
+          # The value of the ID number. Returned only when the API key is authorized to read it; otherwise null.
+          sig { returns(T.nilable(String)) }
+          def value; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -61792,7 +61801,7 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Attribute for field settlement_currency
+        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
         sig { returns(String) }
         def settlement_currency; end
         # Closed Enum. The status of the FinancialAddress.
@@ -61959,6 +61968,9 @@ module Stripe
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end
+        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        def metadata; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
@@ -63269,6 +63281,9 @@ module Stripe
             # If applicable, the ID of the FeeBatch that created this Transaction.
             sig { returns(T.nilable(String)) }
             def fee_batch; end
+            # If applicable, the ID of the Hold that created this Transaction.
+            sig { returns(T.nilable(String)) }
+            def hold; end
             # If applicable, the ID of the InboundTransfer that created this Transaction.
             sig { returns(T.nilable(String)) }
             def inbound_transfer; end
@@ -63388,6 +63403,9 @@ module Stripe
           # If applicable, the ID of the FeeBatch that created this Transaction.
           sig { returns(T.nilable(String)) }
           def fee_batch; end
+          # If applicable, the ID of the Hold that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def hold; end
           # If applicable, the ID of the InboundTransfer that created this Transaction.
           sig { returns(T.nilable(String)) }
           def inbound_transfer; end
@@ -68517,6 +68535,7 @@ module Stripe
         # Create an Account that represents a company, individual, or other entity that your business interacts with. Accounts contain identifying information about the entity, and configurations that store the features an account has access to. An account can be configured as any or all of the following configurations: Customer, Merchant and/or Recipient.
         #
         # ** raises RateLimitError
+        # ** raises InactiveApiOperationConfirmationRequiredError
         sig {
           params(params: T.any(::Stripe::V2::Core::AccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Account)
          }
@@ -68541,6 +68560,7 @@ module Stripe
         # Updates the details of an Account.
         #
         # ** raises RateLimitError
+        # ** raises InactiveApiOperationConfirmationRequiredError
         sig {
           params(id: String, params: T.any(::Stripe::V2::Core::AccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Account)
          }
@@ -78588,12 +78608,12 @@ module Stripe
     def limit; end
     sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def limit=(_limit); end
-    # For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID.
+    # For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID. You can't combine this parameter with `source`.
     sig { returns(T.nilable(String)) }
     def payout; end
     sig { params(_payout: T.nilable(String)).returns(T.nilable(String)) }
     def payout=(_payout); end
-    # Only returns transactions associated with the given object.
+    # Only returns transactions associated with the given object. You can't combine this parameter with `payout`.
     sig { returns(T.nilable(String)) }
     def source; end
     sig { params(_source: T.nilable(String)).returns(T.nilable(String)) }
@@ -158583,7 +158603,7 @@ module Stripe
       end
       class Wifi < ::Stripe::RequestParams
         class EnterpriseEapPeap < ::Stripe::RequestParams
-          # A File ID representing a PEM file containing the server certificate
+          # A File ID representing a PEM file containing the server certificate. The certificate is not currently used to validate the identity of the server, but will be used in a future device update.
           sig { returns(T.nilable(String)) }
           def ca_certificate_file; end
           sig { params(_ca_certificate_file: T.nilable(String)).returns(T.nilable(String)) }
@@ -159756,7 +159776,7 @@ module Stripe
       end
       class Wifi < ::Stripe::RequestParams
         class EnterpriseEapPeap < ::Stripe::RequestParams
-          # A File ID representing a PEM file containing the server certificate
+          # A File ID representing a PEM file containing the server certificate. The certificate is not currently used to validate the identity of the server, but will be used in a future device update.
           sig { returns(T.nilable(String)) }
           def ca_certificate_file; end
           sig { params(_ca_certificate_file: T.nilable(String)).returns(T.nilable(String)) }
@@ -178409,16 +178429,20 @@ module Stripe
           sig { params(_feed_type: String).returns(String) }
           def feed_type=(_feed_type); end
           # Additional information about the import in a structured format.
-          sig { returns(T::Hash[String, String]) }
+          sig { returns(T.nilable(T::Hash[String, String])) }
           def metadata; end
-          sig { params(_metadata: T::Hash[String, String]).returns(T::Hash[String, String]) }
+          sig {
+            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+           }
           def metadata=(_metadata); end
           # The strategy for handling existing catalog data during import.
           sig { returns(String) }
           def mode; end
           sig { params(_mode: String).returns(String) }
           def mode=(_mode); end
-          sig { params(feed_type: String, metadata: T::Hash[String, String], mode: String).void }
+          sig {
+            params(feed_type: String, metadata: T.nilable(T::Hash[String, String]), mode: String).void
+           }
           def initialize(feed_type: nil, metadata: nil, mode: nil); end
         end
       end
@@ -180049,9 +180073,9 @@ module Stripe
                 sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
                 def city=(_city); end
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-                sig { returns(String) }
+                sig { returns(T.nilable(String)) }
                 def country; end
-                sig { params(_country: String).returns(String) }
+                sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
                 def country=(_country); end
                 # Address line 1 (e.g., street, PO Box, or company name).
                 sig { returns(T.nilable(String)) }
@@ -180079,7 +180103,7 @@ module Stripe
                 sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
                 def town=(_town); end
                 sig {
-                  params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
+                  params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                  }
                 def initialize(
                   city: nil,
@@ -180393,7 +180417,7 @@ module Stripe
                   sig { params(requested: T::Boolean).void }
                   def initialize(requested: nil); end
                 end
-                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance). Use this capability if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
                  }
@@ -180471,7 +180495,7 @@ module Stripe
             params(_merchant: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant))
            }
           def merchant=(_merchant); end
-          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
+          # The Recipient Configuration allows the Account to receive funds from you.
           sig {
             returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient))
            }
@@ -180803,9 +180827,9 @@ module Stripe
               sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
               def city=(_city); end
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               def country; end
-              sig { params(_country: String).returns(String) }
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
               def country=(_country); end
               # Address line 1 (e.g., street, PO Box, or company name).
               sig { returns(T.nilable(String)) }
@@ -180833,7 +180857,7 @@ module Stripe
               sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
               def town=(_town); end
               sig {
-                params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                }
               def initialize(
                 city: nil,
@@ -181229,9 +181253,9 @@ module Stripe
                 sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
                 def city=(_city); end
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-                sig { returns(String) }
+                sig { returns(T.nilable(String)) }
                 def country; end
-                sig { params(_country: String).returns(String) }
+                sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
                 def country=(_country); end
                 # Address line 1 (e.g., street, PO Box, or company name).
                 sig { returns(T.nilable(String)) }
@@ -181259,7 +181283,7 @@ module Stripe
                 sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
                 def town=(_town); end
                 sig {
-                  params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
+                  params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                  }
                 def initialize(
                   city: nil,
@@ -181278,9 +181302,9 @@ module Stripe
                 sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
                 def city=(_city); end
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-                sig { returns(String) }
+                sig { returns(T.nilable(String)) }
                 def country; end
-                sig { params(_country: String).returns(String) }
+                sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
                 def country=(_country); end
                 # Address line 1 (e.g., street, PO Box, or company name).
                 sig { returns(T.nilable(String)) }
@@ -181308,7 +181332,7 @@ module Stripe
                 sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
                 def town=(_town); end
                 sig {
-                  params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
+                  params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                  }
                 def initialize(
                   city: nil,
@@ -181513,9 +181537,9 @@ module Stripe
               sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
               def city=(_city); end
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               def country; end
-              sig { params(_country: String).returns(String) }
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
               def country=(_country); end
               # Address line 1 (e.g., street, PO Box, or company name).
               sig { returns(T.nilable(String)) }
@@ -181548,7 +181572,7 @@ module Stripe
               sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
               def town=(_town); end
               sig {
-                params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), purpose: String, state: T.nilable(String), town: T.nilable(String)).void
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), purpose: String, state: T.nilable(String), town: T.nilable(String)).void
                }
               def initialize(
                 city: nil,
@@ -181594,9 +181618,9 @@ module Stripe
               sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
               def city=(_city); end
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               def country; end
-              sig { params(_country: String).returns(String) }
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
               def country=(_country); end
               # Address line 1 (e.g., street, PO Box, or company name).
               sig { returns(T.nilable(String)) }
@@ -181624,7 +181648,7 @@ module Stripe
               sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
               def town=(_town); end
               sig {
-                params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                }
               def initialize(
                 city: nil,
@@ -181886,9 +181910,9 @@ module Stripe
                 sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
                 def city=(_city); end
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-                sig { returns(String) }
+                sig { returns(T.nilable(String)) }
                 def country; end
-                sig { params(_country: String).returns(String) }
+                sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
                 def country=(_country); end
                 # Address line 1 (e.g., street, PO Box, or company name).
                 sig { returns(T.nilable(String)) }
@@ -181916,7 +181940,7 @@ module Stripe
                 sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
                 def town=(_town); end
                 sig {
-                  params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
+                  params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                  }
                 def initialize(
                   city: nil,
@@ -181935,9 +181959,9 @@ module Stripe
                 sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
                 def city=(_city); end
                 # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-                sig { returns(String) }
+                sig { returns(T.nilable(String)) }
                 def country; end
-                sig { params(_country: String).returns(String) }
+                sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
                 def country=(_country); end
                 # Address line 1 (e.g., street, PO Box, or company name).
                 sig { returns(T.nilable(String)) }
@@ -181965,7 +181989,7 @@ module Stripe
                 sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
                 def town=(_town); end
                 sig {
-                  params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
+                  params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                  }
                 def initialize(
                   city: nil,
@@ -184323,7 +184347,7 @@ module Stripe
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
-                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance). Use this capability if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
                  }
@@ -184406,7 +184430,7 @@ module Stripe
             params(_merchant: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant))
            }
           def merchant=(_merchant); end
-          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
+          # The Recipient Configuration allows the Account to receive funds from you.
           sig {
             returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient))
            }
@@ -184641,6 +184665,27 @@ module Stripe
                  }
                 def initialize(date: nil, ip: nil, user_agent: nil); end
               end
+              class CryptoTransfersZerohashRecipient < ::Stripe::RequestParams
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                sig { returns(T.nilable(String)) }
+                def date; end
+                sig { params(_date: T.nilable(String)).returns(T.nilable(String)) }
+                def date=(_date); end
+                # The IP address from which the Account's representative accepted the terms of service.
+                sig { returns(T.nilable(String)) }
+                def ip; end
+                sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+                def ip=(_ip); end
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                sig { returns(T.nilable(String)) }
+                def user_agent; end
+                sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                def user_agent=(_user_agent); end
+                sig {
+                  params(date: T.nilable(String), ip: T.nilable(String), user_agent: T.nilable(String)).void
+                 }
+                def initialize(date: nil, ip: nil, user_agent: nil); end
+              end
               class MoneyManager < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(T.nilable(String)) }
@@ -184680,6 +184725,15 @@ module Stripe
                 params(_crypto_money_manager: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoMoneyManager)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoMoneyManager))
                }
               def crypto_money_manager=(_crypto_money_manager); end
+              # Details on the Account's acceptance of ZeroHash recipient-specific terms of service.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoTransfersZerohashRecipient))
+               }
+              def crypto_transfers_zerohash_recipient; end
+              sig {
+                params(_crypto_transfers_zerohash_recipient: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoTransfersZerohashRecipient)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoTransfersZerohashRecipient))
+               }
+              def crypto_transfers_zerohash_recipient=(_crypto_transfers_zerohash_recipient); end
               # Details on the Account's acceptance of Treasury-specific terms of service.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::MoneyManager))
@@ -184690,9 +184744,14 @@ module Stripe
                }
               def money_manager=(_money_manager); end
               sig {
-                params(account: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::Account), crypto_money_manager: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoMoneyManager), money_manager: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::MoneyManager)).void
+                params(account: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::Account), crypto_money_manager: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoMoneyManager), crypto_transfers_zerohash_recipient: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoTransfersZerohashRecipient), money_manager: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::MoneyManager)).void
                }
-              def initialize(account: nil, crypto_money_manager: nil, money_manager: nil); end
+              def initialize(
+                account: nil,
+                crypto_money_manager: nil,
+                crypto_transfers_zerohash_recipient: nil,
+                money_manager: nil
+              ); end
             end
             # This hash is used to attest that the directors information provided to Stripe is both current and correct.
             sig {
@@ -186145,7 +186204,10 @@ module Stripe
               params(_nationalities: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
              }
             def nationalities=(_nationalities); end
-            # The individual's phone number.
+            # The individual's phone number. You can include a country calling code prefixed with `+`,
+            # for example `+12025550123`, or omit it, for example `2025550123`. Spaces, hyphens, periods,
+            # and parentheses are optional and accepted. Numbers beginning with `+` are checked against
+            # the numbering rules for their country calling code, including valid prefixes and number lengths.
             sig { returns(T.nilable(String)) }
             def phone; end
             sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
@@ -186412,9 +186474,9 @@ module Stripe
             sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
             def city=(_city); end
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def country; end
-            sig { params(_country: String).returns(String) }
+            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
             def country=(_country); end
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
@@ -186447,7 +186509,7 @@ module Stripe
             sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
             def town=(_town); end
             sig {
-              params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), purpose: String, state: T.nilable(String), town: T.nilable(String)).void
+              params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), purpose: String, state: T.nilable(String), town: T.nilable(String)).void
              }
             def initialize(
               city: nil,
@@ -186527,9 +186589,9 @@ module Stripe
             sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
             def city=(_city); end
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def country; end
-            sig { params(_country: String).returns(String) }
+            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
             def country=(_country); end
             # Address line 1 (e.g., street, PO Box, or company name).
             sig { returns(T.nilable(String)) }
@@ -186557,7 +186619,7 @@ module Stripe
             sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
             def town=(_town); end
             sig {
-              params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
+              params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
              }
             def initialize(
               city: nil,
@@ -186835,9 +186897,9 @@ module Stripe
               sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
               def city=(_city); end
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               def country; end
-              sig { params(_country: String).returns(String) }
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
               def country=(_country); end
               # Address line 1 (e.g., street, PO Box, or company name).
               sig { returns(T.nilable(String)) }
@@ -186865,7 +186927,7 @@ module Stripe
               sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
               def town=(_town); end
               sig {
-                params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                }
               def initialize(
                 city: nil,
@@ -186884,9 +186946,9 @@ module Stripe
               sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
               def city=(_city); end
               # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-              sig { returns(String) }
+              sig { returns(T.nilable(String)) }
               def country; end
-              sig { params(_country: String).returns(String) }
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
               def country=(_country); end
               # Address line 1 (e.g., street, PO Box, or company name).
               sig { returns(T.nilable(String)) }
@@ -186914,7 +186976,7 @@ module Stripe
               sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
               def town=(_town); end
               sig {
-                params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), town: T.nilable(String)).void
                }
               def initialize(
                 city: nil,
@@ -190422,7 +190484,10 @@ module Stripe
               params(_nationalities: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
              }
             def nationalities=(_nationalities); end
-            # The individual's phone number.
+            # The individual's phone number. You can include a country calling code prefixed with `+`,
+            # for example `+12025550123`, or omit it, for example `2025550123`. Spaces, hyphens, periods,
+            # and parentheses are optional and accepted. Numbers beginning with `+` are checked against
+            # the numbering rules for their country calling code, including valid prefixes and number lengths.
             sig { returns(T.nilable(String)) }
             def phone; end
             sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
@@ -190948,6 +191013,13 @@ module Stripe
         def snapshot_api_version; end
         sig { params(_snapshot_api_version: T.nilable(String)).returns(T.nilable(String)) }
         def snapshot_api_version=(_snapshot_api_version); end
+        # The initial status of the destination. Defaults to `enabled`. A destination created as
+        # `disabled` receives no delivery attempts until it is enabled. After creation, use the enable
+        # and disable actions to change the status.
+        sig { returns(T.nilable(String)) }
+        def status; end
+        sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
+        def status=(_status); end
         # The delivery transport. Chosen when the destination is created and cannot be changed by update.
         sig { returns(String) }
         def type; end
@@ -190963,7 +191035,7 @@ module Stripe
          }
         def webhook_endpoint=(_webhook_endpoint); end
         sig {
-          params(amazon_eventbridge: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge), azure_event_grid: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid), description: T.nilable(String), enabled_events: T::Array[String], event_payload: String, events_from: T.nilable(T::Array[String]), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, snapshot_api_version: T.nilable(String), type: String, webhook_endpoint: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::WebhookEndpoint)).void
+          params(amazon_eventbridge: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge), azure_event_grid: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid), description: T.nilable(String), enabled_events: T::Array[String], event_payload: String, events_from: T.nilable(T::Array[String]), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, snapshot_api_version: T.nilable(String), status: T.nilable(String), type: String, webhook_endpoint: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::WebhookEndpoint)).void
          }
         def initialize(
           amazon_eventbridge: nil,
@@ -190976,6 +191048,7 @@ module Stripe
           metadata: nil,
           name: nil,
           snapshot_api_version: nil,
+          status: nil,
           type: nil,
           webhook_endpoint: nil
         ); end
@@ -191676,6 +191749,13 @@ module Stripe
           params(_from: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From).returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From)
          }
         def from=(_from); end
+        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        def metadata; end
+        sig {
+          params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+         }
+        def metadata=(_metadata); end
         # The FinancialAccount and currency to credit with the transferred funds.
         sig { returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To) }
         def to; end
@@ -191684,9 +191764,9 @@ module Stripe
          }
         def to=(_to); end
         sig {
-          params(amount: ::Stripe::V2::Amount, description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From, to: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To).void
+          params(amount: ::Stripe::V2::Amount, description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From, metadata: T.nilable(T::Hash[String, String]), to: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To).void
          }
-        def initialize(amount: nil, description: nil, from: nil, to: nil); end
+        def initialize(amount: nil, description: nil, from: nil, metadata: nil, to: nil); end
       end
     end
   end
@@ -191909,7 +191989,7 @@ module Stripe
         def amount; end
         sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
         def amount=(_amount); end
-        # An arbitrary string attached to the OutboundPayment. Often useful for displaying to users.
+        # An arbitrary string attached to the OutboundPayment. Often useful for displaying to users. The description can not be longer than 100 characters and can only contain basic Latin characters and spaces. The following special characters are not allowed: <>\'"* .
         sig { returns(T.nilable(String)) }
         def description; end
         sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }

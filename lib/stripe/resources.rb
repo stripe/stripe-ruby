@@ -143,6 +143,12 @@ module Stripe
     autoload :V1ApplicationFeeRefundedEventNotification, "stripe/events/v1_application_fee_refunded_event"
     autoload :V1ApplicationFeeRefundUpdatedEvent, "stripe/events/v1_application_fee_refund_updated_event"
     autoload :V1ApplicationFeeRefundUpdatedEventNotification, "stripe/events/v1_application_fee_refund_updated_event"
+    autoload :V1AppsInstallCreatedEvent, "stripe/events/v1_apps_install_created_event"
+    autoload :V1AppsInstallCreatedEventNotification, "stripe/events/v1_apps_install_created_event"
+    autoload :V1AppsInstallDeletedEvent, "stripe/events/v1_apps_install_deleted_event"
+    autoload :V1AppsInstallDeletedEventNotification, "stripe/events/v1_apps_install_deleted_event"
+    autoload :V1AppsInstallUpdatedEvent, "stripe/events/v1_apps_install_updated_event"
+    autoload :V1AppsInstallUpdatedEventNotification, "stripe/events/v1_apps_install_updated_event"
     autoload :V1BalanceAvailableEvent, "stripe/events/v1_balance_available_event"
     autoload :V1BalanceAvailableEventNotification, "stripe/events/v1_balance_available_event"
     autoload :V1BalanceSettingsUpdatedEvent, "stripe/events/v1_balance_settings_updated_event"
@@ -524,8 +530,6 @@ module Stripe
     autoload :V1InvoiceWillBeDueEventNotification, "stripe/events/v1_invoice_will_be_due_event"
     autoload :V1IssuingAuthorizationCreatedEvent, "stripe/events/v1_issuing_authorization_created_event"
     autoload :V1IssuingAuthorizationCreatedEventNotification, "stripe/events/v1_issuing_authorization_created_event"
-    autoload :V1IssuingAuthorizationRequestEvent, "stripe/events/v1_issuing_authorization_request_event"
-    autoload :V1IssuingAuthorizationRequestEventNotification, "stripe/events/v1_issuing_authorization_request_event"
     autoload :V1IssuingAuthorizationUpdatedEvent, "stripe/events/v1_issuing_authorization_updated_event"
     autoload :V1IssuingAuthorizationUpdatedEventNotification, "stripe/events/v1_issuing_authorization_updated_event"
     autoload :V1IssuingCardCreatedEvent, "stripe/events/v1_issuing_card_created_event"
@@ -1350,6 +1354,9 @@ module Stripe
     stripe/events/v1_application_fee_created_event
     stripe/events/v1_application_fee_refund_updated_event
     stripe/events/v1_application_fee_refunded_event
+    stripe/events/v1_apps_install_created_event
+    stripe/events/v1_apps_install_deleted_event
+    stripe/events/v1_apps_install_updated_event
     stripe/events/v1_balance_available_event
     stripe/events/v1_balance_settings_updated_event
     stripe/events/v1_billing_alert_triggered_event
@@ -1493,7 +1500,6 @@ module Stripe
     stripe/events/v1_invoiceitem_discount_added_event
     stripe/events/v1_invoiceitem_discount_removed_event
     stripe/events/v1_issuing_authorization_created_event
-    stripe/events/v1_issuing_authorization_request_event
     stripe/events/v1_issuing_authorization_updated_event
     stripe/events/v1_issuing_card_created_event
     stripe/events/v1_issuing_card_updated_event

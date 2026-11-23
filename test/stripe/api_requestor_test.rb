@@ -2092,6 +2092,8 @@ module Stripe
       "/v1/customers?email=a..b%40example.com",
       # A double-encoded dot reaches the API as the literal "%2E".
       "/v1/customers/%252E",
+      # An encoded slash is fine as long as no piece around it is a dot segment.
+      "/v1/coupons/summer%2F2017",
     ].freeze
 
     HOSTILE_PATHS = [
@@ -2125,6 +2127,11 @@ module Stripe
       "/v1/checkout/sessions/%2E",
       "/v1/checkout/sessions/%2e%2E",
       "/v1/checkout/sessions/.%2E",
+      # A proxy that decodes "%2F" before removing dot segments turns these into
+      # real path separators.
+      "/v1/coupons/x%2F..%2F..%2Fcustomers%2Fcus_B",
+      "/v1/customers/cus_123/sources/..%2F..%2Fcus_B",
+      "/v1/coupons/..%2fsummer",
     ].freeze
 
     context "request path validation" do
@@ -2189,6 +2196,15 @@ module Stripe
         end
         assert_raises(ArgumentError) do
           client.v1.customers.payment_methods.retrieve("..", "pm_123")
+        end
+        assert_not_requested(:any, /.*/)
+      end
+
+      should "reject an ID with encoded dot segments without issuing a request" do
+        client = Stripe::StripeClient.new("sk_test_123")
+
+        assert_raises(ArgumentError) do
+          client.v1.coupons.retrieve("x/../../customers/cus_B")
         end
         assert_not_requested(:any, /.*/)
       end

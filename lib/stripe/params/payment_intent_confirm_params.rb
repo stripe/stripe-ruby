@@ -3175,6 +3175,21 @@ module Stripe
         end
       end
 
+      class AeonPay < ::Stripe::RequestParams
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_accessor :setup_future_usage
+
+        def initialize(setup_future_usage: nil)
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
       class Affirm < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
@@ -3299,6 +3314,21 @@ module Stripe
         def initialize(setup_future_usage: nil, target_date: nil)
           @setup_future_usage = setup_future_usage
           @target_date = target_date
+        end
+      end
+
+      class AuPay < ::Stripe::RequestParams
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_accessor :setup_future_usage
+
+        def initialize(setup_future_usage: nil)
+          @setup_future_usage = setup_future_usage
         end
       end
 
@@ -4176,6 +4206,21 @@ module Stripe
         def initialize(bank_transfer: nil, funding_type: nil, setup_future_usage: nil)
           @bank_transfer = bank_transfer
           @funding_type = funding_type
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
+      class Dbarai < ::Stripe::RequestParams
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_accessor :setup_future_usage
+
+        def initialize(setup_future_usage: nil)
           @setup_future_usage = setup_future_usage
         end
       end
@@ -5511,6 +5556,21 @@ module Stripe
         end
       end
 
+      class Merpay < ::Stripe::RequestParams
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_accessor :setup_future_usage
+
+        def initialize(setup_future_usage: nil)
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
       class Mobilepay < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
@@ -5937,6 +5997,21 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        attr_accessor :setup_future_usage
+
+        def initialize(setup_future_usage: nil)
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
+      class RakutenPay < ::Stripe::RequestParams
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         attr_accessor :setup_future_usage
 
         def initialize(setup_future_usage: nil)
@@ -6480,6 +6555,8 @@ module Stripe
       end
       # If this is a `acss_debit` PaymentMethod, this sub-hash contains details about the ACSS Debit payment method options.
       attr_accessor :acss_debit
+      # If this is a `aeon_pay` PaymentMethod, this sub-hash contains details about the AEON Pay payment method options.
+      attr_accessor :aeon_pay
       # If this is an `affirm` PaymentMethod, this sub-hash contains details about the Affirm payment method options.
       attr_accessor :affirm
       # If this is a `afterpay_clearpay` PaymentMethod, this sub-hash contains details about the Afterpay Clearpay payment method options.
@@ -6492,6 +6569,8 @@ module Stripe
       attr_accessor :amazon_pay
       # If this is a `au_becs_debit` PaymentMethod, this sub-hash contains details about the AU BECS Direct Debit payment method options.
       attr_accessor :au_becs_debit
+      # If this is a `au_pay` PaymentMethod, this sub-hash contains details about the au PAY payment method options.
+      attr_accessor :au_pay
       # If this is a `bacs_debit` PaymentMethod, this sub-hash contains details about the BACS Debit payment method options.
       attr_accessor :bacs_debit
       # If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
@@ -6516,6 +6595,8 @@ module Stripe
       attr_accessor :crypto
       # If this is a `customer balance` PaymentMethod, this sub-hash contains details about the customer balance payment method options.
       attr_accessor :customer_balance
+      # If this is a `dbarai` PaymentMethod, this sub-hash contains details about the d-Barai payment method options.
+      attr_accessor :dbarai
       # If this is a `eps` PaymentMethod, this sub-hash contains details about the EPS payment method options.
       attr_accessor :eps
       # If this is a `fpx` PaymentMethod, this sub-hash contains details about the FPX payment method options.
@@ -6548,6 +6629,8 @@ module Stripe
       attr_accessor :link
       # If this is a `mb_way` PaymentMethod, this sub-hash contains details about the MB WAY payment method options.
       attr_accessor :mb_way
+      # If this is a `merpay` PaymentMethod, this sub-hash contains details about the Merpay payment method options.
+      attr_accessor :merpay
       # If this is a `MobilePay` PaymentMethod, this sub-hash contains details about the MobilePay payment method options.
       attr_accessor :mobilepay
       # If this is a `multibanco` PaymentMethod, this sub-hash contains details about the Multibanco payment method options.
@@ -6578,6 +6661,8 @@ module Stripe
       attr_accessor :promptpay
       # If this is a `qris` PaymentMethod, this sub-hash contains details about the QRIS payment method options.
       attr_accessor :qris
+      # If this is a `rakuten_pay` PaymentMethod, this sub-hash contains details about the Rakuten Pay payment method options.
+      attr_accessor :rakuten_pay
       # If this is a `rechnung` PaymentMethod, this sub-hash contains details about the Rechnung payment method options.
       attr_accessor :rechnung
       # If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Revolut Pay payment method options.
@@ -6621,12 +6706,14 @@ module Stripe
 
       def initialize(
         acss_debit: nil,
+        aeon_pay: nil,
         affirm: nil,
         afterpay_clearpay: nil,
         alipay: nil,
         alma: nil,
         amazon_pay: nil,
         au_becs_debit: nil,
+        au_pay: nil,
         bacs_debit: nil,
         bancontact: nil,
         billie: nil,
@@ -6639,6 +6726,7 @@ module Stripe
         cashapp: nil,
         crypto: nil,
         customer_balance: nil,
+        dbarai: nil,
         eps: nil,
         fpx: nil,
         getflex: nil,
@@ -6655,6 +6743,7 @@ module Stripe
         kr_card: nil,
         link: nil,
         mb_way: nil,
+        merpay: nil,
         mobilepay: nil,
         multibanco: nil,
         naver_pay: nil,
@@ -6670,6 +6759,7 @@ module Stripe
         pix: nil,
         promptpay: nil,
         qris: nil,
+        rakuten_pay: nil,
         rechnung: nil,
         revolut_pay: nil,
         samsung_pay: nil,
@@ -6692,12 +6782,14 @@ module Stripe
         zip: nil
       )
         @acss_debit = acss_debit
+        @aeon_pay = aeon_pay
         @affirm = affirm
         @afterpay_clearpay = afterpay_clearpay
         @alipay = alipay
         @alma = alma
         @amazon_pay = amazon_pay
         @au_becs_debit = au_becs_debit
+        @au_pay = au_pay
         @bacs_debit = bacs_debit
         @bancontact = bancontact
         @billie = billie
@@ -6710,6 +6802,7 @@ module Stripe
         @cashapp = cashapp
         @crypto = crypto
         @customer_balance = customer_balance
+        @dbarai = dbarai
         @eps = eps
         @fpx = fpx
         @getflex = getflex
@@ -6726,6 +6819,7 @@ module Stripe
         @kr_card = kr_card
         @link = link
         @mb_way = mb_way
+        @merpay = merpay
         @mobilepay = mobilepay
         @multibanco = multibanco
         @naver_pay = naver_pay
@@ -6741,6 +6835,7 @@ module Stripe
         @pix = pix
         @promptpay = promptpay
         @qris = qris
+        @rakuten_pay = rakuten_pay
         @rechnung = rechnung
         @revolut_pay = revolut_pay
         @samsung_pay = samsung_pay

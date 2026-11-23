@@ -25,6 +25,16 @@ module Stripe
         end
       end
 
+      class AeonPay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class AmazonPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -36,6 +46,16 @@ module Stripe
       end
 
       class AuBecsDebit < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class AuPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -258,7 +278,37 @@ module Stripe
         end
       end
 
+      class Carecredit < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Cashapp < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Dbarai < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Getflex < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -351,6 +401,16 @@ module Stripe
         end
       end
 
+      class Merpay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class NaverPay < ::Stripe::StripeObject
         # Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
         attr_reader :buyer_id
@@ -411,6 +471,16 @@ module Stripe
         # Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
         attr_reader :fingerprint
 
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class RakutenPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -533,10 +603,14 @@ module Stripe
       end
       # Attribute for field acss_debit
       attr_reader :acss_debit
+      # Attribute for field aeon_pay
+      attr_reader :aeon_pay
       # Attribute for field amazon_pay
       attr_reader :amazon_pay
       # Attribute for field au_becs_debit
       attr_reader :au_becs_debit
+      # Attribute for field au_pay
+      attr_reader :au_pay
       # Attribute for field bacs_debit
       attr_reader :bacs_debit
       # Attribute for field bancontact
@@ -549,8 +623,14 @@ module Stripe
       attr_reader :card
       # Attribute for field card_present
       attr_reader :card_present
+      # Attribute for field carecredit
+      attr_reader :carecredit
       # Attribute for field cashapp
       attr_reader :cashapp
+      # Attribute for field dbarai
+      attr_reader :dbarai
+      # Attribute for field getflex
+      attr_reader :getflex
       # Attribute for field id_bank_transfer
       attr_reader :id_bank_transfer
       # Attribute for field ideal
@@ -563,6 +643,8 @@ module Stripe
       attr_reader :kr_card
       # Attribute for field link
       attr_reader :link
+      # Attribute for field merpay
+      attr_reader :merpay
       # Attribute for field naver_pay
       attr_reader :naver_pay
       # Attribute for field nz_bank_account
@@ -575,6 +657,8 @@ module Stripe
       attr_reader :payto
       # Attribute for field pix
       attr_reader :pix
+      # Attribute for field rakuten_pay
+      attr_reader :rakuten_pay
       # Attribute for field revolut_pay
       attr_reader :revolut_pay
       # Attribute for field satispay
@@ -599,27 +683,34 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           acss_debit: AcssDebit,
+          aeon_pay: AeonPay,
           amazon_pay: AmazonPay,
           au_becs_debit: AuBecsDebit,
+          au_pay: AuPay,
           bacs_debit: BacsDebit,
           bancontact: Bancontact,
           blik: Blik,
           boleto: Boleto,
           card: Card,
           card_present: CardPresent,
+          carecredit: Carecredit,
           cashapp: Cashapp,
+          dbarai: Dbarai,
+          getflex: Getflex,
           id_bank_transfer: IdBankTransfer,
           ideal: Ideal,
           kakao_pay: KakaoPay,
           klarna: Klarna,
           kr_card: KrCard,
           link: Link,
+          merpay: Merpay,
           naver_pay: NaverPay,
           nz_bank_account: NzBankAccount,
           paypal: Paypal,
           paypay: Paypay,
           payto: Payto,
           pix: Pix,
+          rakuten_pay: RakutenPay,
           revolut_pay: RevolutPay,
           satispay: Satispay,
           sepa_debit: SepaDebit,

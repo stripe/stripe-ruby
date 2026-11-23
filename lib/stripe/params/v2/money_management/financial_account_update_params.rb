@@ -5,6 +5,37 @@ module Stripe
   module V2
     module MoneyManagement
       class FinancialAccountUpdateParams < ::Stripe::RequestParams
+        class FlowSettings < ::Stripe::RequestParams
+          class ReceivedDebits < ::Stripe::RequestParams
+            class Ach < ::Stripe::RequestParams
+              # Whether ACH received debits are enabled. Omit to preserve the current setting, which defaults to true. Other restrictions still apply.
+              attr_accessor :enabled
+              # Controls whether ACH debits without a matching active mandate are allowed or rejected.
+              attr_accessor :mandate_behavior
+              # Account-level per-debit limit. Set to null to clear the limit.
+              attr_accessor :transaction_limit
+
+              def initialize(enabled: nil, mandate_behavior: nil, transaction_limit: nil)
+                @enabled = enabled
+                @mandate_behavior = mandate_behavior
+                @transaction_limit = transaction_limit
+              end
+            end
+            # Settings for ACH received debits.
+            attr_accessor :ach
+
+            def initialize(ach: nil)
+              @ach = ach
+            end
+          end
+          # Settings for received debit flows.
+          attr_accessor :received_debits
+
+          def initialize(received_debits: nil)
+            @received_debits = received_debits
+          end
+        end
+
         class ForwardingSettings < ::Stripe::RequestParams
           # ID of the FinancialAccount that supplies funds to cover negative balances
           # during or after this FinancialAccount's closure.
@@ -48,6 +79,8 @@ module Stripe
         end
         # A descriptive name for the FinancialAccount, up to 50 characters long. This name appears in the Stripe Dashboard and embedded components.
         attr_accessor :display_name
+        # Sparse flow setting updates. Omitting a field leaves its current value unchanged.
+        attr_accessor :flow_settings
         # Forwarding settings for a closed FinancialAccount. Post-close forwarding updates are not yet implemented.
         attr_accessor :forwarding_settings
         # Set of key-value pairs that you can attach to the FinancialAccount. Individual keys can be unset by posting
@@ -56,8 +89,15 @@ module Stripe
         # Parameters for updating storage-specific fields on the FinancialAccount.
         attr_accessor :storage
 
-        def initialize(display_name: nil, forwarding_settings: nil, metadata: nil, storage: nil)
+        def initialize(
+          display_name: nil,
+          flow_settings: nil,
+          forwarding_settings: nil,
+          metadata: nil,
+          storage: nil
+        )
           @display_name = display_name
+          @flow_settings = flow_settings
           @forwarding_settings = forwarding_settings
           @metadata = metadata
           @storage = storage

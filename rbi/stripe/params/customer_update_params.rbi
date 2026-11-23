@@ -144,8 +144,20 @@ module Stripe
         def consent_collected; end
         sig { params(_consent_collected: T::Boolean).returns(T::Boolean) }
         def consent_collected=(_consent_collected); end
-        sig { params(consent_collected: T::Boolean).void }
-        def initialize(consent_collected: nil); end
+        # The URL of the web page where the customer converted.
+        sig { returns(T.nilable(String)) }
+        def source_url; end
+        sig { params(_source_url: T.nilable(String)).returns(T.nilable(String)) }
+        def source_url=(_source_url); end
+        # The user agent of the browser where the customer converted.
+        sig { returns(T.nilable(String)) }
+        def user_agent; end
+        sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+        def user_agent=(_user_agent); end
+        sig {
+          params(consent_collected: T::Boolean, source_url: T.nilable(String), user_agent: T.nilable(String)).void
+         }
+        def initialize(consent_collected: nil, source_url: nil, user_agent: nil); end
       end
       # Information used when sending conversions to an advertising platform.
       sig { returns(T.nilable(::Stripe::CustomerUpdateParams::MarketingAttribution::AdConversion)) }

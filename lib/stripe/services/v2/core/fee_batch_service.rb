@@ -5,7 +5,10 @@ module Stripe
   module V2
     module Core
       class FeeBatchService < StripeService
-        # List FeeBatches optionally filtered by collection_record.
+        # Lists FeeBatches, optionally filtered by `collection_record`, `statuses`, or
+        # creation time. If `statuses` is omitted or empty, only pending and billed
+        # FeeBatches are returned. Canceled FeeBatches are returned only when explicitly
+        # requested.
         def list(params = {}, opts = {})
           request(
             method: :get,

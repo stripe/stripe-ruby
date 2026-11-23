@@ -885,7 +885,7 @@ module Stripe
       end
     end
     class RadarOptions < ::Stripe::StripeObject
-      # The value you provided for whether this transaction starts a free trial. This is null if you haven't explicitly set it.
+      # The value you provided for whether this transaction starts a free trial. This field is omitted if you haven't explicitly set it.
       sig { returns(T.nilable(T::Boolean)) }
       def is_free_trial_transaction; end
       # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.

@@ -765,6 +765,33 @@ module Stripe
       end
 
       class CardPresent < ::Stripe::StripeObject
+        class Benefits < ::Stripe::StripeObject
+          class FrMealVoucher < ::Stripe::StripeObject
+            # The 14-digit SIRET of the meal voucher acceptor used for this charge.
+            attr_reader :siret
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field fr_meal_voucher
+          attr_reader :fr_meal_voucher
+          # Issuer of the benefit card utilized on this payment
+          attr_reader :issuer
+
+          def self.inner_class_types
+            @inner_class_types = { fr_meal_voucher: FrMealVoucher }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Fleet < ::Stripe::StripeObject
           class TransactionDatum < ::Stripe::StripeObject
             # The prompt that the Terminal SDK displays to collect this Fleet value.
@@ -894,6 +921,8 @@ module Stripe
         end
         # The authorized amount
         attr_reader :amount_authorized
+        # Attribute for field benefits
+        attr_reader :benefits
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         attr_reader :brand
         # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card.
@@ -961,6 +990,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            benefits: Benefits,
             fleet: Fleet,
             multicapture: Multicapture,
             offline: Offline,
@@ -2512,6 +2542,19 @@ module Stripe
         end
       end
 
+      class Stripe < ::Stripe::StripeObject
+        # Stripe balance transactions associated with this attempt, in no guaranteed order. References can appear at submission or after success. On a PaymentRecord, these references follow the latest attempt.
+        attr_reader :derived_balance_transactions
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Svs < ::Stripe::StripeObject
         # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
         attr_reader :payment_reference
@@ -2532,6 +2575,8 @@ module Stripe
       attr_reader :fiserv_valuelink
       # Represents the Givex gift card processor.
       attr_reader :givex
+      # Represents the Stripe processor. This resource consists of details specific to Stripe.
+      attr_reader :stripe
       # Represents the SVS gift card processor.
       attr_reader :svs
       # The processor used for this payment attempt.
@@ -2542,6 +2587,7 @@ module Stripe
           custom: Custom,
           fiserv_valuelink: FiservValuelink,
           givex: Givex,
+          stripe: Stripe,
           svs: Svs,
         }
       end

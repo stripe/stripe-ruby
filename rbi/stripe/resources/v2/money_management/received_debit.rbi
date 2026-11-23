@@ -113,6 +113,29 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            class Iban < ::Stripe::StripeObject
+              # The creditor's name.
+              sig { returns(T.nilable(String)) }
+              def account_holder_name; end
+              # The name of the creditor's bank.
+              sig { returns(T.nilable(String)) }
+              def bank_name; end
+              # The Bank Identifier Code (BIC) of the creditor's bank.
+              sig { returns(T.nilable(String)) }
+              def bic; end
+              # Uppercase ISO 3166-1 alpha-2 country code of the creditor's bank account.
+              sig { returns(T.nilable(String)) }
+              def country; end
+              # The creditor's IBAN, masked with X except for the country code and last four characters.
+              sig { returns(T.nilable(String)) }
+              def iban; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             class SortCode < ::Stripe::StripeObject
               # The name of the account holder that originated the debit.
               sig { returns(T.nilable(String)) }
@@ -136,6 +159,9 @@ module Stripe
             # Details of the originating account. Present when type is `aba`.
             sig { returns(T.nilable(Aba)) }
             def aba; end
+            # Creditor details. Present when type is `iban`.
+            sig { returns(T.nilable(Iban)) }
+            def iban; end
             # Details of the originating account. Present when type is `sort_code`.
             sig { returns(T.nilable(SortCode)) }
             def sort_code; end
@@ -143,7 +169,7 @@ module Stripe
             sig { returns(String) }
             def type; end
             def self.inner_class_types
-              @inner_class_types = {aba: Aba, sort_code: SortCode}
+              @inner_class_types = {aba: Aba, iban: Iban, sort_code: SortCode}
             end
             def self.field_remappings
               @field_remappings = {}
@@ -371,6 +397,10 @@ module Stripe
         # The dispute details.
         sig { returns(T.nilable(DisputeDetails)) }
         def dispute_details; end
+        # Has the value `true` if the object has an associated Dispute otherwise or the value `false`.
+        # Use the Disputes List API with `target` to see details.
+        sig { returns(T::Boolean) }
+        def disputed; end
         # The amount and currency of the original/external debit request.
         sig { returns(T.nilable(::Stripe::V2::Amount)) }
         def external_amount; end

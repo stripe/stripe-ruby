@@ -26,6 +26,28 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class FlexibleCredential < ::Stripe::StripeObject
+        class SecondaryCredential < ::Stripe::StripeObject
+          # The funding source that this credential can support.
+          sig { returns(T.nilable(String)) }
+          def funding; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Details about the secondary credentials for this card.
+        sig { returns(T.nilable(T::Array[SecondaryCredential])) }
+        def secondary_credentials; end
+        def self.inner_class_types
+          @inner_class_types = {secondary_credentials: SecondaryCredential}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class LatestFraudWarning < ::Stripe::StripeObject
         # Timestamp of the most recent fraud warning.
         sig { returns(T.nilable(Integer)) }
@@ -359,6 +381,9 @@ module Stripe
       # The financial account this card is attached to.
       sig { returns(T.nilable(String)) }
       def financial_account; end
+      # Details about the flexible credential configuration for this card. This is only populated when enrolled to flex credentials, and is omitted unless you explicitly request it with `include[]=flexible_credential`.
+      sig { returns(T.nilable(FlexibleCredential)) }
+      def flexible_credential; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end

@@ -6,6 +6,7 @@ module Stripe
   module V2
     module MoneyManagement
       class DebitDisputeService < StripeService
+        # Deprecated: Use CreateDispute to create a Dispute instead.
         # Creates a new DebitDispute for a ReceivedDebit.
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::DebitDisputeCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::DebitDispute)

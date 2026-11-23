@@ -302,6 +302,23 @@ module Stripe
             @field_encodings = {score: :decimal_string}
           end
         end
+        class UserBuyerClassification < ::Stripe::StripeObject
+          # Predicted type of buyer behind the user.
+          sig { returns(String) }
+          def buyer_type; end
+          # The score for the predicted buyer type, between 0.00 and 100.00. Absent when buyer_type is unknown.
+          sig { returns(T.nilable(BigDecimal)) }
+          def buyer_type_score; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {buyer_type_score: :decimal_string}
+          end
+        end
         class UserMultiAccounting < ::Stripe::StripeObject
           # Categorical assessment of the multi-accounting risk.
           sig { returns(String) }
@@ -365,6 +382,9 @@ module Stripe
         # Data for the user affinity signal. Present only when type is user_affinity.
         sig { returns(T.nilable(UserAffinity)) }
         def user_affinity; end
+        # Data for the user buyer classification signal. Present only when type is user_buyer_classification.
+        sig { returns(T.nilable(UserBuyerClassification)) }
+        def user_buyer_classification; end
         # Data for the user multi-accounting signal. Present only when type is user_multi_accounting.
         sig { returns(T.nilable(UserMultiAccounting)) }
         def user_multi_accounting; end

@@ -82,6 +82,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class AeonPay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class AmazonPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -94,6 +102,14 @@ module Stripe
         # The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
         sig { returns(String) }
         def url; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class AuPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -198,6 +214,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Dbarai < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class KakaoPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -223,6 +247,14 @@ module Stripe
         end
       end
       class Link < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Merpay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -322,6 +354,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class RakutenPay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class RevolutPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -397,12 +437,18 @@ module Stripe
       # Attribute for field acss_debit
       sig { returns(T.nilable(AcssDebit)) }
       def acss_debit; end
+      # Attribute for field aeon_pay
+      sig { returns(T.nilable(AeonPay)) }
+      def aeon_pay; end
       # Attribute for field amazon_pay
       sig { returns(T.nilable(AmazonPay)) }
       def amazon_pay; end
       # Attribute for field au_becs_debit
       sig { returns(T.nilable(AuBecsDebit)) }
       def au_becs_debit; end
+      # Attribute for field au_pay
+      sig { returns(T.nilable(AuPay)) }
+      def au_pay; end
       # Attribute for field bacs_debit
       sig { returns(T.nilable(BacsDebit)) }
       def bacs_debit; end
@@ -415,6 +461,9 @@ module Stripe
       # Attribute for field cashapp
       sig { returns(T.nilable(Cashapp)) }
       def cashapp; end
+      # Attribute for field dbarai
+      sig { returns(T.nilable(Dbarai)) }
+      def dbarai; end
       # Attribute for field kakao_pay
       sig { returns(T.nilable(KakaoPay)) }
       def kakao_pay; end
@@ -427,6 +476,9 @@ module Stripe
       # Attribute for field link
       sig { returns(T.nilable(Link)) }
       def link; end
+      # Attribute for field merpay
+      sig { returns(T.nilable(Merpay)) }
+      def merpay; end
       # Attribute for field naver_pay
       sig { returns(T.nilable(NaverPay)) }
       def naver_pay; end
@@ -442,6 +494,9 @@ module Stripe
       # Attribute for field pix
       sig { returns(T.nilable(Pix)) }
       def pix; end
+      # Attribute for field rakuten_pay
+      sig { returns(T.nilable(RakutenPay)) }
+      def rakuten_pay; end
       # Attribute for field revolut_pay
       sig { returns(T.nilable(RevolutPay)) }
       def revolut_pay; end
@@ -466,21 +521,26 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           acss_debit: AcssDebit,
+          aeon_pay: AeonPay,
           amazon_pay: AmazonPay,
           au_becs_debit: AuBecsDebit,
+          au_pay: AuPay,
           bacs_debit: BacsDebit,
           blik: Blik,
           card: Card,
           cashapp: Cashapp,
+          dbarai: Dbarai,
           kakao_pay: KakaoPay,
           klarna: Klarna,
           kr_card: KrCard,
           link: Link,
+          merpay: Merpay,
           naver_pay: NaverPay,
           nz_bank_account: NzBankAccount,
           paypal: Paypal,
           payto: Payto,
           pix: Pix,
+          rakuten_pay: RakutenPay,
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
           toss_pay: TossPay,

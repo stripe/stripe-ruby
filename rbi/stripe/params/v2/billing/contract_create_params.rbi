@@ -285,6 +285,57 @@ module Stripe
               end
             end
             class Overwrite < ::Stripe::RequestParams
+              class Tier < ::Stripe::RequestParams
+                # Flat amount in minor currency units.
+                sig { returns(T.nilable(BigDecimal)) }
+                def flat_amount_decimal; end
+                sig {
+                  params(_flat_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal))
+                 }
+                def flat_amount_decimal=(_flat_amount_decimal); end
+                # Per-unit amount in minor currency units.
+                sig { returns(T.nilable(BigDecimal)) }
+                def unit_amount_decimal; end
+                sig {
+                  params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal))
+                 }
+                def unit_amount_decimal=(_unit_amount_decimal); end
+                # Inclusive whole-number upper bound. Omitted for an unbounded final tier.
+                sig { returns(T.nilable(Integer)) }
+                def up_to; end
+                sig { params(_up_to: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def up_to=(_up_to); end
+                sig {
+                  params(flat_amount_decimal: T.nilable(BigDecimal), unit_amount_decimal: T.nilable(BigDecimal), up_to: T.nilable(Integer)).void
+                 }
+                def initialize(flat_amount_decimal: nil, unit_amount_decimal: nil, up_to: nil); end
+                def self.field_encodings
+                  @field_encodings = {
+                    flat_amount_decimal: :decimal_string,
+                    unit_amount_decimal: :decimal_string,
+                    up_to: :int64_string,
+                  }
+                end
+              end
+              # Whether the replacement pricing is per unit or tiered.
+              sig { returns(T.nilable(String)) }
+              def billing_scheme; end
+              sig { params(_billing_scheme: T.nilable(String)).returns(T.nilable(String)) }
+              def billing_scheme=(_billing_scheme); end
+              # Replacement pricing tiers.
+              sig {
+                returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::PricingOverride::Overwrite::Tier]))
+               }
+              def tiers; end
+              sig {
+                params(_tiers: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::PricingOverride::Overwrite::Tier])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::PricingOverride::Overwrite::Tier]))
+               }
+              def tiers=(_tiers); end
+              # How the pricing tiers are applied.
+              sig { returns(T.nilable(String)) }
+              def tiers_mode; end
+              sig { params(_tiers_mode: T.nilable(String)).returns(T.nilable(String)) }
+              def tiers_mode=(_tiers_mode); end
               # The replacement per-unit amount in minor currency units.
               sig { returns(T.nilable(BigDecimal)) }
               def unit_amount_decimal; end
@@ -292,10 +343,30 @@ module Stripe
                 params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal))
                }
               def unit_amount_decimal=(_unit_amount_decimal); end
-              sig { params(unit_amount_decimal: T.nilable(BigDecimal)).void }
-              def initialize(unit_amount_decimal: nil); end
+              sig {
+                params(billing_scheme: T.nilable(String), tiers: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::PricingOverride::Overwrite::Tier]), tiers_mode: T.nilable(String), unit_amount_decimal: T.nilable(BigDecimal)).void
+               }
+              def initialize(
+                billing_scheme: nil,
+                tiers: nil,
+                tiers_mode: nil,
+                unit_amount_decimal: nil
+              ); end
               def self.field_encodings
-                @field_encodings = {unit_amount_decimal: :decimal_string}
+                @field_encodings = {
+                  tiers: {
+                    kind: :array,
+                    element: {
+                      kind: :object,
+                      fields: {
+                        flat_amount_decimal: :decimal_string,
+                        unit_amount_decimal: :decimal_string,
+                        up_to: :int64_string,
+                      },
+                    },
+                  },
+                  unit_amount_decimal: :decimal_string,
+                }
               end
             end
             class StartsAt < ::Stripe::RequestParams
@@ -382,7 +453,23 @@ module Stripe
             def self.field_encodings
               @field_encodings = {
                 multiply: {kind: :object, fields: {factor: :decimal_string}},
-                overwrite: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+                overwrite: {
+                  kind: :object,
+                  fields: {
+                    tiers: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          flat_amount_decimal: :decimal_string,
+                          unit_amount_decimal: :decimal_string,
+                          up_to: :int64_string,
+                        },
+                      },
+                    },
+                    unit_amount_decimal: :decimal_string,
+                  },
+                },
               }
             end
           end
@@ -468,11 +555,6 @@ module Stripe
                   sig { params(timestamp: T.nilable(String), type: String).void }
                   def initialize(timestamp: nil, type: nil); end
                 end
-                # Non-negative amount with an explicit currency that must match the contract's currency.
-                sig { returns(::Stripe::V2::Amount) }
-                def amount; end
-                sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
-                def amount=(_amount); end
                 # A finite bill date. Resolved once per request, including on idempotent retries.
                 sig {
                   returns(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule::Custom::BillAt)
@@ -482,10 +564,26 @@ module Stripe
                   params(_bill_at: ::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule::Custom::BillAt).returns(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule::Custom::BillAt)
                  }
                 def bill_at=(_bill_at); end
+                # Positive installment quantity. Defaults to 1 when omitted.
+                sig { returns(T.nilable(BigDecimal)) }
+                def quantity; end
+                sig { params(_quantity: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
+                def quantity=(_quantity); end
+                # Positive unit price in minor units of the contract's currency, before multiplying by quantity.
+                sig { returns(BigDecimal) }
+                def unit_amount_decimal; end
+                sig { params(_unit_amount_decimal: BigDecimal).returns(BigDecimal) }
+                def unit_amount_decimal=(_unit_amount_decimal); end
                 sig {
-                  params(amount: ::Stripe::V2::Amount, bill_at: ::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule::Custom::BillAt).void
+                  params(bill_at: ::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule::Custom::BillAt, quantity: T.nilable(BigDecimal), unit_amount_decimal: BigDecimal).void
                  }
-                def initialize(amount: nil, bill_at: nil); end
+                def initialize(bill_at: nil, quantity: nil, unit_amount_decimal: nil); end
+                def self.field_encodings
+                  @field_encodings = {
+                    quantity: :decimal_string,
+                    unit_amount_decimal: :decimal_string,
+                  }
+                end
               end
               # Between one and ten installments. Empty schedules are allowed only on update.
               sig {
@@ -505,6 +603,17 @@ module Stripe
                 params(custom: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule::Custom]), type: String).void
                }
               def initialize(custom: nil, type: nil); end
+              def self.field_encodings
+                @field_encodings = {
+                  custom: {
+                    kind: :array,
+                    element: {
+                      kind: :object,
+                      fields: {quantity: :decimal_string, unit_amount_decimal: :decimal_string},
+                    },
+                  },
+                }
+              end
             end
             class ServicePeriod < ::Stripe::RequestParams
               class EndsAt < ::Stripe::RequestParams
@@ -585,6 +694,22 @@ module Stripe
               params(bill_schedule: ::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::BillSchedule, product: String, service_period: T.nilable(::Stripe::V2::Billing::ContractCreateParams::Term::ScheduledFee::ServicePeriod)).void
              }
             def initialize(bill_schedule: nil, product: nil, service_period: nil); end
+            def self.field_encodings
+              @field_encodings = {
+                bill_schedule: {
+                  kind: :object,
+                  fields: {
+                    custom: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {quantity: :decimal_string, unit_amount_decimal: :decimal_string},
+                      },
+                    },
+                  },
+                },
+              }
+            end
           end
           # Lookup key unique across all term types on the contract.
           sig { returns(T.nilable(String)) }
@@ -647,10 +772,43 @@ module Stripe
                 kind: :object,
                 fields: {
                   multiply: {kind: :object, fields: {factor: :decimal_string}},
-                  overwrite: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+                  overwrite: {
+                    kind: :object,
+                    fields: {
+                      tiers: {
+                        kind: :array,
+                        element: {
+                          kind: :object,
+                          fields: {
+                            flat_amount_decimal: :decimal_string,
+                            unit_amount_decimal: :decimal_string,
+                            up_to: :int64_string,
+                          },
+                        },
+                      },
+                      unit_amount_decimal: :decimal_string,
+                    },
+                  },
                 },
               },
               recurring_price: {kind: :object, fields: {quantity: :decimal_string}},
+              scheduled_fee: {
+                kind: :object,
+                fields: {
+                  bill_schedule: {
+                    kind: :object,
+                    fields: {
+                      custom: {
+                        kind: :array,
+                        element: {
+                          kind: :object,
+                          fields: {quantity: :decimal_string, unit_amount_decimal: :decimal_string},
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             }
           end
         end
@@ -722,10 +880,46 @@ module Stripe
                     kind: :object,
                     fields: {
                       multiply: {kind: :object, fields: {factor: :decimal_string}},
-                      overwrite: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+                      overwrite: {
+                        kind: :object,
+                        fields: {
+                          tiers: {
+                            kind: :array,
+                            element: {
+                              kind: :object,
+                              fields: {
+                                flat_amount_decimal: :decimal_string,
+                                unit_amount_decimal: :decimal_string,
+                                up_to: :int64_string,
+                              },
+                            },
+                          },
+                          unit_amount_decimal: :decimal_string,
+                        },
+                      },
                     },
                   },
                   recurring_price: {kind: :object, fields: {quantity: :decimal_string}},
+                  scheduled_fee: {
+                    kind: :object,
+                    fields: {
+                      bill_schedule: {
+                        kind: :object,
+                        fields: {
+                          custom: {
+                            kind: :array,
+                            element: {
+                              kind: :object,
+                              fields: {
+                                quantity: :decimal_string,
+                                unit_amount_decimal: :decimal_string,
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
                 },
               },
             },

@@ -193,6 +193,29 @@ module Stripe
             end
           end
 
+          class UserBuyerClassification < ::Stripe::StripeObject
+            # Predicted type of buyer behind the user.
+            attr_reader :buyer_type
+            # The score for the predicted buyer type, between 0.00 and 100.00. Absent when buyer_type is unknown.
+            attr_reader :buyer_type_score
+            # Timestamp at which the signal was evaluated.
+            attr_reader :evaluated_at
+            # The account signal ID containing the full user buyer classification signal result.
+            attr_reader :signal
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = { buyer_type_score: :decimal_string }
+            end
+          end
+
           class UserMultiAccounting < ::Stripe::StripeObject
             # Timestamp at which the signal was evaluated.
             attr_reader :evaluated_at
@@ -223,6 +246,8 @@ module Stripe
           attr_reader :user_account_sharing
           # User affinity result for the evaluation, when available.
           attr_reader :user_affinity
+          # User buyer classification result for the evaluation, when available.
+          attr_reader :user_buyer_classification
           # User multi-accounting result for the evaluation, when available.
           attr_reader :user_multi_accounting
 
@@ -232,6 +257,7 @@ module Stripe
               fraudulent_website: FraudulentWebsite,
               user_account_sharing: UserAccountSharing,
               user_affinity: UserAffinity,
+              user_buyer_classification: UserBuyerClassification,
               user_multi_accounting: UserMultiAccounting,
             }
           end
@@ -244,6 +270,10 @@ module Stripe
             @field_encodings = {
               user_account_sharing: { kind: :object, fields: { score: :decimal_string } },
               user_affinity: { kind: :object, fields: { score: :decimal_string } },
+              user_buyer_classification: {
+                kind: :object,
+                fields: { buyer_type_score: :decimal_string },
+              },
               user_multi_accounting: { kind: :object, fields: { score: :decimal_string } },
             }
           end
@@ -286,6 +316,10 @@ module Stripe
               fields: {
                 user_account_sharing: { kind: :object, fields: { score: :decimal_string } },
                 user_affinity: { kind: :object, fields: { score: :decimal_string } },
+                user_buyer_classification: {
+                  kind: :object,
+                  fields: { buyer_type_score: :decimal_string },
+                },
                 user_multi_accounting: { kind: :object, fields: { score: :decimal_string } },
               },
             },

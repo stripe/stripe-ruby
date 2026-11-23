@@ -2656,6 +2656,36 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementDisputeCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_dispute_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementDisputeLostEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_dispute_lost(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementDisputeUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_dispute_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementDisputeWonEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_dispute_won(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementDisputeAdjustmentCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_dispute_adjustment_created(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementEarnedCreditSucceededEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_earned_credit_succeeded(&blk);
@@ -3337,6 +3367,12 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2ReportingReportRunUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_reporting_report_run_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2RiskEvaluationOutcomeDelinquencyReadyEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_risk_evaluation_outcome_delinquency_ready(&blk);
     end
     
     sig do

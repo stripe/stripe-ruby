@@ -111,6 +111,11 @@ module Stripe
         params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
       def metadata=(_metadata); end
+      # ID of a card PaymentMethod (pm_...) owned by the authenticated merchant. Only supported for headless sessions. Mutually exclusive with `payment_token`.
+      sig { returns(T.nilable(String)) }
+      def payment_method; end
+      sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
+      def payment_method=(_payment_method); end
       # Speed at which the cryptocurrency is delivered to the wallet
       # One of:
       #  `instant` (default): crypto is delivered when payment is confirmed
@@ -146,7 +151,7 @@ module Stripe
        }
       def wallet_addresses=(_wallet_addresses); end
       sig {
-        params(customer_ip_address: T.nilable(String), destination_amount: T.nilable(String), destination_currencies: T.nilable(T::Array[String]), destination_currency: T.nilable(String), destination_network: T.nilable(String), destination_networks: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), kyc_details: T.nilable(::Stripe::Crypto::OnrampSessionCreateParams::KycDetails), lock_wallet_address: T.nilable(T::Boolean), metadata: T.nilable(T::Hash[String, String]), settlement_speed: T.nilable(String), source_amount: T.nilable(String), source_currency: T.nilable(String), wallet_addresses: T.nilable(::Stripe::Crypto::OnrampSessionCreateParams::WalletAddresses)).void
+        params(customer_ip_address: T.nilable(String), destination_amount: T.nilable(String), destination_currencies: T.nilable(T::Array[String]), destination_currency: T.nilable(String), destination_network: T.nilable(String), destination_networks: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), kyc_details: T.nilable(::Stripe::Crypto::OnrampSessionCreateParams::KycDetails), lock_wallet_address: T.nilable(T::Boolean), metadata: T.nilable(T::Hash[String, String]), payment_method: T.nilable(String), settlement_speed: T.nilable(String), source_amount: T.nilable(String), source_currency: T.nilable(String), wallet_addresses: T.nilable(::Stripe::Crypto::OnrampSessionCreateParams::WalletAddresses)).void
        }
       def initialize(
         customer_ip_address: nil,
@@ -159,6 +164,7 @@ module Stripe
         kyc_details: nil,
         lock_wallet_address: nil,
         metadata: nil,
+        payment_method: nil,
         settlement_speed: nil,
         source_amount: nil,
         source_currency: nil,

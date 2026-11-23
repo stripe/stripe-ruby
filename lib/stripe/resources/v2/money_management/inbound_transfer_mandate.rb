@@ -84,8 +84,10 @@ module Stripe
 
         class UserAcceptedDetails < ::Stripe::StripeObject
           class Online < ::Stripe::StripeObject
-            # The IP address from which the merchant accepted the mandate. For direct account requests,
-            # derived from the request when not supplied; rejected if obtainable from neither.
+            # The IP address from which the merchant accepted the mandate. For connected account
+            # requests, you must provide a valid IPv4 or IPv6 address. For direct account requests,
+            # Stripe derives the address from the request when you don't supply it and rejects the
+            # request if it can't obtain one.
             attr_reader :ip_address
             # The user agent of the browser from which the merchant accepted the mandate. For direct
             # account requests, derived from the request when not supplied.
@@ -99,8 +101,8 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # When the merchant accepted the mandate. Must be a past timestamp. For direct account
-          # requests, defaults to the mandate's creation time when not supplied.
+          # When the account holder accepted the mandate. Must be in the past.
+          # For direct account requests, defaults to the mandate's creation time when not supplied.
           attr_reader :accepted_at
           # Optional details for online acceptance.
           attr_reader :online

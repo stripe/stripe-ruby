@@ -354,6 +354,31 @@ module Stripe
         class GeneratedFrom < ::Stripe::StripeObject
           class PaymentMethodDetails < ::Stripe::StripeObject
             class CardPresent < ::Stripe::StripeObject
+              class Benefits < ::Stripe::StripeObject
+                class FrMealVoucher < ::Stripe::StripeObject
+                  # The 14-digit SIRET of the meal voucher acceptor used for this charge.
+                  sig { returns(String) }
+                  def siret; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Attribute for field fr_meal_voucher
+                sig { returns(T.nilable(FrMealVoucher)) }
+                def fr_meal_voucher; end
+                # Issuer of the benefit card utilized on this payment
+                sig { returns(T.nilable(String)) }
+                def issuer; end
+                def self.inner_class_types
+                  @inner_class_types = {fr_meal_voucher: FrMealVoucher}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               class Fleet < ::Stripe::StripeObject
                 class TransactionDatum < ::Stripe::StripeObject
                   # The prompt that the Terminal SDK displays to collect this Fleet value.
@@ -484,6 +509,9 @@ module Stripe
               # The authorized amount
               sig { returns(T.nilable(Integer)) }
               def amount_authorized; end
+              # Attribute for field benefits
+              sig { returns(T.nilable(Benefits)) }
+              def benefits; end
               # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
               sig { returns(T.nilable(String)) }
               def brand; end
@@ -581,6 +609,7 @@ module Stripe
               def wallet; end
               def self.inner_class_types
                 @inner_class_types = {
+                  benefits: Benefits,
                   fleet: Fleet,
                   multicapture: Multicapture,
                   offline: Offline,
@@ -951,6 +980,20 @@ module Stripe
         end
       end
       class CardPresent < ::Stripe::StripeObject
+        class Benefits < ::Stripe::StripeObject
+          # Issuer of this benefit card
+          sig { returns(T.nilable(String)) }
+          def issuer; end
+          # Available benefit programs for this card
+          sig { returns(T.nilable(T::Array[String])) }
+          def programs; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Networks < ::Stripe::StripeObject
           # All networks available for selection via [payment_method_options.card.network](/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
           sig { returns(T::Array[String]) }
@@ -990,6 +1033,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field benefits
+        sig { returns(T.nilable(Benefits)) }
+        def benefits; end
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         sig { returns(T.nilable(String)) }
         def brand; end
@@ -1044,7 +1090,12 @@ module Stripe
         sig { returns(T.nilable(Wallet)) }
         def wallet; end
         def self.inner_class_types
-          @inner_class_types = {networks: Networks, offline: Offline, wallet: Wallet}
+          @inner_class_types = {
+            benefits: Benefits,
+            networks: Networks,
+            offline: Offline,
+            wallet: Wallet,
+          }
         end
         def self.field_remappings
           @field_remappings = {}

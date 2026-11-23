@@ -306,6 +306,8 @@ module Stripe
         V2::MoneyManagement::Adjustment.object_name => V2::MoneyManagement::Adjustment,
         V2::MoneyManagement::CurrencyConversion.object_name => V2::MoneyManagement::CurrencyConversion,
         V2::MoneyManagement::DebitDispute.object_name => V2::MoneyManagement::DebitDispute,
+        V2::MoneyManagement::Dispute.object_name => V2::MoneyManagement::Dispute,
+        V2::MoneyManagement::DisputeAdjustment.object_name => V2::MoneyManagement::DisputeAdjustment,
         V2::MoneyManagement::EarnedCredit.object_name => V2::MoneyManagement::EarnedCredit,
         V2::MoneyManagement::EarnedCreditSimulation.object_name =>
         V2::MoneyManagement::EarnedCreditSimulation,
@@ -369,6 +371,7 @@ module Stripe
         V2::Provisioning::ResourceAccessConfiguration,
         V2::Reporting::Report.object_name => V2::Reporting::Report,
         V2::Reporting::ReportRun.object_name => V2::Reporting::ReportRun,
+        V2::Risk::EvaluationOutcome.object_name => V2::Risk::EvaluationOutcome,
         V2::Risk::Form.object_name => V2::Risk::Form,
         V2::Signals::AccountActivity.object_name => V2::Signals::AccountActivity,
         V2::Signals::AccountEvaluation.object_name => V2::Signals::AccountEvaluation,

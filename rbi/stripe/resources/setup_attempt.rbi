@@ -17,6 +17,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class AeonPay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class AmazonPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -26,6 +34,14 @@ module Stripe
         end
       end
       class AuBecsDebit < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class AuPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -257,7 +273,31 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Carecredit < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Cashapp < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Dbarai < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Getflex < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -344,6 +384,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Merpay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class NaverPay < ::Stripe::StripeObject
         # Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
         sig { returns(T.nilable(String)) }
@@ -394,6 +442,14 @@ module Stripe
         # Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class RakutenPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -505,12 +561,18 @@ module Stripe
       # Attribute for field acss_debit
       sig { returns(T.nilable(AcssDebit)) }
       def acss_debit; end
+      # Attribute for field aeon_pay
+      sig { returns(T.nilable(AeonPay)) }
+      def aeon_pay; end
       # Attribute for field amazon_pay
       sig { returns(T.nilable(AmazonPay)) }
       def amazon_pay; end
       # Attribute for field au_becs_debit
       sig { returns(T.nilable(AuBecsDebit)) }
       def au_becs_debit; end
+      # Attribute for field au_pay
+      sig { returns(T.nilable(AuPay)) }
+      def au_pay; end
       # Attribute for field bacs_debit
       sig { returns(T.nilable(BacsDebit)) }
       def bacs_debit; end
@@ -529,9 +591,18 @@ module Stripe
       # Attribute for field card_present
       sig { returns(T.nilable(CardPresent)) }
       def card_present; end
+      # Attribute for field carecredit
+      sig { returns(T.nilable(Carecredit)) }
+      def carecredit; end
       # Attribute for field cashapp
       sig { returns(T.nilable(Cashapp)) }
       def cashapp; end
+      # Attribute for field dbarai
+      sig { returns(T.nilable(Dbarai)) }
+      def dbarai; end
+      # Attribute for field getflex
+      sig { returns(T.nilable(Getflex)) }
+      def getflex; end
       # Attribute for field id_bank_transfer
       sig { returns(T.nilable(IdBankTransfer)) }
       def id_bank_transfer; end
@@ -550,6 +621,9 @@ module Stripe
       # Attribute for field link
       sig { returns(T.nilable(Link)) }
       def link; end
+      # Attribute for field merpay
+      sig { returns(T.nilable(Merpay)) }
+      def merpay; end
       # Attribute for field naver_pay
       sig { returns(T.nilable(NaverPay)) }
       def naver_pay; end
@@ -568,6 +642,9 @@ module Stripe
       # Attribute for field pix
       sig { returns(T.nilable(Pix)) }
       def pix; end
+      # Attribute for field rakuten_pay
+      sig { returns(T.nilable(RakutenPay)) }
+      def rakuten_pay; end
       # Attribute for field revolut_pay
       sig { returns(T.nilable(RevolutPay)) }
       def revolut_pay; end
@@ -601,27 +678,34 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           acss_debit: AcssDebit,
+          aeon_pay: AeonPay,
           amazon_pay: AmazonPay,
           au_becs_debit: AuBecsDebit,
+          au_pay: AuPay,
           bacs_debit: BacsDebit,
           bancontact: Bancontact,
           blik: Blik,
           boleto: Boleto,
           card: Card,
           card_present: CardPresent,
+          carecredit: Carecredit,
           cashapp: Cashapp,
+          dbarai: Dbarai,
+          getflex: Getflex,
           id_bank_transfer: IdBankTransfer,
           ideal: Ideal,
           kakao_pay: KakaoPay,
           klarna: Klarna,
           kr_card: KrCard,
           link: Link,
+          merpay: Merpay,
           naver_pay: NaverPay,
           nz_bank_account: NzBankAccount,
           paypal: Paypal,
           paypay: Paypay,
           payto: Payto,
           pix: Pix,
+          rakuten_pay: RakutenPay,
           revolut_pay: RevolutPay,
           satispay: Satispay,
           sepa_debit: SepaDebit,

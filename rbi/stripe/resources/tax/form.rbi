@@ -241,6 +241,9 @@ module Stripe
         # Attribute for field state_income_tax_withheld
         sig { returns(T.nilable(StateIncomeTaxWithheld)) }
         def state_income_tax_withheld; end
+        # The Treasury Tipped Occupation Code stored on the form's payee identity, returned when present regardless of reporting year. Contains one three-digit code or two codes separated by `|`, preserving leading zeros. Uses the selected identity for draft forms and the identity snapshot for finalized forms. Omitted when no code is recorded.
+        sig { returns(T.nilable(String)) }
+        def treasury_tipped_occupation_code; end
         def self.inner_class_types
           @inner_class_types = {
             card_not_present_transactions: CardNotPresentTransactions,
@@ -557,6 +560,9 @@ module Stripe
         # Attribute for field substitute_payments
         sig { returns(T.nilable(SubstitutePayments)) }
         def substitute_payments; end
+        # The Treasury Tipped Occupation Code stored on the form's payee identity, returned when present regardless of reporting year. Contains one three-digit code or two codes separated by `|`, preserving leading zeros. Uses the selected identity for draft forms and the identity snapshot for finalized forms. Omitted when no code is recorded.
+        sig { returns(T.nilable(String)) }
+        def treasury_tipped_occupation_code; end
         def self.inner_class_types
           @inner_class_types = {
             cash_tips: CashTips,
@@ -697,6 +703,9 @@ module Stripe
         # Attribute for field state_tax_withheld
         sig { returns(T.nilable(StateTaxWithheld)) }
         def state_tax_withheld; end
+        # The Treasury Tipped Occupation Code stored on the form's payee identity, returned when present regardless of reporting year. Contains one three-digit code or two codes separated by `|`, preserving leading zeros. Uses the selected identity for draft forms and the identity snapshot for finalized forms. Omitted when no code is recorded.
+        sig { returns(T.nilable(String)) }
+        def treasury_tipped_occupation_code; end
         def self.inner_class_types
           @inner_class_types = {
             cash_tips: CashTips,

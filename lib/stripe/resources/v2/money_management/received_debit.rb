@@ -110,6 +110,27 @@ module Stripe
               end
             end
 
+            class Iban < ::Stripe::StripeObject
+              # The creditor's name.
+              attr_reader :account_holder_name
+              # The name of the creditor's bank.
+              attr_reader :bank_name
+              # The Bank Identifier Code (BIC) of the creditor's bank.
+              attr_reader :bic
+              # Uppercase ISO 3166-1 alpha-2 country code of the creditor's bank account.
+              attr_reader :country
+              # The creditor's IBAN, masked with X except for the country code and last four characters.
+              attr_reader :iban
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
             class SortCode < ::Stripe::StripeObject
               # The name of the account holder that originated the debit.
               attr_reader :account_holder_name
@@ -130,13 +151,15 @@ module Stripe
             end
             # Details of the originating account. Present when type is `aba`.
             attr_reader :aba
+            # Creditor details. Present when type is `iban`.
+            attr_reader :iban
             # Details of the originating account. Present when type is `sort_code`.
             attr_reader :sort_code
             # The credential type identifying the originating bank account.
             attr_reader :type
 
             def self.inner_class_types
-              @inner_class_types = { aba: Aba, sort_code: SortCode }
+              @inner_class_types = { aba: Aba, iban: Iban, sort_code: SortCode }
             end
 
             def self.field_remappings
@@ -356,6 +379,9 @@ module Stripe
         attr_reader :description
         # The dispute details.
         attr_reader :dispute_details
+        # Has the value `true` if the object has an associated Dispute otherwise or the value `false`.
+        # Use the Disputes List API with `target` to see details.
+        attr_reader :disputed
         # The amount and currency of the original/external debit request.
         attr_reader :external_amount
         # Financial Account on which funds for ReceivedDebit were debited.

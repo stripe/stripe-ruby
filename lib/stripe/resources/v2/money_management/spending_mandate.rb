@@ -12,17 +12,33 @@ module Stripe
         end
 
         class BankTransfer < ::Stripe::StripeObject
+          class Ach < ::Stripe::StripeObject
+            # ACH Company ID used to identify the authorized originator.
+            attr_reader :originator_company_id
+            # Maximum amount authorized for a single debit. If absent, the Financial Account limit applies.
+            attr_reader :transaction_limit
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The name of the account holder that initiated the debit.
           attr_reader :account_holder_name
+          # ACH-specific authorization details. Present when `network` is `ach`.
+          attr_reader :ach
           # The financial address associated with this mandate.
           attr_reader :financial_address
           # The bank transfer network for this mandate.
           attr_reader :network
-          # The bank transfer reference provided by the bank. Only present when `network` is `bacs`.
+          # The mandate reference provided by the bank for Bacs or the creditor's unique mandate reference (UMR) for SEPA.
           attr_reader :reference
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { ach: Ach }
           end
 
           def self.field_remappings

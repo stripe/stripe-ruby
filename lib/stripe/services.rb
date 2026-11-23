@@ -520,6 +520,8 @@ module Stripe
       autoload :AdjustmentService, "stripe/services/v2/money_management/adjustment_service"
       autoload :CurrencyConversionService, "stripe/services/v2/money_management/currency_conversion_service"
       autoload :DebitDisputeService, "stripe/services/v2/money_management/debit_dispute_service"
+      autoload :DisputeAdjustmentService, "stripe/services/v2/money_management/dispute_adjustment_service"
+      autoload :DisputeService, "stripe/services/v2/money_management/dispute_service"
       autoload :EarnedCreditService, "stripe/services/v2/money_management/earned_credit_service"
       autoload :FinancialAccountService, "stripe/services/v2/money_management/financial_account_service"
       autoload :FinancialAddressService, "stripe/services/v2/money_management/financial_address_service"
@@ -600,6 +602,7 @@ module Stripe
     end
 
     module Risk
+      autoload :EvaluationOutcomeService, "stripe/services/v2/risk/evaluation_outcome_service"
       autoload :FormService, "stripe/services/v2/risk/form_service"
     end
 
@@ -959,6 +962,8 @@ module Stripe
     stripe/services/v2/money_management/adjustment_service
     stripe/services/v2/money_management/currency_conversion_service
     stripe/services/v2/money_management/debit_dispute_service
+    stripe/services/v2/money_management/dispute_adjustment_service
+    stripe/services/v2/money_management/dispute_service
     stripe/services/v2/money_management/earned_credit_service
     stripe/services/v2/money_management/financial_account_service
     stripe/services/v2/money_management/financial_accounts/statement_service
@@ -1011,6 +1016,7 @@ module Stripe
     stripe/services/v2/reporting/report_run_service
     stripe/services/v2/reporting/report_service
     stripe/services/v2/reporting_service
+    stripe/services/v2/risk/evaluation_outcome_service
     stripe/services/v2/risk/form_service
     stripe/services/v2/risk_service
     stripe/services/v2/signals/account_activity_service

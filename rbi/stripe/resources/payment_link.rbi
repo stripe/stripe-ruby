@@ -337,6 +337,9 @@ module Stripe
           # ID of the invoice rendering template to be used for the generated invoice.
           sig { returns(T.nilable(String)) }
           def template; end
+          # The version of the invoice rendering template to be used for the generated invoice. If null, the latest version of the template will be used. Only available in unified mode.
+          sig { returns(T.nilable(Integer)) }
+          def template_version; end
           def self.inner_class_types
             @inner_class_types = {}
           end

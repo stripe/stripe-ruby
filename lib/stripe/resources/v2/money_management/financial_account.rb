@@ -84,6 +84,48 @@ module Stripe
           end
         end
 
+        class FlowSettings < ::Stripe::StripeObject
+          class ReceivedDebits < ::Stripe::StripeObject
+            class Ach < ::Stripe::StripeObject
+              # Whether ACH received debits are enabled. Defaults to true. Other restrictions still apply.
+              attr_reader :enabled
+              # Controls whether ACH debits without a matching active SpendingMandate are allowed or rejected
+              # Defaults to `optional`. Other restrictions still apply.
+              attr_reader :mandate_behavior
+              # Account-level per-debit limit. Set to null to clear the limit.
+              attr_reader :transaction_limit
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Settings for ACH received debits.
+            attr_reader :ach
+
+            def self.inner_class_types
+              @inner_class_types = { ach: Ach }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Settings for received debit flows.
+          attr_reader :received_debits
+
+          def self.inner_class_types
+            @inner_class_types = { received_debits: ReceivedDebits }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class MultiprocessorSettlement < ::Stripe::StripeObject
           # Settlement currencies enabled for this FinancialAccount.
           attr_reader :settlement_currencies
@@ -368,6 +410,8 @@ module Stripe
         attr_reader :credit
         # A descriptive name for the FinancialAccount, up to 50 characters long. This name appears in the Stripe Dashboard and embedded components.
         attr_reader :display_name
+        # Settings that control behavior for money movement flows.
+        attr_reader :flow_settings
         # Unique identifier for the object.
         attr_reader :id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -401,6 +445,7 @@ module Stripe
             accrued_fees: AccruedFees,
             balance: Balance,
             credit: Credit,
+            flow_settings: FlowSettings,
             multiprocessor_settlement: MultiprocessorSettlement,
             other: Other,
             payments: Payments,

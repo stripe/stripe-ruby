@@ -38,31 +38,6 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class AppliedCreditMemos < ::Stripe::StripeObject
-      class Data < ::Stripe::StripeObject
-        # The credit currently applied to this invoice from the Credit Memo, in cents (or local equivalent). Applying credit reduces `amount_due` and `amount_remaining` without changing `amount_paid`.
-        sig { returns(Integer) }
-        def applied_amount; end
-        # The ID of the Credit Memo whose credit is applied to this invoice.
-        sig { returns(String) }
-        def credit_memo; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-      # The Credit Memos with credit currently applied to this invoice, with one entry per Credit Memo. An invoice can have credit applied from at most 10 Credit Memos, so the list is returned in full.
-      sig { returns(T::Array[Data]) }
-      def data; end
-      def self.inner_class_types
-        @inner_class_types = {data: Data}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
     class AppliesTo < ::Stripe::StripeObject
       # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
       sig { returns(T.nilable(String)) }
@@ -1282,9 +1257,6 @@ module Stripe
     # ID of the Connect Application that created the invoice.
     sig { returns(T.nilable(T.any(String, ::Stripe::Application))) }
     def application; end
-    # Attribute for field applied_credit_memos
-    sig { returns(T.nilable(AppliedCreditMemos)) }
-    def applied_credit_memos; end
     # Attribute for field applies_to
     sig { returns(AppliesTo) }
     def applies_to; end

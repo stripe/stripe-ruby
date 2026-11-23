@@ -363,6 +363,9 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # If the dispute was eligible for appeal, whether the appeal was submitted manually, with Smart Disputes, or not submitted.
+      sig { returns(T.nilable(String)) }
+      def appeal_method; end
       # Date by which evidence must be submitted in order to successfully challenge dispute. Will be 0 if the customer's bank or credit card company doesn't allow a response for this particular dispute.
       sig { returns(T.nilable(Integer)) }
       def due_by; end
@@ -424,6 +427,9 @@ module Stripe
         # Chargeback loss reason mapped by Stripe from Klarna's chargeback loss reason
         sig { returns(T.nilable(String)) }
         def chargeback_loss_reason_code; end
+        # The ID of the dispute in Klarna.
+        sig { returns(T.nilable(String)) }
+        def dispute_id; end
         # The reason for the dispute as defined by Klarna
         sig { returns(T.nilable(String)) }
         def reason_code; end

@@ -352,6 +352,8 @@ module Stripe
           attr_reader :amount_tax_display
           # ID of the invoice rendering template to be used for the generated invoice.
           attr_reader :template
+          # The version of the invoice rendering template to be used for the generated invoice. If null, the latest version of the template will be used. Only available in unified mode.
+          attr_reader :template_version
 
           def self.inner_class_types
             @inner_class_types = {}

@@ -6,6 +6,20 @@ module Stripe
   module Terminal
     class ReaderRefundPaymentParams < ::Stripe::RequestParams
       class RefundPaymentConfig < ::Stripe::RequestParams
+        class GiftCard < ::Stripe::RequestParams
+          # The brand of the destination gift card to collect on the reader.
+          sig { returns(String) }
+          def brand; end
+          sig { params(_brand: String).returns(String) }
+          def brand=(_brand); end
+          # The gift card operation to perform with the refund amount.
+          sig { returns(String) }
+          def operation_type; end
+          sig { params(_operation_type: String).returns(String) }
+          def operation_type=(_operation_type); end
+          sig { params(brand: String, operation_type: String).void }
+          def initialize(brand: nil, operation_type: nil); end
+        end
         # Enables cancel button on transaction screens.
         sig { returns(T.nilable(T::Boolean)) }
         def enable_customer_cancellation; end
@@ -13,8 +27,19 @@ module Stripe
           params(_enable_customer_cancellation: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
          }
         def enable_customer_cancellation=(_enable_customer_cancellation); end
-        sig { params(enable_customer_cancellation: T.nilable(T::Boolean)).void }
-        def initialize(enable_customer_cancellation: nil); end
+        # Collect a destination gift card on the reader to reload or activate with the refund amount. If omitted, refund the original gift card without collecting card data.
+        sig {
+          returns(T.nilable(::Stripe::Terminal::ReaderRefundPaymentParams::RefundPaymentConfig::GiftCard))
+         }
+        def gift_card; end
+        sig {
+          params(_gift_card: T.nilable(::Stripe::Terminal::ReaderRefundPaymentParams::RefundPaymentConfig::GiftCard)).returns(T.nilable(::Stripe::Terminal::ReaderRefundPaymentParams::RefundPaymentConfig::GiftCard))
+         }
+        def gift_card=(_gift_card); end
+        sig {
+          params(enable_customer_cancellation: T.nilable(T::Boolean), gift_card: T.nilable(::Stripe::Terminal::ReaderRefundPaymentParams::RefundPaymentConfig::GiftCard)).void
+         }
+        def initialize(enable_customer_cancellation: nil, gift_card: nil); end
       end
       # A positive integer in __cents__ representing how much of this charge to refund.
       sig { returns(T.nilable(Integer)) }

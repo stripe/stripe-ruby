@@ -248,6 +248,8 @@ module Stripe
         attr_reader :reporting_year
         # Attribute for field state_income_tax_withheld
         attr_reader :state_income_tax_withheld
+        # The Treasury Tipped Occupation Code stored on the form's payee identity, returned when present regardless of reporting year. Contains one three-digit code or two codes separated by `|`, preserving leading zeros. Uses the selected identity for draft forms and the identity snapshot for finalized forms. Omitted when no code is recorded.
+        attr_reader :treasury_tipped_occupation_code
 
         def self.inner_class_types
           @inner_class_types = {
@@ -562,6 +564,8 @@ module Stripe
         attr_reader :state_tax_withheld
         # Attribute for field substitute_payments
         attr_reader :substitute_payments
+        # The Treasury Tipped Occupation Code stored on the form's payee identity, returned when present regardless of reporting year. Contains one three-digit code or two codes separated by `|`, preserving leading zeros. Uses the selected identity for draft forms and the identity snapshot for finalized forms. Omitted when no code is recorded.
+        attr_reader :treasury_tipped_occupation_code
 
         def self.inner_class_types
           @inner_class_types = {
@@ -700,6 +704,8 @@ module Stripe
         attr_reader :state_income
         # Attribute for field state_tax_withheld
         attr_reader :state_tax_withheld
+        # The Treasury Tipped Occupation Code stored on the form's payee identity, returned when present regardless of reporting year. Contains one three-digit code or two codes separated by `|`, preserving leading zeros. Uses the selected identity for draft forms and the identity snapshot for finalized forms. Omitted when no code is recorded.
+        attr_reader :treasury_tipped_occupation_code
 
         def self.inner_class_types
           @inner_class_types = {

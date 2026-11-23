@@ -33,6 +33,31 @@ module Stripe
         end
       end
 
+      class FlexibleCredential < ::Stripe::StripeObject
+        class SecondaryCredential < ::Stripe::StripeObject
+          # The funding source that this credential can support.
+          attr_reader :funding
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Details about the secondary credentials for this card.
+        attr_reader :secondary_credentials
+
+        def self.inner_class_types
+          @inner_class_types = { secondary_credentials: SecondaryCredential }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class LatestFraudWarning < ::Stripe::StripeObject
         # Timestamp of the most recent fraud warning.
         attr_reader :started_at
@@ -336,6 +361,8 @@ module Stripe
       attr_reader :exp_year
       # The financial account this card is attached to.
       attr_reader :financial_account
+      # Details about the flexible credential configuration for this card. This is only populated when enrolled to flex credentials, and is omitted unless you explicitly request it with `include[]=flexible_credential`.
+      attr_reader :flexible_credential
       # Unique identifier for the object.
       attr_reader :id
       # The last 4 digits of the card number.
@@ -515,6 +542,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           crypto_wallet: CryptoWallet,
+          flexible_credential: FlexibleCredential,
           latest_fraud_warning: LatestFraudWarning,
           lifecycle_controls: LifecycleControls,
           product_graduation_state: ProductGraduationState,

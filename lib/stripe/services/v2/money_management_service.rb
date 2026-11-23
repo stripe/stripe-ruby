@@ -4,7 +4,7 @@
 module Stripe
   module V2
     class MoneyManagementService < StripeService
-      attr_reader :adjustments, :currency_conversions, :debit_disputes, :earned_credits, :financial_accounts, :financial_addresses, :funding_intents, :funding_sessions, :inbound_fundings, :inbound_transfers, :inbound_transfer_mandates, :outbound_payments, :outbound_payment_quotes, :outbound_setup_intents, :outbound_transfers, :payout_intents, :payout_methods, :payout_methods_bank_account_spec, :received_credits, :received_debits, :received_debit_mandates, :recipient_verifications, :reward_programs, :reward_program_enrollments, :spending_mandates, :test_helpers, :transactions, :transaction_entries
+      attr_reader :adjustments, :currency_conversions, :debit_disputes, :disputes, :dispute_adjustments, :earned_credits, :financial_accounts, :financial_addresses, :funding_intents, :funding_sessions, :inbound_fundings, :inbound_transfers, :inbound_transfer_mandates, :outbound_payments, :outbound_payment_quotes, :outbound_setup_intents, :outbound_transfers, :payout_intents, :payout_methods, :payout_methods_bank_account_spec, :received_credits, :received_debits, :received_debit_mandates, :recipient_verifications, :reward_programs, :reward_program_enrollments, :spending_mandates, :test_helpers, :transactions, :transaction_entries
 
       def initialize(requestor)
         super
@@ -12,6 +12,8 @@ module Stripe
         @currency_conversions = Stripe::V2::MoneyManagement::CurrencyConversionService
                                 .new(@requestor)
         @debit_disputes = Stripe::V2::MoneyManagement::DebitDisputeService.new(@requestor)
+        @disputes = Stripe::V2::MoneyManagement::DisputeService.new(@requestor)
+        @dispute_adjustments = Stripe::V2::MoneyManagement::DisputeAdjustmentService.new(@requestor)
         @earned_credits = Stripe::V2::MoneyManagement::EarnedCreditService.new(@requestor)
         @financial_accounts = Stripe::V2::MoneyManagement::FinancialAccountService.new(@requestor)
         @financial_addresses = Stripe::V2::MoneyManagement::FinancialAddressService.new(@requestor)

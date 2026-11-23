@@ -65,6 +65,8 @@ module Stripe
       attr_accessor :lock_wallet_address
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+      # ID of a card PaymentMethod (pm_...) owned by the authenticated merchant. Only supported for headless sessions. Mutually exclusive with `payment_token`.
+      attr_accessor :payment_method
       # Speed at which the cryptocurrency is delivered to the wallet
       # One of:
       #  `instant` (default): crypto is delivered when payment is confirmed
@@ -97,6 +99,7 @@ module Stripe
         kyc_details: nil,
         lock_wallet_address: nil,
         metadata: nil,
+        payment_method: nil,
         settlement_speed: nil,
         source_amount: nil,
         source_currency: nil,
@@ -112,6 +115,7 @@ module Stripe
         @kyc_details = kyc_details
         @lock_wallet_address = lock_wallet_address
         @metadata = metadata
+        @payment_method = payment_method
         @settlement_speed = settlement_speed
         @source_amount = source_amount
         @source_currency = source_currency

@@ -186,6 +186,29 @@ module Stripe
               @field_encodings = {score: :decimal_string}
             end
           end
+          class UserBuyerClassification < ::Stripe::StripeObject
+            # Predicted type of buyer behind the user.
+            sig { returns(String) }
+            def buyer_type; end
+            # The score for the predicted buyer type, between 0.00 and 100.00. Absent when buyer_type is unknown.
+            sig { returns(T.nilable(BigDecimal)) }
+            def buyer_type_score; end
+            # Timestamp at which the signal was evaluated.
+            sig { returns(T.nilable(String)) }
+            def evaluated_at; end
+            # The account signal ID containing the full user buyer classification signal result.
+            sig { returns(T.nilable(String)) }
+            def signal; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {buyer_type_score: :decimal_string}
+            end
+          end
           class UserMultiAccounting < ::Stripe::StripeObject
             # Timestamp at which the signal was evaluated.
             sig { returns(T.nilable(String)) }
@@ -221,6 +244,9 @@ module Stripe
           # User affinity result for the evaluation, when available.
           sig { returns(T.nilable(UserAffinity)) }
           def user_affinity; end
+          # User buyer classification result for the evaluation, when available.
+          sig { returns(T.nilable(UserBuyerClassification)) }
+          def user_buyer_classification; end
           # User multi-accounting result for the evaluation, when available.
           sig { returns(T.nilable(UserMultiAccounting)) }
           def user_multi_accounting; end
@@ -230,6 +256,7 @@ module Stripe
               fraudulent_website: FraudulentWebsite,
               user_account_sharing: UserAccountSharing,
               user_affinity: UserAffinity,
+              user_buyer_classification: UserBuyerClassification,
               user_multi_accounting: UserMultiAccounting,
             }
           end
@@ -240,6 +267,10 @@ module Stripe
             @field_encodings = {
               user_account_sharing: {kind: :object, fields: {score: :decimal_string}},
               user_affinity: {kind: :object, fields: {score: :decimal_string}},
+              user_buyer_classification: {
+                kind: :object,
+                fields: {buyer_type_score: :decimal_string},
+              },
               user_multi_accounting: {kind: :object, fields: {score: :decimal_string}},
             }
           end

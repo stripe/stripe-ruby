@@ -4,7 +4,9 @@
 module Stripe
   module V2
     module Core
-      # A FeeEntry is the atomic, append-only record of an assessed fee.
+      # A FeeEntry is an atomic record of an assessed fee. Its assessment attributes are
+      # immutable, while its FeeBatch association and derived status can change as the fee
+      # progresses through billing.
       class FeeEntry < APIResource
         OBJECT_NAME = "v2.core.fee_entry"
         def self.object_name
@@ -134,7 +136,10 @@ module Stripe
         attr_reader :charged_by
         # Timestamp of when this fee entry was created.
         attr_reader :created
-        # The ID of the FeeBatch that collected this fee, if any.
+        # The ID of the FeeBatch currently assigned to collect this fee, if any. If Stripe
+        # cancels the assigned FeeBatch before billing, Stripe reassigns the FeeEntry to a
+        # replacement FeeBatch. During reassociation, this field can temporarily continue
+        # to reference the canceled FeeBatch.
         attr_reader :fee_batch
         # Unique identifier for the FeeEntry.
         attr_reader :id
@@ -146,6 +151,11 @@ module Stripe
         attr_reader :object
         # The reason this fee entry was created.
         attr_reader :reason
+        # The current billing status of the fee. Every FeeEntry eventually transitions
+        # from `assessed` to `billed` when its associated FeeBatch is billed. While
+        # `assessed`, its FeeBatch association can change if the assigned batch is canceled.
+        # Once `billed`, the status and FeeBatch association are terminal.
+        attr_reader :status
         # The tax portion of the fee, if applicable.
         attr_reader :tax
         # The category of this fee.

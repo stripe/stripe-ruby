@@ -5,11 +5,25 @@ module Stripe
   module Terminal
     class ReaderRefundPaymentParams < ::Stripe::RequestParams
       class RefundPaymentConfig < ::Stripe::RequestParams
+        class GiftCard < ::Stripe::RequestParams
+          # The brand of the destination gift card to collect on the reader.
+          attr_accessor :brand
+          # The gift card operation to perform with the refund amount.
+          attr_accessor :operation_type
+
+          def initialize(brand: nil, operation_type: nil)
+            @brand = brand
+            @operation_type = operation_type
+          end
+        end
         # Enables cancel button on transaction screens.
         attr_accessor :enable_customer_cancellation
+        # Collect a destination gift card on the reader to reload or activate with the refund amount. If omitted, refund the original gift card without collecting card data.
+        attr_accessor :gift_card
 
-        def initialize(enable_customer_cancellation: nil)
+        def initialize(enable_customer_cancellation: nil, gift_card: nil)
           @enable_customer_cancellation = enable_customer_cancellation
+          @gift_card = gift_card
         end
       end
       # A positive integer in __cents__ representing how much of this charge to refund.

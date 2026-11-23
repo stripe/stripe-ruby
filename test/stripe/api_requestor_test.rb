@@ -2157,9 +2157,17 @@ module Stripe
           e = assert_raises(InvalidRequestError, "expected #{path.inspect} to be rejected") do
             Util.validate_path!(path)
           end
-          assert_equal "path may not contain a \".\" or \"..\" segment, got: #{path.inspect}",
+          assert_equal "path may not contain a \".\" or \"..\" segment, got: #{path.split(/[?#]/).first.inspect}",
                        e.message
         end
+      end
+
+      should "leave the query string out of the dot segment error" do
+        e = assert_raises(InvalidRequestError) do
+          Util.validate_path!("/v1/payment_intents/..?client_secret=pi_123_secret_456")
+        end
+        assert_includes e.message, "\"/v1/payment_intents/..\""
+        refute_includes e.message, "pi_123_secret_456"
       end
 
       should "reject a dot segment path without issuing a request" do

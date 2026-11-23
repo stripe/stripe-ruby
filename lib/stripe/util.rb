@@ -425,14 +425,10 @@ module Stripe
       end
       return unless dot_segment
 
-      # An InvalidRequestError rather than an ArgumentError, like an invalid ID
-      # in APIResource#resource_url, so callers' existing handling of API
-      # errors keeps working. The message leaves out the query string, which can
-      # carry secrets such as a client_secret.
-      raise InvalidRequestError.new(
-        "path may not contain a \".\" or \"..\" segment, got: #{uri.path.inspect}",
-        nil
-      )
+      # The message leaves out the query string, which can carry secrets such as
+      # a client_secret.
+      raise ArgumentError,
+            "path may not contain a \".\" or \"..\" segment, got: #{uri.path.inspect}"
     end
 
     # Returns either v1 or v2 as api_mode based on the given path

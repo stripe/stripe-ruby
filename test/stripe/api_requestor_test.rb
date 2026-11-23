@@ -2154,7 +2154,7 @@ module Stripe
 
       should "reject paths with a dot segment" do
         DOT_SEGMENT_PATHS.each do |path|
-          e = assert_raises(InvalidRequestError, "expected #{path.inspect} to be rejected") do
+          e = assert_raises(ArgumentError, "expected #{path.inspect} to be rejected") do
             Util.validate_path!(path)
           end
           assert_equal "path may not contain a \".\" or \"..\" segment, got: #{path.split(/[?#]/).first.inspect}",
@@ -2163,7 +2163,7 @@ module Stripe
       end
 
       should "leave the query string out of the dot segment error" do
-        e = assert_raises(InvalidRequestError) do
+        e = assert_raises(ArgumentError) do
           Util.validate_path!("/v1/payment_intents/..?client_secret=pi_123_secret_456")
         end
         assert_includes e.message, "\"/v1/payment_intents/..\""
@@ -2172,7 +2172,7 @@ module Stripe
 
       should "reject a dot segment path without issuing a request" do
         DOT_SEGMENT_PATHS.each do |path|
-          assert_raises(InvalidRequestError, "expected #{path.inspect} to be rejected") do
+          assert_raises(ArgumentError, "expected #{path.inspect} to be rejected") do
             Stripe::StripeClient.new("sk_test_123").raw_request(:get, path)
           end
         end
@@ -2183,11 +2183,11 @@ module Stripe
         client = Stripe::StripeClient.new("sk_test_123")
 
         [".", ".."].each do |id|
-          assert_raises(InvalidRequestError, "expected #{id.inspect} to be rejected") do
+          assert_raises(ArgumentError, "expected #{id.inspect} to be rejected") do
             client.v1.checkout.sessions.retrieve(id)
           end
         end
-        assert_raises(InvalidRequestError) do
+        assert_raises(ArgumentError) do
           client.v1.customers.payment_methods.retrieve("..", "pm_123")
         end
         assert_not_requested(:any, /.*/)
@@ -2195,7 +2195,7 @@ module Stripe
 
       should "reject a dot ID in a resource method without issuing a request" do
         [".", ".."].each do |id|
-          assert_raises(InvalidRequestError, "expected #{id.inspect} to be rejected") do
+          assert_raises(ArgumentError, "expected #{id.inspect} to be rejected") do
             Stripe::Checkout::Session.retrieve(id)
           end
         end

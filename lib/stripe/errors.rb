@@ -38,11 +38,6 @@ module Stripe
       id_string = @request_id.nil? ? "" : "[#{@request_id}] "
       "#{status_string}#{id_string}#{@message}"
     end
-
-    # Returns the message as sent by Stripe, without the request ID prefix.
-    def user_message
-      @message
-    end
   end
 
   # AuthenticationError is raised when invalid credentials are used to connect

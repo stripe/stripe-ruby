@@ -28,7 +28,7 @@ module Stripe
         end
 
         assert_equal "billing_meter_event_session_expired", e.code
-        assert_equal "expired", e.user_message
+        assert_equal "(Status 400) expired", e.message
 
         assert_requested(method, Stripe::DEFAULT_METER_EVENTS_BASE + path)
       end
@@ -56,7 +56,7 @@ module Stripe
         end
         assert_equal "bar", e.param
         assert_equal "invalid_fields", e.code
-        assert_equal "bar is invalid", e.user_message
+        assert_equal "(Status 400) bar is invalid", e.message
 
         assert_requested(method, Stripe::DEFAULT_API_BASE + path)
       end
@@ -80,7 +80,7 @@ module Stripe
         end
         assert_equal "invalid_param", e.param
         assert_equal "invalid_fields", e.code
-        assert_equal "your request is invalid", e.user_message
+        assert_equal "(Status 400) [123] your request is invalid", e.message
 
         assert_requested(method, Stripe::DEFAULT_API_BASE + path)
       end

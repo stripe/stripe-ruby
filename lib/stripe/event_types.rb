@@ -418,6 +418,16 @@ module Stripe
         Events::V2CoreAccountPersonDeletedEvent.lookup_type => Events::V2CoreAccountPersonDeletedEvent,
         Events::V2CoreAccountPersonUpdatedEvent.lookup_type => Events::V2CoreAccountPersonUpdatedEvent,
         Events::V2CoreAccountUpdatedEvent.lookup_type => Events::V2CoreAccountUpdatedEvent,
+        Events::V2CoreClaimableSandboxClaimedEvent.lookup_type =>
+        Events::V2CoreClaimableSandboxClaimedEvent,
+        Events::V2CoreClaimableSandboxCreatedEvent.lookup_type =>
+        Events::V2CoreClaimableSandboxCreatedEvent,
+        Events::V2CoreClaimableSandboxExpiredEvent.lookup_type =>
+        Events::V2CoreClaimableSandboxExpiredEvent,
+        Events::V2CoreClaimableSandboxExpiringEvent.lookup_type =>
+        Events::V2CoreClaimableSandboxExpiringEvent,
+        Events::V2CoreClaimableSandboxUpdatedEvent.lookup_type =>
+        Events::V2CoreClaimableSandboxUpdatedEvent,
         Events::V2CoreEventDestinationPingEvent.lookup_type => Events::V2CoreEventDestinationPingEvent,
         Events::V2MoneyManagementAdjustmentCreatedEvent.lookup_type =>
         Events::V2MoneyManagementAdjustmentCreatedEvent,
@@ -1021,6 +1031,16 @@ module Stripe
         Events::V2CoreAccountPersonUpdatedEventNotification,
         Events::V2CoreAccountUpdatedEventNotification.lookup_type =>
         Events::V2CoreAccountUpdatedEventNotification,
+        Events::V2CoreClaimableSandboxClaimedEventNotification.lookup_type =>
+        Events::V2CoreClaimableSandboxClaimedEventNotification,
+        Events::V2CoreClaimableSandboxCreatedEventNotification.lookup_type =>
+        Events::V2CoreClaimableSandboxCreatedEventNotification,
+        Events::V2CoreClaimableSandboxExpiredEventNotification.lookup_type =>
+        Events::V2CoreClaimableSandboxExpiredEventNotification,
+        Events::V2CoreClaimableSandboxExpiringEventNotification.lookup_type =>
+        Events::V2CoreClaimableSandboxExpiringEventNotification,
+        Events::V2CoreClaimableSandboxUpdatedEventNotification.lookup_type =>
+        Events::V2CoreClaimableSandboxUpdatedEventNotification,
         Events::V2CoreEventDestinationPingEventNotification.lookup_type =>
         Events::V2CoreEventDestinationPingEventNotification,
         Events::V2MoneyManagementAdjustmentCreatedEventNotification.lookup_type =>

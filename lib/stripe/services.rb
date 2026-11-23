@@ -278,6 +278,7 @@ module Stripe
       autoload :AccountLinkService, "stripe/services/v2/core/account_link_service"
       autoload :AccountService, "stripe/services/v2/core/account_service"
       autoload :AccountTokenService, "stripe/services/v2/core/account_token_service"
+      autoload :ClaimableSandboxService, "stripe/services/v2/core/claimable_sandbox_service"
       autoload :EventDestinationService, "stripe/services/v2/core/event_destination_service"
       autoload :EventService, "stripe/services/v2/core/event_service"
       autoload :VaultService, "stripe/services/v2/core/vault_service"
@@ -517,6 +518,7 @@ module Stripe
     stripe/services/v2/core/account_token_service
     stripe/services/v2/core/accounts/person_service
     stripe/services/v2/core/accounts/person_token_service
+    stripe/services/v2/core/claimable_sandbox_service
     stripe/services/v2/core/event_destination_service
     stripe/services/v2/core/event_service
     stripe/services/v2/core/vault/gb_bank_account_service

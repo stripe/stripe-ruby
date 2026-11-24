@@ -2084,6 +2084,16 @@ module Stripe
       # when it precedes the first "/".
       "/v1/customers?email=user%40example.com",
       "/v1/%5Cevil.example",
+      # Dots are fine anywhere other than a whole "." or ".." segment.
+      "/v1/reporting/report_types/balance.summary.1",
+      "/v1/customers/...",
+      "/v1/customers/.cus_123",
+      "/v1/customers/cus_123..",
+      "/v1/customers?email=a..b%40example.com",
+      # A double-encoded dot reaches the API as the literal "%2E".
+      "/v1/customers/%252E",
+      # An encoded slash is fine as long as no piece around it is a dot segment.
+      "/v1/coupons/summer%2F2017",
     ].freeze
 
     HOSTILE_PATHS = [
@@ -2102,6 +2112,26 @@ module Stripe
       "v1/customers",
       nil,
       42,
+    ].freeze
+
+    DOT_SEGMENT_PATHS = [
+      # Proxies and servers may remove these segments, so each request could
+      # reach a different endpoint than the one the path was built for.
+      "/v1/checkout/sessions/.",
+      "/v1/checkout/sessions/..",
+      "/v1/customers/../payment_methods/pm_123",
+      "/v1/customers/./payment_methods/pm_123",
+      "/v1/customers/cus_123/sources/..?expand[]=customer",
+      "/v2/core/accounts/.",
+      # Some decode "%2E" to "." before removing dot segments.
+      "/v1/checkout/sessions/%2E",
+      "/v1/checkout/sessions/%2e%2E",
+      "/v1/checkout/sessions/.%2E",
+      # A proxy that decodes "%2F" before removing dot segments turns these into
+      # real path separators.
+      "/v1/coupons/x%2F..%2F..%2Fcustomers%2Fcus_B",
+      "/v1/customers/cus_123/sources/..%2F..%2Fcus_B",
+      "/v1/coupons/..%2fsummer",
     ].freeze
 
     context "request path validation" do
@@ -2127,6 +2157,65 @@ module Stripe
             Stripe::StripeClient.new("sk_test_123").raw_request(:get, path)
           end
         end
+      end
+
+      should "reject paths with a dot segment" do
+        DOT_SEGMENT_PATHS.each do |path|
+          e = assert_raises(ArgumentError, "expected #{path.inspect} to be rejected") do
+            Util.validate_path!(path)
+          end
+          assert_equal "path may not contain a \".\" or \"..\" segment, got: #{path.split(/[?#]/).first.inspect}",
+                       e.message
+        end
+      end
+
+      should "leave the query string out of the dot segment error" do
+        e = assert_raises(ArgumentError) do
+          Util.validate_path!("/v1/payment_intents/..?client_secret=pi_123_secret_456")
+        end
+        assert_includes e.message, "\"/v1/payment_intents/..\""
+        refute_includes e.message, "pi_123_secret_456"
+      end
+
+      should "reject a dot segment path without issuing a request" do
+        DOT_SEGMENT_PATHS.each do |path|
+          assert_raises(ArgumentError, "expected #{path.inspect} to be rejected") do
+            Stripe::StripeClient.new("sk_test_123").raw_request(:get, path)
+          end
+        end
+        assert_not_requested(:any, /.*/)
+      end
+
+      should "reject a dot ID in a service method without issuing a request" do
+        client = Stripe::StripeClient.new("sk_test_123")
+
+        [".", ".."].each do |id|
+          assert_raises(ArgumentError, "expected #{id.inspect} to be rejected") do
+            client.v1.checkout.sessions.retrieve(id)
+          end
+        end
+        assert_raises(ArgumentError) do
+          client.v1.customers.payment_methods.retrieve("..", "pm_123")
+        end
+        assert_not_requested(:any, /.*/)
+      end
+
+      should "reject an ID with encoded dot segments without issuing a request" do
+        client = Stripe::StripeClient.new("sk_test_123")
+
+        assert_raises(ArgumentError) do
+          client.v1.coupons.retrieve("x/../../customers/cus_B")
+        end
+        assert_not_requested(:any, /.*/)
+      end
+
+      should "reject a dot ID in a resource method without issuing a request" do
+        [".", ".."].each do |id|
+          assert_raises(ArgumentError, "expected #{id.inspect} to be rejected") do
+            Stripe::Checkout::Session.retrieve(id)
+          end
+        end
+        assert_not_requested(:any, /.*/)
       end
 
       should "reject a hostile related_object.url without issuing a request" do

@@ -395,6 +395,15 @@ module Stripe
     #
     # So, we require that a path starts with a leading slash and that URI.parse
     # finds no scheme or authority in it.
+    #
+    # We also reject "." and ".." path segments, which an ID of "." or ".."
+    # produces because CGI.escape leaves dots alone. Net::HTTP sends them as
+    # written, but proxies and servers may remove them (some after decoding
+    # "%2E"), which changes the endpoint:
+    # /v1/customers/../payment_methods/pm_123 becomes
+    # /v1/payment_methods/pm_123. An encoded slash ("%2F") also counts as a
+    # separator for this check, because a proxy that decodes the path before
+    # normalizing it (nginx's proxy_pass, for example) turns it into a real one.
     def self.validate_path!(path)
       unless path.is_a?(String) && path.start_with?("/") && !path.start_with?("//")
         raise ArgumentError,
@@ -408,10 +417,20 @@ module Stripe
           raise ArgumentError, "path is not a valid URI: #{path.inspect}"
         end
 
-      return if uri.scheme.nil? && uri.host.nil? && uri.userinfo.nil?
+      unless uri.scheme.nil? && uri.host.nil? && uri.userinfo.nil?
+        raise ArgumentError,
+              "path may not contain a scheme or authority, got: #{path.inspect}"
+      end
 
+      dot_segment = uri.path.split(%r{/|%2f}i).any? do |segment|
+        %w[. ..].include?(segment.downcase.gsub("%2e", "."))
+      end
+      return unless dot_segment
+
+      # The message leaves out the query string, which can carry secrets such as
+      # a client_secret.
       raise ArgumentError,
-            "path may not contain a scheme or authority, got: #{path.inspect}"
+            "path may not contain a \".\" or \"..\" segment, got: #{uri.path.inspect}"
     end
 
     # Returns either v1 or v2 as api_mode based on the given path

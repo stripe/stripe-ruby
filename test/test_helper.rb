@@ -99,5 +99,15 @@ module Test
       end
       ([header] + debug_metadata).join(",")
     end
+
+    # Stubs signature computation so it overwrites `payload` in place with `replacement`, as if
+    # another thread changed the caller's string mid-verification, and still returns `signature`.
+    # Mocha stubs can't run code when invoked, so the argument matcher block does the overwrite.
+    def self.overwrite_payload_during_verification(payload, replacement, signature)
+      Stripe::Webhook::Signature.stubs(:compute_signature).with do |*_args|
+        payload.replace(replacement)
+        true
+      end.returns(signature)
+    end
   end
 end

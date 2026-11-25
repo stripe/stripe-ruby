@@ -10,6 +10,7 @@ module Stripe
     # `construct_event_without_verification`.
     def self.construct_event(payload, sig_header, secret,
                              tolerance: DEFAULT_TOLERANCE)
+      payload = payload.dup
       Signature.verify_header(payload, sig_header, secret, tolerance: tolerance)
 
       # It's a good idea to parse the payload only after verifying it. We use

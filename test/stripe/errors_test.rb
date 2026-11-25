@@ -41,7 +41,8 @@ module Stripe
           assert_equal "(Status 200) message", e.to_s
 
           e = StripeError.new("message", http_status: nil, http_body: nil, json_body: nil, http_headers: { "request-id" => "request-id" })
-          assert_equal "(Request request-id) message", e.to_s
+          assert_equal "[request-id] message", e.to_s
+          assert_equal "[request-id] message", e.message
         end
       end
     end

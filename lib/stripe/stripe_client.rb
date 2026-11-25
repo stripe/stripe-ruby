@@ -65,7 +65,7 @@ module Stripe
     # verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see
     # `parse_event_notification_without_verification`.
     def parse_event_notification(payload, sig_header, secret, tolerance: Webhook::DEFAULT_TOLERANCE)
-      payload = payload.force_encoding("UTF-8") if payload.respond_to?(:force_encoding)
+      payload = payload.force_encoding("UTF-8").dup if payload.respond_to?(:force_encoding)
 
       # v2 events use the same signing mechanism as v1 events
       Webhook::Signature.verify_header(payload, sig_header, secret, tolerance: tolerance)

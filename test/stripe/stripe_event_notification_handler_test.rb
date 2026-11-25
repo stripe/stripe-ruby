@@ -777,6 +777,28 @@ module Stripe
       end
     end
 
+    context "#handle" do
+      should "dispatch the payload that was verified when the caller's string changes during verification" do
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+        verified = V1_BILLING_METER_PAYLOAD
+        swapped = V1_BILLING_METER_PAYLOAD.sub("evt_123", "evt_456")
+        sig_header = Test::WebhookHelpers.generate_header(payload: verified)
+        signature = sig_header[/v1=([^,]+)/, 1]
+
+        received_ids = []
+        handler.on_v1_billing_meter_error_report_triggered do |notif, _client|
+          received_ids << notif.id
+        end
+
+        caller_payload = verified.dup
+        Test::WebhookHelpers.overwrite_payload_during_verification(caller_payload, swapped, signature)
+
+        handler.handle(caller_payload, sig_header)
+
+        assert_equal ["evt_123"], received_ids
+      end
+    end
+
     context "#inspect" do
       should "not expose the API key or webhook secret" do
         handler = StripeClient.new("sk_test_secret").notification_handler("whsec_secret") { nil }

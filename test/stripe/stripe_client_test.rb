@@ -385,6 +385,43 @@ module Stripe
       end
     end
 
+    context "#parse_event_notification" do
+      should "build the notification from the payload that was verified when the caller's string changes during verification" do
+        verified = JSON.generate({ "id" => "evt_aaaa", "object" => "v2.core.event", "type" => "v1.billing.meter.error_report_triggered" })
+        swapped = JSON.generate({ "id" => "evt_bbbb", "object" => "v2.core.event", "type" => "v1.billing.meter.error_report_triggered" })
+        header = Test::WebhookHelpers.generate_header(payload: verified)
+        signature = header[/v1=([^,]+)/, 1]
+        client = StripeClient.new("sk_test_123")
+
+        caller_payload = verified.dup
+        Test::WebhookHelpers.overwrite_payload_during_verification(caller_payload, swapped, signature)
+
+        notification = client.parse_event_notification(caller_payload, header, Test::WebhookHelpers::SECRET)
+        assert_equal "evt_aaaa", notification.id
+      end
+
+      should "reject a payload that differs from the signed payload" do
+        signed = JSON.generate({ "id" => "evt_aaaa", "object" => "v2.core.event", "type" => "v1.billing.meter.error_report_triggered" })
+        swapped = JSON.generate({ "id" => "evt_bbbb", "object" => "v2.core.event", "type" => "v1.billing.meter.error_report_triggered" })
+        header = Test::WebhookHelpers.generate_header(payload: signed)
+        client = StripeClient.new("sk_test_123")
+
+        assert_raises(Stripe::SignatureVerificationError) do
+          client.parse_event_notification(swapped, header, Test::WebhookHelpers::SECRET)
+        end
+      end
+
+      should "re-encode the caller's binary string as UTF-8 in place" do
+        payload = JSON.generate({ "id" => "evt_aaaa", "object" => "v2.core.event", "type" => "v1.billing.meter.error_report_triggered" })
+        header = Test::WebhookHelpers.generate_header(payload: payload)
+        caller_payload = payload.dup.force_encoding(Encoding::BINARY)
+
+        StripeClient.new("sk_test_123").parse_event_notification(caller_payload, header, Test::WebhookHelpers::SECRET)
+
+        assert_equal Encoding::UTF_8, caller_payload.encoding
+      end
+    end
+
     context "#inspect" do
       should "not expose the API key" do
         client = StripeClient.new("sk_test_secret")

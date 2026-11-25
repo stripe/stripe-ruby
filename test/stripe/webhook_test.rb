@@ -69,6 +69,29 @@ module Stripe
         assert event.is_a?(Stripe::Event)
       end
 
+      should "build the event from the payload that was verified when the caller's string changes during verification" do
+        verified = JSON.generate({ "id" => "evt_aaaa", "object" => "event" })
+        swapped = JSON.generate({ "id" => "evt_bbbb", "object" => "event" })
+        header = Test::WebhookHelpers.generate_header(payload: verified)
+        signature = header[/v1=([^,]+)/, 1]
+
+        caller_payload = verified.dup
+        Test::WebhookHelpers.overwrite_payload_during_verification(caller_payload, swapped, signature)
+
+        event = Stripe::Webhook.construct_event(caller_payload, header, Test::WebhookHelpers::SECRET)
+        assert_equal "evt_aaaa", event.id
+      end
+
+      should "reject a payload that differs from the signed payload" do
+        signed = JSON.generate({ "id" => "evt_aaaa", "object" => "event" })
+        swapped = JSON.generate({ "id" => "evt_bbbb", "object" => "event" })
+        header = Test::WebhookHelpers.generate_header(payload: signed)
+
+        assert_raises(Stripe::SignatureVerificationError) do
+          Stripe::Webhook.construct_event(swapped, header, Test::WebhookHelpers::SECRET)
+        end
+      end
+
       should "raise a JSON::ParserError from an invalid JSON payload" do
         assert_raises JSON::ParserError do
           payload = "this is not valid JSON"

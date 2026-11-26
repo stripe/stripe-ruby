@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require File.expand_path("../test_helper", __dir__)
+require "yaml"
 
 module Stripe
   module V2
@@ -129,6 +130,31 @@ module Stripe
 
       ch = Stripe::Charge.retrieve(id: "ch_123", expand: [:customer])
       ch.refresh
+    end
+
+    {
+      "Marshal" => ->(obj) { Marshal.load(Marshal.dump(obj)) },
+      "YAML" => ->(obj) { YAML.unsafe_load(YAML.dump(obj)) },
+    }.each do |format, round_trip|
+      should "use the original expand and reattached key when refreshing a #{format}-restored resource" do
+        url = "#{Stripe.api_base}/v1/charges/ch_123"
+        query = { "expand" => ["customer"] }
+        stub_request(:get, url).with(
+          query: query, headers: { "Authorization" => "Bearer sk_test_producer", "Stripe-Request-Trigger" => "first" }
+        ).to_return(body: JSON.generate(charge_fixture))
+        worker_request = stub_request(:get, url).with(
+          query: query, headers: { "Authorization" => "Bearer sk_test_worker" }
+        ) { |request| !request.headers.key?("Stripe-Request-Trigger") }.to_return(body: JSON.generate(charge_fixture))
+
+        charge = Stripe::Charge.retrieve(
+          { id: "ch_123", expand: [:customer] },
+          { api_key: "sk_test_producer", "Stripe-Request-Trigger" => "first" }
+        )
+        restored = round_trip.call(charge).reattach_api_key("sk_test_worker")
+        restored.refresh
+
+        assert_requested worker_request, times: 1
+      end
     end
 
     should "send expand when fetching through ListObject" do

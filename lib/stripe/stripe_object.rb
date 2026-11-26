@@ -265,18 +265,21 @@ module Stripe
       # protected like secrets, so never write the API key out. Nested
       # StripeObjects are dumped through this method too.
       opts[:api_key] = RequestOptions::API_KEY_SERIALIZATION_CONSTANT
-      [@values, opts, scope, @api_mode]
+      data = [@values, opts, scope, @api_mode]
+      data << @retrieve_params if is_a?(APIResource)
+      data
     end
 
     # Implements custom decoding for Ruby's Marshal. Consumes data that's
     # produced by #marshal_dump.
     def marshal_load(data, api_mode: :v1)
-      values, opts, scope, stored_api_mode = data
+      values, opts, scope, stored_api_mode, retrieve_params = data
       api_mode = stored_api_mode || api_mode
       requestor = APIRequestor.active_requestor
       # Older cache entries lack scope metadata and retain their legacy binding.
       requestor = requestor.with_authorization_scope(scope) if scope
       initialize(values[:id], {}, api_mode, requestor)
+      @retrieve_params = retrieve_params unless retrieve_params.nil?
       initialize_from(values, opts, api_mode: api_mode, requestor: requestor)
     end
 
@@ -284,15 +287,22 @@ module Stripe
     # every instance variable, including the API key in @opts and the
     # requestor's configuration.
     def encode_with(coder)
-      values, opts = marshal_dump
+      values, opts, scope, api_mode, retrieve_params = marshal_dump
       coder["values"] = values
       coder["opts"] = opts
+      return unless is_a?(APIResource)
+
+      coder["scope"] = scope
+      coder["api_mode"] = api_mode
+      coder["retrieve_params"] = retrieve_params
     end
 
     # Implements custom decoding for YAML (Psych). Consumes data that's
     # produced by #encode_with.
     def init_with(coder)
-      marshal_load([coder["values"], coder["opts"]])
+      data = [coder["values"], coder["opts"]]
+      data.push(coder["scope"], coder["api_mode"], coder["retrieve_params"]) if is_a?(APIResource)
+      marshal_load(data)
     end
 
     # Attaches credentials to an object restored from Marshal or YAML, and to

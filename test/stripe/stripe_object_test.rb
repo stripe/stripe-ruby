@@ -599,6 +599,20 @@ module Stripe
         assert_equal "sk_test_old", obj.instance_variable_get(:@opts)[:api_key]
       end
 
+      should "read YAML dumps that contain only values and options" do
+        customer = YAML.unsafe_load(<<~YAML)
+          --- !ruby/object:Stripe::Customer
+          values:
+            :id: cus_legacy
+            :object: customer
+          opts:
+            :api_key: #{@placeholder}
+        YAML
+
+        assert_equal "cus_legacy", customer.id
+        assert_same customer, customer.reattach_api_key("sk_test_worker")
+      end
+
       should "omit the global API key and requestor from YAML output of objects without their own key" do
         event = Stripe::Event.construct_from(id: "evt_123", object: "event", data: { object: { object: "customer" } })
 

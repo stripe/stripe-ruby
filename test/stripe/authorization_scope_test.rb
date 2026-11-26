@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require File.expand_path("../test_helper", __dir__)
+require "yaml"
 
 module Stripe
   class AuthorizationScopeTest < Test::Unit::TestCase
@@ -137,6 +138,19 @@ module Stripe
         assert_scope(@requests, "acct_default_b", "acct_default_b")
       end
 
+      should "restore the scope from a four-entry Marshal dump" do
+        product = Product.allocate
+        product.marshal_load([
+          @product_body,
+          { api_key: RequestOptions::API_KEY_SERIALIZATION_CONSTANT },
+          { stripe_account: nil, stripe_context: "acct_event_a" },
+          :v1,
+        ])
+        product.reattach_api_key("sk_test_123").refresh
+
+        assert_scope(@requests, "acct_event_a", nil)
+      end
+
       should "preserve the v2 API mode and event context across restoration" do
         event = notification.fetch_event
         restored = marshal_round_trip(event)
@@ -146,6 +160,33 @@ module Stripe
         assert_equal :v2, restored.instance_variable_get(:@api_mode)
         assert_scope(@requests, "acct_event_a", nil)
         assert_bound_scope(restored, "acct_event_a", nil)
+      end
+    end
+
+    context "YAML restoration" do
+      should "preserve scope supplied by the client when deserializing a resource" do
+        product = fetch_product(:deserialize)
+        restored = yaml_round_trip(product)
+        restored.refresh
+
+        assert_scope(@requests, "acct_event_a", nil)
+      end
+
+      should "preserve an explicitly unscoped resource despite worker defaults" do
+        client = StripeClient.new("sk_test_123")
+        restored = yaml_round_trip(client.deserialize(@product_body))
+        restored.refresh
+
+        assert_scope(@requests, nil, nil)
+      end
+
+      should "preserve API mode and scope for full events and independently restored related resources" do
+        event = yaml_round_trip(notification.fetch_event)
+        product = yaml_round_trip(event.fetch_related_object)
+        product.refresh
+
+        assert_equal :v2, event.instance_variable_get(:@api_mode)
+        assert_scope(@requests, "acct_event_a", nil)
       end
     end
 
@@ -391,6 +432,10 @@ module Stripe
 
     private def marshal_round_trip(resource, api_key: "sk_test_123")
       Marshal.load(Marshal.dump(resource)).reattach_api_key(api_key)
+    end
+
+    private def yaml_round_trip(resource)
+      YAML.unsafe_load(YAML.dump(resource)).reattach_api_key("sk_test_123")
     end
 
     private def notification

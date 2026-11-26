@@ -178,15 +178,8 @@ module Stripe
       key_sym = key.to_sym
       return @values[key_sym] if @values.key?(key_sym)
 
-      # super specific one-off case to help users debug this property disappearing
-      # see also: https://go/j/DEVSDK-2835
-      if is_a?(Invoice) && key_sym == :payment_intent
-        raise KeyError,
-              "The 'payment_intent' attribute is no longer available on Invoice objects. " \
-              "See the docs for more details: https://docs.stripe.com/changelog/basil/2025-03-31/" \
-              "add-support-for-multiple-partial-payments-on-invoices#why-is-this-a-breaking-change"
-      end
-
+      # TODO(DEVSDK-3432): removed the Invoice-specific payment_intent error here;
+      # base classes can't reference generated resources.
       nil
     end
 
@@ -448,22 +441,8 @@ module Stripe
       begin
         super
       rescue NoMethodError => e
-        # super specific one-off case to help users debug this property disappearing
-        # see also: https://go/j/DEVSDK-2835
-        if is_a?(Invoice) && name == :payment_intent
-          raise NoMethodError,
-                "\n\n" \
-                "-----------------\n " \
-                "BREAKING CHANGE \n" \
-                "-----------------\n" \
-                "The 'payment_intent' attribute is no longer available on Invoice objects.\n\n" \
-                "See the docs for more details:\n" \
-                "https://docs.stripe.com/changelog/basil/2025-03-31/" \
-                "add-support-for-multiple-partial-payments-on-invoices#why-is-this-a-breaking-change\n" \
-                "-----------------\n " \
-                "BREAKING CHANGE \n" \
-                "-----------------" \
-        end
+        # TODO(DEVSDK-3432): removed the Invoice-specific payment_intent error here;
+        # base classes can't reference generated resources.
 
         # If we notice the accessed name of our set of transient values we can
         # give the user a slightly more helpful error message. If not, just

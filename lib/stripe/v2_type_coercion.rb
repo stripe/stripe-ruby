@@ -54,7 +54,8 @@ module Stripe
         end
       when :decode
         case value
-        when String then Kernel.Integer(value)
+        # Without an explicit base, Integer() reads "010" as octal and honors 0x/0b/0o prefixes.
+        when String then Kernel.Integer(value, 10)
         when Array then value.map { |v| coerce_int64_string(v, direction) }
         else value
         end
@@ -68,7 +69,10 @@ module Stripe
       when :encode
         case value
         when BigDecimal then value.to_s("F")
-        when Integer, Float then value.to_s
+        when Integer then value.to_s
+        # Float#to_s switches to exponent notation below 1e-4 and from 1e15. Parsing its
+        # shortest round-trip form keeps 0.1 as "0.1" rather than the Float's exact binary value.
+        when Float then Kernel.BigDecimal(value.to_s).to_s("F")
         when Array then value.map { |v| coerce_decimal_string(v, direction) }
         else value
         end

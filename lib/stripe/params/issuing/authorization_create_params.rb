@@ -371,7 +371,7 @@ module Stripe
       attr_accessor :merchant_amount
       # The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_accessor :merchant_currency
-      # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
+      # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened. Provide `merchant_data.state` and `merchant_data.postal_code` only if `merchant_data.country` is `US` or `CA`, or they will be ignored.
       attr_accessor :merchant_data
       # Details about the authorization, such as identifiers, set by the card network.
       attr_accessor :network_data

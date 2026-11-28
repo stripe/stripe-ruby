@@ -3,10 +3,10 @@
 
 module Stripe
   module Events
-    # Represents a synchronous request for authorization, see [Using your integration to handle authorization requests](https://docs.stripe.com/issuing/purchases/authorizations#authorization-handling).
-    class V1IssuingAuthorizationRequestEvent < Stripe::V2::Core::Event
+    # Occurs when an Account disconnects from your platform or app.
+    class V2CoreAccountDisconnectedEvent < Stripe::V2::Core::Event
       def self.lookup_type
-        "v1.issuing_authorization.request"
+        "v2.core.account.disconnected"
       end
 
       # Retrieves the related object from the API. Makes an API request on every call.
@@ -21,15 +21,15 @@ module Stripe
       attr_reader :related_object
     end
 
-    # Represents a synchronous request for authorization, see [Using your integration to handle authorization requests](https://docs.stripe.com/issuing/purchases/authorizations#authorization-handling).
-    class V1IssuingAuthorizationRequestEventNotification < Stripe::V2::Core::EventNotification
+    # Occurs when an Account disconnects from your platform or app.
+    class V2CoreAccountDisconnectedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
-        "v1.issuing_authorization.request"
+        "v2.core.account.disconnected"
       end
 
       attr_reader :related_object
 
-      # Retrieves the Authorization related to this EventNotification from the Stripe API. Makes an API request on every call.
+      # Retrieves the Account related to this EventNotification from the Stripe API. Makes an API request on every call.
       def fetch_related_object
         resp = @client.raw_request(
           :get,

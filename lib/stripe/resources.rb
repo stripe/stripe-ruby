@@ -143,6 +143,12 @@ module Stripe
     autoload :V1ApplicationFeeRefundedEventNotification, "stripe/events/v1_application_fee_refunded_event"
     autoload :V1ApplicationFeeRefundUpdatedEvent, "stripe/events/v1_application_fee_refund_updated_event"
     autoload :V1ApplicationFeeRefundUpdatedEventNotification, "stripe/events/v1_application_fee_refund_updated_event"
+    autoload :V1AppsInstallCreatedEvent, "stripe/events/v1_apps_install_created_event"
+    autoload :V1AppsInstallCreatedEventNotification, "stripe/events/v1_apps_install_created_event"
+    autoload :V1AppsInstallDeletedEvent, "stripe/events/v1_apps_install_deleted_event"
+    autoload :V1AppsInstallDeletedEventNotification, "stripe/events/v1_apps_install_deleted_event"
+    autoload :V1AppsInstallUpdatedEvent, "stripe/events/v1_apps_install_updated_event"
+    autoload :V1AppsInstallUpdatedEventNotification, "stripe/events/v1_apps_install_updated_event"
     autoload :V1BalanceAvailableEvent, "stripe/events/v1_balance_available_event"
     autoload :V1BalanceAvailableEventNotification, "stripe/events/v1_balance_available_event"
     autoload :V1BalanceSettingsUpdatedEvent, "stripe/events/v1_balance_settings_updated_event"
@@ -524,8 +530,6 @@ module Stripe
     autoload :V1InvoiceWillBeDueEventNotification, "stripe/events/v1_invoice_will_be_due_event"
     autoload :V1IssuingAuthorizationCreatedEvent, "stripe/events/v1_issuing_authorization_created_event"
     autoload :V1IssuingAuthorizationCreatedEventNotification, "stripe/events/v1_issuing_authorization_created_event"
-    autoload :V1IssuingAuthorizationRequestEvent, "stripe/events/v1_issuing_authorization_request_event"
-    autoload :V1IssuingAuthorizationRequestEventNotification, "stripe/events/v1_issuing_authorization_request_event"
     autoload :V1IssuingAuthorizationUpdatedEvent, "stripe/events/v1_issuing_authorization_updated_event"
     autoload :V1IssuingAuthorizationUpdatedEventNotification, "stripe/events/v1_issuing_authorization_updated_event"
     autoload :V1IssuingCardCreatedEvent, "stripe/events/v1_issuing_card_created_event"
@@ -806,8 +810,12 @@ module Stripe
              "stripe/events/v2_commerce_product_catalog_imports_succeeded_with_errors_event"
     autoload :V2CoreAccountClosedEvent, "stripe/events/v2_core_account_closed_event"
     autoload :V2CoreAccountClosedEventNotification, "stripe/events/v2_core_account_closed_event"
+    autoload :V2CoreAccountConnectedEvent, "stripe/events/v2_core_account_connected_event"
+    autoload :V2CoreAccountConnectedEventNotification, "stripe/events/v2_core_account_connected_event"
     autoload :V2CoreAccountCreatedEvent, "stripe/events/v2_core_account_created_event"
     autoload :V2CoreAccountCreatedEventNotification, "stripe/events/v2_core_account_created_event"
+    autoload :V2CoreAccountDisconnectedEvent, "stripe/events/v2_core_account_disconnected_event"
+    autoload :V2CoreAccountDisconnectedEventNotification, "stripe/events/v2_core_account_disconnected_event"
     autoload :V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
              "stripe/events/v2_core_account_including_configuration_customer_capability_status_updated_event"
     autoload :V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,
@@ -1350,6 +1358,9 @@ module Stripe
     stripe/events/v1_application_fee_created_event
     stripe/events/v1_application_fee_refund_updated_event
     stripe/events/v1_application_fee_refunded_event
+    stripe/events/v1_apps_install_created_event
+    stripe/events/v1_apps_install_deleted_event
+    stripe/events/v1_apps_install_updated_event
     stripe/events/v1_balance_available_event
     stripe/events/v1_balance_settings_updated_event
     stripe/events/v1_billing_alert_triggered_event
@@ -1493,7 +1504,6 @@ module Stripe
     stripe/events/v1_invoiceitem_discount_added_event
     stripe/events/v1_invoiceitem_discount_removed_event
     stripe/events/v1_issuing_authorization_created_event
-    stripe/events/v1_issuing_authorization_request_event
     stripe/events/v1_issuing_authorization_updated_event
     stripe/events/v1_issuing_card_created_event
     stripe/events/v1_issuing_card_updated_event
@@ -1615,7 +1625,9 @@ module Stripe
     stripe/events/v2_commerce_product_catalog_imports_succeeded_event
     stripe/events/v2_commerce_product_catalog_imports_succeeded_with_errors_event
     stripe/events/v2_core_account_closed_event
+    stripe/events/v2_core_account_connected_event
     stripe/events/v2_core_account_created_event
+    stripe/events/v2_core_account_disconnected_event
     stripe/events/v2_core_account_including_configuration_customer_capability_status_updated_event
     stripe/events/v2_core_account_including_configuration_customer_updated_event
     stripe/events/v2_core_account_including_configuration_merchant_capability_status_updated_event

@@ -616,7 +616,7 @@ module Stripe
       end
       class Wifi < ::Stripe::StripeObject
         class EnterpriseEapPeap < ::Stripe::StripeObject
-          # A File ID representing a PEM file containing the server certificate
+          # A File ID representing a PEM file containing the server certificate. The certificate is not currently used to validate the identity of the server, but will be used in a future device update.
           sig { returns(T.nilable(String)) }
           def ca_certificate_file; end
           # Password for connecting to the WiFi network

@@ -290,7 +290,7 @@ module Stripe
         attr_reader :network_details
         # The 3DS protocol version used for this 3DS Authentication.
         attr_reader :protocol_version
-        # The indicator provided to the issuer by Stripe in the AReq that indicates whether a challenge is requested for this Authentication. This indicator should match the flow_preference you specified but may be overridden (for compliance reasons for example).
+        # The indicator provided to the issuer by Stripe in the AReq that indicates whether a challenge is requested for this Authentication. This indicator should match the flow_preference you specified but may be overridden (for compliance reasons or protocol version supportability for example).
         attr_reader :requestor_challenge_indicator
         # The Results Request Message (RReq) communicates the results of the authentication or verification.
         attr_reader :rreq

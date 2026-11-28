@@ -2638,7 +2638,7 @@ module Stripe
                 end
                 # Enables this Account to complete payouts from their Stripe Balance (/v1/balance).
                 attr_reader :payouts
-                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance). Use this capability if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
                 attr_reader :stripe_transfers
 
                 def self.inner_class_types
@@ -2685,7 +2685,7 @@ module Stripe
           attr_reader :customer
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           attr_reader :merchant
-          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
+          # The Recipient Configuration allows the Account to receive funds from you.
           attr_reader :recipient
 
           def self.inner_class_types
@@ -3467,6 +3467,8 @@ module Stripe
               attr_reader :registrar
               # Open Enum. The ID number type of a business entity.
               attr_reader :type
+              # The value of the ID number. Returned only when the API key is authorized to read it; otherwise null.
+              attr_reader :value
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -3906,6 +3908,8 @@ module Stripe
             class IdNumber < ::Stripe::StripeObject
               # The ID number type of an individual.
               attr_reader :type
+              # The value of the ID number. Returned only when the API key is authorized to read it; otherwise null.
+              attr_reader :value
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -4158,6 +4162,31 @@ module Stripe
                 },
               },
             }
+          end
+        end
+
+        class Rejection < ::Stripe::StripeObject
+          class PlatformRejection < ::Stripe::StripeObject
+            # The reason the platform rejected the Account.
+            attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Details about the platform's rejection of the Account. Null if the platform hasn't rejected the Account.
+          attr_reader :platform_rejection
+
+          def self.inner_class_types
+            @inner_class_types = { platform_rejection: PlatformRejection }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
           end
         end
 
@@ -4472,6 +4501,8 @@ module Stripe
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
+        # Information about the rejection of the Account. Null if the platform has not rejected the Account.
+        attr_reader :rejection
         # Information about the active requirements for the Account, including what information needs to be collected, and by when.
         attr_reader :requirements
 
@@ -4481,6 +4512,7 @@ module Stripe
             defaults: Defaults,
             future_requirements: FutureRequirements,
             identity: Identity,
+            rejection: Rejection,
             requirements: Requirements,
           }
         end

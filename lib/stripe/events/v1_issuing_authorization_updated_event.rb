@@ -3,7 +3,7 @@
 
 module Stripe
   module Events
-    # Occurs whenever an authorization is updated.
+    # Occurs whenever an authorization is updated. For verification authorizations, this event is only accessible via private preview.
     class V1IssuingAuthorizationUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.issuing_authorization.updated"
@@ -21,7 +21,7 @@ module Stripe
       attr_reader :related_object
     end
 
-    # Occurs whenever an authorization is updated.
+    # Occurs whenever an authorization is updated. For verification authorizations, this event is only accessible via private preview.
     class V1IssuingAuthorizationUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.issuing_authorization.updated"

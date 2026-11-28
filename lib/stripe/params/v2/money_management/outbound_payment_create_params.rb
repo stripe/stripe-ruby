@@ -95,7 +95,7 @@ module Stripe
         end
         # The requested amount and currency for the OutboundPayment.
         attr_accessor :amount
-        # An arbitrary string attached to the OutboundPayment. Often useful for displaying to users.
+        # An arbitrary string attached to the OutboundPayment. Often useful for displaying to users. The description can not be longer than 100 characters and can only contain basic Latin characters and spaces. The following special characters are not allowed: <>\'"* .
         attr_accessor :description
         # From which FinancialAccount and BalanceType to pull funds from.
         attr_accessor :from

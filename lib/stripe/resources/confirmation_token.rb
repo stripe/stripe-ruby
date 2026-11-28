@@ -1809,7 +1809,7 @@ module Stripe
         "ConfirmationToken"
       end
 
-      # Creates a test mode Confirmation Token server side for your integration tests.
+      # Creates a test Confirmation Token server side for your integration tests.
       def self.create(params = {}, opts = {})
         request_stripe_object(
           method: :post,

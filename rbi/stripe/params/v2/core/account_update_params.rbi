@@ -1955,7 +1955,7 @@ module Stripe
                   sig { params(requested: T.nilable(T::Boolean)).void }
                   def initialize(requested: nil); end
                 end
-                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance). Use this capability if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
                 sig {
                   returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient::Capabilities::StripeBalance::StripeTransfers))
                  }
@@ -2038,7 +2038,7 @@ module Stripe
             params(_merchant: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Merchant))
            }
           def merchant=(_merchant); end
-          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
+          # The Recipient Configuration allows the Account to receive funds from you.
           sig {
             returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Configuration::Recipient))
            }
@@ -2273,6 +2273,27 @@ module Stripe
                  }
                 def initialize(date: nil, ip: nil, user_agent: nil); end
               end
+              class CryptoTransfersZerohashRecipient < ::Stripe::RequestParams
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                sig { returns(T.nilable(String)) }
+                def date; end
+                sig { params(_date: T.nilable(String)).returns(T.nilable(String)) }
+                def date=(_date); end
+                # The IP address from which the Account's representative accepted the terms of service.
+                sig { returns(T.nilable(String)) }
+                def ip; end
+                sig { params(_ip: T.nilable(String)).returns(T.nilable(String)) }
+                def ip=(_ip); end
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                sig { returns(T.nilable(String)) }
+                def user_agent; end
+                sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                def user_agent=(_user_agent); end
+                sig {
+                  params(date: T.nilable(String), ip: T.nilable(String), user_agent: T.nilable(String)).void
+                 }
+                def initialize(date: nil, ip: nil, user_agent: nil); end
+              end
               class MoneyManager < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(T.nilable(String)) }
@@ -2312,6 +2333,15 @@ module Stripe
                 params(_crypto_money_manager: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoMoneyManager)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoMoneyManager))
                }
               def crypto_money_manager=(_crypto_money_manager); end
+              # Details on the Account's acceptance of ZeroHash recipient-specific terms of service.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoTransfersZerohashRecipient))
+               }
+              def crypto_transfers_zerohash_recipient; end
+              sig {
+                params(_crypto_transfers_zerohash_recipient: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoTransfersZerohashRecipient)).returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoTransfersZerohashRecipient))
+               }
+              def crypto_transfers_zerohash_recipient=(_crypto_transfers_zerohash_recipient); end
               # Details on the Account's acceptance of Treasury-specific terms of service.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::MoneyManager))
@@ -2322,9 +2352,14 @@ module Stripe
                }
               def money_manager=(_money_manager); end
               sig {
-                params(account: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::Account), crypto_money_manager: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoMoneyManager), money_manager: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::MoneyManager)).void
+                params(account: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::Account), crypto_money_manager: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoMoneyManager), crypto_transfers_zerohash_recipient: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::CryptoTransfersZerohashRecipient), money_manager: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::Attestations::TermsOfService::MoneyManager)).void
                }
-              def initialize(account: nil, crypto_money_manager: nil, money_manager: nil); end
+              def initialize(
+                account: nil,
+                crypto_money_manager: nil,
+                crypto_transfers_zerohash_recipient: nil,
+                money_manager: nil
+              ); end
             end
             # This hash is used to attest that the directors information provided to Stripe is both current and correct.
             sig {
@@ -3777,7 +3812,10 @@ module Stripe
               params(_nationalities: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
              }
             def nationalities=(_nationalities); end
-            # The individual's phone number.
+            # The individual's phone number. You can include a country calling code prefixed with `+`,
+            # for example `+12025550123`, or omit it, for example `2025550123`. Spaces, hyphens, periods,
+            # and parentheses are optional and accepted. Numbers beginning with `+` are checked against
+            # the numbering rules for their country calling code, including valid prefixes and number lengths.
             sig { returns(T.nilable(String)) }
             def phone; end
             sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }

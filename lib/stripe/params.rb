@@ -723,9 +723,11 @@ module Stripe
       autoload :AccountCreateParams, "stripe/params/v2/core/account_create_params"
       autoload :AccountLinkCreateParams, "stripe/params/v2/core/account_link_create_params"
       autoload :AccountListParams, "stripe/params/v2/core/account_list_params"
+      autoload :AccountRejectParams, "stripe/params/v2/core/account_reject_params"
       autoload :AccountRetrieveParams, "stripe/params/v2/core/account_retrieve_params"
       autoload :AccountTokenCreateParams, "stripe/params/v2/core/account_token_create_params"
       autoload :AccountTokenRetrieveParams, "stripe/params/v2/core/account_token_retrieve_params"
+      autoload :AccountUnrejectParams, "stripe/params/v2/core/account_unreject_params"
       autoload :AccountUpdateParams, "stripe/params/v2/core/account_update_params"
       autoload :ClaimableSandboxCreateParams, "stripe/params/v2/core/claimable_sandbox_create_params"
       autoload :ClaimableSandboxRenewOnboardingLinkParams,
@@ -1457,9 +1459,11 @@ module Stripe
     stripe/params/v2/core/account_create_params
     stripe/params/v2/core/account_link_create_params
     stripe/params/v2/core/account_list_params
+    stripe/params/v2/core/account_reject_params
     stripe/params/v2/core/account_retrieve_params
     stripe/params/v2/core/account_token_create_params
     stripe/params/v2/core/account_token_retrieve_params
+    stripe/params/v2/core/account_unreject_params
     stripe/params/v2/core/account_update_params
     stripe/params/v2/core/accounts/person_create_params
     stripe/params/v2/core/accounts/person_delete_params

@@ -107,15 +107,21 @@ module Stripe
           def routing_number; end
           sig { params(_routing_number: T.nilable(String)).returns(T.nilable(String)) }
           def routing_number=(_routing_number); end
+          # The ID of a bank account [Token](/api/tokens/object) to use as a payment method.
+          sig { returns(T.nilable(String)) }
+          def token; end
+          sig { params(_token: T.nilable(String)).returns(T.nilable(String)) }
+          def token=(_token); end
           sig {
-            params(account_holder_type: T.nilable(String), account_number: T.nilable(String), account_type: T.nilable(String), financial_connections_account: T.nilable(String), routing_number: T.nilable(String)).void
+            params(account_holder_type: T.nilable(String), account_number: T.nilable(String), account_type: T.nilable(String), financial_connections_account: T.nilable(String), routing_number: T.nilable(String), token: T.nilable(String)).void
            }
           def initialize(
             account_holder_type: nil,
             account_number: nil,
             account_type: nil,
             financial_connections_account: nil,
-            routing_number: nil
+            routing_number: nil,
+            token: nil
           ); end
         end
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.

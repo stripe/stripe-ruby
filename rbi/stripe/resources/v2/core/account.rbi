@@ -2644,7 +2644,7 @@ module Stripe
                 # Enables this Account to complete payouts from their Stripe Balance (/v1/balance).
                 sig { returns(T.nilable(Payouts)) }
                 def payouts; end
-                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance). Use this capability if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
                 sig { returns(T.nilable(StripeTransfers)) }
                 def stripe_transfers; end
                 def self.inner_class_types
@@ -2693,7 +2693,7 @@ module Stripe
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           sig { returns(T.nilable(Merchant)) }
           def merchant; end
-          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
+          # The Recipient Configuration allows the Account to receive funds from you.
           sig { returns(T.nilable(Recipient)) }
           def recipient; end
           def self.inner_class_types
@@ -3485,6 +3485,9 @@ module Stripe
               # Open Enum. The ID number type of a business entity.
               sig { returns(String) }
               def type; end
+              # The value of the ID number. Returned only when the API key is authorized to read it; otherwise null.
+              sig { returns(T.nilable(String)) }
+              def value; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -3942,6 +3945,9 @@ module Stripe
               # The ID number type of an individual.
               sig { returns(String) }
               def type; end
+              # The value of the ID number. Returned only when the API key is authorized to read it; otherwise null.
+              sig { returns(T.nilable(String)) }
+              def value; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -4224,6 +4230,28 @@ module Stripe
                 },
               },
             }
+          end
+        end
+        class Rejection < ::Stripe::StripeObject
+          class PlatformRejection < ::Stripe::StripeObject
+            # The reason the platform rejected the Account.
+            sig { returns(String) }
+            def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Details about the platform's rejection of the Account. Null if the platform hasn't rejected the Account.
+          sig { returns(T.nilable(PlatformRejection)) }
+          def platform_rejection; end
+          def self.inner_class_types
+            @inner_class_types = {platform_rejection: PlatformRejection}
+          end
+          def self.field_remappings
+            @field_remappings = {}
           end
         end
         class Requirements < ::Stripe::StripeObject
@@ -4550,6 +4578,9 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
+        # Information about the rejection of the Account. Null if the platform has not rejected the Account.
+        sig { returns(T.nilable(Rejection)) }
+        def rejection; end
         # Information about the active requirements for the Account, including what information needs to be collected, and by when.
         sig { returns(T.nilable(Requirements)) }
         def requirements; end

@@ -20,6 +20,9 @@ module Stripe
         Events::V1ApplicationFeeRefundUpdatedEvent.lookup_type =>
         Events::V1ApplicationFeeRefundUpdatedEvent,
         Events::V1ApplicationFeeRefundedEvent.lookup_type => Events::V1ApplicationFeeRefundedEvent,
+        Events::V1AppsInstallCreatedEvent.lookup_type => Events::V1AppsInstallCreatedEvent,
+        Events::V1AppsInstallDeletedEvent.lookup_type => Events::V1AppsInstallDeletedEvent,
+        Events::V1AppsInstallUpdatedEvent.lookup_type => Events::V1AppsInstallUpdatedEvent,
         Events::V1BalanceAvailableEvent.lookup_type => Events::V1BalanceAvailableEvent,
         Events::V1BalanceSettingsUpdatedEvent.lookup_type => Events::V1BalanceSettingsUpdatedEvent,
         Events::V1BillingAlertTriggeredEvent.lookup_type => Events::V1BillingAlertTriggeredEvent,
@@ -230,8 +233,6 @@ module Stripe
         Events::V1InvoiceitemDiscountRemovedEvent.lookup_type => Events::V1InvoiceitemDiscountRemovedEvent,
         Events::V1IssuingAuthorizationCreatedEvent.lookup_type =>
         Events::V1IssuingAuthorizationCreatedEvent,
-        Events::V1IssuingAuthorizationRequestEvent.lookup_type =>
-        Events::V1IssuingAuthorizationRequestEvent,
         Events::V1IssuingAuthorizationUpdatedEvent.lookup_type =>
         Events::V1IssuingAuthorizationUpdatedEvent,
         Events::V1IssuingCardCreatedEvent.lookup_type => Events::V1IssuingCardCreatedEvent,
@@ -392,7 +393,9 @@ module Stripe
         Events::V2CommerceProductCatalogImportsSucceededWithErrorsEvent.lookup_type =>
         Events::V2CommerceProductCatalogImportsSucceededWithErrorsEvent,
         Events::V2CoreAccountClosedEvent.lookup_type => Events::V2CoreAccountClosedEvent,
+        Events::V2CoreAccountConnectedEvent.lookup_type => Events::V2CoreAccountConnectedEvent,
         Events::V2CoreAccountCreatedEvent.lookup_type => Events::V2CoreAccountCreatedEvent,
+        Events::V2CoreAccountDisconnectedEvent.lookup_type => Events::V2CoreAccountDisconnectedEvent,
         Events::V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.lookup_type =>
         Events::V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
         Events::V2CoreAccountIncludingConfigurationCustomerUpdatedEvent.lookup_type =>
@@ -523,6 +526,12 @@ module Stripe
         Events::V1ApplicationFeeRefundUpdatedEventNotification,
         Events::V1ApplicationFeeRefundedEventNotification.lookup_type =>
         Events::V1ApplicationFeeRefundedEventNotification,
+        Events::V1AppsInstallCreatedEventNotification.lookup_type =>
+        Events::V1AppsInstallCreatedEventNotification,
+        Events::V1AppsInstallDeletedEventNotification.lookup_type =>
+        Events::V1AppsInstallDeletedEventNotification,
+        Events::V1AppsInstallUpdatedEventNotification.lookup_type =>
+        Events::V1AppsInstallUpdatedEventNotification,
         Events::V1BalanceAvailableEventNotification.lookup_type =>
         Events::V1BalanceAvailableEventNotification,
         Events::V1BalanceSettingsUpdatedEventNotification.lookup_type =>
@@ -792,8 +801,6 @@ module Stripe
         Events::V1InvoiceitemDiscountRemovedEventNotification,
         Events::V1IssuingAuthorizationCreatedEventNotification.lookup_type =>
         Events::V1IssuingAuthorizationCreatedEventNotification,
-        Events::V1IssuingAuthorizationRequestEventNotification.lookup_type =>
-        Events::V1IssuingAuthorizationRequestEventNotification,
         Events::V1IssuingAuthorizationUpdatedEventNotification.lookup_type =>
         Events::V1IssuingAuthorizationUpdatedEventNotification,
         Events::V1IssuingCardCreatedEventNotification.lookup_type =>
@@ -999,8 +1006,12 @@ module Stripe
         Events::V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification,
         Events::V2CoreAccountClosedEventNotification.lookup_type =>
         Events::V2CoreAccountClosedEventNotification,
+        Events::V2CoreAccountConnectedEventNotification.lookup_type =>
+        Events::V2CoreAccountConnectedEventNotification,
         Events::V2CoreAccountCreatedEventNotification.lookup_type =>
         Events::V2CoreAccountCreatedEventNotification,
+        Events::V2CoreAccountDisconnectedEventNotification.lookup_type =>
+        Events::V2CoreAccountDisconnectedEventNotification,
         Events::V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification.lookup_type =>
         Events::V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,
         Events::V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification.lookup_type =>

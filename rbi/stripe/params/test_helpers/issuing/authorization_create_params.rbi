@@ -567,7 +567,7 @@ module Stripe
         def merchant_currency; end
         sig { params(_merchant_currency: T.nilable(String)).returns(T.nilable(String)) }
         def merchant_currency=(_merchant_currency); end
-        # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
+        # Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened. Provide `merchant_data.state` and `merchant_data.postal_code` only if `merchant_data.country` is `US` or `CA`, or they will be ignored.
         sig {
           returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::MerchantData))
          }

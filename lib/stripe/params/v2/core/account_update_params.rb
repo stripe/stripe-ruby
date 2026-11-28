@@ -1294,7 +1294,7 @@ module Stripe
                     @requested = requested
                   end
                 end
-                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance). Use this capability if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
                 attr_accessor :stripe_transfers
 
                 def initialize(stripe_transfers: nil)
@@ -1328,7 +1328,7 @@ module Stripe
           attr_accessor :customer
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           attr_accessor :merchant
-          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
+          # The Recipient Configuration allows the Account to receive funds from you.
           attr_accessor :recipient
 
           def initialize(customer: nil, merchant: nil, recipient: nil)
@@ -1492,6 +1492,21 @@ module Stripe
                 end
               end
 
+              class CryptoTransfersZerohashRecipient < ::Stripe::RequestParams
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                attr_accessor :date
+                # The IP address from which the Account's representative accepted the terms of service.
+                attr_accessor :ip
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                attr_accessor :user_agent
+
+                def initialize(date: nil, ip: nil, user_agent: nil)
+                  @date = date
+                  @ip = ip
+                  @user_agent = user_agent
+                end
+              end
+
               class MoneyManager < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_accessor :date
@@ -1510,12 +1525,20 @@ module Stripe
               attr_accessor :account
               # Details on the Account's acceptance of Crypto-specific terms of service.
               attr_accessor :crypto_money_manager
+              # Details on the Account's acceptance of ZeroHash recipient-specific terms of service.
+              attr_accessor :crypto_transfers_zerohash_recipient
               # Details on the Account's acceptance of Treasury-specific terms of service.
               attr_accessor :money_manager
 
-              def initialize(account: nil, crypto_money_manager: nil, money_manager: nil)
+              def initialize(
+                account: nil,
+                crypto_money_manager: nil,
+                crypto_transfers_zerohash_recipient: nil,
+                money_manager: nil
+              )
                 @account = account
                 @crypto_money_manager = crypto_money_manager
+                @crypto_transfers_zerohash_recipient = crypto_transfers_zerohash_recipient
                 @money_manager = money_manager
               end
             end
@@ -2433,7 +2456,10 @@ module Stripe
             attr_accessor :metadata
             # The countries where the individual is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :nationalities
-            # The individual's phone number.
+            # The individual's phone number. You can include a country calling code prefixed with `+`,
+            # for example `+12025550123`, or omit it, for example `2025550123`. Spaces, hyphens, periods,
+            # and parentheses are optional and accepted. Numbers beginning with `+` are checked against
+            # the numbering rules for their country calling code, including valid prefixes and number lengths.
             attr_accessor :phone
             # The individual's political exposure.
             attr_accessor :political_exposure

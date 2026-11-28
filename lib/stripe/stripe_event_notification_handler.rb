@@ -125,6 +125,18 @@ module Stripe
       register("v1.application_fee.refunded", &callback)
     end
 
+    def on_v1_apps_install_created(&callback)
+      register("v1.apps.install.created", &callback)
+    end
+
+    def on_v1_apps_install_deleted(&callback)
+      register("v1.apps.install.deleted", &callback)
+    end
+
+    def on_v1_apps_install_updated(&callback)
+      register("v1.apps.install.updated", &callback)
+    end
+
     def on_v1_balance_available(&callback)
       register("v1.balance.available", &callback)
     end
@@ -697,10 +709,6 @@ module Stripe
       register("v1.issuing_authorization.created", &callback)
     end
 
-    def on_v1_issuing_authorization_request(&callback)
-      register("v1.issuing_authorization.request", &callback)
-    end
-
     def on_v1_issuing_authorization_updated(&callback)
       register("v1.issuing_authorization.updated", &callback)
     end
@@ -1185,8 +1193,16 @@ module Stripe
       register("v2.core.account.closed", &callback)
     end
 
+    def on_v2_core_account_connected(&callback)
+      register("v2.core.account.connected", &callback)
+    end
+
     def on_v2_core_account_created(&callback)
       register("v2.core.account.created", &callback)
+    end
+
+    def on_v2_core_account_disconnected(&callback)
+      register("v2.core.account.disconnected", &callback)
     end
 
     def on_v2_core_account_updated(&callback)

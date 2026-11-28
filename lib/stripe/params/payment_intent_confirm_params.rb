@@ -1261,19 +1261,23 @@ module Stripe
         attr_accessor :financial_connections_account
         # Routing number of the bank account.
         attr_accessor :routing_number
+        # The ID of a bank account [Token](/api/tokens/object) to use as a payment method.
+        attr_accessor :token
 
         def initialize(
           account_holder_type: nil,
           account_number: nil,
           account_type: nil,
           financial_connections_account: nil,
-          routing_number: nil
+          routing_number: nil,
+          token: nil
         )
           @account_holder_type = account_holder_type
           @account_number = account_number
           @account_type = account_type
           @financial_connections_account = financial_connections_account
           @routing_number = routing_number
+          @token = token
         end
       end
 

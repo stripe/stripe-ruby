@@ -4,7 +4,7 @@
 module Stripe
   module TestHelpers
     class ConfirmationTokenService < StripeService
-      # Creates a test mode Confirmation Token server side for your integration tests.
+      # Creates a test Confirmation Token server side for your integration tests.
       def create(params = {}, opts = {})
         request(
           method: :post,

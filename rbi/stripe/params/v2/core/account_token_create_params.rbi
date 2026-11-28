@@ -1545,7 +1545,10 @@ module Stripe
               params(_nationalities: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
              }
             def nationalities=(_nationalities); end
-            # The individual's phone number.
+            # The individual's phone number. You can include a country calling code prefixed with `+`,
+            # for example `+12025550123`, or omit it, for example `2025550123`. Spaces, hyphens, periods,
+            # and parentheses are optional and accepted. Numbers beginning with `+` are checked against
+            # the numbering rules for their country calling code, including valid prefixes and number lengths.
             sig { returns(T.nilable(String)) }
             def phone; end
             sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }

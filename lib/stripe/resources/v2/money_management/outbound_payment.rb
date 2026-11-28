@@ -312,8 +312,6 @@ module Stripe
         attr_reader :payout_intent
         # The purpose of the OutboundPayment.
         attr_reader :purpose
-        # A link to the Stripe-hosted receipt for this OutboundPayment. The receipt link remains active for 60 days from the OutboundPayment creation date. After this period, the link will expire and the receipt url value will be null.
-        attr_reader :receipt_url
         # Details about the OutboundPayment notification settings for recipient.
         attr_reader :recipient_notification
         # The ID of the RecipientVerification for this OutboundPayment. Required where recipient-name verification is mandated before creating an OutboundPayment.

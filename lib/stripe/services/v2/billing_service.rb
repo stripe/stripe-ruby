@@ -4,17 +4,14 @@
 module Stripe
   module V2
     class BillingService < StripeService
-      attr_reader :bill_settings, :collection_settings, :meter_events, :meter_event_adjustments, :meter_event_session, :meter_event_stream, :profiles
+      attr_reader :meter_events, :meter_event_adjustments, :meter_event_session, :meter_event_stream
 
       def initialize(requestor)
         super
-        @bill_settings = Stripe::V2::Billing::BillSettingService.new(@requestor)
-        @collection_settings = Stripe::V2::Billing::CollectionSettingService.new(@requestor)
         @meter_events = Stripe::V2::Billing::MeterEventService.new(@requestor)
         @meter_event_adjustments = Stripe::V2::Billing::MeterEventAdjustmentService.new(@requestor)
         @meter_event_session = Stripe::V2::Billing::MeterEventSessionService.new(@requestor)
         @meter_event_stream = Stripe::V2::Billing::MeterEventStreamService.new(@requestor)
-        @profiles = Stripe::V2::Billing::ProfileService.new(@requestor)
       end
     end
   end

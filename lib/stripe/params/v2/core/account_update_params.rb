@@ -274,6 +274,15 @@ module Stripe
                 end
               end
 
+              class AutomaticIndirectTax < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(requested: nil)
+                  @requested = requested
+                end
+              end
+
               class BacsDebitPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
@@ -701,6 +710,8 @@ module Stripe
               attr_accessor :amazon_pay_payments
               # Allow the merchant to process Australian BECS Direct Debit payments.
               attr_accessor :au_becs_debit_payments
+              # Allow the merchant to be a "tax-only" merchant, enabling a reduced set of KYC requirements strictly focused on enabling Stripe Tax.
+              attr_accessor :automatic_indirect_tax
               # Allow the merchant to process BACS Direct Debit payments.
               attr_accessor :bacs_debit_payments
               # Allow the merchant to process Bancontact payments.
@@ -802,6 +813,7 @@ module Stripe
                 alma_payments: nil,
                 amazon_pay_payments: nil,
                 au_becs_debit_payments: nil,
+                automatic_indirect_tax: nil,
                 bacs_debit_payments: nil,
                 bancontact_payments: nil,
                 billie_payments: nil,
@@ -856,6 +868,7 @@ module Stripe
                 @alma_payments = alma_payments
                 @amazon_pay_payments = amazon_pay_payments
                 @au_becs_debit_payments = au_becs_debit_payments
+                @automatic_indirect_tax = automatic_indirect_tax
                 @bacs_debit_payments = bacs_debit_payments
                 @bancontact_payments = bancontact_payments
                 @billie_payments = billie_payments
@@ -1228,6 +1241,15 @@ module Stripe
                     end
                   end
 
+                  class Dkk < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+
                   class Eur < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     attr_accessor :requested
@@ -1258,6 +1280,8 @@ module Stripe
                   attr_accessor :aud
                   # Can receive business storage-type funds on Stripe in CAD.
                   attr_accessor :cad
+                  # Can receive business storage-type funds on Stripe in DKK.
+                  attr_accessor :dkk
                   # Can receive business storage-type funds on Stripe in EUR.
                   attr_accessor :eur
                   # Can receive business storage-type funds on Stripe in GBP.
@@ -1265,9 +1289,10 @@ module Stripe
                   # Can receive business storage-type funds on Stripe in USD.
                   attr_accessor :usd
 
-                  def initialize(aud: nil, cad: nil, eur: nil, gbp: nil, usd: nil)
+                  def initialize(aud: nil, cad: nil, dkk: nil, eur: nil, gbp: nil, usd: nil)
                     @aud = aud
                     @cad = cad
+                    @dkk = dkk
                     @eur = eur
                     @gbp = gbp
                     @usd = usd
@@ -1285,6 +1310,15 @@ module Stripe
                   end
 
                   class Cad < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+
+                  class Dkk < ::Stripe::RequestParams
                     # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                     attr_accessor :requested
 
@@ -1323,6 +1357,8 @@ module Stripe
                   attr_accessor :aud
                   # Can send business storage-type funds on Stripe in CAD.
                   attr_accessor :cad
+                  # Can send business storage-type funds on Stripe in DKK.
+                  attr_accessor :dkk
                   # Can send business storage-type funds on Stripe in EUR.
                   attr_accessor :eur
                   # Can send business storage-type funds on Stripe in GBP.
@@ -1330,9 +1366,10 @@ module Stripe
                   # Can send business storage-type funds on Stripe in USD.
                   attr_accessor :usd
 
-                  def initialize(aud: nil, cad: nil, eur: nil, gbp: nil, usd: nil)
+                  def initialize(aud: nil, cad: nil, dkk: nil, eur: nil, gbp: nil, usd: nil)
                     @aud = aud
                     @cad = cad
+                    @dkk = dkk
                     @eur = eur
                     @gbp = gbp
                     @usd = usd
@@ -1635,7 +1672,7 @@ module Stripe
                     @requested = requested
                   end
                 end
-                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance). Use this capability if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
                 attr_accessor :stripe_transfers
 
                 def initialize(stripe_transfers: nil)
@@ -1679,7 +1716,7 @@ module Stripe
           attr_accessor :merchant
           # The Money Manager Configuration allows the Account to store and move funds using FinancialAccounts.
           attr_accessor :money_manager
-          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
+          # The Recipient Configuration allows the Account to receive funds from you.
           attr_accessor :recipient
 
           def initialize(customer: nil, merchant: nil, money_manager: nil, recipient: nil)
@@ -1848,6 +1885,21 @@ module Stripe
                 end
               end
 
+              class CryptoTransfersZerohashRecipient < ::Stripe::RequestParams
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                attr_accessor :date
+                # The IP address from which the Account's representative accepted the terms of service.
+                attr_accessor :ip
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                attr_accessor :user_agent
+
+                def initialize(date: nil, ip: nil, user_agent: nil)
+                  @date = date
+                  @ip = ip
+                  @user_agent = user_agent
+                end
+              end
+
               class MoneyManager < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_accessor :date
@@ -1866,12 +1918,20 @@ module Stripe
               attr_accessor :account
               # Details on the Account's acceptance of Crypto-specific terms of service.
               attr_accessor :crypto_money_manager
+              # Details on the Account's acceptance of ZeroHash recipient-specific terms of service.
+              attr_accessor :crypto_transfers_zerohash_recipient
               # Details on the Account's acceptance of Treasury-specific terms of service.
               attr_accessor :money_manager
 
-              def initialize(account: nil, crypto_money_manager: nil, money_manager: nil)
+              def initialize(
+                account: nil,
+                crypto_money_manager: nil,
+                crypto_transfers_zerohash_recipient: nil,
+                money_manager: nil
+              )
                 @account = account
                 @crypto_money_manager = crypto_money_manager
+                @crypto_transfers_zerohash_recipient = crypto_transfers_zerohash_recipient
                 @money_manager = money_manager
               end
             end
@@ -2805,7 +2865,10 @@ module Stripe
             attr_accessor :metadata
             # The countries where the individual is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_accessor :nationalities
-            # The individual's phone number.
+            # The individual's phone number. You can include a country calling code prefixed with `+`,
+            # for example `+12025550123`, or omit it, for example `2025550123`. Spaces, hyphens, periods,
+            # and parentheses are optional and accepted. Numbers beginning with `+` are checked against
+            # the numbering rules for their country calling code, including valid prefixes and number lengths.
             attr_accessor :phone
             # The individual's political exposure.
             attr_accessor :political_exposure

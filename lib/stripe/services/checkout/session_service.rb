@@ -65,7 +65,7 @@ module Stripe
 
       # Updates a Checkout Session object.
       #
-      # Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/advanced/dynamic-updates)
+      # Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/checkout/dynamic-updates)
       def update(session, params = {}, opts = {})
         unless params.is_a?(Stripe::RequestParams)
           params = ::Stripe::Checkout::SessionUpdateParams.coerce_params(params)

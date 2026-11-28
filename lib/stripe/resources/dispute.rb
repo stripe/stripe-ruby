@@ -333,6 +333,8 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # If the dispute was eligible for appeal, whether the appeal was submitted manually, with Smart Disputes, or not submitted.
+      attr_reader :appeal_method
       # Date by which evidence must be submitted in order to successfully challenge dispute. Will be 0 if the customer's bank or credit card company doesn't allow a response for this particular dispute.
       attr_reader :due_by
       # Attribute for field enhanced_eligibility
@@ -391,6 +393,8 @@ module Stripe
       class Klarna < ::Stripe::StripeObject
         # Chargeback loss reason mapped by Stripe from Klarna's chargeback loss reason
         attr_reader :chargeback_loss_reason_code
+        # The ID of the dispute in Klarna.
+        attr_reader :dispute_id
         # The reason for the dispute as defined by Klarna
         attr_reader :reason_code
 

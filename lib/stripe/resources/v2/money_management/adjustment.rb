@@ -56,10 +56,6 @@ module Stripe
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # A link to the Stripe-hosted receipt provided when money movement is regulated under Stripe's money transmission licenses.
-        # You can use this link to view the receipt for 60 days after the Adjustment is created.
-        # After that, the link expires and `receipt_url` is `null`.
-        attr_reader :receipt_url
 
         def self.inner_class_types
           @inner_class_types = { adjusted_flow: AdjustedFlow }

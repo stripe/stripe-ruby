@@ -181,6 +181,23 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class StatusTransitions < ::Stripe::StripeObject
+          # Time at which the run was canceled.
+          sig { returns(T.nilable(String)) }
+          def canceled_at; end
+          # Time at which the run failed.
+          sig { returns(T.nilable(String)) }
+          def failed_at; end
+          # Time at which the run succeeded.
+          sig { returns(T.nilable(String)) }
+          def succeeded_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Time at which the `ReportRun` was created.
         sig { returns(String) }
         def created; end
@@ -224,6 +241,9 @@ module Stripe
         # Additional details about the current state of the `ReportRun`.
         sig { returns(T.nilable(StatusDetails)) }
         def status_details; end
+        # Timestamps of when the `ReportRun` entered each terminal status.
+        sig { returns(StatusTransitions) }
+        def status_transitions; end
       end
     end
   end

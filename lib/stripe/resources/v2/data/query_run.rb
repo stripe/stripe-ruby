@@ -199,6 +199,23 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class StatusTransitions < ::Stripe::StripeObject
+          # Time at which the run was canceled.
+          attr_reader :canceled_at
+          # Time at which the run failed.
+          attr_reader :failed_at
+          # Time at which the run succeeded.
+          attr_reader :succeeded_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Time at which the `QueryRun` was created.
         attr_reader :created
         # The dataset that was queried.
@@ -223,6 +240,8 @@ module Stripe
         attr_reader :status
         # Additional details about the current state of the `QueryRun`.
         attr_reader :status_details
+        # Timestamps of when the `QueryRun` entered each terminal status.
+        attr_reader :status_transitions
 
         def self.inner_class_types
           @inner_class_types = {
@@ -230,6 +249,7 @@ module Stripe
             result: Result,
             result_options: ResultOptions,
             status_details: StatusDetails,
+            status_transitions: StatusTransitions,
           }
         end
 

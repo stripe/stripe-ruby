@@ -36,6 +36,8 @@ module Stripe
             attr_reader :currency_conversion
             # If applicable, the ID of the FeeBatch that created this Transaction.
             attr_reader :fee_batch
+            # If applicable, the ID of the Hold that created this Transaction.
+            attr_reader :hold
             # If applicable, the ID of the InboundTransfer that created this Transaction.
             attr_reader :inbound_transfer
             # If applicable, the ID of the OutboundPayment that created this Transaction.

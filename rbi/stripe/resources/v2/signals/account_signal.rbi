@@ -8,7 +8,7 @@ module Stripe
       # An automatically evaluated signal on an account. Each Account Signal object corresponds to
       # exactly one signal type, indicated by type. Only the type-specific field is populated; other
       # type-specific payload fields are null. If an account has multiple signals, Stripe creates
-      # separate account signal objects.
+      # separate account signal objects. Account signals are available through the API for 180 days after creation.
       class AccountSignal < APIResource
         class AccountDetails < ::Stripe::StripeObject
           # The v2 account ID of the account.
@@ -75,14 +75,25 @@ module Stripe
           end
         end
         class FraudulentWebsite < ::Stripe::StripeObject
-          # Human-readable details about the fraudulent website evaluation.
-          sig { returns(T.nilable(String)) }
-          def details; end
+          class AdditionalDetails < ::Stripe::StripeObject
+            # Human-readable explanation of the fraudulent website evaluation.
+            sig { returns(String) }
+            def explanation; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Additional information about the fraudulent website evaluation, when available.
+          sig { returns(T.nilable(AdditionalDetails)) }
+          def additional_details; end
           # Categorical assessment of the fraudulent website risk.
           sig { returns(String) }
           def risk_level; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {additional_details: AdditionalDetails}
           end
           def self.field_remappings
             @field_remappings = {}

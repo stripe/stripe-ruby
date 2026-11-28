@@ -17,6 +17,18 @@ module Stripe
           )
         end
 
+        # Returns a list of `QueryRun` objects created through the API, most recent first. Listed
+        # `QueryRun` objects don't include `result`. Retrieve a `QueryRun` to access its result.
+        def list(params = {}, opts = {})
+          request(
+            method: :get,
+            path: "/v2/data/query_runs",
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
         # Retrieves the status and results of a previously created `QueryRun`. Returns a `404` error
         # if the `QueryRun` doesn't exist or its retention period has ended.
         def retrieve(id, params = {}, opts = {})

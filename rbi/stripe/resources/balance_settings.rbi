@@ -104,7 +104,7 @@ module Stripe
       sig { returns(T.nilable(T::Boolean)) }
       def debit_negative_balances; end
       # The default settlement currency for the account.
-      sig { returns(T.nilable(String)) }
+      sig { returns(String) }
       def default_settlement_currency; end
       # Settings specific to the account's payouts.
       sig { returns(T.nilable(Payouts)) }

@@ -18,6 +18,18 @@ module Stripe
           )
         end
 
+        # Returns a list of `ReportRun` objects created through the API, most recent first. Listed
+        # `ReportRun` objects don't include `result` or `sql`. Retrieve a `ReportRun` to access them.
+        def list(params = {}, opts = {})
+          request(
+            method: :get,
+            path: "/v2/data/report_runs",
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
         # Fetches the current state and details of a previously created `ReportRun`. If the
         # `ReportRun` has succeeded, the endpoint provides details for how to retrieve the results.
         # Returns a `404` error if the `ReportRun` doesn't exist or its retention period has ended.

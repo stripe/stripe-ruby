@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Signals
-      # Account Activity resource for the Signals API.
+      # Account Activity resource for the Signals API. Account activities are available through the API for 180 days after creation.
       class AccountActivity < APIResource
         class AccountDetails < ::Stripe::StripeObject
           class Data < ::Stripe::StripeObject

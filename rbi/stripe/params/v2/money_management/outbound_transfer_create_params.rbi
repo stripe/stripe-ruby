@@ -111,7 +111,7 @@ module Stripe
            }
           def initialize(currency: nil, payout_method: nil, payout_method_options: nil); end
         end
-        # The "presentment amount" for the OutboundPayment.
+        # The "presentment amount" for the OutboundTransfer.
         sig { returns(::Stripe::V2::Amount) }
         def amount; end
         sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
@@ -125,7 +125,7 @@ module Stripe
           params(_delivery_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::DeliveryOptions)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::DeliveryOptions))
          }
         def delivery_options=(_delivery_options); end
-        # An arbitrary string attached to the OutboundTransfer. Often useful for displaying to users.
+        # An arbitrary string attached to the OutboundTransfer. Often useful for displaying to users. The description can not be longer than 100 characters and can only contain basic Latin characters and spaces. The following special characters are not allowed: <>\'"* .
         sig { returns(T.nilable(String)) }
         def description; end
         sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }

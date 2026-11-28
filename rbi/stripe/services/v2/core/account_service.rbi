@@ -19,6 +19,7 @@ module Stripe
         # Create an Account that represents a company, individual, or other entity that your business interacts with. Accounts contain identifying information about the entity, and configurations that store the features an account has access to. An account can be configured as any or all of the following configurations: Customer, Merchant and/or Recipient.
         #
         # ** raises RateLimitError
+        # ** raises InactiveApiOperationConfirmationRequiredError
         sig {
           params(params: T.any(::Stripe::V2::Core::AccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Account)
          }
@@ -32,6 +33,14 @@ module Stripe
          }
         def list(params = {}, opts = {}); end
 
+        # Rejects an Account and prevents it from operating across its configurations.
+        #
+        # ** raises RateLimitError
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::Core::AccountRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Account)
+         }
+        def reject(id, params = {}, opts = {}); end
+
         # Retrieves the details of an Account.
         #
         # ** raises RateLimitError
@@ -40,9 +49,18 @@ module Stripe
          }
         def retrieve(id, params = {}, opts = {}); end
 
+        # Reverses a platform rejection on an Account. Restrictions applied by Stripe or other risk controls remain in place.
+        #
+        # ** raises RateLimitError
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::Core::AccountUnrejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Account)
+         }
+        def unreject(id, params = {}, opts = {}); end
+
         # Updates the details of an Account.
         #
         # ** raises RateLimitError
+        # ** raises InactiveApiOperationConfirmationRequiredError
         sig {
           params(id: String, params: T.any(::Stripe::V2::Core::AccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Account)
          }

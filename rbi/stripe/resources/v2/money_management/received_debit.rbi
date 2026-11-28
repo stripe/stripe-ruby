@@ -155,9 +155,6 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # A link to the Stripe-hosted receipt for this ReceivedDebit.
-        sig { returns(T.nilable(String)) }
-        def receipt_url; end
         # Open Enum. The status of the ReceivedDebit.
         sig { returns(String) }
         def status; end

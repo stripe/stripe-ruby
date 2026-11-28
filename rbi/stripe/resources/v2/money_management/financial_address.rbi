@@ -138,7 +138,7 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Attribute for field settlement_currency
+        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
         sig { returns(String) }
         def settlement_currency; end
         # Closed Enum. The status of the FinancialAddress.

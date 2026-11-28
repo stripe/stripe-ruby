@@ -34,7 +34,7 @@ module Stripe
         def financial_account; end
         sig { params(_financial_account: String).returns(String) }
         def financial_account=(_financial_account); end
-        # The type of FinancialAddress to create. Must agree with which branch of financial_address_type_properties is set.
+        # The type of FinancialAddress to create: bank_account or crypto_wallet. Must agree with which branch of financial_address_type_properties is set. Cash FinancialAddresses are managed by FundingIntents and cannot be created through this endpoint.
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }

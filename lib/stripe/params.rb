@@ -818,32 +818,10 @@ module Stripe
 
   module V2
     module Billing
-      autoload :BillSettingCreateParams, "stripe/params/v2/billing/bill_setting_create_params"
-      autoload :BillSettingListParams, "stripe/params/v2/billing/bill_setting_list_params"
-      autoload :BillSettingRetrieveParams, "stripe/params/v2/billing/bill_setting_retrieve_params"
-      autoload :BillSettingUpdateParams, "stripe/params/v2/billing/bill_setting_update_params"
-      autoload :CollectionSettingCreateParams, "stripe/params/v2/billing/collection_setting_create_params"
-      autoload :CollectionSettingListParams, "stripe/params/v2/billing/collection_setting_list_params"
-      autoload :CollectionSettingRetrieveParams, "stripe/params/v2/billing/collection_setting_retrieve_params"
-      autoload :CollectionSettingUpdateParams, "stripe/params/v2/billing/collection_setting_update_params"
       autoload :MeterEventAdjustmentCreateParams, "stripe/params/v2/billing/meter_event_adjustment_create_params"
       autoload :MeterEventCreateParams, "stripe/params/v2/billing/meter_event_create_params"
       autoload :MeterEventSessionCreateParams, "stripe/params/v2/billing/meter_event_session_create_params"
       autoload :MeterEventStreamCreateParams, "stripe/params/v2/billing/meter_event_stream_create_params"
-      autoload :ProfileCreateParams, "stripe/params/v2/billing/profile_create_params"
-      autoload :ProfileListParams, "stripe/params/v2/billing/profile_list_params"
-      autoload :ProfileRetrieveParams, "stripe/params/v2/billing/profile_retrieve_params"
-      autoload :ProfileUpdateParams, "stripe/params/v2/billing/profile_update_params"
-
-      module BillSettings
-        autoload :VersionListParams, "stripe/params/v2/billing/bill_settings/version_list_params"
-        autoload :VersionRetrieveParams, "stripe/params/v2/billing/bill_settings/version_retrieve_params"
-      end
-
-      module CollectionSettings
-        autoload :VersionListParams, "stripe/params/v2/billing/collection_settings/version_list_params"
-        autoload :VersionRetrieveParams, "stripe/params/v2/billing/collection_settings/version_retrieve_params"
-      end
     end
 
     module Commerce
@@ -859,9 +837,11 @@ module Stripe
       autoload :AccountCreateParams, "stripe/params/v2/core/account_create_params"
       autoload :AccountLinkCreateParams, "stripe/params/v2/core/account_link_create_params"
       autoload :AccountListParams, "stripe/params/v2/core/account_list_params"
+      autoload :AccountRejectParams, "stripe/params/v2/core/account_reject_params"
       autoload :AccountRetrieveParams, "stripe/params/v2/core/account_retrieve_params"
       autoload :AccountTokenCreateParams, "stripe/params/v2/core/account_token_create_params"
       autoload :AccountTokenRetrieveParams, "stripe/params/v2/core/account_token_retrieve_params"
+      autoload :AccountUnrejectParams, "stripe/params/v2/core/account_unreject_params"
       autoload :AccountUpdateParams, "stripe/params/v2/core/account_update_params"
       autoload :ApprovalRequestCancelParams, "stripe/params/v2/core/approval_request_cancel_params"
       autoload :ApprovalRequestListParams, "stripe/params/v2/core/approval_request_list_params"
@@ -916,10 +896,12 @@ module Stripe
 
     module Data
       autoload :QueryRunCreateParams, "stripe/params/v2/data/query_run_create_params"
+      autoload :QueryRunListParams, "stripe/params/v2/data/query_run_list_params"
       autoload :QueryRunRetrieveParams, "stripe/params/v2/data/query_run_retrieve_params"
       autoload :ReportListParams, "stripe/params/v2/data/report_list_params"
       autoload :ReportRetrieveParams, "stripe/params/v2/data/report_retrieve_params"
       autoload :ReportRunCreateParams, "stripe/params/v2/data/report_run_create_params"
+      autoload :ReportRunListParams, "stripe/params/v2/data/report_run_list_params"
       autoload :ReportRunRetrieveParams, "stripe/params/v2/data/report_run_retrieve_params"
       autoload :SchemaListParams, "stripe/params/v2/data/schema_list_params"
       autoload :SchemaRetrieveParams, "stripe/params/v2/data/schema_retrieve_params"
@@ -1029,6 +1011,16 @@ module Stripe
       autoload :AgreementListParams, "stripe/params/v2/orchestrated_commerce/agreement_list_params"
       autoload :AgreementRetrieveParams, "stripe/params/v2/orchestrated_commerce/agreement_retrieve_params"
       autoload :AgreementTerminateParams, "stripe/params/v2/orchestrated_commerce/agreement_terminate_params"
+    end
+
+    module Payments
+      autoload :OffSessionPaymentCancelParams, "stripe/params/v2/payments/off_session_payment_cancel_params"
+      autoload :OffSessionPaymentCreateParams, "stripe/params/v2/payments/off_session_payment_create_params"
+      autoload :OffSessionPaymentListParams, "stripe/params/v2/payments/off_session_payment_list_params"
+      autoload :OffSessionPaymentPauseParams, "stripe/params/v2/payments/off_session_payment_pause_params"
+      autoload :OffSessionPaymentResumeParams, "stripe/params/v2/payments/off_session_payment_resume_params"
+      autoload :OffSessionPaymentRetrieveParams, "stripe/params/v2/payments/off_session_payment_retrieve_params"
+      autoload :OffSessionPaymentUpdateParams, "stripe/params/v2/payments/off_session_payment_update_params"
     end
 
     module Signals
@@ -1745,26 +1737,10 @@ module Stripe
     stripe/params/treasury/transaction_entry_retrieve_params
     stripe/params/treasury/transaction_list_params
     stripe/params/treasury/transaction_retrieve_params
-    stripe/params/v2/billing/bill_setting_create_params
-    stripe/params/v2/billing/bill_setting_list_params
-    stripe/params/v2/billing/bill_setting_retrieve_params
-    stripe/params/v2/billing/bill_setting_update_params
-    stripe/params/v2/billing/bill_settings/version_list_params
-    stripe/params/v2/billing/bill_settings/version_retrieve_params
-    stripe/params/v2/billing/collection_setting_create_params
-    stripe/params/v2/billing/collection_setting_list_params
-    stripe/params/v2/billing/collection_setting_retrieve_params
-    stripe/params/v2/billing/collection_setting_update_params
-    stripe/params/v2/billing/collection_settings/version_list_params
-    stripe/params/v2/billing/collection_settings/version_retrieve_params
     stripe/params/v2/billing/meter_event_adjustment_create_params
     stripe/params/v2/billing/meter_event_create_params
     stripe/params/v2/billing/meter_event_session_create_params
     stripe/params/v2/billing/meter_event_stream_create_params
-    stripe/params/v2/billing/profile_create_params
-    stripe/params/v2/billing/profile_list_params
-    stripe/params/v2/billing/profile_retrieve_params
-    stripe/params/v2/billing/profile_update_params
     stripe/params/v2/commerce/product_catalog/import_create_params
     stripe/params/v2/commerce/product_catalog/import_list_params
     stripe/params/v2/commerce/product_catalog/import_retrieve_params
@@ -1772,9 +1748,11 @@ module Stripe
     stripe/params/v2/core/account_create_params
     stripe/params/v2/core/account_link_create_params
     stripe/params/v2/core/account_list_params
+    stripe/params/v2/core/account_reject_params
     stripe/params/v2/core/account_retrieve_params
     stripe/params/v2/core/account_token_create_params
     stripe/params/v2/core/account_token_retrieve_params
+    stripe/params/v2/core/account_unreject_params
     stripe/params/v2/core/account_update_params
     stripe/params/v2/core/accounts/person_create_params
     stripe/params/v2/core/accounts/person_delete_params
@@ -1817,10 +1795,12 @@ module Stripe
     stripe/params/v2/core/vault/us_bank_account_unarchive_params
     stripe/params/v2/core/vault/us_bank_account_update_params
     stripe/params/v2/data/query_run_create_params
+    stripe/params/v2/data/query_run_list_params
     stripe/params/v2/data/query_run_retrieve_params
     stripe/params/v2/data/report_list_params
     stripe/params/v2/data/report_retrieve_params
     stripe/params/v2/data/report_run_create_params
+    stripe/params/v2/data/report_run_list_params
     stripe/params/v2/data/report_run_retrieve_params
     stripe/params/v2/data/reporting/query_run_create_params
     stripe/params/v2/data/reporting/query_run_retrieve_params
@@ -1897,6 +1877,13 @@ module Stripe
     stripe/params/v2/orchestrated_commerce/agreement_list_params
     stripe/params/v2/orchestrated_commerce/agreement_retrieve_params
     stripe/params/v2/orchestrated_commerce/agreement_terminate_params
+    stripe/params/v2/payments/off_session_payment_cancel_params
+    stripe/params/v2/payments/off_session_payment_create_params
+    stripe/params/v2/payments/off_session_payment_list_params
+    stripe/params/v2/payments/off_session_payment_pause_params
+    stripe/params/v2/payments/off_session_payment_resume_params
+    stripe/params/v2/payments/off_session_payment_retrieve_params
+    stripe/params/v2/payments/off_session_payment_update_params
     stripe/params/v2/signals/account_activity_create_params
     stripe/params/v2/signals/account_activity_delete_params
     stripe/params/v2/signals/account_activity_retrieve_params

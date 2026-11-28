@@ -65,11 +65,6 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # A link to the Stripe-hosted receipt provided when money movement is regulated under Stripe's money transmission licenses.
-        # You can use this link to view the receipt for 60 days after the Adjustment is created.
-        # After that, the link expires and `receipt_url` is `null`.
-        sig { returns(T.nilable(String)) }
-        def receipt_url; end
       end
     end
   end

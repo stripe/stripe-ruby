@@ -20,7 +20,7 @@ module Stripe
         attr_accessor :bank_account
         # The ID of the FinancialAccount the new FinancialAddress should be associated with.
         attr_accessor :financial_account
-        # The type of FinancialAddress to create. Must agree with which branch of financial_address_type_properties is set.
+        # The type of FinancialAddress to create: bank_account or crypto_wallet. Must agree with which branch of financial_address_type_properties is set. Cash FinancialAddresses are managed by FundingIntents and cannot be created through this endpoint.
         attr_accessor :type
 
         def initialize(bank_account: nil, financial_account: nil, type: nil)

@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Signals
-      # Account Evaluation resource for the Signals API.
+      # Account Evaluation resource for the Signals API. Account evaluations are available through the API for 180 days after creation.
       class AccountEvaluation < APIResource
         class AccountActivityDetails < ::Stripe::StripeObject
           # The ID of the account activity created or associated with the evaluation.
@@ -104,9 +104,20 @@ module Stripe
         end
         class EvaluatedSignals < ::Stripe::StripeObject
           class FraudulentWebsite < ::Stripe::StripeObject
-            # Human-readable details about the fraudulent website evaluation, when available.
-            sig { returns(T.nilable(String)) }
-            def details; end
+            class AdditionalDetails < ::Stripe::StripeObject
+              # Human-readable explanation of the fraudulent website evaluation.
+              sig { returns(String) }
+              def explanation; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Additional information about the fraudulent website evaluation, when available.
+            sig { returns(T.nilable(AdditionalDetails)) }
+            def additional_details; end
             # Timestamp at which the signal was evaluated.
             sig { returns(T.nilable(String)) }
             def evaluated_at; end
@@ -117,7 +128,7 @@ module Stripe
             sig { returns(T.nilable(String)) }
             def signal; end
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = {additional_details: AdditionalDetails}
             end
             def self.field_remappings
               @field_remappings = {}

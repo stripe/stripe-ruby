@@ -14,6 +14,13 @@ module Stripe
          }
         def create(params = {}, opts = {}); end
 
+        # Returns a list of `ReportRun` objects created through the API, most recent first. Listed
+        # `ReportRun` objects don't include `result` or `sql`. Retrieve a `ReportRun` to access them.
+        sig {
+          params(params: T.any(::Stripe::V2::Data::ReportRunListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)
+         }
+        def list(params = {}, opts = {}); end
+
         # Fetches the current state and details of a previously created `ReportRun`. If the
         # `ReportRun` has succeeded, the endpoint provides details for how to retrieve the results.
         # Returns a `404` error if the `ReportRun` doesn't exist or its retention period has ended.
